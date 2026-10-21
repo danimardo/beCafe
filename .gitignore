@@ -1,0 +1,7 @@
+# Sistema de diseño anterior: se conserva en local, fuera del control de versiones
+design-system_old/
+
+# Dependencias y artefactos de compilación
+node_modules/
+.svelte-kit/
+build/

@@ -1,0 +1,137 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+/* El modo oscuro se activa con data-theme="oscuro" en <html> (ver app.html y theme.svelte.ts).
+   Los colores ya cambian solos por las variables; esta variante sirve para ajustes puntuales: dark:... */
+@custom-variant dark (&:where([data-theme='oscuro'], [data-theme='oscuro'] *));
+
+@layer base {
+	html {
+		color-scheme: light;
+		-webkit-text-size-adjust: 100%;
+	}
+	html[data-theme='oscuro'] {
+		color-scheme: dark;
+	}
+	body {
+		background: var(--wall-base);
+		color: var(--ink);
+		font-family: var(--font-sans);
+		font-size: 15px;
+		line-height: 20px;
+		-webkit-font-smoothing: antialiased;
+		min-height: 100dvh;
+	}
+	/* Foco visible en todo elemento interactivo (WCAG 2.4.7 / 2.4.11). */
+	:focus-visible {
+		outline: 3px solid var(--accent);
+		outline-offset: 2px;
+	}
+	button,
+	[role='button'],
+	a,
+	label {
+		-webkit-tap-highlight-color: transparent;
+	}
+}
+
+/* ---------- Cristal ---------- */
+@utility glass {
+	background: var(--glass);
+	border: 1px solid var(--glass-border);
+	box-shadow:
+		inset 0 1px 0 var(--glass-highlight),
+		var(--shadow-glass);
+	-webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+	backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+}
+@utility glass-strong {
+	background: var(--glass-strong);
+	border: 1px solid var(--glass-border);
+	box-shadow:
+		inset 0 1px 0 var(--glass-highlight),
+		var(--shadow-glass);
+	-webkit-backdrop-filter: blur(var(--blur-strong)) saturate(200%);
+	backdrop-filter: blur(var(--blur-strong)) saturate(200%);
+}
+
+/* Si el usuario pide menos transparencia, el cristal pasa a color sólido (WCAG / accesibilidad). */
+@media (prefers-reduced-transparency: reduce) {
+	.glass,
+	.glass-strong {
+		-webkit-backdrop-filter: none;
+		backdrop-filter: none;
+		background: color-mix(in srgb, var(--wall-base) 92%, var(--accent));
+	}
+}
+
+/* ---------- Fondo con manchas (lo pinta AppShell y los especímenes) ---------- */
+@utility wall-blobs {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	background: var(--wall-base);
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		border-radius: 9999px;
+		filter: blur(60px);
+		pointer-events: none;
+	}
+	&::before {
+		width: 22rem;
+		height: 22rem;
+		left: -6rem;
+		top: 18%;
+		background: var(--wall-1);
+	}
+	&::after {
+		width: 20rem;
+		height: 20rem;
+		right: -7rem;
+		top: 55%;
+		background: var(--wall-2);
+	}
+}
+
+/* Animaciones de entrada (se desactivan con prefers-reduced-motion). */
+@keyframes sheet-in {
+	from {
+		opacity: 0;
+		transform: translateY(24px);
+	}
+}
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+}
+@keyframes toast-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px) scale(0.98);
+	}
+}
+@utility animate-sheet-in {
+	animation: sheet-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@utility animate-fade-in {
+	animation: fade-in 0.2s ease-out;
+}
+@utility animate-toast-in {
+	animation: toast-in 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+	.animate-sheet-in,
+	.animate-fade-in,
+	.animate-toast-in {
+		animation: none;
+	}
+	* {
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Utilidad para el contenido solo para lectores de pantalla ya existe como sr-only de Tailwind. */

@@ -1,0 +1,43 @@
+{
+	"name": "capsulas-ui",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"tokens": "node scripts/generate-tokens.mjs",
+		"predev": "npm run tokens",
+		"dev": "vite dev",
+		"prebuild": "npm run tokens",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "npm run tokens && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+	},
+	"imports": {
+		"#lib": "./src/lib/index.ts",
+		"#lib/utils": "./src/lib/utils.ts",
+		"#lib/theme.svelte": "./src/lib/theme.svelte.ts",
+		"#lib/toast.svelte": "./src/lib/toast.svelte.ts",
+		"#lib/mock": "./src/lib/mock.ts",
+		"#lib/notifications.svelte": "./src/lib/notifications.svelte.ts",
+		"#lib/movements": "./src/lib/movements.ts",
+		"#lib/*": "./src/lib/*"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-node": "^6.0.0",
+		"@sveltejs/kit": "^3.1.0",
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
+		"@tailwindcss/vite": "^4.3.3",
+		"svelte": "^5.57.2",
+		"svelte-check": "^4.7.7",
+		"tailwindcss": "^4.3.3",
+		"typescript": "^6.0.3",
+		"vite": "^8.3.4"
+	},
+	"dependencies": {
+		"@fontsource-variable/fraunces": "^5.3.0",
+		"@fontsource-variable/inter": "^5.3.0",
+		"@lucide/svelte": "^1.60.0",
+		"bits-ui": "^2.20.0"
+	}
+}
