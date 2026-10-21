@@ -79,7 +79,7 @@ No ejecutes lint y pruebas a la vez: compiten por CPU y falsean los tiempos.
 
 Una tarea está terminada cuando se cumplen todas estas condiciones:
 
-1. `npm run verify` termina sin errores (formato, lint, tipos, arquitectura, pruebas unitarias y de integración, build).
+1. `npm run verify` termina sin errores (formato, lint, tipos, arquitectura, pruebas unitarias y de integración con la cobertura mínima de la constitución, build).
 2. Cada CA o EV del alcance tiene su prueba y la prueba pasa.
 3. `tasks.md` marca la tarea como hecha.
 4. Si cambiaste un módulo, una arista o una ubicación, `ARCHITECTURE.md` lo refleja en el mismo cambio.

@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.6.0 — CAMBIO-006 |
+| Versión | 0.7.0 — CAMBIO-007 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
@@ -676,7 +676,7 @@ Versiones de referencia comprobadas en npm el 21-10-2026. Las versiones exactas 
 | PWA | Service worker de SvelteKit + IndexedDB (`idb`, aislada) | 8.0 | RF-015 | DEC-069 |
 | Identificadores | ULID (`ulid`) para claves primarias y `clienteId` | 3.0 | Ordenables por fecha; un único formato | DEC-068 |
 | Registro | `pino` (aislada); `pino-pretty` solo en desarrollo | 10.4 / 13.2 | RNF-014 | DEC-067 |
-| Pruebas | Vitest, `fast-check`, Playwright, `@axe-core/playwright` | 5.0 / 4.10 / 1.64 / 4.14 | Apartado 9 | DEC-069 |
+| Pruebas | Vitest con `@vitest/coverage-v8`, `fast-check`, Playwright, `@axe-core/playwright` | 5.0 / 5.0 / 4.10 / 1.64 / 4.14 | Apartado 9; cobertura mínima de la constitución (principio VIII) | DEC-069, DEC-071 |
 | Calidad | ESLint, typescript-eslint, eslint-plugin-svelte, `@eslint-community/eslint-plugin-eslint-comments`, Prettier con prettier-plugin-svelte y prettier-plugin-tailwindcss, dependency-cruiser | 10.13 / 8.72 / 3.23 / 4.8 / 3.9 / 18.7 | `ARCHITECTURE.md` §12 | DEC-069 |
 
 ### 10.4 Modelo de datos (SQLite, propuesto)
@@ -856,6 +856,9 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-067 | Registro estructurado | Operación | pino; registro propio mínimo; decidir en el prompt de logging | pino | pino. Niveles y eventos: prompt de logging | Sesión de tecnologías, 21-10-2026 |
 | DEC-068 | Formato de identificadores | Datos | ULID; UUID v4 nativo; UUID v7 | ULID | ULID (`ulid`) para claves primarias y para `clienteId` | Sesión de tecnologías, 21-10-2026 |
 | DEC-069 | Resto de tecnologías | Arquitectura | Confirmar el bloque; cambiar piezas | Confirmar | Confirmados `sharp`, `croner`, `idb`, service worker nativo, `tar`, Vitest, `fast-check`, Playwright, axe, ESLint y plugins, Prettier y plugins, dependency-cruiser y `pino-pretty`. Gestor de paquetes npm (supuesto comunicado, sin objeción) | Sesión de tecnologías, 21-10-2026 |
+| DEC-070 | Versiones en la constitución | Gobierno | Línea mayor; versión exacta; solo nombres | Línea mayor | La constitución fija la línea de versión obligatoria (la menor en paquetes `0.x`); las exactas, `package-lock.json` y §10.3. Cambiar de línea exige ADR y enmienda | Constitución 1.1.0, 21-10-2026 |
+| DEC-071 | Cobertura mínima de pruebas | Calidad | 80 % global + 90 % en núcleo; 80 % global; 90 % global; sin umbral | 80 % + 90 % | 80 % de líneas y ramas en `src/lib/server` y `src/lib/shared`; 90 % en `economia` y en `dominio/`. Fuente vigente: constitución, principio VIII | Constitución 1.1.0, 21-10-2026 |
+| DEC-072 | Orden de prioridad entre principios | Gobierno | Integridad > Seguridad > Accesibilidad > Rapidez > Simplicidad; rapidez antes que accesibilidad; otro | El primero | Integridad económica > seguridad y privacidad > accesibilidad > rapidez del registro > simplicidad > estética. Fuente vigente: constitución | Constitución 1.1.0, 21-10-2026 |
 
 ---
 
@@ -1047,6 +1050,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.4.0 (SHA-256 9cfc0165…c1cd13b4). Aplazados: PEND-014 y PEND-033. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («si») |
 | 0.5.0 | 21-10-2026 | CAMBIO-005: gobernanza técnica. DEC-055 a DEC-060; HALL-012 resuelto (SvelteKit 3); §10.6 traspasado a `ARCHITECTURE.md`; división en funcionalidades acordada con ajustes (§15); duda sobre tareas programadas perdidas registrada para `/speckit-clarify` | Escritura autorizada el 21-10-2026 («hazlo»); respaldo de 0.4.0 (SHA-256 7f272a93…ace383186) en `.respaldos/` |
 | 0.6.0 | 21-10-2026 | CAMBIO-006: tecnologías decididas con versiones de referencia (§10.3); DEC-061 a DEC-069; `aws4fetch` sustituye a `@aws-sdk/client-s3`; se añaden Zod 4, pino, `tar` y las herramientas de calidad; Node 24 LTS en el despliegue (§10.7) | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.5.0 (SHA-256 468706cb…898acc61) en `.respaldos/` |
+| 0.7.0 | 21-10-2026 | CAMBIO-007: `@vitest/coverage-v8` en §10.3; DEC-070 a DEC-072 (versiones por línea, cobertura mínima y orden de prioridad), cuya fuente vigente es la constitución 1.1.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.6.0 (SHA-256 9bc5c0e4…c03b27bd) en `.respaldos/` |
 
 ---
 

@@ -240,7 +240,7 @@ sequenceDiagram
 | Rutas | Vitest | `load`, acciones, redirecciones y mapeo de errores sin servidor | Junto a la ruta |
 | Extremo a extremo | Playwright (Chromium y WebKit, RNF-013) + `@axe-core/playwright` | Flujos críticos, acceso directo por URL (EV-050), accesibilidad (EV-060) | `e2e/` |
 
-Las pruebas no usan `.env`. El entorno de pruebas no es `production`. Los umbrales de cobertura y los detalles los fija el prompt de pruebas.
+Las pruebas no usan `.env`. El entorno de pruebas no es `production`. Los umbrales de cobertura están en el principio VIII de la constitución; `npm run test` los aplica con `@vitest/coverage-v8`. El resto de detalles los fija el prompt de pruebas.
 
 ## 11. Convenciones tecnológicas
 
@@ -312,7 +312,7 @@ Una dependencia de ejecución nueva o una herramienta de desarrollo transversal 
 
 | Ahora | Se puede posponer | Señal para cambiar la arquitectura |
 | --- | --- | --- |
-| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); niveles y eventos de registro (prompt de logging); política de Zod; umbrales de cobertura (prompt de pruebas); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
+| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); niveles y eventos de registro (prompt de logging); política de Zod; detalle de la estrategia de pruebas (prompt de pruebas); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
 
 ## 15. Revisión de planes (Architecture Check)
 

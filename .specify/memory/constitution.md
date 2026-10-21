@@ -2,6 +2,22 @@
 
 Palabras normativas: DEBE (MUST), NO DEBE (MUST NOT), DEBERÍA (SHOULD), NO DEBERÍA (SHOULD NOT) y PUEDE (MAY).
 
+## Orden de prioridad
+
+Cuando dos principios entran en conflicto, se aplica este orden. Un nivel superior NO DEBE
+sacrificarse por uno inferior:
+
+1. Integridad de los datos económicos.
+2. Seguridad y privacidad.
+3. Accesibilidad.
+4. Rapidez del registro.
+5. Simplicidad y mantenibilidad.
+6. Estética.
+
+Ejemplos: una caché que acelera una pantalla pero puede mostrar un saldo desfasado se rechaza
+(1 sobre 4); un atajo de interfaz sin etiqueta accesible se rechaza (3 sobre 4); una animación
+que retrasa la confirmación de un registro se elimina (4 sobre 6).
+
 ## Principios fundamentales
 
 ### I. Fuente vigente y trazabilidad
@@ -28,18 +44,25 @@ cambia el reparto de dinero entre personas.
 Motivo: la aplicación tiene unos 10 usuarios y una instancia; cada pieza sin problema concreto solo
 añade coste de mantenimiento.
 
-### III. Módulos con API pública y dependencias en un solo sentido
+### III. Separación de responsabilidades y módulos
 
+- La lógica de gestión (reglas de negocio, permisos, cálculos y acceso a datos) DEBE estar en los
+  módulos de servidor (`src/lib/server/<modulo>/`). La presentación (páginas en `src/routes` y
+  componentes en `src/lib/ui`) NO DEBE contener reglas de negocio ni acceso a datos.
+- Los componentes de `src/lib/ui` DEBEN recibir los datos por propiedades y comunicar acciones por
+  funciones recibidas; NO DEBEN llamar al servidor.
+- Los cálculos del núcleo económico DEBEN ser funciones puras en `dominio/`, sin acceso a base de
+  datos, red, reloj del sistema ni azar.
 - El código de servidor DEBE organizarse en módulos por capacidad, con un único punto de entrada
   público, según `ARCHITECTURE.md`.
 - Un módulo NO DEBE importar archivos internos ni tablas de otro módulo, ni escribir en ellas.
 - El grafo de dependencias entre módulos NO DEBE tener ciclos.
 - El código de cliente NO DEBE importar código de servidor.
-- Las rutas NO DEBEN contener reglas de negocio ni acceso directo a la base de datos.
 - Estas reglas DEBEN comprobarse de forma automática en la verificación.
 
-Motivo: el riesgo principal a largo plazo es que los agentes acoplen el código poco a poco; un
-límite que comprueba una herramienta no depende de la memoria del agente.
+Motivo: la misma regla de negocio debe servir a la página, a la API de la cola sin conexión y a las
+tareas programadas; y el riesgo principal a largo plazo es que los agentes acoplen el código poco a
+poco.
 
 ### IV. Integridad económica (núcleo)
 
@@ -56,7 +79,26 @@ límite que comprueba una herramienta no depende de la memoria del agente.
 Motivo: el dinero de la hucha común es la base de la confianza entre compañeros (NEC-007); un
 error de redondeo o un cargo duplicado la rompe.
 
-### V. Seguridad en el servidor
+### V. Almacenamiento de datos
+
+- SQLite DEBE ser el único almacén de los datos de negocio, en el volumen persistente `/data`. Las
+  fotos DEBEN guardarse en `/data/fotos` y servirse a través de la aplicación.
+- El esquema de la base de datos DEBE definirse con Drizzle y evolucionar solo mediante migraciones.
+- Las fechas y horas DEBEN guardarse en UTC con formato ISO 8601. Los cálculos de calendario (mes
+  natural, día 1, horas de las tareas) DEBEN usar la zona `Europe/Madrid`.
+- Las claves primarias y los identificadores generados en el cliente DEBEN ser ULID.
+- Los datos derivados que se guardan (stock, coste medio, estado de stock bajo) DEBEN coincidir
+  siempre con su recálculo desde los registros vigentes.
+- El navegador NO DEBE guardar nada salvo la cola de consumos pendientes (IndexedDB), la
+  preferencia de tema y la caché del service worker. La sesión DEBE viajar solo en una cookie
+  `HttpOnly`; NO DEBEN guardarse tokens ni datos personales en `localStorage`.
+- DEBE existir una copia de seguridad diaria fuera del servidor, restaurable y probada
+  periódicamente (RT-005, RNF-009).
+
+Motivo: un único almacén transaccional hace posible la integridad económica; lo que se guarda en el
+navegador puede perderse o leerse en un dispositivo compartido.
+
+### VI. Seguridad en el servidor
 
 - Toda entrada del cliente DEBE tratarse como no confiable y validarse en el servidor.
 - Cada permiso DEBE comprobarse en el servidor, en el caso de uso, y no solo ocultando elementos de
@@ -68,7 +110,7 @@ error de redondeo o un cargo duplicado la rompe.
 
 Motivo: la aplicación está expuesta a internet y el repositorio es público.
 
-### VI. Tipado estricto sin escapes
+### VII. Tipado estricto sin escapes
 
 - TypeScript DEBE usarse en modo estricto.
 - El código y las pruebas NO DEBEN usar aserciones de tipo (salvo `as const`), `any`, la aserción
@@ -78,7 +120,7 @@ Motivo: la aplicación está expuesta a internet y el repositorio es público.
 Motivo: cada escape de tipos oculta un error que el compilador habría detectado antes que las
 pruebas.
 
-### VII. Pruebas proporcionales al riesgo
+### VIII. Pruebas y cobertura
 
 - Cada criterio de aceptación (CA) y escenario de verificación (EV) del alcance de una tarea DEBE
   tener al menos una prueba que lo identifique.
@@ -87,8 +129,21 @@ pruebas.
 - Las operaciones transaccionales y concurrentes DEBEN probarse contra la base de datos real del
   proyecto.
 - El reloj y el azar DEBEN poder sustituirse en las pruebas.
+- La cobertura de las pruebas unitarias y de integración, medida con Vitest (proveedor v8) sobre
+  líneas y ramas, DEBE ser como mínimo:
+  - 80 % en `src/lib/server` y `src/lib/shared` en conjunto;
+  - 90 % en el módulo `economia` y en todo directorio `dominio/`.
+- La verificación DEBE fallar si no se alcanzan los umbrales. Los umbrales NO DEBEN bajarse ni
+  excluirse archivos para alcanzarlos sin una enmienda de esta constitución.
+- Una prueba DEBE comprobar un resultado observable; una prueba que solo ejecuta código sin
+  aserciones sobre el resultado NO cuenta como cumplimiento.
+- Los componentes de `src/lib/ui` y las rutas se verifican con pruebas E2E y de accesibilidad, que
+  no cuentan para los umbrales.
 
-### VIII. Verificación como condición de terminado
+Motivo: la cobertura es exigente donde un fallo cuesta dinero, sin obligar a escribir pruebas de
+poco valor en código de apoyo.
+
+### IX. Verificación como condición de terminado
 
 - Una tarea NO DEBE declararse terminada sin que la verificación agregada del proyecto termine sin
   errores.
@@ -99,15 +154,51 @@ pruebas.
 
 Motivo: generar código no demuestra que funcione; una verificación lenta deja de ejecutarse.
 
-### IX. Accesibilidad e idioma
+### X. Usabilidad
 
-- La interfaz DEBE cumplir WCAG 2.2 nivel AA.
+- La aplicación DEBE diseñarse primero para móvil (RT-001) y funcionar en las dos últimas versiones
+  de Safari para iOS (≥ 16.4) y de Chrome para Android (RNF-013).
+- Registrar un consumo DEBE requerir un solo toque, sin pasos adicionales (RF-011), y confirmarse
+  en pantalla en 1 s o menos en el percentil 95 con red (RNF-002).
+- Toda acción que registra algo DEBE confirmar su resultado con un mensaje anunciado al lector de
+  pantalla. Las acciones de un toque DEBEN ofrecer «Deshacer» durante 5 segundos (RF-013, RF-171).
+- Una acción con efectos económicos sobre otras personas o difíciles de revertir (reparto de un
+  arqueo o un recuento, compra que deja la hucha en negativo, baja con liquidación, anulación) DEBE
+  mostrar su efecto y pedir confirmación antes de ejecutarse.
+- Cada pantalla DEBE tener como máximo una acción primaria.
+- Cada lista y cada pantalla con datos DEBE definir sus estados vacío, cargando, error y sin
+  conexión.
+- Un mensaje de error DEBE decir en español qué ha pasado y qué puede hacer la persona.
+- La interfaz DEBE construirse con los componentes y los tokens del sistema de diseño Latte, en
+  tema claro y oscuro. NO DEBE usar colores ni estilos fuera de los tokens.
 - La interfaz DEBE estar solo en español (es-ES), con textos centralizados.
+
+Motivo: la aplicación se usa de pie, junto a la cafetera, varias veces al día; si registrar cuesta
+más que no hacerlo, los datos dejan de reflejar la realidad.
+
+### XI. Accesibilidad
+
+- La interfaz DEBE cumplir WCAG 2.2 nivel AA (RT-008).
+- El texto DEBE tener un contraste de al menos 4,5:1, y los componentes de interfaz y bordes de
+  campo, de al menos 3:1, en tema claro y oscuro.
+- Los objetivos táctiles DEBEN medir al menos 24 × 24 px CSS; los botones de cápsula, al menos
+  44 × 44 px (RNF-001).
+- El color NO DEBE ser la única señal de un estado: se acompaña de texto, signo o icono.
+- Todo control DEBE tener una etiqueta visible y un nombre accesible, ser operable con teclado y
+  mostrar el foco.
+- Los mensajes de estado DEBEN anunciarse al lector de pantalla sin mover el foco.
+- La interfaz DEBE respetar `prefers-reduced-motion` y `prefers-reduced-transparency`.
+- Cada pantalla DEBE superar axe sin infracciones en sus pruebas E2E.
+- Una funcionalidad con interfaz nueva DEBE revisarse a mano con VoiceOver (iOS) y TalkBack
+  (Android) antes de cerrarse.
+
+### XII. Redacción
+
 - Las especificaciones, los planes, los contratos, los ADR, `ARCHITECTURE.md` y `CLAUDE.md` DEBEN
   redactarse conforme a UNE-ISO 24495-1:2024 y al Español Técnico Simplificado: un término por
   concepto según el glosario, voz activa con sujeto explícito y verbos verificables.
 
-### X. Errores, avisos y observabilidad
+### XIII. Errores, avisos y observabilidad
 
 - Los errores esperados DEBEN expresarse con códigos de un conjunto cerrado y mensajes en español.
 - Los errores no previstos DEBEN registrarse con un identificador y NO DEBEN mostrar detalles
@@ -116,7 +207,7 @@ Motivo: generar código no demuestra que funcione; una verificación lenta deja 
   originó.
 - Los registros de log DEBEN ser estructurados.
 
-### XI. Datos, migraciones y compatibilidad
+### XIV. Datos, migraciones y compatibilidad
 
 - Las migraciones de base de datos DEBEN ser solo de avance y NO DEBEN modificarse después de
   aplicarse en un entorno compartido.
@@ -126,12 +217,50 @@ Motivo: generar código no demuestra que funcione; una verificación lenta deja 
 
 Motivo: un móvil puede conservar consumos en su cola sin conexión durante un despliegue.
 
-### XII. Agentes de IA
+### XV. Agentes de IA
 
 - Un agente DEBE seguir `CLAUDE.md` y `ARCHITECTURE.md`.
 - Un agente NO DEBE romper una regla de esta constitución ni de `ARCHITECTURE.md` en silencio.
   DEBE describir el conflicto y proponer un cambio de diseño o un ADR.
 - Un agente NO DEBE modificar esta constitución fuera del comando `/speckit-constitution`.
+
+## Tecnologías obligatorias
+
+Estas tecnologías DEBEN usarse en la línea de versión indicada. Una versión de parche o menor
+dentro de la línea PUEDE adoptarse sin enmienda. Cambiar de línea, sustituir una tecnología o
+añadir otra para el mismo fin DEBE registrarse en un ADR y enmendar esta constitución. Para los
+paquetes en `0.x`, la línea es la versión menor (por ejemplo, `0.45.x`). Las versiones exactas las
+fija `package-lock.json`; la referencia vigente está en la sección 10.3 de `historias.md`.
+
+| Ámbito | Tecnología | Línea obligatoria |
+| --- | --- | --- |
+| Entorno de ejecución | Node.js LTS | 24.x |
+| Gestor de paquetes | npm, con `package-lock.json` | 11.x |
+| Lenguaje | TypeScript en modo estricto | 6.x |
+| Framework | SvelteKit con `@sveltejs/adapter-node` | 3.x / 6.x |
+| Componentes | Svelte en modo runes | 5.x |
+| Empaquetador | Vite | 8.x |
+| Estilos | Tailwind CSS | 4.x |
+| Primitivas de interfaz | Bits UI | 2.x |
+| Iconos | `@lucide/svelte`, importados por ruta | 1.x |
+| Base de datos | SQLite mediante `better-sqlite3` | 13.x |
+| Acceso a datos y migraciones | Drizzle ORM y drizzle-kit | 0.45.x / 0.31.x |
+| Validación | Zod | 4.x |
+| Contraseñas | Argon2id con `@node-rs/argon2` | 2.x |
+| Notificaciones push | `web-push` (VAPID) | 3.x |
+| Imágenes | `sharp` | 0.35.x |
+| Copias | `aws4fetch` y `tar` | 1.x / 7.x |
+| Tareas programadas | `croner` | 10.x |
+| Cola sin conexión | Service worker de SvelteKit e IndexedDB con `idb` | 8.x |
+| Identificadores | ULID con `ulid` | 3.x |
+| Registro | `pino` | 10.x |
+| Pruebas unitarias y de integración | Vitest con `@vitest/coverage-v8` y `fast-check` | 5.x / 5.x / 4.x |
+| Pruebas E2E y accesibilidad | Playwright y `@axe-core/playwright` | 1.x / 4.x |
+| Calidad | ESLint, typescript-eslint, eslint-plugin-svelte, Prettier, dependency-cruiser | 10.x / 8.x / 3.x / 3.x / 18.x |
+| Despliegue | Imagen Docker en Coolify, una sola instancia | — |
+
+NO DEBE añadirse otro framework, ORM, librería de componentes, librería de estado global, motor de
+CSS ni librería de validación.
 
 ## Restricciones del proyecto
 
@@ -162,4 +291,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.0.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21
+**Versión**: 1.1.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21
