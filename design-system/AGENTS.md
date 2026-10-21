@@ -1,12 +1,12 @@
 # AGENTS.md — beCafé UI
 
-Punto de entrada para un modelo de IA (o una persona) que vaya a **construir la PWA «beCafé»**: inventario de cápsulas de la cafetera y hucha común del departamento. Este paquete contiene el **sistema de diseño Latte** (claro y oscuro), una **biblioteca de componentes Svelte 5 + Tailwind 4 con código real**, una **plantilla SvelteKit ejecutable** y la **especificación completa** (`docs/spec/historias.md`).
+Punto de entrada para un modelo de IA (o una persona) que vaya a **construir la PWA «beCafé»**: inventario de cápsulas de la cafetera y hucha común del departamento. Este paquete contiene el **sistema de diseño Latte** (claro y oscuro), una **biblioteca de componentes Svelte 5 + Tailwind 4 con código real**, una **plantilla SvelteKit ejecutable** y remite a la **especificación completa**, que está en la raíz del repositorio (`../historias.md`).
 
 ## Qué está decidido y qué no
 
 - **Decidido**: estética (Latte, cristal translúcido, claro/oscuro), stack, tokens, componentes, navegación, accesibilidad, idioma (solo español, RT-009).
 - **Implementado en la plantilla**: toda la UI con datos de ejemplo (`src/lib/mock.ts`).
-- **NO implementado** (sácalo de `docs/spec/historias.md`): base de datos SQLite, autenticación y sesiones, cálculo de coste medio y repartos, endpoints, cola sin conexión / service worker, notificaciones push, copias de seguridad, subida real de fotos.
+- **NO implementado** (sácalo de `../historias.md`): base de datos SQLite, autenticación y sesiones, cálculo de coste medio y repartos, endpoints, cola sin conexión / service worker, notificaciones push, copias de seguridad, subida real de fotos.
 - **Propuesto, pendiente de revisión humana**: las pantallas de administración (`/admin/*`), el texto de privacidad (`/privacidad`, Anexo A) y toda ruta marcada «propuesta» en la sección 10.5 de la especificación. Impleméntalas, pero indica en tu resumen que son propuestas.
 - **Propuestos en la v0.4.0** (revisar): colocación del aguador del mes y de la tarjeta de agua en Inicio, rellenos visibles y anulables desde `/historial`, tamaño de página del historial (20) y `MovementList`/`Pagination`.
 - **Propuestos en la v0.3.0** (revisar): ubicación de la campana y del panel de avisos, hoja de detalle de movimiento, resumen de regularizaciones, mensaje de bloqueo genérico (sin revelar si el correo existe), selector de persona en estadísticas, hoja «Gestionar» de usuarios, páginas de error.
@@ -60,7 +60,7 @@ Comandos: `npm install` · `npm run dev` · `npm run check` · `npm run build`. 
 - [`docs/pwa-assets.md`](docs/pwa-assets.md) — todos los iconos de la aplicación (web, PWA, iOS, Android, macOS, Windows) y cómo regenerarlos desde el logotipo de marca.
 - [`docs/admin-screens.md`](docs/admin-screens.md) — diseño de administración (**propuesto**).
 - [`docs/implementation-notes.md`](docs/implementation-notes.md) — tema, fuentes, PWA, sin conexión, despliegue, lo pendiente.
-- [`docs/spec/historias.md`](docs/spec/historias.md) — especificación completa (fuente de verdad del negocio).
+- [`../historias.md`](../historias.md) — especificación completa (fuente de verdad del negocio).
 
 ## Orden de trabajo recomendado
 

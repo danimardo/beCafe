@@ -220,7 +220,7 @@ sequenceDiagram
 | Parámetros de ruta (`[token]`, `[usuarioId]`) | Matcher de SvelteKit en `src/params/` con el esquema ULID o de token | El router: un parámetro inválido responde 404 |
 | Cadena de consulta (filtros, mes, página) | `z.strictObject` en el `load` de la página dueña; `z.object({})` en los `load` de layout | `+page.server.ts` / `+layout.server.ts` |
 | Archivos subidos (fotos, ticket) | Zod comprueba presencia y tamaño (≤ 5 MB) | `+page.server.ts`. El tipo real lo comprueba `plataforma/imagenes` con `sharp` (RF-005) |
-| Datos leídos del navegador (cola en IndexedDB, preferencia de tema) | `lib/shared/contratos/` | Al leerlos: un dato corrupto se descarta y se registra, sin bloquear la aplicación |
+| Datos leídos del navegador (cola en IndexedDB, preferencias de apariencia) | `lib/shared/contratos/` | Al leerlos: un dato corrupto se descarta y se registra, sin bloquear la aplicación |
 | JSON guardado en la BD (`registro_auditoria.detalle`) | Esquema del módulo dueño | Al leerlo |
 | Variables de entorno | `src/env.ts` (§8) | SvelteKit, al arrancar |
 
@@ -315,6 +315,7 @@ export const actions: Actions = {
 - **Runes:** `$derived` para cualquier valor calculado. `$effect` solo sincroniza con algo externo (DOM, temporizador, API del navegador).
 - **Tipos:** `./$types` (`PageServerLoad`, `Actions`, `PageProps`, `LayoutProps`). No se escriben a mano los tipos de `params`, `data` ni `form`.
 - **Cola sin conexión:** solo consumos (DEC-025, EXC-007). Vive en `lib/client/cola-consumos` y en el service worker.
+- **Preferencias de apariencia** (tema, RF-180; reducir transparencia, RF-181): se guardan en `localStorage` del dispositivo, no en el servidor ni en la cuenta (DEC-095, DEC-099). Se leen con su esquema de `lib/shared/contratos/` (§6.1); un valor inválido vuelve al valor por defecto (Automático, transparencia normal). El script en línea de `src/app.html` las aplica antes de pintar para evitar el parpadeo; como no puede importar Zod, solo acepta la lista cerrada de valores y si no, usa el valor por defecto. Solo el cliente las lee: el SSR no depende de ellas.
 
 ## 8. Configuración
 

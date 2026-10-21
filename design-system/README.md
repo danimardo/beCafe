@@ -11,4 +11,4 @@ npm run build && node build   # producción (adapter-node)
 
 Para que lo use una IA: entrégale **todo el contenido** y dile que empiece por [`AGENTS.md`](AGENTS.md).
 
-Estructura: `tokens/` (tokens de diseño), `src/lib/components/` (componentes), `src/routes/` (pantallas de ejemplo), `docs/` (guías), `docs/spec/historias.md` (especificación).
+Estructura: `tokens/` (tokens de diseño), `src/lib/components/` (componentes), `src/routes/` (pantallas de ejemplo), `docs/` (guías). La especificación está en `../historias.md`, en la raíz del repositorio.

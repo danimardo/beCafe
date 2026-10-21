@@ -139,7 +139,7 @@ Ejemplo: `F4-L2 → CA-041, CA-045, EV-031 → coste medio con stock negativo; r
 | `flujos` | E2E derivados de historias (§14.2) | Lote: `chromium-movil`. Puerta: los tres |
 | `sin-js` | Formularios críticos sin JavaScript (DEC-084) | `sin-js` (Chromium) |
 | `acceso` | EV-050: GET y POST a cada `load`, *action* y `+server.ts` sin sesión y con rol miembro, generado desde la lista de rutas. Usa `request` de Playwright, sin navegador | `api` |
-| `a11y` | axe en cada pantalla, en tema claro y oscuro (XI, EV-060) y recorrido con teclado de los flujos críticos | `chromium-movil` |
+| `a11y` | axe en cada pantalla, en tema claro y oscuro (XI, EV-060), recorrido con teclado de los flujos críticos y preferencias de apariencia (EV-061, §13) | `chromium-movil` |
 | `visual` | Capturas de §12.5 | `chromium-movil` |
 
 **Errores de navegador:** una fixture automática recoge `pageerror`, `console.error` y las respuestas ≥ 500 de la propia aplicación, y hace fallar el test. La lista de excepciones es mínima, está documentada en la fixture y empieza vacía.
@@ -178,6 +178,14 @@ Trace y captura **solo al fallar** (`trace: 'retain-on-failure'`, `screenshot: '
 - Teclado: recorrido de los flujos críticos con Tab y Enter, foco visible y foco en el primer campo con error tras un `fail`.
 - Mensajes de estado: la confirmación y «Deshacer» se anuncian en una región `aria-live` sin mover el foco (CA-013, CA-171).
 - Objetivos táctiles de 44 × 44 px en los botones de cápsula (RNF-001), medidos con `boundingBox()`.
+- Preferencias de apariencia (EV-061, RNF-015, constitución XI y XVIII). Se emulan con `page.emulateMedia()` de Playwright:
+  - `colorScheme: 'dark' | 'light'` con «Automático»: la aplicación sigue el cambio sin recargar y conserva el valor escrito y el foco (CA-180). Al elegir «Claro» y recargar, la preferencia se mantiene.
+  - `contrast: 'more'`: axe sin infracciones y foco visible.
+  - `forcedColors: 'active'`: controles, límites y foco siguen visibles (captura de la pantalla principal y comprobación de que el anillo de foco tiene dimensiones).
+  - `reducedMotion: 'reduce'`: sin transiciones (duración computada 0).
+  - Texto al 200 % (tamaño de fuente raíz duplicado) y viewport de 320 px: sin desbordamiento horizontal (`scrollWidth <= clientWidth`) y la acción primaria sigue visible.
+  - «Reducir transparencia» activado (CA-181): ninguna superficie tiene `backdrop-filter` y el fondo computado es opaco.
+  - Playwright no emula `prefers-reduced-transparency`: la rama del sistema de CA-181 se revisa a mano en un dispositivo, junto con VoiceOver y TalkBack.
 - axe no es una auditoría completa. Cada funcionalidad con interfaz nueva se revisa a mano con VoiceOver (iOS) y TalkBack (Android) antes de cerrarse, y la revisión se anota en su `tasks.md`.
 
 ## 14. Aceptación
@@ -203,6 +211,7 @@ Cada `spec.md`, al recibir el traspaso, copia la fila de sus CA y la concreta en
 | CA-170 a CA-176 (rellenos, aguador) | Integración (intervalo CA-172, EV-100, aguador CA-176 con reloj fijo) | Relleno con «Deshacer» (CA-171); sin conexión (CA-173) |
 | EV-050 | Suite `acceso` | — |
 | EV-060 | Suite `a11y` + revisión manual | — |
+| CA-180, CA-181, EV-061 (apariencia) | Unidad (lectura validada de la preferencia guardada) | Suite `a11y` con emulación (§13); la transparencia del sistema, revisión manual |
 | EV-070 | Demostración manual trimestral (fuera de la suite) | — |
 
 ### 14.2 Reglas

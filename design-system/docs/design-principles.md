@@ -9,13 +9,20 @@ El fondo («wall») es un color base con manchas difuminadas (`wall-1…3` sobre
 - **`glass`** (blur 24 px, saturación 180 %) — tarjetas, tiles, filas. Borde `glass-border`, brillo interior `glass-highlight`, sombra suave.
 - **`glass-strong`** (blur 40 px) — lo que flota: píldora de navegación, avisos «Deshacer», hojas modales.
 - Texto pequeño siempre sobre cristal. Solo titulares grandes (`display`) se apoyan en el fondo.
-- `prefers-reduced-transparency`: las superficies pasan a color sólido equivalente.
+- El cristal solo se usa cuando cumple una función (agrupar, indicar que algo flota). **Nunca se anida** cristal dentro de cristal. El contenido denso y los formularios van sobre una superficie estable.
+- `prefers-reduced-transparency` o el ajuste **«Reducir transparencia»** de Perfil (RF-181, desactivado por defecto y guardado por dispositivo): las superficies pasan a color sólido equivalente, con las mismas acciones. El ajuste solo añade opacidad: nunca reactiva efectos que el sistema pide reducir. *Pendiente de implementar el ajuste; hoy solo responde a la preferencia del sistema.*
 
 ## Color (tokens semánticos)
 
 `ink` (texto), `ink-muted` (secundario), `hairline` (separadores), `accent` (**la** acción principal; canela en claro, canela clara en oscuro) con `on-accent` encima, `accent-soft`, `positive`, `negative`, `warning` (+ variantes `-soft`), `scrim`. Los `cap-*` son colores identificativos de cápsulas (ristretto, lungo, decaf, colombia, vainilla, intenso, azul, rosa).
 
-Todos los pares de texto/fondo están verificados ≥4,5:1 en el peor caso (cristal sobre manchas) en claro y oscuro; bordes de campo ≥3:1.
+Todos los pares de texto/fondo están verificados ≥4,5:1 en el peor caso (cristal sobre manchas) en claro y oscuro; bordes de campo ≥3:1. El contraste se mide sobre el resultado compuesto, no sobre el token aislado.
+
+**Pendiente de implementar** (constitución XI, RNF-015):
+
+- `prefers-contrast: more`: se refuerzan texto, límites y foco.
+- `forced-colors: active`: controles, límites y foco siguen visibles con los colores del sistema.
+- Texto al 200 % y reflow a 320 px de ancho sin pérdida de contenido ni de función.
 
 ## Tipografía
 
@@ -27,7 +34,7 @@ Radios: `chip` 12, `tile` 20, `panel` 28, `sheet` 36, `full` para botones y nave
 
 ## Claro y oscuro
 
-`data-theme="claro|oscuro"` en `<html>`. Preferencia **Automático** (por defecto, `prefers-color-scheme`), **Claro** u **Oscuro**, elegible en Perfil. El componente nunca decide colores por tema: los tokens cambian.
+`data-theme="claro|oscuro"` en `<html>`. Preferencia **Automático** (por defecto, `prefers-color-scheme`), **Claro** u **Oscuro**, elegible en Perfil (RF-180) y guardada por dispositivo. En Automático, un cambio del sistema durante la sesión se aplica sin perder trabajo ni foco. El componente nunca decide colores por tema: los tokens cambian. Cada componente y cada estado se diseña en los dos temas.
 
 ## Responsive
 
@@ -39,4 +46,4 @@ Español, tuteo, frases cortas: «¿Qué cápsula te pones?», «Ristretto regis
 
 ## Movimiento
 
-Transiciones breves; todo se desactiva con `prefers-reduced-motion`.
+Transiciones breves y solo con función; nunca retrasan la respuesta a una acción. Todo se desactiva con `prefers-reduced-motion`.

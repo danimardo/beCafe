@@ -6,12 +6,13 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.4.0 — CAMBIO-004 |
+| Versión | 0.11.0 — CAMBIO-011 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
 | Estado del refinamiento | **Cerrado y aprobado sobre v0.4.0 (21-10-2026).** Sin bloqueantes. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales) y PEND-033 (menor, plan de F8). |
-| Estado de traspaso a Spec Kit | Pendiente de traspaso en todas las secciones. |
+| Estado de traspaso a Spec Kit | Pendiente de traspaso de requisitos y diseño de funcionalidades. Módulos (§10.6) traspasados a `ARCHITECTURE.md` §3 (CAMBIO-005). División en funcionalidades acordada (§15, DEC-058). |
+| Gobernanza técnica | Constitución (`.specify/memory/constitution.md`), `ARCHITECTURE.md`, `CLAUDE.md` y `docs/adr/` (CAMBIO-005, 21-10-2026). |
 
 **Convenciones de estado.** Cada elemento indica su estado de validación:
 
@@ -440,7 +441,7 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RF-136 | Un administrador deberá poder reactivar a un usuario dado de baja. | PREG-036 | Confirmado | CA-136 |
 | RF-137 | Cada usuario deberá poder cerrar sesión en todos sus dispositivos y cambiar su contraseña desde su perfil. | PREG-031 | Confirmado | CA-137 |
 | RF-138 | Si una acción de administrador llega sin autenticación en los últimos 15 minutos, el sistema deberá pedir la contraseña antes de ejecutarla. | PREG-031 | Confirmado | CA-138 |
-| RF-139 | Al primer arranque, y solo si no existe ningún usuario, el sistema deberá crear el administrador indicado en la variable de entorno `ADMIN_INICIAL_EMAIL` y escribir en el log un enlace de invitación válido 24 horas. | PREG-032 | Confirmado | CA-139 |
+| RF-139 | Al primer arranque, y solo si no existe ningún usuario, el sistema deberá crear el administrador indicado en la variable de entorno `ADMIN_INICIAL_EMAIL` y escribir en la salida estándar (log de Coolify) un enlace de invitación válido 24 horas. El fichero de log guarda el evento sin el enlace (DEC-081). | PREG-032 | Confirmado | CA-139 |
 | RF-139b | Un comando ejecutable en el contenedor deberá generar un enlace de recuperación para un administrador existente o crear uno nuevo. | PREG-036 (HALL-007) | Confirmado | CA-139 |
 
 ### 7.11 Copias de seguridad
@@ -497,13 +498,13 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RNF-011 | Disponibilidad | Sin objetivo formal. Se acepta indisponibilidad durante despliegues y caídas del servidor. Los consumos se conservan en la cola local. | — | Confirmado (PREG-041) |
 | RNF-012 | Idioma | Toda la interfaz en español, con textos centralizados. | Inspección. | Confirmado |
 | RNF-013 | Navegadores | Últimas dos versiones de Safari (iOS ≥ 16.4) y Chrome (Android). | Prueba manual en ambos. | Confirmado (PREG-041) |
-| RNF-014 | Observabilidad | Logs estructurados de errores, de tareas programadas y de envíos fallidos, visibles en Coolify. Endpoint de salud para Coolify. | Inspección. | Confirmado (PREG-041) |
+| RNF-014 | Observabilidad | Logs estructurados de errores, de tareas programadas y de envíos fallidos, visibles en Coolify y guardados en ficheros diarios en el volumen durante 30 días (DEC-076, DEC-077). Los errores del móvil llegan al mismo log (DEC-079). Endpoint de salud para Coolify. | Inspección. | Confirmado (PREG-041) |
 
 ---
 
 ## 9. Criterios de aceptación y escenarios futuros de verificación
 
-Formato Given/When/Then. Los escenarios EV están **pendientes de creación en fase posterior**.
+Formato Given/When/Then. Los escenarios EV están **pendientes de creación en fase posterior**. El nivel de prueba previsto para cada grupo de CA y EV está en `docs/pruebas.md` §14; al traspasar, cada `spec.md` lo concreta en su matriz de trazabilidad.
 
 ### Catálogo
 - **CA-001** — Dado un administrador autenticado, cuando da de alta «Ristretto» con todos los datos y una foto JPEG de 2 MB, entonces el tipo aparece en el catálogo como activo, sin coste medio y no visible en la pantalla principal (RN-006).
@@ -580,7 +581,7 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 - **CA-136** — Cuando un administrador reactiva a Luis, Luis vuelve activo con saldo 0 y necesita un enlace nuevo para entrar.
 - **CA-137** — Cuando Ana pulsa «Cerrar sesión en todos los dispositivos», sus otras sesiones dejan de ser válidas en la siguiente petición.
 - **CA-138** — Dado un administrador que introdujo la contraseña hace 20 minutos, cuando intenta registrar una baja, entonces la aplicación le pide la contraseña antes de continuar.
-- **CA-139** — Dada una base de datos sin usuarios y `ADMIN_INICIAL_EMAIL` definido, al arrancar se crea el administrador y el log muestra un enlace válido 24 horas. Al reiniciar con usuarios existentes, no se crea nada. El comando de recuperación genera un enlace para un administrador existente.
+- **CA-139** — Dada una base de datos sin usuarios y `ADMIN_INICIAL_EMAIL` definido, al arrancar se crea el administrador y el log de Coolify muestra un enlace válido 24 horas; el fichero de log contiene el evento, pero no el enlace. Al reiniciar con usuarios existentes, no se crea nada. El comando de recuperación genera un enlace para un administrador existente.
 
 ### Privacidad
 - **CA-160** — Dado Pedro, que entra por primera vez, cuando define su contraseña, entonces ve el texto de privacidad y no puede usar la aplicación hasta pulsar «He leído el texto». Se registran la fecha y la versión. Si se publica una versión nueva, se le vuelve a mostrar. Desde el perfil puede abrir el texto en cualquier momento.
@@ -632,7 +633,8 @@ Todo el apartado está **aceptado como base del plan** (DEC-041). Donde dice «p
 | --- | --- |
 | Restricciones confirmadas | RT-001, RT-003 a RT-009 |
 | Decisiones aprobadas | SQLite (DEC-028), Coolify (DEC-027), copia S3 diaria (DEC-028/029), Web Push (DEC-020), cola local de consumos (DEC-025), almacenamiento de fotos en volumen (DEC-029) |
-| Base aceptada para el plan | Tecnologías, modelo de datos, rutas y módulos de este apartado, aceptados como base del plan de Spec Kit y revisables en esa fase (DEC-041) |
+| Decididas en CAMBIO-006 | Tecnologías y versiones de referencia (§10.3, DEC-061 a DEC-069) |
+| Base aceptada para el plan | Modelo de datos y rutas de este apartado, aceptados como base del plan de Spec Kit y revisables en esa fase (DEC-041). Módulos: traspasados a `ARCHITECTURE.md` (§10.6) |
 
 ### 10.2 Arquitectura (propuesta, salvo lo indicado)
 
@@ -654,20 +656,31 @@ Todo el apartado está **aceptado como base del plan** (DEC-041). Donde dice «p
 - **Una sola instancia** (RT-010): el planificador interno y SQLite asumen un único proceso.
 - **DDD proporcional**: el núcleo del dominio es la **economía** (coste medio, regularización, repartos, liquidaciones), donde hay invariantes entrelazadas y dinero. Se modela con módulos de dominio puros y probados. El catálogo, los usuarios y las notificaciones son capacidades de apoyo con operaciones directas. No se usan CQRS, *event sourcing* ni mensajería: el libro de movimientos ya da trazabilidad.
 
-### 10.3 Tecnologías (propuestas, versiones a verificar en la fase de plan)
+### 10.3 Tecnologías (decididas, CAMBIO-006)
 
-| Componente | Propuesta | Motivo |
-| --- | --- | --- |
-| Framework | SvelteKit 2 con Svelte 5, adaptador Node | RT-002 |
-| Estilos | Tailwind CSS 4 | RT-002 |
-| Acceso a datos | Drizzle ORM + `better-sqlite3` | Tipado, migraciones, SQLite síncrono y rápido |
-| Contraseñas | Argon2id (`@node-rs/argon2`) | RNF-004, FUENTE-03 |
-| Push | `web-push` con claves VAPID | RF-100 |
-| Imágenes | `sharp` | RF-005 |
-| S3 | `@aws-sdk/client-s3` | RF-140 |
-| Planificador | `croner` dentro del proceso | Tareas a hora fija con zona horaria |
-| PWA | Service worker de SvelteKit + IndexedDB (`idb`) | RF-015 |
-| Pruebas | Vitest (unitarias y propiedades con `fast-check`), Playwright (E2E), `@axe-core/playwright` | Apartado 9 |
+Versiones de referencia comprobadas en npm el 21-10-2026. Las versiones exactas las fija `package-lock.json` en la preparación de F1. Subir una versión mayor exige justificarlo en el `plan.md` correspondiente (`ARCHITECTURE.md` §13). Las librerías marcadas «aislada» se importan desde un único archivo (`ARCHITECTURE.md` §11).
+
+| Componente | Elección | Versión de referencia | Motivo | Decisión |
+| --- | --- | --- | --- | --- |
+| Entorno de ejecución | Node 24 LTS (`.nvmrc` y `engines`) | 24.22 | LTS con soporte hasta abril de 2028 | DEC-061 |
+| Gestor de paquetes | npm con `package-lock.json` | 11.19 | Ya lo usa la plantilla (FUENTE-09) | DEC-069 |
+| Framework | SvelteKit 3 con Svelte 5 en modo runes, adaptador Node, TypeScript 6 estricto | 3.1 / 5.57 / 6.0 | RT-002, FUENTE-09 | DEC-057, [ADR-0001](docs/adr/0001-sveltekit-3.md) |
+| Estilos e interfaz | Tailwind CSS 4, Bits UI, Lucide (`@lucide/svelte`), Fontsource | 4.3 | RT-002, FUENTE-09 | DEC-044 |
+| Acceso a datos | Drizzle ORM + drizzle-kit + `better-sqlite3` | 0.45 / 0.31 / 13.0 | Tipado, migraciones, transacciones síncronas `BEGIN IMMEDIATE` | DEC-062 |
+| Validación | Zod 4 | 4.6 | Esquemas compartidos por cliente y servidor | DEC-066 |
+| Contraseñas | Argon2id con `@node-rs/argon2` (aislada) | 2.2 | RNF-004, FUENTE-03; formato PHC sin código criptográfico propio | DEC-063 |
+| Push | `web-push` con claves VAPID (aislada) | 3.6.7 | RF-100. Sin publicaciones desde 01-2024; protocolo estable | DEC-064 |
+| Imágenes | `sharp` (aislada) | 0.35 | RF-005 | DEC-069 |
+| Copias | `aws4fetch` (aislada) para la subida y `tar` para el empaquetado | 1.0 / 7.5 | RF-140. Sustituye a `@aws-sdk/client-s3`: una subida diaria no justifica el SDK completo | DEC-065, DEC-069 |
+| Planificador | `croner` dentro del proceso (aislada) | 10.0 | Tareas a hora fija con zona horaria | DEC-069 |
+| PWA | Service worker de SvelteKit + IndexedDB (`idb`, aislada) | 8.0 | RF-015 | DEC-069 |
+| Identificadores | ULID (`ulid`) para claves primarias y `clienteId` | 3.0 | Ordenables por fecha; un único formato | DEC-068 |
+| Registro en el servidor | `pino` (aislada); `pino-roll` para el fichero diario; `pino-pretty` solo en desarrollo | 10.4 / 4.0 / 13.2 | RNF-014 | DEC-067, DEC-076, DEC-077 |
+| Registro en el cliente | `loglevel` (aislada), sin guardar el nivel en el navegador | 1.9 | RNF-014 | DEC-079 |
+| Pruebas | Vitest con `@vitest/coverage-v8`, `fast-check`, Playwright, `@axe-core/playwright` | 5.0 / 5.0 / 4.10 / 1.64 / 4.14 | Apartado 9; cobertura mínima de la constitución (principio VIII); estrategia en `docs/pruebas.md` | DEC-069, DEC-071, DEC-094 |
+| Pruebas de componentes | Vitest Browser Mode con `@vitest/browser-playwright` y `vitest-browser-svelte` | 5.0 / 3.1 | Componentes con estado propio | DEC-089 |
+| Pruebas de mutación | StrykerJS (`@stryker-mutator/core`, `@stryker-mutator/vitest-runner`) | 10.0 | Solo `dominio/`; piloto en F4 | DEC-092 |
+| Calidad | ESLint, typescript-eslint, eslint-plugin-svelte, `@eslint-community/eslint-plugin-eslint-comments`, Prettier con prettier-plugin-svelte y prettier-plugin-tailwindcss, dependency-cruiser | 10.13 / 8.72 / 3.23 / 4.8 / 3.9 / 18.7 | `ARCHITECTURE.md` §12 | DEC-069 |
 
 ### 10.4 Modelo de datos (SQLite, propuesto)
 
@@ -730,7 +743,9 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 
 **Errores**: respuestas JSON `{codigo, mensaje}` en español. Códigos propuestos: `SIN_SESION`, `SIN_PERMISO`, `FUERA_DE_PLAZO`, `YA_ANULADO`, `VALIDACION`, `REAUTENTICACION_REQUERIDA`, `ULTIMO_ADMIN`, `RELLENO_RECIENTE`.
 
-### 10.6 Módulos (propuestos)
+### 10.6 Módulos (traspasado)
+
+**Traspasado a [`ARCHITECTURE.md`](ARCHITECTURE.md) §3 y §4 en CAMBIO-005 (DEC-055).** La fuente vigente de módulos, responsabilidades y dependencias es `ARCHITECTURE.md`. Esta tabla se conserva como histórico y no se actualiza.
 
 | Módulo | Responsabilidad | Requisitos |
 | --- | --- | --- |
@@ -752,8 +767,9 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 - **Transacciones**: cada operación económica en una transacción `BEGIN IMMEDIATE` de SQLite, que serializa las escrituras y evita carreras en el coste medio y en el invariante de administradores.
 - **SQLite**: `journal_mode=WAL`, `synchronous=NORMAL` (FUENTE-04 indica que `VACUUM INTO` hace fsync del resultado con NORMAL o FULL), `foreign_keys=ON`, `busy_timeout` de 5 s.
 - **Copias**: la aplicación hace la copia completa (DT-040). Se descarta la copia de volúmenes de Coolify como mecanismo principal, porque no es coherente con escrituras en curso y no permite pasos previos (FUENTE-05).
-- **Variables de entorno**: `ADMIN_INICIAL_EMAIL`, `ORIGIN`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_REGION`, `TZ=Europe/Madrid`. Los secretos solo en Coolify.
-- **Despliegue**: imagen Docker, un volumen persistente `/data` (base de datos y fotos), migraciones al arrancar, endpoint de salud.
+- **Variables de entorno**: `ADMIN_INICIAL_EMAIL`, `ORIGIN`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_REGION`, `LOG_LEVEL` (opcional; `info` por defecto), `TZ=Europe/Madrid`. Los secretos solo en Coolify. Se declaran con su esquema Zod en `src/env.ts` (`defineEnvVars` de SvelteKit 3) y se validan al arrancar; todas son privadas y dinámicas salvo `VAPID_PUBLIC_KEY`, pública y dinámica (`ARCHITECTURE.md` §8).
+- **Registro técnico**: cada evento va a la salida estándar (Coolify) y a un fichero JSON diario en `logs/` del directorio de datos (`/data/logs` en producción), rotado con `pino-roll` y conservado **30 días**. Los logs no entran en la copia de seguridad ni se muestran en la aplicación; solo los lee quien administra Coolify. Fuente vigente de las reglas: constitución, principio XVI; diseño: `ARCHITECTURE.md` §9 y ADR-0004 (DEC-076 a DEC-082).
+- **Despliegue**: imagen Docker basada en Node 24 LTS (DEC-061), un volumen persistente `/data` (base de datos y fotos), migraciones al arrancar, endpoint de salud.
 - **Restauración**: descargar el archivo del bucket, detener la aplicación, sustituir `/data`, arrancar y verificar saldos. Se documentará paso a paso en la fase de plan.
 
 ### 10.8 Elementos de diseño (DT)
@@ -829,6 +845,46 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-052 | Ayuda para saber cuándo rellenar | UX | Solo «último relleno»; estimación por cafés; estimación + push | Solo «último relleno» | Solo «último relleno» | PREG-046 |
 | DEC-053 | Aguador del mes | Negocio | Mes natural con empate compartido; desempate por orden; solo ranking | Empate compartido | Empate compartido | PREG-046 |
 | DEC-054 | Interpretación del CAMBIO-004 y sus supuestos: nombre solo de la aplicación; anulación como los consumos; registro no económico; rellenos propios en las estadísticas personales; sin título si no hay rellenos; tratamiento de las bajas | Varios | — | — | Aceptada («si») | PREG-047 |
+| DEC-055 | Ubicación de la aplicación | Arquitectura | En la raíz; dentro de `design-system/`; monorepo con workspaces | En la raíz | En la raíz: la plantilla se mueve con `git mv` en la preparación de F1. Módulos y dependencias en `ARCHITECTURE.md` ([ADR-0002](docs/adr/0002-aplicacion-unica-modulos.md)) | Sesión de gobernanza, 21-10-2026 |
+| DEC-056 | Sistema operativo de desarrollo | Operación | Windows y Linux; solo Linux; solo Windows | Ambos | Windows y Linux: scripts npm portables escritos en Node | Sesión de gobernanza, 21-10-2026 |
+| DEC-057 | Versión del framework (HALL-012) | Arquitectura | SvelteKit 3; SvelteKit 2; decidir en el plan de F1 | SvelteKit 3 | SvelteKit 3 ([ADR-0001](docs/adr/0001-sveltekit-3.md)) | Sesión de gobernanza, 21-10-2026 |
+| DEC-058 | División en funcionalidades | Planificación | Aprobar con ajustes; aprobar tal cual; otra división | Con ajustes | Con ajustes: recuentos y baja con liquidación pasan a F4; F1 crea el almacén de configuración e incluye la preparación (scaffold); orden F1 → F2 → F4 → F3 → F6 → F5 → F8, F7 antes de producción (§15) | Sesión de gobernanza, 21-10-2026 |
+| DEC-059 | Trabajo en paralelo | Organización | Una persona con agentes en serie; agentes en paralelo; varias personas | En serie | Una persona con agentes en serie; sin reglas de coordinación de trabajo paralelo | Sesión de gobernanza, 21-10-2026 |
+| DEC-060 | Integración continua | Calidad | GitHub Actions en PR y `main`; solo local; más adelante | GitHub Actions | GitHub Actions en cada PR y en cada push a `main` con `npm run verify`; se crea en la preparación de F1 | Sesión de gobernanza, 21-10-2026 |
+| DEC-061 | Versión de Node | Arquitectura | Node 24 LTS; Node 26 (aún no LTS); Node 22 LTS | Node 24 LTS | Node 24 LTS en desarrollo, CI e imagen Docker. El paso a Node 26 se decide con un ADR cuando sea LTS | Sesión de tecnologías, 21-10-2026 |
+| DEC-062 | Acceso a SQLite | Arquitectura | Drizzle 0.45 + `better-sqlite3`; Drizzle 1.0 RC + `node:sqlite`; `node:sqlite` sin ORM | Drizzle 0.45 + `better-sqlite3` | Drizzle 0.45 + `better-sqlite3`. Migrar a Drizzle 1.0 cuando sea estable exige un ADR | Sesión de tecnologías, 21-10-2026 |
+| DEC-063 | Hash de contraseñas | Seguridad | `@node-rs/argon2`; `crypto.argon2` nativo de Node | `@node-rs/argon2` | `@node-rs/argon2`: formato PHC estándar y ningún código criptográfico propio | Sesión de tecnologías, 21-10-2026 |
+| DEC-064 | Librería de Web Push | Arquitectura | `web-push` aislada; `@block65/webcrypto-web-push`; implementación propia | `web-push` aislada | `web-push`, importada solo desde un archivo de `notificaciones`; `npm audit` en la CI vigila sus vulnerabilidades | Sesión de tecnologías, 21-10-2026 |
+| DEC-065 | Cliente S3 | Arquitectura | `aws4fetch`; `@aws-sdk/client-s3` | `aws4fetch` | `aws4fetch`. Sustituye la propuesta de `@aws-sdk/client-s3` | Sesión de tecnologías, 21-10-2026 |
+| DEC-066 | Librería de esquemas | Arquitectura | Zod 4; Valibot | Zod 4 | Zod 4. La política de uso la fija el prompt de Zod | Sesión de tecnologías, 21-10-2026 |
+| DEC-067 | Registro estructurado | Operación | pino; registro propio mínimo; decidir en el prompt de logging | pino | pino. Niveles y eventos: prompt de logging | Sesión de tecnologías, 21-10-2026 |
+| DEC-068 | Formato de identificadores | Datos | ULID; UUID v4 nativo; UUID v7 | ULID | ULID (`ulid`) para claves primarias y para `clienteId` | Sesión de tecnologías, 21-10-2026 |
+| DEC-069 | Resto de tecnologías | Arquitectura | Confirmar el bloque; cambiar piezas | Confirmar | Confirmados `sharp`, `croner`, `idb`, service worker nativo, `tar`, Vitest, `fast-check`, Playwright, axe, ESLint y plugins, Prettier y plugins, dependency-cruiser y `pino-pretty`. Gestor de paquetes npm (supuesto comunicado, sin objeción) | Sesión de tecnologías, 21-10-2026 |
+| DEC-070 | Versiones en la constitución | Gobierno | Línea mayor; versión exacta; solo nombres | Línea mayor | La constitución fija la línea de versión obligatoria (la menor en paquetes `0.x`); las exactas, `package-lock.json` y §10.3. Cambiar de línea exige ADR y enmienda | Constitución 1.1.0, 21-10-2026 |
+| DEC-071 | Cobertura mínima de pruebas | Calidad | 80 % global + 90 % en núcleo; 80 % global; 90 % global; sin umbral | 80 % + 90 % | 80 % de líneas y ramas en `src/lib/server` y `src/lib/shared`; 90 % en `economia` y en `dominio/`. Fuente vigente: constitución, principio VIII | Constitución 1.1.0, 21-10-2026 |
+| DEC-072 | Orden de prioridad entre principios | Gobierno | Integridad > Seguridad > Accesibilidad > Rapidez > Simplicidad; rapidez antes que accesibilidad; otro | El primero | Integridad económica > seguridad y privacidad > accesibilidad > rapidez del registro > simplicidad > estética. Fuente vigente: constitución | Constitución 1.1.0, 21-10-2026 |
+| DEC-073 | Política de advertencias | Calidad | Cero advertencias; visibles no bloqueantes; solo algunas bloquean | Cero advertencias | Una advertencia de `svelte-check`, ESLint o el compilador rompe la verificación (`--fail-on-warnings`, `--max-warnings 0`). Fuente vigente: constitución, principio IX | Sesión de validación, 21-10-2026 |
+| DEC-074 | Tipo de fecha en el código | Datos | Cadenas ISO tipadas; Temporal con polyfill; date-fns | Cadenas ISO tipadas | `InstanteUtc`, `FechaMadrid` y `Mes` en `lib/shared/fechas`, con `Intl`; sin `Date` en contratos ni en `dominio/`. Fuente vigente: `ARCHITECTURE.md` §6.1 | Sesión de validación, 21-10-2026 |
+| DEC-075 | Mensajes de validación | UX | Propios + español de Zod de reserva; solo español de Zod; solo propios | Propios + reserva | Mensaje propio en ETS por campo visible; `z.config(es())` como reserva; sin el valor recibido ni detalles internos. Fuente vigente: `ARCHITECTURE.md` §6.1 | Sesión de validación, 21-10-2026 |
+| DEC-076 | Destino de los logs | Operación | Fichero solo en desarrollo; fichero también en producción; solo consola | Fichero solo en desarrollo | **Otra: fichero también en producción.** Salida estándar (Coolify) y fichero JSON en `logs/` del directorio de datos, en desarrollo y en producción. Consola legible con `pino-pretty` en desarrollo | Sesión de logging, 21-10-2026 |
+| DEC-077 | Rotación y retención de los ficheros | Operación | `pino-roll`; rotación propia con `croner`; sin rotar. 14, 30 o 90 días | `pino-roll`, 30 días | `pino-roll` 4.x, un fichero al día, 30 días (cubre un cierre de mes completo). ADR-0004 | Sesión de logging, 21-10-2026 |
+| DEC-078 | Logs en la copia de seguridad | Operación | No incluirlos; incluirlos | No incluirlos | La copia de RF-140 lleva solo la base de datos y las fotos | Sesión de logging, 21-10-2026 |
+| DEC-079 | Registro en el cliente | Arquitectura | `loglevel` solo en la consola; `loglevel` con envío al servidor de warn y error; enviar todos los niveles; sin librería | Envío de warn y error | `loglevel` 1.x sin guardar el nivel en el navegador; los eventos warn y error del catálogo se envían a `/api/v1/registro-cliente` (con sesión, validado con Zod, con límites de tamaño y frecuencia: PEND-034) | Sesión de logging, 21-10-2026 |
+| DEC-080 | Nivel de registro | Operación | info/debug/silent; warn en producción; debug en producción | info/debug/silent | `LOG_LEVEL` opcional (niveles de pino), `info` por defecto; `debug` en `.env.example` para desarrollo; `silent` y registrador falso en las pruebas | Sesión de logging, 21-10-2026 |
+| DEC-081 | Enlace del primer administrador (RF-139) | Seguridad | Solo en la salida estándar; también en el fichero | Solo en la salida estándar | El enlace va solo a la salida estándar; el fichero guarda el evento sin el enlace | Sesión de logging, 21-10-2026 |
+| DEC-082 | Acceso a los logs | Seguridad | Solo quien administra Coolify; también desde la aplicación | Solo Coolify | Vista de logs de Coolify o `/data/logs` desde la terminal del contenedor; sin pantalla en la aplicación | Sesión de logging, 21-10-2026 |
+| DEC-083 | Ubicación de la lógica que llaman las rutas | Arquitectura | `src/lib/server/<modulo>/`; `src/lib/services`; `src/lib/server/services` | `src/lib/server/<modulo>/` | Las rutas son controladores finos; la lógica sigue en los módulos de servidor (principio III, ADR-0002) | Sesión de SvelteKit, 21-10-2026 |
+| DEC-084 | Mejora progresiva | Arquitectura | Todo formulario con excepciones cerradas; solo estructura sin probar; todo sin JavaScript | Todo formulario con excepciones | Toda acción con formulario funciona sin JavaScript si hay conexión. Excepciones: cola sin conexión, cuenta atrás de «Deshacer» (sin JavaScript, botón sin temporizador), push, service worker e instalación de la PWA. Playwright sin JavaScript en acceso, consumo, aportación y compra | Sesión de SvelteKit, 21-10-2026 |
+| DEC-085 | Respuesta de `fail()` | UX | Errores y valores sin secretos; solo errores | Errores y valores | `fail(estado, { errores, valores })`, sin contraseñas, tokens ni archivos en `valores` (WCAG 3.3.7). `error()` para 403 y 404; `redirect()` tras un éxito que cambia de pantalla | Sesión de SvelteKit, 21-10-2026 |
+| DEC-086 | Reglas idiomáticas con rango constitucional | Arquitectura | Autorización en cada punto; sin estado compartido entre peticiones; runes y tipos generados; SSR por defecto y recarga con `load` | Las cuatro | Las cuatro pasan al principio XVII; el detalle está en `ARCHITECTURE.md` §7 | Sesión de SvelteKit, 21-10-2026 |
+| DEC-087 | Aplicación de las enmiendas | Gobierno | Una sola (1.3.0); dos seguidas (1.3.0 y 1.4.0) | Una sola | **Otra: dos seguidas.** Registro técnico en 1.3.0 (CAMBIO-009) y SvelteKit en 1.4.0 (CAMBIO-010) | Sesión de SvelteKit, 21-10-2026 |
+| DEC-088 | Cuándo se ejecuta la verificación completa | Calidad | Por impacto + puertas; `verify` completo por tarea; `verify` por lote y E2E en puertas | Por impacto + puertas | Tarea o lote: solo lo afectado (`docs/pruebas.md` §17). Puerta de funcionalidad: verificación completa en serie con `scripts/benchmark.*`. CI: completa en cada push y PR. Constitución 1.5.0 (IX), ADR-0005 | Sesión de pruebas, 21-10-2026 |
+| DEC-089 | Pruebas de componentes | Calidad | Browser Mode condicional; solo E2E; jsdom + Testing Library | Browser Mode condicional | Vitest Browser Mode con `@vitest/browser-playwright` y `vitest-browser-svelte`, solo para componentes reutilizables con estado o interacción propia | Sesión de pruebas, 21-10-2026 |
+| DEC-090 | Navegadores y viewports | Calidad | 2 móviles + 1 escritorio; solo 2 móviles; añadir Firefox | 2 móviles + 1 escritorio | Proyectos `chromium-movil` (diario), `webkit-movil`, `chromium-escritorio`, además de `sin-js` y `api` | Sesión de pruebas, 21-10-2026 |
+| DEC-091 | Regresión visual | Calidad | Pocas capturas en puertas; sin regresión visual; capturas amplias | Pocas capturas | `toHaveScreenshot` en `chromium-movil`: pantalla principal (claro y oscuro), aviso con «Deshacer», compra con error y panel de avisos; referencias generadas en Linux | Sesión de pruebas, 21-10-2026 |
+| DEC-092 | Pruebas de mutación | Calidad | Piloto en `dominio/` sin umbral; aplazar; obligatorio con umbral | Piloto sin umbral | StrykerJS sobre `dominio/` y los tramos de RN-074; línea base al cerrar F4; sin umbral hasta tenerla | Sesión de pruebas, 21-10-2026 |
+| DEC-093 | Integración continua | Calidad | `verify` + matriz E2E en cada push; `verify` en push y E2E programado; todo en cada push | `verify` + matriz E2E | Cada push a `main` y PR: `verify` y E2E de los cinco proyectos con visual. Semanal: mutación y `npm audit` | Sesión de pruebas, 21-10-2026 |
+| DEC-094 | Destino de la estrategia de pruebas | Gobierno | `docs/pruebas.md`; `ARCHITECTURE.md` §10; `historias.md` | `docs/pruebas.md` | `docs/pruebas.md`, enlazado desde `ARCHITECTURE.md` §10 y `CLAUDE.md` §5 a §7 | Sesión de pruebas, 21-10-2026 |
 
 ---
 
@@ -891,7 +947,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | HALL-009 | Una compra puede incluir varios tipos de cápsula con precios distintos | Conductual | Resuelto (DEC-038) |
 | HALL-010 | No se ha decidido cómo corregir un arqueo o recuento erróneo | Conductual | Resuelto (DEC-039) |
 | HALL-011 | Un usuario dado de baja puede tener consumos en la cola local de su móvil | Conductual, menor | Resuelto (RN-054) |
-| HALL-012 | El paquete de diseño (FUENTE-09) usa SvelteKit 3; el apartado 10.3 propone SvelteKit 2 | Técnico, menor | Abierto: se decide en la fase de plan, donde 10.3 ya prevé verificar versiones |
+| HALL-012 | El paquete de diseño (FUENTE-09) usa SvelteKit 3; el apartado 10.3 propone SvelteKit 2 | Técnico, menor | Resuelto (DEC-057, ADR-0001): SvelteKit 3 |
 | HALL-013 | Un relleno de agua se puede declarar sin haberlo hecho para subir en el ranking | Conductual | Mitigado (RN-082, RN-063, RN-083) |
 
 ### 13.2 Pendientes
@@ -900,6 +956,9 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | --- | --- | --- | --- |
 | PEND-014 | Validar el texto informativo de privacidad propuesto en el anexo A y completar sus datos entre corchetes | **Menor aplazado** (ver ficha) | Texto redactado en el anexo A |
 | PEND-033 | Si un administrador anula, después del día 1, un relleno del mes anterior y eso cambia el ganador, ¿se recalcula el aguador del mes? | Menor, no bloqueante; resolver en la fase de plan de F8 | No recalcular: el título queda fijado al determinarlo (tabla `aguador_mes`) |
+| PEND-034 | Límites de tamaño y de frecuencia de `/api/v1/registro-cliente` (DEC-079) | Menor; resolver en el plan de F1 | — |
+| PEND-035 | Cómo llegan la versión y el commit a la aplicación para el evento de arranque | Menor; resolver en el plan de F1 (desarrollo) y de F7 (imagen) | — |
+| PEND-036 | Ruta del directorio de datos en desarrollo (y, con ella, la de `logs/`) | Menor; resolver en el plan de F1 | — |
 
 **Ficha de aplazamiento de PEND-014**
 
@@ -983,20 +1042,22 @@ No se declara cumplimiento formal del RGPD, de WCAG ni de ninguna norma. Las ref
 
 **Estado: Cerrado y aprobado sobre v0.4.0.** Sin bloqueantes. PEND-014 está aplazado y debe figurar en la especificación de F1 como dependencia previa a producción. PEND-033 se resuelve en el plan de F8.
 
-### División propuesta en funcionalidades (pendiente de acordar)
+### División en funcionalidades (acordada, DEC-058)
 
 | Funcionalidad | Contenido | Depende de |
 | --- | --- | --- |
-| F1 — Acceso, usuarios y privacidad | RF-130 a RF-139b, RF-160, RF-161, RN-040 a RN-054 | — |
-| F2 — Catálogo y stock | RF-001 a RF-005, RF-020 a RF-023, RF-090 a RF-093 | F1 |
+| F1 — Acceso, usuarios y privacidad | Preparación del proyecto (scaffold: DEC-055, DEC-056, DEC-060). RF-130 a RF-134, RF-136 a RF-139b, RF-160, RF-161, RN-040 a RN-054. Almacén de configuración con los parámetros de RF-150 y sus valores por defecto (sin pantalla) | — |
+| F2 — Catálogo y stock | RF-001 a RF-006, RF-020 a RF-023 | F1 |
+| F4 — Economía: aportaciones, compras, coste medio, regularización, arqueos, recuentos, repartos, bajas | RF-030 a RF-046, RF-064, RF-080 a RF-082, RF-090 a RF-093, RF-135, RN-001 a RN-021, RN-036, RN-037 | F1, F2 |
 | F3 — Registro de consumos (incluido sin conexión) | RF-010 a RF-019, RF-060 a RF-063 | F1, F2, F4 (cargo) |
-| F4 — Economía: aportaciones, compras, coste medio, regularización, arqueos, repartos, bajas | RF-030 a RF-046, RF-064, RF-080 a RF-082, RN-001 a RN-021, RN-036, RN-037 | F1, F2 |
-| F5 — Notificaciones | RF-100 a RF-107 | F1 a F4 |
 | F6 — Saldos y estadísticas | RF-110 a RF-123 | F3, F4 |
-| F7 — Operación: copias, configuración, despliegue | RF-140 a RF-150 | F1 |
+| F5 — Notificaciones | RF-100 a RF-107 | F1 a F4 |
 | F8 — Relleno de agua y aguador del mes | RF-170 a RF-176, RN-063, RN-080 a RN-085 | F1, F5 (resumen mensual), F6 (estadísticas) |
+| F7 — Operación: copias, pantalla de configuración, despliegue | RF-140 a RF-144, pantalla de RF-150 | F1. Se puede hacer en cualquier punto; obligatoria antes de producción |
 
-Las reglas económicas (RN-001 a RN-021) son transversales a F3 y F4. Su dueño documental propuesto es F4; F3 las referencia.
+La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-001 a RN-021) son transversales a F3 y F4. Su dueño documental es F4; F3 las referencia. Las funcionalidades no coinciden con los módulos de código: una funcionalidad puede tocar varios módulos (`ARCHITECTURE.md` §3).
+
+**Duda de comportamiento pendiente** (se resuelve con `/speckit-clarify` en F5, F7 y F8): si el servidor está detenido a la hora de una tarea programada (resumen mensual, aguador del mes, copia de las 03:00), ¿la tarea se ejecuta al arrancar?
 
 | Contenido | Destino previsto | Estado |
 | --- | --- | --- |
@@ -1016,6 +1077,13 @@ Las reglas económicas (RN-001 a RN-021) son transversales a F3 y F4. Su dueño 
 | Cierre | 20-10-2026 | Refinamiento cerrado y aprobado sobre v0.3.0 (SHA-256 0849f5b2…e55d602d). Aplazado: PEND-014. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento |
 | 0.4.0 | 21-10-2026 | CAMBIO-004: nombre «beCafé» (ORIG-003, RT-011); relleno de agua con ranking y aguador del mes (HU-17, RN-063, RN-080 a RN-085, RF-170 a RF-176, F8); recordatorio de deuda progresivo (RN-074, RF-150); `/historial` como página propia y supresión de `/aportaciones`; pantallas de administración del paquete de diseño aceptadas como base; anexo A actualizado | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.3.0 (SHA-256 7e7769fb…7a59005) en `.respaldos/` |
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.4.0 (SHA-256 9cfc0165…c1cd13b4). Aplazados: PEND-014 y PEND-033. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («si») |
+| 0.5.0 | 21-10-2026 | CAMBIO-005: gobernanza técnica. DEC-055 a DEC-060; HALL-012 resuelto (SvelteKit 3); §10.6 traspasado a `ARCHITECTURE.md`; división en funcionalidades acordada con ajustes (§15); duda sobre tareas programadas perdidas registrada para `/speckit-clarify` | Escritura autorizada el 21-10-2026 («hazlo»); respaldo de 0.4.0 (SHA-256 7f272a93…ace383186) en `.respaldos/` |
+| 0.6.0 | 21-10-2026 | CAMBIO-006: tecnologías decididas con versiones de referencia (§10.3); DEC-061 a DEC-069; `aws4fetch` sustituye a `@aws-sdk/client-s3`; se añaden Zod 4, pino, `tar` y las herramientas de calidad; Node 24 LTS en el despliegue (§10.7) | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.5.0 (SHA-256 468706cb…898acc61) en `.respaldos/` |
+| 0.7.0 | 21-10-2026 | CAMBIO-007: `@vitest/coverage-v8` en §10.3; DEC-070 a DEC-072 (versiones por línea, cobertura mínima y orden de prioridad), cuya fuente vigente es la constitución 1.1.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.6.0 (SHA-256 9bc5c0e4…c03b27bd) en `.respaldos/` |
+| 0.8.0 | 21-10-2026 | CAMBIO-008: política de validación y entorno. DEC-073 a DEC-075 (cero advertencias, tipos de fecha, mensajes de validación); §10.7: variables declaradas en `src/env.ts`. Constitución 1.2.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.7.0 (SHA-256 834feaab…af7ed59) en `.respaldos/` |
+| 0.9.0 | 21-10-2026 | CAMBIO-009: registro técnico. DEC-076 a DEC-082 (ficheros diarios con `pino-roll` y 30 días, fuera de la copia; `loglevel` en el cliente con envío de warn y error; `LOG_LEVEL`; enlace de RF-139 solo en la salida estándar; acceso solo desde Coolify); §10.3, §10.7, RF-139, CA-139 y RNF-014; PEND-034 a PEND-036. Constitución 1.3.0 (principio XVI), ADR-0004 | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.8.0 (SHA-256 81848bb5…1b23e7920) en `.respaldos/` |
+| 0.10.0 | 21-10-2026 | CAMBIO-010: arquitectura idiomática de SvelteKit. DEC-083 a DEC-087 (controladores finos sobre `lib/server/<modulo>`, mejora progresiva con excepciones cerradas, respuesta de `fail()`, reglas idiomáticas, dos enmiendas). Constitución 1.4.0 (principio XVII) | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.9.0 (SHA-256 2294c5a8…515a7e594) en `.respaldos/` |
+| 0.11.0 | 21-10-2026 | CAMBIO-011: estrategia de pruebas. DEC-088 a DEC-094 (verificación por impacto con puertas, componentes en navegador real, matriz de Playwright, regresión visual, mutación en `dominio/`, CI, `docs/pruebas.md`); §9 y §10.3. Constitución 1.5.0 (VIII, IX y tecnologías), ADR-0005 | Escritura autorizada el 21-10-2026 («sí a todo»); respaldo de 0.10.0 (SHA-256 d470857a…9e11f21b9) en `.respaldos/` |
 
 ---
 

@@ -8,7 +8,7 @@ Superficie de cristal translúcido. Base de toda tarjeta, panel o tile.
 
 ## Cuándo usarlo
 
-Úsalo en lugar de repetir `glass` + radios a mano. `strong` solo para lo que flota sobre otro contenido (nav, toasts, hojas). El texto pequeño va siempre sobre cristal, nunca sobre el fondo.
+Úsalo en lugar de repetir `glass` + radios a mano. `strong` solo para lo que flota sobre otro contenido (nav, toasts, hojas). El texto pequeño va siempre sobre cristal, nunca sobre el fondo. No anides un `Glass` dentro de otro: dentro de una tarjeta, usa separadores o superficies opacas.
 
 ## Props
 
@@ -27,4 +27,4 @@ type Props = HTMLAttributes<HTMLElement> & {
 
 ## Accesibilidad
 
-Con `prefers-reduced-transparency` pasa a color sólido automáticamente.
+Con `prefers-reduced-transparency` pasa a color sólido automáticamente. El ajuste «Reducir transparencia» de Perfil (RF-181) tendrá el mismo efecto; está pendiente de implementar.

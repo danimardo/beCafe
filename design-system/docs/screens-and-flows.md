@@ -1,6 +1,6 @@
 # Pantallas y flujos
 
-La distribución detallada (zonas, medidas, capturas) está en `screen-layouts.md`. Cada pantalla de la plantilla está en `src/routes/`. Los identificadores (HU-xx, RF-xxx, RN-xxx) remiten a `docs/spec/historias.md`. Rutas = sección 10.5 de la especificación.
+La distribución detallada (zonas, medidas, capturas) está en `screen-layouts.md`. Cada pantalla de la plantilla está en `src/routes/`. Los identificadores (HU-xx, RF-xxx, RN-xxx) remiten a `historias.md`, en la raíz del repositorio. Rutas = sección 10.5 de la especificación.
 
 | Pantalla | Ruta | Historias / requisitos | Componentes clave |
 | --- | --- | --- | --- |

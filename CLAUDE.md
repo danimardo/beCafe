@@ -69,6 +69,8 @@ Si una regla de negocio no está en ninguna de estas fuentes, pregunta. No la in
 | `new Date()` o `Math.random()` dentro de `dominio/` | Reloj y azar recibidos como parámetro |
 | `await` dentro de `enTransaccion` | Hacer la E/S asíncrona fuera de la transacción |
 | Colores hexadecimales o `dark:` propios | Clases con tokens y componentes de `lib/ui` |
+| Cristal (`glass`, `Glass`) dentro de otro cristal, o bajo un formulario o una tabla densa | Una sola capa de cristal; superficie estable para formularios y contenido denso (constitución XVIII) |
+| Guardar el tema o «Reducir transparencia» en el servidor o en la cuenta | `localStorage` del dispositivo, leído con su esquema (`ARCHITECTURE.md` §7) |
 | Colecciones mutables a nivel de módulo en servidor | Datos por petición; `Object.freeze` para constantes |
 
 ## 5. Pruebas que creas

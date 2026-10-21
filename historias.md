@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.11.0 — CAMBIO-011 |
+| Versión | 0.12.0 — CAMBIO-012 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
@@ -479,6 +479,15 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RF-175 | Las estadísticas deberán mostrar a todos los miembros el ranking de rellenos vigentes por persona en el periodo elegido. Las estadísticas personales deberán incluir el número de rellenos propios. | PREG-045, PREG-047 | Confirmado | CA-175 |
 | RF-176 | El día 1 de cada mes, el sistema deberá determinar el aguador del mes anterior según RN-084. La pantalla principal deberá mostrarlo durante todo el mes en curso y el resumen mensual deberá incluirlo (RF-104). | PREG-046 | Confirmado | CA-176 |
 
+### 7.15 Experiencia transversal
+
+Reglas transversales de interfaz: constitución, principios X, XI y XVIII. Identidad, tokens y componentes: sistema de diseño Latte (`design-system/`).
+
+| ID | Enunciado | Origen | Estado | CA |
+| --- | --- | --- | --- | --- |
+| RF-180 | El cliente deberá ofrecer en Perfil el tema Automático, Claro u Oscuro, con Automático como valor inicial. Automático deberá seguir la apariencia del dispositivo y actualizarse si cambia durante la sesión. La preferencia se guarda en el dispositivo y cambiarla no pierde datos escritos ni foco. | Sistema de diseño Latte, DEC-099 | Confirmado | CA-180 |
+| RF-181 | El cliente deberá ofrecer en Perfil el ajuste «Reducir transparencia», desactivado por defecto, que muestra todas las superficies opacas con las mismas acciones e información. Si el dispositivo pide reducir la transparencia, las superficies son opacas aunque el ajuste esté desactivado. La preferencia se guarda en el dispositivo. | DEC-095 | Confirmado | CA-181 |
+
 ---
 
 ## 8. Requisitos no funcionales
@@ -499,6 +508,7 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RNF-012 | Idioma | Toda la interfaz en español, con textos centralizados. | Inspección. | Confirmado |
 | RNF-013 | Navegadores | Últimas dos versiones de Safari (iOS ≥ 16.4) y Chrome (Android). | Prueba manual en ambos. | Confirmado (PREG-041) |
 | RNF-014 | Observabilidad | Logs estructurados de errores, de tareas programadas y de envíos fallidos, visibles en Coolify y guardados en ficheros diarios en el volumen durante 30 días (DEC-076, DEC-077). Los errores del móvil llegan al mismo log (DEC-079). Endpoint de salud para Coolify. | Inspección. | Confirmado (PREG-041) |
+| RNF-015 | Adaptación y preferencias | Con `prefers-contrast: more` se refuerzan texto, límites y foco; con `forced-colors` siguen visibles controles, límites y foco; con el texto ampliado al 200 % y a 320 px de ancho no se pierde contenido ni función. | E2E con emulación (EV-061) y revisión manual. | Confirmado (DEC-095) |
 
 ---
 
@@ -602,6 +612,10 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 - **CA-175** — Luis (miembro) ve el ranking de rellenos de todos en el periodo elegido. Ana ve en sus estadísticas cuántos rellenos ha registrado.
 - **CA-176** — En octubre, Ana y Jorge registran 6 rellenos vigentes cada uno y Luis 4. El 1 de noviembre, la pantalla principal muestra a Ana y Jorge como aguadores del mes durante todo noviembre, y el resumen mensual lo incluye. Un mes sin rellenos no tiene título. Una persona dada de baja antes del día 1 no opta al título, aunque sus rellenos siguen en el ranking.
 
+### Experiencia transversal
+- **CA-180** — Dado un móvil en modo oscuro sin preferencia guardada, la aplicación se muestra en oscuro con «Automático» seleccionado. Si el sistema pasa a claro durante la sesión, la aplicación cambia sin recargar. Si Ana elige «Claro» con un importe a medio escribir, el importe y el foco se conservan, y al volver a abrir la aplicación sigue en claro.
+- **CA-181** — Cuando Ana activa «Reducir transparencia», todas las superficies pasan a opacas y siguen visibles las mismas acciones y datos. Con la preferencia del sistema de reducir transparencia, las superficies son opacas aunque el ajuste esté desactivado.
+
 ### Escenarios futuros de verificación (EV)
 
 | ID | Escenario | Requisitos | Método |
@@ -620,6 +634,7 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 | EV-090 | Compra con varias líneas anulada con consumos posteriores de los dos tipos | RN-037, RN-012 | Prueba unitaria |
 | EV-100 | Dos rellenos simultáneos de personas distintas: solo uno queda vigente | RN-082, INV-07 | Prueba de integración con concurrencia |
 | EV-101 | Recordatorio de deuda progresivo: cambios de tramo y de límite | RN-074 | Prueba unitaria con reloj simulado |
+| EV-061 | Temas y preferencias de apariencia: claro, oscuro, contraste elevado, colores forzados, movimiento reducido, texto al 200 % y 320 px | RF-180, RF-181, RNF-015 | E2E con emulación de Playwright + revisión manual de lo no emulable (transparencia del sistema) |
 
 ---
 
@@ -885,6 +900,11 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-092 | Pruebas de mutación | Calidad | Piloto en `dominio/` sin umbral; aplazar; obligatorio con umbral | Piloto sin umbral | StrykerJS sobre `dominio/` y los tramos de RN-074; línea base al cerrar F4; sin umbral hasta tenerla | Sesión de pruebas, 21-10-2026 |
 | DEC-093 | Integración continua | Calidad | `verify` + matriz E2E en cada push; `verify` en push y E2E programado; todo en cada push | `verify` + matriz E2E | Cada push a `main` y PR: `verify` y E2E de los cinco proyectos con visual. Semanal: mutación y `npm audit` | Sesión de pruebas, 21-10-2026 |
 | DEC-094 | Destino de la estrategia de pruebas | Gobierno | `docs/pruebas.md`; `ARCHITECTURE.md` §10; `historias.md` | `docs/pruebas.md` | `docs/pruebas.md`, enlazado desde `ARCHITECTURE.md` §10 y `CLAUDE.md` §5 a §7 | Sesión de pruebas, 21-10-2026 |
+| DEC-095 | Ajuste propio para reducir la transparencia | UX | Ajuste en Perfil; solo la preferencia del sistema; opaco por defecto | Ajuste en Perfil | Interruptor «Reducir transparencia» en Perfil, desactivado por defecto, guardado en el dispositivo (RF-181). Constitución 1.6.0 (V, XVIII) | Sesión de UX, 21-10-2026 |
+| DEC-096 | Objetivos de rendimiento y presupuesto de efectos | UX | Core Web Vitals + móvil de referencia; solo RNF-002; objetivos más estrictos | Core Web Vitals | **Otra: solo RNF-002.** Sin objetivos de carga ni presupuesto de efectos. Excepción aceptada a la regla del prompt de UX que pide medir el coste del material; mitigación: RF-181 y la preferencia del sistema; riesgo residual en §13.3 | Sesión de UX, 21-10-2026 |
+| DEC-097 | Pruebas de usabilidad con personas | UX | Prueba breve tras F3; sin pruebas formales; prototipo ahora | Prueba breve tras F3 | **Otra: sin pruebas formales.** Hipótesis registrada: el diseño Latte es usable sin validar; riesgo residual en §13.3 | Sesión de UX, 21-10-2026 |
+| DEC-098 | Copia de la especificación en el sistema de diseño | Gobierno | Sustituir ya por un enlace; hacerlo en el scaffold; mantenerla como histórica | Sustituir ya | Se borra `design-system/docs/spec/historias.md` (v0.4.0) y sus referencias apuntan a `historias.md` (principio I) | Sesión de UX, 21-10-2026 |
+| DEC-099 | Etiqueta y persistencia del tema | UX | — (convención existente del sistema de diseño) | — | Etiqueta «Automático» con el comportamiento de «Sistema»; preferencia guardada en el dispositivo (principio V) | Sesión de UX, 21-10-2026 (supuesto comunicado) |
 
 ---
 
@@ -1017,6 +1037,8 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | Notificaciones push poco fiables en iPhone sin instalar la PWA | Panel de avisos en la app (RF-107), ayuda (RF-106) |
 | Dependencia de una sola instancia y un solo servidor | Copias diarias, prueba de restauración trimestral |
 | Rellenos de agua declarados sin hacerlos | Intervalo mínimo, visibilidad para todos, anulación por un administrador |
+| Diseño no validado con usuarios reales (DEC-097) | Sistema de diseño Latte, revisión con VoiceOver y TalkBack, corrección tras el uso real |
+| Coste del cristal en móviles modestos sin medir (DEC-096) | Ajuste «Reducir transparencia» (RF-181) y preferencia del sistema |
 
 ---
 
@@ -1046,7 +1068,7 @@ No se declara cumplimiento formal del RGPD, de WCAG ni de ninguna norma. Las ref
 
 | Funcionalidad | Contenido | Depende de |
 | --- | --- | --- |
-| F1 — Acceso, usuarios y privacidad | Preparación del proyecto (scaffold: DEC-055, DEC-056, DEC-060). RF-130 a RF-134, RF-136 a RF-139b, RF-160, RF-161, RN-040 a RN-054. Almacén de configuración con los parámetros de RF-150 y sus valores por defecto (sin pantalla) | — |
+| F1 — Acceso, usuarios y privacidad | Preparación del proyecto (scaffold: DEC-055, DEC-056, DEC-060). RF-130 a RF-134, RF-136 a RF-139b, RF-160, RF-161, RF-180, RF-181, RN-040 a RN-054. Almacén de configuración con los parámetros de RF-150 y sus valores por defecto (sin pantalla) | — |
 | F2 — Catálogo y stock | RF-001 a RF-006, RF-020 a RF-023 | F1 |
 | F4 — Economía: aportaciones, compras, coste medio, regularización, arqueos, recuentos, repartos, bajas | RF-030 a RF-046, RF-064, RF-080 a RF-082, RF-090 a RF-093, RF-135, RN-001 a RN-021, RN-036, RN-037 | F1, F2 |
 | F3 — Registro de consumos (incluido sin conexión) | RF-010 a RF-019, RF-060 a RF-063 | F1, F2, F4 (cargo) |
@@ -1084,6 +1106,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.9.0 | 21-10-2026 | CAMBIO-009: registro técnico. DEC-076 a DEC-082 (ficheros diarios con `pino-roll` y 30 días, fuera de la copia; `loglevel` en el cliente con envío de warn y error; `LOG_LEVEL`; enlace de RF-139 solo en la salida estándar; acceso solo desde Coolify); §10.3, §10.7, RF-139, CA-139 y RNF-014; PEND-034 a PEND-036. Constitución 1.3.0 (principio XVI), ADR-0004 | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.8.0 (SHA-256 81848bb5…1b23e7920) en `.respaldos/` |
 | 0.10.0 | 21-10-2026 | CAMBIO-010: arquitectura idiomática de SvelteKit. DEC-083 a DEC-087 (controladores finos sobre `lib/server/<modulo>`, mejora progresiva con excepciones cerradas, respuesta de `fail()`, reglas idiomáticas, dos enmiendas). Constitución 1.4.0 (principio XVII) | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.9.0 (SHA-256 2294c5a8…515a7e594) en `.respaldos/` |
 | 0.11.0 | 21-10-2026 | CAMBIO-011: estrategia de pruebas. DEC-088 a DEC-094 (verificación por impacto con puertas, componentes en navegador real, matriz de Playwright, regresión visual, mutación en `dominio/`, CI, `docs/pruebas.md`); §9 y §10.3. Constitución 1.5.0 (VIII, IX y tecnologías), ADR-0005 | Escritura autorizada el 21-10-2026 («sí a todo»); respaldo de 0.10.0 (SHA-256 d470857a…9e11f21b9) en `.respaldos/` |
+| 0.12.0 | 21-10-2026 | CAMBIO-012: experiencia de usuario. §7.15 (RF-180, RF-181), RNF-015, CA-180, CA-181, EV-061, DEC-095 a DEC-099, riesgos residuales en §13.3 y F1 en §15. Constitución 1.6.0 (V, X, XI y XVIII) | Escritura autorizada el 21-10-2026 («si a todo»); respaldo de 0.11.0 (SHA-256 20b5f9ab…90f794a5a) en `.respaldos/` |
 
 ---
 

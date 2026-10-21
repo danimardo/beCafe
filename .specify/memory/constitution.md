@@ -90,7 +90,7 @@ error de redondeo o un cargo duplicado la rompe.
 - Los datos derivados que se guardan (stock, coste medio, estado de stock bajo) DEBEN coincidir
   siempre con su recálculo desde los registros vigentes.
 - El navegador NO DEBE guardar nada salvo la cola de consumos pendientes (IndexedDB), la
-  preferencia de tema y la caché del service worker. La sesión DEBE viajar solo en una cookie
+  preferencias de apariencia (tema y reducir transparencia) y la caché del service worker. La sesión DEBE viajar solo en una cookie
   `HttpOnly`; NO DEBEN guardarse tokens ni datos personales en `localStorage`.
 - DEBE existir una copia de seguridad diaria fuera del servidor, restaurable y probada
   periódicamente (RT-005, RNF-009).
@@ -191,6 +191,11 @@ Motivo: generar código no demuestra que funcione; una verificación lenta deja 
 - La interfaz DEBE construirse con los componentes y los tokens del sistema de diseño Latte, en
   tema claro y oscuro. NO DEBE usar colores ni estilos fuera de los tokens.
 - La interfaz DEBE estar solo en español (es-ES), con textos centralizados.
+- Una confirmación DEBE corresponder a la garantía real: «pendiente de enviar», «registrado» y
+  «rechazado» DEBEN distinguirse.
+- Los destinos DEBEN ser enlaces y las acciones, botones.
+- La interfaz NO DEBE usar patrones manipulativos: urgencia falsa, preselección engañosa, opciones
+  ocultas, culpabilización ni cancelación difícil.
 
 Motivo: la aplicación se usa de pie, junto a la cafetera, varias veces al día; si registrar cuesta
 más que no hacerlo, los datos dejan de reflejar la realidad.
@@ -208,6 +213,9 @@ más que no hacerlo, los datos dejan de reflejar la realidad.
 - Los mensajes de estado DEBEN anunciarse al lector de pantalla sin mover el foco.
 - La interfaz DEBE respetar `prefers-reduced-motion` y `prefers-reduced-transparency`.
 - Cada pantalla DEBE superar axe sin infracciones en sus pruebas E2E.
+- Con `prefers-contrast: more`, la interfaz DEBE reforzar texto, límites y foco. Con
+  `forced-colors`, los controles, los límites y el foco DEBEN seguir visibles.
+- El texto ampliado al 200 % y el reflow a 320 px de ancho NO DEBEN perder contenido ni función.
 - Una funcionalidad con interfaz nueva DEBE revisarse a mano con VoiceOver (iOS) y TalkBack
   (Android) antes de cerrarse.
 
@@ -323,6 +331,29 @@ mantiene una sola fuente de verdad, funciona con redes lentas y es el que mejor 
 herramientas y los agentes. Los fallos más caros del framework (una *action* sin permiso, el
 estado de una persona visible a otra) se evitan con reglas explícitas.
 
+### XVIII. Identidad visual, temas y efectos
+
+- El sistema de diseño Latte DEBE ser la referencia canónica de identidad, tokens y componentes.
+  La interfaz DEBE usar solo sus tokens.
+- Los temas claro y oscuro DEBEN estar diseñados para todos los componentes y estados; el oscuro
+  NO DEBE ser una inversión del claro.
+- El selector de tema DEBE ofrecer Automático, Claro y Oscuro, con Automático como valor inicial.
+  Automático DEBE seguir los cambios del sistema durante la sesión. Cambiar de tema NO DEBE perder
+  trabajo ni foco.
+- El cristal SOLO PUEDE usarse con una función (separar navegación, superficies flotantes o
+  tarjetas según el sistema de diseño) y NO DEBE anidarse. El contenido denso y los formularios
+  DEBEN ir sobre una superficie estable.
+- DEBE existir una alternativa opaca con las mismas acciones, información y jerarquía. Se activa
+  con `prefers-reduced-transparency` o con el ajuste «Reducir transparencia». Ningún ajuste de la
+  aplicación DEBE reactivar un efecto que el sistema pide reducir.
+- El contraste DEBE medirse sobre el resultado compuesto (cristal sobre el fondo), en el peor caso
+  y en los dos temas.
+- El movimiento SOLO PUEDE usarse con una función (confirmar, orientar o explicar un cambio), NO
+  DEBE retrasar la respuesta y DEBE desactivarse con `prefers-reduced-motion`.
+
+Motivo: la identidad visual es una decisión aprobada, pero nunca puede costar legibilidad,
+accesibilidad ni rapidez del registro (orden de prioridad).
+
 ## Tecnologías obligatorias
 
 Estas tecnologías DEBEN usarse en la línea de versión indicada. Una versión de parche o menor
@@ -394,4 +425,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.5.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21
+**Versión**: 1.6.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21
