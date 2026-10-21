@@ -47,7 +47,9 @@ Decisiones que fijan esta forma: DEC-027, DEC-028, DT-050 y RT-010 en `historias
 ├─ e2e/                      Pruebas de extremo a extremo (Playwright)
 └─ src/
    ├─ app.html · app.css · app.d.ts
+   ├─ env.ts                 Declaración y esquemas de las variables de entorno (§8)
    ├─ hooks.server.ts        Sesión, cabeceras y errores no previstos
+   ├─ params/                Matchers de parámetros de ruta (ULID, token)
    ├─ service-worker.ts      Caché de la aplicación y envío de la cola
    ├─ routes/                Páginas y endpoints. Sin reglas de negocio ni SQL
    └─ lib/
@@ -149,7 +151,9 @@ flowchart TD
 | `lib/client`, `lib/ui`, `lib/shared` → `lib/server` | **Prohibido** (SvelteKit lo impide en el código de cliente). |
 | `lib/server` → `lib/ui`, `lib/client` | **Prohibido.** |
 | `lib/shared` → cualquier otro directorio de `src` | **Prohibido.** `lib/shared` solo depende de sí mismo y de dependencias puras (por ejemplo, Zod). |
-| Cualquiera → `process.env` o `$env/*` | **Prohibido** fuera de `plataforma/entorno.ts`. |
+| Cualquiera → `$app/env/private` o `$app/env/public` | **Prohibido** fuera de `plataforma/entorno.ts` (servidor) y `lib/client/entorno.ts` (cliente). |
+| Cualquiera → `process.env` | **Prohibido** en `src/`. Solo lo leen los scripts externos al runtime de SvelteKit (§8). |
+| Cualquiera → `$env/*` | **Prohibido.** Obsoleto en SvelteKit 3. |
 | `dominio/` → E/S (BD, red, reloj del sistema, azar) | **Prohibido.** El reloj y el azar llegan como parámetros. |
 
 **Ejemplos**
@@ -200,10 +204,43 @@ sequenceDiagram
 
 | Qué | Dónde | Cómo |
 | --- | --- | --- |
-| Forma de la entrada (tipos, rangos, campos) | Borde: `+page.server.ts` o `+server.ts` | Esquema de `lib/shared/contratos/`. La política detallada la fija el prompt de Zod. |
+| Forma de la entrada (tipos, rangos, campos) | Borde: `+page.server.ts`, `+server.ts`, `src/params/` | Esquema Zod de `lib/shared/contratos/` (§6.1). |
 | Autorización (quién puede) | Caso de uso del módulo | Cada caso de uso recibe `actor` y comprueba el permiso en el servidor (RNF-007). La ruta también protege la página para la experiencia de usuario, pero la decisión es del módulo. |
 | Reautenticación de administrador (RN-050) | Caso de uso del módulo | `actor.autenticadoEn` llega desde la sesión. |
 | Consistencia del negocio (invariantes, estados) | Caso de uso, dentro de la transacción | Restricciones de la BD cuando es posible (`UNIQUE`, `CHECK`, `FOREIGN KEY`). |
+
+### 6.1 Validación con Zod
+
+**Fronteras que se validan** (todo lo demás es dato interno ya normalizado y no se vuelve a validar):
+
+| Frontera | Esquema | Dónde se aplica |
+| --- | --- | --- |
+| Formularios (*form actions*) | `lib/shared/contratos/<modulo>.ts` | `+page.server.ts`, antes de llamar al módulo |
+| Cuerpos JSON de `/api/*` (cola de consumos, rellenos, suscripción push) | `lib/shared/contratos/`, versionado (ver abajo) | `+server.ts` |
+| Parámetros de ruta (`[token]`, `[usuarioId]`) | Matcher de SvelteKit en `src/params/` con el esquema ULID o de token | El router: un parámetro inválido responde 404 |
+| Cadena de consulta (filtros, mes, página) | `z.strictObject` en el `load` de la página dueña; `z.object({})` en los `load` de layout | `+page.server.ts` / `+layout.server.ts` |
+| Archivos subidos (fotos, ticket) | Zod comprueba presencia y tamaño (≤ 5 MB) | `+page.server.ts`. El tipo real lo comprueba `plataforma/imagenes` con `sharp` (RF-005) |
+| Datos leídos del navegador (cola en IndexedDB, preferencia de tema) | `lib/shared/contratos/` | Al leerlos: un dato corrupto se descarta y se registra, sin bloquear la aplicación |
+| JSON guardado en la BD (`registro_auditoria.detalle`) | Esquema del módulo dueño | Al leerlo |
+| Variables de entorno | `src/env.ts` (§8) | SvelteKit, al arrancar |
+
+**Reglas de esquema**
+
+- El tipo de una entrada se infiere del esquema (`z.infer`, `z.input`). No se declara un tipo paralelo ni se usa `as`.
+- Las entradas de ruta usan `z.strictObject`: una clave desconocida se rechaza. Excepción: el `load` de un layout usa `z.object({})`, porque recibe la cadena de consulta de la página hoja.
+- Los campos repetidos de formulario se normalizan siempre a lista con un esquema reutilizable.
+- `z.coerce.number()` siempre va con `min`, `positive` o `int`: la cadena vacía se convierte en 0.
+- Un importe escrito por la persona («1,50») se transforma en céntimos enteros en el esquema. El dominio nunca recibe decimales.
+- Las fechas usan los tipos marcados de `lib/shared/fechas`: `InstanteUtc` (`2026-10-21T09:30:00.000Z`), `FechaMadrid` (`2026-10-21`) y `Mes` (`2026-10`). Una entrada acepta `dd/mm/aaaa` e ISO y devuelve el tipo del proyecto. `Date` no aparece en contratos ni en `dominio/`.
+- **Contratos de la cola sin conexión:** cada versión del contrato es un `z.strictObject` con su campo de versión. El endpoint acepta la unión de las versiones que todavía pueden estar en una cola (principio XIV).
+
+**Mensajes de error**
+
+- Cada campo visible lleva un mensaje propio en español (ETS) que dice qué corregir, centralizado con los demás textos de la interfaz.
+- `z.config(es())` se activa una vez en el arranque del cliente y del servidor como mensaje de reserva.
+- La respuesta al usuario no incluye el valor recibido ni detalles internos. El registro guarda la ruta del campo y el código del problema, no el valor.
+
+**Superar un esquema no basta.** Un `importe` válido no autoriza a nadie a registrar una aportación ajena (RN-034) ni garantiza que el registro no esté ya anulado (INV-05). La autorización y las invariantes se comprueban en el caso de uso, dentro de la transacción.
 
 **Errores esperados.** Un caso de uso lanza `ErrorDeNegocio` con un `codigo` de un conjunto cerrado (`SIN_SESION`, `SIN_PERMISO`, `FUERA_DE_PLAZO`, `YA_ANULADO`, `VALIDACION`, `REAUTENTICACION_REQUERIDA`, `ULTIMO_ADMIN`, `RELLENO_RECIENTE`; sección 10.5 de `historias.md`). Una función común de las rutas convierte el error en `fail()` o en JSON `{codigo, mensaje}` en español.
 
@@ -220,8 +257,18 @@ sequenceDiagram
 
 | Tipo | Fuente | Lectura |
 | --- | --- | --- |
-| Entorno y secretos (`ORIGIN`, VAPID, S3, `ADMIN_INICIAL_EMAIL`, `TZ`) | Variables de entorno en Coolify | Solo `plataforma/entorno.ts`. Se validan al arrancar; si falta una obligatoria, el proceso no arranca. |
+| Entorno y secretos (`ORIGIN`, VAPID, S3, `ADMIN_INICIAL_EMAIL`, `TZ`, ruta de datos) | Variables de entorno de Coolify | Ver abajo |
 | Parámetros de negocio (plazo de autoanulación, límite de deuda, intervalo de rellenos) | Tabla `configuracion` | API de `configuracion`, con valores por defecto si no hay fila. |
+
+**Variables de entorno (SvelteKit 3)**
+
+1. `src/env.ts` declara todas las variables con `defineEnvVars` de `@sveltejs/kit/env`, cada una con un esquema Zod y una descripción. Es el único lugar donde se declaran.
+2. SvelteKit valida las variables dinámicas **al arrancar** y las estáticas **al compilar**. Si una obligatoria falta o no es válida, el proceso no arranca. No hay recarga: cambiar un valor en Coolify exige reiniciar el contenedor; cambiar uno estático exige recompilar.
+3. Todas las variables son **dinámicas y privadas** (`static: false`, `public: false`), salvo `VAPID_PUBLIC_KEY`: es dinámica y pública porque el navegador la necesita para suscribirse. Un secreto nunca es público ni estático (un valor estático queda incrustado en el código compilado).
+4. `plataforma/entorno.ts` es el único archivo de servidor que importa `$app/env/private`, y `lib/client/entorno.ts` el único de cliente que importa `$app/env/public`. Los demás módulos reciben los valores de esos archivos.
+5. Los scripts que se ejecutan fuera de SvelteKit (`drizzle.config.ts`, el comando de recuperación de administrador de RF-139b) no pueden importar `$app/env`. Leen `process.env` y lo validan con los mismos esquemas exportados de `src/env.ts`.
+6. `.env` está en `.gitignore`. `.env.example` lista todas las variables con valores de ejemplo no sensibles. Las pruebas no usan `.env`: definen variables efímeras.
+7. `adapter-node` lee `ORIGIN` por su cuenta; `src/env.ts` también la declara para que su ausencia impida arrancar.
 
 ## 9. Registro y observabilidad
 
@@ -260,7 +307,7 @@ Las tecnologías y sus versiones de referencia están en la sección 10.3 de `hi
 
 | Tecnología | Usar | No introducir |
 | --- | --- | --- |
-| SvelteKit 3 | `#lib/...` (imports de `package.json`); `$app/state`; `$app/env`; *form actions* para formularios; `+server.ts` solo para la API sin formulario; `resolve()` para enlaces y `goto` internos | `$lib/...`; `$app/stores`; `$app/environment`; endpoints JSON para formularios normales |
+| SvelteKit 3 | `#lib/...` (imports de `package.json`); `$app/state`; `$app/env`; `$app/env/private` y `$app/env/public` (solo en los archivos de entorno, §8); *form actions* para formularios; `+server.ts` solo para la API sin formulario; `resolve()` para enlaces y `goto` internos; matchers de `src/params/` | `$lib/...`; `$app/stores`; `$app/environment`; `$env/*`; endpoints JSON para formularios normales; funciones experimentales (`experimental.*`, incluidas las funciones remotas `form`/`command`/`query`) |
 | Svelte 5 | Runes (`$state`, `$derived`, `$effect` solo para sincronizar con el exterior, `$props`), snippets, atributos de evento (`onclick`) | `export let`, `$:`, `on:click`, `createEventDispatcher`, `svelte/store`, `<slot>` |
 | TypeScript 6 | `strict`; estrechadores (`typeof`, `in`, validación con esquema); uniones discriminadas; tipos derivados del esquema | `as` (salvo `as const`), `any`, `!` de no nulo, `@ts-ignore`, `@ts-expect-error` |
 | Tailwind 4 | Clases con tokens (`bg-accent`, `text-ink-muted`) y componentes de `lib/ui` | Colores hexadecimales, `dark:` con colores propios, `tailwind.config.js` |
@@ -281,7 +328,12 @@ Las tecnologías y sus versiones de referencia están en la sección 10.3 de `hi
 | Sin imports profundos ni de `esquema.ts` ajenos | §4 | Sí | dependency-cruiser |
 | Rutas sin SQL ni `drizzle-orm` | §4 | Sí | dependency-cruiser |
 | Cliente sin código de servidor | §4 | Sí | SvelteKit (`lib/server`) + dependency-cruiser |
-| `process.env` y `$env/*` solo en `plataforma/entorno.ts` | §8 | Sí | ESLint `no-restricted-properties` / `no-restricted-imports` |
+| `$app/env/*` solo en los archivos de entorno; sin `process.env` en `src/`; sin `$env/*` | §4, §8 | Sí | dependency-cruiser + ESLint `no-restricted-properties` / `no-restricted-imports` |
+| Variables de entorno válidas al arrancar | §8 | Sí | SvelteKit (`src/env.ts`) + prueba de arranque con una variable ausente |
+| Cero advertencias | Constitución IX | Sí | `svelte-check --fail-on-warnings`, `eslint --max-warnings 0` |
+| Entradas de ruta estrictas; layouts no estrictos | §6.1 | Sí | Prueba de arquitectura: `strictObject` en `+page.server.ts` con entrada y ausente en `+layout.server.ts` |
+| Sin `Date` en contratos ni en `dominio/` | §6.1 | Sí | ESLint `no-restricted-syntax` / `no-restricted-globals` en esas rutas |
+| Sin funciones experimentales de SvelteKit | §11 | Sí | Prueba de arquitectura sobre `vite.config.ts` (sin `experimental`) |
 | Sin `as`, `any`, `!`, `@ts-ignore`, `eslint-disable` | §11 | Sí | typescript-eslint, `@eslint-community/eslint-plugin-eslint-comments` |
 | Dependencias aisladas en un único archivo | §11 | Sí | dependency-cruiser |
 | Svelte 5 en modo runes | §11 | Sí | Opción `runes: true` del compilador (ya está en la plantilla) |
@@ -292,7 +344,6 @@ Las tecnologías y sus versiones de referencia están en la sección 10.3 de `hi
 | Dinero en enteros | §11 | Parcial | Columnas `INTEGER` + tipos + pruebas |
 | Autorización en el servidor | §6 | Parcial | Prueba EV-050 sobre todas las rutas |
 | Estado de módulo solo en el navegador | §7 | No | Revisión del plan y del código |
-| `load` de layout sin validación estricta de la consulta | Prompt de Zod | Sí | Prueba de arquitectura |
 | Formato | — | Sí | Prettier + prettier-plugin-svelte |
 | Tipos | — | Sí | `svelte-check` |
 | Accesibilidad | RNF-001 | Parcial | axe en E2E + revisión manual |
@@ -312,7 +363,7 @@ Una dependencia de ejecución nueva o una herramienta de desarrollo transversal 
 
 | Ahora | Se puede posponer | Señal para cambiar la arquitectura |
 | --- | --- | --- |
-| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); niveles y eventos de registro (prompt de logging); política de Zod; detalle de la estrategia de pruebas (prompt de pruebas); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
+| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); niveles y eventos de registro (prompt de logging); detalle de la estrategia de pruebas (prompt de pruebas); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
 
 ## 15. Revisión de planes (Architecture Check)
 

@@ -98,9 +98,21 @@ error de redondeo o un cargo duplicado la rompe.
 Motivo: un único almacén transaccional hace posible la integridad económica; lo que se guarda en el
 navegador puede perderse o leerse en un dispositivo compartido.
 
-### VI. Seguridad en el servidor
+### VI. Seguridad y validación en el servidor
 
 - Toda entrada del cliente DEBE tratarse como no confiable y validarse en el servidor.
+- Toda entrada no confiable (formularios, parámetros de ruta y de consulta, cuerpos JSON, archivos
+  subidos, datos leídos del navegador o de JSON guardado, variables de entorno) DEBE validarse con
+  un esquema Zod en su frontera antes de usarse.
+- Los tipos de entrada DEBEN inferirse del esquema. Una aserción de tipo NO DEBE sustituir a una
+  validación.
+- Superar un esquema NO DEBE considerarse una autorización ni una garantía de que se cumple una
+  invariante.
+- Las entradas de ruta DEBEN rechazar claves desconocidas.
+- Un mensaje de error de validación NO DEBE incluir el valor recibido ni detalles internos.
+- Las variables de entorno DEBEN declararse con su esquema en un único archivo y validarse al
+  arrancar. Si falta una obligatoria, la aplicación NO DEBE arrancar. Un secreto NO DEBE ser
+  público ni incrustarse en el código compilado.
 - Cada permiso DEBE comprobarse en el servidor, en el caso de uso, y no solo ocultando elementos de
   la interfaz.
 - Los secretos NO DEBEN estar en el repositorio. Solo un módulo de configuración DEBE leer las
@@ -149,6 +161,8 @@ poco valor en código de apoyo.
   errores.
 - La integración continua DEBE ejecutar la misma verificación en cada pull request y en cada cambio
   de la rama principal.
+- Las advertencias del compilador, del comprobador de tipos y del linter DEBEN tratarse como
+  errores.
 - La verificación completa DEBERÍA ejecutarse en minutos. Cuando se vuelva lenta, se DEBE medir
   antes de optimizar.
 
@@ -260,7 +274,8 @@ fija `package-lock.json`; la referencia vigente está en la sección 10.3 de `hi
 | Despliegue | Imagen Docker en Coolify, una sola instancia | — |
 
 NO DEBE añadirse otro framework, ORM, librería de componentes, librería de estado global, motor de
-CSS ni librería de validación.
+CSS ni librería de validación. NO DEBEN usarse APIs obsoletas ni funciones experimentales del
+framework.
 
 ## Restricciones del proyecto
 
@@ -291,4 +306,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.1.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21
+**Versión**: 1.2.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21

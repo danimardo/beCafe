@@ -28,7 +28,8 @@ Si una regla de negocio no está en ninguna de estas fuentes, pregunta. No la in
 - No importes `esquema.ts` ni archivos internos de otro módulo.
 - No escribas SQL ni importes `drizzle-orm` en `src/routes`.
 - No importes `lib/server` desde `lib/ui`, `lib/client` ni `lib/shared`.
-- No leas `process.env` ni `$env/*` fuera de `plataforma/entorno.ts`.
+- No importes `$app/env/private` fuera de `plataforma/entorno.ts`, ni `$app/env/public` fuera de `lib/client/entorno.ts`. No leas `process.env` en `src/`. Una variable nueva se declara en `src/env.ts` con su esquema (`ARCHITECTURE.md` §8).
+- No uses una entrada externa sin validarla con su esquema de `lib/shared/contratos/` (`ARCHITECTURE.md` §6.1).
 - No escribas en tablas de otro módulo. Llama a su función pública con la transacción `tx`.
 - No modifiques ni borres consumos, aportaciones, compras, arqueos, recuentos ni movimientos. Se anulan.
 - No edites `.specify/memory/constitution.md` a mano. Usa `/speckit-constitution`.
@@ -41,6 +42,11 @@ Si una regla de negocio no está en ninguna de estas fuentes, pregunta. No la in
 | `$lib/...` | `#lib/...` |
 | `$app/stores`, `svelte/store` | `$app/state`, runes |
 | `$app/environment` | `$app/env` |
+| `$env/static/*`, `$env/dynamic/*` | `src/env.ts` + `plataforma/entorno.ts` |
+| `experimental.remoteFunctions`, `form`/`command`/`query` de `$app/server` | *Form actions* y `+server.ts` |
+| `z.object` en la entrada de una página o un endpoint | `z.strictObject` (en el `load` de un layout, `z.object({})`) |
+| `Date` en contratos o en `dominio/` | `InstanteUtc`, `FechaMadrid`, `Mes` de `lib/shared/fechas` |
+| `z.coerce.number()` solo | `z.coerce.number().int().positive()` o con `min` |
 | `export let`, `$:`, `<slot>` | `$props()`, `$derived`, snippets |
 | `on:click`, `createEventDispatcher` | `onclick`, props de función |
 | `import { X } from '@lucide/svelte'` | `import X from '@lucide/svelte/icons/<nombre>'` |
@@ -74,6 +80,8 @@ Usa solo scripts npm: funcionan igual en Windows y en Linux.
 | Antes de cerrar una funcionalidad o un PR | `npm run verify` y `npm run test:e2e` |
 
 No ejecutes lint y pruebas a la vez: compiten por CPU y falsean los tiempos.
+
+Una advertencia de `svelte-check`, ESLint o el compilador rompe la verificación igual que un error. Corrígela; no la silencies.
 
 ## 7. Cuándo una tarea está terminada
 

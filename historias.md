@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.7.0 — CAMBIO-007 |
+| Versión | 0.8.0 — CAMBIO-008 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
@@ -764,7 +764,7 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 - **Transacciones**: cada operación económica en una transacción `BEGIN IMMEDIATE` de SQLite, que serializa las escrituras y evita carreras en el coste medio y en el invariante de administradores.
 - **SQLite**: `journal_mode=WAL`, `synchronous=NORMAL` (FUENTE-04 indica que `VACUUM INTO` hace fsync del resultado con NORMAL o FULL), `foreign_keys=ON`, `busy_timeout` de 5 s.
 - **Copias**: la aplicación hace la copia completa (DT-040). Se descarta la copia de volúmenes de Coolify como mecanismo principal, porque no es coherente con escrituras en curso y no permite pasos previos (FUENTE-05).
-- **Variables de entorno**: `ADMIN_INICIAL_EMAIL`, `ORIGIN`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_REGION`, `TZ=Europe/Madrid`. Los secretos solo en Coolify.
+- **Variables de entorno**: `ADMIN_INICIAL_EMAIL`, `ORIGIN`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_REGION`, `TZ=Europe/Madrid`. Los secretos solo en Coolify. Se declaran con su esquema Zod en `src/env.ts` (`defineEnvVars` de SvelteKit 3) y se validan al arrancar; todas son privadas y dinámicas salvo `VAPID_PUBLIC_KEY`, pública y dinámica (`ARCHITECTURE.md` §8).
 - **Despliegue**: imagen Docker basada en Node 24 LTS (DEC-061), un volumen persistente `/data` (base de datos y fotos), migraciones al arrancar, endpoint de salud.
 - **Restauración**: descargar el archivo del bucket, detener la aplicación, sustituir `/data`, arrancar y verificar saldos. Se documentará paso a paso en la fase de plan.
 
@@ -859,6 +859,9 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-070 | Versiones en la constitución | Gobierno | Línea mayor; versión exacta; solo nombres | Línea mayor | La constitución fija la línea de versión obligatoria (la menor en paquetes `0.x`); las exactas, `package-lock.json` y §10.3. Cambiar de línea exige ADR y enmienda | Constitución 1.1.0, 21-10-2026 |
 | DEC-071 | Cobertura mínima de pruebas | Calidad | 80 % global + 90 % en núcleo; 80 % global; 90 % global; sin umbral | 80 % + 90 % | 80 % de líneas y ramas en `src/lib/server` y `src/lib/shared`; 90 % en `economia` y en `dominio/`. Fuente vigente: constitución, principio VIII | Constitución 1.1.0, 21-10-2026 |
 | DEC-072 | Orden de prioridad entre principios | Gobierno | Integridad > Seguridad > Accesibilidad > Rapidez > Simplicidad; rapidez antes que accesibilidad; otro | El primero | Integridad económica > seguridad y privacidad > accesibilidad > rapidez del registro > simplicidad > estética. Fuente vigente: constitución | Constitución 1.1.0, 21-10-2026 |
+| DEC-073 | Política de advertencias | Calidad | Cero advertencias; visibles no bloqueantes; solo algunas bloquean | Cero advertencias | Una advertencia de `svelte-check`, ESLint o el compilador rompe la verificación (`--fail-on-warnings`, `--max-warnings 0`). Fuente vigente: constitución, principio IX | Sesión de validación, 21-10-2026 |
+| DEC-074 | Tipo de fecha en el código | Datos | Cadenas ISO tipadas; Temporal con polyfill; date-fns | Cadenas ISO tipadas | `InstanteUtc`, `FechaMadrid` y `Mes` en `lib/shared/fechas`, con `Intl`; sin `Date` en contratos ni en `dominio/`. Fuente vigente: `ARCHITECTURE.md` §6.1 | Sesión de validación, 21-10-2026 |
+| DEC-075 | Mensajes de validación | UX | Propios + español de Zod de reserva; solo español de Zod; solo propios | Propios + reserva | Mensaje propio en ETS por campo visible; `z.config(es())` como reserva; sin el valor recibido ni detalles internos. Fuente vigente: `ARCHITECTURE.md` §6.1 | Sesión de validación, 21-10-2026 |
 
 ---
 
@@ -1051,6 +1054,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.5.0 | 21-10-2026 | CAMBIO-005: gobernanza técnica. DEC-055 a DEC-060; HALL-012 resuelto (SvelteKit 3); §10.6 traspasado a `ARCHITECTURE.md`; división en funcionalidades acordada con ajustes (§15); duda sobre tareas programadas perdidas registrada para `/speckit-clarify` | Escritura autorizada el 21-10-2026 («hazlo»); respaldo de 0.4.0 (SHA-256 7f272a93…ace383186) en `.respaldos/` |
 | 0.6.0 | 21-10-2026 | CAMBIO-006: tecnologías decididas con versiones de referencia (§10.3); DEC-061 a DEC-069; `aws4fetch` sustituye a `@aws-sdk/client-s3`; se añaden Zod 4, pino, `tar` y las herramientas de calidad; Node 24 LTS en el despliegue (§10.7) | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.5.0 (SHA-256 468706cb…898acc61) en `.respaldos/` |
 | 0.7.0 | 21-10-2026 | CAMBIO-007: `@vitest/coverage-v8` en §10.3; DEC-070 a DEC-072 (versiones por línea, cobertura mínima y orden de prioridad), cuya fuente vigente es la constitución 1.1.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.6.0 (SHA-256 9bc5c0e4…c03b27bd) en `.respaldos/` |
+| 0.8.0 | 21-10-2026 | CAMBIO-008: política de validación y entorno. DEC-073 a DEC-075 (cero advertencias, tipos de fecha, mensajes de validación); §10.7: variables declaradas en `src/env.ts`. Constitución 1.2.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.7.0 (SHA-256 834feaab…af7ed59) en `.respaldos/` |
 
 ---
 
