@@ -117,8 +117,7 @@ navegador puede perderse o leerse en un dispositivo compartido.
   la interfaz.
 - Los secretos NO DEBEN estar en el repositorio. Solo un módulo de configuración DEBE leer las
   variables de entorno.
-- Los registros de log NO DEBERÍAN contener datos personales ni secretos. Cada excepción DEBE estar
-  documentada con su requisito.
+- Los registros de log DEBEN cumplir el principio XVI.
 
 Motivo: la aplicación está expuesta a internet y el repositorio es público.
 
@@ -219,7 +218,7 @@ más que no hacerlo, los datos dejan de reflejar la realidad.
   internos al usuario.
 - El fallo de un aviso o de una notificación NO DEBE bloquear ni deshacer el registro que lo
   originó.
-- Los registros de log DEBEN ser estructurados.
+- Los registros de log DEBEN cumplir el principio XVI.
 
 ### XIV. Datos, migraciones y compatibilidad
 
@@ -237,6 +236,45 @@ Motivo: un móvil puede conservar consumos en su cola sin conexión durante un d
 - Un agente NO DEBE romper una regla de esta constitución ni de `ARCHITECTURE.md` en silencio.
   DEBE describir el conflicto y proponer un cambio de diseño o un ADR.
 - Un agente NO DEBE modificar esta constitución fuera del comando `/speckit-constitution`.
+
+### XVI. Registro técnico
+
+- El servidor DEBE registrar con `pino` a través de un único archivo (`plataforma/registro.ts`) y el
+  cliente con `loglevel` a través de un único archivo (`lib/client/registro.ts`). Ningún otro
+  código DEBE escribir en la consola ni importar esas librerías.
+- Cada registro DEBE ser un evento JSON con un código estable de un catálogo tipado, un nivel, el
+  instante en UTC y el identificador de operación. El significado de un código publicado NO DEBE
+  cambiar; un significado nuevo necesita un código nuevo.
+- Los campos de un evento DEBEN limitarse a identificadores, códigos, recuentos, duraciones y
+  tamaños. Un evento NO DEBE contener nombres, correos, importes, contraseñas, tokens, cookies,
+  enlaces de acceso, datos de suscripciones push ni el contenido de un dato recibido o guardado.
+  La configuración `redact` DEBE ocultar esas rutas como protección adicional. Única excepción:
+  el enlace de RF-139, que se escribe solo en la salida estándar.
+- Las peticiones y las ejecuciones de tareas programadas DEBEN correlacionarse con un
+  identificador de operación (ULID) generado en el servidor. NO DEBE usarse el token de sesión ni
+  un valor derivado de él.
+- Un rechazo de negocio esperado DEBE registrarse con su código del conjunto cerrado, sin traza,
+  en nivel `info` (o `warn` si es un permiso denegado o un acceso fallido). Un fallo técnico DEBE
+  registrarse en nivel `error` con el error serializado; la persona ve el identificador de
+  operación como código de incidencia.
+- Un dato que no supera su esquema al leerse DEBE generar un evento con su origen, su
+  identificador si se puede leer y la ruta del campo, sin copiar su contenido.
+- Al arrancar, la aplicación DEBE registrar su versión, el commit, la versión de Node y el nivel de
+  registro. Un entorno no válido DEBE registrarse con los nombres de las variables, sin sus
+  valores, antes de detenerse.
+- Los destinos DEBEN ser la salida estándar y un fichero diario rotado en el volumen, con la
+  retención de `historias.md` §10.7. Los logs NO DEBEN incluirse en las copias de seguridad ni
+  mostrarse en la aplicación. El nivel DEBE fijarse con `LOG_LEVEL`.
+- El cliente DEBE enviar al servidor solo eventos `warn` y `error` del catálogo, mediante un
+  endpoint autenticado y validado. NO DEBE guardar eventos ni el nivel en el navegador.
+- Las pruebas DEBEN usar un registrador falso que permite comprobar los eventos emitidos y que
+  falla si un evento contiene un campo no permitido.
+- El log técnico NO DEBE usarse como auditoría de negocio ni para reconstruir datos. La auditoría
+  está en `registro_auditoria` y los hechos económicos, en el libro de movimientos.
+
+Motivo: un agente o una persona debe poder entender un fallo desde el fichero de log sin que ese
+fichero se convierta en una copia de los datos personales; el repositorio es público y el volumen
+comparte disco con la base de datos.
 
 ## Tecnologías obligatorias
 
@@ -267,7 +305,8 @@ fija `package-lock.json`; la referencia vigente está en la sección 10.3 de `hi
 | Tareas programadas | `croner` | 10.x |
 | Cola sin conexión | Service worker de SvelteKit e IndexedDB con `idb` | 8.x |
 | Identificadores | ULID con `ulid` | 3.x |
-| Registro | `pino` | 10.x |
+| Registro en el servidor | `pino`, `pino-roll` y `pino-pretty` (solo desarrollo) | 10.x / 4.x / 13.x |
+| Registro en el cliente | `loglevel` | 1.x |
 | Pruebas unitarias y de integración | Vitest con `@vitest/coverage-v8` y `fast-check` | 5.x / 5.x / 4.x |
 | Pruebas E2E y accesibilidad | Playwright y `@axe-core/playwright` | 1.x / 4.x |
 | Calidad | ESLint, typescript-eslint, eslint-plugin-svelte, Prettier, dependency-cruiser | 10.x / 8.x / 3.x / 3.x / 18.x |
@@ -306,4 +345,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.2.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21
+**Versión**: 1.3.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21

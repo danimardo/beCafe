@@ -54,7 +54,9 @@ Si una regla de negocio no está en ninguna de estas fuentes, pregunta. No la in
 | `as Tipo`, `any`, `!`, `@ts-ignore`, `@ts-expect-error` | Estrechadores, validación con esquema, tipos derivados |
 | `// eslint-disable` o excluir un archivo de una herramienta | Corregir el código |
 | `z.string().email()`, `{ message: '…' }` (Zod 3) | `z.email()`, `{ error: '…' }` (Zod 4) |
-| Importar `pino`, `web-push`, `aws4fetch`, `sharp`, `croner` o `@node-rs/argon2` fuera de su archivo | La función de su único archivo (`ARCHITECTURE.md` §11) |
+| Importar `pino`, `pino-roll`, `pino-pretty`, `loglevel`, `web-push`, `aws4fetch`, `sharp`, `croner` o `@node-rs/argon2` fuera de su archivo | La función de su único archivo (`ARCHITECTURE.md` §11) |
+| `console.*`, o un evento con nombres, correos, importes, tokens o el valor recibido | `registrar(codigo, campos)` con un código del catálogo del módulo (`ARCHITECTURE.md` §9) |
+| `log.setLevel(nivel)` de `loglevel` (lo guarda en `localStorage`) | `log.setLevel(nivel, false)` o `setDefaultLevel` |
 | Importes con decimales (`0.35`) | Enteros en céntimos (`35`) |
 | `new Date()` o `Math.random()` dentro de `dominio/` | Reloj y azar recibidos como parámetro |
 | `await` dentro de `enTransaccion` | Hacer la E/S asíncrona fuera de la transacción |

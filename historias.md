@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.8.0 — CAMBIO-008 |
+| Versión | 0.9.0 — CAMBIO-009 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
@@ -441,7 +441,7 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RF-136 | Un administrador deberá poder reactivar a un usuario dado de baja. | PREG-036 | Confirmado | CA-136 |
 | RF-137 | Cada usuario deberá poder cerrar sesión en todos sus dispositivos y cambiar su contraseña desde su perfil. | PREG-031 | Confirmado | CA-137 |
 | RF-138 | Si una acción de administrador llega sin autenticación en los últimos 15 minutos, el sistema deberá pedir la contraseña antes de ejecutarla. | PREG-031 | Confirmado | CA-138 |
-| RF-139 | Al primer arranque, y solo si no existe ningún usuario, el sistema deberá crear el administrador indicado en la variable de entorno `ADMIN_INICIAL_EMAIL` y escribir en el log un enlace de invitación válido 24 horas. | PREG-032 | Confirmado | CA-139 |
+| RF-139 | Al primer arranque, y solo si no existe ningún usuario, el sistema deberá crear el administrador indicado en la variable de entorno `ADMIN_INICIAL_EMAIL` y escribir en la salida estándar (log de Coolify) un enlace de invitación válido 24 horas. El fichero de log guarda el evento sin el enlace (DEC-081). | PREG-032 | Confirmado | CA-139 |
 | RF-139b | Un comando ejecutable en el contenedor deberá generar un enlace de recuperación para un administrador existente o crear uno nuevo. | PREG-036 (HALL-007) | Confirmado | CA-139 |
 
 ### 7.11 Copias de seguridad
@@ -498,7 +498,7 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RNF-011 | Disponibilidad | Sin objetivo formal. Se acepta indisponibilidad durante despliegues y caídas del servidor. Los consumos se conservan en la cola local. | — | Confirmado (PREG-041) |
 | RNF-012 | Idioma | Toda la interfaz en español, con textos centralizados. | Inspección. | Confirmado |
 | RNF-013 | Navegadores | Últimas dos versiones de Safari (iOS ≥ 16.4) y Chrome (Android). | Prueba manual en ambos. | Confirmado (PREG-041) |
-| RNF-014 | Observabilidad | Logs estructurados de errores, de tareas programadas y de envíos fallidos, visibles en Coolify. Endpoint de salud para Coolify. | Inspección. | Confirmado (PREG-041) |
+| RNF-014 | Observabilidad | Logs estructurados de errores, de tareas programadas y de envíos fallidos, visibles en Coolify y guardados en ficheros diarios en el volumen durante 30 días (DEC-076, DEC-077). Los errores del móvil llegan al mismo log (DEC-079). Endpoint de salud para Coolify. | Inspección. | Confirmado (PREG-041) |
 
 ---
 
@@ -581,7 +581,7 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 - **CA-136** — Cuando un administrador reactiva a Luis, Luis vuelve activo con saldo 0 y necesita un enlace nuevo para entrar.
 - **CA-137** — Cuando Ana pulsa «Cerrar sesión en todos los dispositivos», sus otras sesiones dejan de ser válidas en la siguiente petición.
 - **CA-138** — Dado un administrador que introdujo la contraseña hace 20 minutos, cuando intenta registrar una baja, entonces la aplicación le pide la contraseña antes de continuar.
-- **CA-139** — Dada una base de datos sin usuarios y `ADMIN_INICIAL_EMAIL` definido, al arrancar se crea el administrador y el log muestra un enlace válido 24 horas. Al reiniciar con usuarios existentes, no se crea nada. El comando de recuperación genera un enlace para un administrador existente.
+- **CA-139** — Dada una base de datos sin usuarios y `ADMIN_INICIAL_EMAIL` definido, al arrancar se crea el administrador y el log de Coolify muestra un enlace válido 24 horas; el fichero de log contiene el evento, pero no el enlace. Al reiniciar con usuarios existentes, no se crea nada. El comando de recuperación genera un enlace para un administrador existente.
 
 ### Privacidad
 - **CA-160** — Dado Pedro, que entra por primera vez, cuando define su contraseña, entonces ve el texto de privacidad y no puede usar la aplicación hasta pulsar «He leído el texto». Se registran la fecha y la versión. Si se publica una versión nueva, se le vuelve a mostrar. Desde el perfil puede abrir el texto en cualquier momento.
@@ -675,7 +675,8 @@ Versiones de referencia comprobadas en npm el 21-10-2026. Las versiones exactas 
 | Planificador | `croner` dentro del proceso (aislada) | 10.0 | Tareas a hora fija con zona horaria | DEC-069 |
 | PWA | Service worker de SvelteKit + IndexedDB (`idb`, aislada) | 8.0 | RF-015 | DEC-069 |
 | Identificadores | ULID (`ulid`) para claves primarias y `clienteId` | 3.0 | Ordenables por fecha; un único formato | DEC-068 |
-| Registro | `pino` (aislada); `pino-pretty` solo en desarrollo | 10.4 / 13.2 | RNF-014 | DEC-067 |
+| Registro en el servidor | `pino` (aislada); `pino-roll` para el fichero diario; `pino-pretty` solo en desarrollo | 10.4 / 4.0 / 13.2 | RNF-014 | DEC-067, DEC-076, DEC-077 |
+| Registro en el cliente | `loglevel` (aislada), sin guardar el nivel en el navegador | 1.9 | RNF-014 | DEC-079 |
 | Pruebas | Vitest con `@vitest/coverage-v8`, `fast-check`, Playwright, `@axe-core/playwright` | 5.0 / 5.0 / 4.10 / 1.64 / 4.14 | Apartado 9; cobertura mínima de la constitución (principio VIII) | DEC-069, DEC-071 |
 | Calidad | ESLint, typescript-eslint, eslint-plugin-svelte, `@eslint-community/eslint-plugin-eslint-comments`, Prettier con prettier-plugin-svelte y prettier-plugin-tailwindcss, dependency-cruiser | 10.13 / 8.72 / 3.23 / 4.8 / 3.9 / 18.7 | `ARCHITECTURE.md` §12 | DEC-069 |
 
@@ -764,7 +765,8 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 - **Transacciones**: cada operación económica en una transacción `BEGIN IMMEDIATE` de SQLite, que serializa las escrituras y evita carreras en el coste medio y en el invariante de administradores.
 - **SQLite**: `journal_mode=WAL`, `synchronous=NORMAL` (FUENTE-04 indica que `VACUUM INTO` hace fsync del resultado con NORMAL o FULL), `foreign_keys=ON`, `busy_timeout` de 5 s.
 - **Copias**: la aplicación hace la copia completa (DT-040). Se descarta la copia de volúmenes de Coolify como mecanismo principal, porque no es coherente con escrituras en curso y no permite pasos previos (FUENTE-05).
-- **Variables de entorno**: `ADMIN_INICIAL_EMAIL`, `ORIGIN`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_REGION`, `TZ=Europe/Madrid`. Los secretos solo en Coolify. Se declaran con su esquema Zod en `src/env.ts` (`defineEnvVars` de SvelteKit 3) y se validan al arrancar; todas son privadas y dinámicas salvo `VAPID_PUBLIC_KEY`, pública y dinámica (`ARCHITECTURE.md` §8).
+- **Variables de entorno**: `ADMIN_INICIAL_EMAIL`, `ORIGIN`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_REGION`, `LOG_LEVEL` (opcional; `info` por defecto), `TZ=Europe/Madrid`. Los secretos solo en Coolify. Se declaran con su esquema Zod en `src/env.ts` (`defineEnvVars` de SvelteKit 3) y se validan al arrancar; todas son privadas y dinámicas salvo `VAPID_PUBLIC_KEY`, pública y dinámica (`ARCHITECTURE.md` §8).
+- **Registro técnico**: cada evento va a la salida estándar (Coolify) y a un fichero JSON diario en `logs/` del directorio de datos (`/data/logs` en producción), rotado con `pino-roll` y conservado **30 días**. Los logs no entran en la copia de seguridad ni se muestran en la aplicación; solo los lee quien administra Coolify. Fuente vigente de las reglas: constitución, principio XVI; diseño: `ARCHITECTURE.md` §9 y ADR-0004 (DEC-076 a DEC-082).
 - **Despliegue**: imagen Docker basada en Node 24 LTS (DEC-061), un volumen persistente `/data` (base de datos y fotos), migraciones al arrancar, endpoint de salud.
 - **Restauración**: descargar el archivo del bucket, detener la aplicación, sustituir `/data`, arrancar y verificar saldos. Se documentará paso a paso en la fase de plan.
 
@@ -862,6 +864,13 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-073 | Política de advertencias | Calidad | Cero advertencias; visibles no bloqueantes; solo algunas bloquean | Cero advertencias | Una advertencia de `svelte-check`, ESLint o el compilador rompe la verificación (`--fail-on-warnings`, `--max-warnings 0`). Fuente vigente: constitución, principio IX | Sesión de validación, 21-10-2026 |
 | DEC-074 | Tipo de fecha en el código | Datos | Cadenas ISO tipadas; Temporal con polyfill; date-fns | Cadenas ISO tipadas | `InstanteUtc`, `FechaMadrid` y `Mes` en `lib/shared/fechas`, con `Intl`; sin `Date` en contratos ni en `dominio/`. Fuente vigente: `ARCHITECTURE.md` §6.1 | Sesión de validación, 21-10-2026 |
 | DEC-075 | Mensajes de validación | UX | Propios + español de Zod de reserva; solo español de Zod; solo propios | Propios + reserva | Mensaje propio en ETS por campo visible; `z.config(es())` como reserva; sin el valor recibido ni detalles internos. Fuente vigente: `ARCHITECTURE.md` §6.1 | Sesión de validación, 21-10-2026 |
+| DEC-076 | Destino de los logs | Operación | Fichero solo en desarrollo; fichero también en producción; solo consola | Fichero solo en desarrollo | **Otra: fichero también en producción.** Salida estándar (Coolify) y fichero JSON en `logs/` del directorio de datos, en desarrollo y en producción. Consola legible con `pino-pretty` en desarrollo | Sesión de logging, 21-10-2026 |
+| DEC-077 | Rotación y retención de los ficheros | Operación | `pino-roll`; rotación propia con `croner`; sin rotar. 14, 30 o 90 días | `pino-roll`, 30 días | `pino-roll` 4.x, un fichero al día, 30 días (cubre un cierre de mes completo). ADR-0004 | Sesión de logging, 21-10-2026 |
+| DEC-078 | Logs en la copia de seguridad | Operación | No incluirlos; incluirlos | No incluirlos | La copia de RF-140 lleva solo la base de datos y las fotos | Sesión de logging, 21-10-2026 |
+| DEC-079 | Registro en el cliente | Arquitectura | `loglevel` solo en la consola; `loglevel` con envío al servidor de warn y error; enviar todos los niveles; sin librería | Envío de warn y error | `loglevel` 1.x sin guardar el nivel en el navegador; los eventos warn y error del catálogo se envían a `/api/v1/registro-cliente` (con sesión, validado con Zod, con límites de tamaño y frecuencia: PEND-034) | Sesión de logging, 21-10-2026 |
+| DEC-080 | Nivel de registro | Operación | info/debug/silent; warn en producción; debug en producción | info/debug/silent | `LOG_LEVEL` opcional (niveles de pino), `info` por defecto; `debug` en `.env.example` para desarrollo; `silent` y registrador falso en las pruebas | Sesión de logging, 21-10-2026 |
+| DEC-081 | Enlace del primer administrador (RF-139) | Seguridad | Solo en la salida estándar; también en el fichero | Solo en la salida estándar | El enlace va solo a la salida estándar; el fichero guarda el evento sin el enlace | Sesión de logging, 21-10-2026 |
+| DEC-082 | Acceso a los logs | Seguridad | Solo quien administra Coolify; también desde la aplicación | Solo Coolify | Vista de logs de Coolify o `/data/logs` desde la terminal del contenedor; sin pantalla en la aplicación | Sesión de logging, 21-10-2026 |
 
 ---
 
@@ -933,6 +942,9 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | --- | --- | --- | --- |
 | PEND-014 | Validar el texto informativo de privacidad propuesto en el anexo A y completar sus datos entre corchetes | **Menor aplazado** (ver ficha) | Texto redactado en el anexo A |
 | PEND-033 | Si un administrador anula, después del día 1, un relleno del mes anterior y eso cambia el ganador, ¿se recalcula el aguador del mes? | Menor, no bloqueante; resolver en la fase de plan de F8 | No recalcular: el título queda fijado al determinarlo (tabla `aguador_mes`) |
+| PEND-034 | Límites de tamaño y de frecuencia de `/api/v1/registro-cliente` (DEC-079) | Menor; resolver en el plan de F1 | — |
+| PEND-035 | Cómo llegan la versión y el commit a la aplicación para el evento de arranque | Menor; resolver en el plan de F1 (desarrollo) y de F7 (imagen) | — |
+| PEND-036 | Ruta del directorio de datos en desarrollo (y, con ella, la de `logs/`) | Menor; resolver en el plan de F1 | — |
 
 **Ficha de aplazamiento de PEND-014**
 
@@ -1055,6 +1067,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.6.0 | 21-10-2026 | CAMBIO-006: tecnologías decididas con versiones de referencia (§10.3); DEC-061 a DEC-069; `aws4fetch` sustituye a `@aws-sdk/client-s3`; se añaden Zod 4, pino, `tar` y las herramientas de calidad; Node 24 LTS en el despliegue (§10.7) | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.5.0 (SHA-256 468706cb…898acc61) en `.respaldos/` |
 | 0.7.0 | 21-10-2026 | CAMBIO-007: `@vitest/coverage-v8` en §10.3; DEC-070 a DEC-072 (versiones por línea, cobertura mínima y orden de prioridad), cuya fuente vigente es la constitución 1.1.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.6.0 (SHA-256 9bc5c0e4…c03b27bd) en `.respaldos/` |
 | 0.8.0 | 21-10-2026 | CAMBIO-008: política de validación y entorno. DEC-073 a DEC-075 (cero advertencias, tipos de fecha, mensajes de validación); §10.7: variables declaradas en `src/env.ts`. Constitución 1.2.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.7.0 (SHA-256 834feaab…af7ed59) en `.respaldos/` |
+| 0.9.0 | 21-10-2026 | CAMBIO-009: registro técnico. DEC-076 a DEC-082 (ficheros diarios con `pino-roll` y 30 días, fuera de la copia; `loglevel` en el cliente con envío de warn y error; `LOG_LEVEL`; enlace de RF-139 solo en la salida estándar; acceso solo desde Coolify); §10.3, §10.7, RF-139, CA-139 y RNF-014; PEND-034 a PEND-036. Constitución 1.3.0 (principio XVI), ADR-0004 | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.8.0 (SHA-256 81848bb5…1b23e7920) en `.respaldos/` |
 
 ---
 

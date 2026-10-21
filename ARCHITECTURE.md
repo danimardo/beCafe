@@ -257,7 +257,7 @@ sequenceDiagram
 
 | Tipo | Fuente | Lectura |
 | --- | --- | --- |
-| Entorno y secretos (`ORIGIN`, VAPID, S3, `ADMIN_INICIAL_EMAIL`, `TZ`, ruta de datos) | Variables de entorno de Coolify | Ver abajo |
+| Entorno y secretos (`ORIGIN`, VAPID, S3, `ADMIN_INICIAL_EMAIL`, `LOG_LEVEL`, `TZ`, ruta de datos) | Variables de entorno de Coolify | Ver abajo |
 | Parámetros de negocio (plazo de autoanulación, límite de deuda, intervalo de rellenos) | Tabla `configuracion` | API de `configuracion`, con valores por defecto si no hay fila. |
 
 **Variables de entorno (SvelteKit 3)**
@@ -272,11 +272,56 @@ sequenceDiagram
 
 ## 9. Registro y observabilidad
 
-- `plataforma/registro` escribe JSON estructurado con pino en la salida estándar (Coolify lo muestra; RNF-014). Es el único archivo que importa `pino`.
-- Se registran errores, ejecuciones de tareas programadas y entregas push fallidas.
-- Los registros contienen identificadores, no datos personales ni secretos. **Excepción documentada:** RF-139 escribe en el log un enlace de invitación del primer administrador.
-- `/api/salud` responde sin datos sensibles.
-- Los niveles, los eventos y los destinos los fija el prompt de logging.
+Las reglas están en el principio XVI de la constitución. Las decisiones son DEC-076 a DEC-082 de `historias.md` y el ADR-0004.
+
+**Destinos y niveles**
+
+| Elemento | Servidor | Cliente (navegador y service worker) |
+| --- | --- | --- |
+| Archivo único | `plataforma/registro.ts` (`pino`, `pino-roll`, `pino-pretty`) | `lib/client/registro.ts` (`loglevel`) |
+| Destino | Salida estándar (Coolify, RNF-014) + fichero JSON diario en `<directorio de datos>/logs/` (`/data/logs` en producción), rotado con `pino-roll`, 30 días | Consola del navegador. Los eventos `warn` y `error` se envían a `/api/v1/registro-cliente` |
+| Formato | JSON en el fichero y en la salida estándar de producción; `pino-pretty` en la consola de desarrollo | — |
+| Nivel | `LOG_LEVEL` (§8): `info` por defecto, `debug` en `.env.example`, `silent` en las pruebas | `warn` en producción, `debug` en desarrollo; siempre `setLevel(nivel, false)` o `setDefaultLevel` para no guardar nada en el navegador |
+
+- Los ficheros de log no entran en la copia (RF-140) y la aplicación no los muestra. Solo los lee quien administra Coolify.
+- `pino.transport` carga `pino-roll` y `pino-pretty` en tiempo de ejecución, en un hilo aparte: deben estar en `dependencies` y en `node_modules` de la imagen.
+- `/api/salud` responde sin datos sensibles y registra en nivel `debug`.
+
+**Evento.** Cada evento lleva `codigo`, `nivel`, `instante` (UTC), `operacionId`, `origen` (`servidor` | `cliente`) y `version`. Cada módulo declara sus códigos y sus campos en `<modulo>/eventos.ts`. `registrar(codigo, campos)` solo acepta los campos declarados para ese código. Los campos son identificadores, códigos, recuentos, duraciones y tamaños. Un código publicado no cambia de significado.
+
+**Protección.** `redact` oculta con `[REDACTADO]` las rutas `*.contrasena`, `*.token`, `*.cookie`, `*.email`, `*.nombre`, `*.enlace`, `*.secreto`, `*.endpoint`, `*.keys`, `req.headers.cookie`, `req.headers.authorization`, `err.endpoint`, `err.body` y `err.headers`. `WebPushError` lleva el endpoint de la suscripción y su cuerpo. `redact` es una protección adicional: la regla principal es el catálogo tipado.
+
+**Excepción de RF-139.** Una segunda instancia de pino, que solo escribe en la salida estándar, registra el enlace del primer administrador. El fichero recibe `auth.admin_inicial_creado` sin el enlace (DEC-081).
+
+**Correlación.** `hooks.server.ts` y `plataforma/planificador.ts` abren un contexto con `AsyncLocalStorage` (nativo de Node) y un ULID por petición o por ejecución de tarea. `registro.ts` añade ese `operacionId` a cada evento. `handleError` devuelve el `operacionId` como código de incidencia. Ningún evento contiene la cookie ni el token de sesión.
+
+**Rechazo frente a fallo.**
+- Un `ErrorDeNegocio` (§6) se registra como `operacion.rechazada` con su `codigo`, en nivel `info` y sin traza.
+- `SIN_PERMISO` y los accesos fallidos van en nivel `warn`.
+- Un error no previsto se registra como `app.error_no_previsto` en nivel `error`, con el error serializado.
+
+**Dato inválido.** La función común que lee y valida JSON guardado, IndexedDB o archivos registra `dato.invalido` con `origen`, `id` (si se puede leer), `campo` e `incidencia` (código de Zod), sin el valor.
+
+**Registro del cliente.** `/api/v1/registro-cliente` exige sesión y valida el cuerpo con `z.strictObject` y una unión discriminada por `codigo`. Limita el tamaño y la frecuencia (PEND-034, plan de F1). Escribe el evento con `origen: 'cliente'`. Los eventos sin enviar se guardan en memoria y se pierden al cerrar la pestaña. Antes de iniciar sesión, solo se escriben en la consola. Un cuerpo rechazado genera `cliente.registro_rechazado`.
+
+**Catálogo inicial.** Cada `plan.md` añade los eventos de su funcionalidad.
+
+| Área | Códigos (nivel) |
+| --- | --- |
+| Plataforma | `app.arranque` (info: version, commit, node, nivel), `app.entorno_invalido` (fatal: nombres de variables), `app.migraciones_aplicadas` (info), `app.parada` (info), `app.error_no_previsto` (error), `peticion.completada` (info: metodo, rutaId, estado, duracionMs), `dato.invalido` (error) |
+| Auth | `auth.sesion_iniciada`, `auth.sesion_cerrada`, `auth.enlace_generado`, `auth.admin_inicial_creado` (info); `auth.acceso_fallido`, `auth.permiso_denegado` (warn) |
+| Usuarios, catálogo, configuración | `usuario.alta`, `usuario.rol_cambiado`, `usuario.baja`, `capsula.alta`, `capsula.modificada`, `capsula.desactivada`, `foto.procesada`, `configuracion.cambiada` (info); `foto.rechazada` (warn) |
+| Economía | `consumo.registrado` (via `directo` \| `cola`), `consumo.duplicado`, `compra.registrada`, `aportacion.registrada`, `anulacion.registrada`, `arqueo.registrado`, `recuento.registrado`, `reparto.aplicado`, `liquidacion.aplicada`, `operacion.rechazada` (info); `invariante.violada` (error) |
+| Notificaciones | `aviso.registrado`, `push.enviado` (debug); `push.fallido` (warn); `push.suscripcion_caducada` (info); `push.reintentos_agotados` (error) |
+| Tareas y copias | `tarea.iniciada`, `tarea.completada`, `copia.completada` (info); `tarea.fallida`, `copia.fallida` (error) |
+| Rellenos | `relleno.registrado`, `aguador.determinado` (info) |
+| Cliente | `cliente.cola_idb_error`, `cliente.cola_elemento_invalido`, `cliente.cola_sincronizacion_fallida`, `cliente.sw_instalacion_fallida`, `cliente.push_suscripcion_fallida`, `cliente.error_no_previsto` (warn o error); `cliente.registro_rechazado` (warn) |
+
+**Log técnico frente a auditoría.**
+- `registro_auditoria` y el libro de movimientos están en la base de datos. No caducan, entran en la copia y responden a «quién hizo qué».
+- El log técnico dura 30 días y solo sirve para diagnosticar. No permite reconstruir datos.
+
+**Pruebas.** `registro.ts` exporta `crearRegistroFalso()`. Este registrador guarda los eventos en memoria y falla si un evento contiene una clave prohibida o un valor con forma de correo. Las pruebas comprueban el código y los campos de los eventos esperados.
 
 ## 10. Pruebas por capa
 
@@ -297,7 +342,8 @@ Las tecnologías y sus versiones de referencia están en la sección 10.3 de `hi
 
 | Librería | Único archivo que la importa |
 | --- | --- |
-| `pino` | `plataforma/registro.ts` |
+| `pino`, `pino-roll`, `pino-pretty` | `plataforma/registro.ts` |
+| `loglevel` | `lib/client/registro.ts` |
 | `web-push` | `notificaciones/entrega-push.ts` |
 | `aws4fetch` | `copias/subida-s3.ts` |
 | `@node-rs/argon2` | `auth/contrasenas.ts` |
@@ -344,6 +390,11 @@ Las tecnologías y sus versiones de referencia están en la sección 10.3 de `hi
 | Dinero en enteros | §11 | Parcial | Columnas `INTEGER` + tipos + pruebas |
 | Autorización en el servidor | §6 | Parcial | Prueba EV-050 sobre todas las rutas |
 | Estado de módulo solo en el navegador | §7 | No | Revisión del plan y del código |
+| Nadie fuera de los archivos de registro escribe en la consola | Constitución XVI | Sí | ESLint `no-console: error`, salvo en `plataforma/registro.ts` y `lib/client/registro.ts` |
+| Eventos con campos permitidos y sin datos personales | §9 | Sí | Catálogo tipado (`svelte-check`) + registrador falso en las pruebas + prueba de `redact` |
+| Enlace de RF-139 fuera del fichero | §9 | Sí | Prueba de integración de CA-139 sobre la salida estándar y el fichero |
+| Logs fuera de la copia | §9 | Sí | Prueba de RF-140: el archivo `tar` no contiene `logs/` |
+| El cliente no guarda el nivel de registro | §9 | Sí | E2E: tras cargar, ni `localStorage` ni las cookies tienen la clave `loglevel` |
 | Formato | — | Sí | Prettier + prettier-plugin-svelte |
 | Tipos | — | Sí | `svelte-check` |
 | Accesibilidad | RNF-001 | Parcial | axe en E2E + revisión manual |
@@ -363,7 +414,7 @@ Una dependencia de ejecución nueva o una herramienta de desarrollo transversal 
 
 | Ahora | Se puede posponer | Señal para cambiar la arquitectura |
 | --- | --- | --- |
-| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); niveles y eventos de registro (prompt de logging); detalle de la estrategia de pruebas (prompt de pruebas); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
+| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); límites del registro del cliente (PEND-034, plan F1); detalle de la estrategia de pruebas (prompt de pruebas); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
 
 ## 15. Revisión de planes (Architecture Check)
 
