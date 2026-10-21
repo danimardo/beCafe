@@ -6,12 +6,13 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.4.0 — CAMBIO-004 |
+| Versión | 0.5.0 — CAMBIO-005 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
 | Estado del refinamiento | **Cerrado y aprobado sobre v0.4.0 (21-10-2026).** Sin bloqueantes. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales) y PEND-033 (menor, plan de F8). |
-| Estado de traspaso a Spec Kit | Pendiente de traspaso en todas las secciones. |
+| Estado de traspaso a Spec Kit | Pendiente de traspaso de requisitos y diseño de funcionalidades. Módulos (§10.6) traspasados a `ARCHITECTURE.md` §3 (CAMBIO-005). División en funcionalidades acordada (§15, DEC-058). |
+| Gobernanza técnica | Constitución (`.specify/memory/constitution.md`), `ARCHITECTURE.md`, `CLAUDE.md` y `docs/adr/` (CAMBIO-005, 21-10-2026). |
 
 **Convenciones de estado.** Cada elemento indica su estado de validación:
 
@@ -658,7 +659,7 @@ Todo el apartado está **aceptado como base del plan** (DEC-041). Donde dice «p
 
 | Componente | Propuesta | Motivo |
 | --- | --- | --- |
-| Framework | SvelteKit 2 con Svelte 5, adaptador Node | RT-002 |
+| Framework | SvelteKit 3 con Svelte 5 en modo runes, adaptador Node (DEC-057, [ADR-0001](docs/adr/0001-sveltekit-3.md)) | RT-002, FUENTE-09 |
 | Estilos | Tailwind CSS 4 | RT-002 |
 | Acceso a datos | Drizzle ORM + `better-sqlite3` | Tipado, migraciones, SQLite síncrono y rápido |
 | Contraseñas | Argon2id (`@node-rs/argon2`) | RNF-004, FUENTE-03 |
@@ -730,7 +731,9 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 
 **Errores**: respuestas JSON `{codigo, mensaje}` en español. Códigos propuestos: `SIN_SESION`, `SIN_PERMISO`, `FUERA_DE_PLAZO`, `YA_ANULADO`, `VALIDACION`, `REAUTENTICACION_REQUERIDA`, `ULTIMO_ADMIN`, `RELLENO_RECIENTE`.
 
-### 10.6 Módulos (propuestos)
+### 10.6 Módulos (traspasado)
+
+**Traspasado a [`ARCHITECTURE.md`](ARCHITECTURE.md) §3 y §4 en CAMBIO-005 (DEC-055).** La fuente vigente de módulos, responsabilidades y dependencias es `ARCHITECTURE.md`. Esta tabla se conserva como histórico y no se actualiza.
 
 | Módulo | Responsabilidad | Requisitos |
 | --- | --- | --- |
@@ -829,6 +832,12 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-052 | Ayuda para saber cuándo rellenar | UX | Solo «último relleno»; estimación por cafés; estimación + push | Solo «último relleno» | Solo «último relleno» | PREG-046 |
 | DEC-053 | Aguador del mes | Negocio | Mes natural con empate compartido; desempate por orden; solo ranking | Empate compartido | Empate compartido | PREG-046 |
 | DEC-054 | Interpretación del CAMBIO-004 y sus supuestos: nombre solo de la aplicación; anulación como los consumos; registro no económico; rellenos propios en las estadísticas personales; sin título si no hay rellenos; tratamiento de las bajas | Varios | — | — | Aceptada («si») | PREG-047 |
+| DEC-055 | Ubicación de la aplicación | Arquitectura | En la raíz; dentro de `design-system/`; monorepo con workspaces | En la raíz | En la raíz: la plantilla se mueve con `git mv` en la preparación de F1. Módulos y dependencias en `ARCHITECTURE.md` ([ADR-0002](docs/adr/0002-aplicacion-unica-modulos.md)) | Sesión de gobernanza, 21-10-2026 |
+| DEC-056 | Sistema operativo de desarrollo | Operación | Windows y Linux; solo Linux; solo Windows | Ambos | Windows y Linux: scripts npm portables escritos en Node | Sesión de gobernanza, 21-10-2026 |
+| DEC-057 | Versión del framework (HALL-012) | Arquitectura | SvelteKit 3; SvelteKit 2; decidir en el plan de F1 | SvelteKit 3 | SvelteKit 3 ([ADR-0001](docs/adr/0001-sveltekit-3.md)) | Sesión de gobernanza, 21-10-2026 |
+| DEC-058 | División en funcionalidades | Planificación | Aprobar con ajustes; aprobar tal cual; otra división | Con ajustes | Con ajustes: recuentos y baja con liquidación pasan a F4; F1 crea el almacén de configuración e incluye la preparación (scaffold); orden F1 → F2 → F4 → F3 → F6 → F5 → F8, F7 antes de producción (§15) | Sesión de gobernanza, 21-10-2026 |
+| DEC-059 | Trabajo en paralelo | Organización | Una persona con agentes en serie; agentes en paralelo; varias personas | En serie | Una persona con agentes en serie; sin reglas de coordinación de trabajo paralelo | Sesión de gobernanza, 21-10-2026 |
+| DEC-060 | Integración continua | Calidad | GitHub Actions en PR y `main`; solo local; más adelante | GitHub Actions | GitHub Actions en cada PR y en cada push a `main` con `npm run verify`; se crea en la preparación de F1 | Sesión de gobernanza, 21-10-2026 |
 
 ---
 
@@ -891,7 +900,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | HALL-009 | Una compra puede incluir varios tipos de cápsula con precios distintos | Conductual | Resuelto (DEC-038) |
 | HALL-010 | No se ha decidido cómo corregir un arqueo o recuento erróneo | Conductual | Resuelto (DEC-039) |
 | HALL-011 | Un usuario dado de baja puede tener consumos en la cola local de su móvil | Conductual, menor | Resuelto (RN-054) |
-| HALL-012 | El paquete de diseño (FUENTE-09) usa SvelteKit 3; el apartado 10.3 propone SvelteKit 2 | Técnico, menor | Abierto: se decide en la fase de plan, donde 10.3 ya prevé verificar versiones |
+| HALL-012 | El paquete de diseño (FUENTE-09) usa SvelteKit 3; el apartado 10.3 propone SvelteKit 2 | Técnico, menor | Resuelto (DEC-057, ADR-0001): SvelteKit 3 |
 | HALL-013 | Un relleno de agua se puede declarar sin haberlo hecho para subir en el ranking | Conductual | Mitigado (RN-082, RN-063, RN-083) |
 
 ### 13.2 Pendientes
@@ -983,20 +992,22 @@ No se declara cumplimiento formal del RGPD, de WCAG ni de ninguna norma. Las ref
 
 **Estado: Cerrado y aprobado sobre v0.4.0.** Sin bloqueantes. PEND-014 está aplazado y debe figurar en la especificación de F1 como dependencia previa a producción. PEND-033 se resuelve en el plan de F8.
 
-### División propuesta en funcionalidades (pendiente de acordar)
+### División en funcionalidades (acordada, DEC-058)
 
 | Funcionalidad | Contenido | Depende de |
 | --- | --- | --- |
-| F1 — Acceso, usuarios y privacidad | RF-130 a RF-139b, RF-160, RF-161, RN-040 a RN-054 | — |
-| F2 — Catálogo y stock | RF-001 a RF-005, RF-020 a RF-023, RF-090 a RF-093 | F1 |
+| F1 — Acceso, usuarios y privacidad | Preparación del proyecto (scaffold: DEC-055, DEC-056, DEC-060). RF-130 a RF-134, RF-136 a RF-139b, RF-160, RF-161, RN-040 a RN-054. Almacén de configuración con los parámetros de RF-150 y sus valores por defecto (sin pantalla) | — |
+| F2 — Catálogo y stock | RF-001 a RF-006, RF-020 a RF-023 | F1 |
+| F4 — Economía: aportaciones, compras, coste medio, regularización, arqueos, recuentos, repartos, bajas | RF-030 a RF-046, RF-064, RF-080 a RF-082, RF-090 a RF-093, RF-135, RN-001 a RN-021, RN-036, RN-037 | F1, F2 |
 | F3 — Registro de consumos (incluido sin conexión) | RF-010 a RF-019, RF-060 a RF-063 | F1, F2, F4 (cargo) |
-| F4 — Economía: aportaciones, compras, coste medio, regularización, arqueos, repartos, bajas | RF-030 a RF-046, RF-064, RF-080 a RF-082, RN-001 a RN-021, RN-036, RN-037 | F1, F2 |
-| F5 — Notificaciones | RF-100 a RF-107 | F1 a F4 |
 | F6 — Saldos y estadísticas | RF-110 a RF-123 | F3, F4 |
-| F7 — Operación: copias, configuración, despliegue | RF-140 a RF-150 | F1 |
+| F5 — Notificaciones | RF-100 a RF-107 | F1 a F4 |
 | F8 — Relleno de agua y aguador del mes | RF-170 a RF-176, RN-063, RN-080 a RN-085 | F1, F5 (resumen mensual), F6 (estadísticas) |
+| F7 — Operación: copias, pantalla de configuración, despliegue | RF-140 a RF-144, pantalla de RF-150 | F1. Se puede hacer en cualquier punto; obligatoria antes de producción |
 
-Las reglas económicas (RN-001 a RN-021) son transversales a F3 y F4. Su dueño documental propuesto es F4; F3 las referencia.
+La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-001 a RN-021) son transversales a F3 y F4. Su dueño documental es F4; F3 las referencia. Las funcionalidades no coinciden con los módulos de código: una funcionalidad puede tocar varios módulos (`ARCHITECTURE.md` §3).
+
+**Duda de comportamiento pendiente** (se resuelve con `/speckit-clarify` en F5, F7 y F8): si el servidor está detenido a la hora de una tarea programada (resumen mensual, aguador del mes, copia de las 03:00), ¿la tarea se ejecuta al arrancar?
 
 | Contenido | Destino previsto | Estado |
 | --- | --- | --- |
@@ -1016,6 +1027,7 @@ Las reglas económicas (RN-001 a RN-021) son transversales a F3 y F4. Su dueño 
 | Cierre | 20-10-2026 | Refinamiento cerrado y aprobado sobre v0.3.0 (SHA-256 0849f5b2…e55d602d). Aplazado: PEND-014. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento |
 | 0.4.0 | 21-10-2026 | CAMBIO-004: nombre «beCafé» (ORIG-003, RT-011); relleno de agua con ranking y aguador del mes (HU-17, RN-063, RN-080 a RN-085, RF-170 a RF-176, F8); recordatorio de deuda progresivo (RN-074, RF-150); `/historial` como página propia y supresión de `/aportaciones`; pantallas de administración del paquete de diseño aceptadas como base; anexo A actualizado | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.3.0 (SHA-256 7e7769fb…7a59005) en `.respaldos/` |
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.4.0 (SHA-256 9cfc0165…c1cd13b4). Aplazados: PEND-014 y PEND-033. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («si») |
+| 0.5.0 | 21-10-2026 | CAMBIO-005: gobernanza técnica. DEC-055 a DEC-060; HALL-012 resuelto (SvelteKit 3); §10.6 traspasado a `ARCHITECTURE.md`; división en funcionalidades acordada con ajustes (§15); duda sobre tareas programadas perdidas registrada para `/speckit-clarify` | Escritura autorizada el 21-10-2026 («hazlo»); respaldo de 0.4.0 (SHA-256 7f272a93…ace383186) en `.respaldos/` |
 
 ---
 
