@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.10.0 — CAMBIO-010 |
+| Versión | 0.11.0 — CAMBIO-011 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
@@ -504,7 +504,7 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 
 ## 9. Criterios de aceptación y escenarios futuros de verificación
 
-Formato Given/When/Then. Los escenarios EV están **pendientes de creación en fase posterior**.
+Formato Given/When/Then. Los escenarios EV están **pendientes de creación en fase posterior**. El nivel de prueba previsto para cada grupo de CA y EV está en `docs/pruebas.md` §14; al traspasar, cada `spec.md` lo concreta en su matriz de trazabilidad.
 
 ### Catálogo
 - **CA-001** — Dado un administrador autenticado, cuando da de alta «Ristretto» con todos los datos y una foto JPEG de 2 MB, entonces el tipo aparece en el catálogo como activo, sin coste medio y no visible en la pantalla principal (RN-006).
@@ -677,7 +677,9 @@ Versiones de referencia comprobadas en npm el 21-10-2026. Las versiones exactas 
 | Identificadores | ULID (`ulid`) para claves primarias y `clienteId` | 3.0 | Ordenables por fecha; un único formato | DEC-068 |
 | Registro en el servidor | `pino` (aislada); `pino-roll` para el fichero diario; `pino-pretty` solo en desarrollo | 10.4 / 4.0 / 13.2 | RNF-014 | DEC-067, DEC-076, DEC-077 |
 | Registro en el cliente | `loglevel` (aislada), sin guardar el nivel en el navegador | 1.9 | RNF-014 | DEC-079 |
-| Pruebas | Vitest con `@vitest/coverage-v8`, `fast-check`, Playwright, `@axe-core/playwright` | 5.0 / 5.0 / 4.10 / 1.64 / 4.14 | Apartado 9; cobertura mínima de la constitución (principio VIII) | DEC-069, DEC-071 |
+| Pruebas | Vitest con `@vitest/coverage-v8`, `fast-check`, Playwright, `@axe-core/playwright` | 5.0 / 5.0 / 4.10 / 1.64 / 4.14 | Apartado 9; cobertura mínima de la constitución (principio VIII); estrategia en `docs/pruebas.md` | DEC-069, DEC-071, DEC-094 |
+| Pruebas de componentes | Vitest Browser Mode con `@vitest/browser-playwright` y `vitest-browser-svelte` | 5.0 / 3.1 | Componentes con estado propio | DEC-089 |
+| Pruebas de mutación | StrykerJS (`@stryker-mutator/core`, `@stryker-mutator/vitest-runner`) | 10.0 | Solo `dominio/`; piloto en F4 | DEC-092 |
 | Calidad | ESLint, typescript-eslint, eslint-plugin-svelte, `@eslint-community/eslint-plugin-eslint-comments`, Prettier con prettier-plugin-svelte y prettier-plugin-tailwindcss, dependency-cruiser | 10.13 / 8.72 / 3.23 / 4.8 / 3.9 / 18.7 | `ARCHITECTURE.md` §12 | DEC-069 |
 
 ### 10.4 Modelo de datos (SQLite, propuesto)
@@ -876,6 +878,13 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-085 | Respuesta de `fail()` | UX | Errores y valores sin secretos; solo errores | Errores y valores | `fail(estado, { errores, valores })`, sin contraseñas, tokens ni archivos en `valores` (WCAG 3.3.7). `error()` para 403 y 404; `redirect()` tras un éxito que cambia de pantalla | Sesión de SvelteKit, 21-10-2026 |
 | DEC-086 | Reglas idiomáticas con rango constitucional | Arquitectura | Autorización en cada punto; sin estado compartido entre peticiones; runes y tipos generados; SSR por defecto y recarga con `load` | Las cuatro | Las cuatro pasan al principio XVII; el detalle está en `ARCHITECTURE.md` §7 | Sesión de SvelteKit, 21-10-2026 |
 | DEC-087 | Aplicación de las enmiendas | Gobierno | Una sola (1.3.0); dos seguidas (1.3.0 y 1.4.0) | Una sola | **Otra: dos seguidas.** Registro técnico en 1.3.0 (CAMBIO-009) y SvelteKit en 1.4.0 (CAMBIO-010) | Sesión de SvelteKit, 21-10-2026 |
+| DEC-088 | Cuándo se ejecuta la verificación completa | Calidad | Por impacto + puertas; `verify` completo por tarea; `verify` por lote y E2E en puertas | Por impacto + puertas | Tarea o lote: solo lo afectado (`docs/pruebas.md` §17). Puerta de funcionalidad: verificación completa en serie con `scripts/benchmark.*`. CI: completa en cada push y PR. Constitución 1.5.0 (IX), ADR-0005 | Sesión de pruebas, 21-10-2026 |
+| DEC-089 | Pruebas de componentes | Calidad | Browser Mode condicional; solo E2E; jsdom + Testing Library | Browser Mode condicional | Vitest Browser Mode con `@vitest/browser-playwright` y `vitest-browser-svelte`, solo para componentes reutilizables con estado o interacción propia | Sesión de pruebas, 21-10-2026 |
+| DEC-090 | Navegadores y viewports | Calidad | 2 móviles + 1 escritorio; solo 2 móviles; añadir Firefox | 2 móviles + 1 escritorio | Proyectos `chromium-movil` (diario), `webkit-movil`, `chromium-escritorio`, además de `sin-js` y `api` | Sesión de pruebas, 21-10-2026 |
+| DEC-091 | Regresión visual | Calidad | Pocas capturas en puertas; sin regresión visual; capturas amplias | Pocas capturas | `toHaveScreenshot` en `chromium-movil`: pantalla principal (claro y oscuro), aviso con «Deshacer», compra con error y panel de avisos; referencias generadas en Linux | Sesión de pruebas, 21-10-2026 |
+| DEC-092 | Pruebas de mutación | Calidad | Piloto en `dominio/` sin umbral; aplazar; obligatorio con umbral | Piloto sin umbral | StrykerJS sobre `dominio/` y los tramos de RN-074; línea base al cerrar F4; sin umbral hasta tenerla | Sesión de pruebas, 21-10-2026 |
+| DEC-093 | Integración continua | Calidad | `verify` + matriz E2E en cada push; `verify` en push y E2E programado; todo en cada push | `verify` + matriz E2E | Cada push a `main` y PR: `verify` y E2E de los cinco proyectos con visual. Semanal: mutación y `npm audit` | Sesión de pruebas, 21-10-2026 |
+| DEC-094 | Destino de la estrategia de pruebas | Gobierno | `docs/pruebas.md`; `ARCHITECTURE.md` §10; `historias.md` | `docs/pruebas.md` | `docs/pruebas.md`, enlazado desde `ARCHITECTURE.md` §10 y `CLAUDE.md` §5 a §7 | Sesión de pruebas, 21-10-2026 |
 
 ---
 
@@ -1074,6 +1083,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.8.0 | 21-10-2026 | CAMBIO-008: política de validación y entorno. DEC-073 a DEC-075 (cero advertencias, tipos de fecha, mensajes de validación); §10.7: variables declaradas en `src/env.ts`. Constitución 1.2.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.7.0 (SHA-256 834feaab…af7ed59) en `.respaldos/` |
 | 0.9.0 | 21-10-2026 | CAMBIO-009: registro técnico. DEC-076 a DEC-082 (ficheros diarios con `pino-roll` y 30 días, fuera de la copia; `loglevel` en el cliente con envío de warn y error; `LOG_LEVEL`; enlace de RF-139 solo en la salida estándar; acceso solo desde Coolify); §10.3, §10.7, RF-139, CA-139 y RNF-014; PEND-034 a PEND-036. Constitución 1.3.0 (principio XVI), ADR-0004 | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.8.0 (SHA-256 81848bb5…1b23e7920) en `.respaldos/` |
 | 0.10.0 | 21-10-2026 | CAMBIO-010: arquitectura idiomática de SvelteKit. DEC-083 a DEC-087 (controladores finos sobre `lib/server/<modulo>`, mejora progresiva con excepciones cerradas, respuesta de `fail()`, reglas idiomáticas, dos enmiendas). Constitución 1.4.0 (principio XVII) | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.9.0 (SHA-256 2294c5a8…515a7e594) en `.respaldos/` |
+| 0.11.0 | 21-10-2026 | CAMBIO-011: estrategia de pruebas. DEC-088 a DEC-094 (verificación por impacto con puertas, componentes en navegador real, matriz de Playwright, regresión visual, mutación en `dominio/`, CI, `docs/pruebas.md`); §9 y §10.3. Constitución 1.5.0 (VIII, IX y tecnologías), ADR-0005 | Escritura autorizada el 21-10-2026 («sí a todo»); respaldo de 0.10.0 (SHA-256 d470857a…9e11f21b9) en `.respaldos/` |
 
 ---
 

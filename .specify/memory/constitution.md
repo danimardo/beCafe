@@ -148,18 +148,23 @@ pruebas.
   excluirse archivos para alcanzarlos sin una enmienda de esta constitución.
 - Una prueba DEBE comprobar un resultado observable; una prueba que solo ejecuta código sin
   aserciones sobre el resultado NO cuenta como cumplimiento.
-- Los componentes de `src/lib/ui` y las rutas se verifican con pruebas E2E y de accesibilidad, que
-  no cuentan para los umbrales.
+- Los componentes de `src/lib/ui` y las rutas se verifican con pruebas E2E y de accesibilidad. Los
+  componentes con estado o interacción propia se verifican además con pruebas de componente en un
+  navegador real. Ninguna de estas pruebas cuenta para los umbrales.
 
 Motivo: la cobertura es exigente donde un fallo cuesta dinero, sin obligar a escribir pruebas de
 poco valor en código de apoyo.
 
 ### IX. Verificación como condición de terminado
 
-- Una tarea NO DEBE declararse terminada sin que la verificación agregada del proyecto termine sin
-  errores.
-- La integración continua DEBE ejecutar la misma verificación en cada pull request y en cada cambio
-  de la rama principal.
+- Una tarea o un lote NO DEBE cerrarse sin que pasen las comprobaciones afectadas por el cambio,
+  seleccionadas según `docs/pruebas.md`.
+- Una funcionalidad NO DEBE cerrarse sin que la verificación completa (estática, pruebas con
+  cobertura, build y E2E de todos los proyectos) pase en serie.
+- Una comprobación fallida, interrumpida o sin pruebas seleccionadas NO DEBE presentarse como
+  superada.
+- La integración continua DEBE ejecutar la verificación completa y las pruebas E2E en cada pull
+  request y en cada cambio de la rama principal.
 - Las advertencias del compilador, del comprobador de tipos y del linter DEBEN tratarse como
   errores.
 - La verificación completa DEBERÍA ejecutarse en minutos. Cuando se vuelva lenta, se DEBE medir
@@ -350,6 +355,8 @@ fija `package-lock.json`; la referencia vigente está en la sección 10.3 de `hi
 | Registro en el servidor | `pino`, `pino-roll` y `pino-pretty` (solo desarrollo) | 10.x / 4.x / 13.x |
 | Registro en el cliente | `loglevel` | 1.x |
 | Pruebas unitarias y de integración | Vitest con `@vitest/coverage-v8` y `fast-check` | 5.x / 5.x / 4.x |
+| Pruebas de componentes | `@vitest/browser-playwright` y `vitest-browser-svelte` | 5.x / 3.x |
+| Pruebas de mutación | StrykerJS (`@stryker-mutator/core` y `@stryker-mutator/vitest-runner`) | 10.x |
 | Pruebas E2E y accesibilidad | Playwright y `@axe-core/playwright` | 1.x / 4.x |
 | Calidad | ESLint, typescript-eslint, eslint-plugin-svelte, Prettier, dependency-cruiser | 10.x / 8.x / 3.x / 3.x / 18.x |
 | Despliegue | Imagen Docker en Coolify, una sola instancia | — |
@@ -387,4 +394,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.4.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21
+**Versión**: 1.5.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21

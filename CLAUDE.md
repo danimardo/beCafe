@@ -4,7 +4,7 @@ PWA SvelteKit 3 para el stock de cápsulas y la hucha común de un departamento.
 
 ## Estado del repositorio
 
-- **Antes del scaffold:** la plantilla de interfaz está en `design-system/`. No hay `package.json` en la raíz. Los comandos de verificación de la sección «Comandos» todavía no existen.
+- **Antes del scaffold:** la plantilla de interfaz está en `design-system/`. No hay `package.json` en la raíz. Los comandos de verificación de la sección «Comandos» todavía no existen; los propone `docs/pruebas.md` §18.
 - **El scaffold** es la fase de preparación de la funcionalidad F1: mueve la plantilla a la raíz, instala las herramientas y crea `npm run verify`. Al terminarlo, actualiza este archivo.
 
 ## 1. Qué leer antes de una tarea
@@ -73,21 +73,28 @@ Si una regla de negocio no está en ninguna de estas fuentes, pregunta. No la in
 
 ## 5. Pruebas que creas
 
+La estrategia completa está en `docs/pruebas.md`. Léela antes de escribir pruebas o de elegir qué ejecutar.
+
 - Regla pura de `dominio/` → prueba unitaria; si hay dinero o secuencias, prueba de propiedades con `fast-check`.
-- Caso de uso que escribe → prueba de integración con SQLite real y migraciones.
-- Cada CA o EV del alcance de la tarea → al menos una prueba que lo nombre en su descripción (`it('CA-041: …')`).
-- Ruta nueva con permisos → añádela a la prueba de acceso directo por URL (EV-050).
-- Pantalla nueva → comprobación axe en su prueba E2E.
+- Caso de uso que escribe → prueba de integración con SQLite real y migraciones; concurrencia con `worker_threads` (`docs/pruebas.md` §7).
+- *Action* o `+server.ts` → prueba con un evento falso (`crearEventoAccion`). `fail` se devuelve; `error` y `redirect` se lanzan (`docs/pruebas.md` §8). No pruebes el `load` exportado.
+- Componente de `lib/ui` con estado o interacción propia → prueba de componente en Vitest Browser Mode. El resto lo cubre el E2E.
+- Cada CA o EV del alcance → al menos una prueba que lo nombre en su descripción (`it('CA-041: …')`), en el nivel más barato que lo demuestra (`docs/pruebas.md` §14).
+- Ruta nueva → entra en la suite `acceso` (EV-050). Pantalla nueva → axe en claro y oscuro. Formulario crítico → proyecto `sin-js`.
+- Escribe la prueba antes o justo después del código si toca dinero, permisos, invariantes, idempotencia, concurrencia, la cola sin conexión o un error corregido.
+- No uses `waitForTimeout`, `sleep`, selectores por clase CSS ni `as` en las pruebas. No subas timeouts ni reintentos para ocultar un fallo.
 
 ## 6. Comandos
 
-Usa solo scripts npm: funcionan igual en Windows y en Linux.
+Usa solo scripts npm: funcionan igual en Windows y en Linux. La lista completa está en `docs/pruebas.md` §18.
 
-| Momento | Comando |
+| Momento | Qué ejecutar |
 | --- | --- |
-| Mientras editas | `npm run lint:changed` y `npm run check` |
-| Antes de declarar terminada una tarea | `npm run verify` |
-| Antes de cerrar una funcionalidad o un PR | `npm run verify` y `npm run test:e2e` |
+| Mientras editas | La prueba concreta (`npx vitest run <archivo>`) y `npm run check` |
+| Al cerrar una tarea o un lote | Lo afectado: `npm run test:changed`, `npm run lint:changed`, `npm run check` y, si toca la interfaz, `npm run test:e2e:quick -- <spec>`. Ejecuta `npm run verify` si cambias un contrato público, un esquema, una migración, `hooks.server.ts`, `plataforma/` o la configuración de una herramienta (`docs/pruebas.md` §17) |
+| Al cerrar una funcionalidad | `scripts/benchmark.sh` o `scripts/benchmark.ps1` completo: verificación completa en serie y E2E de todos los proyectos |
+
+Antes de ejecutar, comprueba que el filtro selecciona al menos una prueba y consulta `.local/verification/runs.jsonl` para reutilizar evidencia válida. Anota cada ejecución selectiva en ese archivo.
 
 No ejecutes lint y pruebas a la vez: compiten por CPU y falsean los tiempos.
 
@@ -95,14 +102,16 @@ Una advertencia de `svelte-check`, ESLint o el compilador rompe la verificación
 
 ## 7. Cuándo una tarea está terminada
 
-Una tarea está terminada cuando se cumplen todas estas condiciones:
+Una tarea o un lote está terminado cuando se cumplen todas estas condiciones:
 
-1. `npm run verify` termina sin errores (formato, lint, tipos, arquitectura, pruebas unitarias y de integración con la cobertura mínima de la constitución, build).
+1. Las comprobaciones afectadas por el cambio (§6) pasan, con al menos una prueba seleccionada y sin advertencias.
 2. Cada CA o EV del alcance tiene su prueba y la prueba pasa.
 3. `tasks.md` marca la tarea como hecha.
 4. Si cambiaste un módulo, una arista o una ubicación, `ARCHITECTURE.md` lo refleja en el mismo cambio.
-5. `git status` no muestra archivos sospechosos (`.env`, `*.db`, claves, informes generados).
-6. Informas de lo que no se pudo verificar y del motivo.
+5. `git status` no muestra archivos sospechosos (`.env`, `*.db`, claves, informes generados, `.local/`).
+6. Informas de lo que ejecutaste, lo que reutilizaste y por qué, lo que no se pudo verificar y su motivo.
+
+Una funcionalidad está terminada cuando, además, el benchmark completo pasa en serie y se cumple la Definition of Done de `docs/pruebas.md` §20.2. Una comprobación fallida, interrumpida o sin pruebas seleccionadas nunca cuenta como superada.
 
 ## 8. Git
 

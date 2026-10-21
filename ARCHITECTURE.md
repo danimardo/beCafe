@@ -388,14 +388,16 @@ Las reglas están en el principio XVI de la constitución. Las decisiones son DE
 
 ## 10. Pruebas por capa
 
-| Capa | Herramienta propuesta | Qué se prueba | Ubicación |
+| Capa | Herramienta | Qué se prueba | Ubicación |
 | --- | --- | --- | --- |
 | `dominio/` | Vitest + `fast-check` | Reglas puras y propiedades (EV-020, EV-030, EV-031, EV-090, EV-101) | `*.test.ts` junto al código |
 | Casos de uso | Vitest + SQLite real en un archivo temporal con migraciones | Transacciones, invariantes, idempotencia, concurrencia (EV-010, EV-011, EV-040, EV-041, EV-080, EV-100) | `*.test.ts` junto al código |
-| Rutas | Vitest | `load`, acciones, redirecciones y mapeo de errores sin servidor | Junto a la ruta |
-| Extremo a extremo | Playwright (Chromium y WebKit, RNF-013) + `@axe-core/playwright` | Flujos críticos, acceso directo por URL (EV-050), accesibilidad (EV-060) | `e2e/` |
+| Rutas | Vitest | Acciones, `+server.ts`, redirecciones y mapeo de errores con un evento falso, sin servidor | Junto a la ruta |
+| Componentes con estado propio | Vitest Browser Mode (`@vitest/browser-playwright`, `vitest-browser-svelte`) | Estados, interacción, cuenta atrás, anuncios accesibles | Junto al componente |
+| Extremo a extremo | Playwright (`chromium-movil`, `webkit-movil`, `chromium-escritorio`, `sin-js`, `api`) + `@axe-core/playwright` | Flujos críticos sobre la build, sin JavaScript, acceso directo por URL (EV-050), accesibilidad (EV-060), regresión visual | `e2e/` |
+| Mutación | StrykerJS | Calidad de las pruebas de `dominio/` | `stryker.config.mjs` |
 
-Las pruebas no usan `.env`. El entorno de pruebas no es `production`. Los umbrales de cobertura están en el principio VIII de la constitución; `npm run test` los aplica con `@vitest/coverage-v8`. El resto de detalles los fija el prompt de pruebas.
+Las pruebas no usan `.env`. El entorno de pruebas no es `production`. Los umbrales de cobertura están en el principio VIII de la constitución; `npm run test` los aplica con `@vitest/coverage-v8`. La estrategia completa (niveles, lotes, selección por impacto, puertas, Playwright, comandos, benchmark y CI) está en `docs/pruebas.md`.
 
 ## 11. Convenciones tecnológicas
 
@@ -484,7 +486,7 @@ Una dependencia de ejecución nueva o una herramienta de desarrollo transversal 
 
 | Ahora | Se puede posponer | Señal para cambiar la arquitectura |
 | --- | --- | --- |
-| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); límites del registro del cliente (PEND-034, plan F1); detalle de la estrategia de pruebas (prompt de pruebas); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
+| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); límites del registro del cliente (PEND-034, plan F1); avisos de duración de la verificación (tras el primer benchmark, F1); umbral de mutación (tras la línea base, F4); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
 
 ## 15. Revisión de planes (Architecture Check)
 

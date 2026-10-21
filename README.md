@@ -135,7 +135,8 @@ Algunos principios que se aplican en todo el proyecto:
 | [`historias.md`](historias.md) | Especificación maestra: necesidades, historias de usuario, reglas de negocio, requisitos, decisiones y división en funcionalidades |
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | Cómo está organizado el sistema, dónde va cada archivo, qué puede depender de qué y cómo se comprueba |
 | [`.specify/memory/constitution.md`](.specify/memory/constitution.md) | Principios no negociables del proyecto |
-| [`docs/adr/`](docs/adr/) | Decisiones de arquitectura (framework, módulos, avisos) |
+| [`docs/adr/`](docs/adr/) | Decisiones de arquitectura (framework, módulos, avisos, registro, pruebas) |
+| [`docs/pruebas.md`](docs/pruebas.md) | Estrategia de pruebas: niveles, cuándo se ejecuta cada prueba, Playwright, comandos y CI |
 | [`CLAUDE.md`](CLAUDE.md) | Instrucciones operativas para los agentes de IA |
 | [`design-system/`](design-system/) | Sistema de diseño, componentes y plantilla de pantallas |
 | [`design-system/docs/`](design-system/docs/) | Principios visuales, componentes y distribución de cada pantalla |
