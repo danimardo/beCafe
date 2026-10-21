@@ -246,11 +246,74 @@ sequenceDiagram
 
 **Errores no previstos.** El hook `handleError` registra el error con un identificador y devuelve un mensaje genérico. Nunca devuelve detalles internos al cliente.
 
-## 7. Estado en el cliente
+## 7. Rutas, carga de datos y estado
+
+Las reglas están en el principio XVII de la constitución (DEC-083 a DEC-086). Este apartado fija los patrones.
+
+**Controlador fino.** Una ruta valida, llama a un módulo y traduce el resultado. No contiene reglas ni consultas.
+
+```ts
+// src/routes/aportaciones/+page.server.ts
+import { fail, redirect } from '@sveltejs/kit';
+import { resolve } from '$app/paths';
+import { leerSaldoPropio, registrarAportacion } from '#lib/server/economia';
+import { esquemaAportacion } from '#lib/shared/contratos/economia';
+import { fallo, aErrorDeFormulario } from '#lib/shared/contratos/formularios';
+import type { Actions, PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ locals }) => {
+  return { saldo: leerSaldoPropio(locals.sesion) }; // función pública de un módulo; comprueba la sesión
+};
+
+export const actions: Actions = {
+  registrar: async ({ request, locals }) => {
+    const datos = Object.fromEntries(await request.formData());
+    const entrada = esquemaAportacion.safeParse(datos);
+    if (!entrada.success) return fallo(400, entrada.error, datos);
+    const resultado = registrarAportacion(locals.sesion, entrada.data); // permiso y transacción en el caso de uso
+    if (!resultado.ok) return fail(409, aErrorDeFormulario(resultado.error));
+    redirect(303, resolve('/'));
+  }
+};
+```
+
+```svelte
+<!-- src/routes/aportaciones/+page.svelte -->
+<script lang="ts">
+  import { enhance } from '$app/forms';
+  import type { PageProps } from './$types';
+  let { data, form }: PageProps = $props();
+</script>
+
+<form method="post" action="?/registrar" use:enhance>…</form>
+```
+
+| Necesidad | Usar | No usar |
+| --- | --- | --- |
+| Datos de una página | `load` en `+page.server.ts` / `+layout.server.ts` y la prop `data` | `+page.ts` o `+layout.ts` que leen datos; `fetch` en `onMount` |
+| Cambiar datos | `<form method="post">` + *action* con nombre + `use:enhance` | `fetch` manual; `+server.ts` para un formulario |
+| API sin formulario | `src/routes/api/v1/…/+server.ts`: cola sin conexión, suscripción push, registro del cliente; y `/api/salud` | Endpoints JSON para pantallas normales |
+| Rechazo esperado | `fallo(estado, errorZod, datos)` o `fail(estado, { errores, valores })` | Lanzar una excepción; devolver el valor en el mensaje |
+| Recurso inexistente o prohibido | `error(404 \| 403, mensaje)` | `error(estado, { message })` (obsoleto) |
+| Éxito que cambia de pantalla | `redirect(303, resolve('/ruta'))` | `goto` tras una *action* |
+| Recargar tras una *action* | Nada: `use:enhance` vuelve a ejecutar los `load` | `invalidateAll()` (obsoleto), recargas manuales |
+| Recarga por un hecho externo (aviso nuevo, cola sincronizada) | `depends(CLAVE)` en el `load` + `invalidate(CLAVE)`; claves en `lib/shared/claves-carga.ts` | `refreshAll()` sin justificar |
+
+**`fallo()`.** `lib/shared/contratos/formularios.ts` define `fallo(estado, error, datos)`. Convierte el error de Zod en `errores` por campo (código y mensaje en ETS) y copia en `valores` solo los campos que el esquema no marca como secretos (contraseñas, tokens, archivos). La página pone el foco en el primer campo con error.
+
+**Sin JavaScript.** Cada *action* funciona con un envío normal del formulario. `use:enhance` solo evita la recarga y mantiene el foco. Las excepciones son cerradas (principio XVII): cola sin conexión, cuenta atrás de «Deshacer» (sin JavaScript, el botón aparece tras la recarga y no tiene temporizador; el plazo de anulación lo comprueba el servidor), push, service worker e instalación de la PWA.
+
+**Autorización.** El caso de uso que llama cada `load`, *action* o `+server.ts` comprueba la sesión y el permiso. `hooks.server.ts` solo resuelve la sesión en `event.locals`. Un `+layout.server.ts` no protege las *actions*: una petición POST no ejecuta los `load` del layout.
+
+**Renderizado.** `ssr` y `csr` quedan activos en toda la aplicación. Una página que exporte `ssr`, `csr` o `prerender` figura en esta lista con su justificación (vacía).
+
+**Estado**
 
 - **Fuente de verdad:** el servidor. Los datos de cada pantalla llegan por `load`.
-- **Estado local:** runes (`$state`, `$derived`) en componentes o en módulos `.svelte.ts` de `lib/ui` o `lib/client`.
-- **Estado de módulo:** un módulo `.svelte.ts` con estado global solo se modifica en el navegador. En el servidor, un estado de módulo es compartido entre peticiones y filtraría datos entre usuarios.
+- **Servidor:** ninguna variable a nivel de módulo guarda datos de una petición ni de una persona. Lo de la petición va en `event.locals` o en parámetros. Excepción: los recursos de proceso de `plataforma/` (conexión a la base de datos, planificador, registrador).
+- **Cliente:** runes en componentes. El estado compartido entre componentes se pasa por props o por contexto (`setContext` / `getContext` con una clase creada en el componente raíz). Un módulo `.svelte.ts` no exporta `$state` con datos de una persona, porque en el servidor ese estado lo comparten todas las peticiones.
+- **Runes:** `$derived` para cualquier valor calculado. `$effect` solo sincroniza con algo externo (DOM, temporizador, API del navegador).
+- **Tipos:** `./$types` (`PageServerLoad`, `Actions`, `PageProps`, `LayoutProps`). No se escriben a mano los tipos de `params`, `data` ni `form`.
 - **Cola sin conexión:** solo consumos (DEC-025, EXC-007). Vive en `lib/client/cola-consumos` y en el service worker.
 
 ## 8. Configuración
@@ -353,7 +416,7 @@ Las tecnologías y sus versiones de referencia están en la sección 10.3 de `hi
 
 | Tecnología | Usar | No introducir |
 | --- | --- | --- |
-| SvelteKit 3 | `#lib/...` (imports de `package.json`); `$app/state`; `$app/env`; `$app/env/private` y `$app/env/public` (solo en los archivos de entorno, §8); *form actions* para formularios; `+server.ts` solo para la API sin formulario; `resolve()` para enlaces y `goto` internos; matchers de `src/params/` | `$lib/...`; `$app/stores`; `$app/environment`; `$env/*`; endpoints JSON para formularios normales; funciones experimentales (`experimental.*`, incluidas las funciones remotas `form`/`command`/`query`) |
+| SvelteKit 3 | `#lib/...` (imports de `package.json`); `$app/state`; `$app/env`; `$app/env/private` y `$app/env/public` (solo en los archivos de entorno, §8); *form actions* para formularios (§7); `+server.ts` solo para la API sin formulario; `resolve()` para enlaces y `goto` internos; matchers de `src/params/`; `Response.json()`; `error(estado, mensaje)`; `refreshAll` / `invalidate`; `snapshot` de `$app/navigation`; opción `replace` de `goto` | `$lib/...`; `$app/stores`; `$app/environment`; `$env/*`; endpoints JSON para formularios normales; funciones experimentales (`experimental.*`, incluidas las funciones remotas `form`/`command`/`query`). Obsoletas en 3.1: `json()` y `text()` de `@sveltejs/kit`, `error()` con objeto, `invalidateAll` (función y opción), `export const snapshot`, opción `replaceState` de `goto` |
 | Svelte 5 | Runes (`$state`, `$derived`, `$effect` solo para sincronizar con el exterior, `$props`), snippets, atributos de evento (`onclick`) | `export let`, `$:`, `on:click`, `createEventDispatcher`, `svelte/store`, `<slot>` |
 | TypeScript 6 | `strict`; estrechadores (`typeof`, `in`, validación con esquema); uniones discriminadas; tipos derivados del esquema | `as` (salvo `as const`), `any`, `!` de no nulo, `@ts-ignore`, `@ts-expect-error` |
 | Tailwind 4 | Clases con tokens (`bg-accent`, `text-ink-muted`) y componentes de `lib/ui` | Colores hexadecimales, `dark:` con colores propios, `tailwind.config.js` |
@@ -388,8 +451,15 @@ Las tecnologías y sus versiones de referencia están en la sección 10.3 de `hi
 | Sin `await` en `enTransaccion` | §5 | Sí | Tipo de `enTransaccion` |
 | Idempotencia por `cliente_id` | §5 | Sí | Restricción `UNIQUE` + prueba EV-010 |
 | Dinero en enteros | §11 | Parcial | Columnas `INTEGER` + tipos + pruebas |
-| Autorización en el servidor | §6 | Parcial | Prueba EV-050 sobre todas las rutas |
-| Estado de módulo solo en el navegador | §7 | No | Revisión del plan y del código |
+| Autorización en el servidor | §6, §7 | Sí | Prueba EV-050 generada desde el manifiesto: GET y POST a cada `load`, *action* y `+server.ts` sin sesión y con un rol sin permiso; falla si una ruta no está cubierta |
+| Sin `let` ni `new Map/Set` a nivel de módulo en servidor y rutas (salvo `plataforma/`) | §7 | Sí | ESLint `no-restricted-syntax` |
+| Sin `$state` a nivel de módulo en `.svelte.ts` | §7 | Sí | ESLint `no-restricted-syntax` |
+| `$derived` en lugar de `$state` + `$effect` | §7 | Parcial | eslint-plugin-svelte `prefer-writable-derived` + revisión |
+| Sin `load` universal; `ssr`, `csr` y `prerender` solo en la lista del §7 | §7 | Sí | Prueba de arquitectura sobre `src/routes` |
+| Sin `fetch` en `src/routes` ni `src/lib/ui` | §7 | Sí | ESLint `no-restricted-globals` |
+| Formularios sin JavaScript | §7 | Sí | Proyecto de Playwright con `javaScriptEnabled: false` (acceso, consumo, aportación, compra) |
+| `valores` de `fail` sin secretos | §7 | Sí | Tipo de `fallo()` + prueba unitaria |
+| Sin API obsoletas de SvelteKit 3 | §11 | Sí | ESLint `no-restricted-imports` (`invalidateAll`, `json`, `text`) + `@typescript-eslint/no-deprecated` |
 | Nadie fuera de los archivos de registro escribe en la consola | Constitución XVI | Sí | ESLint `no-console: error`, salvo en `plataforma/registro.ts` y `lib/client/registro.ts` |
 | Eventos con campos permitidos y sin datos personales | §9 | Sí | Catálogo tipado (`svelte-check`) + registrador falso en las pruebas + prueba de `redact` |
 | Enlace de RF-139 fuera del fichero | §9 | Sí | Prueba de integración de CA-139 sobre la salida estándar y el fichero |
@@ -431,3 +501,5 @@ Todo `plan.md` responde a estas preguntas antes de generar tareas. Una respuesta
 9. ¿La autorización se comprueba en el caso de uso? ¿Qué rutas nuevas entran en EV-050?
 10. ¿Qué otras funcionalidades o módulos se ven afectados?
 11. ¿Las migraciones solo añaden y no reescriben datos económicos?
+12. ¿Cada pantalla carga en `+page.server.ts` y cambia datos con *actions* que funcionan sin JavaScript? ¿Usa alguna excepción del principio XVII?
+13. ¿Qué eventos de registro añade al catálogo (§9) y qué prueba los comprueba?

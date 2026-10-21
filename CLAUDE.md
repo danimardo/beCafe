@@ -44,6 +44,14 @@ Si una regla de negocio no está en ninguna de estas fuentes, pregunta. No la in
 | `$app/environment` | `$app/env` |
 | `$env/static/*`, `$env/dynamic/*` | `src/env.ts` + `plataforma/entorno.ts` |
 | `experimental.remoteFunctions`, `form`/`command`/`query` de `$app/server` | *Form actions* y `+server.ts` |
+| `+page.ts` / `+layout.ts` que leen datos, `fetch` en `onMount` o en un componente | `load` en `+page.server.ts` y la prop `data` (`ARCHITECTURE.md` §7) |
+| Enviar un formulario con `fetch` o con un `+server.ts` | `<form method="post">` + *action* con nombre + `use:enhance`; debe funcionar sin JavaScript |
+| Comprobar el permiso solo en `+layout.server.ts` | El caso de uso que llama cada `load`, *action* y `+server.ts` |
+| `fail(400, { email, contrasena, … })` con secretos | `fallo(estado, errorZod, datos)` de `lib/shared/contratos/formularios` |
+| `let` o `new Map()` a nivel de módulo en servidor; `$state` exportado desde un `.svelte.ts` | `event.locals`, parámetros; props o contexto |
+| `$effect` que calcula o copia estado | `$derived` |
+| `invalidateAll()`, `json()`, `text()`, `error(estado, { message })`, `export const snapshot` (obsoletos en SvelteKit 3) | `refreshAll()` o `invalidate(CLAVE)` con `depends`, `Response.json()`, `new Response()`, `error(estado, mensaje)`, `snapshot` de `$app/navigation` |
+| `export const ssr = false`, `csr = false` o `prerender` sin justificar | SSR y CSR activos (`ARCHITECTURE.md` §7) |
 | `z.object` en la entrada de una página o un endpoint | `z.strictObject` (en el `load` de un layout, `z.object({})`) |
 | `Date` en contratos o en `dominio/` | `InstanteUtc`, `FechaMadrid`, `Mes` de `lib/shared/fechas` |
 | `z.coerce.number()` solo | `z.coerce.number().int().positive()` o con `min` |

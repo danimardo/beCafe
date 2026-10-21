@@ -175,6 +175,7 @@ Motivo: generar código no demuestra que funcione; una verificación lenta deja 
   en pantalla en 1 s o menos en el percentil 95 con red (RNF-002).
 - Toda acción que registra algo DEBE confirmar su resultado con un mensaje anunciado al lector de
   pantalla. Las acciones de un toque DEBEN ofrecer «Deshacer» durante 5 segundos (RF-013, RF-171).
+  Sin JavaScript, «Deshacer» sigue disponible sin cuenta atrás (principio XVII).
 - Una acción con efectos económicos sobre otras personas o difíciles de revertir (reparto de un
   arqueo o un recuento, compra que deja la hucha en negativo, baja con liquidación, anulación) DEBE
   mostrar su efecto y pedir confirmación antes de ejecutarse.
@@ -276,6 +277,47 @@ Motivo: un agente o una persona debe poder entender un fallo desde el fichero de
 fichero se convierta en una copia de los datos personales; el repositorio es público y el volumen
 comparte disco con la base de datos.
 
+### XVII. Arquitectura idiomática de SvelteKit
+
+- Los datos de una página DEBEN cargarse en `+page.server.ts` o `+layout.server.ts` y llegar a los
+  componentes por la prop `data`. NO DEBEN leerse datos en un `load` universal (`+page.ts`,
+  `+layout.ts`) ni con `fetch` en `onMount`.
+- Toda acción que cambia datos DEBE ser un `<form method="post">` que llama a una *action* con
+  nombre y usa `use:enhance`. Un formulario NO DEBE enviarse con `fetch` manual. Un `+server.ts`
+  SOLO PUEDE servir a clientes sin formulario: la cola sin conexión, la suscripción push, el
+  registro del cliente y el endpoint de salud.
+- Los `load`, las *actions* y los `+server.ts` DEBEN limitarse a validar la entrada con su
+  esquema, llamar a la función pública de un módulo de `src/lib/server/<modulo>/` y traducir el
+  resultado con `fail`, `error` o `redirect`. NO DEBEN contener reglas de negocio ni acceso a
+  datos (principio III).
+- Un rechazo esperado de entrada o de negocio DEBE devolverse con
+  `fail(estado, { errores, valores })`: errores por campo con código y mensaje, y los valores
+  escritos para volver a rellenar el formulario. `valores` NO DEBE contener contraseñas, tokens ni
+  archivos. Un recurso inexistente o prohibido DEBE responderse con `error()`.
+- Toda acción con formulario DEBE funcionar sin JavaScript cuando hay conexión; `use:enhance`
+  solo mejora la experiencia. Excepciones cerradas: la cola sin conexión, la cuenta atrás de
+  «Deshacer» (sin JavaScript, el botón sigue disponible sin temporizador), las notificaciones push,
+  el service worker y la instalación de la PWA.
+- Cada `load`, *action* y `+server.ts` que expone o cambia datos DEBE comprobar la sesión y el
+  permiso mediante el caso de uso. Un `+layout.server.ts` NO DEBE considerarse protección de las
+  *actions* ni de los endpoints.
+- En el servidor, una variable a nivel de módulo NO DEBE guardar datos de una petición ni de una
+  persona; esos datos van en `event.locals` o en parámetros. En el cliente, el estado compartido
+  entre componentes DEBE pasarse por props o por contexto; un módulo NO DEBE exportar `$state` con
+  datos de una persona.
+- Un valor calculado DEBE declararse con `$derived`. `$effect` SOLO PUEDE sincronizar con algo
+  externo (DOM, temporizador, API del navegador) y NO DEBE calcular ni copiar estado.
+- Los `load`, las *actions* y las props de página DEBEN tiparse con los tipos generados de
+  `./$types` (`PageServerLoad`, `Actions`, `PageProps`, `LayoutProps`).
+- `ssr` y `csr` DEBEN permanecer activos. Desactivarlos o usar `prerender` DEBE justificarse en el
+  plan (principio II). Tras una *action*, SvelteKit vuelve a ejecutar los `load`; una recarga
+  manual SOLO PUEDE hacerse con `invalidate()` y una clave declarada con `depends()`.
+
+Motivo: el modelo de SvelteKit (cargar en el servidor, cambiar con formularios, volver a cargar)
+mantiene una sola fuente de verdad, funciona con redes lentas y es el que mejor conocen las
+herramientas y los agentes. Los fallos más caros del framework (una *action* sin permiso, el
+estado de una persona visible a otra) se evitan con reglas explícitas.
+
 ## Tecnologías obligatorias
 
 Estas tecnologías DEBEN usarse en la línea de versión indicada. Una versión de parche o menor
@@ -345,4 +387,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.3.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21
+**Versión**: 1.4.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21

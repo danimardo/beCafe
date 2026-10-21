@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.9.0 — CAMBIO-009 |
+| Versión | 0.10.0 — CAMBIO-010 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
@@ -871,6 +871,11 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-080 | Nivel de registro | Operación | info/debug/silent; warn en producción; debug en producción | info/debug/silent | `LOG_LEVEL` opcional (niveles de pino), `info` por defecto; `debug` en `.env.example` para desarrollo; `silent` y registrador falso en las pruebas | Sesión de logging, 21-10-2026 |
 | DEC-081 | Enlace del primer administrador (RF-139) | Seguridad | Solo en la salida estándar; también en el fichero | Solo en la salida estándar | El enlace va solo a la salida estándar; el fichero guarda el evento sin el enlace | Sesión de logging, 21-10-2026 |
 | DEC-082 | Acceso a los logs | Seguridad | Solo quien administra Coolify; también desde la aplicación | Solo Coolify | Vista de logs de Coolify o `/data/logs` desde la terminal del contenedor; sin pantalla en la aplicación | Sesión de logging, 21-10-2026 |
+| DEC-083 | Ubicación de la lógica que llaman las rutas | Arquitectura | `src/lib/server/<modulo>/`; `src/lib/services`; `src/lib/server/services` | `src/lib/server/<modulo>/` | Las rutas son controladores finos; la lógica sigue en los módulos de servidor (principio III, ADR-0002) | Sesión de SvelteKit, 21-10-2026 |
+| DEC-084 | Mejora progresiva | Arquitectura | Todo formulario con excepciones cerradas; solo estructura sin probar; todo sin JavaScript | Todo formulario con excepciones | Toda acción con formulario funciona sin JavaScript si hay conexión. Excepciones: cola sin conexión, cuenta atrás de «Deshacer» (sin JavaScript, botón sin temporizador), push, service worker e instalación de la PWA. Playwright sin JavaScript en acceso, consumo, aportación y compra | Sesión de SvelteKit, 21-10-2026 |
+| DEC-085 | Respuesta de `fail()` | UX | Errores y valores sin secretos; solo errores | Errores y valores | `fail(estado, { errores, valores })`, sin contraseñas, tokens ni archivos en `valores` (WCAG 3.3.7). `error()` para 403 y 404; `redirect()` tras un éxito que cambia de pantalla | Sesión de SvelteKit, 21-10-2026 |
+| DEC-086 | Reglas idiomáticas con rango constitucional | Arquitectura | Autorización en cada punto; sin estado compartido entre peticiones; runes y tipos generados; SSR por defecto y recarga con `load` | Las cuatro | Las cuatro pasan al principio XVII; el detalle está en `ARCHITECTURE.md` §7 | Sesión de SvelteKit, 21-10-2026 |
+| DEC-087 | Aplicación de las enmiendas | Gobierno | Una sola (1.3.0); dos seguidas (1.3.0 y 1.4.0) | Una sola | **Otra: dos seguidas.** Registro técnico en 1.3.0 (CAMBIO-009) y SvelteKit en 1.4.0 (CAMBIO-010) | Sesión de SvelteKit, 21-10-2026 |
 
 ---
 
@@ -1068,6 +1073,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.7.0 | 21-10-2026 | CAMBIO-007: `@vitest/coverage-v8` en §10.3; DEC-070 a DEC-072 (versiones por línea, cobertura mínima y orden de prioridad), cuya fuente vigente es la constitución 1.1.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.6.0 (SHA-256 9bc5c0e4…c03b27bd) en `.respaldos/` |
 | 0.8.0 | 21-10-2026 | CAMBIO-008: política de validación y entorno. DEC-073 a DEC-075 (cero advertencias, tipos de fecha, mensajes de validación); §10.7: variables declaradas en `src/env.ts`. Constitución 1.2.0 | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.7.0 (SHA-256 834feaab…af7ed59) en `.respaldos/` |
 | 0.9.0 | 21-10-2026 | CAMBIO-009: registro técnico. DEC-076 a DEC-082 (ficheros diarios con `pino-roll` y 30 días, fuera de la copia; `loglevel` en el cliente con envío de warn y error; `LOG_LEVEL`; enlace de RF-139 solo en la salida estándar; acceso solo desde Coolify); §10.3, §10.7, RF-139, CA-139 y RNF-014; PEND-034 a PEND-036. Constitución 1.3.0 (principio XVI), ADR-0004 | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.8.0 (SHA-256 81848bb5…1b23e7920) en `.respaldos/` |
+| 0.10.0 | 21-10-2026 | CAMBIO-010: arquitectura idiomática de SvelteKit. DEC-083 a DEC-087 (controladores finos sobre `lib/server/<modulo>`, mejora progresiva con excepciones cerradas, respuesta de `fail()`, reglas idiomáticas, dos enmiendas). Constitución 1.4.0 (principio XVII) | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.9.0 (SHA-256 2294c5a8…515a7e594) en `.respaldos/` |
 
 ---
 
