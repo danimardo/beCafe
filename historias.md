@@ -6,11 +6,11 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ubicación | `historias.md` en la raíz del repositorio `github.com/danimardo/beCafe` (en el servidor de desarrollo, `/Apps/beCafe/historias.md`) |
-| Versión | 0.13.0 — CAMBIO-013 |
+| Versión | 0.14.0 — CAMBIO-014 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), versión 2.0.0-candidata |
-| Estado del refinamiento | **Cerrado y aprobado sobre v0.13.0 (21-10-2026).** Los cambios de las versiones 0.5.0 a 0.13.0 (RF-139, RNF-014, RF-180, RF-181, RNF-015, RNF-016) se reevaluaron el 21-10-2026 (guía de refinamiento, §19). Sin bloqueantes. PEND-034 a PEND-036 se resuelven en el plan de F1. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales) y PEND-033 (menor, plan de F8). |
+| Estado del refinamiento | **Cerrado y aprobado sobre v0.13.0 (21-10-2026).** Los cambios de las versiones 0.5.0 a 0.13.0 (RF-139, RNF-014, RF-180, RF-181, RNF-015, RNF-016) se reevaluaron el 21-10-2026 (guía de refinamiento, §19). CAMBIO-014 (v0.14.0) añade RF-139c, RN-055, CA-139c, DEC-103 y DEC-104 y concreta RF-139 y CA-139, con decisiones del usuario al especificar F1: el nuevo cierre sobre v0.14.0 espera aprobación. Sin bloqueantes. PEND-034 a PEND-036 se resuelven en el plan de F1. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales) y PEND-033 (menor, plan de F8). |
 | Estado de traspaso a Spec Kit | Pendiente de traspaso de requisitos y diseño de funcionalidades. Módulos (§10.6) traspasados a `ARCHITECTURE.md` §3 (CAMBIO-005). División en funcionalidades acordada (§15, DEC-058). |
 | Gobernanza técnica | Constitución (`.specify/memory/constitution.md`), `ARCHITECTURE.md`, `AGENTS.md` (reglas del agente, cargadas por `CLAUDE.md`), `docs/adr/`, `docs/pruebas.md` (estrategia de pruebas) y `docs/agentes.md` (controles del agente). |
 
@@ -183,7 +183,7 @@ Registro de consumos, catálogo de tipos de cápsula con foto, stock, compras, a
 | HU-10 | Como miembro, quiero ver mis estadísticas de consumo, para conocer mis hábitos. | RF-120 a RF-122 |
 | HU-11 | Como administrador, quiero gestionar el catálogo de tipos de cápsula, para que la pantalla principal muestre lo que hay. | RF-001 a RF-005 |
 | HU-12 | Como administrador, quiero hacer arqueos de la hucha y recuentos de stock, para corregir desfases y repartirlos. | RF-080 a RF-092 |
-| HU-13 | Como administrador, quiero dar de alta, dar de baja y reactivar usuarios, para que solo el equipo actual use la aplicación. | RF-130 a RF-139 |
+| HU-13 | Como administrador, quiero dar de alta, dar de baja y reactivar usuarios, para que solo el equipo actual use la aplicación. | RF-130 a RF-139c |
 | HU-14 | Como administrador, quiero anular registros de cualquiera, para corregir errores fuera del plazo de autoanulación. | RF-061 |
 | HU-15 | Como administrador, quiero configurar los parámetros del sistema, para adaptarlo al equipo. | RF-150 |
 | HU-16 | Como operador del servidor, quiero que existan copias diarias restaurables, para no perder los datos económicos. | RF-140 a RF-144 |
@@ -251,6 +251,7 @@ Registro de consumos, catálogo de tipos de cápsula con foto, stock, compras, a
 | RN-052 | Un enlace de invitación caduca a las 24 horas; uno de recuperación, a la hora. Ambos son de un solo uso. Generar uno nuevo anula los anteriores del mismo usuario. | PREG-015, PREG-036 | Confirmado |
 | RN-053 | Una contraseña nueva se rechaza si tiene menos de 15 caracteres o figura en la lista de bloqueo de contraseñas comunes. No se imponen reglas de composición. | PREG-041 (PEND-029), FUENTE-02 | Confirmado |
 | RN-054 | El servidor rechaza los consumos que lleguen de un usuario dado de baja, también los de la cola sin conexión, y el móvil informa de ello. | PREG-041 (PEND-032) | Confirmado |
+| RN-055 | Un usuario dado de baja no puede iniciar sesión. El sistema lo rechaza con el mismo mensaje que un correo inexistente o una contraseña incorrecta (RF-133). | Especificación de F1, 21-10-2026 (HALL-016) | Confirmado |
 
 ### 6.4 Reglas de visibilidad
 
@@ -446,8 +447,9 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RF-136 | Un administrador deberá poder reactivar a un usuario dado de baja. | PREG-036 | Confirmado | CA-136 |
 | RF-137 | Cada usuario deberá poder cerrar sesión en todos sus dispositivos y cambiar su contraseña desde su perfil. | PREG-031 | Confirmado | CA-137 |
 | RF-138 | Si una acción de administrador llega sin autenticación en los últimos 15 minutos, el sistema deberá pedir la contraseña antes de ejecutarla. | PREG-031 | Confirmado | CA-138 |
-| RF-139 | Al primer arranque, y solo si no existe ningún usuario, el sistema deberá crear el administrador indicado en la variable de entorno `ADMIN_INICIAL_EMAIL` y escribir en la salida estándar (log de Coolify) un enlace de invitación válido 24 horas. El fichero de log guarda el evento sin el enlace (DEC-081). | PREG-032 | Confirmado | CA-139 |
+| RF-139 | Al primer arranque, y solo si no existe ningún usuario, el sistema deberá crear el administrador indicado en la variable de entorno `ADMIN_INICIAL_EMAIL` y escribir en la salida estándar (log de Coolify) un enlace de invitación válido 24 horas. El fichero de log guarda el evento sin el enlace (DEC-081). Si no existe ningún usuario y falta la variable, la aplicación no arranca y registra el nombre de la variable (DEC-104). | PREG-032 | Confirmado | CA-139 |
 | RF-139b | Un comando ejecutable en el contenedor deberá generar un enlace de recuperación para un administrador existente o crear uno nuevo. | PREG-036 (HALL-007) | Confirmado | CA-139 |
+| RF-139c | El sistema deberá anotar en el registro de auditoría, con su autor y su fecha, cada alta, cambio de rol, baja, reactivación y enlace generado. La baja se anota con RF-135 (F4). | Glosario («Registro de auditoría»), anexo A, DEC-103 | Confirmado | CA-139c |
 
 ### 7.11 Copias de seguridad
 
@@ -597,7 +599,8 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 - **CA-136** — Cuando un administrador reactiva a Luis, Luis vuelve activo con saldo 0 y necesita un enlace nuevo para entrar.
 - **CA-137** — Cuando Ana pulsa «Cerrar sesión en todos los dispositivos», sus otras sesiones dejan de ser válidas en la siguiente petición.
 - **CA-138** — Dado un administrador que introdujo la contraseña hace 20 minutos, cuando intenta registrar una baja, entonces la aplicación le pide la contraseña antes de continuar.
-- **CA-139** — Dada una base de datos sin usuarios y `ADMIN_INICIAL_EMAIL` definido, al arrancar se crea el administrador y el log de Coolify muestra un enlace válido 24 horas; el fichero de log contiene el evento, pero no el enlace. Al reiniciar con usuarios existentes, no se crea nada. El comando de recuperación genera un enlace para un administrador existente.
+- **CA-139** — Dada una base de datos sin usuarios y `ADMIN_INICIAL_EMAIL` definido, al arrancar se crea el administrador y el log de Coolify muestra un enlace válido 24 horas; el fichero de log contiene el evento, pero no el enlace. Al reiniciar con usuarios existentes, no se crea nada. El comando de recuperación genera un enlace para un administrador existente. Sin usuarios y sin `ADMIN_INICIAL_EMAIL`, la aplicación no arranca y registra el nombre de la variable.
+- **CA-139c** — Cuando un administrador da de alta a Pedro, cambia su rol, lo reactiva o genera un enlace para él, cada acción queda en el registro de auditoría con su autor y su fecha.
 
 ### Privacidad
 - **CA-160** — Dado Pedro, que entra por primera vez, cuando define su contraseña, entonces ve el texto de privacidad y no puede usar la aplicación hasta pulsar «He leído el texto». Se registran la fecha y la versión. Si se publica una versión nueva, se le vuelve a mostrar. Desde el perfil puede abrir el texto en cualquier momento.
@@ -916,6 +919,8 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-100 | Versión en la ruta de los endpoints JSON | Arquitectura | `/api/…` sin versión; `/api/v1/…` en todos | `/api/…` sin versión | `/api/…` sin versión. El único cliente es la propia PWA; la compatibilidad con consumos en cola la da el campo de versión de cada contrato (principio XIV). Corrige el prefijo `/v1` que aparecía en `ARCHITECTURE.md`, `docs/pruebas.md`, ADR-0004 y DEC-079 sin decisión (HALL-014) | Revisión de prompts, 21-10-2026 |
 | DEC-101 | Sistemas de desarrollo | Operación | Solo Linux; también Windows | Según el uso real | **También Windows.** Comandos y scripts portables; script de exclusiones de Defender que ejecuta una persona administradora; benchmark por sistema (`docs/pruebas.md` §17.5) | Revisión de prompts, 21-10-2026 |
 | DEC-102 | Buscadores e indexación | Seguridad | No aplica e impedir indexación; no aplica sin medidas | Impedir indexación | El paquete SEO/AEO/GEO no aplica: no hay contenido público. Se impide la indexación (RNF-016) | Revisión de prompts, 21-10-2026 |
+| DEC-103 | Alcance de F1 al especificarla | Alcance | Seguir la fila F1 literal; añadir RF-137, RF-138, RNF-014, auditoría y RN-055; llevar también RF-135 a F1 | Añadir y mantener RF-135 en F4 | F1 incluye RF-137, RF-138, RF-139c, RN-055 y RNF-014 (registro técnico y endpoint de salud, como parte de la preparación). RF-135 sigue en F4 | Especificación de F1, 21-10-2026 |
+| DEC-104 | Arranque sin usuarios y sin `ADMIN_INICIAL_EMAIL` | Operación | No arranca; arranca sin administrador; aplazar | No arranca | No arranca y registra el nombre de la variable, sin valores (constitución VI y XVI). Con usuarios existentes, la variable no se usa | Especificación de F1, 21-10-2026 |
 
 ---
 
@@ -943,6 +948,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | Decisiones de registro técnico | — (operación) | — | — | RF-139, RNF-014 | DEC-076 a DEC-082 |
 | Decisiones de experiencia de usuario | — (RT-001, RT-008) | — | — | RF-180, RF-181, RNF-015 | DEC-095 a DEC-099 |
 | Decisión de indexación | — (seguridad) | — | — | RNF-016 | DEC-102 |
+| Especificación de F1 | NEC-006, NEC-007 | HU-13 | RN-055 | RF-137, RF-138, RF-139c, RNF-014 | DEC-103, DEC-104 |
 
 ### 12.2 Conservación del contenido original
 
@@ -985,6 +991,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | HALL-013 | Un relleno de agua se puede declarar sin haberlo hecho para subir en el ranking | Conductual | Mitigado (RN-082, RN-063, RN-083) |
 | HALL-014 | `ARCHITECTURE.md`, `docs/pruebas.md`, ADR-0004 y DEC-079 usaban `/api/v1/…`; §10.5 usaba `/api/…`. Ninguna decisión fijaba la versión en la ruta | Técnico, menor | Resuelto (DEC-100) |
 | HALL-015 | «Registro» designaba a la vez el hecho de negocio, el log técnico y la tabla de auditoría, contra la regla de univocidad | Menor | Resuelto (glosario, §3) |
+| HALL-016 | Al especificar F1: §15 no asignaba RF-137 ni RF-138 a ninguna funcionalidad; F1 dependía de RNF-014 (PEND-034 a PEND-036) sin citarlo; la auditoría de acciones de administración solo estaba en el glosario y el anexo A; ninguna regla decía qué pasa si un usuario dado de baja intenta entrar | Menor | Resuelto (DEC-103, DEC-104, RF-139c, RN-055) |
 
 ### 13.2 Pendientes
 
@@ -1084,7 +1091,7 @@ No se declara cumplimiento formal del RGPD, de WCAG ni de ninguna norma. Las ref
 
 | Funcionalidad | Contenido | Depende de |
 | --- | --- | --- |
-| F1 — Acceso, usuarios y privacidad | Preparación del proyecto (scaffold: DEC-055, DEC-056, DEC-060). RF-130 a RF-134, RF-136 a RF-139b, RF-160, RF-161, RF-180, RF-181, RNF-016, RN-040 a RN-054. Almacén de configuración con los parámetros de RF-150 y sus valores por defecto (sin pantalla) | — |
+| F1 — Acceso, usuarios y privacidad | Preparación del proyecto (scaffold: DEC-055, DEC-056, DEC-060). RF-130 a RF-134, RF-136 a RF-139c, RF-160, RF-161, RF-180, RF-181, RNF-016, RNF-014 (registro técnico y salud, DEC-103), RN-040 a RN-055. Almacén de configuración con los parámetros de RF-150 y sus valores por defecto (sin pantalla). Especificación: `specs/001-scaffold-acceso/spec.md` | — |
 | F2 — Catálogo y stock | RF-001 a RF-006, RF-020 a RF-023 | F1 |
 | F4 — Economía: aportaciones, compras, coste medio, regularización, arqueos, recuentos, repartos, bajas | RF-030 a RF-046, RF-064, RF-080 a RF-082, RF-090 a RF-093, RF-135, RN-001 a RN-021, RN-036, RN-037 | F1, F2 |
 | F3 — Registro de consumos (incluido sin conexión) | RF-010 a RF-019, RF-060 a RF-063 | F1, F2, F4 (cargo) |
@@ -1099,7 +1106,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 
 | Contenido | Destino previsto | Estado |
 | --- | --- | --- |
-| Necesidades, reglas, requisitos y aceptación | `spec.md` de cada funcionalidad | Pendiente de traspaso |
+| Necesidades, reglas, requisitos y aceptación | `spec.md` de cada funcionalidad | F1 traspasada (`specs/001-scaffold-acceso/spec.md`, aprobada el 21-10-2026); F2 a F8 pendientes |
 | Arquitectura, datos, interfaces, módulos | `plan.md` y artefactos de diseño | Pendiente de traspaso |
 | Visión global, decisiones transversales, índice | Este documento | Vigente |
 
@@ -1125,6 +1132,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.12.0 | 21-10-2026 | CAMBIO-012: experiencia de usuario. §7.15 (RF-180, RF-181), RNF-015, CA-180, CA-181, EV-061, DEC-095 a DEC-099, riesgos residuales en §13.3 y F1 en §15. Constitución 1.6.0 (V, X, XI y XVIII) | Escritura autorizada el 21-10-2026 («si a todo»); respaldo de 0.11.0 (SHA-256 20b5f9ab…90f794a5a) en `.respaldos/` |
 | 0.13.0 | 21-10-2026 | CAMBIO-013: revisión cruzada de los prompts ejecutados. Metadatos y fuentes con las rutas del repositorio; glosario («Registro», «Registro técnico», «Registro de auditoría», «Tema Automático», «Reducir transparencia»); RNF-016 y `/robots.txt`; `/api/registro-cliente` en §10.5; DEC-100 a DEC-102; HALL-014 y HALL-015; trazabilidad de registro técnico, UX e indexación; RNF-016 en F1; reevaluación del cierre (guía de refinamiento, §19) | Escritura autorizada el 21-10-2026 («Sí, los dos»); respaldo de 0.12.0 (SHA-256 92ce24d7…aacfc88443) en `.respaldos/` |
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.13.0 (SHA-256 f3ec905d…7e4c7396). Reevaluados RF-139, RNF-014, RF-180, RF-181, RNF-015, RNF-016, CA-180, CA-181 y EV-061. Aplazados: PEND-014 y PEND-033. Para el plan de F1: PEND-034 a PEND-036. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («Sí, apruebo el cierre») |
+| 0.14.0 | 21-10-2026 | CAMBIO-014: decisiones de la especificación de F1. RF-139c (auditoría de administración) y CA-139c; RN-055 (inicio de sesión de un usuario dado de baja); RF-139 y CA-139 con el arranque sin `ADMIN_INICIAL_EMAIL` (DEC-104); DEC-103 (alcance de F1: RF-137, RF-138, RF-139c, RN-055, RNF-014; RF-135 sigue en F4); HALL-016; HU-13, §12.1 y §15 | Escritura autorizada el 21-10-2026 («Tienes mi autorización para cambiar Historias.md»); respaldo de 0.13.0 (SHA-256 84aa5191…3510936f) en `.respaldos/` |
 
 ---
 

@@ -1,7 +1,7 @@
 # Specification Quality Checklist: Preparación del proyecto y acceso (F1)
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
-**Created**: 2026-10-21
+**Created**: 2026-10-21 (revisión 2)
 **Feature**: [spec.md](../spec.md)
 
 ## Content Quality
@@ -31,6 +31,7 @@
 
 ## Notes
 
-- RF-135, RF-137 y RF-138 entran en F1 (respuesta del usuario). Falta el CAMBIO de `historias.md` §15 (ver Clarifications).
-- RF-135 depende de RN-017 y RN-018, que no están en la lista de F1 de §15.
+- Detalles técnicos que se mantienen a propósito: `ADMIN_INICIAL_EMAIL`, `/robots.txt`, `X-Robots-Tag`, los atributos de la cookie y los parámetros de Argon2id. Son literales de requisitos aprobados en `historias.md` (RF-139, RNF-004, RNF-005, RNF-016). La preparación del proyecto es técnica por definición (DEC-055, DEC-056, DEC-060).
+- Sin marcadores abiertos. El inicio de sesión de un usuario dado de baja se resolvió en Clarifications, punto 6.
+- Cotejo con `historias.md` en los dos sentidos: cada RF, RN, CA y EV de la fila F1 de §15 está en la spec o en Out of Scope con su motivo. Las diferencias con §15 se recogieron en `historias.md` 0.14.0 (CAMBIO-014).
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`
