@@ -47,6 +47,8 @@ Si una regla de negocio no está en ninguna de estas fuentes, pregunta. No la in
 | `href="/ruta"` o `goto('/ruta')` con texto | `resolve('/ruta')` |
 | `as Tipo`, `any`, `!`, `@ts-ignore`, `@ts-expect-error` | Estrechadores, validación con esquema, tipos derivados |
 | `// eslint-disable` o excluir un archivo de una herramienta | Corregir el código |
+| `z.string().email()`, `{ message: '…' }` (Zod 3) | `z.email()`, `{ error: '…' }` (Zod 4) |
+| Importar `pino`, `web-push`, `aws4fetch`, `sharp`, `croner` o `@node-rs/argon2` fuera de su archivo | La función de su único archivo (`ARCHITECTURE.md` §11) |
 | Importes con decimales (`0.35`) | Enteros en céntimos (`35`) |
 | `new Date()` o `Math.random()` dentro de `dominio/` | Reloj y azar recibidos como parámetro |
 | `await` dentro de `enTransaccion` | Hacer la E/S asíncrona fuera de la transacción |

@@ -225,7 +225,7 @@ sequenceDiagram
 
 ## 9. Registro y observabilidad
 
-- `plataforma/registro` escribe JSON estructurado en la salida estándar (Coolify lo muestra; RNF-014).
+- `plataforma/registro` escribe JSON estructurado con pino en la salida estándar (Coolify lo muestra; RNF-014). Es el único archivo que importa `pino`.
 - Se registran errores, ejecuciones de tareas programadas y entregas push fallidas.
 - Los registros contienen identificadores, no datos personales ni secretos. **Excepción documentada:** RF-139 escribe en el log un enlace de invitación del primer administrador.
 - `/api/salud` responde sin datos sensibles.
@@ -244,7 +244,19 @@ Las pruebas no usan `.env`. El entorno de pruebas no es `production`. Los umbral
 
 ## 11. Convenciones tecnológicas
 
-Las trampas de código antiguo más frecuentes están en la lista «Prohibido» de `CLAUDE.md`. Este apartado fija el resto.
+Las tecnologías y sus versiones de referencia están en la sección 10.3 de `historias.md` (fuente vigente). Las trampas de código antiguo más frecuentes están en la lista «Prohibido» de `CLAUDE.md`. Este apartado fija el resto.
+
+**Dependencias aisladas.** Estas librerías se importan solo desde un archivo, para poder sustituirlas tocando un único punto:
+
+| Librería | Único archivo que la importa |
+| --- | --- |
+| `pino` | `plataforma/registro.ts` |
+| `web-push` | `notificaciones/entrega-push.ts` |
+| `aws4fetch` | `copias/subida-s3.ts` |
+| `@node-rs/argon2` | `auth/contrasenas.ts` |
+| `sharp` | `plataforma/imagenes.ts` |
+| `croner` | `plataforma/planificador.ts` |
+| `idb` | `lib/client/cola-consumos` |
 
 | Tecnología | Usar | No introducir |
 | --- | --- | --- |
@@ -253,6 +265,8 @@ Las trampas de código antiguo más frecuentes están en la lista «Prohibido» 
 | TypeScript 6 | `strict`; estrechadores (`typeof`, `in`, validación con esquema); uniones discriminadas; tipos derivados del esquema | `as` (salvo `as const`), `any`, `!` de no nulo, `@ts-ignore`, `@ts-expect-error` |
 | Tailwind 4 | Clases con tokens (`bg-accent`, `text-ink-muted`) y componentes de `lib/ui` | Colores hexadecimales, `dark:` con colores propios, `tailwind.config.js` |
 | Drizzle + better-sqlite3 | Esquemas por módulo, consultas tipadas, transacción síncrona `immediate` | SQL concatenado con texto del usuario; `await` dentro de una transacción |
+| Zod 4 | Formatos de nivel superior (`z.email()`, `z.url()`), parámetro `error` para mensajes, tipos con `z.infer` / `z.input` | API de Zod 3 (`z.string().email()`, parámetro `message`) |
+| Identificadores | ULID (`ulid`) para claves primarias y para `clienteId` | `crypto.randomUUID()`, autoincrementales |
 | Dinero | Enteros en céntimos; coste medio en diezmilésimas (RN-020); `Money`/`formatMoney` para mostrar | `number` decimal para importes; `toFixed` para redondear |
 | Fechas | UTC en la BD; `Europe/Madrid` para mes natural, día 1 y horas de tareas | `new Date()` dentro de `dominio/` (el reloj llega como parámetro) |
 | Iconos | `@lucide/svelte/icons/<nombre>` | Importar desde el índice `@lucide/svelte` |
@@ -268,7 +282,8 @@ Las trampas de código antiguo más frecuentes están en la lista «Prohibido» 
 | Rutas sin SQL ni `drizzle-orm` | §4 | Sí | dependency-cruiser |
 | Cliente sin código de servidor | §4 | Sí | SvelteKit (`lib/server`) + dependency-cruiser |
 | `process.env` y `$env/*` solo en `plataforma/entorno.ts` | §8 | Sí | ESLint `no-restricted-properties` / `no-restricted-imports` |
-| Sin `as`, `any`, `!`, `@ts-ignore`, `eslint-disable` | §11 | Sí | typescript-eslint, `eslint-comments` |
+| Sin `as`, `any`, `!`, `@ts-ignore`, `eslint-disable` | §11 | Sí | typescript-eslint, `@eslint-community/eslint-plugin-eslint-comments` |
+| Dependencias aisladas en un único archivo | §11 | Sí | dependency-cruiser |
 | Svelte 5 en modo runes | §11 | Sí | Opción `runes: true` del compilador (ya está en la plantilla) |
 | Sin `$app/stores`, `svelte/store`, `$lib`, índice de iconos | §11 | Sí | ESLint `no-restricted-imports` |
 | Enlaces internos con `resolve()` | §11 | Sí | eslint-plugin-svelte `no-navigation-without-resolve` |
@@ -297,7 +312,7 @@ Una dependencia de ejecución nueva o una herramienta de desarrollo transversal 
 
 | Ahora | Se puede posponer | Señal para cambiar la arquitectura |
 | --- | --- | --- |
-| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); librería de registro (prompt de logging); política de Zod; umbrales de cobertura (prompt de pruebas); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
+| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); niveles y eventos de registro (prompt de logging); política de Zod; umbrales de cobertura (prompt de pruebas); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
 
 ## 15. Revisión de planes (Architecture Check)
 

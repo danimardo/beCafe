@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.5.0 — CAMBIO-005 |
+| Versión | 0.6.0 — CAMBIO-006 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
@@ -633,7 +633,8 @@ Todo el apartado está **aceptado como base del plan** (DEC-041). Donde dice «p
 | --- | --- |
 | Restricciones confirmadas | RT-001, RT-003 a RT-009 |
 | Decisiones aprobadas | SQLite (DEC-028), Coolify (DEC-027), copia S3 diaria (DEC-028/029), Web Push (DEC-020), cola local de consumos (DEC-025), almacenamiento de fotos en volumen (DEC-029) |
-| Base aceptada para el plan | Tecnologías, modelo de datos, rutas y módulos de este apartado, aceptados como base del plan de Spec Kit y revisables en esa fase (DEC-041) |
+| Decididas en CAMBIO-006 | Tecnologías y versiones de referencia (§10.3, DEC-061 a DEC-069) |
+| Base aceptada para el plan | Modelo de datos y rutas de este apartado, aceptados como base del plan de Spec Kit y revisables en esa fase (DEC-041). Módulos: traspasados a `ARCHITECTURE.md` (§10.6) |
 
 ### 10.2 Arquitectura (propuesta, salvo lo indicado)
 
@@ -655,20 +656,28 @@ Todo el apartado está **aceptado como base del plan** (DEC-041). Donde dice «p
 - **Una sola instancia** (RT-010): el planificador interno y SQLite asumen un único proceso.
 - **DDD proporcional**: el núcleo del dominio es la **economía** (coste medio, regularización, repartos, liquidaciones), donde hay invariantes entrelazadas y dinero. Se modela con módulos de dominio puros y probados. El catálogo, los usuarios y las notificaciones son capacidades de apoyo con operaciones directas. No se usan CQRS, *event sourcing* ni mensajería: el libro de movimientos ya da trazabilidad.
 
-### 10.3 Tecnologías (propuestas, versiones a verificar en la fase de plan)
+### 10.3 Tecnologías (decididas, CAMBIO-006)
 
-| Componente | Propuesta | Motivo |
-| --- | --- | --- |
-| Framework | SvelteKit 3 con Svelte 5 en modo runes, adaptador Node (DEC-057, [ADR-0001](docs/adr/0001-sveltekit-3.md)) | RT-002, FUENTE-09 |
-| Estilos | Tailwind CSS 4 | RT-002 |
-| Acceso a datos | Drizzle ORM + `better-sqlite3` | Tipado, migraciones, SQLite síncrono y rápido |
-| Contraseñas | Argon2id (`@node-rs/argon2`) | RNF-004, FUENTE-03 |
-| Push | `web-push` con claves VAPID | RF-100 |
-| Imágenes | `sharp` | RF-005 |
-| S3 | `@aws-sdk/client-s3` | RF-140 |
-| Planificador | `croner` dentro del proceso | Tareas a hora fija con zona horaria |
-| PWA | Service worker de SvelteKit + IndexedDB (`idb`) | RF-015 |
-| Pruebas | Vitest (unitarias y propiedades con `fast-check`), Playwright (E2E), `@axe-core/playwright` | Apartado 9 |
+Versiones de referencia comprobadas en npm el 21-10-2026. Las versiones exactas las fija `package-lock.json` en la preparación de F1. Subir una versión mayor exige justificarlo en el `plan.md` correspondiente (`ARCHITECTURE.md` §13). Las librerías marcadas «aislada» se importan desde un único archivo (`ARCHITECTURE.md` §11).
+
+| Componente | Elección | Versión de referencia | Motivo | Decisión |
+| --- | --- | --- | --- | --- |
+| Entorno de ejecución | Node 24 LTS (`.nvmrc` y `engines`) | 24.22 | LTS con soporte hasta abril de 2028 | DEC-061 |
+| Gestor de paquetes | npm con `package-lock.json` | 11.19 | Ya lo usa la plantilla (FUENTE-09) | DEC-069 |
+| Framework | SvelteKit 3 con Svelte 5 en modo runes, adaptador Node, TypeScript 6 estricto | 3.1 / 5.57 / 6.0 | RT-002, FUENTE-09 | DEC-057, [ADR-0001](docs/adr/0001-sveltekit-3.md) |
+| Estilos e interfaz | Tailwind CSS 4, Bits UI, Lucide (`@lucide/svelte`), Fontsource | 4.3 | RT-002, FUENTE-09 | DEC-044 |
+| Acceso a datos | Drizzle ORM + drizzle-kit + `better-sqlite3` | 0.45 / 0.31 / 13.0 | Tipado, migraciones, transacciones síncronas `BEGIN IMMEDIATE` | DEC-062 |
+| Validación | Zod 4 | 4.6 | Esquemas compartidos por cliente y servidor | DEC-066 |
+| Contraseñas | Argon2id con `@node-rs/argon2` (aislada) | 2.2 | RNF-004, FUENTE-03; formato PHC sin código criptográfico propio | DEC-063 |
+| Push | `web-push` con claves VAPID (aislada) | 3.6.7 | RF-100. Sin publicaciones desde 01-2024; protocolo estable | DEC-064 |
+| Imágenes | `sharp` (aislada) | 0.35 | RF-005 | DEC-069 |
+| Copias | `aws4fetch` (aislada) para la subida y `tar` para el empaquetado | 1.0 / 7.5 | RF-140. Sustituye a `@aws-sdk/client-s3`: una subida diaria no justifica el SDK completo | DEC-065, DEC-069 |
+| Planificador | `croner` dentro del proceso (aislada) | 10.0 | Tareas a hora fija con zona horaria | DEC-069 |
+| PWA | Service worker de SvelteKit + IndexedDB (`idb`, aislada) | 8.0 | RF-015 | DEC-069 |
+| Identificadores | ULID (`ulid`) para claves primarias y `clienteId` | 3.0 | Ordenables por fecha; un único formato | DEC-068 |
+| Registro | `pino` (aislada); `pino-pretty` solo en desarrollo | 10.4 / 13.2 | RNF-014 | DEC-067 |
+| Pruebas | Vitest, `fast-check`, Playwright, `@axe-core/playwright` | 5.0 / 4.10 / 1.64 / 4.14 | Apartado 9 | DEC-069 |
+| Calidad | ESLint, typescript-eslint, eslint-plugin-svelte, `@eslint-community/eslint-plugin-eslint-comments`, Prettier con prettier-plugin-svelte y prettier-plugin-tailwindcss, dependency-cruiser | 10.13 / 8.72 / 3.23 / 4.8 / 3.9 / 18.7 | `ARCHITECTURE.md` §12 | DEC-069 |
 
 ### 10.4 Modelo de datos (SQLite, propuesto)
 
@@ -756,7 +765,7 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 - **SQLite**: `journal_mode=WAL`, `synchronous=NORMAL` (FUENTE-04 indica que `VACUUM INTO` hace fsync del resultado con NORMAL o FULL), `foreign_keys=ON`, `busy_timeout` de 5 s.
 - **Copias**: la aplicación hace la copia completa (DT-040). Se descarta la copia de volúmenes de Coolify como mecanismo principal, porque no es coherente con escrituras en curso y no permite pasos previos (FUENTE-05).
 - **Variables de entorno**: `ADMIN_INICIAL_EMAIL`, `ORIGIN`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_REGION`, `TZ=Europe/Madrid`. Los secretos solo en Coolify.
-- **Despliegue**: imagen Docker, un volumen persistente `/data` (base de datos y fotos), migraciones al arrancar, endpoint de salud.
+- **Despliegue**: imagen Docker basada en Node 24 LTS (DEC-061), un volumen persistente `/data` (base de datos y fotos), migraciones al arrancar, endpoint de salud.
 - **Restauración**: descargar el archivo del bucket, detener la aplicación, sustituir `/data`, arrancar y verificar saldos. Se documentará paso a paso en la fase de plan.
 
 ### 10.8 Elementos de diseño (DT)
@@ -838,6 +847,15 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-058 | División en funcionalidades | Planificación | Aprobar con ajustes; aprobar tal cual; otra división | Con ajustes | Con ajustes: recuentos y baja con liquidación pasan a F4; F1 crea el almacén de configuración e incluye la preparación (scaffold); orden F1 → F2 → F4 → F3 → F6 → F5 → F8, F7 antes de producción (§15) | Sesión de gobernanza, 21-10-2026 |
 | DEC-059 | Trabajo en paralelo | Organización | Una persona con agentes en serie; agentes en paralelo; varias personas | En serie | Una persona con agentes en serie; sin reglas de coordinación de trabajo paralelo | Sesión de gobernanza, 21-10-2026 |
 | DEC-060 | Integración continua | Calidad | GitHub Actions en PR y `main`; solo local; más adelante | GitHub Actions | GitHub Actions en cada PR y en cada push a `main` con `npm run verify`; se crea en la preparación de F1 | Sesión de gobernanza, 21-10-2026 |
+| DEC-061 | Versión de Node | Arquitectura | Node 24 LTS; Node 26 (aún no LTS); Node 22 LTS | Node 24 LTS | Node 24 LTS en desarrollo, CI e imagen Docker. El paso a Node 26 se decide con un ADR cuando sea LTS | Sesión de tecnologías, 21-10-2026 |
+| DEC-062 | Acceso a SQLite | Arquitectura | Drizzle 0.45 + `better-sqlite3`; Drizzle 1.0 RC + `node:sqlite`; `node:sqlite` sin ORM | Drizzle 0.45 + `better-sqlite3` | Drizzle 0.45 + `better-sqlite3`. Migrar a Drizzle 1.0 cuando sea estable exige un ADR | Sesión de tecnologías, 21-10-2026 |
+| DEC-063 | Hash de contraseñas | Seguridad | `@node-rs/argon2`; `crypto.argon2` nativo de Node | `@node-rs/argon2` | `@node-rs/argon2`: formato PHC estándar y ningún código criptográfico propio | Sesión de tecnologías, 21-10-2026 |
+| DEC-064 | Librería de Web Push | Arquitectura | `web-push` aislada; `@block65/webcrypto-web-push`; implementación propia | `web-push` aislada | `web-push`, importada solo desde un archivo de `notificaciones`; `npm audit` en la CI vigila sus vulnerabilidades | Sesión de tecnologías, 21-10-2026 |
+| DEC-065 | Cliente S3 | Arquitectura | `aws4fetch`; `@aws-sdk/client-s3` | `aws4fetch` | `aws4fetch`. Sustituye la propuesta de `@aws-sdk/client-s3` | Sesión de tecnologías, 21-10-2026 |
+| DEC-066 | Librería de esquemas | Arquitectura | Zod 4; Valibot | Zod 4 | Zod 4. La política de uso la fija el prompt de Zod | Sesión de tecnologías, 21-10-2026 |
+| DEC-067 | Registro estructurado | Operación | pino; registro propio mínimo; decidir en el prompt de logging | pino | pino. Niveles y eventos: prompt de logging | Sesión de tecnologías, 21-10-2026 |
+| DEC-068 | Formato de identificadores | Datos | ULID; UUID v4 nativo; UUID v7 | ULID | ULID (`ulid`) para claves primarias y para `clienteId` | Sesión de tecnologías, 21-10-2026 |
+| DEC-069 | Resto de tecnologías | Arquitectura | Confirmar el bloque; cambiar piezas | Confirmar | Confirmados `sharp`, `croner`, `idb`, service worker nativo, `tar`, Vitest, `fast-check`, Playwright, axe, ESLint y plugins, Prettier y plugins, dependency-cruiser y `pino-pretty`. Gestor de paquetes npm (supuesto comunicado, sin objeción) | Sesión de tecnologías, 21-10-2026 |
 
 ---
 
@@ -1028,6 +1046,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.4.0 | 21-10-2026 | CAMBIO-004: nombre «beCafé» (ORIG-003, RT-011); relleno de agua con ranking y aguador del mes (HU-17, RN-063, RN-080 a RN-085, RF-170 a RF-176, F8); recordatorio de deuda progresivo (RN-074, RF-150); `/historial` como página propia y supresión de `/aportaciones`; pantallas de administración del paquete de diseño aceptadas como base; anexo A actualizado | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.3.0 (SHA-256 7e7769fb…7a59005) en `.respaldos/` |
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.4.0 (SHA-256 9cfc0165…c1cd13b4). Aplazados: PEND-014 y PEND-033. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («si») |
 | 0.5.0 | 21-10-2026 | CAMBIO-005: gobernanza técnica. DEC-055 a DEC-060; HALL-012 resuelto (SvelteKit 3); §10.6 traspasado a `ARCHITECTURE.md`; división en funcionalidades acordada con ajustes (§15); duda sobre tareas programadas perdidas registrada para `/speckit-clarify` | Escritura autorizada el 21-10-2026 («hazlo»); respaldo de 0.4.0 (SHA-256 7f272a93…ace383186) en `.respaldos/` |
+| 0.6.0 | 21-10-2026 | CAMBIO-006: tecnologías decididas con versiones de referencia (§10.3); DEC-061 a DEC-069; `aws4fetch` sustituye a `@aws-sdk/client-s3`; se añaden Zod 4, pino, `tar` y las herramientas de calidad; Node 24 LTS en el despliegue (§10.7) | Escritura autorizada el 21-10-2026 («si»); respaldo de 0.5.0 (SHA-256 468706cb…898acc61) en `.respaldos/` |
 
 ---
 
