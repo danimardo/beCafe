@@ -1,6 +1,9 @@
 # Sistema de diseño anterior: se conserva en local, fuera del control de versiones
 design-system_old/
 
+# Biblioteca de prompts del curso: se usa en local, fuera del control de versiones
+/docs/Prompts/
+
 # Dependencias y artefactos de compilación
 node_modules/
 .svelte-kit/
