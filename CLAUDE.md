@@ -86,5 +86,5 @@ Una tarea está terminada cuando se cumplen todas estas condiciones:
 
 ## 8. Git
 
-- No hagas commit en `main`. Trabaja en la rama de la funcionalidad que crea SpecKit.
+- Trabaja en `main`. Si un comando de SpecKit crea una rama de funcionalidad, intégrala en `main` al cerrar la funcionalidad.
 - Haz commit o push solo cuando te lo pidan.

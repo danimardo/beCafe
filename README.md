@@ -70,29 +70,79 @@ Para las personas del departamento que comparten la cafetera (unas 10), y para q
 
 ## Estado del proyecto
 
-beCafé está **en desarrollo**. La especificación funcional está cerrada para la versión 1 y el sistema de diseño y la plantilla de interfaz ya existen; la lógica de negocio, la base de datos y la sincronización están en construcción. Las funcionalidades y pantallas de esta página describen el alcance previsto para la versión 1.
+beCafé está **en desarrollo**. Las funcionalidades y pantallas de esta página describen el alcance previsto para la versión 1.
+
+| Pieza | Estado |
+| --- | --- |
+| Especificación funcional de la versión 1 ([`historias.md`](historias.md)) | Cerrada y aprobada (v0.5.0) |
+| Sistema de diseño y plantilla de pantallas ([`design-system/`](design-system/)) | Hecho, con datos de ejemplo |
+| Arquitectura, constitución y reglas para agentes de IA | Definidas |
+| Lógica de negocio, base de datos, sesiones, notificaciones y modo sin conexión | Pendiente |
+
+## Hoja de ruta
+
+La versión 1 se construye por funcionalidades, en este orden. Cada una tiene un resultado que se puede verificar.
+
+| Orden | Funcionalidad | Qué aporta |
+| --- | --- | --- |
+| 1 | **F1 — Acceso, usuarios y privacidad** | Preparación del proyecto, inicio de sesión, invitaciones, roles y aviso de privacidad |
+| 2 | **F2 — Catálogo y stock** | Tipos de cápsula con foto, umbral y avisos de stock bajo |
+| 3 | **F4 — Economía** | Aportaciones, compras, coste medio, arqueos, recuentos, repartos y bajas |
+| 4 | **F3 — Registro de consumos** | El café de un toque, con «Deshacer» y cola sin conexión |
+| 5 | **F6 — Saldos y estadísticas** | Saldos, historial y estadísticas personales y del equipo |
+| 6 | **F5 — Notificaciones** | Avisos en la aplicación, notificaciones push y resumen mensual |
+| 7 | **F8 — Agua de la cafetera** | Rellenos, ranking y aguador del mes |
+| — | **F7 — Operación** | Copias de seguridad, configuración y despliegue (antes de producción) |
+
+## Cómo se desarrolla
+
+beCafé sigue **desarrollo guiado por especificaciones** con [GitHub Spec Kit](https://github.com/github/spec-kit) y agentes de IA (Claude Code). Cada funcionalidad pasa por el mismo ciclo:
+
+```text
+specify → clarify → plan → tasks → analyze → implement → converge
+```
+
+- La **especificación** de cada funcionalidad dice qué hace y por qué.
+- El **plan** dice cómo, dentro de la arquitectura común, y debe superar la revisión de arquitectura.
+- Las **tareas** dividen el plan en trabajo pequeño y verificable.
+- Una tarea solo está terminada cuando pasa la verificación completa: formato, lint, tipos, reglas de arquitectura, pruebas y build.
+
+Algunos principios que se aplican en todo el proyecto:
+
+- **El dinero en enteros.** Los importes se guardan en céntimos y los movimientos nunca se editan ni se borran: se anulan.
+- **El servidor decide.** Toda entrada se valida y todo permiso se comprueba en el servidor.
+- **Módulos con límites.** Cada parte del servidor expone una API pública y una herramienta comprueba que no haya dependencias prohibidas.
+- **La complejidad se justifica.** Ninguna capa, librería o mecanismo entra sin un problema concreto que resolver.
 
 ## Tecnología
 
 | Área | Tecnología |
 | --- | --- |
-| Aplicación | [SvelteKit](https://svelte.dev/) 3 con Svelte 5 |
-| Estilos | Tailwind CSS 4 y un sistema de diseño propio (tema Latte) |
+| Aplicación | [SvelteKit](https://svelte.dev/) 3 con Svelte 5 (runes) y TypeScript estricto |
+| Estilos | Tailwind CSS 4 y un sistema de diseño propio (tema Latte, claro y oscuro) |
 | Tipografía | Fraunces e Inter, autoalojadas |
-| Base de datos | SQLite |
-| Despliegue | Contenedor Docker (`adapter-node`) en servidor propio |
+| Base de datos | SQLite (prevista con Drizzle ORM) |
+| Notificaciones | Web Push |
+| Pruebas (previstas) | Vitest, pruebas basadas en propiedades, Playwright y axe |
+| Despliegue | Contenedor Docker (`adapter-node`), una instancia en servidor propio |
 | Copias de seguridad | Copia diaria automática a almacenamiento compatible con S3 |
+| Integración continua (prevista) | GitHub Actions |
 
 ## Documentación
 
-- [`historias.md`](historias.md): especificación funcional y técnica (historias de usuario, reglas de negocio y requisitos).
-- [`design-system/`](design-system/): sistema de diseño, componentes y plantilla de pantallas en SvelteKit.
-  - [`design-system/README.md`](design-system/README.md): cómo arrancar la plantilla.
-  - [`design-system/docs/`](design-system/docs/): principios visuales, componentes y distribución de cada pantalla.
+| Documento | Para qué sirve |
+| --- | --- |
+| [`historias.md`](historias.md) | Especificación maestra: necesidades, historias de usuario, reglas de negocio, requisitos, decisiones y división en funcionalidades |
+| [`ARCHITECTURE.md`](ARCHITECTURE.md) | Cómo está organizado el sistema, dónde va cada archivo, qué puede depender de qué y cómo se comprueba |
+| [`.specify/memory/constitution.md`](.specify/memory/constitution.md) | Principios no negociables del proyecto |
+| [`docs/adr/`](docs/adr/) | Decisiones de arquitectura (framework, módulos, avisos) |
+| [`CLAUDE.md`](CLAUDE.md) | Instrucciones operativas para los agentes de IA |
+| [`design-system/`](design-system/) | Sistema de diseño, componentes y plantilla de pantallas |
+| [`design-system/docs/`](design-system/docs/) | Principios visuales, componentes y distribución de cada pantalla |
 
 ## Desarrollo local
 
-La plantilla de interfaz se encuentra en `design-system/`:
+Hasta que se prepare el proyecto (primera fase de F1), la plantilla de interfaz se encuentra en `design-system/`:
 
 ```bash
 cd design-system
