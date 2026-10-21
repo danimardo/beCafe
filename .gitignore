@@ -4,6 +4,9 @@ design-system_old/
 # Biblioteca de prompts del curso: se usa en local, fuera del control de versiones
 /docs/Prompts/
 
+# Caché del catálogo de integraciones de Spec Kit (la crea `specify integration list/info`)
+/.specify/integrations/.cache/
+
 # Dependencias y artefactos de compilación
 node_modules/
 .svelte-kit/

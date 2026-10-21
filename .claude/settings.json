@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "ask": [
+      "Edit(/.specify/memory/constitution.md)",
+      "Edit(/AGENTS.md)",
+      "Edit(/CLAUDE.md)",
+      "Edit(/docs/agentes.md)",
+      "Edit(/.claude/settings.json)",
+      "Edit(/.claude/settings.local.json)",
+      "Edit(/.github/workflows/**)",
+      "Edit(/specs/*/plan.md)",
+      "Edit(/specs/*/tasks.md)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git tag *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git reset *)",
+      "Bash(git checkout -- *)",
+      "Bash(git restore *)",
+      "Bash(git clean *)",
+      "Bash(git branch -D *)",
+      "Bash(git -C *)",
+      "Bash(git -c *)",
+      "Bash(npm install *)",
+      "Bash(npm uninstall *)",
+      "Bash(specify *)"
+    ]
+  },
+  "disableAllHooks": false
+}

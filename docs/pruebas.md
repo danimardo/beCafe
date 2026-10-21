@@ -246,7 +246,7 @@ Cada `spec.md`, al recibir el traspaso, copia la fila de sus CA y la concreta en
 - Cerrar una tarea no dispara por sí solo la suite completa, el build ni el lint global.
 - `main` nunca queda sin verificación completa, porque la CI la ejecuta en cada push.
 - Una comprobación fallida, interrumpida o con cero pruebas seleccionadas **nunca** cuenta como superada.
-- No se ejecutan lint y pruebas a la vez (`CLAUDE.md` §6).
+- No se ejecutan lint y pruebas a la vez (`AGENTS.md` §7).
 
 ### 17.2 Selección y reutilización de evidencia
 

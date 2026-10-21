@@ -137,7 +137,9 @@ Algunos principios que se aplican en todo el proyecto:
 | [`.specify/memory/constitution.md`](.specify/memory/constitution.md) | Principios no negociables del proyecto |
 | [`docs/adr/`](docs/adr/) | Decisiones de arquitectura (framework, módulos, avisos, registro, pruebas) |
 | [`docs/pruebas.md`](docs/pruebas.md) | Estrategia de pruebas: niveles, cuándo se ejecuta cada prueba, Playwright, comandos y CI |
-| [`CLAUDE.md`](CLAUDE.md) | Instrucciones operativas para los agentes de IA |
+| [`AGENTS.md`](AGENTS.md) | Reglas comunes para el agente de IA |
+| [`CLAUDE.md`](CLAUDE.md) | Entrada de Claude Code: importa `AGENTS.md` y la constitución |
+| [`docs/agentes.md`](docs/agentes.md) | Controles del agente, límites y pruebas pendientes |
 | [`design-system/`](design-system/) | Sistema de diseño, componentes y plantilla de pantallas |
 | [`design-system/docs/`](design-system/docs/) | Principios visuales, componentes y distribución de cada pantalla |
 

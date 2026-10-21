@@ -35,7 +35,8 @@ Decisiones que fijan esta forma: DEC-027, DEC-028, DT-050 y RT-010 en `historias
 /
 ├─ historias.md              Visión global, decisiones transversales e índice de traspaso
 ├─ ARCHITECTURE.md           Este documento
-├─ CLAUDE.md                 Instrucciones operativas para Claude Code
+├─ AGENTS.md                 Reglas comunes para el agente (canónicas)
+├─ CLAUDE.md                 Entrada de Claude Code: importa AGENTS.md y la constitución
 ├─ docs/
 │  ├─ adr/                   Decisiones de arquitectura (NNNN-titulo.md)
 │  └─ diseno/                Principios visuales, componentes y pantallas (antes design-system/docs)
@@ -402,7 +403,7 @@ Las pruebas no usan `.env`. El entorno de pruebas no es `production`. Los umbral
 
 ## 11. Convenciones tecnológicas
 
-Las tecnologías y sus versiones de referencia están en la sección 10.3 de `historias.md` (fuente vigente). Las trampas de código antiguo más frecuentes están en la lista «Prohibido» de `CLAUDE.md`. Este apartado fija el resto.
+Las tecnologías y sus versiones de referencia están en la sección 10.3 de `historias.md` (fuente vigente). Las trampas de código antiguo más frecuentes están en la lista «Prohibido» de `AGENTS.md`. Este apartado fija el resto.
 
 **Dependencias aisladas.** Estas librerías se importan solo desde un archivo, para poder sustituirlas tocando un único punto:
 
