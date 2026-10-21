@@ -26,7 +26,8 @@ Estados: **VERIFICADO** (comprobado en esta máquina), **DOCUMENTADO** (document
 
 - `CLAUDE.md` importa `@AGENTS.md` y `@.specify/memory/constitution.md`. Si existe `CLAUDE.md`, Claude Code no lee `AGENTS.md` por sí solo; por eso se importa (DOCUMENTADO).
 - La constitución cuesta unos 7 000 tokens por sesión.
-- Comprobación de carga: en una sesión nueva, pregunta «¿Qué versión tiene la constitución y qué dice AGENTS.md §3?» antes de que lea ningún archivo. Pendiente de hacer.
+- Comprobación de carga: en una sesión nueva, pregunta «¿Qué versión tiene la constitución y qué dice AGENTS.md §3?» antes de que lea ningún archivo.
+- **VERIFICADO** el 21-10-2026 en Linux con Claude Code 2.1.306: tras reiniciar, el agente respondió 1.6.0 y la lista de §3 sin leer archivos.
 
 ## 4. Controles
 
@@ -52,7 +53,7 @@ Según la documentación de Claude Code, las reglas se evalúan en el orden deny
 
 | Sistema | Estado |
 | --- | --- |
-| Linux | Configuración preparada. **No habilitada** para operaciones protegidas: los controles no se han probado (§7) |
+| Linux | Configuración cargada y regla `ask` de edición comprobada en un caso (§7). **No habilitada** para operaciones protegidas: faltan el rechazo, `sed` y redirecciones, Git, cambio de sesión y modo no interactivo |
 | Windows | NO VERIFICABLE |
 
 ## 7. Pruebas pendientes
@@ -65,6 +66,11 @@ Cuando se decida probar, en una copia desechable y con operaciones inocuas:
 4. Tras `/clear` o en otra sesión, la aprobación anterior no se reutiliza.
 5. Una corrección de bajo impacto en `src/` no se bloquea.
 6. Con `claude -p`, la operación protegida se rechaza; no se aprueba sola.
+
+| Prueba | Resultado | Fecha |
+| --- | --- | --- |
+| 1 (aprobar) | **PASA**: al editar `docs/agentes.md` con la herramienta Edit, Claude Code pidió confirmación con el diff y el usuario aprobó. Linux, Claude Code 2.1.306, modo auto. Hecha en el repositorio real, no en una copia | 21-10-2026 |
+| 1 (rechazar) y 2 a 6 | Pendientes | — |
 
 ## 8. Mantenimiento
 
