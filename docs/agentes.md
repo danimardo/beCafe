@@ -20,7 +20,7 @@ Estados: **VERIFICADO** (comprobado en esta máquina), **DOCUMENTADO** (document
 | Claude Code | 2.1.306 | VERIFICADO (`claude --version`) |
 | Spec Kit | 1.2.3.dev0, integración `claude`, skills en `.claude/skills/` | VERIFICADO |
 | Sistema | Debian 12, Linux 6.1, Bash | VERIFICADO |
-| Windows | Sin equipo de prueba. Claude Code no tiene sandbox en Windows nativo | NO VERIFICABLE |
+| Windows | En uso desde el 21-10-2026. No se ha comprobado en esta sesión. Claude Code no tiene sandbox en Windows nativo | Pendiente |
 
 ## 3. Cómo llegan las instrucciones
 
@@ -54,7 +54,7 @@ Según la documentación de Claude Code, las reglas se evalúan en el orden deny
 | Sistema | Estado |
 | --- | --- |
 | Linux | Configuración cargada y regla `ask` de edición comprobada en un caso (§7). **No habilitada** para operaciones protegidas: faltan el rechazo, `sed` y redirecciones, Git, cambio de sesión y modo no interactivo |
-| Windows | NO VERIFICABLE |
+| Windows | Pendiente: repetir en Windows la comprobación de carga (§3) y las pruebas de §7 |
 
 ## 7. Pruebas pendientes
 
@@ -70,7 +70,8 @@ Cuando se decida probar, en una copia desechable y con operaciones inocuas:
 | Prueba | Resultado | Fecha |
 | --- | --- | --- |
 | 1 (aprobar) | **PASA**: al editar `docs/agentes.md` con la herramienta Edit, Claude Code pidió confirmación con el diff y el usuario aprobó. Linux, Claude Code 2.1.306, modo auto. Hecha en el repositorio real, no en una copia | 21-10-2026 |
-| 1 (rechazar) y 2 a 6 | Pendientes | — |
+| 3 (aprobar) | **PASA**: un comando compuesto con `git add`, `git commit` y `git push` pidió confirmación antes de ejecutarse y el usuario aprobó. Una sola pregunta cubrió el comando entero, así que no demuestra por separado la regla de `git push` | 21-10-2026 |
+| 1 y 3 (rechazar), 2, 4 a 6 | Pendientes | — |
 
 ## 8. Mantenimiento
 

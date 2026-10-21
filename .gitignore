@@ -7,7 +7,12 @@ design-system_old/
 # Caché del catálogo de integraciones de Spec Kit (la crea `specify integration list/info`)
 /.specify/integrations/.cache/
 
+# Secretos y configuración local: los secretos solo están en Coolify
+.env
+.env.*
+!.env.example
+
 # Dependencias y artefactos de compilación
 node_modules/
-.svelte-kit/
-build/
+/.svelte-kit/
+/build/

@@ -95,7 +95,7 @@ Ejemplo: `F4-L2 → CA-041, CA-045, EV-031 → coste medio con stock negativo; r
 - **Actions:** se llaman directamente con un evento falso mínimo (`request` con `FormData`, `locals.sesion`, `params`), construido por `crearEventoAccion()` en `src/lib/shared/pruebas/` sin `as`.
 - **Qué se devuelve y qué se lanza.** `fail()` se **devuelve**: se comprueba con `toMatchObject({ status: 400, data: { errores } })` después de estrechar el valor con `desenvolverFallo()`, sin `as`. `error()` y `redirect()` se **lanzan**: se comprueban con `rejects.toSatisfy((e) => isHttpError(e, 403))` o con `isRedirect(e)`.
 - **`valores` de `fail`:** una prueba comprueba que nunca contiene contraseñas, tokens ni archivos (principio XVII).
-- **Endpoints `/api/v1/*`** (cola de consumos, suscripción push, registro del cliente) y `/api/salud`: método, sesión ausente (401), permiso, cuerpo válido, cuerpo con una clave extra o un código desconocido (400), límites (413 o 429, PEND-034), recurso inexistente, idempotencia (CA-016) y **compatibilidad**: el contrato vigente acepta los cuerpos de la versión anterior guardados como ejemplos (principio XIV).
+- **Endpoints `/api/*`** (cola de consumos, suscripción push, registro del cliente) y `/api/salud`: método, sesión ausente (401), permiso, cuerpo válido, cuerpo con una clave extra o un código desconocido (400), límites (413 o 429, PEND-034), recurso inexistente, idempotencia (CA-016) y **compatibilidad**: el contrato vigente acepta los cuerpos de la versión anterior guardados como ejemplos (principio XIV).
 - **Lint tipado:** se prefieren literales completos con `toMatchObject`. `expect.any` y `expect.objectContaining` devuelven `any`.
 
 ## 9. Componentes (nivel 2, condicional)
@@ -268,12 +268,23 @@ Cada `spec.md`, al recibir el traspaso, copia la fila de sus CA y la concreta en
   - Se ejecuta completo por primera vez al cerrar F1 y después en cada puerta. Genera `.local/benchmark/<fecha>-<equipo>.json` y `.txt` con la duración por paso y las 10 pruebas más lentas.
   - Al empezar una sesión se lee el último informe para planificar la selección; no se reejecuta.
 - **Avisos de duración:** no se fija ningún umbral antes de la primera medición. Tras el cierre de F1 se propone uno con los datos del benchmark.
+- **Tamaño del programa de TypeScript:** el número de archivos que carga el comprobador de tipos es un presupuesto. Se mide al terminar el scaffold y en cada lote que añada dependencias (`npx tsc -p tsconfig.json --listFilesOnly`, contando líneas). Una subida grande se investiga antes de seguir: el índice de una librería de iconos puede multiplicar el tiempo de `check` y del lint con tipos.
+- **Configuración de partida del scaffold:** ESLint con `--concurrency` y Vitest con un `testTimeout` global. Sus valores se fijan con la primera medición, no antes. No se usa `eslint --cache`: con una configuración que contiene funciones (typescript-eslint) no es fiable. `lint:changed` pasa a lintar todo el proyecto si cambia la configuración de ESLint o de TypeScript.
 
 ### 17.4 Lentitud, bloqueos y tests inestables
 
 - Un test inestable es un defecto. Se investigan el estado compartido, las esperas, el orden, los timers, las animaciones, el servidor por worker y la paralelización. No se resuelve subiendo `retries`, timeouts ni `waitForTimeout`. En la CI, `retries: 1` solo sirve para diagnosticar: un test que pasa en el reintento se marca como inestable y se corrige en el siguiente lote.
 - Un proceso propio solo se detiene con indicios claros de bloqueo, y solo ese proceso y sus hijos. El resultado se registra como `INTERRUMPIDO`.
 - Los cambios persistentes en scripts, configuración, puertas o CI se proponen con números del benchmark y esperan aprobación.
+
+### 17.5 Desarrollo en Windows
+
+Se desarrolla en Linux (servidor Debian) y en Windows (decisión del 21-10-2026).
+
+- Los comandos son scripts npm o scripts Node portables. Ningún script supone Bash en Windows ni PowerShell en Linux.
+- El antivirus en tiempo real multiplica el coste de las herramientas de tipos, que hacen decenas de miles de `stat`. El scaffold crea `scripts/dev-windows-defender-exclusions.ps1`, con la opción `-Remove`, para excluir la carpeta del proyecto y las cachés de npm y Playwright. Lo ejecuta **una persona con permisos de administrador**; el agente no lo ejecuta ni consulta las exclusiones.
+- Trabajar sobre una unidad de red (por ejemplo `Z:`) también ralentiza esas herramientas. Antes de adoptarlo se mide con el benchmark frente a un clon local; sin esa medición no se decide.
+- El benchmark se ejecuta en cada sistema que se use y su informe indica el equipo (`.local/benchmark/<fecha>-<equipo>`). Las muestras de sistemas distintos no se comparan entre sí.
 
 ## 18. Comandos (propuestos; los crea el scaffold de F1)
 
@@ -364,6 +375,7 @@ T-TEST-004 Crear las suites smoke, acceso (EV-050) y a11y con las primeras panta
 T-TEST-005 Crear los scripts npm del §18 y adaptar scripts/benchmark.ps1 y benchmark.sh (validar con -DryRun); añadir .local/ a .gitignore.
 T-TEST-006 Crear la CI del §21.
 T-TEST-007 Ejecutar el benchmark completo al cerrar F1 y proponer avisos de duración con sus datos.
+T-TEST-008 Crear scripts/dev-windows-defender-exclusions.ps1 (con -Remove) para que lo ejecute una persona administradora (§17.5), y medir el tamaño del programa de TypeScript (§17.3).
 ```
 
 T-MUT-001 (piloto de StrykerJS) se planifica en F4.

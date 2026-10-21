@@ -18,7 +18,7 @@ Un fichero que no rota llenaría el volumen `/data`, que comparte disco con la b
 1. `plataforma/registro.ts` escribe cada evento en la salida estándar y en un fichero JSON diario en el subdirectorio `logs/` del directorio de datos. Usa los transportes de pino: `pino-roll` 4.x (rotación diaria, 30 días) y, solo en desarrollo, `pino-pretty` para la consola.
 2. Los ficheros de log no entran en la copia de seguridad ni se muestran en la aplicación. Solo quien administra Coolify los lee.
 3. El enlace de RF-139 se escribe con una instancia de pino que solo usa la salida estándar. El fichero recibe el evento sin el enlace.
-4. En el cliente, `lib/client/registro.ts` usa `loglevel` 1.x sin guardar el nivel en el navegador. Envía los eventos `warn` y `error` de un catálogo cerrado a `/api/v1/registro-cliente`. Este endpoint exige sesión, valida el cuerpo con Zod y limita el tamaño y la frecuencia.
+4. En el cliente, `lib/client/registro.ts` usa `loglevel` 1.x sin guardar el nivel en el navegador. Envía los eventos `warn` y `error` de un catálogo cerrado a `/api/registro-cliente` (sin `/v1`: DEC-100, 21-10-2026; la compatibilidad la da la versión de cada contrato). Este endpoint exige sesión, valida el cuerpo con Zod y limita el tamaño y la frecuencia.
 
 ## Alternativas consideradas
 

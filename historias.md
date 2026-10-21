@@ -5,14 +5,14 @@
 | Campo | Valor |
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
-| Ruta prevista | `Z:\capsulas\historias.md` |
-| Versión | 0.12.0 — CAMBIO-012 |
+| Ubicación | `historias.md` en la raíz del repositorio `github.com/danimardo/beCafe` (en el servidor de desarrollo, `/Apps/beCafe/historias.md`) |
+| Versión | 0.13.0 — CAMBIO-013 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
-| Guía aplicada | `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, versión 2.0.0-candidata |
-| Estado del refinamiento | **Cerrado y aprobado sobre v0.4.0 (21-10-2026).** Sin bloqueantes. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales) y PEND-033 (menor, plan de F8). |
+| Guía aplicada | `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), versión 2.0.0-candidata |
+| Estado del refinamiento | **Cerrado y aprobado sobre v0.13.0 (21-10-2026).** Los cambios de las versiones 0.5.0 a 0.13.0 (RF-139, RNF-014, RF-180, RF-181, RNF-015, RNF-016) se reevaluaron el 21-10-2026 (guía de refinamiento, §19). Sin bloqueantes. PEND-034 a PEND-036 se resuelven en el plan de F1. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales) y PEND-033 (menor, plan de F8). |
 | Estado de traspaso a Spec Kit | Pendiente de traspaso de requisitos y diseño de funcionalidades. Módulos (§10.6) traspasados a `ARCHITECTURE.md` §3 (CAMBIO-005). División en funcionalidades acordada (§15, DEC-058). |
-| Gobernanza técnica | Constitución (`.specify/memory/constitution.md`), `ARCHITECTURE.md`, `CLAUDE.md` y `docs/adr/` (CAMBIO-005, 21-10-2026). |
+| Gobernanza técnica | Constitución (`.specify/memory/constitution.md`), `ARCHITECTURE.md`, `AGENTS.md` (reglas del agente, cargadas por `CLAUDE.md`), `docs/adr/`, `docs/pruebas.md` (estrategia de pruebas) y `docs/agentes.md` (controles del agente). |
 
 **Convenciones de estado.** Cada elemento indica su estado de validación:
 
@@ -108,6 +108,11 @@ Volumen: unas **10 personas**, con ligeras variaciones (PREG-037).
 | **Relleno de agua** | Registro de que un miembro ha rellenado el depósito de agua de la cafetera. No es un registro económico. | Consumo; movimiento. |
 | **Intervalo mínimo entre rellenos** | Tiempo durante el que, tras un relleno vigente, no se admite otro de nadie. | Plazo de autoanulación. |
 | **Aguador del mes** | Título de reconocimiento para quien más rellenos vigentes registró en un mes natural. Puede ser compartido. | Ranking de rellenos, que es por periodo y no otorga título. |
+| **Registro** | Hecho guardado por la aplicación a petición de una persona: consumo, aportación, compra, arqueo, recuento o relleno. Se anula; no se borra ni se modifica. «Registrar» es crear uno. | Registro técnico; registro de auditoría. |
+| **Registro técnico** | Evento de diagnóstico (log) que escriben el servidor y el cliente (constitución XVI). No contiene datos personales y no sirve como auditoría ni para reconstruir datos. En el código, `registrar(codigo, campos)`. | Registro; registro de auditoría. |
+| **Registro de auditoría** | Fila de la tabla `registro_auditoria` que anota una acción administrativa (cambio de rol, baja, configuración, enlace generado) con su autor. | Registro técnico. |
+| **Tema Automático** | Opción del selector de tema que sigue la apariencia clara u oscura del dispositivo, también si cambia durante la sesión (RF-180). Equivale a «Sistema» en otras aplicaciones. | Tema Claro u Oscuro elegido por la persona. |
+| **Reducir transparencia** | Ajuste de Perfil que muestra todas las superficies opacas, con las mismas acciones e información (RF-181). | La preferencia del sistema operativo, que produce el mismo efecto sin activar el ajuste. |
 
 ---
 
@@ -509,6 +514,7 @@ Reglas transversales de interfaz: constitución, principios X, XI y XVIII. Ident
 | RNF-013 | Navegadores | Últimas dos versiones de Safari (iOS ≥ 16.4) y Chrome (Android). | Prueba manual en ambos. | Confirmado (PREG-041) |
 | RNF-014 | Observabilidad | Logs estructurados de errores, de tareas programadas y de envíos fallidos, visibles en Coolify y guardados en ficheros diarios en el volumen durante 30 días (DEC-076, DEC-077). Los errores del móvil llegan al mismo log (DEC-079). Endpoint de salud para Coolify. | Inspección. | Confirmado (PREG-041) |
 | RNF-015 | Adaptación y preferencias | Con `prefers-contrast: more` se refuerzan texto, límites y foco; con `forced-colors` siguen visibles controles, límites y foco; con el texto ampliado al 200 % y a 320 px de ancho no se pierde contenido ni función. | E2E con emulación (EV-061) y revisión manual. | Confirmado (DEC-095) |
+| RNF-016 | Exclusión de buscadores | La aplicación no se publica en buscadores: `/robots.txt` responde `Disallow: /` y todas las respuestas llevan la cabecera `X-Robots-Tag: noindex, nofollow`. | Prueba de la suite `api`: `/robots.txt`, `/login` y una ruta con sesión. | Confirmado (DEC-102) |
 
 ---
 
@@ -730,7 +736,7 @@ Convenciones: claves primarias de texto con ULID; fechas en UTC (ISO 8601); impo
 
 ### 10.5 Interfaces (rutas SvelteKit, propuestas)
 
-Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endpoints JSON. Todas exigen sesión salvo las de acceso.
+Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endpoints JSON bajo `/api/`, sin versión en la ruta: la compatibilidad con datos en cola la da la versión de cada contrato (DEC-100). Todas exigen sesión salvo las de acceso.
 
 | Método y ruta | Finalidad | Autorización | Notas |
 | --- | --- | --- | --- |
@@ -745,6 +751,7 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 | GET `/estadisticas`, `/estadisticas/{usuarioId}` | Globales y personales | Miembro / propio o admin | 403 si ajeno y no admin |
 | GET/POST `/perfil` | Preferencias, contraseña, cerrar sesiones | Usuario | — |
 | POST/DELETE `/api/push/suscripcion` | Alta y baja de suscripción push | Usuario | — |
+| POST `/api/registro-cliente` | Recibir eventos `warn` y `error` del registro técnico del cliente | Usuario | Cuerpo validado con Zod; límites de tamaño y frecuencia (PEND-034) |
 | GET/POST `/login`, POST `/logout` | Acceso | Público / usuario | Bloqueo RN-048 |
 | GET/POST `/acceso/{token}` | Definir contraseña con enlace | Público con token válido | — |
 | `/admin/usuarios` | Alta, enlaces, rol, baja con liquidación, reactivación | Admin + reautenticación | — |
@@ -755,6 +762,7 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 | GET `/fotos/{id}` | Servir fotos | Usuario | Caché larga con versión en la URL |
 | GET/POST `/privacidad` | Ver el texto vigente y registrar su lectura | Usuario | Redirección obligatoria según RF-160 |
 | GET `/api/salud` | Comprobación de salud para Coolify | Público | Sin datos sensibles |
+| GET `/robots.txt` | Excluir la aplicación de los buscadores (RNF-016) | Público | `Disallow: /` |
 
 **Errores**: respuestas JSON `{codigo, mensaje}` en español. Códigos propuestos: `SIN_SESION`, `SIN_PERMISO`, `FUERA_DE_PLAZO`, `YA_ANULADO`, `VALIDACION`, `REAUTENTICACION_REQUERIDA`, `ULTIMO_ADMIN`, `RELLENO_RECIENTE`.
 
@@ -884,7 +892,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-076 | Destino de los logs | Operación | Fichero solo en desarrollo; fichero también en producción; solo consola | Fichero solo en desarrollo | **Otra: fichero también en producción.** Salida estándar (Coolify) y fichero JSON en `logs/` del directorio de datos, en desarrollo y en producción. Consola legible con `pino-pretty` en desarrollo | Sesión de logging, 21-10-2026 |
 | DEC-077 | Rotación y retención de los ficheros | Operación | `pino-roll`; rotación propia con `croner`; sin rotar. 14, 30 o 90 días | `pino-roll`, 30 días | `pino-roll` 4.x, un fichero al día, 30 días (cubre un cierre de mes completo). ADR-0004 | Sesión de logging, 21-10-2026 |
 | DEC-078 | Logs en la copia de seguridad | Operación | No incluirlos; incluirlos | No incluirlos | La copia de RF-140 lleva solo la base de datos y las fotos | Sesión de logging, 21-10-2026 |
-| DEC-079 | Registro en el cliente | Arquitectura | `loglevel` solo en la consola; `loglevel` con envío al servidor de warn y error; enviar todos los niveles; sin librería | Envío de warn y error | `loglevel` 1.x sin guardar el nivel en el navegador; los eventos warn y error del catálogo se envían a `/api/v1/registro-cliente` (con sesión, validado con Zod, con límites de tamaño y frecuencia: PEND-034) | Sesión de logging, 21-10-2026 |
+| DEC-079 | Registro en el cliente | Arquitectura | `loglevel` solo en la consola; `loglevel` con envío al servidor de warn y error; enviar todos los niveles; sin librería | Envío de warn y error | `loglevel` 1.x sin guardar el nivel en el navegador; los eventos warn y error del catálogo se envían a `/api/registro-cliente` (ruta ajustada por DEC-100; con sesión, validado con Zod, con límites de tamaño y frecuencia: PEND-034) | Sesión de logging, 21-10-2026 |
 | DEC-080 | Nivel de registro | Operación | info/debug/silent; warn en producción; debug en producción | info/debug/silent | `LOG_LEVEL` opcional (niveles de pino), `info` por defecto; `debug` en `.env.example` para desarrollo; `silent` y registrador falso en las pruebas | Sesión de logging, 21-10-2026 |
 | DEC-081 | Enlace del primer administrador (RF-139) | Seguridad | Solo en la salida estándar; también en el fichero | Solo en la salida estándar | El enlace va solo a la salida estándar; el fichero guarda el evento sin el enlace | Sesión de logging, 21-10-2026 |
 | DEC-082 | Acceso a los logs | Seguridad | Solo quien administra Coolify; también desde la aplicación | Solo Coolify | Vista de logs de Coolify o `/data/logs` desde la terminal del contenedor; sin pantalla en la aplicación | Sesión de logging, 21-10-2026 |
@@ -905,6 +913,9 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-097 | Pruebas de usabilidad con personas | UX | Prueba breve tras F3; sin pruebas formales; prototipo ahora | Prueba breve tras F3 | **Otra: sin pruebas formales.** Hipótesis registrada: el diseño Latte es usable sin validar; riesgo residual en §13.3 | Sesión de UX, 21-10-2026 |
 | DEC-098 | Copia de la especificación en el sistema de diseño | Gobierno | Sustituir ya por un enlace; hacerlo en el scaffold; mantenerla como histórica | Sustituir ya | Se borra `design-system/docs/spec/historias.md` (v0.4.0) y sus referencias apuntan a `historias.md` (principio I) | Sesión de UX, 21-10-2026 |
 | DEC-099 | Etiqueta y persistencia del tema | UX | — (convención existente del sistema de diseño) | — | Etiqueta «Automático» con el comportamiento de «Sistema»; preferencia guardada en el dispositivo (principio V) | Sesión de UX, 21-10-2026 (supuesto comunicado) |
+| DEC-100 | Versión en la ruta de los endpoints JSON | Arquitectura | `/api/…` sin versión; `/api/v1/…` en todos | `/api/…` sin versión | `/api/…` sin versión. El único cliente es la propia PWA; la compatibilidad con consumos en cola la da el campo de versión de cada contrato (principio XIV). Corrige el prefijo `/v1` que aparecía en `ARCHITECTURE.md`, `docs/pruebas.md`, ADR-0004 y DEC-079 sin decisión (HALL-014) | Revisión de prompts, 21-10-2026 |
+| DEC-101 | Sistemas de desarrollo | Operación | Solo Linux; también Windows | Según el uso real | **También Windows.** Comandos y scripts portables; script de exclusiones de Defender que ejecuta una persona administradora; benchmark por sistema (`docs/pruebas.md` §17.5) | Revisión de prompts, 21-10-2026 |
+| DEC-102 | Buscadores e indexación | Seguridad | No aplica e impedir indexación; no aplica sin medidas | Impedir indexación | El paquete SEO/AEO/GEO no aplica: no hay contenido público. Se impide la indexación (RNF-016) | Revisión de prompts, 21-10-2026 |
 
 ---
 
@@ -929,6 +940,9 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | ORIG-003 «se va a llamar beCafé» | — | — | — | RT-011 | DEC-045 |
 | ORIG-003 «quién llena de agua la cafetera… premiado… estadísticas» | NEC-008 | HU-17 | RN-063, RN-080 a RN-085 | RF-170 a RF-176, RF-104 | DEC-046 a DEC-054 |
 | Revisión del paquete de diseño | NEC-004, NEC-006 | HU-07, HU-09, HU-11 a HU-16 | RN-074 | RF-111, RF-112, RF-150 | DEC-042 a DEC-044 |
+| Decisiones de registro técnico | — (operación) | — | — | RF-139, RNF-014 | DEC-076 a DEC-082 |
+| Decisiones de experiencia de usuario | — (RT-001, RT-008) | — | — | RF-180, RF-181, RNF-015 | DEC-095 a DEC-099 |
+| Decisión de indexación | — (seguridad) | — | — | RNF-016 | DEC-102 |
 
 ### 12.2 Conservación del contenido original
 
@@ -969,6 +983,8 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | HALL-011 | Un usuario dado de baja puede tener consumos en la cola local de su móvil | Conductual, menor | Resuelto (RN-054) |
 | HALL-012 | El paquete de diseño (FUENTE-09) usa SvelteKit 3; el apartado 10.3 propone SvelteKit 2 | Técnico, menor | Resuelto (DEC-057, ADR-0001): SvelteKit 3 |
 | HALL-013 | Un relleno de agua se puede declarar sin haberlo hecho para subir en el ranking | Conductual | Mitigado (RN-082, RN-063, RN-083) |
+| HALL-014 | `ARCHITECTURE.md`, `docs/pruebas.md`, ADR-0004 y DEC-079 usaban `/api/v1/…`; §10.5 usaba `/api/…`. Ninguna decisión fijaba la versión en la ruta | Técnico, menor | Resuelto (DEC-100) |
+| HALL-015 | «Registro» designaba a la vez el hecho de negocio, el log técnico y la tabla de auditoría, contra la regla de univocidad | Menor | Resuelto (glosario, §3) |
 
 ### 13.2 Pendientes
 
@@ -976,7 +992,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | --- | --- | --- | --- |
 | PEND-014 | Validar el texto informativo de privacidad propuesto en el anexo A y completar sus datos entre corchetes | **Menor aplazado** (ver ficha) | Texto redactado en el anexo A |
 | PEND-033 | Si un administrador anula, después del día 1, un relleno del mes anterior y eso cambia el ganador, ¿se recalcula el aguador del mes? | Menor, no bloqueante; resolver en la fase de plan de F8 | No recalcular: el título queda fijado al determinarlo (tabla `aguador_mes`) |
-| PEND-034 | Límites de tamaño y de frecuencia de `/api/v1/registro-cliente` (DEC-079) | Menor; resolver en el plan de F1 | — |
+| PEND-034 | Límites de tamaño y de frecuencia de `/api/registro-cliente` (DEC-079, DEC-100) | Menor; resolver en el plan de F1 | — |
 | PEND-035 | Cómo llegan la versión y el commit a la aplicación para el evento de arranque | Menor; resolver en el plan de F1 (desarrollo) y de F7 (imagen) | — |
 | PEND-036 | Ruta del directorio de datos en desarrollo (y, con ella, la de `logs/`) | Menor; resolver en el plan de F1 | — |
 
@@ -1053,8 +1069,8 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | FUENTE-05 | Coolify, «Back up storage mounts», https://coolify.io/docs/core/persistent-storage/storage-mounts/backups | 20-10-2026 | Copias de volúmenes en `.tar.gz` a S3, no coherentes si hay escrituras salvo detener contenedores, sin pasos previos documentados, sin restauración desde el panel | Documentación de la versión vigente, sin número de versión |
 | FUENTE-06 | Coolify, «Database backups», https://coolify.io/docs/databases/backups | 20-10-2026 (vía búsqueda) | Las copias programadas de bases de datos se documentan para PostgreSQL gestionado por Coolify | Solo se consultó el resumen de búsqueda |
 | FUENTE-07 | W3C, WCAG 2.2, https://www.w3.org/TR/WCAG22/ (Recomendación 12-12-2024) | 20-10-2026 | 1.4.3 contraste 4,5:1; 2.5.8 objetivos ≥ 24×24 px CSS; 1.4.1 uso del color; 4.1.3 mensajes de estado; 5.2.1 nota 2: no se recomienda AAA como política general | — |
-| FUENTE-08 | Guía de refinamiento, `S:\Manuales\Spec Kit\SvelteKit\Prompts\refinamiento de requisitos.md`, v2.0.0-candidata | 20-10-2026 | Proceso, estructura y reglas de este documento | Versión candidata |
-| FUENTE-09 | Paquete de diseño «Cápsulas UI» (sistema Latte, SvelteKit 3 + Svelte 5 + Tailwind 4), `Z:\capsulas\design-system` | 21-10-2026 | Pantallas, componentes y pantallas de administración aceptadas como base (DEC-044). Compila sin errores (`npm run check`, `npm run build`) | Trae la v0.2.0 de este documento y el nombre anterior; faltan pantallas y estados solicitados al diseñador el 21-10-2026 |
+| FUENTE-08 | Guía de refinamiento, `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), v2.0.0-candidata | 20-10-2026 | Proceso, estructura y reglas de este documento | Versión candidata |
+| FUENTE-09 | Paquete de diseño «Cápsulas UI» (sistema Latte, SvelteKit 3 + Svelte 5 + Tailwind 4), `design-system/` del repositorio | 21-10-2026 | Pantallas, componentes y pantallas de administración aceptadas como base (DEC-044). Compila sin errores (`npm run check`, `npm run build`) | Traía una copia de la v0.2.0 de este documento, borrada por DEC-098; faltan pantallas y estados solicitados al diseñador el 21-10-2026 |
 
 No se declara cumplimiento formal del RGPD, de WCAG ni de ninguna norma. Las referencias al RGPD son orientativas.
 
@@ -1062,13 +1078,13 @@ No se declara cumplimiento formal del RGPD, de WCAG ni de ninguna norma. Las ref
 
 ## 15. Preparación y transferencia a Spec Kit
 
-**Estado: Cerrado y aprobado sobre v0.4.0.** Sin bloqueantes. PEND-014 está aplazado y debe figurar en la especificación de F1 como dependencia previa a producción. PEND-033 se resuelve en el plan de F8.
+**Estado: Cerrado y aprobado sobre v0.13.0.** Sin bloqueantes. PEND-034 a PEND-036 se resuelven en el plan de F1. PEND-014 está aplazado y debe figurar en la especificación de F1 como dependencia previa a producción. PEND-033 se resuelve en el plan de F8.
 
 ### División en funcionalidades (acordada, DEC-058)
 
 | Funcionalidad | Contenido | Depende de |
 | --- | --- | --- |
-| F1 — Acceso, usuarios y privacidad | Preparación del proyecto (scaffold: DEC-055, DEC-056, DEC-060). RF-130 a RF-134, RF-136 a RF-139b, RF-160, RF-161, RF-180, RF-181, RN-040 a RN-054. Almacén de configuración con los parámetros de RF-150 y sus valores por defecto (sin pantalla) | — |
+| F1 — Acceso, usuarios y privacidad | Preparación del proyecto (scaffold: DEC-055, DEC-056, DEC-060). RF-130 a RF-134, RF-136 a RF-139b, RF-160, RF-161, RF-180, RF-181, RNF-016, RN-040 a RN-054. Almacén de configuración con los parámetros de RF-150 y sus valores por defecto (sin pantalla) | — |
 | F2 — Catálogo y stock | RF-001 a RF-006, RF-020 a RF-023 | F1 |
 | F4 — Economía: aportaciones, compras, coste medio, regularización, arqueos, recuentos, repartos, bajas | RF-030 a RF-046, RF-064, RF-080 a RF-082, RF-090 a RF-093, RF-135, RN-001 a RN-021, RN-036, RN-037 | F1, F2 |
 | F3 — Registro de consumos (incluido sin conexión) | RF-010 a RF-019, RF-060 a RF-063 | F1, F2, F4 (cargo) |
@@ -1107,6 +1123,8 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.10.0 | 21-10-2026 | CAMBIO-010: arquitectura idiomática de SvelteKit. DEC-083 a DEC-087 (controladores finos sobre `lib/server/<modulo>`, mejora progresiva con excepciones cerradas, respuesta de `fail()`, reglas idiomáticas, dos enmiendas). Constitución 1.4.0 (principio XVII) | Escritura autorizada el 21-10-2026 («sí a los 2»); respaldo de 0.9.0 (SHA-256 2294c5a8…515a7e594) en `.respaldos/` |
 | 0.11.0 | 21-10-2026 | CAMBIO-011: estrategia de pruebas. DEC-088 a DEC-094 (verificación por impacto con puertas, componentes en navegador real, matriz de Playwright, regresión visual, mutación en `dominio/`, CI, `docs/pruebas.md`); §9 y §10.3. Constitución 1.5.0 (VIII, IX y tecnologías), ADR-0005 | Escritura autorizada el 21-10-2026 («sí a todo»); respaldo de 0.10.0 (SHA-256 d470857a…9e11f21b9) en `.respaldos/` |
 | 0.12.0 | 21-10-2026 | CAMBIO-012: experiencia de usuario. §7.15 (RF-180, RF-181), RNF-015, CA-180, CA-181, EV-061, DEC-095 a DEC-099, riesgos residuales en §13.3 y F1 en §15. Constitución 1.6.0 (V, X, XI y XVIII) | Escritura autorizada el 21-10-2026 («si a todo»); respaldo de 0.11.0 (SHA-256 20b5f9ab…90f794a5a) en `.respaldos/` |
+| 0.13.0 | 21-10-2026 | CAMBIO-013: revisión cruzada de los prompts ejecutados. Metadatos y fuentes con las rutas del repositorio; glosario («Registro», «Registro técnico», «Registro de auditoría», «Tema Automático», «Reducir transparencia»); RNF-016 y `/robots.txt`; `/api/registro-cliente` en §10.5; DEC-100 a DEC-102; HALL-014 y HALL-015; trazabilidad de registro técnico, UX e indexación; RNF-016 en F1; reevaluación del cierre (guía de refinamiento, §19) | Escritura autorizada el 21-10-2026 («Sí, los dos»); respaldo de 0.12.0 (SHA-256 92ce24d7…aacfc88443) en `.respaldos/` |
+| Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.13.0 (SHA-256 f3ec905d…7e4c7396). Reevaluados RF-139, RNF-014, RF-180, RF-181, RNF-015, RNF-016, CA-180, CA-181 y EV-061. Aplazados: PEND-014 y PEND-033. Para el plan de F1: PEND-034 a PEND-036. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («Sí, apruebo el cierre») |
 
 ---
 

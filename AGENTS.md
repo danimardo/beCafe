@@ -83,6 +83,7 @@ Cambiarlos exige la aprobación de §2. No los modifiques por ninguna vía (edic
 | `experimental.remoteFunctions`, `form`/`command`/`query` de `$app/server` | *Form actions* y `+server.ts` |
 | `+page.ts` / `+layout.ts` que leen datos, `fetch` en `onMount` o en un componente | `load` en `+page.server.ts` y la prop `data` (`ARCHITECTURE.md` §7) |
 | Enviar un formulario con `fetch` o con un `+server.ts` | `<form method="post">` + *action* con nombre + `use:enhance`; debe funcionar sin JavaScript |
+| Filtros con `goto` y la consulta hecha a mano, o `requestSubmit()` | `<form method="get">` (`ARCHITECTURE.md` §7) |
 | Comprobar el permiso solo en `+layout.server.ts` | El caso de uso que llama cada `load`, *action* y `+server.ts` |
 | `fail(400, { email, contrasena, … })` con secretos | `fallo(estado, errorZod, datos)` de `lib/shared/contratos/formularios` |
 | `let` o `new Map()` a nivel de módulo en servidor; `$state` exportado desde un `.svelte.ts` | `event.locals`, parámetros; props o contexto |

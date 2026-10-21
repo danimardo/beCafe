@@ -39,7 +39,11 @@ Decisiones que fijan esta forma: DEC-027, DEC-028, DT-050 y RT-010 en `historias
 ├─ CLAUDE.md                 Entrada de Claude Code: importa AGENTS.md y la constitución
 ├─ docs/
 │  ├─ adr/                   Decisiones de arquitectura (NNNN-titulo.md)
-│  └─ diseno/                Principios visuales, componentes y pantallas (antes design-system/docs)
+│  ├─ diseno/                Principios visuales, componentes y pantallas (antes design-system/docs)
+│  ├─ pruebas.md             Estrategia de pruebas y verificación por impacto
+│  └─ agentes.md             Controles del agente, límites y pruebas pendientes
+├─ .claude/                  Ajustes del proyecto para Claude Code y skills de Spec Kit
+├─ .local/                   Historial de verificación y benchmark (fuera de Git)
 ├─ specs/NNN-funcionalidad/  spec.md, plan.md, tasks.md y contratos de SpecKit
 ├─ drizzle/                  Migraciones SQL generadas (solo se añaden)
 ├─ tokens/tokens.json        Fuente única de los tokens de diseño
@@ -71,7 +75,7 @@ Decisiones que fijan esta forma: DEC-027, DEC-028, DT-050 y RT-010 en `historias
 | Un cálculo puro con dinero o fechas del dominio | `src/lib/server/<modulo>/dominio/` |
 | Una tabla nueva | `src/lib/server/<modulo>/esquema.ts` del módulo dueño, y una migración en `drizzle/` |
 | Una pantalla o acción de formulario | `src/routes/…/+page.svelte` y `+page.server.ts` |
-| Un endpoint JSON | `src/routes/api/…/+server.ts`, solo para clientes sin formulario (cola sin conexión, suscripción push) |
+| Un endpoint JSON | `src/routes/api/…/+server.ts`, solo para clientes sin formulario (cola sin conexión, suscripción push, registro del cliente) |
 | Un componente visual reutilizable | `src/lib/ui/`, exportado en `src/lib/ui/index.ts` |
 | Un esquema de entrada usado por cliente y servidor | `src/lib/shared/contratos/` |
 | Formato de importes o fechas para mostrar | `src/lib/shared/` |
@@ -293,12 +297,13 @@ export const actions: Actions = {
 | --- | --- | --- |
 | Datos de una página | `load` en `+page.server.ts` / `+layout.server.ts` y la prop `data` | `+page.ts` o `+layout.ts` que leen datos; `fetch` en `onMount` |
 | Cambiar datos | `<form method="post">` + *action* con nombre + `use:enhance` | `fetch` manual; `+server.ts` para un formulario |
-| API sin formulario | `src/routes/api/v1/…/+server.ts`: cola sin conexión, suscripción push, registro del cliente; y `/api/salud` | Endpoints JSON para pantallas normales |
+| API sin formulario | `src/routes/api/…/+server.ts`: cola sin conexión, suscripción push, registro del cliente; y `/api/salud` | Endpoints JSON para pantallas normales |
 | Rechazo esperado | `fallo(estado, errorZod, datos)` o `fail(estado, { errores, valores })` | Lanzar una excepción; devolver el valor en el mensaje |
 | Recurso inexistente o prohibido | `error(404 \| 403, mensaje)` | `error(estado, { message })` (obsoleto) |
 | Éxito que cambia de pantalla | `redirect(303, resolve('/ruta'))` | `goto` tras una *action* |
 | Recargar tras una *action* | Nada: `use:enhance` vuelve a ejecutar los `load` | `invalidateAll()` (obsoleto), recargas manuales |
 | Recarga por un hecho externo (aviso nuevo, cola sincronizada) | `depends(CLAVE)` en el `load` + `invalidate(CLAVE)`; claves en `lib/shared/claves-carga.ts` | `refreshAll()` sin justificar |
+| Navegar con filtros (`/historial`, `/estadisticas`, `/saldos`) | `<form method="get">` con envío nativo; la página dueña valida la consulta con `z.strictObject` (§6.1) | `goto` con una cadena de consulta construida a mano; un formulario oculto que solo se envía con `requestSubmit()` (necesita JavaScript) |
 
 **`fallo()`.** `lib/shared/contratos/formularios.ts` define `fallo(estado, error, datos)`. Convierte el error de Zod en `errores` por campo (código y mensaje en ETS) y copia en `valores` solo los campos que el esquema no marca como secretos (contraseñas, tokens, archivos). La página pone el foco en el primer campo con error.
 
@@ -344,7 +349,7 @@ Las reglas están en el principio XVI de la constitución. Las decisiones son DE
 | Elemento | Servidor | Cliente (navegador y service worker) |
 | --- | --- | --- |
 | Archivo único | `plataforma/registro.ts` (`pino`, `pino-roll`, `pino-pretty`) | `lib/client/registro.ts` (`loglevel`) |
-| Destino | Salida estándar (Coolify, RNF-014) + fichero JSON diario en `<directorio de datos>/logs/` (`/data/logs` en producción), rotado con `pino-roll`, 30 días | Consola del navegador. Los eventos `warn` y `error` se envían a `/api/v1/registro-cliente` |
+| Destino | Salida estándar (Coolify, RNF-014) + fichero JSON diario en `<directorio de datos>/logs/` (`/data/logs` en producción), rotado con `pino-roll`, 30 días | Consola del navegador. Los eventos `warn` y `error` se envían a `/api/registro-cliente` |
 | Formato | JSON en el fichero y en la salida estándar de producción; `pino-pretty` en la consola de desarrollo | — |
 | Nivel | `LOG_LEVEL` (§8): `info` por defecto, `debug` en `.env.example`, `silent` en las pruebas | `warn` en producción, `debug` en desarrollo; siempre `setLevel(nivel, false)` o `setDefaultLevel` para no guardar nada en el navegador |
 
@@ -365,9 +370,9 @@ Las reglas están en el principio XVI de la constitución. Las decisiones son DE
 - `SIN_PERMISO` y los accesos fallidos van en nivel `warn`.
 - Un error no previsto se registra como `app.error_no_previsto` en nivel `error`, con el error serializado.
 
-**Dato inválido.** La función común que lee y valida JSON guardado, IndexedDB o archivos registra `dato.invalido` con `origen`, `id` (si se puede leer), `campo` e `incidencia` (código de Zod), sin el valor.
+**Dato inválido.** La función común que lee y valida JSON guardado, IndexedDB, `localStorage` (preferencias de apariencia) o archivos registra `dato.invalido` con `origen`, `id` (si se puede leer), `campo` e `incidencia` (código de Zod), sin el valor.
 
-**Registro del cliente.** `/api/v1/registro-cliente` exige sesión y valida el cuerpo con `z.strictObject` y una unión discriminada por `codigo`. Limita el tamaño y la frecuencia (PEND-034, plan de F1). Escribe el evento con `origen: 'cliente'`. Los eventos sin enviar se guardan en memoria y se pierden al cerrar la pestaña. Antes de iniciar sesión, solo se escriben en la consola. Un cuerpo rechazado genera `cliente.registro_rechazado`.
+**Registro del cliente.** `/api/registro-cliente` exige sesión y valida el cuerpo con `z.strictObject` y una unión discriminada por `codigo`. Limita el tamaño y la frecuencia (PEND-034, plan de F1). Escribe el evento con `origen: 'cliente'`. Los eventos sin enviar se guardan en memoria y se pierden al cerrar la pestaña. Antes de iniciar sesión, solo se escriben en la consola. Un cuerpo rechazado genera `cliente.registro_rechazado`.
 
 **Catálogo inicial.** Cada `plan.md` añade los eventos de su funcionalidad.
 
@@ -507,3 +512,4 @@ Todo `plan.md` responde a estas preguntas antes de generar tareas. Una respuesta
 11. ¿Las migraciones solo añaden y no reescriben datos económicos?
 12. ¿Cada pantalla carga en `+page.server.ts` y cambia datos con *actions* que funcionan sin JavaScript? ¿Usa alguna excepción del principio XVII?
 13. ¿Qué eventos de registro añade al catálogo (§9) y qué prueba los comprueba?
+14. ¿Cada pantalla nueva define sus estados vacío, cargando, error y sin conexión (constitución X), en tema claro y oscuro y con la alternativa opaca (XVIII)? ¿Entra en la suite `a11y` con las preferencias de EV-061?
