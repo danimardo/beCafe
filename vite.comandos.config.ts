@@ -1,12 +1,19 @@
 import { defineConfig } from 'vite';
 
-// Empaqueta el comando de recuperación de administrador para `node build-scripts/recuperar-admin.js` (contracts/api.md).
+// Empaqueta los comandos de servidor en `build-scripts/` (contracts/api.md y T057):
+// `recuperar-admin.js` (RF-139b) y `sembrar-e2e.js` (datos de prueba de E2E).
 // Las dependencias de `node_modules` quedan externas (Vite las externaliza en SSR).
 export default defineConfig({
 	build: {
-		ssr: 'scripts/servidor/recuperar-admin.ts',
+		ssr: true,
 		outDir: 'build-scripts',
 		emptyOutDir: true,
-		rollupOptions: { output: { entryFileNames: 'recuperar-admin.js', format: 'es' } },
+		rollupOptions: {
+			input: {
+				'recuperar-admin': 'scripts/servidor/recuperar-admin.ts',
+				'sembrar-e2e': 'scripts/servidor/sembrar-e2e.ts',
+			},
+			output: { entryFileNames: '[name].js', format: 'es' },
+		},
 	},
 });

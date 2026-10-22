@@ -1,7 +1,11 @@
-import { mkdir, mkdtemp, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
-import { spawn, type ChildProcess } from 'node:child_process';
+import { execFile, spawn, type ChildProcess } from 'node:child_process';
+import { promisify } from 'node:util';
+import { z } from 'zod';
 import { test as base } from '@playwright/test';
+
+const ejecutar = promisify(execFile);
 
 export interface ServidorDePrueba {
 	/** Origen HTTP del servidor de este worker. */
@@ -10,7 +14,17 @@ export interface ServidorDePrueba {
 	directorioDatos: string;
 	/** Enlace de invitación del primer administrador, tal como lo escribe el arranque en la salida estándar (CA-139). */
 	enlaceAdmin: string;
+	/** Datos de prueba que siembra `sembrar-e2e.js` (T057): correos por rol, contraseña común y el enlace de Pedro. */
+	siembra: Siembra;
 }
+
+// Forma del fichero que escribe `scripts/servidor/sembrar-e2e.ts`. Se valida al leerlo (constitución VI).
+const esquemaSiembra = z.strictObject({
+	correos: z.strictObject({ administrador: z.string(), miembro: z.string(), invitada: z.string(), pendiente: z.string() }),
+	contrasena: z.string(),
+	enlacePedro: z.string(),
+});
+export type Siembra = z.infer<typeof esquemaSiembra>;
 
 // Debe coincidir con el ORIGIN con el que se compila la build: `ORIGIN=http://127.0.0.1:4300 DIRECTORIO_DATOS=… npm run build`.
 const PUERTO_BASE = 4300;
@@ -28,20 +42,21 @@ export const test = base.extend<object, { servidor: ServidorDePrueba }>({
 			await mkdir(join(process.cwd(), '.local'), { recursive: true });
 			const directorioDatos = await mkdtemp(join(process.cwd(), '.local', 'e2e-datos-'));
 
+			const entorno = {
+				PATH: process.env.PATH ?? '',
+				HOST: '127.0.0.1',
+				PORT: String(puerto),
+				ORIGIN: url,
+				DIRECTORIO_DATOS: directorioDatos,
+				// Base nueva por worker: el arranque crea el primer administrador con estos datos de prueba (no reales).
+				ADMIN_INICIAL_EMAIL: 'admin.prueba@ejemplo.es',
+				ADMIN_INICIAL_NOMBRE: 'Administración de prueba',
+				LOG_LEVEL: process.env.E2E_LOG_LEVEL ?? 'warn',
+				TZ: 'Europe/Madrid',
+			};
 			const proceso: ChildProcess = spawn(process.execPath, ['build'], {
 				cwd: process.cwd(),
-				env: {
-					PATH: process.env.PATH ?? '',
-					HOST: '127.0.0.1',
-					PORT: String(puerto),
-					ORIGIN: url,
-					DIRECTORIO_DATOS: directorioDatos,
-					// Base nueva por worker: el arranque crea el primer administrador con estos datos de prueba (no reales).
-					ADMIN_INICIAL_EMAIL: 'admin.prueba@ejemplo.es',
-					ADMIN_INICIAL_NOMBRE: 'Administración de prueba',
-					LOG_LEVEL: process.env.E2E_LOG_LEVEL ?? 'warn',
-					TZ: 'Europe/Madrid',
-				},
+				env: entorno,
 				stdio: ['ignore', 'pipe', 'pipe'],
 			});
 
@@ -73,7 +88,10 @@ export const test = base.extend<object, { servidor: ServidorDePrueba }>({
 
 			try {
 				await arrancado;
-				await use({ url, directorioDatos, enlaceAdmin: await enlaceAdmin });
+				// La siembra usa la misma base que el servidor, con las mismas variables: sus datos son los del worker.
+				await ejecutar(process.execPath, [join(process.cwd(), 'build-scripts', 'sembrar-e2e.js')], { cwd: process.cwd(), env: entorno });
+				const siembra = esquemaSiembra.parse(JSON.parse(await readFile(join(directorioDatos, 'siembra-e2e.json'), 'utf8')));
+				await use({ url, directorioDatos, enlaceAdmin: await enlaceAdmin, siembra });
 			} finally {
 				proceso.kill();
 				await rm(directorioDatos, { recursive: true, force: true });

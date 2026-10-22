@@ -17,12 +17,14 @@
 </script>
 
 <div class={cn('flex min-h-11 items-center justify-between gap-4 py-1', className)}>
-	<label for={id} class="min-w-0 flex-1">
-		<span class="block text-[15px] font-medium leading-5 text-ink">{label}</span>
-		{#if description}<span class="block text-[13px] leading-[18px] text-ink-muted">{description}</span>{/if}
-	</label>
+	<!-- El nombre accesible es la etiqueta; la ayuda va en aria-describedby, no dentro del nombre. -->
+	<div class="min-w-0 flex-1">
+		<label for={id} class="block text-[15px] font-medium leading-5 text-ink">{label}</label>
+		{#if description}<p id="{id}-ayuda" class="text-[13px] leading-[18px] text-ink-muted">{description}</p>{/if}
+	</div>
 	<Switch.Root
 		{id}
+		aria-describedby={description ? `${id}-ayuda` : undefined}
 		bind:checked
 		{disabled}
 		onCheckedChange={(v) => onchange?.(v)}

@@ -24,8 +24,10 @@
 		"test:e2e:quick": "playwright test --project=chromium-movil",
 		"test:e2e:smoke": "playwright test e2e/smoke --project=chromium-movil",
 		"db:generate": "drizzle-kit generate",
-		"admin:recuperar": "vite build --config vite.comandos.config.ts && node build-scripts/recuperar-admin.js",
-		"verify": "npm run format:check && npm run lint && npm run check && npm run arch && npm run test && npm run test:componentes && npm run build"
+		"build:verificacion": "node scripts/build-verificacion.mjs",
+		"build:comandos": "vite build --config vite.comandos.config.ts",
+		"admin:recuperar": "npm run build:comandos && node build-scripts/recuperar-admin.js",
+		"verify": "npm run format:check && npm run lint && npm run check && npm run arch && npm run test && npm run test:componentes && npm run build:verificacion"
 	},
 	"imports": {
 		"#lib/ui": "./src/lib/ui/index.ts",

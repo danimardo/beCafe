@@ -66,7 +66,7 @@ curl -i http://localhost:3000/login
 - `Disallow: /` en `/robots.txt`;
 - `X-Robots-Tag: noindex, nofollow` en las dos respuestas;
 - la cabecera CSP;
-- `Referrer-Policy: no-referrer`.
+- `Referrer-Policy: strict-origin`.
 
 La suite `api` lo comprueba también en una ruta con sesión y comprueba que un POST desde otro origen recibe 403.
 

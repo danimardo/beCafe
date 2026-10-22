@@ -65,6 +65,15 @@
 	}
 }
 
+/* «Reducir transparencia» de la aplicación (RF-181): mismo resultado que el ajuste del sistema. La regla del sistema sigue
+   vigente aunque la aplicación lo desactive. */
+:root[data-transparencia='reducida'] .glass,
+:root[data-transparencia='reducida'] .glass-strong {
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	background: color-mix(in srgb, var(--wall-base) 92%, var(--accent));
+}
+
 /* ---------- Fondo con manchas (lo pinta AppShell y los especímenes) ---------- */
 @utility wall-blobs {
 	position: relative;

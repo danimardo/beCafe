@@ -92,7 +92,7 @@ paso('Formato (prettier)', 'format:check');
 paso('Lint (eslint)', 'lint');
 paso('Tipos (svelte-check)', 'check');
 paso('Arquitectura (dependency-cruiser)', 'arch');
-paso('Build (vite)', 'build');
+paso('Build (vite)', 'build:verificacion');
 paso('Pruebas servidor con cobertura', 'test', ['--reporter=default', '--reporter=json', `--outputFile.json=${vitestServidor}`]);
 paso('Pruebas componentes', 'test:componentes', ['--reporter=default', '--reporter=json', `--outputFile.json=${vitestComponentes}`]);
 paso(rapido ? 'E2E (chromium-movil)' : 'E2E (todos los proyectos)', rapido ? 'test:e2e:quick' : 'test:e2e', ['--reporter=list,json'], {

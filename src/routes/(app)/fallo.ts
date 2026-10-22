@@ -11,6 +11,7 @@ const CAMPO_POR_CODIGO: Partial<Record<CodigoNegocio, string>> = {
 	REAUTENTICACION_REQUERIDA: 'contrasenaActual',
 	CREDENCIALES_INCORRECTAS: 'contrasenaActual',
 	CORREO_DUPLICADO: 'email',
+	CONTRASENA_NO_VALIDA: 'contrasenaNueva',
 };
 
 /** Fallo de formulario por una regla de negocio. `valores` nunca lleva contraseñas (constitución XVII). */

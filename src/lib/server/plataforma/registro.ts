@@ -36,7 +36,7 @@ export const NIVEL_EVENTO = {
 export type CodigoEvento = keyof typeof NIVEL_EVENTO;
 
 export type CamposEvento = {
-	'app.arranque': { version: string; commit: string; node: string; nivel: string };
+	'app.arranque': { version: string; commit: string; node: string; nivelLog: string };
 	'app.migraciones_aplicadas': { aplicadas: number };
 	'app.entorno_invalido': { variables: readonly string[] };
 	'app.error_no_previsto': { tipo: string; pila: string };
@@ -69,6 +69,8 @@ export type Registrador = {
 	/** Eventos enviados por el navegador (`origen: 'cliente'`); solo los códigos de `CODIGOS_CLIENTE`. */
 	registrarCliente<C extends CodigoClienteEvento>(codigo: C, campos: CamposEvento[C]): void;
 	registrarEnlaceSoloSalida(enlace: string): void;
+	/** Vacía los destinos asíncronos (fichero diario) antes de terminar el proceso. Los registradores sin destino asíncrono no lo definen. */
+	cerrar?(): Promise<void>;
 };
 
 /** Códigos que el navegador puede enviar a `/api/registro-cliente` (contrato registro-cliente v1). */
@@ -98,6 +100,11 @@ export function registrarDesdeCliente<C extends CodigoClienteEvento>(codigo: C, 
 
 export function registrarEnlaceSoloSalida(enlace: string): void {
 	activo.registrarEnlaceSoloSalida(enlace);
+}
+
+/** Espera a que los eventos pendientes lleguen a su destino. Llamarla antes de `process.exit`. */
+export async function cerrarRegistro(): Promise<void> {
+	await activo.cerrar?.();
 }
 
 /** Claves que la configuración `redact` oculta como protección adicional (ARCHITECTURE.md §9). */
@@ -140,7 +147,7 @@ function resolverDestino(paquete: string): string {
 export function crearRegistroPino(configuracion: ConfiguracionRegistro): Registrador {
 	const base = { version: configuracion.version, commit: configuracion.commit };
 	const formato = {
-		formatters: { level: (nivel: string) => ({ nivel }) },
+		formatters: { level: (nivel: string, numero: number) => ({ nivel, level: numero }) },
 		timestamp: () => `,"instante":"${new Date().toISOString()}"`,
 	};
 	const transporte = pino.transport({
@@ -171,6 +178,12 @@ export function crearRegistroPino(configuracion: ConfiguracionRegistro): Registr
 		registrarEnlaceSoloSalida(enlace) {
 			instanciaSalida.info({ codigo: 'auth.admin_inicial_creado', operacionId: operacionActual(), enlace });
 		},
+		cerrar() {
+			return new Promise<void>((resolver) => {
+				transporte.once('close', () => resolver());
+				transporte.end();
+			});
+		},
 	};
 }
 
@@ -180,7 +193,7 @@ export function crearRegistroPino(configuracion: ConfiguracionRegistro): Registr
  */
 export function crearRegistroSoloSalida(): Registrador {
 	const formato = {
-		formatters: { level: (nivel: string) => ({ nivel }) },
+		formatters: { level: (nivel: string, numero: number) => ({ nivel, level: numero }) },
 		timestamp: () => `,"instante":"${new Date().toISOString()}"`,
 	};
 	const instancia = pino({ level: 'info', ...formato }, pino.destination(1));

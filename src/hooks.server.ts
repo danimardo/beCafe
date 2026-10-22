@@ -3,29 +3,37 @@ import type { Handle, HandleServerError } from '@sveltejs/kit/hooks';
 import { arrancar } from './lib/server/arranque';
 import { entorno } from './lib/server/plataforma/entorno';
 import { NOMBRE_COOKIE, crearActor, opcionesCookie, resolverSesion } from '#lib/server/auth';
-import { conOperacion, operacionActual, registrar, respuestaError } from '#lib/server/plataforma';
+import { cerrarRegistro, conOperacion, operacionActual, registrar, respuestaError } from '#lib/server/plataforma';
 import { privacidadPendiente } from '#lib/server/usuarios';
 import { VERSION_PRIVACIDAD } from '#lib/shared/privacidad';
 import { decidirPuertaPrivacidad } from '#lib/shared/puerta-privacidad';
 import { textos } from '#lib/shared/textos';
 
 // Raíz de la petición (research R10, R15, R5). Resuelve la sesión, aplica la puerta de privacidad y añade las cabeceras.
-const ambiente = arrancar({
-	origen: entorno.origen,
-	directorioDatos: entorno.directorioDatos,
-	nivelLog: entorno.nivelLog,
-	adminInicialEmail: entorno.adminInicialEmail,
-	adminInicialNombre: entorno.adminInicialNombre,
-	version: __APP_VERSION__,
-	commit: __APP_COMMIT__,
-	desarrollo: import.meta.env.DEV,
-	carpetaMigraciones: `${process.cwd()}/drizzle`,
-});
+// Un entorno no válido se registra (`app.entorno_invalido`), se vacía el registro y el proceso termina con código 1, sin traza.
+let ambiente: ReturnType<typeof arrancar>;
+try {
+	ambiente = arrancar({
+		origen: entorno.origen,
+		directorioDatos: entorno.directorioDatos,
+		nivelLog: entorno.nivelLog,
+		adminInicialEmail: entorno.adminInicialEmail,
+		adminInicialNombre: entorno.adminInicialNombre,
+		version: __APP_VERSION__,
+		commit: __APP_COMMIT__,
+		desarrollo: import.meta.env.DEV,
+		carpetaMigraciones: `${process.cwd()}/drizzle`,
+	});
+} catch (error) {
+	if (!(error instanceof Error && error.message === 'ENTORNO_NO_VALIDO')) throw error;
+	await cerrarRegistro();
+	process.exit(1);
+}
 
 const CABECERAS_BASE: Record<string, string> = {
 	'X-Robots-Tag': 'noindex, nofollow',
 	'X-Content-Type-Options': 'nosniff',
-	'Referrer-Policy': 'no-referrer',
+	'Referrer-Policy': 'strict-origin',
 	'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
 };
 
@@ -78,7 +86,11 @@ export const handle: Handle = ({ event, resolve }) =>
 		return respuesta;
 	});
 
-export const handleError: HandleServerError = ({ error }) => {
+// Solo un error no previsto (`kind: 'unknown'`) recibe el texto genérico y el código de incidencia. Un rechazo esperado
+// (`error(403, mensaje)`, `error(404)`) conserva su propio mensaje (constitución XIII).
+export const handleError: HandleServerError = (entrada) => {
+	if (entrada.kind !== 'unknown') return undefined;
+	const { error } = entrada;
 	registrar('app.error_no_previsto', {
 		tipo: error instanceof Error ? error.name : 'desconocido',
 		pila: error instanceof Error ? (error.stack ?? '') : '',

@@ -15,7 +15,7 @@ test('RNF-016: las páginas llevan X-Robots-Tag, CSP y Referrer-Policy', async (
 	const cabeceras = respuesta.headers();
 
 	expect(cabeceras['x-robots-tag']).toBe('noindex, nofollow');
-	expect(cabeceras['referrer-policy']).toBe('no-referrer');
+	expect(cabeceras['referrer-policy']).toBe('strict-origin');
 	expect(cabeceras['content-security-policy']).toContain("script-src 'self'");
 });
 
@@ -33,4 +33,22 @@ test('la salud responde 200 con la versión cuando la base responde', async ({ r
 
 	expect(respuesta.status()).toBe(200);
 	expect(await respuesta.json()).toMatchObject({ estado: 'ok' });
+});
+
+test('RNF-016: /perfil con sesión lleva X-Robots-Tag', async ({ request, servidor }) => {
+	const entrada = await request.post(`${servidor.url}/login`, {
+		headers: { origin: servidor.url },
+		form: { email: servidor.siembra.correos.miembro, contrasena: servidor.siembra.contrasena },
+		maxRedirects: 0,
+	});
+	const cookie = /becafe_sesion=([^;]+)/.exec(entrada.headers()['set-cookie'] ?? '');
+	expect(cookie?.[1]).toBeTruthy();
+
+	const perfil = await request.get(`${servidor.url}/perfil`, {
+		headers: { cookie: `becafe_sesion=${cookie?.[1] ?? ''}` },
+		maxRedirects: 0,
+	});
+
+	expect(perfil.status()).toBe(200);
+	expect(perfil.headers()['x-robots-tag']).toBe('noindex, nofollow');
 });

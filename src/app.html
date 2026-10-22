@@ -138,15 +138,20 @@
 			media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)"
 		/>
 		<script nonce="%sveltekit.nonce%">
-			// Resuelve el tema ANTES de pintar para evitar el parpadeo.
-			// Preferencia guardada: 'auto' | 'claro' | 'oscuro'. Por defecto: 'auto' (sigue al dispositivo).
+			// Aplica la apariencia ANTES de pintar para evitar el parpadeo (RF-180, RF-181).
+			// Solo se aceptan valores de la lista cerrada; cualquier otro dato guardado usa el valor por defecto.
 			(function () {
-				var pref = 'auto';
+				var tema = 'auto';
+				var transparencia = 'normal';
 				try {
-					pref = localStorage.getItem('becafe-tema') || 'auto';
+					tema = localStorage.getItem('becafe-tema') || 'auto';
+					transparencia = localStorage.getItem('becafe-transparencia') || 'normal';
 				} catch (e) {}
-				var dark = pref === 'oscuro' || (pref === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
-				document.documentElement.setAttribute('data-theme', dark ? 'oscuro' : 'claro');
+				if (['auto', 'claro', 'oscuro'].indexOf(tema) < 0) tema = 'auto';
+				if (['normal', 'reducida'].indexOf(transparencia) < 0) transparencia = 'normal';
+				var oscuro = tema === 'oscuro' || (tema === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+				document.documentElement.setAttribute('data-theme', oscuro ? 'oscuro' : 'claro');
+				document.documentElement.setAttribute('data-transparencia', transparencia);
 			})();
 		</script>
 		%sveltekit.head%

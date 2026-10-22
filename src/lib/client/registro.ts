@@ -23,6 +23,15 @@ export function registrarEnCliente(evento: Evento): void {
 	programar();
 }
 
+/** Registra que un dato guardado en el navegador no es válido. Solo se envía el campo, nunca el valor (constitución XVI). */
+export function registrarDatoInvalido(origen: string, campo: string): void {
+	registrarEnCliente({
+		codigo: 'dato.invalido',
+		instante: new Date().toISOString(),
+		campos: { origen, campo, incidencia: 'valor-no-valido' },
+	});
+}
+
 function programar(): void {
 	temporizador ??= setTimeout(() => {
 		void enviarLote();

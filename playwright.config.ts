@@ -3,6 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 // Proyectos de docs/pruebas.md §12.3 (DEC-090). Cada worker arranca su propio servidor con la build (e2e/fixtures/servidor.ts).
 export default defineConfig({
 	testDir: 'e2e',
+	globalSetup: './e2e/fixtures/preparar.ts',
 	outputDir: 'test-results',
 	fullyParallel: true,
 	// Una build tiene un solo origen (`kit.paths.origin`, fijado con ORIGIN al compilar): todos los servidores de prueba

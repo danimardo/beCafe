@@ -10,6 +10,7 @@ export {
 	registrar,
 	registrarDesdeCliente,
 	registrarEnlaceSoloSalida,
+	cerrarRegistro,
 	CODIGOS_CLIENTE,
 	type CodigoClienteEvento,
 	usarRegistro,

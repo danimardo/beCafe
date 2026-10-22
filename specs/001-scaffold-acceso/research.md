@@ -113,7 +113,7 @@ Decisiones técnicas del plan de F1. Cada decisión indica qué se elige, por qu
       - se crea una sesión nueva;
       - se redirige a `/aceptar-privacidad` o a `/`.
   - **Enlace no válido:** un enlace usado, caducado, anulado o inexistente muestra «Enlace no válido o caducado» (CA-132).
-  - **Cabeceras:** las respuestas de `/acceso/*` llevan `Cache-Control: no-store`. Toda la aplicación usa `Referrer-Policy: no-referrer`, para que el token no salga en la cabecera `Referer`.
+  - **Cabeceras:** las respuestas de `/acceso/*` llevan `Cache-Control: no-store`. Toda la aplicación usa `Referrer-Policy: strict-origin`: el `Referer` lleva solo el origen, nunca la ruta, así que el token de `/acceso/*` no sale en la cabecera. Con `no-referrer`, Chromium envía `Origin: null` en los POST sin JavaScript y SvelteKit los rechaza (403, principio XVII).
 - **Motivo:** los clientes de correo y mensajería abren los enlaces para generar vistas previas. Si un `GET` consumiera el enlace, llegaría gastado a la persona.
 
 ## R9. Reautenticación de administrador (RN-050, RF-138) sin JavaScript
@@ -231,7 +231,7 @@ Se reutilizan `SIN_SESION`, `SIN_PERMISO`, `VALIDACION`, `REAUTENTICACION_REQUER
 - **Otras cabeceras** (en `handle` de `hooks.server.ts`):
   - `X-Robots-Tag: noindex, nofollow`
   - `X-Content-Type-Options: nosniff`
-  - `Referrer-Policy: no-referrer`
+  - `Referrer-Policy: strict-origin`
   - `Permissions-Policy` vacía para cámara, micrófono y geolocalización
   - `Strict-Transport-Security` cuando `ORIGIN` usa `https`
 - **CSRF (RNF-006):** la comprobación de origen de SvelteKit queda activa, sin orígenes de confianza adicionales. Una prueba envía un POST desde otro origen y espera 403.
@@ -299,3 +299,13 @@ Antes de instalar cada una se comprueban su licencia, su actividad y `npm audit`
 
 - **Umbrales por patrón (T014):** Vitest 5 aplica los umbrales `src/lib/server/economia/**` y `src/lib/server/**/dominio/**` cuando existen archivos que casan con ellos. Con un `dominio/provisional.ts` sin pruebas, la verificación falló con «Coverage for lines (0%) does not meet … threshold (90%)». Con cero archivos, como en F1, la verificación pasa (`npm run verify`). Por tanto, el umbral del 90 % queda vigente desde el primer archivo de `economia` o de `dominio/`, sin ninguna configuración adicional.
 - **Archivos de TypeScript (T021):** `npx tsc -p tsconfig.json --listFilesOnly` lista 459 archivos en el estado del lote L1 (medido el 2026-10-21).
+
+## Verificación del scaffold (T008)
+
+Las APIs marcadas «verificar en el scaffold» se comprobaron con el paquete instalado:
+
+- **Importaciones con `.ts` (R2):** `imports` de `package.json` resuelve `#lib/ui`, `#lib/server/*`, `#lib/shared/*` y `#lib/client/*` hacia archivos `.ts`. `npm run check` (`svelte-check --fail-on-warnings`) y el build pasan sin advertencias.
+- **`defineEnvVars` y `$app/env/private` (R13):** `src/env.ts` declara las variables con `defineEnvVars` y solo `src/lib/server/plataforma/entorno.ts` importa `$app/env/private`.
+- **CSP con nonce (R15):** `kit.csp` en `vite.config.ts` usa `mode: 'nonce'`; el script en línea de `src/app.html` lleva `nonce="%sveltekit.nonce%"`. Las pruebas E2E de cabeceras (`e2e/api/cabeceras.spec.ts`) pasan.
+
+Sin desviaciones respecto al diseño. Evidencia: `npm run verify` y el registro de `.local/verification/runs.jsonl`.

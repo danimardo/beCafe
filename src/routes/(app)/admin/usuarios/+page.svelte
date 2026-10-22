@@ -87,12 +87,14 @@
 	</Section>
 
 	<Section title={textos.admin.titulo}>
-		{#each data.personas as persona (persona.id)}
-			<ListRow
-				title={persona.nombre}
-				subtitle={`${persona.email} · ${etiquetaRol(persona.rol)} · ${persona.estado === 'baja' ? 'De baja' : 'Activa'}`}
-				href={resolve('/(app)/admin/usuarios/[usuarioId=ulid]', { usuarioId: persona.id })}
-			/>
-		{/each}
+		<ul class="flex flex-col">
+			{#each data.personas as persona (persona.id)}
+				<ListRow
+					title={persona.nombre}
+					subtitle={`${persona.email} · ${etiquetaRol(persona.rol)} · ${persona.estado === 'baja' ? 'De baja' : 'Activa'}`}
+					href={resolve('/(app)/admin/usuarios/[usuarioId=ulid]', { usuarioId: persona.id })}
+				/>
+			{/each}
+		</ul>
 	</Section>
 </main>

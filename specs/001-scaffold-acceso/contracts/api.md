@@ -53,7 +53,7 @@ Un cuerpo rechazado genera `cliente.registro_rechazado` (warn) como mucho una ve
 | --- | --- |
 | `X-Robots-Tag` | `noindex, nofollow` |
 | `X-Content-Type-Options` | `nosniff` |
-| `Referrer-Policy` | `no-referrer` |
+| `Referrer-Policy` | `strict-origin` |
 | `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` |
 | `Strict-Transport-Security` | `max-age=31536000` cuando `ORIGIN` usa `https` |
 | `Content-Security-Policy` | La genera `kit.csp` |

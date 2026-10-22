@@ -44,6 +44,7 @@
 			</form>
 		</div>
 	{:else}
+		<h1 class="font-serif text-3xl font-semibold text-ink">{textos.acceso.tituloNoValido}</h1>
 		<Banner tone="negative" title={textos.acceso.enlaceNoValido}>
 			{#snippet actions()}
 				<a class="text-accent underline" href={resolve('/(auth)/login')}>{textos.inicioSesion.titulo}</a>

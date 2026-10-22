@@ -29,7 +29,7 @@ Los campos se limitan a identificadores, códigos, recuentos, duraciones y tama�
 
 | Código | Nivel | Campos | Cuándo |
 | --- | --- | --- | --- |
-| `app.arranque` | info | `version`, `commit`, `node`, `nivel` | Al arrancar |
+| `app.arranque` | info | `version`, `commit`, `node`, `nivelLog` | Al arrancar |
 | `app.entorno_invalido` | fatal | `variables` (nombres) | Entorno no válido, o sin usuarios y sin las variables del primer administrador |
 | `app.migraciones_aplicadas` | info | `aplicadas` (recuento) | Al arrancar |
 | `auth.admin_inicial_creado` | info | `usuarioId` | RF-139. El enlace va solo a la salida estándar, por la instancia aparte |

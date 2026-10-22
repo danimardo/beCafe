@@ -35,7 +35,7 @@ export function prepararAmbiente(configuracion: ConfiguracionArranque): Ambiente
 		version: configuracion.version,
 		commit: configuracion.commit,
 		node: process.version,
-		nivel: configuracion.nivelLog,
+		nivelLog: configuracion.nivelLog,
 	});
 	registrar('app.migraciones_aplicadas', { aplicadas });
 

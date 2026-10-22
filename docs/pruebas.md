@@ -124,10 +124,10 @@ Ejemplo: `F4-L2 → CA-041, CA-045, EV-031 → coste medio con stock negativo; r
 ### 12.1 Entorno y datos
 
 - **Contra la build de producción:** `vite build` una vez y después `node build` por cada worker de Playwright, con su propio directorio de datos temporal y su puerto. Una fixture de worker arranca y detiene el servidor. Así cada worker tiene su hucha y su stock, y los tests pueden ir en paralelo sin compartir datos económicos.
-- **Siembra:** un script de siembra usa las **funciones públicas de los módulos** (no SQL directo), con datos fijos e identificables (Ana, Luis, Marta, Jorge, Pedro; tipos «Ristretto» y «Decaf»). No existe ningún endpoint de siembra en la aplicación.
+- **Siembra:** `scripts/servidor/sembrar-e2e.ts` (empaquetado en `build-scripts/sembrar-e2e.js` por `npm run build:comandos`) usa las **funciones públicas de los módulos** (no SQL directo) y se ejecuta una vez por worker, después de arrancar el servidor. Crea a Ana (administradora), Luis (miembro), Marta (miembro sin privacidad aceptada) y Pedro (sin contraseña, con enlace de invitación). Escribe sus datos en un fichero del directorio temporal del worker, no en la consola. Jorge y los tipos de cápsula llegan con F2. No existe ningún endpoint de siembra en la aplicación.
 - **Variables:** los valores de `.env.test.example` se pasan solo en el proceso de prueba (sin secretos reales). Las claves VAPID son de prueba. S3 apunta a un servidor falso local.
 - **Servicios externos:** el envío push se sustituye por un fake en `notificaciones/entrega-push.ts`, seleccionado por configuración de prueba. Registra los envíos para poder comprobarlos (CA-101, CA-105). La subida S3 apunta a un servidor HTTP falso que guarda el archivo recibido (CA-140, CA-142).
-- **Sesiones:** un proyecto de preparación inicia sesión una vez por rol (`anonimo`, `miembro`, `administrador`) y guarda su `storageState`. Solo los specs de acceso (CA-132, CA-133, CA-137, CA-138) recorren el login por la interfaz.
+- **Sesiones:** `e2e/fixtures/sesiones.ts` (`entrarComo`) inicia sesión por el formulario de `/login` en cada test, sin `storageState`. Es más lento, pero recorre el camino que sigue cualquier persona. El proyecto de preparación con `storageState` por rol queda pendiente: se añade si el benchmark de F1 muestra que la entrada repetida pesa en el tiempo de la suite.
 - **Reloj del navegador:** `page.clock` para la cuenta atrás de «Deshacer» y los textos relativos. El reloj del servidor no se manipula en E2E; las reglas con fecha se prueban en integración.
 - **Sin conexión:** `context.setOffline(true)` para CA-015, CA-063 y CA-173.
 
@@ -267,7 +267,7 @@ Cada `spec.md`, al recibir el traspaso, copia la fila de sus CA y la concreta en
   - Se valida con `-DryRun` / `--dry-run` en el scaffold de F1.
   - Se ejecuta completo por primera vez al cerrar F1 y después en cada puerta. Genera `.local/benchmark/<fecha>-<equipo>.json` y `.txt` con la duración por paso y las 10 pruebas más lentas.
   - Al empezar una sesión se lee el último informe para planificar la selección; no se reejecuta.
-- **Avisos de duración:** no se fija ningún umbral antes de la primera medición. Tras el cierre de F1 se propone uno con los datos del benchmark.
+- **Avisos de duración:** no hay umbral. Primera medición (T088, 22-10-2026): E2E 131 s y build 11 s, en una sola ejecución. La persona usuaria decidió solo medir por ahora; el aviso se propone cuando haya tres ejecuciones con datos.
 - **Tamaño del programa de TypeScript:** el número de archivos que carga el comprobador de tipos es un presupuesto. Se mide al terminar el scaffold y en cada lote que añada dependencias (`npx tsc -p tsconfig.json --listFilesOnly`, contando líneas). Una subida grande se investiga antes de seguir: el índice de una librería de iconos puede multiplicar el tiempo de `check` y del lint con tipos.
 - **Configuración de partida del scaffold:** ESLint con `--concurrency` y Vitest con un `testTimeout` global. Sus valores se fijan con la primera medición, no antes. No se usa `eslint --cache`: con una configuración que contiene funciones (typescript-eslint) no es fiable. `lint:changed` pasa a lintar todo el proyecto si cambia la configuración de ESLint o de TypeScript.
 
@@ -378,13 +378,26 @@ T-TEST-007 Ejecutar el benchmark completo al cerrar F1 y proponer avisos de dura
 T-TEST-008 Crear scripts/dev-windows-defender-exclusions.ps1 (con -Remove) para que lo ejecute una persona administradora (§17.5), y medir el tamaño del programa de TypeScript (§17.3).
 ```
 
+**Estado al cerrar la implementación de F1 (`specs/001-scaffold-acceso/tasks.md`):**
+
+| Tarea | Estado | Nota |
+| --- | --- | --- |
+| T-TEST-001 | Hecha | Proyectos `servidor` y `componentes`, umbrales de cobertura en `vite.config.ts`. |
+| T-TEST-002 | Hecha | `crearEventoAccion`, `desenvolverFallo`, reloj fijo, constructores, base temporal y `crearRegistroFalso`. |
+| T-TEST-003 | Hecha con desviación | Servidor por worker, siembra por servicios y sesiones por interfaz (ver §12.1). Sin `storageState`. |
+| T-TEST-004 | Hecha | Suites `smoke`, `acceso` (EV-050), `a11y` y `sin-js`. |
+| T-TEST-005 | Hecha | Scripts npm del §18 y `scripts/benchmark.mjs` con `-DryRun`. `.local/` en `.gitignore`. |
+| T-TEST-006 | Pendiente | `.github/workflows/ci.yml` es un archivo protegido: se propone con su diferencia y se espera la aprobación. |
+| T-TEST-007 | Pendiente | Se ejecuta al cerrar F1 (T088). |
+| T-TEST-008 | Parcial | Script de exclusiones de Windows Defender hecho. La medición del programa de TypeScript está en T087. |
+
 T-MUT-001 (piloto de StrykerJS) se planifica en F4.
 
 ## 24. Preguntas abiertas
 
 | Pregunta | Hipótesis de trabajo | Se resuelve en |
 | --- | --- | --- |
-| ¿El fake de push y el de S3 se seleccionan con una variable de entorno de prueba o inyectando la dependencia en `arranque.ts`? | Inyección en `arranque.ts`, sin variable que pueda activarse en producción | Plan de F1 |
-| ¿Cuánto tarda cada suite? | Sin datos; no hay umbral | Benchmark al cerrar F1 |
+| ¿El fake de push y el de S3 se seleccionan con una variable de entorno de prueba o inyectando la dependencia en `arranque.ts`? | Inyección en `arranque.ts`, sin variable que pueda activarse en producción | Plan de F5 (aplazado: F1 no envía push ni sube copias) |
+| ¿Cuánto tarda cada suite? | Sin datos; no hay umbral | Benchmark al cerrar F1 (T088) |
 | ¿Cómo se prueba la entrega push real en un navegador? | No se prueba en automático (exige un servicio push real); se revisa a mano en Android e iOS | Plan de F5 |
 | ¿Se ejecuta una tarea programada perdida al arrancar? | Duda de comportamiento ya registrada en `historias.md` §15 | `/speckit-clarify` en F5, F7 y F8 |

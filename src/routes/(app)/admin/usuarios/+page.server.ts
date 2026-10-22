@@ -1,7 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
-import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../fallo';
+import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../../fallo';
 import { esquemaAltaUsuario } from '#lib/shared/contratos/usuarios';
 import { darDeAltaConInvitacion, listarPersonas } from '#lib/server/auth';
 import { textos } from '#lib/shared/textos';

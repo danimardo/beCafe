@@ -47,7 +47,9 @@ Decisiones que fijan esta forma: DEC-027, DEC-028, DT-050 y RT-010 en `historias
 ├─ specs/NNN-funcionalidad/  spec.md, plan.md, tasks.md y contratos de SpecKit
 ├─ drizzle/                  Migraciones SQL generadas (solo se añaden)
 ├─ tokens/tokens.json        Fuente única de los tokens de diseño
-├─ scripts/                  Scripts Node portables (tokens, comprobaciones, recuperación de administrador)
+├─ scripts/                  Scripts Node portables (tokens, comprobaciones, benchmark, build de verificación)
+├─ scripts/servidor/         Comandos de servidor: recuperación de administrador (RF-139b) y siembra de datos E2E (T057)
+├─ build-scripts/            Comandos de servidor empaquetados por `npm run build:comandos`; generado, fuera de Git
 ├─ static/                   Iconos, manifiesto y pantallas de arranque de la PWA
 ├─ e2e/                      Pruebas de extremo a extremo (Playwright)
 └─ src/
@@ -56,7 +58,7 @@ Decisiones que fijan esta forma: DEC-027, DEC-028, DT-050 y RT-010 en `historias
    ├─ hooks.server.ts        Sesión, cabeceras y errores no previstos
    ├─ params/                Matchers de parámetros de ruta (ULID, token)
    ├─ service-worker.ts      Caché de la aplicación y envío de la cola
-   ├─ routes/                Páginas y endpoints. Sin reglas de negocio ni SQL
+   ├─ routes/                Páginas y endpoints. Sin reglas de negocio ni SQL. `(gate)/` es la pantalla que bloquea hasta aceptar la privacidad
    └─ lib/
       ├─ ui/                 Componentes del sistema de diseño Latte y su estado visual
       ├─ client/             Código solo de navegador: cola de consumos, suscripción push, conexión
@@ -90,7 +92,7 @@ Cada módulo agrupa un lenguaje y sus reglas. Un módulo **no** es una funcional
 | `plataforma`     | Conexión SQLite, `enTransaccion`, entorno validado, registro estructurado, reloj, identificadores, errores base, planificador, fotos e imágenes | —                                                                                                                                            | Genérico   |
 | `configuracion`  | Parámetros de negocio con valores por defecto y registro de cambios (RF-150)                                                                    | `configuracion`                                                                                                                              | Apoyo      |
 | `usuarios`       | Altas, roles, reactivación, invariante de administradores (INV-03), lectura de privacidad (RF-160)                                              | `usuario`, `registro_auditoria`                                                                                                              | Apoyo      |
-| `auth`           | Contraseñas, sesiones, enlaces de acceso, bloqueo, reautenticación                                                                              | `sesion`, `enlace_acceso`                                                                                                                    | Genérico   |
+| `auth`           | Contraseñas, sesiones, enlaces de acceso, bloqueo, reautenticación                                                                              | `credencial`, `sesion`, `enlace_acceso`                                                                                                      | Genérico   |
 | `catalogo`       | Datos descriptivos de los tipos de cápsula y sus fotos                                                                                          | `tipo_capsula` (columnas descriptivas)                                                                                                       | Apoyo      |
 | `economia`       | Consumos, aportaciones, compras, anulaciones, arqueos, recuentos, repartos, liquidación y baja, stock y coste medio                             | `consumo`, `aportacion`, `compra`, `linea_compra`, `arqueo`, `recuento`, `linea_recuento`, `movimiento`, columnas de stock de `tipo_capsula` | **Núcleo** |
 | `rellenos`       | Rellenos de agua, intervalo mínimo, ranking y aguador del mes                                                                                   | `relleno_agua`, `aguador_mes`                                                                                                                | Apoyo      |
@@ -178,6 +180,8 @@ import { recalcularCosteMedio } from '#lib/server/economia/dominio/coste-medio';
 import { saldoDe } from '#lib/server/economia'; // dentro de src/lib/ui/
 ```
 
+**Pruebas.** Un `*.test.ts` puede importar `pruebas/` de cualquier módulo (research R17). Ningún otro archivo de producción lo hace; dependency-cruiser lo comprueba (`.dependency-cruiser.cjs`).
+
 ## 5. Escritura, transacciones y efectos
 
 1. **El dueño del caso de uso abre la transacción.** Cada caso de uso que escribe llama a `enTransaccion(fn)` de `plataforma`, que ejecuta `BEGIN IMMEDIATE` (sección 10.7 de `historias.md`).
@@ -247,7 +251,7 @@ sequenceDiagram
 
 **Superar un esquema no basta.** Un `importe` válido no autoriza a nadie a registrar una aportación ajena (RN-034) ni garantiza que el registro no esté ya anulado (INV-05). La autorización y las invariantes se comprueban en el caso de uso, dentro de la transacción.
 
-**Errores esperados.** Un caso de uso lanza `ErrorDeNegocio` con un `codigo` de un conjunto cerrado (`SIN_SESION`, `SIN_PERMISO`, `FUERA_DE_PLAZO`, `YA_ANULADO`, `VALIDACION`, `REAUTENTICACION_REQUERIDA`, `ULTIMO_ADMIN`, `RELLENO_RECIENTE`; sección 10.5 de `historias.md`). Una función común de las rutas convierte el error en `fail()` o en JSON `{codigo, mensaje}` en español.
+**Errores esperados.** Un caso de uso lanza `ErrorDeNegocio` con un `codigo` de un conjunto cerrado (`SIN_SESION`, `SIN_PERMISO`, `FUERA_DE_PLAZO`, `YA_ANULADO`, `VALIDACION`, `REAUTENTICACION_REQUERIDA`, `ULTIMO_ADMIN`, `RELLENO_RECIENTE`, `ESTADO_INCORRECTO`, `CREDENCIALES_INCORRECTAS`, `ENLACE_NO_VALIDO`, `CONTRASENA_NO_VALIDA`, `CORREO_DUPLICADO`, `PRIVACIDAD_PENDIENTE`, `LIMITE_SUPERADO` (research R12); sección 10.5 de `historias.md`). Una función común de las rutas convierte el error en `fail()` o en JSON `{codigo, mensaje}` en español.
 
 **Errores no previstos.** El hook `handleError` registra el error con un identificador y devuelve un mensaje genérico. Nunca devuelve detalles internos al cliente.
 
@@ -323,6 +327,8 @@ export const actions: Actions = {
 - **Cola sin conexión:** solo consumos (DEC-025, EXC-007). Vive en `lib/client/cola-consumos` y en el service worker.
 - **Preferencias de apariencia** (tema, RF-180; reducir transparencia, RF-181): se guardan en `localStorage` del dispositivo, no en el servidor ni en la cuenta (DEC-095, DEC-099). Se leen con su esquema de `lib/shared/contratos/` (§6.1); un valor inválido vuelve al valor por defecto (Automático, transparencia normal). El script en línea de `src/app.html` las aplica antes de pintar para evitar el parpadeo; como no puede importar Zod, solo acepta la lista cerrada de valores y si no, usa el valor por defecto. Solo el cliente las lee: el SSR no depende de ellas.
 
+**Puerta de privacidad y raíz de la petición.** `hooks.server.ts` resuelve la sesión, aplica la puerta de privacidad (`decidirPuertaPrivacidad` de `lib/shared/puerta-privacidad.ts`, research R10) y añade las cabeceras de seguridad. Un GET de página sin aceptar la versión vigente redirige a `/aceptar-privacidad`; un POST o una ruta `/api/*` recibe 403 `PRIVACIDAD_PENDIENTE`. Quedan libres `/aceptar-privacidad`, `/logout`, `/api/salud`, `/api/registro-cliente` y `/robots.txt`. `handle` responde `/robots.txt` sin pasar por las rutas.
+
 ## 8. Configuración
 
 | Tipo                                                                                              | Fuente                          | Lectura                                                         |
@@ -338,7 +344,7 @@ export const actions: Actions = {
 4. `plataforma/entorno.ts` es el único archivo de servidor que importa `$app/env/private`, y `lib/client/entorno.ts` el único de cliente que importa `$app/env/public`. Los demás módulos reciben los valores de esos archivos.
 5. Los scripts que se ejecutan fuera de SvelteKit (`drizzle.config.ts`, el comando de recuperación de administrador de RF-139b) no pueden importar `$app/env`. Leen `process.env` y lo validan con los mismos esquemas exportados de `src/env.ts`.
 6. `.env` está en `.gitignore`. `.env.example` lista todas las variables con valores de ejemplo no sensibles. Las pruebas no usan `.env`: definen variables efímeras.
-7. `adapter-node` lee `ORIGIN` por su cuenta; `src/env.ts` también la declara para que su ausencia impida arrancar.
+7. `adapter-node` lee `ORIGIN` por su cuenta; `src/env.ts` también la declara para que su ausencia impida arrancar. `ORIGIN` debe ser `https`, o `http` solo con `localhost` o `127.0.0.1` (contrato de entorno, aclaración 10). La configuración de SvelteKit está en `vite.config.ts`: `kit.paths.origin` toma `ORIGIN` durante la build, y la comprobación CSRF de los formularios necesita ese origen fijo. Por eso la build de verificación pasa por `scripts/build-verificacion.mjs` (`npm run build:verificacion`), que fija `ORIGIN`, `DIRECTORIO_DATOS` y `TZ`.
 
 ## 9. Registro y observabilidad
 
@@ -377,16 +383,16 @@ Las reglas están en el principio XVI de la constitución. Las decisiones son DE
 
 **Catálogo inicial.** Cada `plan.md` añade los eventos de su funcionalidad.
 
-| Área                              | Códigos (nivel)                                                                                                                                                                                                                                                                                |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Plataforma                        | `app.arranque` (info: version, commit, node, nivel), `app.entorno_invalido` (fatal: nombres de variables), `app.migraciones_aplicadas` (info), `app.parada` (info), `app.error_no_previsto` (error), `peticion.completada` (info: metodo, rutaId, estado, duracionMs), `dato.invalido` (error) |
-| Auth                              | `auth.sesion_iniciada`, `auth.sesion_cerrada`, `auth.enlace_generado`, `auth.admin_inicial_creado` (info); `auth.acceso_fallido`, `auth.permiso_denegado` (warn)                                                                                                                               |
-| Usuarios, catálogo, configuración | `usuario.alta`, `usuario.rol_cambiado`, `usuario.baja`, `capsula.alta`, `capsula.modificada`, `capsula.desactivada`, `foto.procesada`, `configuracion.cambiada` (info); `foto.rechazada` (warn)                                                                                                |
-| Economía                          | `consumo.registrado` (via `directo` \| `cola`), `consumo.duplicado`, `compra.registrada`, `aportacion.registrada`, `anulacion.registrada`, `arqueo.registrado`, `recuento.registrado`, `reparto.aplicado`, `liquidacion.aplicada`, `operacion.rechazada` (info); `invariante.violada` (error)  |
-| Notificaciones                    | `aviso.registrado`, `push.enviado` (debug); `push.fallido` (warn); `push.suscripcion_caducada` (info); `push.reintentos_agotados` (error)                                                                                                                                                      |
-| Tareas y copias                   | `tarea.iniciada`, `tarea.completada`, `copia.completada` (info); `tarea.fallida`, `copia.fallida` (error)                                                                                                                                                                                      |
-| Rellenos                          | `relleno.registrado`, `aguador.determinado` (info)                                                                                                                                                                                                                                             |
-| Cliente                           | `cliente.cola_idb_error`, `cliente.cola_elemento_invalido`, `cliente.cola_sincronizacion_fallida`, `cliente.sw_instalacion_fallida`, `cliente.push_suscripcion_fallida`, `cliente.error_no_previsto` (warn o error); `cliente.registro_rechazado` (warn)                                       |
+| Área                              | Códigos (nivel)                                                                                                                                                                                                                                                                                   |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Plataforma                        | `app.arranque` (info: version, commit, node, nivelLog), `app.entorno_invalido` (fatal: nombres de variables), `app.migraciones_aplicadas` (info), `app.parada` (info), `app.error_no_previsto` (error), `peticion.completada` (info: metodo, rutaId, estado, duracionMs), `dato.invalido` (error) |
+| Auth                              | `auth.sesion_iniciada`, `auth.sesion_cerrada`, `auth.enlace_generado`, `auth.admin_inicial_creado` (info); `auth.acceso_fallido`, `auth.permiso_denegado` (warn)                                                                                                                                  |
+| Usuarios, catálogo, configuración | `usuario.alta`, `usuario.rol_cambiado`, `usuario.baja`, `capsula.alta`, `capsula.modificada`, `capsula.desactivada`, `foto.procesada`, `configuracion.cambiada` (info); `foto.rechazada` (warn)                                                                                                   |
+| Economía                          | `consumo.registrado` (via `directo` \| `cola`), `consumo.duplicado`, `compra.registrada`, `aportacion.registrada`, `anulacion.registrada`, `arqueo.registrado`, `recuento.registrado`, `reparto.aplicado`, `liquidacion.aplicada`, `operacion.rechazada` (info); `invariante.violada` (error)     |
+| Notificaciones                    | `aviso.registrado`, `push.enviado` (debug); `push.fallido` (warn); `push.suscripcion_caducada` (info); `push.reintentos_agotados` (error)                                                                                                                                                         |
+| Tareas y copias                   | `tarea.iniciada`, `tarea.completada`, `copia.completada` (info); `tarea.fallida`, `copia.fallida` (error)                                                                                                                                                                                         |
+| Rellenos                          | `relleno.registrado`, `aguador.determinado` (info)                                                                                                                                                                                                                                                |
+| Cliente                           | `cliente.cola_idb_error`, `cliente.cola_elemento_invalido`, `cliente.cola_sincronizacion_fallida`, `cliente.sw_instalacion_fallida`, `cliente.push_suscripcion_fallida`, `cliente.error_no_previsto` (warn o error); `cliente.registro_rechazado` (warn)                                          |
 
 **Log técnico frente a auditoría.**
 
@@ -394,6 +400,8 @@ Las reglas están en el principio XVI de la constitución. Las decisiones son DE
 - El log técnico dura 30 días y solo sirve para diagnosticar. No permite reconstruir datos.
 
 **Pruebas.** `registro.ts` exporta `crearRegistroFalso()`. Este registrador guarda los eventos en memoria y falla si un evento contiene una clave prohibida o un valor con forma de correo. Las pruebas comprueban el código y los campos de los eventos esperados.
+
+**Eventos.** Los códigos, sus niveles y sus campos están en `plataforma/registro.ts` (`NIVEL_EVENTO` y `CamposEvento`), y el contrato `contracts/entorno-y-eventos.md` es la fuente. Los dos destinos del servidor (salida estándar y fichero diario) reciben los mismos niveles. El formateador de nivel devuelve también el número de pino (`level`), sin el cual el transporte descarta los eventos. El enlace de RF-139 va solo a la salida estándar. Con un entorno inválido, el arranque registra `app.entorno_invalido`, vacía los destinos (`cerrarRegistro`) y el proceso sale con código 1, sin traza.
 
 ## 10. Pruebas por capa
 
@@ -446,6 +454,7 @@ Las tecnologías y sus versiones de referencia están en la sección 10.3 de `hi
 | --------------------------------------------------------------------------------------- | ----------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Sin ciclos entre módulos; grafo del §4                                                  | Este documento §4 | Sí           | dependency-cruiser                                                                                                                                                    |
 | Sin imports profundos ni de `esquema.ts` ajenos                                         | §4                | Sí           | dependency-cruiser                                                                                                                                                    |
+| Un `*.test.ts` es el único archivo ajeno al módulo que importa `pruebas/`               | §4                | Sí           | dependency-cruiser (`.dependency-cruiser.cjs`)                                                                                                                        |
 | Rutas sin SQL ni `drizzle-orm`                                                          | §4                | Sí           | dependency-cruiser                                                                                                                                                    |
 | Cliente sin código de servidor                                                          | §4                | Sí           | SvelteKit (`lib/server`) + dependency-cruiser                                                                                                                         |
 | `$app/env/*` solo en los archivos de entorno; sin `process.env` en `src/`; sin `$env/*` | §4, §8            | Sí           | dependency-cruiser + ESLint `no-restricted-properties` / `no-restricted-imports`                                                                                      |
@@ -493,9 +502,9 @@ Una dependencia de ejecución nueva o una herramienta de desarrollo transversal 
 
 ## 14. Evolución
 
-| Ahora                                                                                                   | Se puede posponer                                                                                                                                                                                                                                                                                                                     | Señal para cambiar la arquitectura                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); límites del registro del cliente (PEND-034, plan F1); avisos de duración de la verificación (tras el primer benchmark, F1); umbral de mutación (tras la línea base, F4); CSP (plan F1); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
+| Ahora                                                                                                   | Se puede posponer                                                                                                                                                                                                                                                                                             | Señal para cambiar la arquitectura                                                                                                                                                                                                                                                                                       |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| SvelteKit 3, aplicación única en la raíz, módulos y grafo del §4, avisos registrados en transacción, CI | Separar `tipo_capsula` y existencias (plan F2/F4); avisos de duración de la verificación (tras el primer benchmark, F1); X-Robots-Tag de los estáticos (proxy de F7); umbral de mutación (tras la línea base, F4); construcción Docker en la CI (F7); `perf:seed` y `perf:load` (primera pantalla de lectura) | Se necesita más de una instancia (RT-010): SQLite y el planificador en proceso dejan de servir → ADR. Otra aplicación necesita la UI → extraer `lib/ui` a un paquete. Un módulo concentra cambios de funcionalidades no relacionadas → dividirlo. Las tareas programadas se solapan o se pierden → planificador externo. |
 
 ## 15. Revisión de planes (Architecture Check)
 
