@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es" data-theme="claro">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="theme-color" content="#f5ece1" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#1c1714" media="(prefers-color-scheme: dark)" />
+		<link rel="manifest" href="%sveltekit.assets%/manifest.webmanifest" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.ico" sizes="48x48" />
+		<link rel="icon" href="%sveltekit.assets%/favicon-32.png" type="image/png" sizes="32x32" />
+		<link rel="icon" href="%sveltekit.assets%/icon-192.png" type="image/png" sizes="192x192" />
+		<meta name="msapplication-TileImage" content="%sveltekit.assets%/mstile-150.png" />
+		<meta name="msapplication-TileColor" content="#005a78" />
+		<link rel="apple-touch-icon" href="%sveltekit.assets%/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-title" content="beCafé" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		<!-- Pantallas de arranque de iOS (claro y oscuro por modelo). Generadas con scripts/generate-pwa-assets.py -->
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-16-pro-max-claro.png"
+			media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-16-pro-max-oscuro.png"
+			media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-16-pro-claro.png"
+			media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-16-pro-oscuro.png"
+			media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-15-pro-max-claro.png"
+			media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-15-pro-max-oscuro.png"
+			media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-15-pro-claro.png"
+			media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-15-pro-oscuro.png"
+			media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-13-claro.png"
+			media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-13-oscuro.png"
+			media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-13-mini-claro.png"
+			media="(device-width: 360px) and (device-height: 780px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-13-mini-oscuro.png"
+			media="(device-width: 360px) and (device-height: 780px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-11-pro-max-claro.png"
+			media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-11-pro-max-oscuro.png"
+			media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-11-claro.png"
+			media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-11-oscuro.png"
+			media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-se-claro.png"
+			media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/iphone-se-oscuro.png"
+			media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/ipad-10-claro.png"
+			media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/ipad-10-oscuro.png"
+			media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/ipad-air-11-claro.png"
+			media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/ipad-air-11-oscuro.png"
+			media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/ipad-pro-13-claro.png"
+			media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="%sveltekit.assets%/splash/ipad-pro-13-oscuro.png"
+			media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)"
+		/>
+		<script nonce="%sveltekit.nonce%">
+			// Resuelve el tema ANTES de pintar para evitar el parpadeo.
+			// Preferencia guardada: 'auto' | 'claro' | 'oscuro'. Por defecto: 'auto' (sigue al dispositivo).
+			(function () {
+				var pref = 'auto';
+				try {
+					pref = localStorage.getItem('becafe-tema') || 'auto';
+				} catch (e) {}
+				var dark = pref === 'oscuro' || (pref === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+				document.documentElement.setAttribute('data-theme', dark ? 'oscuro' : 'claro');
+			})();
+		</script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

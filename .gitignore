@@ -16,3 +16,34 @@ design-system_old/
 node_modules/
 /.svelte-kit/
 /build/
+/build-scripts/
+
+# Informes generados por las pruebas (docs/pruebas.md §17)
+/coverage/
+/playwright-report/
+/test-results/
+
+# Salida del servidor y de los paquetes de despliegue
+.output
+.vercel
+.netlify
+.wrangler
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+
+# Vite: archivos temporales de configuración
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Tokens generados (npm run tokens)
+/src/tokens.css
+
+# Artefactos locales: datos de prueba, evidencias de verificación y registros
+/build-scripts/
+/.local/
+
+# Bases de datos locales (SQLite y su WAL)
+*.db
+*.db-*

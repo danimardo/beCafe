@@ -2,16 +2,16 @@
 // Uso: python generar-imagenes.py && node generar.js  ->  guia-facil-capsulas.docx
 // Fuente: historias.md v0.3.0 (20-10-2026). Pautas: UNE 153101:2018 EX (lectura fácil).
 
-const fs = require("fs");
-const path = require("path");
-const {
+import fs from "node:fs";
+import path from "node:path";
+import {
   AlignmentType, BorderStyle, Document, Footer, HeadingLevel, ImageRun, LevelFormat, Packer,
   PageBreak, PageNumber, Paragraph, ShadingType, Table, TableCell, TableRow, TextRun, WidthType,
-} = require("docx");
+} from "docx";
 
 const FUENTE = "Arial";
 const MARRON = "6B3E26";
-const IMG = path.join(__dirname, "img");
+const IMG = path.join(import.meta.dirname, "img");
 const ANCHO_MAX = 560; // píxeles a 96 ppp, dentro del ancho útil de A4
 
 // ---------- Utilidades ----------
@@ -388,7 +388,7 @@ const documento = new Document({
 });
 
 Packer.toBuffer(documento).then((buffer) => {
-  const salida = path.join(__dirname, "..", "guia-facil-capsulas.docx");
+  const salida = path.join(import.meta.dirname, "..", "guia-facil-capsulas.docx");
   fs.writeFileSync(salida, buffer);
   console.log("Creado:", salida);
 });

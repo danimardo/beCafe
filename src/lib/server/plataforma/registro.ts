@@ -1,0 +1,198 @@
+import { createRequire } from 'node:module';
+import pino from 'pino';
+import { operacionActual } from './contexto-operacion';
+
+// Registro técnico (constitución XVI, ARCHITECTURE.md §9). Único punto de escritura del servidor: nadie llama a `console`.
+// Los campos de cada código están tipados. Un evento no contiene nombres, correos, importes, secretos ni enlaces.
+
+export const NIVEL_EVENTO = {
+	'app.arranque': 'info',
+	'app.migraciones_aplicadas': 'info',
+	'app.entorno_invalido': 'fatal',
+	'app.error_no_previsto': 'error',
+	'app.salud': 'debug',
+	'auth.admin_inicial_creado': 'info',
+	'auth.sesion_iniciada': 'info',
+	'auth.sesion_cerrada': 'info',
+	'auth.acceso_fallido': 'warn',
+	'auth.cuenta_bloqueada': 'warn',
+	'auth.enlace_generado': 'info',
+	'auth.enlace_usado': 'info',
+	'auth.enlace_rechazado': 'info',
+	'auth.contrasena_cambiada': 'info',
+	'auth.reautenticacion': 'info',
+	'auth.permiso_denegado': 'warn',
+	'usuario.alta': 'info',
+	'usuario.rol_cambiado': 'info',
+	'usuario.reactivado': 'info',
+	'privacidad.aceptada': 'info',
+	'peticion.completada': 'info',
+	'operacion.rechazada': 'info',
+	'dato.invalido': 'error',
+	'cliente.registro_rechazado': 'warn',
+	'cliente.error_no_previsto': 'warn',
+} as const;
+
+export type CodigoEvento = keyof typeof NIVEL_EVENTO;
+
+export type CamposEvento = {
+	'app.arranque': { version: string; commit: string; node: string; nivel: string };
+	'app.migraciones_aplicadas': { aplicadas: number };
+	'app.entorno_invalido': { variables: readonly string[] };
+	'app.error_no_previsto': { tipo: string; pila: string };
+	'app.salud': Record<string, never>;
+	'auth.admin_inicial_creado': { usuarioId: string };
+	'auth.sesion_iniciada': { usuarioId: string };
+	'auth.sesion_cerrada': { usuarioId: string; alcance: 'actual' | 'todas' | 'otras' };
+	'auth.acceso_fallido': { motivo: 'credenciales' | 'bloqueada' | 'baja' | 'desconocido'; usuarioId?: string };
+	'auth.cuenta_bloqueada': { usuarioId: string };
+	'auth.enlace_generado': { usuarioId: string; tipo: 'invitacion' | 'recuperacion'; origen: 'aplicacion' | 'arranque' | 'comando' };
+	'auth.enlace_usado': { usuarioId: string; tipo: 'invitacion' | 'recuperacion' };
+	'auth.enlace_rechazado': { motivo: 'usado' | 'caducado' | 'anulado' | 'desconocido' };
+	'auth.contrasena_cambiada': { usuarioId: string; via: 'enlace' | 'perfil' };
+	'auth.reautenticacion': { usuarioId: string; resultado: 'ok' | 'fallida' };
+	'auth.permiso_denegado': { usuarioId: string; rutaId: string };
+	'usuario.alta': { usuarioId: string; rol: 'miembro' | 'administrador' };
+	'usuario.rol_cambiado': { usuarioId: string; rolNuevo: 'miembro' | 'administrador' };
+	'usuario.reactivado': { usuarioId: string };
+	'privacidad.aceptada': { usuarioId: string; version: number };
+	'peticion.completada': { metodo: string; rutaId: string; estado: number; duracionMs: number };
+	'operacion.rechazada': { codigo: string };
+	'dato.invalido': { origen: string; id?: string; campo: string; incidencia: string };
+	'cliente.registro_rechazado': { motivo: 'tamano' | 'frecuencia' | 'esquema' };
+	'cliente.error_no_previsto': { tipo: string; pila: string };
+};
+
+/** Un registrador recibe eventos ya tipados. El enlace de RF-139 tiene su propio método (solo salida estándar). */
+export type Registrador = {
+	registrar<C extends CodigoEvento>(codigo: C, campos: CamposEvento[C]): void;
+	/** Eventos enviados por el navegador (`origen: 'cliente'`); solo los códigos de `CODIGOS_CLIENTE`. */
+	registrarCliente<C extends CodigoClienteEvento>(codigo: C, campos: CamposEvento[C]): void;
+	registrarEnlaceSoloSalida(enlace: string): void;
+};
+
+/** Códigos que el navegador puede enviar a `/api/registro-cliente` (contrato registro-cliente v1). */
+export const CODIGOS_CLIENTE = ['dato.invalido', 'cliente.error_no_previsto', 'cliente.registro_rechazado'] as const;
+export type CodigoClienteEvento = (typeof CODIGOS_CLIENTE)[number];
+
+const registradorSilencioso: Registrador = {
+	registrar: () => undefined,
+	registrarCliente: () => undefined,
+	registrarEnlaceSoloSalida: () => undefined,
+};
+
+// Recurso de proceso: lo fija la raíz de composición (`arranque.ts`) y lo cambian las pruebas.
+let activo: Registrador = registradorSilencioso;
+
+export function usarRegistro(registrador: Registrador): void {
+	activo = registrador;
+}
+
+export function registrar<C extends CodigoEvento>(codigo: C, campos: CamposEvento[C]): void {
+	activo.registrar(codigo, campos);
+}
+
+export function registrarDesdeCliente<C extends CodigoClienteEvento>(codigo: C, campos: CamposEvento[C]): void {
+	activo.registrarCliente(codigo, campos);
+}
+
+export function registrarEnlaceSoloSalida(enlace: string): void {
+	activo.registrarEnlaceSoloSalida(enlace);
+}
+
+/** Claves que la configuración `redact` oculta como protección adicional (ARCHITECTURE.md §9). */
+export const RUTAS_REDACTADAS = [
+	'*.contrasena',
+	'*.token',
+	'*.cookie',
+	'*.email',
+	'*.correo',
+	'*.importe',
+	'*.nombre',
+	'*.enlace',
+	'*.secreto',
+	'*.endpoint',
+	'*.keys',
+	'req.headers.cookie',
+	'req.headers.authorization',
+	'err.endpoint',
+	'err.body',
+	'err.headers',
+];
+
+type ConfiguracionRegistro = {
+	nivel: string;
+	version: string;
+	commit: string;
+	directorioLogs: string;
+	desarrollo: boolean;
+};
+
+/**
+ * Crea el registrador de producción: salida estándar y fichero diario de 30 días.
+ * El enlace de RF-139 va solo a la salida estándar, por una instancia sin la ruta `*.enlace` redactada.
+ */
+/** Ruta absoluta de un transporte de pino. Con el nombre pelado, pino lo busca desde el fichero que lo llama, y tras el empaquetado no lo encuentra. */
+function resolverDestino(paquete: string): string {
+	return createRequire(import.meta.url).resolve(paquete);
+}
+
+export function crearRegistroPino(configuracion: ConfiguracionRegistro): Registrador {
+	const base = { version: configuracion.version, commit: configuracion.commit };
+	const formato = {
+		formatters: { level: (nivel: string) => ({ nivel }) },
+		timestamp: () => `,"instante":"${new Date().toISOString()}"`,
+	};
+	const transporte = pino.transport({
+		targets: [
+			configuracion.desarrollo
+				? { target: resolverDestino('pino-pretty'), level: configuracion.nivel, options: { destination: 1 } }
+				: { target: resolverDestino('pino/file'), level: configuracion.nivel, options: { destination: 1 } },
+			{
+				target: resolverDestino('pino-roll'),
+				level: configuracion.nivel,
+				options: { file: `${configuracion.directorioLogs}/becafe`, frequency: 'daily', mkdir: true, limit: { count: 30 } },
+			},
+		],
+	});
+	const instancia = pino(
+		{ level: configuracion.nivel, base, redact: { paths: RUTAS_REDACTADAS, censor: '[REDACTADO]' }, ...formato },
+		transporte,
+	);
+	const instanciaSalida = pino({ level: 'info', base, ...formato }, pino.destination(1));
+
+	return {
+		registrar(codigo, campos) {
+			instancia[NIVEL_EVENTO[codigo]]({ codigo, origen: 'servidor', operacionId: operacionActual(), ...campos });
+		},
+		registrarCliente(codigo, campos) {
+			instancia[NIVEL_EVENTO[codigo]]({ codigo, origen: 'cliente', operacionId: operacionActual(), ...campos });
+		},
+		registrarEnlaceSoloSalida(enlace) {
+			instanciaSalida.info({ codigo: 'auth.admin_inicial_creado', operacionId: operacionActual(), enlace });
+		},
+	};
+}
+
+/**
+ * Registrador solo para la salida estándar. Lo usa el comando de recuperación cuando el entorno no es válido: en ese caso
+ * no hay directorio de logs donde escribir. Mantiene la misma forma de evento y la misma redacción del enlace.
+ */
+export function crearRegistroSoloSalida(): Registrador {
+	const formato = {
+		formatters: { level: (nivel: string) => ({ nivel }) },
+		timestamp: () => `,"instante":"${new Date().toISOString()}"`,
+	};
+	const instancia = pino({ level: 'info', ...formato }, pino.destination(1));
+	return {
+		registrar(codigo, campos) {
+			instancia[NIVEL_EVENTO[codigo]]({ codigo, origen: 'servidor', operacionId: operacionActual(), ...campos });
+		},
+		registrarCliente(codigo, campos) {
+			instancia[NIVEL_EVENTO[codigo]]({ codigo, origen: 'cliente', operacionId: operacionActual(), ...campos });
+		},
+		registrarEnlaceSoloSalida(enlace) {
+			instancia.info({ codigo: 'auth.admin_inicial_creado', operacionId: operacionActual(), enlace });
+		},
+	};
+}

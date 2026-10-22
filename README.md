@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="design-system/static/brand/becafe-mark.png" alt="Logotipo de beCafé" width="128">
+  <img src="static/brand/becafe-mark.png" alt="Logotipo de beCafé" width="128">
 </p>
 
 <h1 align="center">beCafé</h1>
@@ -44,21 +44,21 @@ Diseño de la interfaz con datos de ejemplo.
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="design-system/docs/screens/inicio.webp" alt="Pantalla de inicio: hucha, saldo, avisos de stock, agua de la cafetera y cápsulas" width="100%"><br>
+      <img src="docs/diseno/screens/inicio.webp" alt="Pantalla de inicio: hucha, saldo, avisos de stock, agua de la cafetera y cápsulas" width="100%"><br>
       <sub><b>Inicio</b>: registra un café con un toque.</sub>
     </td>
     <td align="center" width="50%">
-      <img src="design-system/docs/screens/saldos.webp" alt="Pantalla de saldos de la hucha común" width="100%"><br>
+      <img src="docs/diseno/screens/saldos.webp" alt="Pantalla de saldos de la hucha común" width="100%"><br>
       <sub><b>Saldos</b>: quién debe y quién tiene a favor.</sub>
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="design-system/docs/screens/estadisticas.webp" alt="Pantalla de estadísticas con cafés por semana y cápsulas favoritas" width="100%"><br>
+      <img src="docs/diseno/screens/estadisticas.webp" alt="Pantalla de estadísticas con cafés por semana y cápsulas favoritas" width="100%"><br>
       <sub><b>Estadísticas</b>: consumo propio o de todo el equipo.</sub>
     </td>
     <td align="center" width="50%">
-      <img src="design-system/docs/screens/inicio-agua.webp" alt="Tarjeta de agua de la cafetera con el aguador del mes" width="100%"><br>
+      <img src="docs/diseno/screens/inicio-agua.webp" alt="Tarjeta de agua de la cafetera con el aguador del mes" width="100%"><br>
       <sub><b>Agua</b>: reconoce a quien rellena la cafetera.</sub>
     </td>
   </tr>
@@ -75,7 +75,7 @@ beCafé está **en desarrollo**. Las funcionalidades y pantallas de esta página
 | Pieza | Estado |
 | --- | --- |
 | Especificación funcional de la versión 1 ([`historias.md`](historias.md)) | Cerrada y aprobada (v0.5.0) |
-| Sistema de diseño y plantilla de pantallas ([`design-system/`](design-system/)) | Hecho, con datos de ejemplo |
+| Sistema de diseño y plantilla de pantallas (`docs/diseno/`) | Hecho, con datos de ejemplo |
 | Arquitectura, constitución y reglas para agentes de IA | Definidas |
 | Lógica de negocio, base de datos, sesiones, notificaciones y modo sin conexión | Pendiente |
 
@@ -140,15 +140,12 @@ Algunos principios que se aplican en todo el proyecto:
 | [`AGENTS.md`](AGENTS.md) | Reglas comunes para el agente de IA |
 | [`CLAUDE.md`](CLAUDE.md) | Entrada de Claude Code: importa `AGENTS.md` y la constitución |
 | [`docs/agentes.md`](docs/agentes.md) | Controles del agente, límites y pruebas pendientes |
-| [`design-system/`](design-system/) | Sistema de diseño, componentes y plantilla de pantallas |
-| [`design-system/docs/`](design-system/docs/) | Principios visuales, componentes y distribución de cada pantalla |
+| [`src/lib/ui/`](src/lib/ui/) | Componentes del sistema de diseño Latte |
+| [`docs/diseno/`](docs/diseno/) | Principios visuales, componentes y distribución de cada pantalla |
 
 ## Desarrollo local
 
-Hasta que se prepare el proyecto (primera fase de F1), la plantilla de interfaz se encuentra en `design-system/`:
-
 ```bash
-cd design-system
 npm install
 npm run dev        # http://localhost:5173 · /componentes = catálogo de componentes
 npm run check      # tipos y svelte-check

@@ -1,0 +1,56 @@
+// Texto informativo de privacidad, anexo A de historias.md, versión 1 (RF-160, PEND-014).
+// Los marcadores entre corchetes se completan antes de usar datos reales; hasta entonces el texto no es definitivo.
+
+/** Versión vigente. Subirla obliga a todas las personas a releer el texto (RF-160). */
+export const VERSION_PRIVACIDAD = 1;
+
+export type BloquePrivacidad = { tipo: 'titulo' | 'parrafo'; texto: string } | { tipo: 'lista'; elementos: readonly string[] };
+
+export const TEXTO_PRIVACIDAD: readonly BloquePrivacidad[] = [
+	{ tipo: 'titulo', texto: 'Privacidad en beCafé' },
+	{
+		tipo: 'parrafo',
+		texto:
+			'Quién trata tus datos. [Nombre de la empresa]. Gestiona la aplicación, dentro de la empresa, el responsable del departamento de informática, [nombre o cargo y forma de contacto].',
+	},
+	{
+		tipo: 'parrafo',
+		texto:
+			'Para qué. Para llevar el stock de cápsulas de café del departamento y repartir su coste entre quienes las consumen mediante la hucha común.',
+	},
+	{ tipo: 'parrafo', texto: 'Qué datos guardamos.' },
+	{
+		tipo: 'lista',
+		elementos: [
+			'Tu nombre, tu correo y tu contraseña cifrada de forma irreversible.',
+			'Cada café que registras, con su fecha, su hora y si era para un invitado.',
+			'Cada vez que registras que has rellenado el agua de la cafetera, con su fecha y su hora.',
+			'Tus aportaciones a la hucha, las compras que registras, las fotos de tickets que adjuntes y tu saldo.',
+			'Tus preferencias de notificaciones y los datos técnicos de tus dispositivos suscritos a las notificaciones.',
+			'Las sesiones abiertas (fecha y tipo de navegador) y las acciones de administración.',
+		],
+	},
+	{ tipo: 'parrafo', texto: 'Quién los ve.' },
+	{
+		tipo: 'lista',
+		elementos: [
+			'Todos los miembros ven tu saldo, tus aportaciones, las compras que registres y tus rellenos de agua, incluidos el ranking de rellenos y el título de aguador del mes.',
+			'Tus estadísticas de consumo solo las ves tú y los administradores.',
+		],
+	},
+	{
+		tipo: 'parrafo',
+		texto:
+			'Cuánto tiempo. Los datos se conservan sin límite de tiempo, también después de que dejes el departamento, para que los saldos y el historial de la hucha sigan cuadrando. Las copias de seguridad se guardan 30 días en [proveedor y ubicación del almacenamiento S3].',
+	},
+	{
+		tipo: 'parrafo',
+		texto:
+			'Notificaciones. Solo recibes notificaciones si las aceptas en tu dispositivo. Puedes desactivar cada tipo en tu perfil, salvo el aviso de deuda.',
+	},
+	{
+		tipo: 'parrafo',
+		texto:
+			'Tus derechos. Puedes pedir acceso a tus datos, su rectificación y el resto de derechos que reconoce la normativa de protección de datos escribiendo a [contacto]. [Añadir, si procede, el contacto del delegado de protección de datos de la empresa y la referencia a la autoridad de control.]',
+	},
+];

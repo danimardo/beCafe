@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-21
 
-**Status**: Draft. Revisión 2 de la propuesta; necesita una aprobación nueva (AGENTS.md §2). La aprobación del commit `d348d83` no vale para esta revisión.
+**Status**: Aprobada. Revisión 4: añade la aclaración 10, decidida en el análisis de coherencia. El usuario la aprobó el 2026-10-21 (la revisión 3, con las aclaraciones 7 a 9, también el 2026-10-21).
 
 **Input**: User description: "F1 — Acceso, usuarios y privacidad, con la preparación del proyecto (scaffold), según historias.md §15"
 
@@ -26,7 +26,7 @@ Un administrador da de alta a una persona con nombre, correo y rol. La aplicaci�
 2. **Dado** un único administrador activo, **cuando** intenta quitarse el rol, **entonces** el sistema lo rechaza (CA-134; RF-134, RN-041, INV-03).
 3. **Dados** los dos últimos administradores activos, **cuando** cada uno quita a la vez el rol al otro, **entonces** solo un cambio se aplica y sigue habiendo un administrador activo (EV-040; RN-041, INV-03).
 4. **Dado** un único administrador activo, **entonces** la aplicación le recomienda tener al menos dos, sin impedirle continuar (RN-042).
-5. **Dado** un usuario dado de baja, **cuando** un administrador lo reactiva, **entonces** vuelve activo con saldo 0 y necesita un enlace nuevo para entrar (CA-136; RF-136, RN-045).
+5. **Dado** un usuario dado de baja, **cuando** un administrador lo reactiva, **entonces** vuelve activo con saldo 0 y necesita un enlace nuevo para entrar (CA-136; RF-136, RN-045). Su contraseña anterior deja de valer, y el enlace que genera el administrador es de invitación, válido 24 horas (Clarifications, punto 8).
 6. **Dado** un usuario con un enlace pendiente, **cuando** un administrador genera otro enlace para él, **entonces** el anterior deja de ser válido (CA-132; RN-052).
 7. **Dado** un miembro sin rol de administrador, **cuando** abre por URL una ruta de administración, **entonces** el servidor le niega el acceso (EV-050; RN-043, RNF-007).
 8. **Cuando** un administrador da de alta a un usuario, cambia su rol, lo reactiva o genera un enlace, **entonces** la acción queda en el registro de auditoría con su autor y su fecha (CA-139c; RF-139c).
@@ -51,6 +51,7 @@ Una persona usa su enlace para definir una contraseña y después entra con su c
 6. **Cuando** Ana pulsa «Cerrar sesión en todos los dispositivos», **entonces** sus otras sesiones dejan de ser válidas en la siguiente petición (CA-137; RF-137, RN-051).
 7. **Cuando** una persona restablece su contraseña con un enlace de recuperación, **entonces** todas sus sesiones dejan de ser válidas (RN-051).
 8. Una sesión dura 90 días y se renueva con el uso (RN-049).
+9. **Cuando** Ana cambia su contraseña desde el perfil, **entonces** se cierran sus demás sesiones y la del dispositivo donde la cambió sigue abierta (RF-137; Clarifications, punto 9).
 
 ---
 
@@ -64,10 +65,10 @@ En el primer arranque de una instalación sin usuarios, el sistema crea el admin
 
 **Acceptance Scenarios**:
 
-1. **Dada** una base de datos sin usuarios y `ADMIN_INICIAL_EMAIL` definido, **cuando** la aplicación arranca, **entonces** crea el administrador, la salida estándar muestra un enlace válido 24 horas y el fichero de log contiene el evento sin el enlace (CA-139; RF-139, DEC-081).
+1. **Dada** una base de datos sin usuarios con `ADMIN_INICIAL_EMAIL` y `ADMIN_INICIAL_NOMBRE` definidos, **cuando** la aplicación arranca, **entonces** crea el administrador con ese correo y ese nombre, la salida estándar muestra un enlace válido 24 horas y el fichero de log contiene el evento sin el enlace (CA-139; RF-139, DEC-081).
 2. **Dados** usuarios existentes, **cuando** la aplicación se reinicia, **entonces** no se crea nada (CA-139).
-3. **Dada** una base de datos sin usuarios y sin `ADMIN_INICIAL_EMAIL`, **cuando** la aplicación arranca, **entonces** no arranca y registra el nombre de la variable que falta, sin valores (CA-139; RF-139, DEC-104).
-4. **Cuando** el operador ejecuta en el contenedor el comando de recuperación, **entonces** obtiene un enlace de recuperación para un administrador existente, o crea un administrador nuevo (CA-139; RF-139b).
+3. **Dada** una base de datos sin usuarios y sin `ADMIN_INICIAL_EMAIL` o sin `ADMIN_INICIAL_NOMBRE`, **cuando** la aplicación arranca, **entonces** no arranca y registra el nombre de la variable que falta, sin valores (CA-139; RF-139, DEC-104; Clarifications, punto 7).
+4. **Cuando** el operador ejecuta en el contenedor el comando de recuperación, **entonces** obtiene un enlace de recuperación para un administrador existente, o crea un administrador nuevo con el correo y el nombre indicados (CA-139; RF-139b).
 
 ---
 
@@ -129,7 +130,7 @@ Cada persona elige en su perfil el tema y si quiere superficies opacas. La prefe
 - **RF-136**: Un administrador deberá poder reactivar a un usuario dado de baja.
 - **RF-137**: Cada usuario deberá poder cerrar sesión en todos sus dispositivos y cambiar su contraseña desde su perfil.
 - **RF-138**: Si una acción de administrador llega sin autenticación en los últimos 15 minutos, el sistema deberá pedir la contraseña antes de ejecutarla.
-- **RF-139**: En el primer arranque, y solo si no existe ningún usuario, el sistema deberá crear el administrador indicado en la variable de entorno `ADMIN_INICIAL_EMAIL` y escribir en la salida estándar un enlace de invitación válido 24 horas. El fichero de log guarda el evento sin el enlace (DEC-081). Si no existe ningún usuario y falta la variable, la aplicación no arranca y registra el nombre de la variable (DEC-104).
+- **RF-139**: En el primer arranque, y solo si no existe ningún usuario, el sistema deberá crear el administrador indicado en la variable de entorno `ADMIN_INICIAL_EMAIL`, con el nombre de `ADMIN_INICIAL_NOMBRE` (Clarifications, punto 7), y escribir en la salida estándar un enlace de invitación válido 24 horas. El fichero de log guarda el evento sin el enlace (DEC-081). Si no existe ningún usuario y falta alguna de las dos variables, la aplicación no arranca y registra el nombre de la variable (DEC-104).
 - **RF-139b**: Un comando ejecutable en el contenedor deberá generar un enlace de recuperación para un administrador existente o crear uno nuevo.
 - **RF-139c**: El sistema deberá anotar en el registro de auditoría, con su autor y su fecha, cada alta, cambio de rol, baja, reactivación y enlace generado. La baja se anota con RF-135 (F4).
 
@@ -156,7 +157,7 @@ Cada persona elige en su perfil el tema y si quiere superficies opacas. La prefe
 
 - **RNF-001**: Cada pantalla nueva cumple WCAG 2.2 AA y supera axe en tema claro y oscuro. Las pantallas nuevas son inicio de sesión, definición de contraseña, perfil, privacidad y administración de usuarios.
 - **RNF-004**: Las contraseñas se guardan con Argon2id, con m ≥ 19 MiB, t ≥ 2 y p = 1.
-- **RNF-005**: La cookie de sesión es `HttpOnly`, `Secure` y `SameSite=Lax`. El identificador de sesión es aleatorio y se guarda como hash.
+- **RNF-005**: La cookie de sesión es `HttpOnly`, `Secure` y `SameSite=Lax`. El identificador de sesión es aleatorio y se guarda como hash (ver Clarifications, punto 10).
 - **RNF-006**: Las acciones que modifican datos solo aceptan peticiones del mismo origen.
 - **RNF-007**: Todos los permisos se comprueban en el servidor (EV-050).
 - **RNF-012**: Toda la interfaz está en español, con los textos centralizados.
@@ -250,5 +251,9 @@ Niveles previstos según `docs/pruebas.md` §14.1. El plan los concreta.
 4. **`ADMIN_INICIAL_EMAIL` sin usuarios.** Si falta, la aplicación no arranca y registra el nombre de la variable (constitución VI). Con usuarios existentes, la variable no se usa (DEC-104).
 5. **RF-137 y RF-138.** Entran en F1 (DEC-103). HU-13 los cubría, pero §15 no los asignaba a ninguna funcionalidad (HALL-016).
 6. **Inicio de sesión de un usuario dado de baja.** Se rechaza con el mensaje genérico de RF-133, sin revelar que la cuenta existe ni que está de baja (RN-055).
+7. **Nombre del primer administrador.** Sale de la variable `ADMIN_INICIAL_NOMBRE`, que, como `ADMIN_INICIAL_EMAIL`, solo es obligatoria si no hay usuarios. El comando de RF-139b recibe el nombre como argumento al crear un administrador. Motivo: ningún requisito permite cambiar un nombre desde la aplicación.
+8. **Enlace al reactivar.** La reactivación borra la contraseña anterior. Un usuario sin contraseña recibe un enlace de invitación (24 horas), y uno con contraseña, de recuperación (1 hora), según RN-052.
+9. **Cambio de contraseña desde el perfil.** Cierra las demás sesiones de la persona y mantiene la sesión actual.
+10. **Atributo `Secure` de la cookie (RNF-005).** La cookie lleva `Secure` siempre que `ORIGIN` usa https. Solo un `ORIGIN` `http://localhost` o `http://127.0.0.1`, para desarrollo y E2E locales, la emite sin `Secure`, porque WebKit no acepta cookies `Secure` en http. Con cualquier otro `ORIGIN` http, la aplicación no arranca.
 
-Recogido en `historias.md` 0.14.0 (CAMBIO-014: DEC-103, DEC-104, RF-139c, CA-139c, RN-055 y HALL-016).
+Los puntos 1 a 6 están recogidos en `historias.md` 0.14.0 (CAMBIO-014: DEC-103, DEC-104, RF-139c, CA-139c, RN-055 y HALL-016).

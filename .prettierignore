@@ -1,0 +1,23 @@
+# Prettier da formato al código y a la configuración. No toca documentos de especificación ni archivos protegidos
+# (AGENTS.md §3): cambiarlos exige aprobación, y un cambio solo de formato no la justifica.
+node_modules/
+.svelte-kit/
+build/
+coverage/
+drizzle/
+playwright-report/
+test-results/
+.local/
+static/
+.specify/
+.claude/
+.respaldos/
+.github/
+specs/
+docs/
+historias.md
+AGENTS.md
+CLAUDE.md
+README.md
+package-lock.json
+src/tokens.css
