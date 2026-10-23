@@ -62,7 +62,7 @@ export default defineConfig({
 					name: 'servidor',
 					environment: 'node',
 					include: ['src/**/*.test.ts', 'scripts/**/*.test.ts'],
-					exclude: ['src/lib/ui/**', 'node_modules/**'],
+					exclude: ['src/lib/ui/**', 'src/lib/client/**', 'node_modules/**'],
 					testTimeout: 10_000,
 				},
 			},
@@ -70,7 +70,7 @@ export default defineConfig({
 				extends: true,
 				test: {
 					name: 'componentes',
-					include: ['src/lib/ui/**/*.test.ts'],
+					include: ['src/lib/ui/**/*.test.ts', 'src/lib/client/**/*.test.ts'],
 					testTimeout: 10_000,
 					browser: {
 						enabled: true,

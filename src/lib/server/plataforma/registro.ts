@@ -51,6 +51,9 @@ export const NIVEL_EVENTO = {
 	'dato.invalido': 'error',
 	'cliente.registro_rechazado': 'warn',
 	'cliente.error_no_previsto': 'warn',
+	'consumo.registrado': 'info',
+	'consumo.duplicado': 'info',
+	'stock.negativo_registrado': 'warn',
 } as const;
 
 export type CodigoEvento = keyof typeof NIVEL_EVENTO;
@@ -89,7 +92,10 @@ export type CamposEvento = {
 	'usuario.baja': { usuarioId: string; modo: 'ninguna' | 'pago' | 'devolucion' | 'incobrable' };
 	'aportacion.registrada': { aportacionId: string };
 	'compra.registrada': { compraId: string; lineas: number };
-	'anulacion.registrada': { tipo: 'aportacion' | 'compra' | 'arqueo' | 'linea_recuento'; id: string };
+	'anulacion.registrada': { tipo: 'aportacion' | 'compra' | 'arqueo' | 'linea_recuento' | 'consumo'; id: string; deshecho?: boolean };
+	'consumo.registrado': { consumoId: string; tipoCapsulaId: string; via: 'directo' | 'cola' };
+	'consumo.duplicado': { consumoId: string };
+	'stock.negativo_registrado': { tipoCapsulaId: string };
 	'arqueo.registrado': { arqueoId: string };
 	'recuento.registrado': { recuentoId: string; lineas: number };
 	'reparto.aplicado': { origenTipo: 'arqueo' | 'linea_recuento' | 'baja'; miembros: number };

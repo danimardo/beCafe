@@ -11,7 +11,7 @@ export const load: PageServerLoad = ({ locals, params }) => {
 	const actor = locals.actor;
 	if (!actor) redirect(303, resolve('/(auth)/login'));
 	try {
-		const tipo = leerCapsulaAdmin(locals.ambiente.db, actor, params.capsulaId);
+		const tipo = leerCapsulaAdmin(locals.ambiente.db, actor, params.capsulaId, locals.ambiente.reloj.ahora());
 		// Valores iniciales del formulario: el servidor los devuelve tal cual tras un rechazo (constitución XVII).
 		const iniciales = {
 			nombre: tipo.nombre,

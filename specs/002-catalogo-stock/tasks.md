@@ -23,6 +23,6 @@ Estado a 2026-10-22: implementación y verificación automática hechas; quedan 
 - [x] T-F2-12 Pruebas E2E de las pantallas nuevas (`chromium-movil`), `sin-js` del alta y de la edición, axe en claro y oscuro (constitución XI, RNF-001).
 - [x] T-F2-13 Prueba de concurrencia de dos altas con el mismo nombre con `worker_threads` (constitución VIII). La unicidad ya la garantiza el índice único y la prueba de la rama `NOMBRE_DUPLICADO`.
 - [X] T-F2-14 CA-006 con registro: se repite en F3 cuando exista `consumo` (plan D8). Hecha en F4 (T016, `capsulas.test.ts`).
-- [ ] T-F2-15 CA-020 y CA-023 con consumos reales: se repiten en F3.
+- [X] T-F2-15 CA-020 y CA-023 con consumos reales: se repiten en F3 (T016, `src/lib/server/economia/capsulas.test.ts`, bloque «stock bajo con consumos reales»).
 - [X] T-F2-16 CAMBIO-015 de `historias.md` §10.4 (plan D1), autorizado el 22-10-2026, con respaldo en `.respaldos/`.
 - [X] T-F2-17 Decisión del 22-10-2026: un tipo dado de alta con stock 0 queda en stock bajo, sin registrar entrada.

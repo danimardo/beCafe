@@ -4,7 +4,9 @@ import {
 	crearSesion,
 	cerrarSesionesDeUsuario,
 	cerrarSesionesGlobal,
+	cerrarSesionesPorBaja,
 	hashToken,
+	motivoSesionInvalida,
 	opcionesCookie,
 	resolverSesion,
 	DURACION_SESION_MS,
@@ -91,5 +93,13 @@ describe('sesiones (RN-049, RN-051, RNF-005)', () => {
 	it('RNF-005: la cookie es HttpOnly y solo lleva Secure con ORIGIN https', () => {
 		expect(opcionesCookie('https://becafe.example')).toMatchObject({ httpOnly: true, sameSite: 'lax', path: '/', secure: true });
 		expect(opcionesCookie('http://localhost:5173')).toMatchObject({ secure: false });
+	});
+
+	it('EV-041, D9: un token de una sesión cerrada por la baja se distingue de uno sin sesión', () => {
+		const token = abrir();
+		enTransaccion(entorno.ambiente.db, (tx) => cerrarSesionesPorBaja(tx, usuarioId, entorno.reloj.ahora()));
+
+		expect(motivoSesionInvalida(entorno.ambiente.db, token)).toBe('baja');
+		expect(motivoSesionInvalida(entorno.ambiente.db, 'token-inventado')).toBe('sin_sesion');
 	});
 });

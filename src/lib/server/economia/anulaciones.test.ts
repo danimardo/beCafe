@@ -5,6 +5,7 @@ import { marcarBaja } from '#lib/server/usuarios';
 import { registrarAportacion } from './aportaciones';
 import { anularAportacion } from './anulaciones';
 import { anularCompra, registrarCompra } from './compras';
+import { registrarConsumo } from './consumos';
 import { leerSaldoHucha, leerSaldoPropio } from './saldos';
 import { prepararConsumo, prepararMiembros, prepararTipo } from './pruebas/constructores';
 import { aportacion, existencia, regularizacion } from './esquema';
@@ -132,6 +133,44 @@ describe('regularización al anular una compra (CA-045, RN-037)', () => {
 		const fila = entorno.ambiente.db.select().from(existencia).get();
 		expect(fila?.costeMedio).toBe(4000);
 		expect(fila?.stock).toBe(-3);
+	});
+
+	it('CA-045 con consumos registrados por registrarConsumo (T017): la regularización es la misma que con consumos preparados', async () => {
+		const admin = actorDe(prepararMiembros(entorno.ambiente.db, 1)[0], 'administrador');
+		const [c1, c2, c3, c4, ana] = prepararMiembros(entorno.ambiente.db, 5);
+		registrarAportacion(entorno.ambiente, actorDe(ana), { clienteId: nuevoId(), importe: 5000 });
+		const tipo = await prepararTipo(entorno.ambiente);
+		const consumir = (usuarioId: string) =>
+			registrarConsumo(entorno.ambiente, actorDe(usuarioId), {
+				clienteId: nuevoId(),
+				tipoCapsulaId: tipo,
+				invitado: false,
+				horaGesto: entorno.reloj.ahora(),
+				via: 'directo',
+			});
+
+		// A: compra correcta de 0,40 €; un consumo real la agota.
+		await registrarCompra(entorno.ambiente, actorDe(ana), {
+			clienteId: nuevoId(),
+			lineas: [{ tipoCapsulaId: tipo, cantidad: 1, importe: 40 }],
+			confirmoHuchaNegativa: false,
+		});
+		consumir(c1);
+		entorno.reloj.avanzar(MINUTO);
+
+		// B: compra errónea de 3,60 € con stock 0. Tres consumos reales cobrados a 3,60 €.
+		const b = await registrarCompra(entorno.ambiente, actorDe(ana), {
+			clienteId: nuevoId(),
+			lineas: [{ tipoCapsulaId: tipo, cantidad: 1, importe: 360 }],
+			confirmoHuchaNegativa: false,
+		});
+		for (const persona of [c2, c3, c4]) consumir(persona);
+		entorno.reloj.avanzar(MINUTO);
+
+		const resumen = anularCompra(entorno.ambiente, admin, b.id, 'Precio mal introducido');
+
+		expect(resumen.map((fila) => fila.importe).sort()).toEqual([320, 320, 320]);
+		expect(entorno.ambiente.db.select().from(regularizacion).all()).toHaveLength(3);
 	});
 
 	it('sin ninguna compra vigente que fije el precio, el consumo no se regulariza y el coste medio es nulo', async () => {

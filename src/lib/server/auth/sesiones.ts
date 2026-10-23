@@ -115,3 +115,16 @@ export function cerrarSesionesPorBaja(tx: Ejecutor, usuarioId: string, instante:
 export function limpiarSesionesCerradasPorBaja(tx: Ejecutor, usuarioId: string): void {
 	tx.delete(sesionCerradaPorBaja).where(eq(sesionCerradaPorBaja.usuarioId, usuarioId)).run();
 }
+
+/**
+ * Motivo por el que un token no da sesión: `baja` si lo cerró la baja de su persona (RN-054, D9), `sin_sesion` en
+ * otro caso. Solo lo puede conocer quien tiene la cookie: la respuesta no revela nada a otra persona (RN-055).
+ */
+export function motivoSesionInvalida(db: Ejecutor, token: string): 'baja' | 'sin_sesion' {
+	const cerrada = db
+		.select({ idHash: sesionCerradaPorBaja.idHash })
+		.from(sesionCerradaPorBaja)
+		.where(eq(sesionCerradaPorBaja.idHash, hashToken(token)))
+		.get();
+	return cerrada ? 'baja' : 'sin_sesion';
+}

@@ -19,3 +19,9 @@ export function estimarDias(stock: number, consumosUltimos30: number): Estimacio
 	if (consumosUltimos30 === 0) return { tipo: 'sin-datos' };
 	return { tipo: 'dias', dias: Math.floor((stock * DIAS_VENTANA_ESTIMACION) / consumosUltimos30) };
 }
+
+/** Inicio de la ventana de consumos de la estimación (RN-073), a partir del instante recibido. Sin reloj propio. */
+export function inicioVentanaEstimacion(ahora: string): string {
+	const milisegundos = Date.parse(ahora) - DIAS_VENTANA_ESTIMACION * 24 * 60 * 60 * 1000;
+	return new Date(milisegundos).toISOString();
+}

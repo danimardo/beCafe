@@ -62,6 +62,7 @@ export const handle: Handle = ({ event, resolve }) =>
 				event.locals.actor = crearActor(sesion);
 				if (sesion.renovada) event.cookies.set(NOMBRE_COOKIE, token, opcionesCookie(entorno.origen));
 			} else {
+				event.locals.tokenNoValido = token;
 				event.cookies.delete(NOMBRE_COOKIE, { path: '/' });
 			}
 		}

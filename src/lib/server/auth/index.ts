@@ -3,7 +3,13 @@ export { credencial, sesion, enlaceAcceso, sesionCerradaPorBaja } from './esquem
 export { iniciarSesion } from './iniciar-sesion';
 export { definirContrasenaConEnlace, validarEnlace, generarEnlace, type ValidezEnlace } from './enlaces';
 export { cambiarContrasena } from './cambiar-contrasena';
-export { cerrarSesionActual, cerrarSesionesGlobal, cerrarSesionesPorBaja, limpiarSesionesCerradasPorBaja } from './sesiones';
+export {
+	cerrarSesionActual,
+	cerrarSesionesGlobal,
+	cerrarSesionesPorBaja,
+	limpiarSesionesCerradasPorBaja,
+	motivoSesionInvalida,
+} from './sesiones';
 export { reautenticar, exigirReautenticacion } from './reautenticacion';
 export { crearActor, exigirSesion, exigirAdministrador, type Actor } from './actor';
 export {

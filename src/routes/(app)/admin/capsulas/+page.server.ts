@@ -9,7 +9,7 @@ export const load: PageServerLoad = ({ locals }) => {
 	const actor = locals.actor;
 	if (!actor) redirect(303, resolve('/(auth)/login'));
 	try {
-		const tipos = leerCatalogoAdmin(locals.ambiente.db, actor).map((tipo) => ({
+		const tipos = leerCatalogoAdmin(locals.ambiente.db, actor, locals.ambiente.reloj.ahora()).map((tipo) => ({
 			...tipo,
 			fotoUrl: tipo.fotoRuta ? urlFotoCapsula(tipo.id) : null,
 		}));

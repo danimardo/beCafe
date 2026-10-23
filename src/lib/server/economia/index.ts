@@ -18,6 +18,18 @@ export {
 	type ResumenRegularizacion,
 } from './compras';
 export { anularAportacion } from './anulaciones';
+export {
+	registrarConsumo,
+	deshacerConsumo,
+	anularConsumo,
+	leerTiposRegistrables,
+	leerConsumosRecientesPropios,
+	leerConsumo,
+	leerHistorialConsumos,
+	type DatosConsumo,
+	type ResultadoConsumo,
+	type TipoRegistrable,
+} from './consumos';
 export { leerPersonasBajoLimite, type PersonaBajoLimite } from './panel';
 export {
 	leerControl,

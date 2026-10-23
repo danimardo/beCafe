@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/errores-navegador';
 import { entrarComo } from '../fixtures/sesiones';
-import { CAPSULA_DE_PRUEBA, RUTAS_DE_ADMINISTRACION, RUTAS_PROTEGIDAS } from './rutas';
+import { CAPSULA_DE_PRUEBA, RUTAS_API_PROTEGIDAS, RUTAS_DE_ADMINISTRACION, RUTAS_PROTEGIDAS } from './rutas';
 
 // EV-050: sin sesión, cada ruta protegida lleva a la entrada; un miembro no entra en la administración.
 for (const ruta of RUTAS_PROTEGIDAS) {
@@ -29,3 +29,14 @@ test('EV-050: sin sesión, la foto de un ticket responde 401', async ({ request,
 	const respuesta = await request.get(`${servidor.url}/fotos/compras/${CAPSULA_DE_PRUEBA}`, { maxRedirects: 0 });
 	expect(respuesta.status()).toBe(401);
 });
+
+// EV-050: un POST a la API de consumos sin sesión responde 401 y no registra nada (F3, plan D6).
+for (const ruta of RUTAS_API_PROTEGIDAS) {
+	test(`EV-050: sin sesión, POST ${ruta} responde 401`, async ({ request, servidor }) => {
+		const respuesta = await request.post(`${servidor.url}${ruta}`, {
+			headers: { 'content-type': 'application/json', origin: servidor.url },
+			data: {},
+		});
+		expect(respuesta.status()).toBe(401);
+	});
+}

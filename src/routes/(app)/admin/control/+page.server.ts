@@ -31,7 +31,7 @@ export const load: PageServerLoad = ({ locals }) => {
 	try {
 		const db = locals.ambiente.db;
 		const control = leerControl(db, actor);
-		const tipos = leerEstadoTipos(db, actor)
+		const tipos = leerEstadoTipos(db, actor, locals.ambiente.reloj.ahora())
 			.filter((tipo) => tipo.estado === 'activo')
 			.map((tipo) => ({ id: tipo.id, nombre: tipo.nombre, stock: tipo.stock }));
 		return { ...control, tipos };

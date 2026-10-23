@@ -14,6 +14,8 @@ declare global {
 			ambiente: Ambiente;
 			sesion?: SesionResuelta;
 			actor?: Actor;
+			/** Token de una cookie que ya no da sesión. Solo en memoria: la ruta de consumos lo usa para distinguir una baja (D9). */
+			tokenNoValido?: string;
 		}
 	}
 

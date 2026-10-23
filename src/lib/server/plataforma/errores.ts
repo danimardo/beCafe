@@ -24,6 +24,8 @@ export const CODIGOS_NEGOCIO = [
 	'NO_ES_EL_ULTIMO',
 	'CAMBIO_CONCURRENTE',
 	'TIPO_NO_DISPONIBLE',
+	'TIPO_SIN_COSTE',
+	'USUARIO_DE_BAJA',
 ] as const;
 
 export type CodigoNegocio = (typeof CODIGOS_NEGOCIO)[number];

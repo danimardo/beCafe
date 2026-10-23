@@ -102,7 +102,7 @@ El autor es siempre `actor.usuarioId` (RN-034); el contrato no tiene campo de us
 
 ### D3. «Deshacer» (RF-013, RN-031)
 
-- Con JavaScript: `UndoToast` de 5 s (9 s con descuadre, según el diseño) con «Deshacer», en `ToastRegion` (`aria-live`, sin mover el foco). Pulsarlo envía la *action* `deshacer` con el `consumoId`.
+- Con JavaScript: `UndoToast` de 5 s, también con descuadre (RF-013; desviación aprobada, ver «Desviaciones aprobadas») con «Deshacer», en `ToastRegion` (`aria-live`, sin mover el foco). Pulsarlo envía la *action* `deshacer` con el `consumoId`.
 - Sin JavaScript: la página devuelta muestra un `Banner` con el botón «Deshacer», sin cuenta atrás (constitución X).
 - **Servidor:** `deshacerConsumo` es una anulación del autor con motivo «Deshecho por el autor», válida mientras no venza el plazo de autoanulación (Clarifications 5). Fuera de plazo: `FUERA_DE_PLAZO`.
 - **Consumo en la cola:** «Deshacer» lo borra de IndexedDB y nunca se envía (RF-063, CA-063).
@@ -137,12 +137,13 @@ Una anulación y un consumo del mismo tipo se serializan con `BEGIN IMMEDIATE`. 
 
 `horaGesto` se guarda tal como llega si no es posterior a la hora de recepción. Si el reloj del móvil está adelantado, se guarda la hora de recepción. La hora del toque es informativa (estadísticas de F6) y no cambia el precio (RN-002).
 
-### D8. Service worker (`src/service-worker.ts`)
+### D8. Service worker (`src/service-worker/index.ts`)
 
 - Precarga los archivos de la build y de `static/` (`$service-worker`), con caché por versión; al activarse borra las cachés anteriores.
 - Navegación: primero la red; sin red, la última respuesta guardada de `/` (con su `__data.json`) para poder tocar cápsulas sin conexión. Otras rutas sin red muestran la página «Sin conexión».
 - Fotos de cápsulas (`/fotos/*`): caché con revalidación.
 - No envía la cola ni guarda datos fuera de su caché (constitución V).
+- Al cerrar sesión (`POST /logout`, también sin JavaScript) el service worker borra las cachés de la aplicación, para no dejar la pantalla de una persona en caché (desviación aprobada, ver abajo).
 
 ### D9. Consumos en cola tras una baja (RN-054, EV-041)
 
@@ -215,6 +216,17 @@ Una anulación y un consumo del mismo tipo se serializan con `BEGIN IMMEDIATE`. 
 | `ARCHITECTURE.md` | §1 y §5: la página envía la cola (no el service worker). §6: `TIPO_SIN_COSTE`, `USUARIO_DE_BAJA`. §9: eventos de D12. §14: `perf:load` hecho | F3-L7 |
 | `specs/004-consumos/spec.md` | Clarifications con las decisiones de D14 aprobadas | Antes de `tasks.md` |
 | `specs/002-catalogo-stock/tasks.md` | T-F2-14 y T-F2-15 marcadas al pasar | F3-L6 |
+
+## Desviaciones aprobadas
+
+Aprobadas por la persona usuaria el 2026-10-23 en esta sesión. Cambian el diseño aprobado en D3, D8, D10 y D12; el resto del plan se mantiene.
+
+| Desviación | Qué cambia | Motivo |
+| --- | --- | --- |
+| «Deshacer» de 5 s también con descuadre (D3) | Antes 9 s con descuadre; ahora 5 s siempre | RF-013 fija 5 s; un aviso más largo con descuadre no está en la regla |
+| Paginación del historial con formularios GET (D10) | `historial` usa `<form method="get">` con botones «Anterior» y «Siguiente», no enlaces con `?pagina=` | Constitución XVII: los filtros y la navegación van con formularios GET; funciona sin JavaScript |
+| Códigos de la cola reutilizados (D12) | La cola usa el evento existente `dato.invalido` en lugar de códigos nuevos del cliente | Un solo código por significado (constitución XVI); evita ampliar el catálogo del cliente |
+| Service worker en `src/service-worker/index.ts` y borrado de cachés al cerrar sesión (D8) | Mueve el archivo, añade su `tsconfig.json` y comprueba su tipado con `tsc` en `npm run check`; el cierre de sesión borra las cachés | SvelteKit 3 retiró `$service-worker`; el tsconfig propio evita el aviso `tsconfig_invalid`; la caché no debe conservar la pantalla de una persona |
 
 ## Riesgos
 
