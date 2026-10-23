@@ -47,7 +47,13 @@
 	{:else}
 		<form method="post" action="?/baja" use:enhance class="flex flex-col gap-4">
 			<input type="hidden" name="saldoPrevisto" value={data.saldo} />
-			<SelectField label={textos.economia.modoBaja} name="modo" options={opciones} error={errorModo} />
+			<SelectField
+				label={textos.economia.modoBaja}
+				name="modo"
+				options={opciones}
+				value={data.modos.length === 1 ? (data.modos[0] ?? '') : ''}
+				error={errorModo}
+			/>
 			{#if hayDevolucion}
 				<label class="flex items-start gap-3 text-[15px]">
 					<input type="checkbox" name="confirmoHuchaNegativa" value="on" class="mt-1" />
