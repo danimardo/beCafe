@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ubicación | `historias.md` en la raíz del repositorio `github.com/danimardo/beCafe` (en el servidor de desarrollo, `/Apps/beCafe/historias.md`) |
-| Versión | 0.14.0 — CAMBIO-014 |
+| Versión | 0.16.0 — CAMBIO-016 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), versión 2.0.0-candidata |
@@ -715,14 +715,19 @@ Convenciones: claves primarias de texto con ULID; fechas en UTC (ISO 8601); impo
 | `usuario` | id, nombre, email, password_hash (nulo hasta definirla), rol (`miembro`/`admin`), estado (`activo`/`baja`), intentos_fallidos, bloqueado_hasta, privacidad_version, privacidad_leida_en, creado_en, baja_en | `email` único; CHECK en rol y estado |
 | `sesion` | id_hash, usuario_id, creada_en, ultimo_uso_en, expira_en, ultima_autenticacion_en, user_agent | Índice por usuario_id |
 | `enlace_acceso` | id, usuario_id, tipo (`invitacion`/`recuperacion`), token_hash, expira_en, usado_en, anulado_en, creado_por | Índice por token_hash |
-| `tipo_capsula` | id, nombre, marca, intensidad (nulo), color, foto_ruta, umbral_minimo, estado, stock, coste_medio (nulo si nunca comprado), en_stock_bajo | Único parcial (nombre en minúsculas) donde estado = activo; CHECK intensidad 1–13 |
+| `tipo_capsula` | id, nombre, nombre_normalizado, marca, intensidad (nulo), color, foto_ruta, estado | Dueño `catalogo`. Único parcial sobre `nombre_normalizado` donde estado = activo; CHECK intensidad 1–13 |
+| `existencia` | tipo_capsula_id, umbral_minimo, stock, coste_medio (nulo si nunca comprado), en_stock_bajo | Dueño `economia`. Una fila por tipo; `en_stock_bajo` se deriva de `stock` y `umbral_minimo` (RN-071) |
+| `entrada_stock_bajo` | id, tipo_capsula_id, registrada_en | Dueño `economia`. Una fila por transición a stock bajo (RN-072) |
 | `consumo` | id, cliente_id, usuario_id, tipo_capsula_id, invitado, precio_aplicado, hora_gesto, hora_registro, estado, anulado_por, anulado_en, motivo_anulacion | `cliente_id` único |
 | `aportacion` | id, cliente_id, usuario_id, importe, registrada_en, estado + campos de anulación | `cliente_id` único; CHECK importe > 0 |
 | `compra` | id, cliente_id, usuario_id, importe_total, foto_ticket_ruta, registrada_en, estado + campos de anulación | `cliente_id` único |
-| `linea_compra` | id, compra_id, tipo_capsula_id, cantidad, importe | CHECK cantidad > 0, importe > 0 |
+| `linea_compra` | id, compra_id, tipo_capsula_id, cantidad, importe | CHECK cantidad > 0, importe > 0; único por (compra_id, tipo_capsula_id) |
 | `arqueo` | id, admin_id, realizado_en, saldo_teorico, contado, diferencia, estado + campos de anulación | — |
-| `recuento` / `linea_recuento` | id, admin_id, realizado_en, estado + campos de anulación / tipo_capsula_id, registrado, contado, diferencia, coste_medio_aplicado | — |
+| `recuento` / `linea_recuento` | id, admin_id, realizado_en, estado + campos de anulación / id, recuento_id, tipo_capsula_id, registrado (previsto), contado, diferencia, coste_medio_aplicado, estado (`vigente`/`anulado`) + campos de anulación | `linea_recuento`: único por (recuento_id, tipo_capsula_id); CHECK contado ≥ 0 |
 | `movimiento` | id, cuenta (`persona`/`hucha`), usuario_id (nulo si hucha), tipo, importe (con signo), origen_tipo, origen_id, creado_en, vigente | Índices por (usuario_id, vigente) y (origen_tipo, origen_id) |
+| `regularizacion` | id, compra_id, consumo_id, usuario_id, importe, creada_en | Dueño `economia`. Un consumo posterior a la compra anulada se cobra o se abona a su persona (RN-037, RN-012); CHECK importe ≠ 0 |
+| `reparto` | id, origen_tipo, origen_id, importe, miembros, creado_en | Dueño `economia`. Registra el reparto de un arqueo, de un recuento o de una baja entre las personas activas; CHECK importe ≠ 0 y miembros > 0 |
+| `aviso_economia` | id, tipo (`hucha_negativa`), origen_tipo, origen_id, registrado_en | Dueño `economia`. Aviso que deja un registro que deja la hucha en negativo (CA-064); no bloquea el registro |
 | `suscripcion_push` | id, usuario_id, endpoint, p256dh, auth, creada_en, ultimo_exito_en, fallos | `endpoint` único |
 | `preferencia_notificacion` | usuario_id, tipo, activa | PK (usuario_id, tipo) |
 | `notificacion` | id, tipo, usuario_id, referencia, creada_en, enviada_en, leida_en | Para el panel de avisos y la deduplicación |
@@ -735,7 +740,7 @@ Convenciones: claves primarias de texto con ULID; fechas en UTC (ISO 8601); impo
 
 **Tipos de movimiento**: `cargo_consumo`, `abono_aportacion`, `hucha_aportacion`, `hucha_compra`, `hucha_ajuste_arqueo`, `reparto_arqueo`, `reparto_recuento`, `regularizacion`, `devolucion_baja`, `hucha_devolucion_baja`, `abono_incobrable`, `reparto_incobrable`.
 
-**Datos derivados guardados**: `tipo_capsula.stock`, `coste_medio` y `en_stock_bajo` se actualizan en la misma transacción que el registro que los cambia (RNF-010). INV-02 garantiza su coherencia con el recálculo.
+**Datos derivados guardados**: `existencia.stock`, `coste_medio` y `en_stock_bajo` se actualizan en la misma transacción que el registro que los cambia (RNF-010). INV-02 garantiza su coherencia con el recálculo.
 
 ### 10.5 Interfaces (rutas SvelteKit, propuestas)
 
@@ -1133,6 +1138,8 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.13.0 | 21-10-2026 | CAMBIO-013: revisión cruzada de los prompts ejecutados. Metadatos y fuentes con las rutas del repositorio; glosario («Registro», «Registro técnico», «Registro de auditoría», «Tema Automático», «Reducir transparencia»); RNF-016 y `/robots.txt`; `/api/registro-cliente` en §10.5; DEC-100 a DEC-102; HALL-014 y HALL-015; trazabilidad de registro técnico, UX e indexación; RNF-016 en F1; reevaluación del cierre (guía de refinamiento, §19) | Escritura autorizada el 21-10-2026 («Sí, los dos»); respaldo de 0.12.0 (SHA-256 92ce24d7…aacfc88443) en `.respaldos/` |
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.13.0 (SHA-256 f3ec905d…7e4c7396). Reevaluados RF-139, RNF-014, RF-180, RF-181, RNF-015, RNF-016, CA-180, CA-181 y EV-061. Aplazados: PEND-014 y PEND-033. Para el plan de F1: PEND-034 a PEND-036. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («Sí, apruebo el cierre») |
 | 0.14.0 | 21-10-2026 | CAMBIO-014: decisiones de la especificación de F1. RF-139c (auditoría de administración) y CA-139c; RN-055 (inicio de sesión de un usuario dado de baja); RF-139 y CA-139 con el arranque sin `ADMIN_INICIAL_EMAIL` (DEC-104); DEC-103 (alcance de F1: RF-137, RF-138, RF-139c, RN-055, RNF-014; RF-135 sigue en F4); HALL-016; HU-13, §12.1 y §15 | Escritura autorizada el 21-10-2026 («Tienes mi autorización para cambiar Historias.md»); respaldo de 0.13.0 (SHA-256 84aa5191…3510936f) en `.respaldos/` |
+| 0.15.0 | 22-10-2026 | CAMBIO-015: separación de `tipo_capsula` en `tipo_capsula` (catálogo), `existencia` y `entrada_stock_bajo` (economía) en §10.4; datos derivados (§10.4). Decisión de F2 (plan D1). Sin cambios de requisitos ni de reglas | Escritura autorizada el 22-10-2026 («Sí, autorizo el CAMBIO-015»); respaldo de 0.14.0 (SHA-256 90822e99…) en `.respaldos/` |
+| 0.16.0 | 22-10-2026 | CAMBIO-016: §10.4 de F4. Tablas `regularizacion`, `reparto` y `aviso_economia`; `linea_recuento` con `registrado` (previsto por línea) y estado de anulación por línea; unicidad por (compra, tipo) y (recuento, tipo). Sin cambios de requisitos ni de reglas | Escritura autorizada el 22-10-2026 («Sí, autorizo (Recomendado)»); respaldo de 0.15.0 en `.respaldos/` |
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.14.0 (SHA-256 7aeb5af7…96d70dbb). Reevaluados RF-139, CA-139, RF-139c, CA-139c y RN-055 (CAMBIO-014). Aplazados: PEND-014 y PEND-033. Para el plan de F1: PEND-034 a PEND-036. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («apruebo el nuevo cierre del refinamiento sobre la v0.14.0») |
 
 ---

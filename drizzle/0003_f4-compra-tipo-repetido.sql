@@ -1,0 +1,1 @@
+DROP INDEX `linea_compra_unica_por_tipo`;

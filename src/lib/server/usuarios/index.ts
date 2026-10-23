@@ -5,5 +5,6 @@ export { normalizarCorreo, crearUsuario } from './alta';
 export { buscarUsuarioPorId, buscarUsuarioPorCorreo, contarAdministradoresActivos, listarUsuarios, type FilaUsuario } from './consultas';
 export { cambiarRol } from './roles';
 export { reactivarUsuario } from './reactivar';
+export { marcarBaja } from './baja';
 export { privacidadPendiente, aceptarPrivacidad, aceptarPrivacidadPersona } from './privacidad';
 export { anotarAuditoria, type AccionAuditoria } from './auditoria';

@@ -21,6 +21,8 @@ export {
 } from './registro';
 export { abrirBaseDatos, aplicarMigraciones, baseDatosResponde, enTransaccion, type Conexion, type Db, type Tx } from './db/conexion';
 export { crearLimitador, type Limitador } from './limitador';
+export { azarReal, crearAzarFijo, type Azar } from './azar';
+export { procesarFoto, guardarFoto, borrarFoto, rutaFoto } from './imagenes';
 export type { Ejecutor } from './db/conexion';
 // Entorno de integración para las pruebas de los módulos y de las rutas (docs/pruebas.md §7).
 export { crearEntornoPrueba, type EntornoPrueba } from './pruebas/entorno-prueba';

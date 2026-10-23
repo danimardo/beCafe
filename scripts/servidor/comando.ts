@@ -5,6 +5,7 @@ import { recuperarAcceso } from '#lib/server/auth';
 import {
 	abrirBaseDatos,
 	aplicarMigraciones,
+	azarReal,
 	crearLimitador,
 	crearRegistroPino,
 	esErrorDeNegocio,
@@ -77,8 +78,10 @@ export function abrirAmbienteComando(entorno: Entorno, carpetaMigraciones: strin
 			db: conexion.db,
 			reloj: relojReal,
 			origen: entorno.origen,
+			directorioFotos: join(entorno.directorioDatos, 'fotos'),
 			limitadorRegistro: crearLimitador({ maximo: 30, ventanaMs: 60_000 }),
 			limitadorAvisos: crearLimitador({ maximo: 1, ventanaMs: 60_000 }),
+			azar: azarReal,
 		},
 		cerrar: () => conexion.cerrar(),
 	};

@@ -4,6 +4,8 @@
 
 	type Props = {
 		label: string;
+		/** Nombre del campo al enviar sin JavaScript (el servidor lo lee como texto). */
+		name?: string;
 		/** Importe en céntimos (bindable). null si está vacío o no es válido. */
 		cents?: number | null;
 		hint?: string;
@@ -12,7 +14,7 @@
 		/** Si cambias `cents` desde fuera, cambia también esta clave para refrescar el texto. */
 		class?: string;
 	};
-	let { label, cents = $bindable(null), hint, error, required, class: className }: Props = $props();
+	let { label, name, cents = $bindable(null), hint, error, required, class: className }: Props = $props();
 
 	const uid = $props.id();
 	const id = `m-${uid}`;
@@ -27,6 +29,7 @@
 	<div class="relative">
 		<input
 			{id}
+			{name}
 			type="text"
 			inputmode="decimal"
 			autocomplete="off"

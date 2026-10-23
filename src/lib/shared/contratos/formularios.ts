@@ -4,7 +4,7 @@ import type { ZodError } from 'zod';
 // Respuestas de error de las *actions* (ARCHITECTURE.md §7). `valores` nunca lleva secretos ni archivos.
 
 /** Campos que nunca vuelven al formulario. */
-const CAMPOS_SECRETOS = new Set(['contrasena', 'contrasenaActual', 'contrasenaNueva', 'repeticion', 'token', 'archivo']);
+const CAMPOS_SECRETOS = new Set(['contrasena', 'contrasenaActual', 'contrasenaNueva', 'repeticion', 'token', 'archivo', 'foto']);
 
 export type ErrorDeCampo = { codigo: string; mensaje: string };
 

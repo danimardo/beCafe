@@ -9,6 +9,7 @@ const esquemasDetalle = {
 	'usuario.alta': z.strictObject({ rol: esquemaRol }),
 	'usuario.rol_cambiado': z.strictObject({ rolAnterior: esquemaRol, rolNuevo: esquemaRol }),
 	'usuario.reactivado': z.strictObject({}),
+	'usuario.baja': z.strictObject({ modo: z.enum(['ninguna', 'pago', 'devolucion', 'incobrable']) }),
 	'enlace.generado': z.strictObject({
 		tipo: z.enum(['invitacion', 'recuperacion']),
 		origen: z.enum(['aplicacion', 'arranque', 'comando']),

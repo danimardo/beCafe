@@ -19,6 +19,8 @@
 		id?: string;
 		name?: string;
 		form?: string;
+		/** Otra acción del mismo formulario (p. ej. «Añadir línea» sin JavaScript). */
+		formaction?: string;
 		type?: 'button' | 'submit' | 'reset';
 		disabled?: boolean;
 		title?: string;

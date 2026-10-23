@@ -225,6 +225,8 @@ Cada `spec.md`, al recibir el traspaso, copia la fila de sus CA y la concreta en
 - **Cobertura:** los umbrales están en el principio VIII (80 % en `src/lib/server` + `src/lib/shared`; 90 % en `economia` y `dominio/`, por líneas y ramas). Los aplica `npm run test` en el proyecto `servidor`. Las ramas de validación, errores, permisos y límites se revisan en el informe aunque se supere el umbral. La cobertura es una señal: no se escriben pruebas sin aserciones para subirla.
 - **Mutación (DEC-092):** StrykerJS sobre `src/lib/server/economia/dominio/` y los tramos de RN-074. El primer piloto se hace al cerrar F4: se registran mutantes eliminados, supervivientes, sin cobertura, timeouts y tiempo total, y se fija la **línea base**. Después se ejecuta en la puerta de cada funcionalidad que toque `dominio/` y cada semana en la CI programada. Cada superviviente se analiza: aserción insuficiente, caso límite ausente, mutación equivalente o código muerto. **No hay umbral** hasta tener la línea base; fijarlo después necesita una decisión con datos.
 
+**Estado del primer piloto (22-10-2026):** 124 mutantes; 0 eliminados, 118 sobrevivientes y 5 sin cobertura, con `coverageAnalysis` en `off` y en `perTest`. Las pruebas sí fallan durante los mutantes (aparecen en el log), así que el resultado apunta a la integración de Stryker con el runner de Vitest y no a las pruebas. **No se fija línea base** hasta diagnosticarlo.
+
 ## 16. Determinismo
 
 - Reloj, azar e ids se inyectan. En las pruebas se usan relojes fijos, fake timers y ULID conocidos.

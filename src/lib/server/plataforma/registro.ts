@@ -25,6 +25,26 @@ export const NIVEL_EVENTO = {
 	'usuario.alta': 'info',
 	'usuario.rol_cambiado': 'info',
 	'usuario.reactivado': 'info',
+	'capsula.alta': 'info',
+	'capsula.modificada': 'info',
+	'capsula.desactivada': 'info',
+	'capsula.reactivada': 'info',
+	'capsula.borrada': 'info',
+	'foto.procesada': 'info',
+	'foto.rechazada': 'warn',
+	'stock.entrada_bajo_registrada': 'info',
+	'registro.duplicado': 'info',
+	'regularizacion.aplicada': 'info',
+	'hucha.negativa_registrada': 'info',
+	'usuario.baja': 'info',
+	'aportacion.registrada': 'info',
+	'compra.registrada': 'info',
+	'anulacion.registrada': 'info',
+	'arqueo.registrado': 'info',
+	'recuento.registrado': 'info',
+	'reparto.aplicado': 'info',
+	'liquidacion.aplicada': 'info',
+	'invariante.violada': 'error',
 	'privacidad.aceptada': 'info',
 	'peticion.completada': 'info',
 	'operacion.rechazada': 'info',
@@ -55,6 +75,26 @@ export type CamposEvento = {
 	'usuario.alta': { usuarioId: string; rol: 'miembro' | 'administrador' };
 	'usuario.rol_cambiado': { usuarioId: string; rolNuevo: 'miembro' | 'administrador' };
 	'usuario.reactivado': { usuarioId: string };
+	'capsula.alta': { tipoCapsulaId: string };
+	'capsula.modificada': { tipoCapsulaId: string };
+	'capsula.desactivada': { tipoCapsulaId: string };
+	'capsula.reactivada': { tipoCapsulaId: string };
+	'capsula.borrada': { tipoCapsulaId: string };
+	'foto.procesada': { bytes: number };
+	'foto.rechazada': { motivo: 'formato' | 'no_legible' };
+	'stock.entrada_bajo_registrada': { tipoCapsulaId: string };
+	'registro.duplicado': { tipo: string; id: string };
+	'regularizacion.aplicada': { compraId: string; consumos: number };
+	'hucha.negativa_registrada': { origenTipo: string; origenId: string };
+	'usuario.baja': { usuarioId: string; modo: 'ninguna' | 'pago' | 'devolucion' | 'incobrable' };
+	'aportacion.registrada': { aportacionId: string };
+	'compra.registrada': { compraId: string; lineas: number };
+	'anulacion.registrada': { tipo: 'aportacion' | 'compra' | 'arqueo' | 'linea_recuento'; id: string };
+	'arqueo.registrado': { arqueoId: string };
+	'recuento.registrado': { recuentoId: string; lineas: number };
+	'reparto.aplicado': { origenTipo: 'arqueo' | 'linea_recuento' | 'baja'; miembros: number };
+	'liquidacion.aplicada': { usuarioId: string; modo: 'ninguna' | 'pago' | 'devolucion' | 'incobrable' };
+	'invariante.violada': { tipo: string; id?: string };
 	'privacidad.aceptada': { usuarioId: string; version: number };
 	'peticion.completada': { metodo: string; rutaId: string; estado: number; duracionMs: number };
 	'operacion.rechazada': { codigo: string };

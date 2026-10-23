@@ -8,7 +8,7 @@ Estas son las reglas comunes del proyecto. El único agente en uso es Claude Cod
 
 - **Antes del scaffold:** la plantilla de interfaz está en `design-system/`. No hay `package.json` en la raíz. Los comandos de verificación de §7 todavía no existen; los propone `docs/pruebas.md` §18.
 - **El scaffold** es la fase de preparación de la funcionalidad F1: mueve la plantilla a la raíz, instala las herramientas y crea `npm run verify`. Al terminarlo, actualiza este archivo.
-- **Tras el scaffold (scaffold completado):** la raíz tiene `package.json`, `npm run verify` y la suite E2E. La plantilla de interfaz se consulta en `docs/diseno/`, apartado «Reglas obligatorias» (§1.5). La CI aún no existe: `.github/workflows/ci.yml` está pendiente de aprobación.
+- **Tras el scaffold (scaffold completado):** la raíz tiene `package.json`, `npm run verify` y la suite E2E. La plantilla de interfaz se consulta en `docs/diseno/`, apartado «Reglas obligatorias» (§1.5). La CI existe en `.github/workflows/ci.yml`: ejecuta `npm run verify` y las pruebas E2E en cada PR y en `main`.
 
 ## 1. Fuentes vigentes
 

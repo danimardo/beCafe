@@ -6,12 +6,15 @@
 		label: string;
 		/** Archivo elegido (bindable). */
 		file?: File | null;
+		/** Nombre del campo del formulario: sin él, la foto no se envía sin JavaScript (constitución XVII). */
+		name?: string;
 		hint?: string;
 		/** RF-005: el servidor valida de verdad (tipo real, 5 MB). Esto es solo un aviso temprano. */
 		maxBytes?: number;
 		class?: string;
 	};
-	let { label, file = $bindable(null), hint, maxBytes = 5 * 1024 * 1024, class: className }: Props = $props();
+	let { label, file = $bindable(null), name, hint, maxBytes = 5 * 1024 * 1024, class: className }: Props = $props();
+	let entrada: HTMLInputElement | undefined = $state();
 
 	const uid = $props.id();
 	const id = `ph-${uid}`;
@@ -42,6 +45,7 @@
 	}
 	function clear() {
 		file = null;
+		if (entrada) entrada.value = '';
 		if (previewUrl) URL.revokeObjectURL(previewUrl);
 		previewUrl = null;
 	}
@@ -62,6 +66,8 @@
 		{/if}
 		<input
 			{id}
+			bind:this={entrada}
+			{name}
 			type="file"
 			accept="image/jpeg,image/png,image/webp"
 			class="sr-only"

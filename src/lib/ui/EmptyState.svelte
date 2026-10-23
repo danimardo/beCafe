@@ -9,7 +9,7 @@
 	{#if icon}<span class="flex size-14 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true"
 			>{@render icon()}</span
 		>{/if}
-	<h3 class="type-title">{title}</h3>
+	<h2 class="type-title">{title}</h2>
 	{#if description}<p class="max-w-xs text-[15px] leading-5 text-ink-muted">{description}</p>{/if}
 	{#if action}<div class="mt-1">{@render action()}</div>{/if}
 </div>

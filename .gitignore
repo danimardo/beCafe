@@ -47,3 +47,6 @@ vite.config.ts.timestamp-*
 # Bases de datos locales (SQLite y su WAL)
 *.db
 *.db-*
+
+# Informes de mutación (StrykerJS)
+/reports/

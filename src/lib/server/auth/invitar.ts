@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { credencial } from './esquema';
 import { anularEnlacesPendientes, generarEnlace, tipoEnlacePara } from './enlaces';
-import { cerrarSesionesDeUsuario } from './sesiones';
+import { cerrarSesionesDeUsuario, limpiarSesionesCerradasPorBaja } from './sesiones';
 import { exigirReautenticacion } from './reautenticacion';
 import { exigirAdministrador, type Actor } from './actor';
 import { anotarAuditoria, buscarUsuarioPorId, cambiarRol, crearUsuario, reactivarUsuario, type Rol } from '#lib/server/usuarios';
@@ -72,6 +72,7 @@ export async function reactivarPersona(db: Db, entrada: EntradaAdmin & { usuario
 		tx.delete(credencial).where(eq(credencial.usuarioId, entrada.usuarioId)).run();
 		anularEnlacesPendientes(tx, entrada.usuarioId, entrada.instante);
 		cerrarSesionesDeUsuario(tx, entrada.usuarioId);
+		limpiarSesionesCerradasPorBaja(tx, entrada.usuarioId);
 	});
 	registrar('usuario.reactivado', { usuarioId: entrada.usuarioId });
 }

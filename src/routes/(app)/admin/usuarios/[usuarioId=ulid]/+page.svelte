@@ -40,6 +40,9 @@
 	{#if errores.general}
 		<p role="alert" class="rounded-chip bg-negative-soft px-3 py-2 text-[15px] text-ink">{errores.general.mensaje}</p>
 	{/if}
+	{#if data.bajaRegistrada}
+		<p role="status">{textos.economia.bajaRegistrada}</p>
+	{/if}
 	{#if formulario?.confirmacion}
 		<p role="status">{formulario.confirmacion}</p>
 	{/if}
@@ -49,6 +52,12 @@
 			value={formulario.enlace}
 			hint={formulario.expiraEn ? `Caduca el ${formatDate(formulario.expiraEn, true)}.` : undefined}
 		/>
+	{/if}
+
+	{#if persona.estado !== 'baja'}
+		<a class="text-accent underline" href={resolve('/(app)/admin/usuarios/[usuarioId=ulid]/baja', { usuarioId: persona.id })}
+			>{textos.economia.darDeBaja}</a
+		>
 	{/if}
 
 	<Section title={textos.admin.cambiarRol}>

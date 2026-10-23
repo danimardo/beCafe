@@ -8,6 +8,27 @@
       "when": 1792608753484,
       "tag": "0000_f1-inicial",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1792662427050,
+      "tag": "0001_f2-catalogo-stock",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792677553257,
+      "tag": "0002_f4-economia",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1792684973177,
+      "tag": "0003_f4-compra-tipo-repetido",
+      "breakpoints": true
     }
   ]
 }

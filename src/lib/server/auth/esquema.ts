@@ -51,3 +51,16 @@ export const enlaceAcceso = sqliteTable(
 		check('enlace_acceso_tipo_valido', sql`${tabla.tipo} IN ('invitacion', 'recuperacion')`),
 	],
 );
+
+// Sesiones cerradas por una baja (F4, plan D5). Guarda el hash del identificador de sesión, nunca el token.
+export const sesionCerradaPorBaja = sqliteTable(
+	'sesion_cerrada_por_baja',
+	{
+		idHash: text('id_hash').primaryKey(),
+		usuarioId: text('usuario_id')
+			.notNull()
+			.references(() => usuario.id),
+		cerradaEn: text('cerrada_en').notNull(),
+	},
+	(tabla) => [index('sesion_cerrada_por_baja_usuario').on(tabla.usuarioId)],
+);

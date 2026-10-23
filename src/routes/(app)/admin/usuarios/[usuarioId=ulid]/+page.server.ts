@@ -6,11 +6,11 @@ import { esquemaCambioRol, esquemaSoloReautenticacion } from '#lib/shared/contra
 import { cambiarRolPersona, generarEnlaceParaPersona, obtenerPersona, reactivarPersona } from '#lib/server/auth';
 import { textos } from '#lib/shared/textos';
 
-export const load: PageServerLoad = ({ locals, params }) => {
+export const load: PageServerLoad = ({ locals, params, url }) => {
 	const actor = locals.actor;
 	if (!actor) redirect(303, resolve('/(auth)/login'));
 	try {
-		return { persona: obtenerPersona(locals.ambiente.db, actor, params.usuarioId) };
+		return { persona: obtenerPersona(locals.ambiente.db, actor, params.usuarioId), bajaRegistrada: url.searchParams.get('baja') === 'ok' };
 	} catch (causa) {
 		return errorDeCarga(causa);
 	}

@@ -12,6 +12,8 @@ const CAMPO_POR_CODIGO: Partial<Record<CodigoNegocio, string>> = {
 	CREDENCIALES_INCORRECTAS: 'contrasenaActual',
 	CORREO_DUPLICADO: 'email',
 	CONTRASENA_NO_VALIDA: 'contrasenaNueva',
+	NOMBRE_DUPLICADO: 'nombre',
+	FOTO_NO_VALIDA: 'foto',
 };
 
 /** Fallo de formulario por una regla de negocio. `valores` nunca lleva contraseñas (constitución XVII). */
@@ -23,7 +25,7 @@ export function falloDeNegocio(codigo: CodigoNegocio, valores: Record<string, un
 /** Ejecuta un caso de uso desde una action: el rechazo esperado vuelve como fallo y un recurso inexistente como 404. */
 export async function ejecutarAccion<T>(
 	valores: Record<string, unknown>,
-	operacion: () => Promise<T>,
+	operacion: () => T | Promise<T>,
 ): Promise<T | ReturnType<typeof falloDeNegocio>> {
 	try {
 		return await operacion();

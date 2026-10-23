@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from 'node:crypto';
 import { and, eq, ne } from 'drizzle-orm';
-import { sesion } from './esquema';
+import { sesion, sesionCerradaPorBaja } from './esquema';
 import { usuario, type FilaUsuario } from '#lib/server/usuarios';
 import { enTransaccion, registrar, type Db, type Ejecutor } from '#lib/server/plataforma';
 
@@ -97,4 +97,21 @@ export function opcionesCookie(origen: string) {
 		secure: origen.startsWith('https:'),
 		maxAge: DURACION_SESION_MS / 1000,
 	};
+}
+
+/**
+ * Cierra todas las sesiones de una persona dada de baja (RF-135, CA-135). Guarda sus hashes para que la reactivación
+ * pueda distinguirlas; nunca guarda el token (constitución V).
+ */
+export function cerrarSesionesPorBaja(tx: Ejecutor, usuarioId: string, instante: string): void {
+	const sesiones = tx.select({ idHash: sesion.idHash }).from(sesion).where(eq(sesion.usuarioId, usuarioId)).all();
+	for (const { idHash } of sesiones) {
+		tx.insert(sesionCerradaPorBaja).values({ idHash, usuarioId, cerradaEn: instante }).onConflictDoNothing().run();
+	}
+	tx.delete(sesion).where(eq(sesion.usuarioId, usuarioId)).run();
+}
+
+/** Al reactivar, la persona vuelve a tener sesiones posibles: se borran las marcas de la baja anterior. */
+export function limpiarSesionesCerradasPorBaja(tx: Ejecutor, usuarioId: string): void {
+	tx.delete(sesionCerradaPorBaja).where(eq(sesionCerradaPorBaja.usuarioId, usuarioId)).run();
 }

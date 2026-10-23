@@ -13,7 +13,7 @@
 		rows?: number;
 		class?: string;
 	};
-	let { label, value = $bindable(''), hint, error, rows, class: className, required, ...rest }: Props = $props();
+	let { label, value = $bindable(''), hint, error, rows, class: className, required, name, ...rest }: Props = $props();
 
 	const uid = $props.id();
 	const id = `f-${uid}`;
@@ -29,6 +29,7 @@
 	{#if rows}
 		<textarea
 			{id}
+			{name}
 			{rows}
 			bind:value
 			{required}
@@ -38,6 +39,7 @@
 	{:else}
 		<input
 			{id}
+			{name}
 			bind:value
 			{required}
 			aria-invalid={error ? true : undefined}

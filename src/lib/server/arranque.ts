@@ -3,6 +3,7 @@ import { crearPrimerAdministrador, hayUsuarios } from '#lib/server/auth';
 import {
 	abrirBaseDatos,
 	aplicarMigraciones,
+	azarReal,
 	crearLimitador,
 	crearRegistroPino,
 	registrar,
@@ -60,8 +61,10 @@ export function prepararAmbiente(configuracion: ConfiguracionArranque): Ambiente
 		db,
 		reloj: relojReal,
 		origen: configuracion.origen,
+		directorioFotos: join(configuracion.directorioDatos, 'fotos'),
 		limitadorRegistro: crearLimitador({ maximo: 30, ventanaMs: 60_000 }),
 		limitadorAvisos: crearLimitador({ maximo: 1, ventanaMs: 60_000 }),
+		azar: azarReal,
 	};
 }
 
