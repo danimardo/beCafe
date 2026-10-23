@@ -227,6 +227,8 @@ Cada `spec.md`, al recibir el traspaso, copia la fila de sus CA y la concreta en
 
 **Estado del primer piloto (22-10-2026):** 124 mutantes; 0 eliminados, 118 sobrevivientes y 5 sin cobertura, con `coverageAnalysis` en `off` y en `perTest`. Las pruebas sí fallan durante los mutantes (aparecen en el log), así que el resultado apunta a la integración de Stryker con el runner de Vitest y no a las pruebas. **No se fija línea base** hasta diagnosticarlo.
 
+**Segunda medición (23-10-2026, T011, `npm run test:mutacion`, EXIT=0, 3 min 23 s, log `.local/mutacion-f4.log`):** 130 mutantes en `coste-medio.ts`, `redondeo.ts`, `repartos.ts` y `stock.ts`; 1 eliminado, 124 sobrevivientes, 5 sin cobertura y 0 timeouts; puntuación 0,77 %. El resultado sigue sin ser fiable, así que **no se fija umbral ni línea base** hasta diagnosticar la integración con Vitest.
+
 ## 16. Determinismo
 
 - Reloj, azar e ids se inyectan. En las pruebas se usan relojes fijos, fake timers y ULID conocidos.
@@ -399,7 +401,7 @@ T-MUT-001 (piloto de StrykerJS) se planifica en F4.
 
 | Pregunta | Hipótesis de trabajo | Se resuelve en |
 | --- | --- | --- |
-| ¿El fake de push y el de S3 se seleccionan con una variable de entorno de prueba o inyectando la dependencia en `arranque.ts`? | Inyección en `arranque.ts`, sin variable que pueda activarse en producción | Plan de F5 (aplazado: F1 no envía push ni sube copias) |
+| ¿El fake de push y el de S3 se seleccionan con una variable de entorno de prueba o inyectando la dependencia en `arranque.ts`? | Inyección en `arranque.ts`, sin variable que pueda activarse en producción | Push: **resuelto en F6** (`entregarPendientes` recibe el envío por parámetro; el falso está en `notificaciones/pruebas/envio-falso.ts`). S3: pendiente de F8 |
 | ¿Cuánto tarda cada suite? | Sin datos; no hay umbral | Benchmark al cerrar F1 (T088) |
 | ¿Cómo se prueba la entrega push real en un navegador? | No se prueba en automático (exige un servicio push real); se revisa a mano en Android e iOS | Plan de F5 |
-| ¿Se ejecuta una tarea programada perdida al arrancar? | Duda de comportamiento ya registrada en `historias.md` §15 | `/speckit-clarify` en F5, F7 y F8 |
+| ¿Se ejecuta una tarea programada perdida al arrancar? | Duda de comportamiento ya registrada en `historias.md` §15 | **Resuelto en F6** (Clarifications 2): `recuperar()` ejecuta una vez el último periodo sin fila en `ejecucion_tarea` |

@@ -1,36 +1,24 @@
 import { redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
-import { z } from 'zod';
 import type { PageServerLoad } from './$types';
 import { errorDeCarga } from '../fallo';
-import { leerHistorialConsumos } from '#lib/server/economia';
-import { leerTipo } from '#lib/server/catalogo';
-import { buscarUsuarioPorId } from '#lib/server/usuarios';
-
-// Historial mínimo de consumos (plan D4). F6 lo completa con aportaciones, compras y filtros (spec, Assumptions).
-const esquemaConsulta = z.strictObject({
-	pagina: z.coerce.number().int().min(1, { error: 'La página empieza en 1' }).default(1),
-});
+import { leerHistorial, TAMANO_PAGINA } from '#lib/server/economia';
+import { normalizarConsulta } from './consulta';
+import { vistaDeFilas } from './vista';
 
 export const load: PageServerLoad = ({ locals, url }) => {
 	const actor = locals.actor;
 	if (!actor) redirect(303, resolve('/(auth)/login'));
-	const consulta = esquemaConsulta.safeParse(Object.fromEntries(url.searchParams));
-	const pagina = consulta.success ? consulta.data.pagina : 1;
+	const { consulta, consultaValida, filtros } = normalizarConsulta(Object.fromEntries(url.searchParams));
 	try {
 		const db = locals.ambiente.db;
-		const { filas, hayMas } = leerHistorialConsumos(db, actor, pagina);
+		const pagina = leerHistorial(db, actor, filtros);
 		return {
-			pagina,
-			hayMas,
-			filas: filas.map((consumo) => ({
-				id: consumo.id,
-				tipo: leerTipo(db, consumo.tipoCapsulaId)?.nombre ?? '',
-				autor: buscarUsuarioPorId(db, consumo.usuarioId)?.nombre ?? '',
-				hora: consumo.horaRegistro,
-				precio: consumo.precioAplicado,
-				estado: consumo.estado,
-			})),
+			consulta,
+			consultaValida,
+			pagina: pagina.pagina,
+			paginas: Math.max(1, Math.ceil(pagina.total / TAMANO_PAGINA)),
+			filas: vistaDeFilas(db, pagina.filas),
 		};
 	} catch (causa) {
 		return errorDeCarga(causa);

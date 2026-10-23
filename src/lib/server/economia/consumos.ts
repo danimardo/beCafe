@@ -3,6 +3,8 @@ import { exigirSesion, type Actor } from '#lib/server/auth';
 import { leerConfiguracion } from '#lib/server/configuracion';
 import { leerTipo, listarTipos } from '#lib/server/catalogo';
 import { buscarUsuarioPorId } from '#lib/server/usuarios';
+import { registrarAviso } from '#lib/server/notificaciones';
+import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import {
 	enTransaccion,
 	ErrorDeNegocio,
@@ -116,6 +118,14 @@ export function registrarConsumo(ambiente: Ambiente, actor: Actor, datos: DatosC
 			tx.insert(avisoEconomia)
 				.values({ id: nuevoId(), tipo: 'stock_negativo', origenTipo: 'consumo', origenId: id, registradoEn: ahora })
 				.run();
+			const tipo = leerTipo(tx, datos.tipoCapsulaId);
+			if (!tipo) throw new RecursoNoEncontrado();
+			registrarAviso(tx, {
+				tipo: 'stock_negativo',
+				datos: { tipoCapsulaId: datos.tipoCapsulaId, nombreTipo: tipo.nombre, stock: previa.stock - 1 },
+				origenId: id,
+				instante: esquemaInstanteUtc.parse(ahora),
+			});
 			registrar('stock.negativo_registrado', { tipoCapsulaId: datos.tipoCapsulaId });
 		}
 		registrar('consumo.registrado', { consumoId: id, tipoCapsulaId: datos.tipoCapsulaId, via: datos.via });
@@ -148,7 +158,7 @@ function anularConsumoCaso(ambiente: Ambiente, actor: Actor, id: string, motivo:
 			.where(and(eq(consumo.id, id), eq(consumo.estado, 'vigente')))
 			.run();
 		exigirAnulacionAplicada(actualizada.changes);
-		anularMovimientosDe(tx, 'consumo', id);
+		anularMovimientosDe(tx, 'consumo', id, ahora);
 		const previa = leerExistenciaTx(tx, fila.tipoCapsulaId);
 		fijarStock(tx, fila.tipoCapsulaId, previa.stock + 1, ahora);
 	});

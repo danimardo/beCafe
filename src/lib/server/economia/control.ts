@@ -201,8 +201,8 @@ export async function anularArqueo(
 			.where(and(eq(arqueo.id, entrada.id), eq(arqueo.estado, 'vigente')))
 			.run();
 		exigirAnulacionAplicada(actualizada.changes);
-		anularMovimientosDe(tx, 'arqueo', entrada.id);
-		anularRepartos(tx, 'arqueo', entrada.id);
+		anularMovimientosDe(tx, 'arqueo', entrada.id, instante);
+		anularRepartos(tx, 'arqueo', entrada.id, instante);
 	});
 	registrar('anulacion.registrada', { tipo: 'arqueo', id: entrada.id });
 }
@@ -228,8 +228,8 @@ export async function anularLineaRecuento(
 			.run();
 		exigirAnulacionAplicada(actualizada.changes);
 		fijarStock(tx, fila.tipoCapsulaId, actual.stock - fila.diferencia, instante);
-		anularMovimientosDe(tx, 'linea_recuento', entrada.id);
-		anularRepartos(tx, 'linea_recuento', entrada.id);
+		anularMovimientosDe(tx, 'linea_recuento', entrada.id, instante);
+		anularRepartos(tx, 'linea_recuento', entrada.id, instante);
 	});
 	registrar('anulacion.registrada', { tipo: 'linea_recuento', id: entrada.id });
 }
@@ -293,13 +293,13 @@ export function repartirEnPersonas(
 	registrar('reparto.aplicado', { origenTipo: entrada.origenTipo, miembros: miembros.length });
 }
 
-function anularRepartos(tx: Tx, origenTipo: 'arqueo' | 'linea_recuento', origenId: string): void {
+function anularRepartos(tx: Tx, origenTipo: 'arqueo' | 'linea_recuento', origenId: string, instante: string): void {
 	const repartos = tx
 		.select({ id: reparto.id })
 		.from(reparto)
 		.where(and(eq(reparto.origenTipo, origenTipo), eq(reparto.origenId, origenId)))
 		.all();
-	for (const { id } of repartos) anularMovimientosDe(tx, 'reparto', id);
+	for (const { id } of repartos) anularMovimientosDe(tx, 'reparto', id, instante);
 }
 
 function esUltimoArqueo(tx: Tx, realizadoEn: string): boolean {

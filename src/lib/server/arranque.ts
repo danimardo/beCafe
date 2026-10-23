@@ -1,7 +1,13 @@
 import { join } from 'node:path';
 import { crearPrimerAdministrador, hayUsuarios } from '#lib/server/auth';
+import { enviarResumenMensual, mesAnteriorDe, TAREA_RESUMEN_MENSUAL } from '#lib/server/estadisticas';
+import { recordarDeudas, TAREA_RECORDATORIO_DEUDA } from '#lib/server/economia';
+import { borrarAvisosAntiguos, clavePublicaDesde, crearEnvioWebPush, entregarPendientes } from '#lib/server/notificaciones';
+import { fechaDeMadrid } from '#lib/shared/fechas/meses';
+import { esquemaInstanteUtc, esquemaMes } from '#lib/shared/fechas/tipos';
 import {
 	abrirBaseDatos,
+	crearPlanificador,
 	aplicarMigraciones,
 	azarReal,
 	crearLimitador,
@@ -26,6 +32,8 @@ export type ConfiguracionArranque = {
 	commit: string;
 	desarrollo: boolean;
 	carpetaMigraciones: string;
+	/** Claves VAPID. Sin ellas, el envío push y su tarea no se registran (plan F6 D6). */
+	vapid?: { privada: string; sujeto: string };
 };
 
 /** Monta la base de datos, aplica las migraciones y crea el primer administrador si no hay personas. Puro salvo por la base. */
@@ -68,10 +76,16 @@ export function prepararAmbiente(configuracion: ConfiguracionArranque): Ambiente
 	};
 }
 
+const TAREA_ENTREGA_PUSH = 'entregar_pendientes';
+const TAREA_LIMPIEZA_AVISOS = 'limpiar_avisos';
+
 let instancia: Ambiente | undefined;
 
-/** Arranque del proceso: una sola vez. Instala el registro de producción y devuelve el ambiente compartido. */
-export function arrancar(configuracion: ConfiguracionArranque): Ambiente {
+/**
+ * Arranque del proceso: una sola vez. Instala el registro de producción, recupera las tareas no ejecutadas tras una caída
+ * (antes de programar nada) y arranca el planificador. Las tareas se registran aquí a medida que las fases las añaden.
+ */
+export async function arrancar(configuracion: ConfiguracionArranque): Promise<Ambiente> {
 	if (instancia) return instancia;
 	const registrador = crearRegistroPino({
 		nivel: configuracion.nivelLog,
@@ -81,6 +95,45 @@ export function arrancar(configuracion: ConfiguracionArranque): Ambiente {
 		desarrollo: configuracion.desarrollo,
 	});
 	usarRegistro(registrador);
-	instancia = prepararAmbiente(configuracion);
-	return instancia;
+	const ambiente = prepararAmbiente(configuracion);
+	instancia = ambiente;
+	const planificador = crearPlanificador({ db: ambiente.db, reloj: ambiente.reloj });
+	planificador.registrar({
+		nombre: TAREA_RECORDATORIO_DEUDA,
+		cron: '0 9 * * *',
+		periodo: (instante) => fechaDeMadrid(esquemaInstanteUtc.parse(instante.toISOString())),
+		ejecutar: () => {
+			recordarDeudas({ db: ambiente.db, reloj: ambiente.reloj });
+		},
+	});
+	planificador.registrar({
+		nombre: TAREA_RESUMEN_MENSUAL,
+		cron: '0 9 1 * *',
+		periodo: mesAnteriorDe,
+		ejecutar: ({ periodo }) => {
+			if (periodo) enviarResumenMensual({ db: ambiente.db, reloj: ambiente.reloj, periodo: esquemaMes.parse(periodo) });
+		},
+	});
+	if (configuracion.vapid) {
+		const envio = crearEnvioWebPush({
+			publica: clavePublicaDesde(configuracion.vapid.privada),
+			privada: configuracion.vapid.privada,
+			sujeto: configuracion.vapid.sujeto,
+		});
+		planificador.registrar({
+			nombre: TAREA_ENTREGA_PUSH,
+			cron: '* * * * *',
+			ejecutar: () => entregarPendientes({ db: ambiente.db, reloj: ambiente.reloj, enviar: envio }),
+		});
+		planificador.registrar({
+			nombre: TAREA_LIMPIEZA_AVISOS,
+			cron: '0 4 * * *',
+			ejecutar: () => {
+				borrarAvisosAntiguos(ambiente.db, ambiente.reloj.ahora());
+			},
+		});
+	}
+	await planificador.recuperar();
+	planificador.iniciar();
+	return ambiente;
 }

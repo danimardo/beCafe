@@ -3,8 +3,10 @@ import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, falloDeNegocio, fallo } from '../fallo';
 import { cambiarContrasena, cerrarSesionesGlobal as cerrarTodasLasSesiones, NOMBRE_COOKIE } from '#lib/server/auth';
+import { cambiarPreferencia, leerPreferencias } from '#lib/server/notificaciones';
 import { buscarUsuarioPorId } from '#lib/server/usuarios';
 import { esquemaCambioContrasena } from '#lib/shared/contratos/auth';
+import { esquemaPreferencia } from '#lib/shared/contratos/preferencias';
 import { textos } from '#lib/shared/textos';
 
 // Perfil de la persona que entra (RF-137, RF-138). Solo toca su propia cuenta: el actor de la sesión decide.
@@ -13,7 +15,8 @@ export const load: PageServerLoad = ({ locals }) => {
 	if (!actor) redirect(303, resolve('/(auth)/login'));
 	const persona = buscarUsuarioPorId(locals.ambiente.db, actor.usuarioId);
 	if (!persona) redirect(303, resolve('/(auth)/login'));
-	return { nombre: persona.nombre, email: persona.email, rol: persona.rol };
+	const preferencias = leerPreferencias(locals.ambiente.db, { usuarioId: persona.id, rol: persona.rol });
+	return { nombre: persona.nombre, email: persona.email, rol: persona.rol, preferencias };
 };
 
 export const actions: Actions = {
@@ -35,6 +38,23 @@ export const actions: Actions = {
 				instante: locals.ambiente.reloj.ahora(),
 			});
 			return { confirmacion: textos.confirmaciones.contrasenaCambiada };
+		});
+	},
+
+	// Activa o desactiva un tipo de aviso para la persona (RF-102). Sin JavaScript funciona igual: es un formulario.
+	preferencia: async ({ request, locals }) => {
+		const datos = Object.fromEntries(await request.formData());
+		const entrada = esquemaPreferencia.safeParse(datos);
+		const valores = {};
+		if (!entrada.success) return fallo(400, entrada.error, valores);
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', valores);
+		const persona = buscarUsuarioPorId(locals.ambiente.db, actor.usuarioId);
+		if (!persona) return falloDeNegocio('SIN_SESION', valores);
+
+		return ejecutarAccion(valores, () => {
+			cambiarPreferencia(locals.ambiente, { usuarioId: persona.id, rol: persona.rol }, entrada.data);
+			return { confirmacion: textos.notificaciones.preferenciaGuardada };
 		});
 	},
 

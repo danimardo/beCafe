@@ -30,6 +30,19 @@ export const esquemaNombreAdminInicial = z
 
 export const esquemaZonaHoraria = z.literal('Europe/Madrid', { error: 'TZ debe ser Europe/Madrid' });
 
+/** Clave privada VAPID (secreto, solo servidor). Sin ella y sin asunto, el envío push queda desactivado (plan F6 D6). */
+export const esquemaClavePrivadaVapid = z.string().trim().min(1, { error: 'VAPID_PRIVATE_KEY no puede estar vacía' }).optional();
+
+/** Asunto VAPID: `mailto:` o una URL `https`. */
+export const esquemaAsuntoVapid = z
+	.string()
+	.trim()
+	.refine((valor) => /^(mailto:[^\s@]+@[^\s@]+|https:\/\/\S+)$/.test(valor), { error: 'VAPID_SUBJECT debe ser mailto: o una URL https' })
+	.optional();
+
+/** Clave pública VAPID: el navegador la necesita para suscribirse. Es la única variable pública de notificaciones. */
+export const esquemaClavePublicaVapid = z.string().trim().min(1, { error: 'PUBLIC_VAPID_KEY no puede estar vacía' }).optional();
+
 export const esquemasEntorno = {
 	ORIGIN: esquemaOrigin,
 	DIRECTORIO_DATOS: esquemaDirectorioDatos,
@@ -37,6 +50,9 @@ export const esquemasEntorno = {
 	ADMIN_INICIAL_EMAIL: esquemaEmailAdminInicial,
 	ADMIN_INICIAL_NOMBRE: esquemaNombreAdminInicial,
 	TZ: esquemaZonaHoraria,
+	VAPID_PRIVATE_KEY: esquemaClavePrivadaVapid,
+	VAPID_SUBJECT: esquemaAsuntoVapid,
+	PUBLIC_VAPID_KEY: esquemaClavePublicaVapid,
 } as const;
 
 export const variables = defineEnvVars({
@@ -46,4 +62,7 @@ export const variables = defineEnvVars({
 	ADMIN_INICIAL_EMAIL: { schema: esquemaEmailAdminInicial, public: false, static: false },
 	ADMIN_INICIAL_NOMBRE: { schema: esquemaNombreAdminInicial, public: false, static: false },
 	TZ: { schema: esquemaZonaHoraria, public: false, static: false },
+	VAPID_PRIVATE_KEY: { schema: esquemaClavePrivadaVapid, public: false, static: false },
+	VAPID_SUBJECT: { schema: esquemaAsuntoVapid, public: false, static: false },
+	PUBLIC_VAPID_KEY: { schema: esquemaClavePublicaVapid, public: true, static: false },
 });

@@ -1,7 +1,10 @@
 import { eq } from 'drizzle-orm';
 import { entradaStockBajo, existencia } from './esquema';
 import { estaEnStockBajo } from './dominio/stock';
+import { leerTipo } from '#lib/server/catalogo';
 import { nuevoId, RecursoNoEncontrado, type Ejecutor, type Tx } from '#lib/server/plataforma';
+import { registrarAviso } from '#lib/server/notificaciones';
+import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 
 // Escrituras de stock y umbral (RF-003, RF-023, RN-072). Siempre dentro de la transacción del caso de uso.
 // Devuelve si se registró una entrada en stock bajo, para que el caso de uso lo registre tras confirmar.
@@ -30,7 +33,7 @@ export function fijarStock(tx: Tx, tipoCapsulaId: string, stock: number, instant
 	const enStockBajo = estaEnStockBajo(stock, fila.umbralMinimo);
 	tx.update(existencia).set({ stock, enStockBajo }).where(eq(existencia.tipoCapsulaId, tipoCapsulaId)).run();
 	const entradaRegistrada = enStockBajo && !fila.enStockBajo;
-	if (entradaRegistrada) registrarEntrada(tx, tipoCapsulaId, instante);
+	if (entradaRegistrada) registrarEntrada(tx, tipoCapsulaId, stock, instante);
 	return { entradaRegistrada };
 }
 
@@ -40,7 +43,7 @@ export function fijarUmbral(tx: Tx, tipoCapsulaId: string, umbralMinimo: number,
 	const enStockBajo = estaEnStockBajo(fila.stock, umbralMinimo);
 	tx.update(existencia).set({ umbralMinimo, enStockBajo }).where(eq(existencia.tipoCapsulaId, tipoCapsulaId)).run();
 	const entradaRegistrada = enStockBajo && !fila.enStockBajo;
-	if (entradaRegistrada) registrarEntrada(tx, tipoCapsulaId, instante);
+	if (entradaRegistrada) registrarEntrada(tx, tipoCapsulaId, fila.stock, instante);
 	return { entradaRegistrada };
 }
 
@@ -48,8 +51,18 @@ export function borrarExistencia(tx: Tx, tipoCapsulaId: string): void {
 	tx.delete(existencia).where(eq(existencia.tipoCapsulaId, tipoCapsulaId)).run();
 }
 
-function registrarEntrada(tx: Tx, tipoCapsulaId: string, instante: string): void {
-	tx.insert(entradaStockBajo).values({ id: nuevoId(), tipoCapsulaId, registradaEn: instante }).run();
+/** Registra la entrada en stock bajo y su aviso (RF-101, RN-072) en la misma transacción. */
+function registrarEntrada(tx: Tx, tipoCapsulaId: string, stock: number, instante: string): void {
+	const origenId = nuevoId();
+	tx.insert(entradaStockBajo).values({ id: origenId, tipoCapsulaId, registradaEn: instante }).run();
+	const tipo = leerTipo(tx, tipoCapsulaId);
+	if (!tipo) throw new RecursoNoEncontrado();
+	registrarAviso(tx, {
+		tipo: 'stock_bajo',
+		datos: { tipoCapsulaId, nombreTipo: tipo.nombre, stock },
+		origenId,
+		instante: esquemaInstanteUtc.parse(instante),
+	});
 }
 
 export function leerExistenciaTx(tx: Ejecutor, tipoCapsulaId: string) {

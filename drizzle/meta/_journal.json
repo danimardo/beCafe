@@ -29,6 +29,13 @@
       "when": 1792684973177,
       "tag": "0003_f4-compra-tipo-repetido",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1792746479269,
+      "tag": "0004_f5-notificaciones",
+      "breakpoints": true
     }
   ]
 }

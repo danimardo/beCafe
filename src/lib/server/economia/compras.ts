@@ -16,6 +16,8 @@ import {
 } from '#lib/server/plataforma';
 import { leerTipo, listarTipos } from '#lib/server/catalogo';
 import { buscarUsuarioPorId } from '#lib/server/usuarios';
+import { registrarAviso } from '#lib/server/notificaciones';
+import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import { avisoEconomia, compra, consumo, existencia, lineaCompra, regularizacion } from './esquema';
 import { anotarMovimientos, anularMovimientosDe, saldoHucha } from './libro';
 import { costeTrasCompra, ESTADO_INICIAL, precioDeConsumo } from './dominio/coste-medio';
@@ -96,6 +98,12 @@ function escribirCompra(
 		tx.insert(avisoEconomia)
 			.values({ id: nuevoId(), tipo: 'hucha_negativa', origenTipo: 'compra', origenId: id, registradoEn: instante })
 			.run();
+		registrarAviso(tx, {
+			tipo: 'hucha_negativa',
+			datos: { saldoHucha: saldoHucha(tx) },
+			origenId: id,
+			instante: esquemaInstanteUtc.parse(instante),
+		});
 		registrar('hucha.negativa_registrada', { origenTipo: 'compra', origenId: id });
 	}
 	return { id, duplicado: false };
@@ -114,7 +122,7 @@ export function anularCompra(ambiente: Ambiente, actor: Actor, id: string, motiv
 			.where(and(eq(compra.id, id), eq(compra.estado, 'vigente')))
 			.run();
 		exigirAnulacionAplicada(actualizada.changes);
-		anularMovimientosDe(tx, 'compra', id);
+		anularMovimientosDe(tx, 'compra', id, ahora);
 
 		const lineas = tx.select().from(lineaCompra).where(eq(lineaCompra.compraId, id)).all();
 		const regularizaciones: { usuarioId: string; importe: number }[] = [];

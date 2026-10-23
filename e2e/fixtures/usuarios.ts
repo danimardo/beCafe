@@ -13,3 +13,20 @@ export async function darDeAltaPersona(page: Page, servidor: ServidorDePrueba, n
 	await page.getByRole('button', { name: 'Dar de alta', exact: true }).click();
 	await expect(page.getByText(nombre, { exact: true }).first()).toBeVisible();
 }
+
+/** Da de alta una persona y devuelve su enlace de invitación, para que otro contexto la active (CA-131). */
+export async function darDeAltaYLeerEnlace(page: Page, servidor: ServidorDePrueba, nombre: string): Promise<string> {
+	await darDeAltaPersona(page, servidor, nombre);
+	return page.getByRole('textbox', { name: 'Enlace de acceso', exact: true }).inputValue();
+}
+
+/** Activa una persona invitada en su propio contexto: define la contraseña y acepta la privacidad (CA-132, CA-160). */
+export async function activarPersona(page: Page, servidor: ServidorDePrueba, enlace: string): Promise<void> {
+	await page.goto(enlace);
+	await page.getByRole('textbox', { name: 'Contraseña nueva', exact: true }).fill('contraseña de prueba de activación');
+	await page.getByRole('textbox', { name: 'Repite la contraseña', exact: true }).fill('contraseña de prueba de activación');
+	await page.getByRole('button', { name: 'Guardar contraseña', exact: true }).click();
+	await expect(page).toHaveURL(`${servidor.url}/aceptar-privacidad`);
+	await page.getByRole('button', { name: 'He leído el texto y lo acepto', exact: true }).click();
+	await expect(page).toHaveURL(`${servidor.url}/?aviso=privacidad-aceptada`);
+}

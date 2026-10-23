@@ -1,7 +1,9 @@
+import { eq } from 'drizzle-orm';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { crearSesion, sesion, sesionCerradaPorBaja, limpiarSesionesCerradasPorBaja, type Actor } from '#lib/server/auth';
 import { crearAzarFijo, crearEntornoPrueba, enTransaccion, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
 import { crearUsuario, registroAuditoria, usuario } from '#lib/server/usuarios';
+import { entregaPush, suscripcionPush } from '#lib/server/notificaciones';
 import { registrarAportacion } from './aportaciones';
 import { darDeBaja, leerLiquidacion, modosPosibles } from './baja';
 import { anotarMovimientos, saldoHucha, saldoPersona } from './libro';
@@ -107,6 +109,34 @@ describe('baja con liquidación (CA-135, CA-136, INV-06, EV-040, RF-139c)', () =
 			registradaPor: admin.usuarioId,
 			usuarioId: ana,
 		});
+	});
+
+	it('RN-051: al dar de baja a una persona se borran sus suscripciones push y sus entregas en la misma transacción', async () => {
+		const admin = crearAdmin(entorno);
+		const [ana] = prepararMiembros(entorno.ambiente.db, 1);
+		entorno.ambiente.db
+			.insert(suscripcionPush)
+			.values({
+				id: nuevoId(),
+				usuarioId: ana,
+				endpoint: 'https://push.ejemplo.test/ana',
+				clavePdh: 'p',
+				claveAuth: 'a',
+				creadaEn: INSTANTE,
+				actualizadaEn: INSTANTE,
+			})
+			.run();
+
+		await darDeBaja(entorno.ambiente, admin, {
+			usuarioId: ana,
+			modo: 'ninguna',
+			saldoPrevisto: 0,
+			confirmoHuchaNegativa: false,
+			contrasenaActual: undefined,
+		});
+
+		expect(entorno.ambiente.db.select().from(suscripcionPush).where(eq(suscripcionPush.usuarioId, ana)).all()).toHaveLength(0);
+		expect(entorno.ambiente.db.select().from(entregaPush).all()).toHaveLength(0);
 	});
 
 	it('CA-135, devolución: +10,00 € sale de la hucha y deja a la persona en 0', async () => {

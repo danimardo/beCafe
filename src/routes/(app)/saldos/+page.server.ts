@@ -2,7 +2,8 @@ import { redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../fallo';
-import { leerAportacionesPropias, leerSaldoHucha, leerSaldoPropio, registrarAportacion } from '#lib/server/economia';
+import { leerAportacionesPropias, leerSaldoHucha, leerSaldoPropio, leerSaldos, registrarAportacion } from '#lib/server/economia';
+import { ultimosRegistros } from '../historial/vista';
 import { esquemaAportacion } from '#lib/shared/contratos/economia';
 import { nuevoId } from '#lib/server/plataforma';
 import { textos } from '#lib/shared/textos';
@@ -16,6 +17,8 @@ export const load: PageServerLoad = ({ locals }) => {
 		const db = locals.ambiente.db;
 		return {
 			saldoPropio: leerSaldoPropio(db, actor),
+			saldos: leerSaldos(db, actor),
+			recientes: ultimosRegistros(db, actor, 5),
 			hucha: leerSaldoHucha(db),
 			aportaciones: leerAportacionesPropias(db, actor, LIMITE_APORTACIONES),
 			clienteId: nuevoId(),

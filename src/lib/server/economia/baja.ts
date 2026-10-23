@@ -1,5 +1,7 @@
 import { cerrarSesionesPorBaja, exigirAdministrador, exigirReautenticacion, type Actor } from '#lib/server/auth';
 import { anotarAuditoria, buscarUsuarioPorId, marcarBaja } from '#lib/server/usuarios';
+import { registrarAviso, retirarPersona } from '#lib/server/notificaciones';
+import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import {
 	enTransaccion,
 	ErrorDeNegocio,
@@ -98,6 +100,7 @@ export async function darDeBaja(
 		if (!modosPosibles(saldo).includes(entrada.modo)) throw new ErrorDeNegocio('VALIDACION');
 
 		marcarBaja(tx, { usuarioId: entrada.usuarioId, instante });
+		retirarPersona(tx, entrada.usuarioId);
 		cerrarSesionesPorBaja(tx, entrada.usuarioId, instante);
 		aplicarModo(tx, { ...entrada, saldo, actorId: actor.usuarioId, instante, azar: ambiente.azar });
 
@@ -181,6 +184,12 @@ function aplicarModo(
 		tx.insert(avisoEconomia)
 			.values({ id: nuevoId(), tipo: 'hucha_negativa', origenTipo: 'baja', origenId: usuarioId, registradoEn: instante })
 			.run();
+		registrarAviso(tx, {
+			tipo: 'hucha_negativa',
+			datos: { saldoHucha: saldoHucha(tx) },
+			origenId: usuarioId,
+			instante: esquemaInstanteUtc.parse(instante),
+		});
 		registrar('hucha.negativa_registrada', { origenTipo: 'baja', origenId: usuarioId });
 	}
 }

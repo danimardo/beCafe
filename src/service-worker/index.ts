@@ -1,6 +1,10 @@
 import { self } from '$app/service-worker';
 import { version } from '$app/env';
 import { assets, immutable } from '$app/manifest';
+import { z } from 'zod';
+import { esquemaMensajePush } from '#lib/shared/contratos/push';
+
+const esquemaDatosAviso = z.object({ enlace: esquemaMensajePush.shape.enlace });
 
 // Service worker (plan D8, RF-015, RNF-013). Precarga la aplicación compilada, sirve la última pantalla principal guardada
 // cuando no hay red y revalida las fotos. No envía la cola de consumos: lo hace la página (plan D5) y no guarda datos
@@ -26,6 +30,49 @@ self.addEventListener('activate', (evento) => {
 		})(),
 	);
 });
+
+// Avisos push (plan F6 D10, RF-105). El mensaje se valida antes de mostrarlo; lo que no cumple el contrato se descarta.
+self.addEventListener('push', (evento) => {
+	evento.waitUntil(mostrarAviso(evento.data));
+});
+
+self.addEventListener('notificationclick', (evento) => {
+	evento.notification.close();
+	const datos = esquemaDatosAviso.safeParse(evento.notification.data);
+	if (!datos.success) return;
+	evento.waitUntil(abrirEnlace(datos.data.enlace));
+});
+
+async function mostrarAviso(datos: PushMessageData | null): Promise<void> {
+	let contenido: unknown;
+	try {
+		contenido = datos?.json();
+	} catch {
+		return;
+	}
+	const resultado = esquemaMensajePush.safeParse(contenido);
+	if (!resultado.success) return;
+	const mensaje = resultado.data;
+	await self.registration.showNotification(mensaje.titulo, {
+		body: mensaje.texto,
+		icon: '/icon-192.png',
+		badge: '/badge-96.png',
+		tag: mensaje.tipo,
+		data: { enlace: mensaje.enlace },
+	});
+}
+
+/** Enfoca una ventana de la aplicación abierta y la lleva al enlace; si no hay ninguna, abre una nueva. */
+async function abrirEnlace(enlace: string): Promise<void> {
+	const ventanas = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+	const abierta = ventanas.find((ventana) => new URL(ventana.url).origin === self.location.origin);
+	if (abierta) {
+		await abierta.focus();
+		await abierta.navigate(enlace);
+		return;
+	}
+	await self.clients.openWindow(enlace);
+}
 
 self.addEventListener('fetch', (evento) => {
 	const { request } = evento;

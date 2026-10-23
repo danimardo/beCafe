@@ -3,7 +3,7 @@ import type { Handle, HandleServerError } from '@sveltejs/kit/hooks';
 import { arrancar } from './lib/server/arranque';
 import { entorno } from './lib/server/plataforma/entorno';
 import { NOMBRE_COOKIE, crearActor, opcionesCookie, resolverSesion } from '#lib/server/auth';
-import { cerrarRegistro, conOperacion, operacionActual, registrar, respuestaError } from '#lib/server/plataforma';
+import { cerrarRegistro, conOperacion, operacionActual, registrar, respuestaError, type Ambiente } from '#lib/server/plataforma';
 import { privacidadPendiente } from '#lib/server/usuarios';
 import { VERSION_PRIVACIDAD } from '#lib/shared/privacidad';
 import { decidirPuertaPrivacidad } from '#lib/shared/puerta-privacidad';
@@ -11,9 +11,9 @@ import { textos } from '#lib/shared/textos';
 
 // Raíz de la petición (research R10, R15, R5). Resuelve la sesión, aplica la puerta de privacidad y añade las cabeceras.
 // Un entorno no válido se registra (`app.entorno_invalido`), se vacía el registro y el proceso termina con código 1, sin traza.
-let ambiente: ReturnType<typeof arrancar>;
+let ambiente: Ambiente;
 try {
-	ambiente = arrancar({
+	ambiente = await arrancar({
 		origen: entorno.origen,
 		directorioDatos: entorno.directorioDatos,
 		nivelLog: entorno.nivelLog,
@@ -23,6 +23,7 @@ try {
 		commit: __APP_COMMIT__,
 		desarrollo: import.meta.env.DEV,
 		carpetaMigraciones: `${process.cwd()}/drizzle`,
+		vapid: entorno.vapid,
 	});
 } catch (error) {
 	if (!(error instanceof Error && error.message === 'ENTORNO_NO_VALIDO')) throw error;

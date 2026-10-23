@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
-	import { Banner, Button, ListRow, Money, MoneyField, PageHeader, Section } from '#lib/ui';
+	import { Banner, Button, EmptyState, ListRow, Money, MoneyField, PageHeader, Section } from '#lib/ui';
 	import { formatMoneyPlain } from '#lib/shared/dinero';
 	import { textos } from '#lib/shared/textos';
 	import type { PageProps } from './$types';
@@ -34,6 +34,26 @@
 		<p class="text-2xl font-semibold">
 			<Money cents={data.saldoPropio} signed tone srSuffix={data.saldoPropio >= 0 ? textos.economia.aFavor : textos.economia.debes} />
 		</p>
+	</Section>
+
+	<Section title={textos.historial.saldosTitulo}>
+		{#if data.saldos.length === 0}
+			<EmptyState title={textos.historial.sinSaldos} />
+		{:else}
+			<ul class="flex flex-col">
+				{#each data.saldos as persona (persona.usuarioId)}
+					<ListRow title={persona.esPropia ? `${persona.nombre} ${textos.historial.tuMarca}` : persona.nombre}>
+						{#snippet trailing()}
+							<Money cents={persona.saldo} signed tone srSuffix={persona.saldo >= 0 ? textos.economia.aFavor : textos.economia.debes} />
+						{/snippet}
+					</ListRow>
+				{/each}
+			</ul>
+		{/if}
+		<form method="get" action={resolve('/(app)/historial')}>
+			<input type="hidden" name="quien" value="mios" />
+			<button type="submit" class="text-accent underline">{textos.economia.misMovimientos}</button>
+		</form>
 	</Section>
 
 	<Section title={textos.economia.hucha}>
@@ -74,5 +94,27 @@
 				{/each}
 			</ul>
 		{/if}
+	</Section>
+
+	<Section title={textos.historial.ultimos}>
+		{#if data.recientes.length === 0}
+			<p class="text-sm text-ink-muted">{textos.historial.vacio}</p>
+		{:else}
+			<ul class="flex flex-col">
+				{#each data.recientes as fila (fila.tipo + fila.id)}
+					<ListRow
+						title={[fila.etiqueta, fila.persona].filter(Boolean).join(' · ')}
+						subtitle={fila.anulado ? textos.historial.anulado : undefined}
+						href={fila.enlace}
+						voided={fila.anulado}
+					>
+						{#snippet trailing()}
+							<Money cents={fila.importe} signed tone />
+						{/snippet}
+					</ListRow>
+				{/each}
+			</ul>
+		{/if}
+		<a href={resolve('/(app)/historial')} class="text-accent underline">{textos.historial.verHistorial}</a>
 	</Section>
 </main>

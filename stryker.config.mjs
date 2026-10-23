@@ -2,7 +2,7 @@
 // Se ejecuta aparte con `npm run test:mutacion`; no forma parte de `npm run verify`.
 export default {
 	testRunner: 'vitest',
-	mutate: ['src/lib/server/**/dominio/**/*.ts', '!src/lib/server/**/*.test.ts'],
+	mutate: ['src/lib/server/**/dominio/**/*.ts', 'src/lib/shared/deuda/tramos.ts', '!src/lib/server/**/*.test.ts'],
 	thresholds: { break: null },
 	reporters: ['clear-text', 'html'],
 	htmlReporter: { fileName: 'reports/mutation/index.html' },

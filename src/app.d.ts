@@ -10,6 +10,10 @@ declare global {
 			/** Código de incidencia: el identificador de la operación que falló (constitución XIII). */
 			codigo?: string;
 		}
+		interface PageData {
+			/** Avisos sin abrir de la persona (RF-107). Lo carga el layout de la aplicación. */
+			avisosNuevos?: number;
+		}
 		interface Locals {
 			ambiente: Ambiente;
 			sesion?: SesionResuelta;

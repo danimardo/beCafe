@@ -4,6 +4,7 @@
 	import type { PageProps } from './$types';
 	import { Button, ConfirmDialog, PageHeader, PasswordField, Section, Switch, ThemeToggle, usarTema } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
+	import SeccionAvisos from './SeccionAvisos.svelte';
 
 	type Formulario = {
 		errores?: Partial<Record<string, { mensaje: string }>>;
@@ -55,6 +56,8 @@
 			/>
 		</div>
 	</Section>
+
+	<SeccionAvisos preferencias={data.preferencias} />
 
 	<Section title={textos.perfil.cambiarContrasena}>
 		<div class="rounded-panel border border-hairline bg-wall-base p-5">

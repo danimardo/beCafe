@@ -1,6 +1,10 @@
 import { test, expect } from '../fixtures/errores-navegador';
 import { entrarComo } from '../fixtures/sesiones';
-import { aportar, arquear, tiposDeCompra } from '../fixtures/economia';
+import { aportar, arquear, registrarCompra, tiposDeCompra } from '../fixtures/economia';
+import { activarPersona, darDeAltaYLeerEnlace } from '../fixtures/usuarios';
+import { nombreUnico } from '../fixtures/capsulas';
+import { botonDeToque } from '../fixtures/consumos';
+import { textos } from '#lib/shared/textos';
 
 // Economía (F4): aportar, comprar con dos líneas y anular la compra desde su detalle (CA-040, CA-030, CA-060).
 
@@ -35,4 +39,57 @@ test('CA-040: una compra de dos líneas se registra y se puede anular desde su d
 test('arqueo: la vista previa muestra el efecto y la confirmación con contraseña registra el arqueo', async ({ page, servidor }) => {
 	await entrarComo(page, servidor, 'administrador');
 	await arquear(page, servidor, '0,00');
+});
+
+// Bajas con liquidación (T056, RF-120 a RF-124): la persona activa en su propio contexto y el administrador da la baja.
+// Cada prueba crea su persona: la base se comparte entre las pruebas de un mismo worker.
+test('devolución: la baja que devuelve el saldo de una persona queda registrada', async ({ browser, page, servidor }) => {
+	await entrarComo(page, servidor, 'administrador');
+	const nombre = nombreUnico('Devuelve');
+	const enlace = await darDeAltaYLeerEnlace(page, servidor, nombre);
+	const persona = await browser.newContext();
+	const paginaPersona = await persona.newPage();
+	await activarPersona(paginaPersona, servidor, enlace);
+	await aportar(paginaPersona, servidor, '5,00');
+	await persona.close();
+
+	await page.goto(`${servidor.url}/admin/usuarios`);
+	await page.getByRole('link', { name: nombre }).first().click();
+	await page.getByRole('link', { name: 'Dar de baja', exact: true }).click();
+	await page.getByLabel(textos.economia.modoBaja, { exact: true }).selectOption({ label: textos.economia.modoDevolucion });
+	await page.getByRole('button', { name: 'Ver efecto', exact: true }).click();
+	await page.getByLabel('Contraseña actual', { exact: true }).fill(servidor.siembra.contrasena);
+	await page.getByRole('button', { name: 'Confirmar la baja', exact: true }).click();
+
+	await expect(page.getByRole('status').filter({ hasText: 'Baja registrada' }).first()).toBeVisible();
+});
+
+test('incobrable: la baja que da la deuda por incobrable de una persona queda registrada', async ({ browser, page, servidor }) => {
+	const [tipo] = await tiposDeCompra(page, servidor);
+	await entrarComo(page, servidor, 'administrador');
+	await registrarCompra(page, servidor, tipo, '3,48', true);
+	const nombre = nombreUnico('Incobrable');
+	const enlace = await darDeAltaYLeerEnlace(page, servidor, nombre);
+	const persona = await browser.newContext();
+	const paginaPersona = await persona.newPage();
+	await activarPersona(paginaPersona, servidor, enlace);
+	await paginaPersona.goto(`${servidor.url}/`);
+	await botonDeToque(paginaPersona, tipo).click();
+	await expect(
+		paginaPersona
+			.getByRole('status')
+			.filter({ hasText: `${tipo} registrado` })
+			.first(),
+	).toBeVisible();
+	await persona.close();
+
+	await page.goto(`${servidor.url}/admin/usuarios`);
+	await page.getByRole('link', { name: nombre }).first().click();
+	await page.getByRole('link', { name: 'Dar de baja', exact: true }).click();
+	await page.getByLabel(textos.economia.modoBaja, { exact: true }).selectOption({ label: textos.economia.modoIncobrable });
+	await page.getByRole('button', { name: 'Ver efecto', exact: true }).click();
+	await page.getByLabel('Contraseña actual', { exact: true }).fill(servidor.siembra.contrasena);
+	await page.getByRole('button', { name: 'Confirmar la baja', exact: true }).click();
+
+	await expect(page.getByRole('status').filter({ hasText: 'Baja registrada' }).first()).toBeVisible();
 });

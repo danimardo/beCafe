@@ -37,7 +37,7 @@ export function anularAportacion(ambiente: Ambiente, actor: Actor, id: string, m
 			.where(and(eq(aportacion.id, id), eq(aportacion.estado, 'vigente')))
 			.run();
 		exigirAnulacionAplicada(actualizada.changes);
-		anularMovimientosDe(tx, 'aportacion', id);
+		anularMovimientosDe(tx, 'aportacion', id, ahora);
 	});
 	registrar('anulacion.registrada', { tipo: 'aportacion', id });
 }

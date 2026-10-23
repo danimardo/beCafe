@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ubicación | `historias.md` en la raíz del repositorio `github.com/danimardo/beCafe` (en el servidor de desarrollo, `/Apps/beCafe/historias.md`) |
-| Versión | 0.16.0 — CAMBIO-016 |
+| Versión | 0.17.0 — CAMBIO-017 |
 | Fecha | 21-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), versión 2.0.0-candidata |
@@ -731,6 +731,8 @@ Convenciones: claves primarias de texto con ULID; fechas en UTC (ISO 8601); impo
 | `suscripcion_push` | id, usuario_id, endpoint, p256dh, auth, creada_en, ultimo_exito_en, fallos | `endpoint` único |
 | `preferencia_notificacion` | usuario_id, tipo, activa | PK (usuario_id, tipo) |
 | `notificacion` | id, tipo, usuario_id, referencia, creada_en, enviada_en, leida_en | Para el panel de avisos y la deduplicación |
+| `entrega_push` | id, notificacion_id, suscripcion_id, estado (`pendiente`, `enviada`, `agotada`, `caducada`), intentos, proximo_intento, ultimo_codigo | Dueño `notificaciones`. Una fila por aviso y dispositivo; `UNIQUE (notificacion_id, suscripcion_id)`; borrado en cascada con la notificación y con la suscripción (plan F6 D6, D9) |
+| `ejecucion_tarea` | tarea, periodo, ejecutada_en | Dueño `plataforma` (planificador). PK (tarea, periodo); evita la doble ejecución de una tarea programada (recordatorio de deuda, resumen mensual) |
 | `configuracion` | clave, valor, modificado_por, modificado_en | — |
 | `registro_auditoria` | id, actor_id, accion, objeto_tipo, objeto_id, detalle (JSON), creado_en | Cambios de rol, bajas, configuración, enlaces generados |
 | `copia_seguridad` | id, iniciada_en, finalizada_en, estado, tamano, error | — |
@@ -1140,6 +1142,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.14.0 | 21-10-2026 | CAMBIO-014: decisiones de la especificación de F1. RF-139c (auditoría de administración) y CA-139c; RN-055 (inicio de sesión de un usuario dado de baja); RF-139 y CA-139 con el arranque sin `ADMIN_INICIAL_EMAIL` (DEC-104); DEC-103 (alcance de F1: RF-137, RF-138, RF-139c, RN-055, RNF-014; RF-135 sigue en F4); HALL-016; HU-13, §12.1 y §15 | Escritura autorizada el 21-10-2026 («Tienes mi autorización para cambiar Historias.md»); respaldo de 0.13.0 (SHA-256 84aa5191…3510936f) en `.respaldos/` |
 | 0.15.0 | 22-10-2026 | CAMBIO-015: separación de `tipo_capsula` en `tipo_capsula` (catálogo), `existencia` y `entrada_stock_bajo` (economía) en §10.4; datos derivados (§10.4). Decisión de F2 (plan D1). Sin cambios de requisitos ni de reglas | Escritura autorizada el 22-10-2026 («Sí, autorizo el CAMBIO-015»); respaldo de 0.14.0 (SHA-256 90822e99…) en `.respaldos/` |
 | 0.16.0 | 22-10-2026 | CAMBIO-016: §10.4 de F4. Tablas `regularizacion`, `reparto` y `aviso_economia`; `linea_recuento` con `registrado` (previsto por línea) y estado de anulación por línea; unicidad por (compra, tipo) y (recuento, tipo). Sin cambios de requisitos ni de reglas | Escritura autorizada el 22-10-2026 («Sí, autorizo (Recomendado)»); respaldo de 0.15.0 en `.respaldos/` |
+| 0.17.0 | 23-10-2026 | CAMBIO-017: §10.4 de F6. Tablas `entrega_push` y `ejecucion_tarea`. Sin cambios de requisitos ni de reglas | Escritura autorizada el 23-10-2026 («Sí, con respaldo (Recomendado)»); respaldo de 0.16.0 (SHA-256 f4a51ebc02cfc15f2c1f4d59e481edb7737564b7b1c366069a69e90698ba9ad4) en `.respaldos/historias-v0.16.0-20261023-120648.md` |
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.14.0 (SHA-256 7aeb5af7…96d70dbb). Reevaluados RF-139, CA-139, RF-139c, CA-139c y RN-055 (CAMBIO-014). Aplazados: PEND-014 y PEND-033. Para el plan de F1: PEND-034 a PEND-036. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («apruebo el nuevo cierre del refinamiento sobre la v0.14.0») |
 
 ---

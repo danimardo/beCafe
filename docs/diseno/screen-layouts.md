@@ -144,7 +144,7 @@ Consumo personal y del equipo (HU-10, RF-120 a RF-123, RF-175).
 | --- | --- | --- | --- |
 | 1 | `PageHeader` | «Tus estadísticas» (o «Estadísticas de {nombre}») / mes («Octubre») | 58 px |
 | 2 | `SegmentedControl` «Qué ver» | **Mías · Equipo** | 48 px |
-| 3 | `SegmentedControl` «Periodo» | Semana · Mes · Año. **Desde la v0.4.0 sirve para las dos vistas** (también para el ranking de rellenos) | 48 px |
+| 3 | `SegmentedControl` «Periodo» | Mes · Año · Desde el principio (F5: sustituye a «Semana» y ya no hay semanas; el valor inicial es el mes en curso). **Desde la v0.4.0 sirve para las dos vistas** (también para el ranking de rellenos) | 48 px |
 | 4 | `SelectField` «Persona» | Solo administradores y solo en «Mías» (RF-123). **Propuesto** | 72 px |
 | 5 | 4 × `KpiTile` | cafés, gastado, invitados y **rellenos de agua** (RF-175). En móvil 2×2; desde 420 px, una fila de 4 | Hueco 8 px |
 | 6 | `Glass` + `BarChart` | «Cafés por semana» con la última barra resaltada | ≈ 218 px |
@@ -170,12 +170,12 @@ Preferencias y cuenta (HU-09, RF-100 a RF-106).
 | 2 | `Glass` | `Avatar` md + nombre + correo + `Badge accent` con el rol |
 | 3 | `Glass` + `ListRow` (**solo administradores**) | «Administración — Cápsulas, usuarios, arqueos, configuración y copias» con icono de engranaje; enlaza a `/admin`. En escritorio también existe en la barra lateral |
 | 4 | `Section` «Apariencia» | `ThemeToggle` (Automático / Claro / Oscuro) + nota «Automático sigue el modo de tu dispositivo» |
-| 5 | `Section` «Notificaciones» | 3 × `Switch`: Stock bajo, Resumen mensual, **Aviso de deuda (activado y bloqueado**, RF-102) |
+| 5 | `Section` «Notificaciones» | Una fila por tipo con un botón `role="switch"` dentro de un formulario (envío nativo, sin JavaScript); el aviso de deuda aparece como «Siempre activado» (RF-102). Con JavaScript, el botón «Activar notificaciones» de este dispositivo |
 | 6 | `Section` «Seguridad» | `ListRow` «Cambiar contraseña» (abre `Sheet`) y «Cerrar sesión en todos los dispositivos» (abre `ConfirmDialog`) |
 | 7 | `Section` «Ayuda y privacidad» | Enlaces a `/ayuda` y `/privacidad` |
 | 8 | `Button glass block` | «Cerrar sesión» |
 
-**Comportamiento**: cambiar contraseña abre `Sheet` con `PasswordField` ×2 (mínimo 15 caracteres, RT-007); «Cerrar sesión en todos los dispositivos» abre `ConfirmDialog`. **▸ A implementar**: guardar los interruptores al cambiarlos (sin botón «Guardar»); si el permiso de notificaciones del navegador no está concedido, explicarlo en la propia fila y enlazar a `/ayuda`; guardar la preferencia de tema en la cuenta con `theme.onPersist`.
+**Comportamiento**: cambiar contraseña abre `Sheet` con `PasswordField` ×2 (mínimo 15 caracteres, RT-007); «Cerrar sesión en todos los dispositivos» abre `ConfirmDialog`. **Interruptores**: cada cambio se guarda al instante, sin botón «Guardar». Son botones de envío de un formulario, así que funcionan sin JavaScript. Si el navegador bloquea las notificaciones, la sección lo explica y enlaza a `/ayuda`. **No se guarda el tema en la cuenta**: el tema y «Reducir transparencia» viven en el dispositivo (constitución V).
 
 ---
 

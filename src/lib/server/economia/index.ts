@@ -4,7 +4,25 @@ export { leerEstadoTipos, leerAvisosStock, leerCatalogoAdmin, leerCapsulaAdmin, 
 export { fijarStock, fijarUmbral } from './existencias';
 export type { EstimacionDias } from './dominio/stock';
 export { registrarAportacion, type ResultadoAportacion } from './aportaciones';
-export { leerSaldoPropio, leerSaldoHucha, leerAportacionesPropias, leerAportacion, type UltimoArqueo } from './saldos';
+export {
+	leerSaldoPropio,
+	leerSaldoHucha,
+	leerSaldos,
+	leerAportacionesPropias,
+	leerAportacion,
+	type SaldoDePersona,
+	type UltimoArqueo,
+} from './saldos';
+export {
+	leerHistorial,
+	leerRegistroDeControl,
+	TAMANO_PAGINA,
+	type FilaHistorial,
+	type FiltrosHistorial,
+	type PaginaHistorial,
+	type RegistroDeControl,
+	type TipoEntradaHistorial,
+} from './historial';
 export {
 	registrarCompra,
 	anularCompra,
@@ -31,6 +49,7 @@ export {
 	type TipoRegistrable,
 } from './consumos';
 export { leerPersonasBajoLimite, type PersonaBajoLimite } from './panel';
+export { contarConsumos, primerConsumo, type ConsumoEstadistico } from './consultas-estadisticas';
 export {
 	leerControl,
 	previsualizarArqueo,
@@ -44,3 +63,5 @@ export {
 	type LineaRecuentoEntrada,
 } from './control';
 export { darDeBaja, leerLiquidacion, modosPosibles, previsualizarBaja, type ModoBaja, type PrevisionBaja } from './baja';
+export { recordarDeudas, TAREA_RECORDATORIO_DEUDA } from './recordatorio-deuda';
+export { saldoPersona } from './libro';

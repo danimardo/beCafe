@@ -50,10 +50,20 @@ export const NIVEL_EVENTO = {
 	'operacion.rechazada': 'info',
 	'dato.invalido': 'error',
 	'cliente.registro_rechazado': 'warn',
+	'cliente.push_suscripcion_fallida': 'warn',
 	'cliente.error_no_previsto': 'warn',
 	'consumo.registrado': 'info',
 	'consumo.duplicado': 'info',
 	'stock.negativo_registrado': 'warn',
+	'aviso.registrado': 'info',
+	'push.suscripcion_registrada': 'info',
+	'push.enviado': 'debug',
+	'push.fallido': 'warn',
+	'push.suscripcion_caducada': 'info',
+	'push.reintentos_agotados': 'error',
+	'tarea.iniciada': 'info',
+	'tarea.completada': 'info',
+	'tarea.fallida': 'error',
 } as const;
 
 export type CodigoEvento = keyof typeof NIVEL_EVENTO;
@@ -106,7 +116,17 @@ export type CamposEvento = {
 	'operacion.rechazada': { codigo: string };
 	'dato.invalido': { origen: string; id?: string; campo: string; incidencia: string };
 	'cliente.registro_rechazado': { motivo: 'tamano' | 'frecuencia' | 'esquema' };
+	'cliente.push_suscripcion_fallida': { motivo: 'sin_permiso' | 'sin_soporte' | 'red' | 'servidor' };
 	'cliente.error_no_previsto': { tipo: string; pila: string };
+	'aviso.registrado': { tipo: string; destinatarios: number };
+	'push.suscripcion_registrada': { usuarioId: string };
+	'push.enviado': { entregaId: string; codigoHttp: number };
+	'push.fallido': { entregaId: string; codigoHttp: number; intento: number };
+	'push.suscripcion_caducada': { suscripcionId: string };
+	'push.reintentos_agotados': { entregaId: string };
+	'tarea.iniciada': { tarea: string; periodo?: string };
+	'tarea.completada': { tarea: string; duracionMs: number };
+	'tarea.fallida': { tarea: string; duracionMs: number; tipo: string };
 };
 
 /** Un registrador recibe eventos ya tipados. El enlace de RF-139 tiene su propio método (solo salida estándar). */
@@ -120,7 +140,12 @@ export type Registrador = {
 };
 
 /** Códigos que el navegador puede enviar a `/api/registro-cliente` (contrato registro-cliente v1). */
-export const CODIGOS_CLIENTE = ['dato.invalido', 'cliente.error_no_previsto', 'cliente.registro_rechazado'] as const;
+export const CODIGOS_CLIENTE = [
+	'dato.invalido',
+	'cliente.error_no_previsto',
+	'cliente.registro_rechazado',
+	'cliente.push_suscripcion_fallida',
+] as const;
 export type CodigoClienteEvento = (typeof CODIGOS_CLIENTE)[number];
 
 const registradorSilencioso: Registrador = {

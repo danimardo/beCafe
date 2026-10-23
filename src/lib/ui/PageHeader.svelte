@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 	import NotificationBell from './NotificationBell.svelte';
 
 	type Props = {
@@ -23,7 +25,9 @@
 	{#if actions || bell}
 		<div class="ml-auto flex shrink-0 items-center gap-2">
 			{#if actions}{@render actions()}{/if}
-			{#if bell}<NotificationBell />{/if}
+			{#if bell && page.data.avisosNuevos !== undefined}
+				<NotificationBell nuevos={page.data.avisosNuevos} accion="{resolve('/(app)/avisos')}?/abrir" />
+			{/if}
 		</div>
 	{/if}
 </header>

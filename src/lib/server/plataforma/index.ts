@@ -21,6 +21,15 @@ export {
 } from './registro';
 export { abrirBaseDatos, aplicarMigraciones, baseDatosResponde, enTransaccion, type Conexion, type Db, type Tx } from './db/conexion';
 export { crearLimitador, type Limitador } from './limitador';
+export {
+	crearPlanificador,
+	marcarEjecucion,
+	tieneEjecucion,
+	ZONA_TAREAS,
+	type DefinicionTarea,
+	type Planificador,
+	type ContextoEjecucion,
+} from './planificador';
 export { azarReal, crearAzarFijo, type Azar } from './azar';
 export { procesarFoto, guardarFoto, borrarFoto, rutaFoto } from './imagenes';
 export type { Ejecutor } from './db/conexion';

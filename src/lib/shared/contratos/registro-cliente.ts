@@ -17,6 +17,12 @@ const esquemaEventoCliente = z.discriminatedUnion('codigo', [
 		instante: z.iso.datetime(),
 		campos: z.strictObject({ tipo: z.string().max(80), pila: z.string().max(4000) }),
 	}),
+	// Añadido sin cambiar la versión: un evento nuevo no rompe a los clientes que no lo envían (constitución XIV).
+	z.strictObject({
+		codigo: z.literal('cliente.push_suscripcion_fallida'),
+		instante: z.iso.datetime(),
+		campos: z.strictObject({ motivo: z.enum(['sin_permiso', 'sin_soporte', 'red', 'servidor']) }),
+	}),
 ]);
 
 export const esquemaRegistroCliente = z.strictObject({

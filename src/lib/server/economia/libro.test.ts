@@ -62,16 +62,16 @@ describe('libro de movimientos', () => {
 		const [ana] = prepararMiembros(entorno.ambiente.db, 1);
 		const origen = nuevoId();
 		enTransaccion(entorno.ambiente.db, (tx) => anotarMovimientos(tx, [cargoPersona(ana, -35, origen)]));
-		enTransaccion(entorno.ambiente.db, (tx) => anularMovimientosDe(tx, 'consumo', origen));
+		enTransaccion(entorno.ambiente.db, (tx) => anularMovimientosDe(tx, 'consumo', origen, INSTANTE));
 		expect(saldoPersona(entorno.ambiente.db, ana)).toBe(0);
-		enTransaccion(entorno.ambiente.db, (tx) => anularMovimientosDe(tx, 'consumo', origen));
+		enTransaccion(entorno.ambiente.db, (tx) => anularMovimientosDe(tx, 'consumo', origen, INSTANTE));
 		expect(saldoPersona(entorno.ambiente.db, ana)).toBe(0);
 	});
 
 	it('anular no toca movimientos de otro origen', () => {
 		const [ana] = prepararMiembros(entorno.ambiente.db, 1);
 		enTransaccion(entorno.ambiente.db, (tx) => anotarMovimientos(tx, [cargoPersona(ana, -35), cargoPersona(ana, -70)]));
-		enTransaccion(entorno.ambiente.db, (tx) => anularMovimientosDe(tx, 'consumo', nuevoId()));
+		enTransaccion(entorno.ambiente.db, (tx) => anularMovimientosDe(tx, 'consumo', nuevoId(), INSTANTE));
 		expect(saldoPersona(entorno.ambiente.db, ana)).toBe(-105);
 	});
 

@@ -7,6 +7,8 @@ vi.mock('$app/env/private', () => ({
 	LOG_LEVEL: 'warn',
 	ADMIN_INICIAL_EMAIL: 'admin@ejemplo.es',
 	ADMIN_INICIAL_NOMBRE: 'Admin',
+	VAPID_PRIVATE_KEY: undefined,
+	VAPID_SUBJECT: undefined,
 }));
 
 describe('configuración de entorno (ARCHITECTURE.md §8)', () => {
@@ -19,6 +21,7 @@ describe('configuración de entorno (ARCHITECTURE.md §8)', () => {
 			nivelLog: 'warn',
 			adminInicialEmail: 'admin@ejemplo.es',
 			adminInicialNombre: 'Admin',
+			vapid: undefined,
 		});
 		expect(Object.isFrozen(entorno)).toBe(true);
 	});
