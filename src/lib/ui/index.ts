@@ -14,6 +14,7 @@ export { default as MoneyField } from './MoneyField.svelte';
 export { default as SelectField } from './SelectField.svelte';
 export { default as Switch } from './Switch.svelte';
 export { default as PhotoField } from './PhotoField.svelte';
+export { default as CapsuleColorField } from './CapsuleColorField.svelte';
 export { default as ColorField, capsulePresets } from './ColorField.svelte';
 export { default as Sheet } from './Sheet.svelte';
 export { default as ConfirmDialog } from './ConfirmDialog.svelte';
@@ -76,7 +77,7 @@ export { kindLabels, kindGroups, voidPolicy, voidConsequence } from './movimient
 export type { MovementDetail, Viewer } from './movimientos';
 
 // Clases compartidas
-export { cn, buttonClasses } from './utils';
+export { cn, buttonClasses, colorCapsulaCss } from './utils';
 export { opcionesFormulario } from './formularios';
 export type { ButtonVariant, ButtonSize } from './utils';
 

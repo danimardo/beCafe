@@ -11,43 +11,50 @@ const ETIQUETAS_RISA = new Set(['laughs', 'laughing', 'chuckles', 'giggles', 'ri
 const LOCUCIONES = [
 	{
 		id: 'intro_01',
-		texto: '¡Hola! Soy Capsulito, tu compañero de café en el departamento.',
-		textoVoz: '[excited] ¡Hola! [chuckles] Soy Capsulito, tu compañero de café en el departamento.',
+		texto: 'Soy tu compañero de café en el departamento. Te ayudo a saber qué cápsulas quedan y cómo va nuestra hucha común.',
+		textoVoz:
+			'[excited] ¡Hola! [chuckles] Soy Capsulito. Soy tu compañero de café en el departamento. Te ayudo a saber qué cápsulas quedan y cómo va nuestra hucha común.',
 	},
 	{
 		id: 'intro_02',
-		texto: 'Sin cápsulas no hay servicio. ¡Vamos a vigilar las reservas!',
-		textoVoz: '[surprised] ¡Sin cápsulas no hay servicio! [excited] ¡Vamos a vigilar las reservas!',
+		texto: 'Sin cápsulas no hay servicio. Cada tarjeta muestra cuántas unidades quedan y avisa cuando un tipo entra en stock bajo.',
+		textoVoz:
+			'[surprised] Sin cápsulas no hay servicio. [cheerful] Cada tarjeta muestra cuántas unidades quedan y avisa cuando un tipo entra en stock bajo.',
 	},
 	{
 		id: 'intro_03',
-		texto: 'Elige tu cápsula y registra el consumo con un toque. ¿Te equivocaste? Pulsa «Deshacer».',
-		textoVoz: '[cheerful] Elige tu cápsula y registra el consumo con un toque. Comprueba que quede confirmado.',
+		texto:
+			'Toca la cápsula que te pones y queda apuntada al instante. ¿Invitas a alguien? Usa el botón de invitado. ¿Te equivocaste? Pulsa «Deshacer».',
+		textoVoz:
+			'[cheerful] Toca la cápsula que te pones y queda apuntada al instante. ¿Invitas a alguien? Usa el botón de invitado. ¿Te equivocaste? Pulsa «Deshacer».',
 	},
 	{
 		id: 'intro_04',
-		texto: 'Cuando lleguen nuevas cápsulas, registra la compra para actualizar las existencias.',
-		textoVoz: '[cheerful] Cuando lleguen nuevas cápsulas, registra la compra para actualizar las existencias.',
+		texto: 'Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
+		textoVoz: '[cheerful] Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
 	},
 	{
 		id: 'intro_05',
-		texto: 'Cada café cuenta. ¡Y las cuentas también! Consulta tus aportaciones y tu saldo.',
-		textoVoz: '[excited] Cada café cuenta. [chuckles] ¡Y las cuentas también! Consulta tus aportaciones y tu saldo.',
+		texto: 'Cada café descuenta su precio de tu saldo. Cuando estés en negativo, haz una aportación a la hucha y regístrala.',
+		textoVoz:
+			'[excited] Cada café descuenta su precio de tu saldo. [cheerful] Cuando estés en negativo, haz una aportación a la hucha y regístrala.',
 	},
 	{
 		id: 'intro_06',
-		texto: 'Si rellenas el depósito de la cafetera, registra el agua con un toque.',
-		textoVoz: '[cheerful] Si rellenas el depósito, registra el agua en la aplicación.',
+		texto: 'Si rellenas el depósito de la cafetera, pulsa «He rellenado el agua». No mueve dinero, pero queda reconocido.',
+		textoVoz: '[cheerful] Si rellenas el depósito de la cafetera, pulsa «He rellenado el agua». No mueve dinero, pero queda reconocido.',
 	},
 	{
 		id: 'intro_07',
-		texto: 'Cada mes damos las gracias al aguador del mes. ¡Ovación para quien nos salva de la sequía!',
-		textoVoz: '[excited] También damos las gracias al aguador del mes. [laughs] ¡Ovación para quien nos salva de la sequía!',
+		texto: 'El día 1 de cada mes damos las gracias a quien más veces rellenó el depósito el mes anterior.',
+		textoVoz:
+			'[excited] El día 1 de cada mes damos las gracias a quien más veces rellenó el depósito el mes anterior. [laughs] ¡Ovación para el aguador!',
 	},
 	{
 		id: 'intro_08',
-		texto: 'Cápsulas controladas, cuentas claras… ¡a por el café!',
-		textoVoz: '[excited] Cápsulas controladas, cuentas claras... [cheerful] ¡a por el café!',
+		texto: 'Cápsulas controladas, cuentas claras y agua lista. Puedes volver a ver esta guía o apagarme cuando quieras desde Perfil.',
+		textoVoz:
+			'[excited] Cápsulas controladas, cuentas claras y agua lista. [cheerful] Puedes volver a ver esta guía o apagarme cuando quieras desde Perfil.',
 	},
 	{
 		id: 'consumo_confirmado_01',
@@ -229,6 +236,8 @@ async function principal() {
 	const apiKey = process.env.ELEVENLABS_API_KEY || envArchivo.ELEVENLABS_API_KEY;
 	const voiceId = process.env.ELEVENLABS_VOICE_ID || envArchivo.ELEVENLABS_VOICE_ID || 'TfkjFyM0u8G2kDTCi1Qi';
 	const forzar = process.argv.includes('--force');
+	// `--prefijo=intro_` limita la generación a las locuciones cuyo identificador empieza así.
+	const prefijo = process.argv.find((a) => a.startsWith('--prefijo='))?.slice('--prefijo='.length) ?? '';
 
 	if (!apiKey) {
 		process.stderr.write('Falta ELEVENLABS_API_KEY en .env o en el entorno.\n');
@@ -242,6 +251,7 @@ async function principal() {
 	let omitidas = 0;
 
 	for (const item of LOCUCIONES) {
+		if (!item.id.startsWith(prefijo)) continue;
 		const rutaMp3 = resolve(dirSalida, `${item.id}.mp3`);
 		const rutaJson = resolve(dirSalida, `${item.id}.json`);
 		if (!forzar && existsSync(rutaMp3) && existsSync(rutaJson)) {

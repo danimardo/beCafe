@@ -81,9 +81,10 @@
 								role="switch"
 								aria-checked={preferencia.activada}
 								aria-labelledby="aviso-{preferencia.tipo}"
-								class="relative inline-flex h-8 w-14 shrink-0 items-center rounded-full border-2 border-ink-muted bg-transparent p-0.5 motion-safe:transition aria-checked:border-accent aria-checked:bg-accent"
+								class="group relative inline-flex h-8 w-14 shrink-0 items-center rounded-full border-2 border-ink-muted bg-transparent p-0.5 motion-safe:transition aria-checked:border-accent aria-checked:bg-accent"
 							>
-								<span class="block size-5 rounded-full bg-ink-muted motion-safe:transition aria-checked:translate-x-6 aria-checked:bg-white"
+								<span
+									class="block size-5 rounded-full bg-ink-muted motion-safe:transition group-aria-checked:translate-x-6 group-aria-checked:bg-white"
 								></span>
 							</button>
 						</form>

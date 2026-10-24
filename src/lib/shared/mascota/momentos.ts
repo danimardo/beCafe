@@ -98,12 +98,15 @@ export const MOMENTOS = {
 		poseRiv: 'saludo',
 		expresion: 'feliz',
 		tono: 'neutro',
-		texto: '¡Hola, {nombre}! Soy Capsulito, tu compañero de café en el departamento.',
+		texto:
+			'¡Hola, {nombre}! Soy Capsulito. Soy tu compañero de café en el departamento. Te ayudo a saber qué cápsulas quedan y cómo va nuestra hucha común.',
 		variantes: [
 			{
 				id: 'intro_01',
-				texto: '¡Hola, {nombre}! Soy Capsulito, tu compañero de café en el departamento.',
-				textoVoz: '[excited] ¡Hola! [chuckles] Soy Capsulito, tu compañero de café en el departamento.',
+				texto:
+					'¡Hola, {nombre}! Soy Capsulito. Soy tu compañero de café en el departamento. Te ayudo a saber qué cápsulas quedan y cómo va nuestra hucha común.',
+				textoVoz:
+					'[excited] ¡Hola! [chuckles] Soy Capsulito. Soy tu compañero de café en el departamento. Te ayudo a saber qué cápsulas quedan y cómo va nuestra hucha común.',
 				conAudio: true,
 			},
 		],
@@ -113,12 +116,13 @@ export const MOMENTOS = {
 		poseRiv: 'alerta',
 		expresion: 'sorprendido',
 		tono: 'aviso',
-		texto: 'Sin cápsulas no hay servicio. ¡Vamos a vigilar las reservas!',
+		texto: 'Sin cápsulas no hay servicio. Cada tarjeta muestra cuántas unidades quedan y avisa cuando un tipo entra en stock bajo.',
 		variantes: [
 			{
 				id: 'intro_02',
-				texto: 'Sin cápsulas no hay servicio. ¡Vamos a vigilar las reservas!',
-				textoVoz: '[surprised] ¡Sin cápsulas no hay servicio! [excited] ¡Vamos a vigilar las reservas!',
+				texto: 'Sin cápsulas no hay servicio. Cada tarjeta muestra cuántas unidades quedan y avisa cuando un tipo entra en stock bajo.',
+				textoVoz:
+					'[surprised] Sin cápsulas no hay servicio. [cheerful] Cada tarjeta muestra cuántas unidades quedan y avisa cuando un tipo entra en stock bajo.',
 				conAudio: true,
 			},
 		],
@@ -128,12 +132,15 @@ export const MOMENTOS = {
 		poseRiv: 'cafetera',
 		expresion: 'feliz',
 		tono: 'neutro',
-		texto: 'Elige tu cápsula y registra el consumo con un toque. ¿Te equivocaste? Pulsa «Deshacer».',
+		texto:
+			'Toca la cápsula que te pones y queda apuntada al instante. ¿Invitas a alguien? Usa el botón de invitado. ¿Te equivocaste? Pulsa «Deshacer».',
 		variantes: [
 			{
 				id: 'intro_03',
-				texto: 'Elige tu cápsula y registra el consumo con un toque. ¿Te equivocaste? Pulsa «Deshacer».',
-				textoVoz: '[cheerful] Elige tu cápsula y registra el consumo con un toque. Comprueba que quede confirmado.',
+				texto:
+					'Toca la cápsula que te pones y queda apuntada al instante. ¿Invitas a alguien? Usa el botón de invitado. ¿Te equivocaste? Pulsa «Deshacer».',
+				textoVoz:
+					'[cheerful] Toca la cápsula que te pones y queda apuntada al instante. ¿Invitas a alguien? Usa el botón de invitado. ¿Te equivocaste? Pulsa «Deshacer».',
 				conAudio: true,
 			},
 		],
@@ -143,12 +150,12 @@ export const MOMENTOS = {
 		poseRiv: 'hucha',
 		expresion: 'orgulloso',
 		tono: 'neutro',
-		texto: 'Cuando lleguen nuevas cápsulas, registra la compra para actualizar las existencias.',
+		texto: 'Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
 		variantes: [
 			{
 				id: 'intro_04',
-				texto: 'Cuando lleguen nuevas cápsulas, registra la compra para actualizar las existencias.',
-				textoVoz: '[cheerful] Cuando lleguen nuevas cápsulas, registra la compra para actualizar las existencias.',
+				texto: 'Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
+				textoVoz: '[cheerful] Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
 				conAudio: true,
 			},
 		],
@@ -158,12 +165,13 @@ export const MOMENTOS = {
 		poseRiv: 'hucha',
 		expresion: 'feliz',
 		tono: 'neutro',
-		texto: 'Cada café cuenta. ¡Y las cuentas también! Consulta tus aportaciones y tu saldo.',
+		texto: 'Cada café descuenta su precio de tu saldo. Cuando estés en negativo, haz una aportación a la hucha y regístrala.',
 		variantes: [
 			{
 				id: 'intro_05',
-				texto: 'Cada café cuenta. ¡Y las cuentas también! Consulta tus aportaciones y tu saldo.',
-				textoVoz: '[excited] Cada café cuenta. [chuckles] ¡Y las cuentas también! Consulta tus aportaciones y tu saldo.',
+				texto: 'Cada café descuenta su precio de tu saldo. Cuando estés en negativo, haz una aportación a la hucha y regístrala.',
+				textoVoz:
+					'[excited] Cada café descuenta su precio de tu saldo. [cheerful] Cuando estés en negativo, haz una aportación a la hucha y regístrala.',
 				conAudio: true,
 			},
 		],
@@ -173,12 +181,13 @@ export const MOMENTOS = {
 		poseRiv: 'cafetera',
 		expresion: 'feliz',
 		tono: 'neutro',
-		texto: 'Si rellenas el depósito de la cafetera, registra el agua con un toque.',
+		texto: 'Si rellenas el depósito de la cafetera, pulsa «He rellenado el agua». No mueve dinero, pero queda reconocido.',
 		variantes: [
 			{
 				id: 'intro_06',
-				texto: 'Si rellenas el depósito de la cafetera, registra el agua con un toque.',
-				textoVoz: '[cheerful] Si rellenas el depósito, registra el agua en la aplicación.',
+				texto: 'Si rellenas el depósito de la cafetera, pulsa «He rellenado el agua». No mueve dinero, pero queda reconocido.',
+				textoVoz:
+					'[cheerful] Si rellenas el depósito de la cafetera, pulsa «He rellenado el agua». No mueve dinero, pero queda reconocido.',
 				conAudio: true,
 			},
 		],
@@ -188,12 +197,13 @@ export const MOMENTOS = {
 		poseRiv: 'celebrando',
 		expresion: 'orgulloso',
 		tono: 'celebracion',
-		texto: 'Cada mes damos las gracias al aguador del mes. ¡Ovación para quien nos salva de la sequía!',
+		texto: 'El día 1 de cada mes damos las gracias a quien más veces rellenó el depósito el mes anterior.',
 		variantes: [
 			{
 				id: 'intro_07',
-				texto: 'Cada mes damos las gracias al aguador del mes. ¡Ovación para quien nos salva de la sequía!',
-				textoVoz: '[excited] También damos las gracias al aguador del mes. [laughs] ¡Ovación para quien nos salva de la sequía!',
+				texto: 'El día 1 de cada mes damos las gracias a quien más veces rellenó el depósito el mes anterior.',
+				textoVoz:
+					'[excited] El día 1 de cada mes damos las gracias a quien más veces rellenó el depósito el mes anterior. [laughs] ¡Ovación para el aguador!',
 				conAudio: true,
 			},
 		],
@@ -203,12 +213,13 @@ export const MOMENTOS = {
 		poseRiv: 'saludo',
 		expresion: 'feliz',
 		tono: 'celebracion',
-		texto: 'Cápsulas controladas, cuentas claras… ¡a por el café!',
+		texto: 'Cápsulas controladas, cuentas claras y agua lista. Puedes volver a ver esta guía o apagarme cuando quieras desde Perfil.',
 		variantes: [
 			{
 				id: 'intro_08',
-				texto: 'Cápsulas controladas, cuentas claras… ¡a por el café!',
-				textoVoz: '[excited] Cápsulas controladas, cuentas claras... [cheerful] ¡a por el café!',
+				texto: 'Cápsulas controladas, cuentas claras y agua lista. Puedes volver a ver esta guía o apagarme cuando quieras desde Perfil.',
+				textoVoz:
+					'[excited] Cápsulas controladas, cuentas claras y agua lista. [cheerful] Puedes volver a ver esta guía o apagarme cuando quieras desde Perfil.',
 				conAudio: true,
 			},
 		],

@@ -16,19 +16,26 @@ export async function fotoDePrueba(): Promise<Buffer> {
 
 export type DatosAlta = { nombre: string; umbral: string; foto?: Buffer };
 
-/** Rellena y envía el alta de un tipo en `/admin/capsulas/nueva` y espera la respuesta. Se queda en el formulario. */
+/** Rellena y envía el alta de un tipo en `/admin/capsulas/nueva` y espera la respuesta. Con éxito, la aplicación vuelve al listado de cápsulas; con un rechazo, se queda en el formulario. */
 export async function darDeAltaCapsula(page: Page, servidor: ServidorDePrueba, datos: DatosAlta): Promise<void> {
 	await page.goto(`${servidor.url}/admin/capsulas/nueva`);
 	await page.getByRole('textbox', { name: 'Nombre', exact: true }).fill(datos.nombre);
 	await page.getByRole('textbox', { name: 'Marca', exact: true }).fill('Marca de prueba');
-	await page.getByRole('combobox', { name: 'Color', exact: true }).selectOption('cap-ristretto');
+	await page.getByRole('radio', { name: 'Ristretto', exact: true }).check({ force: true });
 	await page.getByRole('spinbutton', { name: 'Umbral mínimo (unidades)', exact: true }).fill(datos.umbral);
 	if (datos.foto) {
 		await page.getByLabel('Hacer o elegir foto').setInputFiles({ name: 'foto.jpg', mimeType: 'image/jpeg', buffer: datos.foto });
 	}
 	const respuesta = page.waitForResponse((r) => r.request().method() === 'POST' && r.url().includes('/admin/capsulas/nueva'));
-	await page.getByRole('button', { name: 'Dar de alta', exact: true }).click();
-	await respuesta;
+	// El puntero se aparta a la esquina (solo hay navegación, que precarga al tocar) y se envía con el teclado. Si quedara
+	// sobre las filas del listado, SvelteKit precargaría una ficha que la navegación siguiente del test corta (WebKit lo
+	// registra como excepción).
+	await page.mouse.move(0, 0);
+	await page.getByRole('button', { name: 'Dar de alta', exact: true }).press('Enter');
+	const resultado = await respuesta;
+	// Con éxito, la acción redirige al listado: se espera a que cargue para que la navegación siguiente del test no la corte.
+	const redirige = resultado.status() === 303 || (await resultado.text()).includes('"type":"redirect"');
+	if (redirige) await expect(page).toHaveURL(/\/admin\/capsulas\?alta=ok$/);
 }
 
 /** Espera a que el tipo aparezca en la pantalla principal del panel de stock bajo. */

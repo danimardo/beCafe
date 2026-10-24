@@ -17,4 +17,15 @@ describe('Bienvenida (RF-185, CA-185)', () => {
 		await page.getByRole('button', { name: 'Saltar', exact: true }).click();
 		await expect.element(page.getByText('Estado bienvenida: vista')).toBeVisible();
 	});
+
+	it('CA-185: con la voz activa recorre todas las escenas seguidas sin error', async () => {
+		await render(PruebasBienvenida, { nombre: 'Ana', voz: true });
+
+		for (let escena = 2; escena <= 8; escena++) {
+			await page.getByRole('button', { name: 'Siguiente', exact: true }).click();
+			await expect.element(page.getByText(`Escena ${escena} de 8`)).toBeVisible();
+		}
+		await page.getByRole('button', { name: '¡A por el café!' }).click();
+		await expect.element(page.getByText('Estado bienvenida: vista')).toBeVisible();
+	});
 });

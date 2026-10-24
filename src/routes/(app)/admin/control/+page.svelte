@@ -39,6 +39,7 @@
 
 <div class="flex flex-col gap-6">
 	<PageHeader title={textos.economia.control} />
+	<p class="max-w-3xl text-[15px] text-ink-muted">{textos.economia.ayudaControl}</p>
 
 	{#if confirmacion}
 		<div role="status"><Banner tone="info">{confirmacion}</Banner></div>
@@ -55,24 +56,34 @@
 
 	<!-- Arqueo: vista previa y confirmación en dos pasos (funciona sin JavaScript). -->
 	<Section title={textos.economia.vistaArqueo}>
+		<p class="mb-3 max-w-3xl text-[15px] text-ink-muted">{textos.economia.ayudaArqueo}</p>
 		<form
 			method="post"
 			use:enhance={() =>
 				async ({ update }) =>
 					update({ reset: false })}
-			class="flex flex-col gap-4"
+			class="flex max-w-xl flex-col gap-4"
 		>
-			<MoneyField label={textos.economia.contadoEnHucha} name="contado" cents={contadoEscrito} error={errores.contado?.mensaje} />
+			<MoneyField
+				class="sm:max-w-xs"
+				hint={textos.economia.ayudaContado}
+				label={textos.economia.contadoEnHucha}
+				name="contado"
+				cents={contadoEscrito}
+				error={errores.contado?.mensaje}
+			/>
 			<input type="hidden" name="saldoTeoricoPrevisto" value={previsionArqueo?.saldoTeorico ?? ''} />
 			<input type="hidden" name="contadoPrevisto" value={previsionArqueo?.contado ?? ''} />
 			{#if previsionArqueo}
-				<dl class="grid grid-cols-2 gap-2 text-[15px]">
+				<dl class="grid grid-cols-2 gap-x-4 gap-y-1 text-[15px]">
 					<dt>{textos.economia.efectoArqueo}</dt>
 					<dd><Money cents={previsionArqueo.diferencia} signed /></dd>
+					<dd class="col-span-2 text-[13px] text-ink-muted">{textos.economia.ayudaDiferencia}</dd>
 					<dt>{textos.economia.parteMinimaMaxima}</dt>
 					<dd><Money cents={previsionArqueo.parteMinima} /> / <Money cents={previsionArqueo.parteMaxima} /></dd>
+					<dd class="col-span-2 text-[13px] text-ink-muted">{textos.economia.ayudaParteMinimaMaxima}</dd>
 				</dl>
-				<PasswordField label={textos.economia.contrasenaParaControl} name="contrasenaActual" error={errorContrasena} />
+				<PasswordField class="max-w-sm" label={textos.economia.contrasenaParaControl} name="contrasenaActual" error={errorContrasena} />
 			{/if}
 			<div class="flex flex-wrap gap-2">
 				<Button type="submit" variant="soft" formaction="?/previsualizarArqueo">{textos.economia.verEfecto}</Button>
@@ -96,10 +107,11 @@
 				{/each}
 			</ul>
 			{#if ultimoArqueoVigente}
-				<form method="post" use:enhance action="?/anularArqueo" class="mt-4 flex flex-col gap-3">
+				<form method="post" use:enhance action="?/anularArqueo" class="mt-4 flex max-w-xl flex-col gap-3">
+					<p class="text-[13px] text-ink-muted">{textos.economia.ayudaAnulacion}</p>
 					<input type="hidden" name="id" value={ultimoArqueoVigente.id} />
 					<TextField label={textos.economia.motivoAnulacion} name="motivo" error={errorMotivo} />
-					<PasswordField label={textos.economia.contrasenaParaControl} name="contrasenaActual" error={errorContrasena} />
+					<PasswordField class="max-w-sm" label={textos.economia.contrasenaParaControl} name="contrasenaActual" error={errorContrasena} />
 					<Button type="submit" variant="danger">{textos.economia.anularArqueoBoton}</Button>
 				</form>
 			{:else}
@@ -110,6 +122,7 @@
 
 	<!-- Recuento: una línea por tipo. Igual que el arqueo, primero se ve el efecto. -->
 	<Section title={textos.economia.vistaRecuento}>
+		<p class="mb-3 max-w-3xl text-[15px] text-ink-muted">{textos.economia.ayudaRecuento}</p>
 		<form
 			method="post"
 			use:enhance={() =>
@@ -117,19 +130,27 @@
 					update({ reset: false })}
 			class="flex flex-col gap-4"
 		>
-			{#each data.tipos as tipo, indice (tipo.id)}
-				<fieldset class="flex flex-col gap-2 rounded-lg border border-line p-3">
-					<legend class="px-1 text-[15px] font-medium">{tipo.nombre}</legend>
-					<input type="hidden" name="tipoCapsulaId" value={tipo.id} />
-					<input type="hidden" name="registradoPrevisto" value={tipo.stock} />
-					<TextField label={textos.economia.contadoEnUnidades} name="contado" inputmode="numeric" value={String(tipo.stock)} />
-					{#if previsionRecuento?.[indice]}
-						<p class="text-[15px]">{textos.economia.efectoRecuento}: <Money cents={previsionRecuento[indice].diferencia} signed /></p>
-					{/if}
-				</fieldset>
-			{/each}
+			<div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+				{#each data.tipos as tipo, indice (tipo.id)}
+					<fieldset class="flex flex-col gap-2 rounded-lg border border-line p-3">
+						<legend class="px-1 text-[15px] font-medium">{tipo.nombre}</legend>
+						<input type="hidden" name="tipoCapsulaId" value={tipo.id} />
+						<input type="hidden" name="registradoPrevisto" value={tipo.stock} />
+						<TextField
+							label={textos.economia.contadoEnUnidades}
+							hint={textos.economia.ayudaContadoUnidades}
+							name="contado"
+							inputmode="numeric"
+							value={String(tipo.stock)}
+						/>
+						{#if previsionRecuento?.[indice]}
+							<p class="text-[15px]">{textos.economia.efectoRecuento}: <Money cents={previsionRecuento[indice].diferencia} signed /></p>
+						{/if}
+					</fieldset>
+				{/each}
+			</div>
 			{#if previsionRecuento}
-				<PasswordField label={textos.economia.contrasenaParaControl} name="contrasenaActual" error={errorContrasena} />
+				<PasswordField class="max-w-sm" label={textos.economia.contrasenaParaControl} name="contrasenaActual" error={errorContrasena} />
 			{/if}
 			<div class="flex flex-wrap gap-2">
 				<Button type="submit" variant="soft" formaction="?/previsualizarRecuento">{textos.economia.verEfecto}</Button>
@@ -143,11 +164,12 @@
 	{#if lineasAnulables.length > 0}
 		<Section title={textos.economia.recuento}>
 			{#each lineasAnulables as linea (linea.id)}
-				<form method="post" use:enhance action="?/anularRecuento" class="flex flex-col gap-3">
+				<form method="post" use:enhance action="?/anularRecuento" class="flex max-w-xl flex-col gap-3">
+					<p class="text-[13px] text-ink-muted">{textos.economia.ayudaAnulacion}</p>
 					<input type="hidden" name="id" value={linea.id} />
 					<p class="text-[15px]">{nombreTipo(linea.tipoCapsulaId)} · {linea.realizadoEn.slice(0, 16).replace('T', ' ')} UTC</p>
 					<TextField label={textos.economia.motivoAnulacion} name="motivo" error={errorMotivo} />
-					<PasswordField label={textos.economia.contrasenaParaControl} name="contrasenaActual" error={errorContrasena} />
+					<PasswordField class="max-w-sm" label={textos.economia.contrasenaParaControl} name="contrasenaActual" error={errorContrasena} />
 					<Button type="submit" variant="danger">{textos.economia.anularLineaBoton}</Button>
 				</form>
 			{/each}

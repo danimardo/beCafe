@@ -33,7 +33,7 @@
 	{/if}
 
 	<Section title={textos.configuracion.titulo}>
-		<form method="post" action="?/guardar" use:enhance class="flex flex-col gap-5">
+		<form method="post" action="?/guardar" use:enhance class="grid gap-5 md:grid-cols-3 md:items-start">
 			<div class="flex flex-col gap-1">
 				<TextField
 					label={textos.configuracion.plazo}
@@ -72,6 +72,7 @@
 			</div>
 
 			<PasswordField
+				class="md:col-span-3 md:max-w-sm"
 				label={textos.configuracion.contrasena}
 				name="contrasenaActual"
 				hint={textos.configuracion.contrasenaAyuda}
@@ -79,7 +80,7 @@
 				autocomplete="current-password"
 			/>
 
-			<Button type="submit">{textos.configuracion.guardar}</Button>
+			<div class="md:col-span-3"><Button type="submit">{textos.configuracion.guardar}</Button></div>
 		</form>
 	</Section>
 

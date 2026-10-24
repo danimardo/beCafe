@@ -1,5 +1,5 @@
 import { browser } from '$app/env';
-import { getContext, setContext } from 'svelte';
+import { getContext, setContext, untrack } from 'svelte';
 import { SvelteMap } from 'svelte/reactivity';
 import { registrarDatoInvalido } from '#lib/client/registro';
 import { reproducirVozSincronizada, type ReproductorVozActiva } from '#lib/client/rive';
@@ -107,22 +107,28 @@ export class EstadoMascota {
 		};
 	}
 
-	/** Reproduce una locución pregenerada sincronizando `bocaActual` (`0..7`). */
+	/**
+	 * Reproduce una locución pregenerada sincronizando `bocaActual` (`0..7`).
+	 * Se ejecuta sin seguimiento: detener la locución anterior lee y escribe `audioEnCurso`, y desde un `$effect`
+	 * eso creaba un bucle (`effect_update_depth_exceeded`) al cambiar de escena con la voz activa.
+	 */
 	hablar(audioId: string, forzar = false) {
-		if (!browser || !this.visible) return;
-		if (!forzar && !this.vozActiva) return;
-		this.detenerVoz();
-		this.audioEnCurso = audioId;
-		this.#reproductorActivo = reproducirVozSincronizada(
-			audioId,
-			(boca) => {
-				this.bocaActual = boca;
-			},
-			() => {
-				if (this.audioEnCurso === audioId) this.audioEnCurso = null;
-				this.bocaActual = 0;
-			},
-		);
+		untrack(() => {
+			if (!browser || !this.visible) return;
+			if (!forzar && !this.vozActiva) return;
+			this.detenerVoz();
+			this.audioEnCurso = audioId;
+			this.#reproductorActivo = reproducirVozSincronizada(
+				audioId,
+				(boca) => {
+					this.bocaActual = boca;
+				},
+				() => {
+					if (this.audioEnCurso === audioId) this.audioEnCurso = null;
+					this.bocaActual = 0;
+				},
+			);
+		});
 	}
 
 	detenerVoz() {

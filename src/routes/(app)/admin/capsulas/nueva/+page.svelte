@@ -10,13 +10,13 @@
 	// Valores que devuelve el servidor tras un rechazo, para volver a rellenar el formulario (constitución XVII).
 	function valorDe(campo: string): string {
 		if (!form || !('valores' in form)) return '';
-		const valor: unknown = form.valores?.[campo];
+		const valor: unknown = form.valores[campo];
 		return typeof valor === 'string' ? valor : '';
 	}
 
 	function errorDe(campo: string): string | undefined {
 		if (!form || !('errores' in form)) return undefined;
-		return form.errores?.[campo]?.mensaje;
+		return new Map(Object.entries(form.errores)).get(campo)?.mensaje;
 	}
 </script>
 
@@ -28,14 +28,6 @@
 	<BackLink href={resolve('/(app)/admin/capsulas')} label={textos.capsulas.volver} />
 	<PageHeader title={textos.capsulas.nuevo} />
 
-	{#if form && 'id' in form && typeof form.id === 'string' && 'confirmacion' in form}
-		<Banner tone="info">
-			{form.confirmacion}
-			<a class="font-semibold underline" href={resolve('/(app)/admin/capsulas/[capsulaId=ulid]', { capsulaId: form.id })}>
-				{textos.capsulas.editar}
-			</a>
-		</Banner>
-	{/if}
 	{#if errorDe('general')}
 		<Banner tone="negative">{errorDe('general')}</Banner>
 	{/if}

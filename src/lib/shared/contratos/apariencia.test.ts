@@ -41,11 +41,11 @@ describe('preferencias de apariencia y mascota (RF-180, RF-181, RF-185, RF-187)'
 		expect(interpretarMascota('otro')).toBe('visible');
 	});
 
-	it('CA-187: la voz acepta activa y silenciada y vuelve a silenciada por defecto', () => {
+	it('CA-187: la voz acepta activa y silenciada y vuelve a activa por defecto', () => {
 		expect(interpretarVoz('activa')).toBe('activa');
 		expect(interpretarVoz('silenciada')).toBe('silenciada');
-		expect(interpretarVoz(null)).toBe('silenciada');
-		expect(interpretarVoz('1')).toBe('silenciada');
+		expect(interpretarVoz(null)).toBe('activa');
+		expect(interpretarVoz('1')).toBe('activa');
 	});
 
 	it('CA-185: la bienvenida acepta pendiente y vista y vuelve a pendiente por defecto', () => {

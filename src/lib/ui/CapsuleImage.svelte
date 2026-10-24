@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CapsuleIllustration from './CapsuleIllustration.svelte';
-	import { cn } from './utils';
+	import { cn, colorCapsulaCss } from './utils';
 
 	type Props = {
 		name: string;
@@ -40,7 +40,7 @@
 	<span
 		aria-hidden="true"
 		class={cn('inline-block shrink-0 rounded-full bg-glass shadow-sm', ring[size], sizes[size], className)}
-		style="border-color:{color}"
+		style="border-color:{colorCapsulaCss(color)}"
 	>
 		<img bind:this={imgEl} src={photoUrl} alt="" loading="lazy" class="size-full rounded-full object-cover" />
 	</span>

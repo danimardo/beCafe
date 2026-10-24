@@ -16,6 +16,11 @@ export function cn(...parts: ClassValue[]): string {
 	return out.join(' ');
 }
 
+/** Color CSS de un tipo de cápsula: los tipos guardan un token (`cap-lungo`) y los colores libres (hex) pasan tal cual. */
+export function colorCapsulaCss(color: string): string {
+	return color.startsWith('cap-') ? `var(--${color})` : color;
+}
+
 /* ---------- Botones: clases compartidas por Button, ConfirmDialog, etc. ---------- */
 
 export type ButtonVariant = 'primary' | 'soft' | 'ghost' | 'danger' | 'glass';

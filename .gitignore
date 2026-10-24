@@ -56,3 +56,7 @@ vite.config.ts.timestamp-*
 
 # Base de datos y registros de desarrollo (DIRECTORIO_DATOS=./datos en .env): datos reales, nunca al repositorio
 /datos/
+
+# Capturas locales del usuario y caché de Vitest Browser Mode: nunca al repositorio
+/.logs/
+/.vitest/

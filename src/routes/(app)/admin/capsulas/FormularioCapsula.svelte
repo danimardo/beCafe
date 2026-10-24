@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Button, PhotoField, SelectField, TextField } from '#lib/ui';
+	import { Button, CapsuleColorField, PhotoField, SelectField, TextField } from '#lib/ui';
 	import { COLORES_CAPSULA, TAMANO_MAXIMO_FOTO } from '#lib/shared/contratos/capsulas';
 	import { textos } from '#lib/shared/textos';
 
@@ -32,7 +32,7 @@
 		options={opcionesIntensidad}
 		error={errorDe('intensidad')}
 	/>
-	<SelectField name="color" label={textos.capsulas.color} value={valorDe('color')} options={opcionesColor} error={errorDe('color')} />
+	<CapsuleColorField name="color" label={textos.capsulas.color} value={valorDe('color')} options={opcionesColor} error={errorDe('color')} />
 	<TextField
 		name="umbralMinimo"
 		label={textos.capsulas.umbral}

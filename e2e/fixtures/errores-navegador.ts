@@ -45,6 +45,16 @@ export const test = conServidor.extend<{ erroresNavegador: string[] }>({
 				if (respuesta.status() >= 400 && respuesta.status() < 500) respuestasCliente += 1;
 			});
 
+			// La voz de Capsulito está activa por defecto (RF-187). Las pruebas parten de voz silenciada para no pedir audios que
+			// la navegación siguiente corta. Solo se fija si no hay preferencia: una prueba que la cambia la conserva al recargar.
+			await page.addInitScript(() => {
+				try {
+					if (localStorage.getItem('becafe-voz') === null) localStorage.setItem('becafe-voz', 'silenciada');
+				} catch {
+					// Sin almacenamiento disponible.
+				}
+			});
+
 			await use(errores);
 
 			// Un 4xx propio es un resultado esperado (p. ej. una página que no existe), no un fallo: la línea de consola

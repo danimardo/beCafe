@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { Badge, Button, CapsuleImage, EmptyState, ListRow, PageHeader, Section, StockBadge } from '#lib/ui';
+	import { Badge, Banner, Button, CapsuleImage, EmptyState, ListRow, PageHeader, Section, StockBadge } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 	import type { PageProps } from './$types';
 
@@ -17,6 +17,9 @@
 			<Button href={resolve('/(app)/admin/capsulas/nueva')}>{textos.capsulas.nuevo}</Button>
 		{/snippet}
 	</PageHeader>
+	{#if data.altaRegistrada}
+		<Banner tone="info">{textos.capsulas.altaCorrecta}</Banner>
+	{/if}
 	<p class="text-[15px] text-ink-muted">{textos.capsulas.ayuda}</p>
 
 	{#if data.tipos.length === 0}

@@ -84,20 +84,24 @@
 				<span class="text-[13px] font-medium text-ink-muted">
 					Escena {paso + 1} de {escenas.length}
 				</span>
-				<button
-					type="button"
-					onclick={alternarVoz}
-					aria-pressed={mascota.vozActiva}
-					class="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-accent-soft px-3.5 text-[13px] font-medium text-ink hover:brightness-95"
-				>
-					{#if mascota.vozActiva}
-						<Volume2 class="size-4 text-accent" aria-hidden="true" />
-						<span>Silenciar voz</span>
-					{:else}
-						<VolumeX class="size-4 text-ink-muted" aria-hidden="true" />
-						<span>Activar voz</span>
+				<div class="flex items-center gap-1">
+					<button
+						type="button"
+						onclick={alternarVoz}
+						aria-pressed={mascota.vozActiva}
+						aria-label={mascota.vozActiva ? 'Silenciar voz' : 'Activar voz'}
+						class="inline-flex size-11 items-center justify-center rounded-full bg-accent-soft text-ink hover:brightness-95"
+					>
+						{#if mascota.vozActiva}
+							<Volume2 class="size-5 text-accent" aria-hidden="true" />
+						{:else}
+							<VolumeX class="size-5 text-ink-muted" aria-hidden="true" />
+						{/if}
+					</button>
+					{#if !ultimo}
+						<Button variant="ghost" onclick={cerrar}>Saltar</Button>
 					{/if}
-				</button>
+				</div>
 			</div>
 
 			{#if actual}
@@ -125,18 +129,13 @@
 				{/each}
 			</div>
 
-			<div class="mt-5 grid w-full grid-cols-2 gap-3">
-				{#if ultimo}
+			<div class={['mt-5 grid w-full gap-3', paso > 0 ? 'grid-cols-2' : 'grid-cols-1'].join(' ')}>
+				{#if paso > 0}
 					<Button variant="soft" size="lg" onclick={() => (paso = Math.max(0, paso - 1))}>Anterior</Button>
+				{/if}
+				{#if ultimo}
 					<Button size="lg" onclick={cerrar}>¡A por el café!</Button>
-				{:else if paso > 0}
-					<div class="flex gap-2">
-						<Button variant="ghost" size="lg" onclick={cerrar}>Saltar</Button>
-						<Button variant="soft" size="lg" onclick={() => (paso = Math.max(0, paso - 1))}>Anterior</Button>
-					</div>
-					<Button size="lg" onclick={() => (paso = paso + 1)}>Siguiente</Button>
 				{:else}
-					<Button variant="ghost" size="lg" onclick={cerrar}>Saltar</Button>
 					<Button size="lg" onclick={() => (paso = paso + 1)}>Siguiente</Button>
 				{/if}
 			</div>

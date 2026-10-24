@@ -57,10 +57,10 @@ export function interpretarMascota(valor: unknown): PreferenciaMascota {
 	return resultado.success ? resultado.data : 'visible';
 }
 
-/** Valor de voz de Capsulito guardado, o `silenciada` si falta o no es válido (RF-187). */
+/** Valor de voz de Capsulito guardado, o `activa` si falta o no es válido (RF-187). */
 export function interpretarVoz(valor: unknown): PreferenciaVoz {
 	const resultado = esquemaVoz.safeParse(valor);
-	return resultado.success ? resultado.data : 'silenciada';
+	return resultado.success ? resultado.data : 'activa';
 }
 
 /** Valor de bienvenida guardada, o `pendiente` si falta o no es válido (RF-185). */

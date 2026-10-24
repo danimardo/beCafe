@@ -230,6 +230,19 @@ export const textos = {
 		arqueoAnulado: 'Arqueo anulado',
 		lineaAnulada: 'Recuento anulado',
 		verEfecto: 'Ver efecto',
+		ayudaControl:
+			'Aquí compruebas que lo registrado coincide con lo real. El arqueo cuenta el dinero de la hucha y el recuento cuenta las cápsulas de cada tipo. Si hay diferencia, se reparte entre las personas activas. Antes de confirmar, siempre ves el efecto.',
+		ayudaArqueo:
+			'Cuenta el dinero que hay ahora en la hucha y escríbelo. Se compara con el saldo teórico, que es lo que debería haber según los movimientos registrados. Si falta dinero, la diferencia se reparte en cargos entre las personas activas; si sobra, en abonos.',
+		ayudaContado: 'El dinero que hay realmente en la hucha, en euros.',
+		ayudaDiferencia: 'Contado menos saldo teórico. Negativa: falta dinero. Positiva: sobra.',
+		ayudaParteMinimaMaxima:
+			'Lo que le tocaría a cada persona. Puede variar en un céntimo entre unas y otras, porque los céntimos sobrantes se asignan al azar de uno en uno.',
+		ayudaRecuento:
+			'Cuenta las cápsulas que hay de verdad en el armario y escribe la cifra de cada tipo. Si faltan, se descuentan del stock y su valor, al coste medio, se reparte en cargos entre las personas activas. Si sobran, el stock sube y no se mueve dinero.',
+		ayudaContadoUnidades: 'Las cápsulas que hay realmente de este tipo. El valor inicial es lo que registra la aplicación.',
+		ayudaAnulacion:
+			'Solo se puede anular el último registro. La anulación revierte el ajuste y los repartos, y exige un motivo y tu contraseña.',
 		efectoBaja: 'Efecto de la baja',
 		huchaDespues: 'Hucha tras la baja',
 		reparteEntre: 'Reparto entre personas',

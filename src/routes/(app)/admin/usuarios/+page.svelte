@@ -42,9 +42,9 @@
 	<Section title={textos.admin.darDeAlta}>
 		<p class="text-ink-muted">{textos.admin.ayuda}</p>
 		<div class="rounded-panel border border-hairline bg-wall-base p-5">
-			<form method="post" action="?/alta" use:enhance class="flex flex-col gap-4" novalidate>
+			<form method="post" action="?/alta" use:enhance class="grid gap-4 md:grid-cols-2" novalidate>
 				{#if errores.general}
-					<p role="alert" class="rounded-chip bg-negative-soft px-3 py-2 text-[15px] text-ink">{errores.general.mensaje}</p>
+					<p role="alert" class="md:col-span-2 rounded-chip bg-negative-soft px-3 py-2 text-[15px] text-ink">{errores.general.mensaje}</p>
 				{/if}
 				<TextField label={textos.admin.nombre} name="nombre" value={valor('nombre')} error={errores.nombre?.mensaje} required />
 				<TextField
@@ -65,6 +65,7 @@
 				/>
 				{#if errores.contrasenaActual}
 					<PasswordField
+						class="md:col-span-2 md:max-w-sm"
 						label={textos.admin.contrasenaActual}
 						name="contrasenaActual"
 						autocomplete="current-password"
@@ -72,7 +73,7 @@
 						error={errores.contrasenaActual.mensaje}
 					/>
 				{/if}
-				<Button type="submit" block>{textos.admin.darDeAlta}</Button>
+				<div class="md:col-span-2"><Button type="submit">{textos.admin.darDeAlta}</Button></div>
 			</form>
 		</div>
 

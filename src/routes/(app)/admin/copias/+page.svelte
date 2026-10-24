@@ -49,7 +49,7 @@
 	</Section>
 
 	<Section title={textos.copias.anotar}>
-		<form method="post" action="?/anotarPrueba" use:enhance class="flex flex-col gap-4">
+		<form method="post" action="?/anotarPrueba" use:enhance class="flex max-w-xl flex-col gap-4">
 			<label class="flex flex-col gap-1 text-[15px]">
 				{textos.copias.fechaPrueba}
 				<input type="date" name="realizadaEl" required max={data.hoy} class="rounded-md border border-line bg-surface px-3 py-2" />
@@ -69,7 +69,7 @@
 				<textarea name="notas" maxlength="500" class="rounded-md border border-line bg-surface px-3 py-2"></textarea>
 			</label>
 			{#if errores.general}<p role="alert" class="text-[14px] text-warning">{errores.general.mensaje}</p>{/if}
-			<Button type="submit" variant="soft">{textos.copias.anotar}</Button>
+			<div><Button type="submit" variant="soft">{textos.copias.anotar}</Button></div>
 		</form>
 	</Section>
 

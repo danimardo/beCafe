@@ -28,7 +28,7 @@ export const actions: Actions = {
 		const actor = locals.actor;
 		if (!actor) return falloDeNegocio('SIN_SESION', valores);
 
-		return ejecutarAccion(valores, async () => {
+		const resultado = await ejecutarAccion(valores, async () => {
 			const { id } = await darDeAltaCapsula(locals.ambiente, actor, {
 				nombre: entrada.data.nombre,
 				marca: entrada.data.marca,
@@ -39,5 +39,8 @@ export const actions: Actions = {
 			});
 			return { id, confirmacion: textos.capsulas.altaCorrecta };
 		});
+		// Con éxito, vuelve al listado: el aviso de alta se muestra allí (`?alta=ok`).
+		if ('confirmacion' in resultado) redirect(303, `${resolve('/(app)/admin/capsulas')}?alta=ok`);
+		return resultado;
 	},
 };
