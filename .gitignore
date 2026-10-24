@@ -50,3 +50,6 @@ vite.config.ts.timestamp-*
 
 # Informes de mutación (StrykerJS)
 /reports/
+
+# Copia estática de pantallas para el diseñador (generada por scripts/entrega-disenador/generar.mjs; no se versiona)
+/docs/diseno/entrega-disenador/
