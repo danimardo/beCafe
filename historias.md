@@ -6,11 +6,11 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ubicación | `historias.md` en la raíz del repositorio `github.com/danimardo/beCafe` (en el servidor de desarrollo, `/Apps/beCafe/historias.md`) |
-| Versión | 0.18.0 — CAMBIO-018 |
+| Versión | 0.19.0 — CAMBIO-019 |
 | Fecha | 24-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), versión 2.0.0-candidata |
-| Estado del refinamiento | **Cerrado y aprobado sobre v0.14.0 (21-10-2026); CAMBIO-018 (24-10-2026): experiencia visual y Capsulito (F9), reevaluado según la guía de refinamiento, §19. Sin bloqueantes.** PEND-034 a PEND-036 se resuelven en el plan de F1. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales), PEND-033 (resuelto en F8) y PEND-037 (gamificación ligera). |
+| Estado del refinamiento | **Cerrado y aprobado sobre v0.14.0 (21-10-2026); CAMBIO-018 (24-10-2026): experiencia visual y Capsulito (F9), reevaluado según la guía de refinamiento, §19. CAMBIO-019 (24-10-2026): visitantes, compras rápidas, estadísticas del departamento y ayuda de Capsulito (F10), según `specs/010-visitantes-compras-ayuda/spec.md`. Sin bloqueantes.** PEND-034 a PEND-036 se resuelven en el plan de F1. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales), PEND-033 (resuelto en F8) y PEND-037 (gamificación ligera). |
 | Estado de traspaso a Spec Kit | Pendiente de traspaso de requisitos y diseño de funcionalidades. Módulos (§10.6) traspasados a `ARCHITECTURE.md` §3 (CAMBIO-005). División en funcionalidades acordada (§15, DEC-058). |
 | Gobernanza técnica | Constitución (`.specify/memory/constitution.md`), `ARCHITECTURE.md`, `AGENTS.md` (reglas del agente, cargadas por `CLAUDE.md`), `docs/adr/`, `docs/pruebas.md` (estrategia de pruebas) y `docs/agentes.md` (controles del agente). |
 
@@ -85,7 +85,9 @@ Volumen: unas **10 personas**, con ligeras variaciones (PREG-037).
 | **Tipo de cápsula** | Variedad de cápsula del catálogo (p. ej., «Ristretto»). Tiene stock, coste medio y umbral. | Una cápsula física concreta. |
 | **Consumo** | Registro de que un miembro ha usado una cápsula de un tipo. Siempre es de una cápsula. | El cargo económico que genera. |
 | **Consumo de invitado** | Consumo marcado como destinado a un invitado. Se carga a quien lo registra. | Consumo para otro miembro, que no existe. |
-| **Aportación** | Registro de que un miembro ha metido dinero en la hucha. | Compra. |
+| **Visitante** | Persona sin cuenta que entra con un enlace de visitante y registra cafés que un administrador aprueba. No paga sus cafés (RN-086). | Invitado de un consumo de invitado, que paga el miembro que lo registra. |
+| **Café de visitante** | Registro de una cápsula que un visitante dice haber usado. Queda pendiente hasta que un administrador lo aprueba o lo rechaza. | Consumo de invitado. |
+| **Aportación** | Registro de dinero metido en la hucha a nombre de un miembro (la persona beneficiaria). Lo registra esa persona o un administrador (RN-087). | Compra. |
 | **Compra** | Registro de una adquisición de cápsulas pagada con dinero de la hucha. | Aportación. |
 | **Hucha** | Recipiente físico de efectivo en el departamento. | Saldo de una persona. |
 | **Saldo teórico de la hucha** | Dinero que debería haber en la hucha según los registros. | Dinero contado en un arqueo. |
@@ -191,6 +193,10 @@ Registro de consumos, catálogo de tipos de cápsula con foto, stock, compras, a
 | HU-15 | Como administrador, quiero configurar los parámetros del sistema, para adaptarlo al equipo. | RF-150 |
 | HU-16 | Como operador del servidor, quiero que existan copias diarias restaurables, para no perder los datos económicos. | RF-140 a RF-144 |
 | HU-17 | Como miembro, quiero registrar que he rellenado el agua de la cafetera, para que el equipo sepa quién se ocupa de ella y se le reconozca. | RF-170 a RF-176 |
+| HU-18 | Como miembro, quiero dar un enlace a un visitante para que registre su café sin cuenta, y como administrador quiero aprobarlo, para que el stock cuadre sin que nadie registre cafés falsos. | RF-189 a RF-194, RF-210 |
+| HU-19 | Como miembro, quiero registrar de una vez una compra de varios tipos, para apuntar la compra del supermercado en un momento. | RF-197, RF-198 |
+| HU-20 | Como miembro, quiero ver de un vistazo el consumo de todo el departamento y lo que aporta cada persona, para confiar en el reparto. | RF-199, RF-201, RF-202 |
+| HU-21 | Como miembro, quiero que Capsulito me explique cada pantalla cuando lo pida, para usar bien la aplicación. | RF-203 a RF-205 |
 
 ---
 
@@ -207,7 +213,7 @@ Registro de consumos, catálogo de tipos de cápsula con foto, stock, compras, a
 | RN-005 | Un consumo con stock ≤ 0 usa el **último coste medio conocido** del tipo. | PREG-017 | Confirmado |
 | RN-006 | Un tipo que nunca se ha comprado no tiene coste medio y no se muestra para registrar consumos. | PREG-036 (PEND-010) | Confirmado |
 | RN-007 | Los cargos ya generados nunca se recalculan ni se modifican. Las diferencias se corrigen con movimientos nuevos. | PREG-004, PREG-009 | Confirmado |
-| RN-008 | Una aportación vigente genera un abono a su autor y un aumento igual del saldo teórico de la hucha. | PREG-006 | Confirmado |
+| RN-008 | Una aportación vigente genera un abono a su persona beneficiaria y un aumento igual del saldo teórico de la hucha. | PREG-006, CAMBIO-019 (DEC-117) | Confirmado |
 | RN-009 | Una compra vigente se paga solo con dinero de la hucha: reduce el saldo teórico de la hucha por su importe total y no modifica ningún saldo personal. | PREG-007 | Confirmado |
 | RN-010 | **Saldo de una persona** = suma de sus movimientos vigentes. | PREG-002/003 | Confirmado |
 | RN-011 | **Saldo teórico de la hucha** = aportaciones vigentes − compras vigentes ± ajustes de arqueo − devoluciones por baja. | PREG-005, PREG-012, PREG-013 | Confirmado |
@@ -221,6 +227,8 @@ Registro de consumos, catálogo de tipos de cápsula con foto, stock, compras, a
 | RN-019 | Si una compra deja el saldo teórico de la hucha negativo, el sistema pide confirmación antes de registrarla. Tras confirmar, la registra y notifica a los administradores. | PREG-035 | Confirmado |
 | RN-020 | Los importes se guardan como enteros en céntimos. El coste medio se guarda en diezmilésimas de euro. | PREG-028, PREG-041 (apartado 10) | Confirmado |
 | RN-021 | El cargo de un consumo es el coste medio redondeado al céntimo (mitad hacia arriba). Las diferencias de redondeo se absorben en los arqueos. | PREG-041 (PEND-021) | Confirmado |
+| RN-086 | Un café de visitante aprobado reduce en 1 el stock de su tipo y no genera movimientos personales ni cambia el saldo teórico de la hucha, que ya pagó la cápsula al comprarla: el departamento asume el coste. El café guarda como valor informativo el coste medio vigente al aprobarlo. Pendiente o rechazado, no tiene ningún efecto. | CAMBIO-019 (DEC-116) | Confirmado |
+| RN-087 | Una aportación guarda a su persona beneficiaria, que recibe el abono, y a la persona que la registró. Solo un administrador puede registrar una aportación cuya beneficiaria sea otra persona. | CAMBIO-019 (DEC-117) | Confirmado |
 
 ### 6.2 Reglas de anulación y permisos
 
@@ -261,7 +269,7 @@ Registro de consumos, catálogo de tipos de cápsula con foto, stock, compras, a
 | ID | Regla | Origen | Estado |
 | --- | --- | --- | --- |
 | RN-060 | Todos los miembros ven los saldos de todos, el historial de aportaciones y compras y las estadísticas globales. | PREG-022 | Confirmado |
-| RN-061 | Las estadísticas de consumo de una persona solo las ven esa persona y los administradores. | PREG-022 | Confirmado |
+| RN-061 | Todos los miembros ven las estadísticas de consumo de todas las personas activas. | PREG-022, CAMBIO-019 (DEC-118) | Confirmado |
 | RN-062 | Los registros anulados están ocultos por defecto en los historiales y se muestran con el filtro «Mostrar anulados». | PREG-036 (PEND-005) | Confirmado |
 | RN-063 | Todos los miembros ven los rellenos de agua de todos (autor, fecha y hora), el ranking de rellenos y el aguador del mes. | PREG-045 | Confirmado |
 
@@ -373,7 +381,7 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 
 | ID | Enunciado | Origen | Estado | CA |
 | --- | --- | --- | --- | --- |
-| RF-030 | Un miembro deberá poder registrar una aportación propia con un importe mayor que 0. | PREG-006 | Confirmado | CA-030 |
+| RF-030 | Un miembro deberá poder registrar una aportación propia con un importe mayor que 0. Un administrador también deberá poder registrarla en nombre de otra persona activa (RF-200, RN-087). | PREG-006, CAMBIO-019 | Confirmado | CA-030, CA-200 |
 | RF-031 | Cuando se registra una aportación, el sistema deberá generar un abono al autor y aumentar el saldo teórico de la hucha. | RN-008 | Confirmado | CA-030 |
 | RF-032 | El sistema deberá rechazar importes ≤ 0 o superiores a 500 €. | PREG-041 (PEND-026) | Confirmado | CA-031 |
 
@@ -384,7 +392,7 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RF-040 | Un miembro deberá poder registrar una compra con una o varias líneas (RN-037). Cada línea indica tipo, cantidad (> 0) e importe (> 0). Con una sola línea, el formulario pide el importe una vez. Con varias, muestra el total calculado para compararlo con el ticket. | PREG-008, PREG-038 | Confirmado | CA-040 |
 | RF-041 | Cuando se registra una compra, el sistema deberá aumentar el stock de cada tipo, recalcular su coste medio según RN-003/RN-004 y reducir el saldo teórico de la hucha. | RN-003, RN-009 | Confirmado | CA-041 |
 | RF-042 | La compra deberá registrar quién la hizo y permitir adjuntar una foto opcional del ticket, con las validaciones de RF-005. | PREG-007, PREG-036 | Confirmado | CA-042 |
-| RF-043 | Si el importe deja el saldo teórico de la hucha negativo, el cliente deberá mostrar el saldo teórico y pedir confirmación antes de enviar. | PREG-035 | Confirmado | CA-043 |
+| RF-043 | Si el importe deja el saldo teórico de la hucha negativo, el cliente deberá mostrar el saldo teórico y pedir confirmación antes de registrar, según RF-198. | PREG-035, CAMBIO-019 | Confirmado | CA-043, CA-198 |
 | RF-044 | Cuando se confirma una compra que deja el saldo teórico negativo, el sistema deberá notificar a los administradores. | PREG-035 | Confirmado | CA-043 |
 | RF-045 | Cuando se anula una compra, el sistema deberá aplicar RN-012 y mostrar al autor de la anulación el resumen de regularizaciones generadas. | PREG-011 | Confirmado | CA-045 |
 | RF-046 | Las compras y las aportaciones deberán ser idempotentes mediante identificador de cliente, como en RF-016. | PREG-041 | Confirmado | CA-016 |
@@ -416,8 +424,8 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | ID | Enunciado | Origen | Estado | CA |
 | --- | --- | --- | --- | --- |
 | RF-100 | El sistema deberá enviar notificaciones push a las suscripciones de los usuarios que las hayan aceptado y activado. | PREG-020 | Confirmado | CA-100 |
-| RF-101 | El catálogo de notificaciones será: stock bajo (todos), deuda bajo límite (personal), resumen mensual (personal), stock negativo (administradores), hucha con saldo teórico negativo (administradores), fallo de copia de seguridad (administradores). | PREG-021, PREG-029, PREG-030 | Confirmado | CA-101 |
-| RF-102 | Cada usuario deberá poder activar o desactivar en su perfil cada tipo de notificación, salvo la de deuda. | PREG-021, PREG-036 | Confirmado | CA-102 |
+| RF-101 | El catálogo de notificaciones será: stock bajo (todos), deuda bajo límite (personal), resumen mensual (personal), stock negativo (administradores), hucha con saldo teórico negativo (administradores), fallo de copia de seguridad (administradores), café de visitante pendiente (administradores, RF-192) y aportación registrada en tu nombre (personal, RF-200). | PREG-021, PREG-029, PREG-030, CAMBIO-019 | Confirmado | CA-101 |
+| RF-102 | Cada usuario deberá poder activar o desactivar en su perfil cada tipo de notificación, salvo la de deuda. Todos los tipos están activados por defecto (RF-207). | PREG-021, PREG-036, CAMBIO-019 | Confirmado | CA-102, CA-207 |
 | RF-103 | El sistema deberá registrar cada notificación enviada para aplicar RN-072 y RN-074 sin duplicados. | PREG-021 | Confirmado | CA-023 |
 | RF-104 | El día 1 de cada mes, el sistema deberá enviar a cada miembro activo con la notificación activada su consumo del mes anterior, su saldo actual y el aguador del mes anterior (RF-176). | PREG-030, PREG-046 | Confirmado | CA-104 |
 | RF-105 | Si el envío de una notificación falla, el sistema deberá reintentarlo y nunca deberá bloquear ni deshacer el registro que la originó. Si el servicio push indica que la suscripción ya no existe, el sistema la elimina. | PREG-020 | Confirmado | CA-105 |
@@ -433,9 +441,9 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RF-112 | Cada miembro deberá poder ver el detalle de los movimientos de su saldo. | PREG-022 | Confirmado | CA-112 |
 | RF-113 | Los historiales deberán aplicar RN-062. | PREG-036 | Confirmado | CA-113 |
 | RF-120 | Todos los miembros deberán poder ver estadísticas globales de consumo por tipo y por mes, separando invitados. | PREG-022, PREG-023 | Confirmado | CA-120 |
-| RF-121 | Cada miembro deberá poder ver sus estadísticas de consumo por tipo y por periodo. | PREG-022 | Confirmado | CA-121 |
-| RF-122 | Si un miembro no administrador pide las estadísticas de otra persona, incluso por URL directa, el sistema deberá denegarlo. | RN-061 | Confirmado | CA-122 |
-| RF-123 | Un administrador deberá poder ver las estadísticas de cualquier persona. | RN-061 | Confirmado | CA-121 |
+| RF-121 | Cada miembro deberá poder ver las estadísticas de consumo de cada persona activa, también las suyas, por tipo y por periodo (RN-061). | PREG-022, CAMBIO-019 | Confirmado | CA-121 |
+| RF-122 | Si alguien sin sesión de miembro (también un visitante) pide estadísticas, incluso por URL directa, el sistema deberá denegarlo. | RN-061, CAMBIO-019 | Confirmado | CA-122 |
+| RF-123 | Un administrador deberá poder ver las estadísticas de cualquier persona, también de las dadas de baja. | RN-061, CAMBIO-019 | Confirmado | CA-121 |
 
 ### 7.10 Usuarios y acceso
 
@@ -502,10 +510,39 @@ Reglas transversales de interfaz: constitución, principios X, XI y XVIII. Ident
 | RF-184 | Por debajo de 1024 px, Inicio deberá mostrar la lista de cápsulas justo después del resumen de hucha y saldo (`AlertsPanel`), antes de la tarjeta del agua y de «Tus últimos consumos», de forma que en una pantalla de 390 × 844 px se vea la primera fila de cápsulas sin desplazarse. | DEC-111, DEC-072 (rapidez del registro), constitución X | Confirmado | CA-184 |
 | RF-185 | Cada tipo de cápsula deberá mostrarse con su foto (RF-005) o, si no la tiene o no se puede cargar, con una ilustración vectorial de cápsula de su color (RF-001). Ningún tipo se muestra sin imagen. En Inicio, cada tipo es una tarjeta (`CapsuleTile`) con su imagen, su nombre, sus unidades y días estimados con icono, su precio y el botón «+1»; tocar la tarjeta registra el consumo (RF-011) y el botón de persona lo registra para un invitado (RF-014). | DEC-109 | Confirmado | CA-185 |
 | RF-186 | La aplicación deberá mostrar a Capsulito mediante su motor Rive (`.riv`, con control de gesto y 8 formas de boca sincronizables con voz MP3) y alternativa estática SVG en: la historia de bienvenida (RF-188); los estados vacíos y las páginas de error y sin conexión; las reacciones a eventos confirmados, pendientes, anulados o rechazados de consumo, relleno de agua, aportación, compra, deuda saldada, stock bajo y stock negativo; los avisos contextuales de Inicio y Saldos; el saludo de escritorio en Inicio; y el laboratorio de demostración en `/ayuda/capsulito`. En operaciones repetidas varía las frases o limita la repetición sin ocultar ni retrasar el mensaje funcional ni el botón «Deshacer». No aparece con bromas en deudas personales, textos legales, diálogos de confirmación económica, seguridad o tablas de administración. Habrá como mucho una mascota en la página más el aviso flotante. | DEC-105, DEC-106, DEC-107, DEC-115 | Confirmado | CA-186 |
-| RF-187 | Perfil deberá ofrecer el ajuste «Mostrar a Capsulito» (activado por defecto) y el ajuste para activar o silenciar la voz de Capsulito, ambos guardados en el dispositivo. Con la mascota desactivada, no aparece y, donde sustituía a un icono, se muestra ese icono. Si el dispositivo pide reducir el movimiento (`prefers-reduced-motion`), la mascota se muestra en pose estática sin parpadeo ni boca animada. | DEC-110, DEC-115 | Confirmado | CA-187 |
+| RF-187 | Perfil deberá ofrecer el ajuste «Mostrar a Capsulito» (activado por defecto) y el ajuste para activar o silenciar la voz de Capsulito, ambos guardados en el dispositivo. Con la mascota desactivada, no aparece y, donde sustituía a un icono, se muestra ese icono. Si el dispositivo pide reducir el movimiento (`prefers-reduced-motion`), la mascota se muestra en pose estática sin parpadeo ni boca animada. Sin preferencia guardada, la voz está activa (RF-196). | DEC-110, DEC-115, CAMBIO-019 | Confirmado | CA-187, CA-196 |
 | RF-188 | La primera vez que una persona entra en la aplicación desde un dispositivo, después de aceptar la privacidad, la aplicación deberá ofrecerle una invitación opcional a recorrer la historia animada de bienvenida de ocho escenas (presentación, alerta de caja vacía, registro de un toque, stock y compras, hucha común, relleno de agua, aguador del mes y cierre), que se puede saltar, avanzar, retroceder o cerrar sin esperas obligatorias. El contenido estará siempre en `/ayuda` (también sin JavaScript), junto con el enlace al laboratorio interactivo `/ayuda/capsulito`, y desde Perfil y Ayuda se podrá volver a abrir la bienvenida. | DEC-112 | Confirmado | CA-188 |
 
 ---
+
+### 7.16 Visitantes, compras rápidas, estadísticas del departamento y ayuda (F10)
+
+Especificación: `specs/010-visitantes-compras-ayuda/spec.md` (aprobada el 24-10-2026).
+
+| ID | Enunciado | Origen | Estado | CA |
+| --- | --- | --- | --- | --- |
+| RF-189 | Cualquier miembro activo deberá poder generar un enlace de visitante con su código QR. El enlace caduca 24 horas después de crearse. Quien lo creó y los administradores deberán poder revocarlo antes. | CAMBIO-019 | Confirmado | CA-189 |
+| RF-190 | Una persona sin sesión que abre un enlace vigente deberá poder entrar como visitante tras escribir un nombre de 1 a 40 caracteres, sin cuenta ni contraseña. La sesión de visitante termina cuando caduca o se revoca el enlace. | CAMBIO-019 | Confirmado | CA-190 |
+| RF-191 | El visitante deberá poder registrar un café con un solo toque sobre un tipo activo con coste medio. El café queda pendiente, no cambia el stock, el coste medio ni ningún saldo, y es idempotente por identificador de cliente (RF-016). La confirmación dice «Pendiente de aprobación». | CAMBIO-019 | Confirmado | CA-191 |
+| RF-192 | Cada café de visitante pendiente deberá notificarse a los administradores con el tipo de aviso «Café de visitante pendiente» y mostrarse en una lista de pendientes con el nombre del visitante, el tipo, la hora y quién generó el enlace. | CAMBIO-019 | Confirmado | CA-192 |
+| RF-193 | Un administrador deberá poder aprobar o rechazar cada café de visitante pendiente, o varios a la vez. Aprobar aplica RN-086. Rechazar lo deja rechazado sin efectos. Un café aprobado se puede anular después: el stock vuelve a subir en 1. | CAMBIO-019 | Confirmado | CA-193 |
+| RF-194 | Un visitante no deberá poder ver ni pedir saldos, nombres de miembros, historial, estadísticas ni ninguna pantalla autenticada, ni siquiera por URL directa. | CAMBIO-019 | Confirmado | CA-194 |
+| RF-195 | Si el dispositivo no tiene la marca de bienvenida vista, la pantalla de entrada y el enlace de visitante deberán mostrar antes la historia de bienvenida (RF-188). Empieza con el botón «Empezar» y termina con «Entrar» o, si se llegó con un enlace de visitante, con «Soy visitante». | CAMBIO-019 | Confirmado | CA-195 |
+| RF-196 | La voz de Capsulito deberá estar activa por defecto en un dispositivo sin preferencia guardada (modifica RF-187). | CAMBIO-019 | Confirmado | CA-196 |
+| RF-197 | El formulario de compra deberá mostrar todos los tipos activos, cada uno con un contador de 0 a 999 que se cambia con «−» y «+» o escribiendo la cifra. Cada tipo con cantidad mayor que 0 pide su importe. El formulario muestra el número de líneas y el total. El envío crea una sola compra con una línea por tipo con cantidad mayor que 0 (RF-040). Funciona sin JavaScript. | CAMBIO-019 | Confirmado | CA-197 |
+| RF-198 | Si la compra deja el saldo teórico de la hucha en negativo, al pulsar «Registrar compra» el cliente deberá mostrar el saldo actual, el importe de la compra, el saldo resultante y el aviso a los administradores, y pedir confirmación con «Cancelar» y «Registrar igualmente», sin casilla. Sin JavaScript, la confirmación es un paso intermedio. Si el saldo cambió desde que se mostró, el servidor la vuelve a pedir. | CAMBIO-019 | Confirmado | CA-198 |
+| RF-199 | Saldos deberá mostrar, para cada persona activa, su saldo y el total de sus aportaciones vigentes, con acceso a su detalle (fecha, importe y quién la registró). | CAMBIO-019 | Confirmado | CA-199 |
+| RF-200 | Un administrador deberá poder registrar una aportación en nombre de otra persona activa (RN-087). Un miembro que no es administrador solo puede registrar aportaciones propias. La persona beneficiaria recibe un aviso en el panel de avisos. | CAMBIO-019 | Confirmado | CA-200 |
+| RF-201 | Todos los miembros deberán poder ver las estadísticas de consumo de todas las personas activas, sin elegir a una persona (RN-061). | CAMBIO-019 | Confirmado | CA-201 |
+| RF-202 | Estadísticas deberá mostrar, para el periodo elegido (mes actual, últimos 3 meses o últimos 12 meses): cifras clave (cafés, cafés de invitados, cafés de visitantes y coste), cafés por persona ordenados, consumo por tipo, evolución mensual de 12 meses con propios, invitados y visitantes separados, y evolución del saldo teórico de la hucha. Cada gráfico tiene su alternativa en texto o en tabla. El periodo por defecto es el mes actual. | CAMBIO-019 | Confirmado | CA-202 |
+| RF-203 | Cada pantalla autenticada deberá tener un botón «Ayuda» que abre un panel donde Capsulito explica el propósito de la pantalla, sus acciones y sus campos, con textos de un catálogo por pantalla y con voz opcional. Sin JavaScript, el botón lleva a la sección de esa pantalla en `/ayuda`. | CAMBIO-019 | Confirmado | CA-203 |
+| RF-204 | La primera vez que una persona entra en Inicio tras la bienvenida, Capsulito deberá mostrar un tour de 4 pasos (registrar un café, café para un invitado, «Deshacer» y navegación) que se puede saltar y repetir desde la ayuda de Inicio. Terminarlo o saltarlo se guarda en la cuenta. | CAMBIO-019 | Confirmado | CA-204 |
+| RF-205 | Los campos técnicos de los formularios (umbral mínimo, arqueo, recuento, plazo de autoanulación, límite de deuda e intervalo de rellenos) deberán mostrar una línea de ayuda fija bajo el campo. | CAMBIO-019 | Confirmado | CA-205 |
+| RF-206 | Inicio deberá mostrar una tarjeta para instalar la aplicación cuando el navegador lo permite y no está instalada: en Android y en Chrome con el diálogo del sistema; en Safari de iPhone y iPad con las instrucciones de RF-106. Descartar la tarjeta se guarda en la cuenta. Perfil ofrece siempre la opción. | CAMBIO-019 | Confirmado | CA-206 |
+| RF-207 | Todos los tipos de aviso deberán estar activados por defecto en las cuentas nuevas y en las existentes que nunca los han cambiado. Tras la bienvenida, Capsulito deberá ofrecer una vez activar los avisos, lo que pide el permiso del navegador. | CAMBIO-019 | Confirmado | CA-207 |
+| RF-208 | Cada persona deberá poder subir, cambiar o quitar su foto en Perfil. Un administrador deberá poder hacerlo para cualquier persona en Usuarios. Se aplican las validaciones de RF-005 y queda en la auditoría. | CAMBIO-019 | Confirmado | CA-208 |
+| RF-209 | Una persona sin foto deberá mostrarse con sus iniciales sobre un color cálido de los tokens del tema, asignado de forma estable a esa persona, con contraste de 4,5:1 como mínimo en claro y oscuro. El nombre accesible es el nombre de la persona. | CAMBIO-019 | Confirmado | CA-209 |
+| RF-210 | El nombre del visitante deberá conservarse mientras exista el café, salvo que un administrador lo elimine. Eliminarlo lo sustituye por «Visitante» de forma irreversible, conserva el resto del café y se registra en la auditoría sin copiar el nombre. | CAMBIO-019 | Confirmado | CA-210 |
 
 ## 8. Requisitos no funcionales
 
@@ -596,8 +633,8 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 - **CA-112** — Ana ve el detalle de los movimientos de su saldo, con el origen de cada uno.
 - **CA-113** — Por defecto, el historial no muestra registros anulados. Con «Mostrar anulados», aparecen marcados con autor, fecha y motivo.
 - **CA-120** — Las estadísticas globales muestran consumos por tipo y mes, con los de invitados separados.
-- **CA-121** — Ana ve sus estadísticas. Un administrador ve las de Ana.
-- **CA-122** — Cuando Luis (miembro) abre la URL de estadísticas de Ana, entonces el sistema responde «sin permiso» y no muestra datos.
+- **CA-121** — Ana ve sus estadísticas y las de Luis. Un administrador ve también las de una persona dada de baja.
+- **CA-122** — Cuando un visitante o una persona sin sesión abre la URL de estadísticas, entonces el sistema no muestra datos y lleva a la entrada. Luis (miembro) sí ve las estadísticas de Ana (RN-061, CAMBIO-019).
 - **CA-111** — La pantalla de saldos muestra la hucha, los saldos de todos y los últimos 5 movimientos, con un enlace a `/historial`. Solo la fila del propio usuario es pulsable y abre `/historial` filtrado por sus movimientos.
 
 ### Usuarios y acceso
@@ -642,6 +679,30 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 - **CA-187** — Luis apaga «Mostrar a Capsulito» en Perfil: al recargar, en ninguna pantalla aparece la mascota y los vacíos muestran su icono. Si silencia la voz de Capsulito, las reacciones se muestran sin reproducir audio. Con `prefers-reduced-motion` del dispositivo, la mascota permanece en pose estática sin parpadeo ni boca animada.
 - **CA-188** — Pedro entra por primera vez tras aceptar la privacidad: ve la invitación a la historia de bienvenida de ocho escenas y puede recorrerla, saltarla o cerrarla; al recargar no vuelve a abrirse sola. Desde Perfil y desde Ayuda puede volver a abrirla. Con JavaScript desactivado, `/ayuda` muestra las escenas en formato estático.
 
+### Visitantes, compras rápidas, estadísticas del departamento y ayuda (F10)
+- **CA-189** — Ana genera un enlace de visitante: ve el enlace, el QR, la hora de caducidad (24 h después) y «Revocar». Tras revocarlo, o 24 h después, quien lo abre ve que el enlace ya no vale y que debe pedir otro a un miembro.
+- **CA-190** — Lucía abre un enlace vigente sin sesión, escribe su nombre y ve solo las cápsulas disponibles: ni saldos, ni nombres de miembros, ni historial, ni estadísticas.
+- **CA-191** — Lucía toca «Ristretto» y ve «Pendiente de aprobación» en 1 s o menos. El stock de Ristretto, su coste medio y todos los saldos siguen igual. Si el toque se reenvía, solo hay un café.
+- **CA-192** — Tras el café de Lucía, los administradores con el aviso activo reciben «Café de visitante pendiente» y lo ven en la lista de pendientes con su nombre, el tipo, la hora y que el enlace lo generó Ana.
+- **CA-193** — Con un Ristretto en stock 10, un administrador aprueba el café de Lucía: el stock queda en 9, no aparece ningún movimiento en ningún saldo y la hucha teórica no cambia. Si lo rechaza, el stock sigue en 10. Si después anula el café aprobado, el stock vuelve a 10.
+- **CA-194** — Con la sesión de visitante, Lucía abre `/saldos`, `/estadisticas` y `/historial` por URL directa y no ve datos.
+- **CA-195** — Un navegador sin datos abre la aplicación: ve primero la bienvenida con «Empezar». Al terminarla ve «Entrar». Si llegó con un enlace de visitante, ve además «Soy visitante».
+- **CA-196** — En un dispositivo sin preferencia de voz, la voz de Capsulito está activa. Si Luis la silencia, sigue silenciada al recargar.
+- **CA-197** — Luis registra en una sola pantalla 16 cápsulas de A por 6,40 €, 16 de B por 6,40 € y 8 de C por 3,60 €: ve 3 líneas y un total de 16,40 €; al registrar hay una compra con tres líneas, cada stock sube en su cantidad y la hucha baja 16,40 €. Con todas las cantidades a 0 no puede registrar.
+- **CA-198** — Con la hucha teórica en 3,20 €, Luis registra una compra de 24,00 €: un diálogo muestra «3,20 €», «24,00 €», «−20,80 €» y que se avisará a los administradores, con «Cancelar» y «Registrar igualmente». Sin JavaScript ve lo mismo como paso intermedio.
+- **CA-199** — En Saldos, cada persona activa muestra su saldo y el total de sus aportaciones. El detalle de Marta lista cada aportación con fecha, importe y quién la registró.
+- **CA-200** — Ana (administradora) registra 20,00 € a nombre de Marta: el saldo de Marta sube 20,00 €, la hucha teórica sube 20,00 €, la aportación muestra que la registró Ana y Marta recibe el aviso. Si Luis (miembro) envía a mano una aportación a nombre de Marta, se rechaza.
+- **CA-201** — Luis abre Estadísticas y, sin elegir a nadie, ve los cafés de todas las personas activas.
+- **CA-202** — Estadísticas muestra en el mes actual las cifras clave, los cafés por persona ordenados, el consumo por tipo, la evolución de 12 meses (propios, invitados y visitantes) y la evolución de la hucha, cada gráfico con su tabla. Al elegir «Últimos 3 meses», todo cambia de periodo, también sin JavaScript.
+- **CA-203** — En Arqueos y recuentos, Ana pulsa «Ayuda»: el panel explica la pantalla, el saldo teórico, el arqueo, el recuento y la diferencia. El foco entra en el panel y vuelve al botón al cerrarlo. Sin JavaScript, el botón lleva a esa sección de `/ayuda`.
+- **CA-204** — Tras la bienvenida, el primer Inicio de Pedro muestra el tour de 4 pasos. Lo salta y no vuelve a aparecer en ningún dispositivo, y lo puede repetir desde la ayuda de Inicio.
+- **CA-205** — El umbral mínimo, el arqueo, el recuento, el plazo de autoanulación, el límite de deuda y el intervalo de rellenos muestran su línea de ayuda bajo el campo.
+- **CA-206** — En Chrome de Android sin la aplicación instalada, Inicio muestra «Instalar beCafé» y su botón abre el diálogo del sistema. En Safari de iPhone, la tarjeta explica los pasos. Tras descartarla no vuelve a aparecer para esa cuenta, y Perfil conserva la opción.
+- **CA-207** — Una cuenta nueva tiene todos los avisos activados. Tras la bienvenida, Capsulito ofrece «Activar avisos». Si Pedro rechaza el permiso, no se le vuelve a ofrecer y Perfil explica cómo activarlo.
+- **CA-208** — Luis sube una foto JPEG de 3 MB en Perfil y la ve en Perfil, Saldos, Estadísticas y la navegación, sin metadatos. Un administrador quita la foto de Luis desde Usuarios y queda en la auditoría. Un fichero de 6 MB o que no es una imagen se rechaza.
+- **CA-209** — Marta, sin foto, aparece con «M» sobre el mismo color cálido en todas las pantallas, con contraste de 4,5:1 como mínimo en claro y oscuro.
+- **CA-210** — Un administrador elimina el nombre de Lucía de su café aprobado: el café sigue aprobado, con su tipo y su hora, y en todas las pantallas aparece «Visitante». La auditoría registra la eliminación sin el nombre.
+
 ### Escenarios futuros de verificación (EV)
 
 | ID | Escenario | Requisitos | Método |
@@ -662,6 +723,10 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 | EV-101 | Recordatorio de deuda progresivo: cambios de tramo y de límite | RN-074 | Prueba unitaria con reloj simulado |
 | EV-061 | Temas y preferencias de apariencia: claro, oscuro, contraste elevado, colores forzados, movimiento reducido, texto al 200 % y 320 px | RF-180, RF-181, RNF-015 | E2E con emulación de Playwright + revisión manual de lo no emulable (transparencia del sistema) |
 | EV-102 | Apariencia y experiencia de F9 en los cinco proyectos de Playwright: navegación en 390, 900 y 1440 px; regresión visual con referencias nuevas (DEC-091); axe en claro y oscuro; EV-061 aplicado a la mascota, la historia y el laboratorio (contraste elevado, colores forzados, movimiento reducido, texto al 200 % y 320 px); `sin-js` en Inicio, Ayuda y navegación | RF-182 a RF-188, RNF-015 | E2E con emulación y revisión manual con VoiceOver y TalkBack |
+| EV-103 | Visitante con enlace caducado, revocado o falsificado: no registra cafés ni abre pantallas autenticadas | RF-189, RF-190, RF-194 | Prueba de API y E2E |
+| EV-104 | Dos administradores aprueban a la vez el mismo café de visitante: el stock baja una sola vez | RF-193, RN-086, INV-02 | Prueba de integración con concurrencia |
+| EV-105 | Un miembro no administrador envía a mano una aportación a nombre de otra persona: se rechaza | RF-200, RN-087 | Prueba de acción y E2E |
+| EV-106 | Compra múltiple, confirmación de hucha negativa, acceso de visitante, aportación en nombre de otro, subida de fotos y periodo de estadísticas sin JavaScript | RF-190, RF-197, RF-198, RF-200, RF-202, RF-208 | E2E `sin-js` |
 
 ---
 
@@ -864,7 +929,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-019 | Criterio de stock bajo | Negocio | Umbral por tipo; umbral único; ritmo | Umbral por tipo + estimación | Umbral por tipo; estimación aprobada en PREG-036 | PREG-019, PREG-036 |
 | DEC-020 | Canal de avisos | Arquitectura | Solo app; app + push; app + chat | App + chat | App + push | PREG-020 |
 | DEC-021 | Catálogo de notificaciones | Negocio | Solo stock; catálogo fijo; catálogo con preferencias | Con preferencias | Con preferencias; deuda siempre activa (PREG-036) | PREG-021, PREG-036 |
-| DEC-022 | Visibilidad | Privacidad | Total; mínima; económica transparente | Económica transparente | Económica transparente | PREG-022 |
+| DEC-022 | Visibilidad | Privacidad | Total; mínima; económica transparente | Económica transparente | Económica transparente. Ampliada por DEC-118: las estadísticas de consumo de cada persona son visibles para todos | PREG-022, CAMBIO-019 |
 | DEC-023 | Consumo para terceros | Negocio | Solo propio; propio o invitado; también otros miembros | Propio o invitado | Propio o invitado | PREG-023 |
 | DEC-024 | Gesto de registro | UX | Un toque; elegir y confirmar; carrito | Un toque | Un toque con «Deshacer» de 5 s | PREG-024, PREG-036 |
 | DEC-025 | Sin conexión | Arquitectura | Requiere red; cola de consumos; completo | Cola de consumos | Cola de consumos; precio a la llegada (PREG-036) | PREG-025, PREG-036 |
@@ -958,6 +1023,9 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-113 | Cristal en las tarjetas de cápsula y en el bocadillo | Gobierno | Respetar la constitución XVIII; enmendarla | Enmendar XVIII | **Enmendar XVIII**: se permite cristal en las tarjetas de cápsula de Inicio (`CapsuleTile`) y en el bocadillo/aviso de Capsulito, con alternativa opaca (RF-181) y contraste comprobado. Formularios y demás listas siguen sobre superficie estable | Sesión de diseño, 24-10-2026 |
 | DEC-114 | Gamificación | Negocio | Hitos personales, racha de cuentas al día y reto de equipo; insignias por rellenar el agua; aplazar | Aplazar | **Aplazada**: se registra como PEND-037 para decidirla después de F9 en una funcionalidad futura (F10). EXC-012 sigue vigente | Sesión de diseño, 24-10-2026 |
 | DEC-115 | Voz sintetizada (TTS) y sincronización labial | UX / Operaciones | Sin voz; voz MP3 pregenerada con ElevenLabs + `lip-sync` sobre la propiedad `mouth` (`0..7`) de Rive | Voz MP3 + `lip-sync` | Script de desarrollo (`scripts/generar-voces.mjs`) que genera con ElevenLabs (`eleven_v3`, voz `TfkjFyM0u8G2kDTCi1Qi`, endpoint `with-timestamps`) los `.mp3` estáticos y sus `.json` de visemas (`cues` 1..7) diferenciando `texto` (visible) y `textoVoz` (con etiquetas expresivas). La clave vive solo en `.env` local | Sesión de diseño, 24-10-2026 |
+| DEC-116 | Personas externas al departamento | Negocio | Botón abierto «Soy invitado»; enlace de visitante que caduca; QR fijo | Enlace que caduca | Enlace de visitante de 24 h que genera cualquier miembro, con nombre, aprobación de un administrador y coste asumido por la hucha (RN-086). Término «visitante», distinto de «invitado» | CAMBIO-019 |
+| DEC-117 | Aportación en nombre de otra persona | Negocio | Solo propia; el administrador para otros; cualquiera para otros | El administrador para otros | El administrador para otros (RN-087) | CAMBIO-019 |
+| DEC-118 | Visibilidad de las estadísticas por persona | Privacidad | Todos ven a todos; admin ve detalle y el resto global; ranking sin importes | — | Todos ven a todos (RN-061) | CAMBIO-019 |
 
 ---
 
@@ -1143,6 +1211,7 @@ No se declara cumplimiento formal del RGPD, de WCAG ni de ninguna norma. Las ref
 | F8 — Relleno de agua y aguador del mes | RF-170 a RF-176, RN-063, RN-080 a RN-085 | F1, F5 (resumen mensual), F6 (estadísticas) |
 | F7 — Operación: copias, pantalla de configuración, despliegue | RF-140 a RF-144, pantalla de RF-150 | F1. Se puede hacer en cualquier punto; obligatoria antes de producción |
 | F9 — Experiencia visual: navegación, escritorio y Capsulito interactivo (Rive, voz y feedback) | RF-182 a RF-188 (DEC-105 a DEC-115, HALL-017, HALL-018, EV-102). Especificación: `specs/009-experiencia-capsulito/spec.md` | F1 a F8 |
+| F10 — Visitantes, compras rápidas, estadísticas del departamento y ayuda de Capsulito | RF-189 a RF-210, RN-086, RN-087 y las modificaciones de RF-030, RF-043, RF-101, RF-102, RF-121 a RF-123, RN-008, RN-061 y RF-187 (DEC-116 a DEC-118, EV-103 a EV-106). Especificación: `specs/010-visitantes-compras-ayuda/spec.md` | F1 a F9 |
 
 La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-001 a RN-021) son transversales a F3 y F4. Su dueño documental es F4; F3 las referencia. Las funcionalidades no coinciden con los módulos de código: una funcionalidad puede tocar varios módulos (`ARCHITECTURE.md` §3).
 
@@ -1182,12 +1251,13 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.17.0 | 23-10-2026 | CAMBIO-017: §10.4 de F6. Tablas `entrega_push` y `ejecucion_tarea`. Sin cambios de requisitos ni de reglas | Escritura autorizada el 23-10-2026 («Sí, con respaldo (Recomendado)»); respaldo de 0.16.0 (SHA-256 f4a51ebc02cfc15f2c1f4d59e481edb7737564b7b1c366069a69e90698ba9ad4) en `.respaldos/historias-v0.16.0-20261023-120648.md` |
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.14.0 (SHA-256 7aeb5af7…96d70dbb). Reevaluados RF-139, CA-139, RF-139c, CA-139c y RN-055 (CAMBIO-014). Aplazados: PEND-014 y PEND-033. Para el plan de F1: PEND-034 a PEND-036. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («apruebo el nuevo cierre del refinamiento sobre la v0.14.0») |
 | 0.18.0 | 24-10-2026 | CAMBIO-018: experiencia visual y Capsulito interactivo unificados (F9). Navegación en tres tamaños, escritorio en dos columnas (`PanelGrid`), Inicio móvil con cápsulas arriba, tarjeta de cada tipo con foto o ilustración vectorial (`CapsuleTile`, `CapsuleIllustration`), mascota Capsulito con animaciones Rive (`.riv`), 56 SVG vectoriales por capas, sincronización labial con voz MP3 de ElevenLabs, feedback contextual estilo Duolingo, historia de bienvenida de 8 escenas y laboratorio interactivo (`/ayuda/capsulito`). RF-182 a RF-188, CA-182 a CA-188, EV-102, DEC-105 a DEC-115, HALL-017, HALL-018, PEND-037, glosario, riesgos y F9. Enmienda de la constitución v1.7.0 y ADR-0006 | Escritura autorizada el 24-10-2026 («ok»); respaldo de 0.17.0 (SHA-256 d2b3d82981fb6949b17d9bfb9ced4d5248240c509db5bac1e210f72de44c63fb) en `.respaldos/historias-v0.17.0-20261024-141230.md` |
+| 0.19.0 | 24-10-2026 | CAMBIO-019: visitantes, compras rápidas, estadísticas del departamento y ayuda de Capsulito (F10), traspasados desde `specs/010-visitantes-compras-ayuda/spec.md` (aprobada el 24-10-2026). Nuevos: RF-189 a RF-210, RN-086, RN-087, CA-189 a CA-210, EV-103 a EV-106, DEC-116 a DEC-118, HU-18 a HU-21, glosario («Visitante», «Café de visitante»), §7.16 y F10 en §15. Modificados: RF-030, RF-043, RF-101, RF-102, RF-121 a RF-123, RF-187, RN-008, RN-061, CA-121, CA-122, DEC-022, glosario («Aportación») y anexo A (versión 2) | Escritura autorizada el 24-10-2026 («Sí, con respaldo (Recomendado)»); respaldo de 0.18.0 (SHA-256 9bb58481d639f0f856d41a38e31a41a38a0d40eb9ec60de28f5757316ad015bf) en `.respaldos/historias-v0.18.0-20261024-223330.md` |
 
 ---
 
-## Anexo A — Texto informativo de privacidad (propuesta, versión 1)
+## Anexo A — Texto informativo de privacidad (propuesta, versión 2)
 
-**Estado: propuesto. Redacción aceptada provisionalmente; datos y revisión aplazados (PEND-014).** Los datos entre corchetes deben completarse antes de publicarlo. Es un texto orientativo y no sustituye una revisión jurídica.
+**Estado: propuesto. Redacción aceptada provisionalmente; datos y revisión aplazados (PEND-014).** La versión 2 (CAMBIO-019) añade la foto, las aportaciones registradas por un administrador, la visibilidad de las estadísticas y los datos de los visitantes. Al publicarla, cada miembro vuelve a aceptarla (RF-160). Los datos entre corchetes deben completarse antes de publicarlo. Es un texto orientativo y no sustituye una revisión jurídica.
 
 > ### Privacidad en beCafé
 >
@@ -1196,19 +1266,21 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 > **Para qué.** Para llevar el stock de cápsulas de café del departamento y repartir su coste entre quienes las consumen mediante la hucha común.
 >
 > **Qué datos guardamos.**
-> - Tu nombre, tu correo y tu contraseña cifrada de forma irreversible.
+> - Tu nombre, tu correo, tu contraseña cifrada de forma irreversible y, si la subes tú o un administrador, tu foto.
 > - Cada café que registras, con su fecha, su hora y si era para un invitado.
 > - Cada vez que registras que has rellenado el agua de la cafetera, con su fecha y su hora.
-> - Tus aportaciones a la hucha, las compras que registras, las fotos de tickets que adjuntes y tu saldo.
+> - Tus aportaciones a la hucha (también las que un administrador registre en tu nombre, con quién las registró), las compras que registras, las fotos de tickets que adjuntes y tu saldo.
 > - Tus preferencias de notificaciones y los datos técnicos de tus dispositivos suscritos a las notificaciones.
 > - Las sesiones abiertas (fecha y tipo de navegador) y las acciones de administración.
 >
 > **Quién los ve.**
 > - Todos los miembros ven tu saldo, tus aportaciones, las compras que registres y tus rellenos de agua, incluidos el ranking de rellenos y el título de aguador del mes.
-> - Tus estadísticas de consumo solo las ves tú y los administradores.
+> - Todos los miembros ven tu foto y tus estadísticas de consumo (cuántos cafés tomas, de qué tipo y cuándo).
 >
 > **Cuánto tiempo.** Los datos se conservan **sin límite de tiempo**, también después de que dejes el departamento, para que los saldos y el historial de la hucha sigan cuadrando. Las copias de seguridad se guardan 30 días en [proveedor y ubicación del almacenamiento S3].
 >
-> **Notificaciones.** Solo recibes notificaciones si las aceptas en tu dispositivo. Puedes desactivar cada tipo en tu perfil, salvo el aviso de deuda.
+> **Visitantes.** Si entras con un enlace de visitante, guardamos el nombre que escribes y cada café que registras, con su tipo, su fecha y su hora, y quién te dio el enlace. Los administradores ven esos datos para aprobar o rechazar tus cafés. Tu nombre se conserva sin límite de tiempo, salvo que pidas a un administrador que lo borre: entonces se sustituye por «Visitante». No guardamos tu correo ni ningún otro dato.
+>
+> **Notificaciones.** Solo recibes notificaciones si las aceptas en tu dispositivo. Vienen todas activadas y puedes desactivar cada tipo en tu perfil, salvo el aviso de deuda.
 >
 > **Tus derechos.** Puedes pedir acceso a tus datos, su rectificación y el resto de derechos que reconoce la normativa de protección de datos escribiendo a [contacto]. [Añadir, si procede, el contacto del delegado de protección de datos de la empresa y la referencia a la autoridad de control.]
