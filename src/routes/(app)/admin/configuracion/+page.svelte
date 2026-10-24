@@ -25,7 +25,7 @@
 	<title>{textos.configuracion.titulo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-10">
+<div class="flex flex-col gap-6">
 	<PageHeader title={textos.configuracion.titulo} />
 
 	{#if guardado}
@@ -96,4 +96,4 @@
 	<p class="text-[15px]">
 		<a class="text-accent underline" href={resolve('/(app)/admin')}>{textos.admin.titulo}</a>
 	</p>
-</main>
+</div>

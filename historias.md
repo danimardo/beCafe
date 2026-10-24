@@ -6,11 +6,11 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ubicación | `historias.md` en la raíz del repositorio `github.com/danimardo/beCafe` (en el servidor de desarrollo, `/Apps/beCafe/historias.md`) |
-| Versión | 0.17.0 — CAMBIO-017 |
-| Fecha | 21-10-2026 |
+| Versión | 0.18.0 — CAMBIO-018 |
+| Fecha | 24-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), versión 2.0.0-candidata |
-| Estado del refinamiento | **Cerrado y aprobado sobre v0.14.0 (21-10-2026).** Los cambios de las versiones 0.5.0 a 0.14.0 (RF-139, RF-139c, RN-055, RNF-014, RF-180, RF-181, RNF-015, RNF-016) se reevaluaron el 21-10-2026 (guía de refinamiento, §19). Sin bloqueantes. PEND-034 a PEND-036 se resuelven en el plan de F1. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales) y PEND-033 (menor, plan de F8). |
+| Estado del refinamiento | **Cerrado y aprobado sobre v0.14.0 (21-10-2026); CAMBIO-018 (24-10-2026): experiencia visual y Capsulito (F9), reevaluado según la guía de refinamiento, §19. Sin bloqueantes.** PEND-034 a PEND-036 se resuelven en el plan de F1. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales), PEND-033 (resuelto en F8) y PEND-037 (gamificación ligera). |
 | Estado de traspaso a Spec Kit | Pendiente de traspaso de requisitos y diseño de funcionalidades. Módulos (§10.6) traspasados a `ARCHITECTURE.md` §3 (CAMBIO-005). División en funcionalidades acordada (§15, DEC-058). |
 | Gobernanza técnica | Constitución (`.specify/memory/constitution.md`), `ARCHITECTURE.md`, `AGENTS.md` (reglas del agente, cargadas por `CLAUDE.md`), `docs/adr/`, `docs/pruebas.md` (estrategia de pruebas) y `docs/agentes.md` (controles del agente). |
 
@@ -113,6 +113,9 @@ Volumen: unas **10 personas**, con ligeras variaciones (PREG-037).
 | **Registro de auditoría** | Fila de la tabla `registro_auditoria` que anota una acción administrativa (cambio de rol, baja, configuración, enlace generado) con su autor. | Registro técnico. |
 | **Tema Automático** | Opción del selector de tema que sigue la apariencia clara u oscura del dispositivo, también si cambia durante la sesión (RF-180). Equivale a «Sistema» en otras aplicaciones. | Tema Claro u Oscuro elegido por la persona. |
 | **Reducir transparencia** | Ajuste de Perfil que muestra todas las superficies opacas, con las mismas acciones e información (RF-181). | La preferencia del sistema operativo, que produce el mismo efecto sin activar el ajuste. |
+| **Capsulito** | Mascota de beCafé: una cápsula de café con cara, brazos y zapatillas. Acompaña con animaciones Rive (`.riv`), ilustraciones SVG por capas, frases cortas y voz sintetizada opcional con sincronización labial (RF-186). Es decorativa: nunca sustituye al mensaje funcional ni bloquea operaciones. | El logotipo de beCafé (marca); la ilustración de cápsula de un tipo (RF-185). |
+| **Momento** (de la mascota) | Situación o evento de presentación en que aparece Capsulito, con una pose, una expresión, un tono, una frase visible y un guion opcional de voz fijados en un catálogo cerrado (`momentos.ts`). | Aviso (RF-107); notificación push. |
+| **Bienvenida** | Invitación opcional y recorrido interactivo animado de ocho escenas que explica el funcionamiento de beCafé tras aceptar la privacidad, reabrible desde Perfil y Ayuda (RF-188). | El texto de privacidad (RF-160). |
 
 ---
 
@@ -494,6 +497,13 @@ Reglas transversales de interfaz: constitución, principios X, XI y XVIII. Ident
 | --- | --- | --- | --- | --- |
 | RF-180 | El cliente deberá ofrecer en Perfil el tema Automático, Claro u Oscuro, con Automático como valor inicial. Automático deberá seguir la apariencia del dispositivo y actualizarse si cambia durante la sesión. La preferencia se guarda en el dispositivo y cambiarla no pierde datos escritos ni foco. | Sistema de diseño Latte, DEC-099 | Confirmado | CA-180 |
 | RF-181 | El cliente deberá ofrecer en Perfil el ajuste «Reducir transparencia», desactivado por defecto, que muestra todas las superficies opacas con las mismas acciones e información. Si el dispositivo pide reducir la transparencia, las superficies son opacas aunque el ajuste esté desactivado. La preferencia se guarda en el dispositivo. | DEC-095 | Confirmado | CA-181 |
+| RF-182 | Toda pantalla del grupo `(app)`, salvo `/aceptar-privacidad`, deberá mostrar la navegación principal (Inicio, Saldos, Compras, Estadísticas y Perfil) y la campana de avisos (RF-107). Por debajo de 768 px, como barra inferior; de 768 a 1023 px, como carril de iconos con etiqueta; desde 1024 px, como barra lateral que añade el grupo «Administración» para administradores. La navegación son enlaces y funciona sin JavaScript. En Perfil estarán el botón para cerrar la sesión actual y, para administradores, el acceso a Administración. | Sistema de diseño Latte, HALL-017, DEC-108 | Confirmado | CA-182 |
+| RF-183 | Desde 1024 px de ancho, Inicio, Saldos, Historial, Compras y Estadísticas deberán repartir su contenido en dos columnas: el contenido principal a la izquierda, y el resumen y lo secundario a la derecha. El orden de lectura y de tabulación será el mismo que en móvil. Perfil, Ayuda y Privacidad mantienen una columna de lectura, y Administración su ancho de tablas. | DEC-108 | Confirmado | CA-183 |
+| RF-184 | Por debajo de 1024 px, Inicio deberá mostrar la lista de cápsulas justo después del resumen de hucha y saldo (`AlertsPanel`), antes de la tarjeta del agua y de «Tus últimos consumos», de forma que en una pantalla de 390 × 844 px se vea la primera fila de cápsulas sin desplazarse. | DEC-111, DEC-072 (rapidez del registro), constitución X | Confirmado | CA-184 |
+| RF-185 | Cada tipo de cápsula deberá mostrarse con su foto (RF-005) o, si no la tiene o no se puede cargar, con una ilustración vectorial de cápsula de su color (RF-001). Ningún tipo se muestra sin imagen. En Inicio, cada tipo es una tarjeta (`CapsuleTile`) con su imagen, su nombre, sus unidades y días estimados con icono, su precio y el botón «+1»; tocar la tarjeta registra el consumo (RF-011) y el botón de persona lo registra para un invitado (RF-014). | DEC-109 | Confirmado | CA-185 |
+| RF-186 | La aplicación deberá mostrar a Capsulito mediante su motor Rive (`.riv`, con control de gesto y 8 formas de boca sincronizables con voz MP3) y alternativa estática SVG en: la historia de bienvenida (RF-188); los estados vacíos y las páginas de error y sin conexión; las reacciones a eventos confirmados, pendientes, anulados o rechazados de consumo, relleno de agua, aportación, compra, deuda saldada, stock bajo y stock negativo; los avisos contextuales de Inicio y Saldos; el saludo de escritorio en Inicio; y el laboratorio de demostración en `/ayuda/capsulito`. En operaciones repetidas varía las frases o limita la repetición sin ocultar ni retrasar el mensaje funcional ni el botón «Deshacer». No aparece con bromas en deudas personales, textos legales, diálogos de confirmación económica, seguridad o tablas de administración. Habrá como mucho una mascota en la página más el aviso flotante. | DEC-105, DEC-106, DEC-107, DEC-115 | Confirmado | CA-186 |
+| RF-187 | Perfil deberá ofrecer el ajuste «Mostrar a Capsulito» (activado por defecto) y el ajuste para activar o silenciar la voz de Capsulito, ambos guardados en el dispositivo. Con la mascota desactivada, no aparece y, donde sustituía a un icono, se muestra ese icono. Si el dispositivo pide reducir el movimiento (`prefers-reduced-motion`), la mascota se muestra en pose estática sin parpadeo ni boca animada. | DEC-110, DEC-115 | Confirmado | CA-187 |
+| RF-188 | La primera vez que una persona entra en la aplicación desde un dispositivo, después de aceptar la privacidad, la aplicación deberá ofrecerle una invitación opcional a recorrer la historia animada de bienvenida de ocho escenas (presentación, alerta de caja vacía, registro de un toque, stock y compras, hucha común, relleno de agua, aguador del mes y cierre), que se puede saltar, avanzar, retroceder o cerrar sin esperas obligatorias. El contenido estará siempre en `/ayuda` (también sin JavaScript), junto con el enlace al laboratorio interactivo `/ayuda/capsulito`, y desde Perfil y Ayuda se podrá volver a abrir la bienvenida. | DEC-112 | Confirmado | CA-188 |
 
 ---
 
@@ -624,6 +634,13 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 ### Experiencia transversal
 - **CA-180** — Dado un móvil en modo oscuro sin preferencia guardada, la aplicación se muestra en oscuro con «Automático» seleccionado. Si el sistema pasa a claro durante la sesión, la aplicación cambia sin recargar. Si Ana elige «Claro» con un importe a medio escribir, el importe y el foco se conservan, y al volver a abrir la aplicación sigue en claro.
 - **CA-181** — Cuando Ana activa «Reducir transparencia», todas las superficies pasan a opacas y siguen visibles las mismas acciones y datos. Con la preferencia del sistema de reducir transparencia, las superficies son opacas aunque el ajuste esté desactivado.
+- **CA-182** — Luis (miembro), con el móvil a 390 px, ve en Inicio, Saldos, Historial, Compras, Estadísticas, Perfil y Ayuda la barra inferior con las 5 secciones, la activa marcada y la campana. A 900 px ve el carril de iconos y a 1440 px la barra lateral. Ana (administradora) ve además «Administración» en la barra lateral y en Perfil. En `/aceptar-privacidad` no hay navegación. En Perfil puede cerrar su sesión actual. Con JavaScript desactivado, los enlaces y formularios funcionan.
+- **CA-183** — Ana abre Inicio a 1440 px: las cápsulas están en la columna izquierda, con al menos 3 tarjetas por fila, y hucha, saldo, agua y «Tus últimos consumos» en la derecha. Con el tabulador recorre primero el resumen, después las cápsulas y luego lo secundario, igual que en móvil.
+- **CA-184** — Luis abre Inicio en un móvil de 390 × 844 px con 6 tipos activos y sin avisos persistentes: la primera fila de tarjetas de cápsula se ve entera sin desplazarse.
+- **CA-185** — Un tipo con foto se ve con la foto en círculo y un aro de su color. Un tipo sin foto, o con una foto que no carga, se ve con la ilustración vectorial en su color. Tocar la tarjeta registra un consumo; el botón de persona lo registra para un invitado. El lector de pantalla anuncia el tipo, marca, precio, unidades y días.
+- **CA-186** — Luis registra un café o un relleno de agua: el aviso muestra la confirmación funcional con «Deshacer» durante 5 segundos acompañada de la reacción contextual de Capsulito (con rotación de frases y control de repetición en toques consecutivos) y su voz sincronizada si está activa. Con stock bajo, Inicio muestra a Capsulito con la campana; en listas vacías y páginas de error aparece con su pose correspondiente. En `/ayuda/capsulito` puede simular todos los eventos, poses y formas de boca (`0..7`) sin alterar datos reales. Ninguna pantalla muestra dos mascotas simultáneamente fuera del aviso flotante.
+- **CA-187** — Luis apaga «Mostrar a Capsulito» en Perfil: al recargar, en ninguna pantalla aparece la mascota y los vacíos muestran su icono. Si silencia la voz de Capsulito, las reacciones se muestran sin reproducir audio. Con `prefers-reduced-motion` del dispositivo, la mascota permanece en pose estática sin parpadeo ni boca animada.
+- **CA-188** — Pedro entra por primera vez tras aceptar la privacidad: ve la invitación a la historia de bienvenida de ocho escenas y puede recorrerla, saltarla o cerrarla; al recargar no vuelve a abrirse sola. Desde Perfil y desde Ayuda puede volver a abrirla. Con JavaScript desactivado, `/ayuda` muestra las escenas en formato estático.
 
 ### Escenarios futuros de verificación (EV)
 
@@ -644,6 +661,7 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 | EV-100 | Dos rellenos simultáneos de personas distintas: solo uno queda vigente | RN-082, INV-07 | Prueba de integración con concurrencia |
 | EV-101 | Recordatorio de deuda progresivo: cambios de tramo y de límite | RN-074 | Prueba unitaria con reloj simulado |
 | EV-061 | Temas y preferencias de apariencia: claro, oscuro, contraste elevado, colores forzados, movimiento reducido, texto al 200 % y 320 px | RF-180, RF-181, RNF-015 | E2E con emulación de Playwright + revisión manual de lo no emulable (transparencia del sistema) |
+| EV-102 | Apariencia y experiencia de F9 en los cinco proyectos de Playwright: navegación en 390, 900 y 1440 px; regresión visual con referencias nuevas (DEC-091); axe en claro y oscuro; EV-061 aplicado a la mascota, la historia y el laboratorio (contraste elevado, colores forzados, movimiento reducido, texto al 200 % y 320 px); `sin-js` en Inicio, Ayuda y navegación | RF-182 a RF-188, RNF-015 | E2E con emulación y revisión manual con VoiceOver y TalkBack |
 
 ---
 
@@ -701,6 +719,7 @@ Versiones de referencia comprobadas en npm el 21-10-2026. Las versiones exactas 
 | Identificadores | ULID (`ulid`) para claves primarias y `clienteId` | 3.0 | Ordenables por fecha; un único formato | DEC-068 |
 | Registro en el servidor | `pino` (aislada); `pino-roll` para el fichero diario; `pino-pretty` solo en desarrollo | 10.4 / 4.0 / 13.2 | RNF-014 | DEC-067, DEC-076, DEC-077 |
 | Registro en el cliente | `loglevel` (aislada), sin guardar el nivel en el navegador | 1.9 | RNF-014 | DEC-079 |
+| Animación de mascota | `@rive-app/canvas` (aislada en `lib/client/rive.ts`) + SVG por capas como reserva estática; sincronización labial con audio MP3 pregenerado con ElevenLabs | 2.x | RF-186, RF-188; máquinas de estados `.riv` con control de gesto y 8 visemas (`mouth` 0..7) | DEC-106, DEC-115, [ADR-0006](docs/adr/0006-rive-y-sincronizacion-voz-capsulito.md) |
 | Pruebas | Vitest con `@vitest/coverage-v8`, `fast-check`, Playwright, `@axe-core/playwright` | 5.0 / 5.0 / 4.10 / 1.64 / 4.14 | Apartado 9; cobertura mínima de la constitución (principio VIII); estrategia en `docs/pruebas.md` | DEC-069, DEC-071, DEC-094 |
 | Pruebas de componentes | Vitest Browser Mode con `@vitest/browser-playwright` y `vitest-browser-svelte` | 5.0 / 3.1 | Componentes con estado propio | DEC-089 |
 | Pruebas de mutación | StrykerJS (`@stryker-mutator/core`, `@stryker-mutator/vitest-runner`) | 10.0 | Solo `dominio/`; piloto en F4 | DEC-092 |
@@ -928,6 +947,17 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | DEC-102 | Buscadores e indexación | Seguridad | No aplica e impedir indexación; no aplica sin medidas | Impedir indexación | El paquete SEO/AEO/GEO no aplica: no hay contenido público. Se impide la indexación (RNF-016) | Revisión de prompts, 21-10-2026 |
 | DEC-103 | Alcance de F1 al especificarla | Alcance | Seguir la fila F1 literal; añadir RF-137, RF-138, RNF-014, auditoría y RN-055; llevar también RF-135 a F1 | Añadir y mantener RF-135 en F4 | F1 incluye RF-137, RF-138, RF-139c, RN-055 y RNF-014 (registro técnico y endpoint de salud, como parte de la preparación). RF-135 sigue en F4 | Especificación de F1, 21-10-2026 |
 | DEC-104 | Arranque sin usuarios y sin `ADMIN_INICIAL_EMAIL` | Operación | No arranca; arranca sin administrador; aplazar | No arranca | No arranca y registra el nombre de la variable, sin valores (constitución VI y XVI). Con usuarios existentes, la variable no se usa | Especificación de F1, 21-10-2026 |
+| DEC-105 | Mascota y personalidad | UX | Sin mascota; mascota neutra; mascota traviesa y bromista gobernada | Traviesa y bromista gobernada | **Capsulito**, con personalidad traviesa y bromista (humor de café e informática) en acciones cotidianas y celebraciones, pero 100 % seria y sin chistes en deudas personales, rechazos o seguridad. Nunca sustituye al mensaje funcional ni bloquea operaciones | Sesión de diseño, 23/24-10-2026 |
+| DEC-106 | Formato y motor de la mascota | Arquitectura / UX | Solo WebP; solo SVG; Rive (`.riv`) + SVG por capas y WebP como reserva | Rive + SVG/WebP | Archivos `.riv` compilados con máquina de estados (`Movimiento` y `Boca` 0..7) reproducidos con `@rive-app/canvas` (aislada en `lib/client/rive.ts`), con los 56 SVG vectoriales por capas (`21 <g id>`) y WebP como alternativa estática inmediata (SSR, sin JS, fallo o `prefers-reduced-motion`) | Sesión de diseño, 24-10-2026 |
+| DEC-107 | Dónde aparece la mascota y control de repetición | UX | Solo en celebraciones raras; en todas las operaciones con control de saturación | En todas con control de saturación | Sistema declarativo de reacciones (estilo Duolingo): acompaña también consumos, anulaciones y rellenos en el aviso flotante sin tapar «Deshacer», variando entre frases y suprimiendo repeticiones en toques consecutivos; más estados vacíos, errores, avisos, bienvenida y laboratorio (`/ayuda/capsulito`) (RF-186) | Sesión de diseño, 24-10-2026 |
+| DEC-108 | Escritorio y navegación adaptable | UX | Panel en 2 columnas; columna ancha y panel lateral; escritorio secundario | Panel en 2 columnas | Navegación en 3 tramos (barra inferior `< 768 px`, carril de iconos `768–1023 px`, barra lateral `≥ 1024 px`) y panel en 2 columnas desde `1024 px` (RF-182, RF-183) | Sesión de diseño, 24-10-2026 |
+| DEC-109 | Imagen del tipo de cápsula | UX | Ilustración con el color; foto del administrador; foto con ilustración como reserva | Foto con ilustración de reserva | **Foto del administrador**, con la ilustración vectorial en su color (`CapsuleIllustration`) como reserva (RF-185) | Sesión de diseño, 24-10-2026 |
+| DEC-110 | Preferencias de la mascota y bienvenida | UX | Guardar en BD por cuenta; guardar en el dispositivo (`localStorage`) | En el dispositivo | Guardadas en el dispositivo (`becafe-mascota`, `becafe-voz`, `becafe-bienvenida`), validadas con Zod igual que Tema y Reducir transparencia (DEC-095, DEC-099; principio V) | Sesión de diseño, 24-10-2026 |
+| DEC-111 | Orden de Inicio en móvil | UX | Cápsulas arriba; mantener el agua antes que las cápsulas | Cápsulas arriba | Cápsulas justo después del resumen de dinero (`AlertsPanel`) para ver la primera fila sin desplazarse en `390 × 844 px` (RF-184) | Sesión de diseño, 24-10-2026 |
+| DEC-112 | Historia de bienvenida y laboratorio | UX / Arquitectura | 4 pasos simples; historia animada de 8 escenas con invitación opcional + laboratorio en `/ayuda/capsulito` | 8 escenas + laboratorio | Invitación opcional en el primer acceso a un slideshow animado de 8 escenas con humor; versión fija accesible sin JavaScript en `/ayuda` y laboratorio de demostración en `/ayuda/capsulito` para cualquier miembro autenticado (RF-188) | Sesión de diseño, 24-10-2026 |
+| DEC-113 | Cristal en las tarjetas de cápsula y en el bocadillo | Gobierno | Respetar la constitución XVIII; enmendarla | Enmendar XVIII | **Enmendar XVIII**: se permite cristal en las tarjetas de cápsula de Inicio (`CapsuleTile`) y en el bocadillo/aviso de Capsulito, con alternativa opaca (RF-181) y contraste comprobado. Formularios y demás listas siguen sobre superficie estable | Sesión de diseño, 24-10-2026 |
+| DEC-114 | Gamificación | Negocio | Hitos personales, racha de cuentas al día y reto de equipo; insignias por rellenar el agua; aplazar | Aplazar | **Aplazada**: se registra como PEND-037 para decidirla después de F9 en una funcionalidad futura (F10). EXC-012 sigue vigente | Sesión de diseño, 24-10-2026 |
+| DEC-115 | Voz sintetizada (TTS) y sincronización labial | UX / Operaciones | Sin voz; voz MP3 pregenerada con ElevenLabs + `lip-sync` sobre la propiedad `mouth` (`0..7`) de Rive | Voz MP3 + `lip-sync` | Script de desarrollo (`scripts/generar-voces.mjs`) que genera con ElevenLabs (`eleven_v3`, voz `TfkjFyM0u8G2kDTCi1Qi`, endpoint `with-timestamps`) los `.mp3` estáticos y sus `.json` de visemas (`cues` 1..7) diferenciando `texto` (visible) y `textoVoz` (con etiquetas expresivas). La clave vive solo en `.env` local | Sesión de diseño, 24-10-2026 |
 
 ---
 
@@ -956,6 +986,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | Decisiones de experiencia de usuario | — (RT-001, RT-008) | — | — | RF-180, RF-181, RNF-015 | DEC-095 a DEC-099 |
 | Decisión de indexación | — (seguridad) | — | — | RNF-016 | DEC-102 |
 | Especificación de F1 | NEC-006, NEC-007 | HU-13 | RN-055 | RF-137, RF-138, RF-139c, RNF-014 | DEC-103, DEC-104 |
+| Experiencia visual, navegación y mascota Capsulito (F9) | NEC-001 a NEC-008 | HU-01 a HU-17 | — | RF-182 a RF-188 | DEC-105 a DEC-115 |
 
 ### 12.2 Conservación del contenido original
 
@@ -999,6 +1030,8 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | HALL-014 | `ARCHITECTURE.md`, `docs/pruebas.md`, ADR-0004 y DEC-079 usaban `/api/v1/…`; §10.5 usaba `/api/…`. Ninguna decisión fijaba la versión en la ruta | Técnico, menor | Resuelto (DEC-100) |
 | HALL-015 | «Registro» designaba a la vez el hecho de negocio, el log técnico y la tabla de auditoría, contra la regla de univocidad | Menor | Resuelto (glosario, §3) |
 | HALL-016 | Al especificar F1: §15 no asignaba RF-137 ni RF-138 a ninguna funcionalidad; F1 dependía de RNF-014 (PEND-034 a PEND-036) sin citarlo; la auditoría de acciones de administración solo estaba en el glosario y el anexo A; ninguna regla decía qué pasa si un usuario dado de baja intenta entrar | Menor | Resuelto (DEC-103, DEC-104, RF-139c, RN-055) |
+| HALL-017 | La aplicación desplegada no muestra navegación (ni barra inferior ni lateral), no tiene campana en Inicio y sustituye la navegación por una tarjeta «Mi perfil / Cerrar sesión» al final de Inicio; además, en `/perfil` faltaban el botón para cerrar la sesión actual y el enlace a Administración en móvil | Mayor | Se resuelve en F9 (RF-182) |
+| HALL-018 | El paquete inicial de la mascota tenía nombres de fichero cambiados respecto a la pose y SVG autotrazados sin capas | Menor | Resuelto con las entregas `entrega-capsulito/` (56 SVG por capas con `21 <g id>`) y `capsulito-rive-v0.2.0.zip` (8 `.riv` con máquina de estados y 8 formas de boca) (DEC-106) |
 
 ### 13.2 Pendientes
 
@@ -1009,6 +1042,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | PEND-034 | Límites de tamaño y de frecuencia de `/api/registro-cliente` (DEC-079, DEC-100) | Menor; resolver en el plan de F1 | — |
 | PEND-035 | Cómo llegan la versión y el commit a la aplicación para el evento de arranque | Menor; resolver en el plan de F1 (desarrollo) y de F7 (imagen) | — |
 | PEND-036 | Ruta del directorio de datos en desarrollo (y, con ella, la de `logs/`) | Menor; resolver en el plan de F1 | — |
+| PEND-037 | Gamificación ligera (hitos personales privados, racha «cuentas al día» y reto de equipo «hucha sana», sin dinero ni premiar mayor consumo) | No bloquea F9; aplazado para una funcionalidad posterior | Especificar como funcionalidad propia tras F9 sin reabrir EXC-012 |
 
 **Ficha de aplazamiento de PEND-014**
 
@@ -1069,6 +1103,8 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | Rellenos de agua declarados sin hacerlos | Intervalo mínimo, visibilidad para todos, anulación por un administrador |
 | Diseño no validado con usuarios reales (DEC-097) | Sistema de diseño Latte, revisión con VoiceOver y TalkBack, corrección tras el uso real |
 | Coste del cristal en móviles modestos sin medir (DEC-096) | Ajuste «Reducir transparencia» (RF-181) y preferencia del sistema |
+| La mascota o sus bromas resultan cansinas en acciones frecuentes | Control de saturación y rotación de variantes en acciones seguidas, tono serio en deudas/errores (DEC-105, DEC-107) e interruptores de mascota y voz en Perfil (RF-187) |
+| Peso de los recursos de animación y voz en móviles modestos | Archivos `.riv` ligeros (15–26 KB por pose), SVG de ~10 KB como reserva inmediata, precarga selectiva en el service worker y audio cargado bajo demanda |
 
 ---
 
@@ -1106,6 +1142,7 @@ No se declara cumplimiento formal del RGPD, de WCAG ni de ninguna norma. Las ref
 | F5 — Notificaciones | RF-100 a RF-107 | F1 a F4 |
 | F8 — Relleno de agua y aguador del mes | RF-170 a RF-176, RN-063, RN-080 a RN-085 | F1, F5 (resumen mensual), F6 (estadísticas) |
 | F7 — Operación: copias, pantalla de configuración, despliegue | RF-140 a RF-144, pantalla de RF-150 | F1. Se puede hacer en cualquier punto; obligatoria antes de producción |
+| F9 — Experiencia visual: navegación, escritorio y Capsulito interactivo (Rive, voz y feedback) | RF-182 a RF-188 (DEC-105 a DEC-115, HALL-017, HALL-018, EV-102). Especificación: `specs/009-experiencia-capsulito/spec.md` | F1 a F8 |
 
 La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-001 a RN-021) son transversales a F3 y F4. Su dueño documental es F4; F3 las referencia. Las funcionalidades no coinciden con los módulos de código: una funcionalidad puede tocar varios módulos (`ARCHITECTURE.md` §3).
 
@@ -1144,6 +1181,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.16.0 | 22-10-2026 | CAMBIO-016: §10.4 de F4. Tablas `regularizacion`, `reparto` y `aviso_economia`; `linea_recuento` con `registrado` (previsto por línea) y estado de anulación por línea; unicidad por (compra, tipo) y (recuento, tipo). Sin cambios de requisitos ni de reglas | Escritura autorizada el 22-10-2026 («Sí, autorizo (Recomendado)»); respaldo de 0.15.0 en `.respaldos/` |
 | 0.17.0 | 23-10-2026 | CAMBIO-017: §10.4 de F6. Tablas `entrega_push` y `ejecucion_tarea`. Sin cambios de requisitos ni de reglas | Escritura autorizada el 23-10-2026 («Sí, con respaldo (Recomendado)»); respaldo de 0.16.0 (SHA-256 f4a51ebc02cfc15f2c1f4d59e481edb7737564b7b1c366069a69e90698ba9ad4) en `.respaldos/historias-v0.16.0-20261023-120648.md` |
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.14.0 (SHA-256 7aeb5af7…96d70dbb). Reevaluados RF-139, CA-139, RF-139c, CA-139c y RN-055 (CAMBIO-014). Aplazados: PEND-014 y PEND-033. Para el plan de F1: PEND-034 a PEND-036. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («apruebo el nuevo cierre del refinamiento sobre la v0.14.0») |
+| 0.18.0 | 24-10-2026 | CAMBIO-018: experiencia visual y Capsulito interactivo unificados (F9). Navegación en tres tamaños, escritorio en dos columnas (`PanelGrid`), Inicio móvil con cápsulas arriba, tarjeta de cada tipo con foto o ilustración vectorial (`CapsuleTile`, `CapsuleIllustration`), mascota Capsulito con animaciones Rive (`.riv`), 56 SVG vectoriales por capas, sincronización labial con voz MP3 de ElevenLabs, feedback contextual estilo Duolingo, historia de bienvenida de 8 escenas y laboratorio interactivo (`/ayuda/capsulito`). RF-182 a RF-188, CA-182 a CA-188, EV-102, DEC-105 a DEC-115, HALL-017, HALL-018, PEND-037, glosario, riesgos y F9. Enmienda de la constitución v1.7.0 y ADR-0006 | Escritura autorizada el 24-10-2026 («ok»); respaldo de 0.17.0 (SHA-256 d2b3d82981fb6949b17d9bfb9ced4d5248240c509db5bac1e210f72de44c63fb) en `.respaldos/historias-v0.17.0-20261024-141230.md` |
 
 ---
 

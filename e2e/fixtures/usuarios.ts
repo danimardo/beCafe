@@ -23,6 +23,13 @@ export async function darDeAltaYLeerEnlace(page: Page, servidor: ServidorDePrueb
 /** Activa una persona invitada en su propio contexto: define la contraseña y acepta la privacidad (CA-132, CA-160). */
 export async function activarPersona(page: Page, servidor: ServidorDePrueba, enlace: string): Promise<void> {
 	await page.goto(enlace);
+	await page.evaluate(() => {
+		try {
+			localStorage.setItem('becafe-bienvenida', 'vista');
+		} catch {
+			// Contextos sin localStorage continúan sin cambio.
+		}
+	});
 	await page.getByRole('textbox', { name: 'Contraseña nueva', exact: true }).fill('contraseña de prueba de activación');
 	await page.getByRole('textbox', { name: 'Repite la contraseña', exact: true }).fill('contraseña de prueba de activación');
 	await page.getByRole('button', { name: 'Guardar contraseña', exact: true }).click();

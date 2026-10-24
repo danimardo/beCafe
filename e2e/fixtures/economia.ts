@@ -25,9 +25,9 @@ export async function tipoDeCompra(page: Page, servidor: ServidorDePrueba): Prom
 	return nombre;
 }
 
-/** Cierra la sesión desde la pantalla principal y espera a estar en `/login`. */
+/** Cierra la sesión desde Perfil (RF-182, CA-182) y espera a estar en `/login`. */
 export async function cerrarSesion(page: Page, servidor: ServidorDePrueba): Promise<void> {
-	await page.goto(`${servidor.url}/`);
+	await page.goto(`${servidor.url}/perfil`);
 	await page.getByRole('button', { name: 'Cerrar sesión', exact: true }).click();
 	await expect(page).toHaveURL(`${servidor.url}/login`);
 }

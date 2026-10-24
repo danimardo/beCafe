@@ -1,0 +1,223 @@
+{
+	"version": 1,
+	"audio": "consumo_sincronizado_01.mp3",
+	"texto": "¡Paquete entregado! Tus cafés pendientes ya están en el servidor.",
+	"duration": 3.84,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.288,
+			"value": 6
+		},
+		{
+			"start": 0.288,
+			"end": 0.336,
+			"value": 4
+		},
+		{
+			"start": 0.336,
+			"end": 0.384,
+			"value": 1
+		},
+		{
+			"start": 0.384,
+			"end": 0.432,
+			"value": 6
+		},
+		{
+			"start": 0.432,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.537,
+			"end": 0.594,
+			"value": 1
+		},
+		{
+			"start": 0.594,
+			"end": 0.766,
+			"value": 6
+		},
+		{
+			"start": 0.766,
+			"end": 0.823,
+			"value": 1
+		},
+		{
+			"start": 0.823,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 2
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 3
+		},
+		{
+			"start": 1.42,
+			"end": 1.48,
+			"value": 6
+		},
+		{
+			"start": 1.48,
+			"end": 1.54,
+			"value": 4
+		},
+		{
+			"start": 1.54,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 1.72,
+			"value": 2
+		},
+		{
+			"start": 1.72,
+			"end": 1.76,
+			"value": 5
+		},
+		{
+			"start": 1.76,
+			"end": 1.8,
+			"value": 1
+		},
+		{
+			"start": 1.8,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.904,
+			"end": 1.968,
+			"value": 7
+		},
+		{
+			"start": 1.968,
+			"end": 2.032,
+			"value": 1
+		},
+		{
+			"start": 2.032,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.267,
+			"value": 1
+		},
+		{
+			"start": 2.267,
+			"end": 2.373,
+			"value": 6
+		},
+		{
+			"start": 2.373,
+			"end": 2.427,
+			"value": 1
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.533,
+			"end": 2.587,
+			"value": 1
+		},
+		{
+			"start": 2.587,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.72,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.84,
+			"value": 2
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.928,
+			"end": 2.976,
+			"value": 6
+		},
+		{
+			"start": 2.976,
+			"end": 3.024,
+			"value": 1
+		},
+		{
+			"start": 3.024,
+			"end": 3.173,
+			"value": 6
+		},
+		{
+			"start": 3.173,
+			"end": 3.227,
+			"value": 3
+		},
+		{
+			"start": 3.227,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 1
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 2
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.6,
+			"end": 3.68,
+			"value": 3
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 6
+		}
+	]
+}

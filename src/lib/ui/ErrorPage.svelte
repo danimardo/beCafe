@@ -5,6 +5,7 @@
 	import ServerCrash from '@lucide/svelte/icons/server-crash';
 	import WifiOff from '@lucide/svelte/icons/wifi-off';
 	import Button from './Button.svelte';
+	import Capsulito from './Capsulito.svelte';
 	import Glass from './Glass.svelte';
 
 	import type { ErrorKind } from './types';
@@ -49,10 +50,15 @@
 	const retry = () => (onretry ? onretry() : location.reload());
 </script>
 
+{#snippet iconCircle()}
+	<span class="flex size-16 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true">
+		<Icon class="size-8" />
+	</span>
+{/snippet}
+
 <Glass as="section" radius="sheet" class="mx-auto flex max-w-sm flex-col items-center gap-3 px-6 py-10 text-center">
-	<span class="flex size-16 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true"
-		><Icon class="size-8" /></span
-	>
+	<!-- Cada tipo de error tiene su momento con el mismo nombre (sin-conexion, no-encontrada, sin-permiso, servidor). -->
+	<Capsulito momento={kind} mensaje={null} size="md" fallback={iconCircle} />
 	<h1 class="type-title-lg">{c.title}</h1>
 	<p class="text-[15px] leading-5 text-ink-muted">{message ?? c.body}</p>
 	{#if code}<p class="text-[13px] leading-[18px] text-ink-muted">Código {code}</p>{/if}

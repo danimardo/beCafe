@@ -1,0 +1,63 @@
+{
+	"version": 1,
+	"audio": "consumo_confirmado_02.mp3",
+	"texto": "¡Café apuntado! Latencia cero hasta la taza.",
+	"duration": 2.32,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.16,
+			"value": 2
+		},
+		{
+			"start": 0.16,
+			"end": 0.24,
+			"value": 5
+		},
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 1
+		},
+		{
+			"start": 0.373,
+			"end": 0.427,
+			"value": 2
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 7
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 4
+		},
+		{
+			"start": 0.56,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.853,
+			"value": 2
+		},
+		{
+			"start": 0.853,
+			"end": 0.987,
+			"value": 6
+		},
+		{
+			"start": 0.987,
+			"end": 1.12,
+			"value": 3
+		},
+		{
+			"start": 1.32,
+			"end": 2.32,
+			"value": 2
+		}
+	]
+}

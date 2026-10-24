@@ -1,3 +1,11 @@
+<!--
+Sync Impact Report (v1.6.0 -> v1.7.0, 2026-10-24):
+- Incremento MENOR (1.6.0 -> 1.7.0): amplía los principios V y XVIII y la tabla de tecnologías obligatorias (CAMBIO-018, ADR-0006).
+- Principio V (Almacenamiento de datos): incluye las preferencias de mascota, voz y bienvenida en `localStorage` junto con las de apariencia.
+- Principio XVIII (Identidad visual, temas y efectos): documenta las excepciones cerradas de cristal (`CapsuleTile` de Inicio y bocadillo/tostada de Capsulito) y las reglas de la mascota Capsulito (imagen decorativa, Rive `.riv` con respaldo SVG, voz pregenerada opcional con sincronización labial, respeto a `prefers-reduced-motion` y ajustes de Perfil).
+- Tecnologías obligatorias: añade `@rive-app/canvas` (2.x), importado solo en `lib/client/rive.ts`.
+- Plantillas y documentos sincronizados: `docs/diseno/design-principles.md`, `.specify/templates/plan-template.md`, `docs/adr/0006-rive-y-sincronizacion-voz-capsulito.md`.
+-->
 # Constitución de beCafé
 
 Palabras normativas: DEBE (MUST), NO DEBE (MUST NOT), DEBERÍA (SHOULD), NO DEBERÍA (SHOULD NOT) y PUEDE (MAY).
@@ -89,8 +97,9 @@ error de redondeo o un cargo duplicado la rompe.
 - Las claves primarias y los identificadores generados en el cliente DEBEN ser ULID.
 - Los datos derivados que se guardan (stock, coste medio, estado de stock bajo) DEBEN coincidir
   siempre con su recálculo desde los registros vigentes.
-- El navegador NO DEBE guardar nada salvo la cola de consumos pendientes (IndexedDB), la
-  preferencias de apariencia (tema y reducir transparencia) y la caché del service worker. La sesión DEBE viajar solo en una cookie
+- El navegador NO DEBE guardar nada salvo la cola de consumos pendientes (IndexedDB), las
+  preferencias de apariencia, mascota y bienvenida (tema, reducir transparencia, mostrar mascota,
+  voz y bienvenida vista) y la caché del service worker. La sesión DEBE viajar solo en una cookie
   `HttpOnly`; NO DEBEN guardarse tokens ni datos personales en `localStorage`.
 - DEBE existir una copia de seguridad diaria fuera del servidor, restaurable y probada
   periódicamente (RT-005, RNF-009).
@@ -342,7 +351,13 @@ estado de una persona visible a otra) se evitan con reglas explícitas.
   trabajo ni foco.
 - El cristal SOLO PUEDE usarse con una función (separar navegación, superficies flotantes o
   tarjetas según el sistema de diseño) y NO DEBE anidarse. El contenido denso y los formularios
-  DEBEN ir sobre una superficie estable.
+  DEBEN ir sobre una superficie estable. Excepción cerrada: la tarjeta de cápsula de un toque de
+  la pantalla de Inicio (`CapsuleTile`) PUEDE usar `glass` como superficie de sus acciones rápidas
+  de consumo (propio e invitado), y el bocadillo o tostada de celebración de la mascota PUEDE usar
+  `glass` o `glass-strong`, siempre que mantengan un contraste compuesto ≥ 4,5:1 en claro y oscuro
+  y pasen a superficie opaca con `prefers-reduced-transparency` o «Reducir transparencia». Los
+  formularios con campos de entrada (compras, aportaciones, recuentos, arqueos, acceso, perfil y
+  administración) siguen sobre superficie estable.
 - DEBE existir una alternativa opaca con las mismas acciones, información y jerarquía. Se activa
   con `prefers-reduced-transparency` o con el ajuste «Reducir transparencia». Ningún ajuste de la
   aplicación DEBE reactivar un efecto que el sistema pide reducir.
@@ -350,6 +365,15 @@ estado de una persona visible a otra) se evitan con reglas explícitas.
   y en los dos temas.
 - El movimiento SOLO PUEDE usarse con una función (confirmar, orientar o explicar un cambio), NO
   DEBE retrasar la respuesta y DEBE desactivarse con `prefers-reduced-motion`.
+- La mascota del departamento («Capsulito») PUEDE aparecer en bienvenidas, estados vacíos, avisos y
+  confirmaciones para acompañar la acción, nunca como único medio de entender la pantalla ni por
+  encima de los controles principales. Su imagen es decorativa (`alt=""` o `aria-hidden="true"`):
+  el texto que la acompaña contiene siempre el mensaje completo. Sus poses, expresiones, textos y
+  locuciones DEBEN seleccionarse desde un catálogo tipado en función del estado o del evento, nunca
+  al azar sin relación con lo ocurrido. Cuando se anime con Rive (`.riv`), DEBE contar con respaldo
+  SVG estático inmediato, sincronizar la boca con una pista de tiempos precalculada cuando la voz
+  esté activa, y congelarse o pasar a SVG estático con `prefers-reduced-motion: reduce`. PUEDE
+  ocultarse y silenciarse en Perfil (preferencias por dispositivo).
 
 Motivo: la identidad visual es una decisión aprobada, pero nunca puede costar legibilidad,
 accesibilidad ni rapidez del registro (orden de prioridad).
@@ -372,6 +396,7 @@ fija `package-lock.json`; la referencia vigente está en la sección 10.3 de `hi
 | Empaquetador | Vite | 8.x |
 | Estilos | Tailwind CSS | 4.x |
 | Primitivas de interfaz | Bits UI | 2.x |
+| Animación de mascota | `@rive-app/canvas`, importado solo en `lib/client/rive.ts` | 2.x |
 | Iconos | `@lucide/svelte`, importados por ruta | 1.x |
 | Base de datos | SQLite mediante `better-sqlite3` | 13.x |
 | Acceso a datos y migraciones | Drizzle ORM y drizzle-kit | 0.45.x / 0.31.x |
@@ -425,4 +450,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.6.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-21
+**Versión**: 1.7.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-24

@@ -1,0 +1,223 @@
+{
+	"version": 1,
+	"audio": "intro_01.mp3",
+	"texto": "¡Hola! Soy Capsulito, tu compañero de café en el departamento.",
+	"duration": 3.76,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.24,
+			"value": 3
+		},
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 2
+		},
+		{
+			"start": 0.64,
+			"end": 0.86,
+			"value": 2
+		},
+		{
+			"start": 0.944,
+			"end": 1.008,
+			"value": 6
+		},
+		{
+			"start": 1.008,
+			"end": 1.072,
+			"value": 2
+		},
+		{
+			"start": 1.072,
+			"end": 1.136,
+			"value": 7
+		},
+		{
+			"start": 1.136,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.24,
+			"value": 4
+		},
+		{
+			"start": 1.24,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 1
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 3
+		},
+		{
+			"start": 1.707,
+			"end": 1.733,
+			"value": 6
+		},
+		{
+			"start": 1.733,
+			"end": 1.76,
+			"value": 4
+		},
+		{
+			"start": 1.817,
+			"end": 1.874,
+			"value": 6
+		},
+		{
+			"start": 1.874,
+			"end": 1.931,
+			"value": 3
+		},
+		{
+			"start": 1.931,
+			"end": 2.046,
+			"value": 7
+		},
+		{
+			"start": 2.046,
+			"end": 2.103,
+			"value": 2
+		},
+		{
+			"start": 2.103,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.187,
+			"value": 1
+		},
+		{
+			"start": 2.187,
+			"end": 2.213,
+			"value": 6
+		},
+		{
+			"start": 2.213,
+			"end": 2.24,
+			"value": 3
+		},
+		{
+			"start": 2.293,
+			"end": 2.347,
+			"value": 6
+		},
+		{
+			"start": 2.347,
+			"end": 2.4,
+			"value": 1
+		},
+		{
+			"start": 2.448,
+			"end": 2.496,
+			"value": 6
+		},
+		{
+			"start": 2.496,
+			"end": 2.544,
+			"value": 2
+		},
+		{
+			"start": 2.544,
+			"end": 2.592,
+			"value": 5
+		},
+		{
+			"start": 2.592,
+			"end": 2.64,
+			"value": 1
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 1
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.827,
+			"end": 2.853,
+			"value": 1
+		},
+		{
+			"start": 2.853,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.942,
+			"end": 3.003,
+			"value": 6
+		},
+		{
+			"start": 3.003,
+			"end": 3.065,
+			"value": 1
+		},
+		{
+			"start": 3.065,
+			"end": 3.126,
+			"value": 7
+		},
+		{
+			"start": 3.126,
+			"end": 3.188,
+			"value": 2
+		},
+		{
+			"start": 3.188,
+			"end": 3.311,
+			"value": 6
+		},
+		{
+			"start": 3.311,
+			"end": 3.372,
+			"value": 2
+		},
+		{
+			"start": 3.372,
+			"end": 3.434,
+			"value": 7
+		},
+		{
+			"start": 3.434,
+			"end": 3.495,
+			"value": 1
+		},
+		{
+			"start": 3.495,
+			"end": 3.618,
+			"value": 6
+		},
+		{
+			"start": 3.618,
+			"end": 3.68,
+			"value": 3
+		}
+	]
+}

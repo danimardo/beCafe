@@ -19,7 +19,7 @@
 	<title>{textos.rellenos.detalle} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-6">
+<div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)/historial')} label={textos.historial.titulo} />
 	<PageHeader title={textos.rellenos.detalle} bell={false} />
 
@@ -52,4 +52,4 @@
 			<Button type="submit" variant="soft">{textos.rellenos.anular}</Button>
 		</form>
 	{/if}
-</main>
+</div>

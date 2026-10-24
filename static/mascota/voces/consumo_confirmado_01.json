@@ -1,0 +1,58 @@
+{
+	"version": 1,
+	"audio": "consumo_confirmado_01.mp3",
+	"texto": "¡Cafeína cargada en memoria!",
+	"duration": 1.28,
+	"cues": [
+		{
+			"start": 0.293,
+			"end": 0.347,
+			"value": 6
+		},
+		{
+			"start": 0.382,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.704,
+			"end": 0.768,
+			"value": 6
+		},
+		{
+			"start": 0.768,
+			"end": 0.832,
+			"value": 2
+		},
+		{
+			"start": 0.832,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.067,
+			"value": 2
+		},
+		{
+			"start": 1.067,
+			"end": 1.173,
+			"value": 6
+		},
+		{
+			"start": 1.173,
+			"end": 1.28,
+			"value": 2
+		}
+	]
+}

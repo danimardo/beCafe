@@ -30,7 +30,7 @@
 	<title>{textos.economia.darDeBaja} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-6">
+<div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)/admin/usuarios/[usuarioId=ulid]', { usuarioId: data.usuarioId })} label={textos.economia.volverFicha} />
 	<PageHeader title={textos.economia.liquidacionBaja} eyebrow={data.nombre} />
 
@@ -84,4 +84,4 @@
 			</div>
 		</form>
 	{/if}
-</main>
+</div>

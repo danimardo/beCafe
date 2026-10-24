@@ -4,6 +4,7 @@
 	import X from '@lucide/svelte/icons/x';
 	import Undo2 from '@lucide/svelte/icons/undo-2';
 	import CapsuleImage from './CapsuleImage.svelte';
+	import Capsulito from './Capsulito.svelte';
 	import type { AvisoDeshacer } from './contextos/avisos.svelte';
 
 	type Props = { toast: AvisoDeshacer; onclose: () => void };
@@ -44,16 +45,23 @@
 	onfocusin={pause}
 	onfocusout={start}
 >
-	{#if toast.kind === 'ok' || toast.kind === 'warning'}
+	{#snippet kindIcon()}
 		<span
 			class={[
 				'flex size-9 shrink-0 items-center justify-center rounded-full',
-				toast.kind === 'ok' ? 'bg-positive-soft text-positive' : 'bg-warning-soft text-warning',
+				toast.kind === 'warning' ? 'bg-warning-soft text-warning' : 'bg-positive-soft text-positive',
 			].join(' ')}
 			aria-hidden="true"
 		>
-			{#if toast.kind === 'ok'}<Check class="size-5" />{:else}<TriangleAlert class="size-5" />{/if}
+			{#if toast.kind === 'warning'}<TriangleAlert class="size-5" />{:else}<Check class="size-5" />{/if}
 		</span>
+	{/snippet}
+	{#if toast.momento}
+		<span class="-my-3 -ml-1 shrink-0">
+			<Capsulito momento={toast.momento} mensaje={null} size="sm" fallback={kindIcon} />
+		</span>
+	{:else if toast.kind === 'ok' || toast.kind === 'warning'}
+		{@render kindIcon()}
 	{:else}
 		<CapsuleImage name={toast.title} color={toast.color ?? '#3b2a6b'} photoUrl={toast.photoUrl} size="sm" />
 	{/if}
@@ -105,7 +113,7 @@
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
-		span[aria-hidden='true'] {
+		span[style*='toast-timer'] {
 			animation: none !important;
 		}
 	}

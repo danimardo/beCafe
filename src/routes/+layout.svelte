@@ -3,20 +3,25 @@
 	import '@fontsource-variable/inter';
 	import '@fontsource-variable/fraunces';
 	import { onMount } from 'svelte';
-	import { crearContextoAvisos, crearContextoNotificaciones, crearContextoTema, ToastRegion } from '#lib/ui';
+	import { crearContextoAvisos, crearContextoMascota, crearContextoNotificaciones, crearContextoTema, ToastRegion } from '#lib/ui';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
 
 	// Estado de la aplicación por petición de navegador: se comparte con los componentes por contexto (no por módulo).
 	const tema = crearContextoTema();
+	const mascota = crearContextoMascota();
 	crearContextoAvisos();
 	crearContextoNotificaciones();
 
-	// Sincroniza el tema con el que ya aplicó el script de app.html y sigue los cambios del sistema.
+	// Sincroniza el tema y las preferencias de Capsulito con lo que ya aplicó el script de app.html.
 	onMount(() => {
 		tema.iniciar();
-		return () => tema.destruir();
+		mascota.iniciar();
+		return () => {
+			tema.destruir();
+			mascota.destruir();
+		};
 	});
 </script>
 

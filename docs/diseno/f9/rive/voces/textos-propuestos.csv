@@ -1,0 +1,28 @@
+id;texto;pose;evento;condicion;mp3_previsto;estado
+intro_01;¡Hola! Soy Capsulito, tu compañero de café en el departamento.;saludando;historia.intro_01;Historia abierta voluntariamente;intro_01.mp3;borrador_pendiente_revision
+intro_02;Sin cápsulas no hay servicio. ¡Vamos a vigilar las reservas!;recordatorio;historia.intro_02;Escena ficticia del tutorial, no alerta real;intro_02.mp3;borrador_pendiente_revision
+intro_03;Elige tu cápsula y registra el consumo. Comprueba que quede confirmado.;senalando;historia.intro_03;Tutorial, no confirma una operación;intro_03.mp3;borrador_pendiente_revision
+intro_04;Cuando lleguen nuevas cápsulas, registra la compra para actualizar las existencias.;anadiendo-capsula;historia.intro_04;Tutorial, no confirma una compra;intro_04.mp3;borrador_pendiente_revision
+intro_05;Cada café cuenta. ¡Y las cuentas también! Consulta tus aportaciones y tu saldo.;senalando;historia.intro_05;Tutorial, no anuncia importes;intro_05.mp3;borrador_pendiente_revision
+intro_06;Si rellenas el depósito, registra el agua en la aplicación.;senalando;historia.intro_06;Tutorial, no confirma un relleno;intro_06.mp3;borrador_pendiente_revision
+intro_07;También damos las gracias al aguador del mes. ¡Ovación para quien nos salva de la sequía!;celebrando;historia.intro_07;Tutorial, sin nombres ni premios económicos;intro_07.mp3;borrador_pendiente_revision
+intro_08;Cápsulas controladas, cuentas claras... ¡a por café!;saludando;historia.intro_08;Cierre voluntario del tutorial;intro_08.mp3;borrador_pendiente_revision
+consumo_confirmado_01;¡Cafeína cargada!;celebrando;consumo.confirmado;Solo después de confirmación del servidor;consumo_confirmado_01.mp3;borrador_pendiente_revision
+consumo_confirmado_02;¡Café apuntado!;celebrando;consumo.confirmado;Solo después de confirmación del servidor;consumo_confirmado_02.mp3;borrador_pendiente_revision
+consumo_invitado_01;¡Tenemos visita!;saludando;consumo.invitado_confirmado;Consumo de invitado confirmado, mostrar quién paga;consumo_invitado_01.mp3;borrador_pendiente_revision
+consumo_pendiente_01;Lo tengo en espera. Todavía falta enviarlo.;pensando;consumo.pendiente;Registro en cola local, nunca celebrar;consumo_pendiente_01.mp3;borrador_pendiente_revision
+consumo_sincronizado_01;¡Paquete entregado!;saltando;consumo.sincronizado;Confirmación del servidor posterior a la cola;consumo_sincronizado_01.mp3;borrador_pendiente_revision
+consumo_anulado_01;Registro anulado.;pensando;consumo.anulado;Anulación efectiva o eliminación confirmada de la cola;consumo_anulado_01.mp3;borrador_pendiente_revision
+stock_bajo_01;Quedan pocas cápsulas. Echa un vistazo a las existencias.;recordatorio;stock.bajo;Umbral real alcanzado, conservar cantidades y tipos en la interfaz;stock_bajo_01.mp3;borrador_pendiente_revision
+stock_negativo_01;El consumo está registrado, pero hay un descuadre de existencias.;pensando;stock.negativo;Consumo confirmado con stock negativo, ambas condiciones;stock_negativo_01.mp3;borrador_pendiente_revision
+compra_confirmada_01;¡Llegaron refuerzos!;anadiendo-capsula;compra.confirmada;Compra confirmada por servidor;compra_confirmada_01.mp3;borrador_pendiente_revision
+aportacion_confirmada_01;¡La hucha respira! Gracias por tu aportación.;celebrando;aportacion.confirmada;Aportación confirmada, mantener importe visible;aportacion_confirmada_01.mp3;borrador_pendiente_revision
+agua_confirmada_01;¡Un héroe sin capa! Gracias por rellenar el agua.;celebrando;agua.confirmada;Relleno confirmado, no ocultar Deshacer;agua_confirmada_01.mp3;borrador_pendiente_revision
+agua_rechazada_reciente_01;El depósito se ha rellenado hace poco. Consulta el aviso.;pensando;agua.rechazada_reciente;Rechazo por intervalo, no celebrar;agua_rechazada_reciente_01.mp3;borrador_pendiente_revision
+agua_sin_conexion_01;Necesitas conexión para registrar el agua.;pensando;agua.sin_conexion;Acción deshabilitada por falta de conexión;agua_sin_conexion_01.mp3;borrador_pendiente_revision
+aguador_mes_01;¡Ovación al aguador del mes!;celebrando;aguador.determinado;Resultado disponible con un ganador, mostrar periodo;aguador_mes_01.mp3;borrador_pendiente_revision
+aguadores_mes_01;¡Ovación a los aguadores del mes!;celebrando;aguador.determinado;Resultado disponible con empate, mostrar todos los ganadores;aguadores_mes_01.mp3;borrador_pendiente_revision
+conexion_perdida_01;Estamos sin conexión. Consulta qué operaciones quedan pendientes.;pensando;conexion.perdida;Pérdida real de conectividad, no afirma que haya cola;conexion_perdida_01.mp3;borrador_pendiente_revision
+conexion_recuperada_01;Ha vuelto la conexión. Comprueba si queda algo pendiente de enviar.;pensando;conexion.recuperada;Recuperar conexión no equivale a confirmar operaciones;conexion_recuperada_01.mp3;borrador_pendiente_revision
+sincronizacion_fallida_01;No se ha podido completar el envío. Consulta los registros pendientes.;pensando;sincronizacion.fallida;Fallo de sincronización real;sincronizacion_fallida_01.mp3;borrador_pendiente_revision
+operacion_rechazada_01;No se ha podido completar la operación. Consulta el aviso.;pensando;operacion.rechazada;Rechazo real, la interfaz conserva el motivo específico;operacion_rechazada_01.mp3;borrador_pendiente_revision

@@ -9,6 +9,12 @@
 	html {
 		color-scheme: light;
 		-webkit-text-size-adjust: 100%;
+		scroll-padding-bottom: 6.5rem;
+	}
+	@media (min-width: 768px) {
+		html {
+			scroll-padding-bottom: 0;
+		}
 	}
 	html[data-theme='oscuro'] {
 		color-scheme: dark;

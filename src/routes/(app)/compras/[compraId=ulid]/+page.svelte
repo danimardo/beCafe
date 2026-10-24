@@ -27,7 +27,7 @@
 	<title>{textos.economia.detalleCompra} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-6">
+<div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)/compras')} label={textos.economia.compras} />
 	<PageHeader title={textos.economia.detalleCompra} />
 
@@ -76,4 +76,4 @@
 			<Button type="submit" variant="danger">{textos.economia.anularCompra}</Button>
 		</form>
 	{/if}
-</main>
+</div>

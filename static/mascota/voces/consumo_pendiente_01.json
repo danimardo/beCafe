@@ -1,0 +1,168 @@
+{
+	"version": 1,
+	"audio": "consumo_pendiente_01.mp3",
+	"texto": "Lo tengo en cola local. Se enviará en cuanto vuelva la red.",
+	"duration": 2.72,
+	"cues": [
+		{
+			"start": 0.427,
+			"end": 0.453,
+			"value": 6
+		},
+		{
+			"start": 0.453,
+			"end": 0.48,
+			"value": 3
+		},
+		{
+			"start": 0.533,
+			"end": 0.587,
+			"value": 6
+		},
+		{
+			"start": 0.587,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.64,
+			"end": 0.747,
+			"value": 6
+		},
+		{
+			"start": 0.747,
+			"end": 0.8,
+			"value": 3
+		},
+		{
+			"start": 0.827,
+			"end": 0.853,
+			"value": 1
+		},
+		{
+			"start": 0.853,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.937,
+			"end": 0.994,
+			"value": 1
+		},
+		{
+			"start": 0.994,
+			"end": 1.051,
+			"value": 6
+		},
+		{
+			"start": 1.051,
+			"end": 1.109,
+			"value": 7
+		},
+		{
+			"start": 1.109,
+			"end": 1.166,
+			"value": 1
+		},
+		{
+			"start": 1.166,
+			"end": 1.223,
+			"value": 6
+		},
+		{
+			"start": 1.223,
+			"end": 1.28,
+			"value": 2
+		},
+		{
+			"start": 1.42,
+			"end": 1.48,
+			"value": 6
+		},
+		{
+			"start": 1.48,
+			"end": 1.54,
+			"value": 3
+		},
+		{
+			"start": 1.54,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.6,
+			"end": 1.64,
+			"value": 2
+		},
+		{
+			"start": 1.64,
+			"end": 1.68,
+			"value": 5
+		},
+		{
+			"start": 1.68,
+			"end": 1.76,
+			"value": 1
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 2
+		},
+		{
+			"start": 1.88,
+			"end": 1.92,
+			"value": 5
+		},
+		{
+			"start": 1.92,
+			"end": 1.96,
+			"value": 2
+		},
+		{
+			"start": 1.96,
+			"end": 2.04,
+			"value": 6
+		},
+		{
+			"start": 2.04,
+			"end": 2.08,
+			"value": 2
+		},
+		{
+			"start": 2.137,
+			"end": 2.194,
+			"value": 1
+		},
+		{
+			"start": 2.194,
+			"end": 2.251,
+			"value": 6
+		},
+		{
+			"start": 2.251,
+			"end": 2.309,
+			"value": 5
+		},
+		{
+			"start": 2.309,
+			"end": 2.366,
+			"value": 1
+		},
+		{
+			"start": 2.366,
+			"end": 2.423,
+			"value": 2
+		},
+		{
+			"start": 2.423,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.64,
+			"value": 3
+		}
+	]
+}

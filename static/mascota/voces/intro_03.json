@@ -1,0 +1,323 @@
+{
+	"version": 1,
+	"audio": "intro_03.mp3",
+	"texto": "Elige tu cápsula y registra el consumo con un toque. ¿Te equivocaste? Pulsa «Deshacer».",
+	"duration": 4.56,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.24,
+			"value": 1
+		},
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 1
+		},
+		{
+			"start": 0.427,
+			"end": 0.453,
+			"value": 6
+		},
+		{
+			"start": 0.453,
+			"end": 0.48,
+			"value": 4
+		},
+		{
+			"start": 0.533,
+			"end": 0.587,
+			"value": 6
+		},
+		{
+			"start": 0.587,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 7
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.8,
+			"end": 0.853,
+			"value": 4
+		},
+		{
+			"start": 0.853,
+			"end": 0.907,
+			"value": 6
+		},
+		{
+			"start": 0.907,
+			"end": 0.96,
+			"value": 2
+		},
+		{
+			"start": 1,
+			"end": 1.04,
+			"value": 1
+		},
+		{
+			"start": 1.097,
+			"end": 1.154,
+			"value": 6
+		},
+		{
+			"start": 1.154,
+			"end": 1.211,
+			"value": 1
+		},
+		{
+			"start": 1.211,
+			"end": 1.269,
+			"value": 6
+		},
+		{
+			"start": 1.269,
+			"end": 1.326,
+			"value": 1
+		},
+		{
+			"start": 1.326,
+			"end": 1.48,
+			"value": 6
+		},
+		{
+			"start": 1.48,
+			"end": 1.52,
+			"value": 2
+		},
+		{
+			"start": 1.547,
+			"end": 1.573,
+			"value": 1
+		},
+		{
+			"start": 1.573,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.65,
+			"end": 1.7,
+			"value": 6
+		},
+		{
+			"start": 1.7,
+			"end": 1.75,
+			"value": 3
+		},
+		{
+			"start": 1.75,
+			"end": 1.85,
+			"value": 6
+		},
+		{
+			"start": 1.85,
+			"end": 1.9,
+			"value": 4
+		},
+		{
+			"start": 1.9,
+			"end": 1.95,
+			"value": 7
+		},
+		{
+			"start": 1.95,
+			"end": 2,
+			"value": 3
+		},
+		{
+			"start": 2.06,
+			"end": 2.12,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.18,
+			"value": 3
+		},
+		{
+			"start": 2.18,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.267,
+			"end": 2.293,
+			"value": 4
+		},
+		{
+			"start": 2.293,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 3
+		},
+		{
+			"start": 2.56,
+			"end": 2.613,
+			"value": 6
+		},
+		{
+			"start": 2.613,
+			"end": 2.667,
+			"value": 4
+		},
+		{
+			"start": 2.667,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.9,
+			"end": 3,
+			"value": 6
+		},
+		{
+			"start": 3,
+			"end": 3.1,
+			"value": 3
+		},
+		{
+			"start": 3.1,
+			"end": 3.24,
+			"value": 7
+		},
+		{
+			"start": 3.24,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.34,
+			"value": 4
+		},
+		{
+			"start": 3.34,
+			"end": 3.4,
+			"value": 1
+		},
+		{
+			"start": 3.4,
+			"end": 3.46,
+			"value": 7
+		},
+		{
+			"start": 3.46,
+			"end": 3.52,
+			"value": 2
+		},
+		{
+			"start": 3.54,
+			"end": 3.56,
+			"value": 6
+		},
+		{
+			"start": 3.56,
+			"end": 3.58,
+			"value": 4
+		},
+		{
+			"start": 3.58,
+			"end": 3.6,
+			"value": 1
+		},
+		{
+			"start": 3.627,
+			"end": 3.653,
+			"value": 6
+		},
+		{
+			"start": 3.653,
+			"end": 3.68,
+			"value": 4
+		},
+		{
+			"start": 3.68,
+			"end": 3.733,
+			"value": 1
+		},
+		{
+			"start": 3.733,
+			"end": 3.787,
+			"value": 6
+		},
+		{
+			"start": 3.787,
+			"end": 3.84,
+			"value": 1
+		},
+		{
+			"start": 3.89,
+			"end": 3.94,
+			"value": 6
+		},
+		{
+			"start": 3.94,
+			"end": 3.99,
+			"value": 3
+		},
+		{
+			"start": 3.99,
+			"end": 4.04,
+			"value": 6
+		},
+		{
+			"start": 4.04,
+			"end": 4.09,
+			"value": 5
+		},
+		{
+			"start": 4.09,
+			"end": 4.14,
+			"value": 1
+		},
+		{
+			"start": 4.14,
+			"end": 4.19,
+			"value": 6
+		},
+		{
+			"start": 4.19,
+			"end": 4.24,
+			"value": 7
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 2
+		},
+		{
+			"start": 4.32,
+			"end": 4.4,
+			"value": 6
+		},
+		{
+			"start": 4.4,
+			"end": 4.48,
+			"value": 3
+		}
+	]
+}

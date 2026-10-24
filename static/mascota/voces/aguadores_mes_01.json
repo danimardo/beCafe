@@ -1,0 +1,133 @@
+{
+	"version": 1,
+	"audio": "aguadores_mes_01.mp3",
+	"texto": "¡Ovación a los aguadores del mes!",
+	"duration": 2.24,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.24,
+			"value": 5
+		},
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 2
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 3
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.68,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 0.76,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.8,
+			"end": 0.84,
+			"value": 3
+		},
+		{
+			"start": 0.84,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.933,
+			"end": 0.987,
+			"value": 2
+		},
+		{
+			"start": 0.987,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 4
+		},
+		{
+			"start": 1.12,
+			"end": 1.187,
+			"value": 2
+		},
+		{
+			"start": 1.187,
+			"end": 1.253,
+			"value": 6
+		},
+		{
+			"start": 1.253,
+			"end": 1.32,
+			"value": 3
+		},
+		{
+			"start": 1.32,
+			"end": 1.387,
+			"value": 6
+		},
+		{
+			"start": 1.387,
+			"end": 1.453,
+			"value": 1
+		},
+		{
+			"start": 1.453,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.6,
+			"end": 1.64,
+			"value": 1
+		},
+		{
+			"start": 1.64,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.78,
+			"end": 1.88,
+			"value": 7
+		},
+		{
+			"start": 1.88,
+			"end": 1.98,
+			"value": 1
+		},
+		{
+			"start": 1.98,
+			"end": 2.08,
+			"value": 6
+		}
+	]
+}

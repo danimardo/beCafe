@@ -1,6 +1,8 @@
 <script lang="ts">
 	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
 	import HandCoins from '@lucide/svelte/icons/hand-coins';
+	import PiggyBank from '@lucide/svelte/icons/piggy-bank';
+	import Wallet from '@lucide/svelte/icons/wallet';
 	import Glass from './Glass.svelte';
 	import Money from './Money.svelte';
 
@@ -17,13 +19,21 @@
 	let { huchaCents, myBalanceCents, lowStock = [], debtors = [] }: Props = $props();
 </script>
 
-<!-- RF-021: panel de avisos al abrir la app. -->
+<!-- RF-021, RF-184: panel de avisos y saldos al abrir la app, sin texto redundante por línea. -->
 <Glass as="section" aria-label="Avisos" class="grid grid-cols-2 gap-x-3 gap-y-3">
 	<div>
+		<span class="mb-2 flex size-10 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true">
+			<PiggyBank class="size-5" />
+		</span>
 		<p class="text-[13px] leading-[18px] text-ink-muted">Hucha (teórica)</p>
-		<p class="mt-0.5 text-2xl font-bold leading-[30px] tracking-tight"><Money cents={huchaCents} tone={huchaCents < 0} /></p>
+		<p class="mt-0.5 text-2xl font-bold leading-[30px] tracking-tight">
+			<Money cents={huchaCents} tone={huchaCents < 0} srSuffix={huchaCents < 0 ? 'hucha en negativo' : undefined} />
+		</p>
 	</div>
 	<div>
+		<span class="mb-2 flex size-10 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true">
+			<Wallet class="size-5" />
+		</span>
 		<p class="text-[13px] leading-[18px] text-ink-muted">Tu saldo</p>
 		<p class="mt-0.5 text-2xl font-bold leading-[30px] tracking-tight">
 			<Money cents={myBalanceCents} signed tone srSuffix={myBalanceCents < 0 ? 'debes' : myBalanceCents > 0 ? 'a tu favor' : undefined} />
@@ -34,7 +44,8 @@
 			<TriangleAlert class="mt-0.5 size-[18px] shrink-0" aria-hidden="true" />
 			<span>
 				{lowStock.length === 1 ? '1 tipo en stock bajo' : `${lowStock.length} tipos en stock bajo`}:
-				<span class="font-normal text-ink">{lowStock.join(', ')}</span>
+				{#each lowStock as nombre, i (nombre)}{#if i > 0},
+					{/if}<span class="font-normal text-ink">{nombre}</span>{/each}
 			</span>
 		</p>
 	{/if}

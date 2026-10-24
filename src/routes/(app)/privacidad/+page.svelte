@@ -11,8 +11,8 @@
 	<title>{textos.privacidad.titulo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-10">
+<div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)/perfil')} label={textos.privacidad.volver} />
 	<PageHeader title={textos.privacidad.enlace} />
 	<PrivacyText version={data.version} />
-</main>
+</div>

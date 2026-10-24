@@ -4,6 +4,8 @@ import type { ResolvedPathname } from '$app/types';
 export interface NavItem {
 	href: ResolvedPathname;
 	label: string;
+	/** Etiqueta corta para el carril de iconos (768–1023 px), p. ej. «Arqueos». Si falta, se usa `label`. */
+	short?: string;
 	/** Rutas adicionales que dejan este elemento marcado como activo (p. ej. /historial cuelga de Saldos). */
 	alsoActive?: string[];
 	/** Componente de icono de Lucide. */

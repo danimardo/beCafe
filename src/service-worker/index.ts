@@ -13,7 +13,17 @@ const esquemaDatosAviso = z.object({ enlace: esquemaMensajePush.shape.enlace });
 const PREFIJO = 'becafe-';
 const CACHE = `${PREFIJO}${version}`;
 // Las rutas de `$app/manifest` son relativas a la ruta base de la aplicación.
-const ESTATICOS = [...immutable, ...assets].map((recurso) => `/${recurso.path}`);
+// Se excluyen las imágenes de 1024 px, la biblioteca fuente de Rive y las locuciones MP3 opcionales para no inflar la precarga inicial (plan F9 D12).
+const ESTATICOS = [
+	...immutable,
+	...assets.filter(
+		(recurso) =>
+			!recurso.path.endsWith('-1024.webp') &&
+			!recurso.path.endsWith('capsulito-biblioteca.riv') &&
+			!recurso.path.endsWith('rive.wasm') &&
+			!recurso.path.startsWith('mascota/voces/'),
+	),
+].map((recurso) => `/${recurso.path}`);
 
 const HTML_SIN_CONEXION = `<!doctype html><html lang="es-ES"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sin conexión · beCafé</title></head><body><main style="font-family:sans-serif;padding:24px"><h1>Sin conexión</h1><p>Esta página no está disponible sin red. Vuelve a intentarlo cuando tengas cobertura.</p></main></body></html>`;
 

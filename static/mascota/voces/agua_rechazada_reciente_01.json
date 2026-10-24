@@ -1,0 +1,203 @@
+{
+	"version": 1,
+	"audio": "agua_rechazada_reciente_01.mp3",
+	"texto": "El depósito se ha rellenado hace poco. Consulta el aviso.",
+	"duration": 3.52,
+	"cues": [
+		{
+			"start": 0,
+			"end": 0.04,
+			"value": 1
+		},
+		{
+			"start": 0.04,
+			"end": 0.08,
+			"value": 6
+		},
+		{
+			"start": 0.14,
+			"end": 0.2,
+			"value": 6
+		},
+		{
+			"start": 0.2,
+			"end": 0.26,
+			"value": 1
+		},
+		{
+			"start": 0.26,
+			"end": 0.32,
+			"value": 7
+		},
+		{
+			"start": 0.32,
+			"end": 0.384,
+			"value": 3
+		},
+		{
+			"start": 0.384,
+			"end": 0.448,
+			"value": 6
+		},
+		{
+			"start": 0.448,
+			"end": 0.512,
+			"value": 1
+		},
+		{
+			"start": 0.512,
+			"end": 0.576,
+			"value": 6
+		},
+		{
+			"start": 0.576,
+			"end": 0.64,
+			"value": 3
+		},
+		{
+			"start": 0.693,
+			"end": 0.747,
+			"value": 6
+		},
+		{
+			"start": 0.747,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.853,
+			"end": 0.88,
+			"value": 2
+		},
+		{
+			"start": 0.933,
+			"end": 0.987,
+			"value": 6
+		},
+		{
+			"start": 0.987,
+			"end": 1.04,
+			"value": 1
+		},
+		{
+			"start": 1.04,
+			"end": 1.16,
+			"value": 6
+		},
+		{
+			"start": 1.16,
+			"end": 1.22,
+			"value": 1
+		},
+		{
+			"start": 1.22,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.333,
+			"value": 2
+		},
+		{
+			"start": 1.333,
+			"end": 1.387,
+			"value": 6
+		},
+		{
+			"start": 1.387,
+			"end": 1.44,
+			"value": 3
+		},
+		{
+			"start": 1.568,
+			"end": 1.632,
+			"value": 2
+		},
+		{
+			"start": 1.632,
+			"end": 1.696,
+			"value": 6
+		},
+		{
+			"start": 1.696,
+			"end": 1.76,
+			"value": 1
+		},
+		{
+			"start": 1.824,
+			"end": 1.888,
+			"value": 7
+		},
+		{
+			"start": 1.888,
+			"end": 1.952,
+			"value": 3
+		},
+		{
+			"start": 1.952,
+			"end": 2.016,
+			"value": 6
+		},
+		{
+			"start": 2.016,
+			"end": 2.08,
+			"value": 3
+		},
+		{
+			"start": 2.53,
+			"end": 2.58,
+			"value": 6
+		},
+		{
+			"start": 2.58,
+			"end": 2.63,
+			"value": 3
+		},
+		{
+			"start": 2.63,
+			"end": 2.73,
+			"value": 6
+		},
+		{
+			"start": 2.73,
+			"end": 2.78,
+			"value": 4
+		},
+		{
+			"start": 2.78,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.88,
+			"end": 2.92,
+			"value": 2
+		},
+		{
+			"start": 3.013,
+			"end": 3.067,
+			"value": 2
+		},
+		{
+			"start": 3.067,
+			"end": 3.12,
+			"value": 5
+		},
+		{
+			"start": 3.12,
+			"end": 3.227,
+			"value": 1
+		},
+		{
+			"start": 3.227,
+			"end": 3.333,
+			"value": 6
+		},
+		{
+			"start": 3.333,
+			"end": 3.44,
+			"value": 3
+		}
+	]
+}

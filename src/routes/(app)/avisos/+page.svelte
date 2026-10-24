@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
-	import { BackLink, PageHeader, Section } from '#lib/ui';
+	import { BackLink, EmptyState, PageHeader, Section } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 
 	let { data }: PageProps = $props();
@@ -12,12 +12,12 @@
 	<title>{textos.notificaciones.panel.titulo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-10">
+<div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)')} label={textos.notificaciones.panel.volver} />
 	<PageHeader title={textos.notificaciones.panel.titulo} bell={false} />
 
 	{#if total === 0}
-		<p class="rounded-panel border border-hairline bg-wall-base p-5 text-[15px] text-ink">{textos.notificaciones.panel.vacio}</p>
+		<EmptyState momento="vacio-avisos" title={textos.notificaciones.panel.vacio} />
 	{:else}
 		{#if data.nuevos.length > 0}
 			<Section title={textos.notificaciones.panel.nuevos(data.nuevos.length)}>
@@ -33,7 +33,7 @@
 
 	<p class="text-[13px] text-ink-muted">{textos.notificaciones.panel.retencion}</p>
 	<a class="text-[15px] text-accent underline" href={resolve('/(app)/perfil')}>{textos.notificaciones.panel.ajustes}</a>
-</main>
+</div>
 
 {#snippet lista(avisos: PageProps['data']['nuevos'])}
 	<ul class="flex flex-col gap-3">

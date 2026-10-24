@@ -1,0 +1,218 @@
+{
+	"version": 1,
+	"audio": "intro_06.mp3",
+	"texto": "Si rellenas el depósito de la cafetera, registra el agua con un toque.",
+	"duration": 3.04,
+	"cues": [
+		{
+			"start": 0.133,
+			"end": 0.187,
+			"value": 6
+		},
+		{
+			"start": 0.187,
+			"end": 0.24,
+			"value": 1
+		},
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.36,
+			"value": 1
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 2
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.533,
+			"end": 0.587,
+			"value": 1
+		},
+		{
+			"start": 0.587,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.7,
+			"end": 0.76,
+			"value": 6
+		},
+		{
+			"start": 0.76,
+			"end": 0.82,
+			"value": 1
+		},
+		{
+			"start": 0.82,
+			"end": 0.88,
+			"value": 7
+		},
+		{
+			"start": 0.88,
+			"end": 0.944,
+			"value": 3
+		},
+		{
+			"start": 0.944,
+			"end": 1.008,
+			"value": 6
+		},
+		{
+			"start": 1.008,
+			"end": 1.072,
+			"value": 1
+		},
+		{
+			"start": 1.072,
+			"end": 1.136,
+			"value": 6
+		},
+		{
+			"start": 1.136,
+			"end": 1.2,
+			"value": 3
+		},
+		{
+			"start": 1.566,
+			"end": 1.611,
+			"value": 6
+		},
+		{
+			"start": 1.611,
+			"end": 1.657,
+			"value": 1
+		},
+		{
+			"start": 1.657,
+			"end": 1.703,
+			"value": 6
+		},
+		{
+			"start": 1.703,
+			"end": 1.749,
+			"value": 1
+		},
+		{
+			"start": 1.749,
+			"end": 1.88,
+			"value": 6
+		},
+		{
+			"start": 1.88,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 1.947,
+			"end": 1.973,
+			"value": 1
+		},
+		{
+			"start": 1.973,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2.048,
+			"end": 2.096,
+			"value": 2
+		},
+		{
+			"start": 2.096,
+			"end": 2.144,
+			"value": 6
+		},
+		{
+			"start": 2.144,
+			"end": 2.192,
+			"value": 4
+		},
+		{
+			"start": 2.192,
+			"end": 2.24,
+			"value": 2
+		},
+		{
+			"start": 2.267,
+			"end": 2.293,
+			"value": 1
+		},
+		{
+			"start": 2.293,
+			"end": 2.373,
+			"value": 6
+		},
+		{
+			"start": 2.373,
+			"end": 2.4,
+			"value": 2
+		},
+		{
+			"start": 2.458,
+			"end": 2.516,
+			"value": 2
+		},
+		{
+			"start": 2.516,
+			"end": 2.575,
+			"value": 7
+		},
+		{
+			"start": 2.575,
+			"end": 2.633,
+			"value": 6
+		},
+		{
+			"start": 2.633,
+			"end": 2.691,
+			"value": 1
+		},
+		{
+			"start": 2.691,
+			"end": 2.749,
+			"value": 6
+		},
+		{
+			"start": 2.749,
+			"end": 2.807,
+			"value": 2
+		},
+		{
+			"start": 2.807,
+			"end": 2.865,
+			"value": 6
+		},
+		{
+			"start": 2.865,
+			"end": 2.924,
+			"value": 1
+		},
+		{
+			"start": 2.924,
+			"end": 2.982,
+			"value": 3
+		},
+		{
+			"start": 2.982,
+			"end": 3.04,
+			"value": 6
+		}
+	]
+}

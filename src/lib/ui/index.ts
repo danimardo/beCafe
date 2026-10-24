@@ -32,7 +32,9 @@ export { default as ThemeToggle } from './ThemeToggle.svelte';
 
 // Dominio (cápsulas, saldos, estadísticas)
 export { default as CapsuleImage } from './CapsuleImage.svelte';
+export { default as CapsuleIllustration } from './CapsuleIllustration.svelte';
 export { default as CapsuleRow } from './CapsuleRow.svelte';
+export { default as CapsuleTile } from './CapsuleTile.svelte';
 export { default as StockBadge } from './StockBadge.svelte';
 export { default as AlertsPanel } from './AlertsPanel.svelte';
 export { default as MovementRow } from './MovementRow.svelte';
@@ -46,10 +48,14 @@ export { default as KpiTile } from './KpiTile.svelte';
 export { default as BarChart } from './BarChart.svelte';
 export { default as SplitBar } from './SplitBar.svelte';
 
+// Mascota (Capsulito: Rive + respaldo SVG + sincronización labial, RF-185 a RF-188)
+export { default as Capsulito } from './Capsulito.svelte';
+export { default as Bienvenida } from './Bienvenida.svelte';
+
 // Legal
 export { default as PrivacyText } from './PrivacyText.svelte';
 
-// Notificaciones (RF-107): F1 no las pinta
+// Notificaciones (RF-107)
 export { default as NotificationBell } from './NotificationBell.svelte';
 export { default as NotificationPanel } from './NotificationPanel.svelte';
 export { default as NotificationItem } from './NotificationItem.svelte';
@@ -57,6 +63,7 @@ export { default as NotificationItem } from './NotificationItem.svelte';
 // Estructura
 export { default as AppShell } from './AppShell.svelte';
 export { default as AppNav } from './AppNav.svelte';
+export { default as PanelGrid } from './PanelGrid.svelte';
 export { default as PageHeader } from './PageHeader.svelte';
 export { default as Section } from './Section.svelte';
 export { default as BrandMark } from './BrandMark.svelte';
@@ -83,3 +90,4 @@ export {
 	type AvisoRecibido,
 	type TipoAviso,
 } from './contextos/notificaciones.svelte';
+export { crearContextoMascota, usarMascota, EstadoMascota } from './contextos/mascota.svelte';

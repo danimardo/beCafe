@@ -1,0 +1,228 @@
+{
+	"version": 1,
+	"audio": "stock_negativo_01.mp3",
+	"texto": "El consumo está registrado, pero hay un descuadre de existencias.",
+	"duration": 3.84,
+	"cues": [
+		{
+			"start": 0,
+			"end": 0.04,
+			"value": 1
+		},
+		{
+			"start": 0.04,
+			"end": 0.08,
+			"value": 6
+		},
+		{
+			"start": 0.13,
+			"end": 0.18,
+			"value": 6
+		},
+		{
+			"start": 0.18,
+			"end": 0.23,
+			"value": 3
+		},
+		{
+			"start": 0.23,
+			"end": 0.33,
+			"value": 6
+		},
+		{
+			"start": 0.33,
+			"end": 0.38,
+			"value": 4
+		},
+		{
+			"start": 0.38,
+			"end": 0.43,
+			"value": 7
+		},
+		{
+			"start": 0.43,
+			"end": 0.48,
+			"value": 3
+		},
+		{
+			"start": 0.528,
+			"end": 0.576,
+			"value": 1
+		},
+		{
+			"start": 0.576,
+			"end": 0.672,
+			"value": 6
+		},
+		{
+			"start": 0.672,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 0.778,
+			"end": 0.836,
+			"value": 6
+		},
+		{
+			"start": 0.836,
+			"end": 0.895,
+			"value": 1
+		},
+		{
+			"start": 0.895,
+			"end": 0.953,
+			"value": 6
+		},
+		{
+			"start": 0.953,
+			"end": 1.011,
+			"value": 1
+		},
+		{
+			"start": 1.011,
+			"end": 1.185,
+			"value": 6
+		},
+		{
+			"start": 1.185,
+			"end": 1.244,
+			"value": 2
+		},
+		{
+			"start": 1.244,
+			"end": 1.302,
+			"value": 6
+		},
+		{
+			"start": 1.302,
+			"end": 1.36,
+			"value": 3
+		},
+		{
+			"start": 1.696,
+			"end": 1.752,
+			"value": 7
+		},
+		{
+			"start": 1.752,
+			"end": 1.808,
+			"value": 1
+		},
+		{
+			"start": 1.808,
+			"end": 1.864,
+			"value": 6
+		},
+		{
+			"start": 1.864,
+			"end": 1.92,
+			"value": 3
+		},
+		{
+			"start": 2,
+			"end": 2.04,
+			"value": 2
+		},
+		{
+			"start": 2.04,
+			"end": 2.08,
+			"value": 1
+		},
+		{
+			"start": 2.107,
+			"end": 2.133,
+			"value": 4
+		},
+		{
+			"start": 2.133,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.224,
+			"end": 2.288,
+			"value": 6
+		},
+		{
+			"start": 2.288,
+			"end": 2.352,
+			"value": 1
+		},
+		{
+			"start": 2.352,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.481,
+			"end": 2.56,
+			"value": 2
+		},
+		{
+			"start": 2.56,
+			"end": 2.68,
+			"value": 6
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.747,
+			"end": 2.773,
+			"value": 6
+		},
+		{
+			"start": 2.773,
+			"end": 2.8,
+			"value": 1
+		},
+		{
+			"start": 2.88,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 2.96,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 1
+		},
+		{
+			"start": 3.12,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.347,
+			"value": 1
+		},
+		{
+			"start": 3.347,
+			"end": 3.48,
+			"value": 6
+		},
+		{
+			"start": 3.48,
+			"end": 3.547,
+			"value": 1
+		},
+		{
+			"start": 3.547,
+			"end": 3.613,
+			"value": 2
+		},
+		{
+			"start": 3.613,
+			"end": 3.68,
+			"value": 6
+		}
+	]
+}

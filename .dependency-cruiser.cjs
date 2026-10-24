@@ -102,6 +102,13 @@ module.exports = {
 			to: { dependencyTypes: ['npm'], path: '^loglevel$' },
 		},
 		{
+			name: 'rive-solo-en-adaptador',
+			comment: 'ARCHITECTURE.md §11 y ADR-0006: @rive-app/canvas solo en lib/client/rive.ts.',
+			severity: 'error',
+			from: { pathNot: '^src/lib/client/rive\\.ts$' },
+			to: { dependencyTypes: ['npm'], path: '^@rive-app/canvas$' },
+		},
+		{
 			name: 'argon2-solo-en-contrasenas',
 			severity: 'error',
 			from: { pathNot: '^src/lib/server/auth/contrasenas\\.ts$' },

@@ -3,9 +3,11 @@ import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, falloDeNegocio, fallo } from './fallo';
 import { ErrorDeNegocio, nuevoId } from '#lib/server/plataforma';
+import { leerConfiguracion } from '#lib/server/configuracion';
 import { buscarUsuarioPorId } from '#lib/server/usuarios';
 import { deshacerRelleno, leerEstadoAgua, registrarRelleno } from '#lib/server/rellenos';
 import {
+	contarConsumos,
 	deshacerConsumo,
 	leerAvisosStock,
 	leerConsumosRecientesPropios,
@@ -39,6 +41,20 @@ export const load: PageServerLoad = ({ locals, url }) => {
 		sinStock: tipo.stock <= 0,
 		dias: tipo.estimacion.tipo === 'dias' ? tipo.estimacion.dias : null,
 	}));
+	const consumosPropios = contarConsumos(db, {
+		desde: '1970-01-01T00:00:00.000Z',
+		hasta: '9999-12-31T23:59:59.999Z',
+		usuarioId: actor.usuarioId,
+	});
+	const propiosPorTipo = new Map<string, number>();
+	const invitadosPorTipo = new Map<string, number>();
+	for (const item of consumosPropios) {
+		if (item.invitado) {
+			invitadosPorTipo.set(item.tipoCapsulaId, (invitadosPorTipo.get(item.tipoCapsulaId) ?? 0) + 1);
+		} else {
+			propiosPorTipo.set(item.tipoCapsulaId, (propiosPorTipo.get(item.tipoCapsulaId) ?? 0) + 1);
+		}
+	}
 	const tipos = leerTiposRegistrables(db, actor, ahora).map((tipo) => ({
 		id: tipo.id,
 		nombre: tipo.nombre,
@@ -51,10 +67,13 @@ export const load: PageServerLoad = ({ locals, url }) => {
 		enStockBajo: tipo.enStockBajo,
 		precio: tipo.precio,
 		dias: tipo.estimacion.tipo === 'dias' ? tipo.estimacion.dias : null,
+		propios: propiosPorTipo.get(tipo.id) ?? 0,
+		invitados: invitadosPorTipo.get(tipo.id) ?? 0,
 		clienteId: nuevoId(),
 	}));
 	const nombres = new Map(tipos.map((tipo) => [tipo.id, tipo.nombre]));
 	const hucha = leerSaldoHucha(db);
+	const { limiteDeudaCentimos } = leerConfiguracion(db);
 	const estadoAgua = leerEstadoAgua(db, actor, ahora);
 	const agua = {
 		clienteId: nuevoId(),
@@ -79,6 +98,7 @@ export const load: PageServerLoad = ({ locals, url }) => {
 		nombre: persona?.nombre ?? '',
 		usuarioId: actor.usuarioId,
 		saldoPropio: leerSaldoPropio(db, actor),
+		limiteDeuda: limiteDeudaCentimos,
 		hucha: hucha.saldo,
 		deudores: leerPersonasBajoLimite(db, actor).map((persona) => ({ nombre: persona.nombre, saldo: persona.saldo })),
 		privacidadAceptada: aviso.success && aviso.data.aviso === 'privacidad-aceptada',
@@ -153,7 +173,13 @@ export const actions: Actions = {
 		);
 		if (!('id' in resultado)) return resultado;
 		return {
-			consumo: { id: resultado.id, tipoCapsulaId: entrada.data.tipoCapsulaId, precio: resultado.precio, descuadre: resultado.descuadre },
+			consumo: {
+				id: resultado.id,
+				tipoCapsulaId: entrada.data.tipoCapsulaId,
+				invitado: entrada.data.invitado === '1',
+				precio: resultado.precio,
+				descuadre: resultado.descuadre,
+			},
 		};
 	},
 

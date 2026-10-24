@@ -1,0 +1,248 @@
+{
+	"version": 1,
+	"audio": "conexion_perdida_01.mp3",
+	"texto": "Estamos sin conexión. Tus cafés se guardan en la cola local.",
+	"duration": 4.72,
+	"cues": [
+		{
+			"start": 0.47,
+			"end": 0.5,
+			"value": 1
+		},
+		{
+			"start": 0.5,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.62,
+			"value": 2
+		},
+		{
+			"start": 0.62,
+			"end": 0.68,
+			"value": 7
+		},
+		{
+			"start": 0.68,
+			"end": 0.74,
+			"value": 3
+		},
+		{
+			"start": 0.74,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.92,
+			"value": 1
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 1.022,
+			"end": 1.084,
+			"value": 6
+		},
+		{
+			"start": 1.084,
+			"end": 1.147,
+			"value": 3
+		},
+		{
+			"start": 1.147,
+			"end": 1.209,
+			"value": 6
+		},
+		{
+			"start": 1.209,
+			"end": 1.271,
+			"value": 1
+		},
+		{
+			"start": 1.271,
+			"end": 1.333,
+			"value": 6
+		},
+		{
+			"start": 1.333,
+			"end": 1.396,
+			"value": 1
+		},
+		{
+			"start": 1.396,
+			"end": 1.458,
+			"value": 3
+		},
+		{
+			"start": 1.458,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 2.15,
+			"end": 2.22,
+			"value": 6
+		},
+		{
+			"start": 2.22,
+			"end": 2.29,
+			"value": 3
+		},
+		{
+			"start": 2.29,
+			"end": 2.43,
+			"value": 6
+		},
+		{
+			"start": 2.43,
+			"end": 2.5,
+			"value": 4
+		},
+		{
+			"start": 2.5,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.64,
+			"end": 2.72,
+			"value": 2
+		},
+		{
+			"start": 2.76,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.84,
+			"value": 4
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 1
+		},
+		{
+			"start": 2.944,
+			"end": 3.008,
+			"value": 3
+		},
+		{
+			"start": 3.008,
+			"end": 3.072,
+			"value": 7
+		},
+		{
+			"start": 3.072,
+			"end": 3.136,
+			"value": 1
+		},
+		{
+			"start": 3.136,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.257,
+			"value": 2
+		},
+		{
+			"start": 3.257,
+			"end": 3.314,
+			"value": 6
+		},
+		{
+			"start": 3.314,
+			"end": 3.371,
+			"value": 1
+		},
+		{
+			"start": 3.371,
+			"end": 3.429,
+			"value": 3
+		},
+		{
+			"start": 3.429,
+			"end": 3.486,
+			"value": 6
+		},
+		{
+			"start": 3.486,
+			"end": 3.543,
+			"value": 1
+		},
+		{
+			"start": 3.543,
+			"end": 3.664,
+			"value": 6
+		},
+		{
+			"start": 3.664,
+			"end": 3.696,
+			"value": 4
+		},
+		{
+			"start": 3.696,
+			"end": 3.728,
+			"value": 1
+		},
+		{
+			"start": 3.728,
+			"end": 3.76,
+			"value": 6
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 2
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.968,
+			"end": 4.016,
+			"value": 7
+		},
+		{
+			"start": 4.016,
+			"end": 4.064,
+			"value": 1
+		},
+		{
+			"start": 4.064,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.32,
+			"value": 1
+		},
+		{
+			"start": 4.32,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.48,
+			"end": 4.56,
+			"value": 1
+		},
+		{
+			"start": 4.56,
+			"end": 4.64,
+			"value": 6
+		}
+	]
+}

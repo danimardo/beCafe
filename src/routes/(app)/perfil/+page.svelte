@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
-	import { Button, ConfirmDialog, PageHeader, PasswordField, Section, Switch, ThemeToggle, usarTema } from '#lib/ui';
+	import { Button, ConfirmDialog, ListRow, PageHeader, PasswordField, Section, Switch, ThemeToggle, usarMascota, usarTema } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 	import SeccionAvisos from './SeccionAvisos.svelte';
 
@@ -17,6 +17,7 @@
 	const rol = $derived(data.rol === 'administrador' ? textos.admin.administrador : textos.admin.miembro);
 
 	const tema = usarTema();
+	const mascota = usarMascota();
 	let confirmando = $state(false);
 	let formularioSesiones: HTMLFormElement | undefined;
 </script>
@@ -25,9 +26,12 @@
 	<title>{textos.perfil.titulo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-10">
+<div class="flex flex-col gap-6">
 	<PageHeader title={textos.perfil.titulo} />
-	<a class="text-accent underline" href={resolve('/(app)/privacidad')}>{textos.privacidad.enlace}</a>
+	<div class="flex flex-wrap gap-4 text-[15px]">
+		<a class="text-accent underline" href={resolve('/(app)/privacidad')}>{textos.privacidad.enlace}</a>
+		<a class="text-accent underline" href={resolve('/(app)/ayuda/capsulito')}>Laboratorio de Capsulito</a>
+	</div>
 
 	<dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-[15px] text-ink">
 		<dt class="text-ink-muted">{textos.perfil.nombre}</dt>
@@ -45,6 +49,21 @@
 		<p role="status" class="text-[15px] text-ink">{formulario.confirmacion}</p>
 	{/if}
 
+	{#if data.rol === 'administrador'}
+		<Section title="Administración">
+			<div class="rounded-panel border border-hairline bg-wall-base p-2">
+				<ul class="flex flex-col">
+					<ListRow title="Panel de administración" href={resolve('/(app)/admin')} />
+					<ListRow title={textos.capsulas.titulo} href={resolve('/(app)/admin/capsulas')} />
+					<ListRow title={textos.admin.titulo} href={resolve('/(app)/admin/usuarios')} />
+					<ListRow title="Arqueos y recuentos" href={resolve('/(app)/admin/control')} />
+					<ListRow title={textos.configuracion.titulo} href={resolve('/(app)/admin/configuracion')} />
+					<ListRow title={textos.copias.titulo} href={resolve('/(app)/admin/copias')} />
+				</ul>
+			</div>
+		</Section>
+	{/if}
+
 	<Section title={textos.apariencia.titulo}>
 		<div class="flex flex-col gap-4 rounded-panel border border-hairline bg-wall-base p-5">
 			<ThemeToggle />
@@ -54,6 +73,19 @@
 				checked={tema.transparencia === 'reducida'}
 				onchange={(marcado: boolean) => tema.cambiarTransparencia(marcado ? 'reducida' : 'normal')}
 			/>
+			<Switch
+				label="Mostrar a Capsulito"
+				description="Muestra u oculta la mascota del departamento en este dispositivo."
+				checked={mascota.visible}
+				onchange={(marcado: boolean) => mascota.setVisible(marcado)}
+			/>
+			<Switch
+				label="Voz de Capsulito"
+				description="Activa las locuciones de voz de Capsulito en este dispositivo."
+				checked={mascota.vozActiva}
+				onchange={(marcado: boolean) => mascota.setVozActiva(marcado)}
+			/>
+			<Button type="button" variant="soft" block onclick={() => mascota.repetirBienvenida()}>Ver la bienvenida otra vez</Button>
 		</div>
 	</Section>
 
@@ -88,7 +120,10 @@
 	</Section>
 
 	<Section title={textos.perfil.cerrarSesionesGlobal}>
-		<div class="rounded-panel border border-hairline bg-wall-base p-5">
+		<div class="flex flex-col gap-3 rounded-panel border border-hairline bg-wall-base p-5">
+			<form method="post" action="/logout" use:enhance>
+				<Button type="submit" variant="soft" block>{textos.inicio.cerrarSesion}</Button>
+			</form>
 			<!-- Con JavaScript, el botón abre la confirmación; sin JavaScript, envía directamente el formulario. -->
 			<form bind:this={formularioSesiones} method="post" action="?/cerrarSesionesGlobal">
 				<Button
@@ -105,7 +140,7 @@
 			</form>
 		</div>
 	</Section>
-</main>
+</div>
 
 <ConfirmDialog
 	bind:open={confirmando}

@@ -11,7 +11,7 @@
 	<title>{textos.capsulas.titulo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-10">
+<div class="flex flex-col gap-6">
 	<PageHeader title={textos.capsulas.titulo}>
 		{#snippet actions()}
 			<Button href={resolve('/(app)/admin/capsulas/nueva')}>{textos.capsulas.nuevo}</Button>
@@ -20,7 +20,7 @@
 	<p class="text-[15px] text-ink-muted">{textos.capsulas.ayuda}</p>
 
 	{#if data.tipos.length === 0}
-		<EmptyState title={textos.capsulas.vacio} description={textos.capsulas.vacioAyuda} />
+		<EmptyState momento="vacio-capsulas" title={textos.capsulas.vacio} description={textos.capsulas.vacioAyuda} />
 	{:else}
 		<Section>
 			<ul class="flex flex-col">
@@ -46,4 +46,4 @@
 			</ul>
 		</Section>
 	{/if}
-</main>
+</div>

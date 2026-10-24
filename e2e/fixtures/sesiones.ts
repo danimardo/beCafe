@@ -10,6 +10,13 @@ export type Persona = keyof ServidorDePrueba['siembra']['correos'];
  */
 export async function entrarComo(page: Page, servidor: ServidorDePrueba, persona: Persona): Promise<void> {
 	await page.goto(`${servidor.url}/login`);
+	await page.evaluate(() => {
+		try {
+			localStorage.setItem('becafe-bienvenida', 'vista');
+		} catch {
+			// Sin almacenamiento disponible.
+		}
+	});
 	await page.getByRole('textbox', { name: 'Correo electrónico', exact: true }).fill(servidor.siembra.correos[persona]);
 	await page.getByRole('textbox', { name: 'Contraseña', exact: true }).fill(servidor.siembra.contrasena);
 	await page.getByRole('button', { name: 'Entrar', exact: true }).click();

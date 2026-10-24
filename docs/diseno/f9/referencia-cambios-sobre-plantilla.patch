@@ -1,0 +1,1392 @@
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/package.json b/package.json
+--- a/package.json	2026-10-21 06:13:07.000000000 +0200
++++ b/package.json	2026-10-24 11:15:40.583073034 +0200
+@@ -21,6 +21,9 @@
+ 		"#lib/mock": "./src/lib/mock.ts",
+ 		"#lib/notifications.svelte": "./src/lib/notifications.svelte.ts",
+ 		"#lib/movements": "./src/lib/movements.ts",
++		"#lib/mascota.svelte": "./src/lib/mascota.svelte.ts",
++		"#lib/mascota/momentos": "./src/lib/mascota/momentos.ts",
++		"#lib/mascota/bienvenida": "./src/lib/mascota/bienvenida.ts",
+ 		"#lib/*": "./src/lib/*"
+ 	},
+ 	"devDependencies": {
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/app.html b/src/app.html
+--- a/src/app.html	2026-10-21 08:24:13.000000000 +0200
++++ b/src/app.html	2026-10-24 11:14:54.190432510 +0200
+@@ -49,6 +49,10 @@
+ 				try { pref = localStorage.getItem('capsulas-tema') || 'auto'; } catch (e) {}
+ 				var dark = pref === 'oscuro' || (pref === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+ 				document.documentElement.setAttribute('data-theme', dark ? 'oscuro' : 'claro');
++				// Capsulito (F9): lista cerrada de valores; por defecto, visible.
++				var m = 'visible';
++				try { m = localStorage.getItem('becafe-mascota') === 'oculta' ? 'oculta' : 'visible'; } catch (e) {}
++				document.documentElement.setAttribute('data-mascota', m);
+ 			})();
+ 		</script>
+ 		%sveltekit.head%
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/capsulas/AlertsPanel.svelte b/src/lib/components/capsulas/AlertsPanel.svelte
+--- a/src/lib/components/capsulas/AlertsPanel.svelte	2026-10-20 21:31:25.000000000 +0200
++++ b/src/lib/components/capsulas/AlertsPanel.svelte	2026-10-24 10:43:39.812132537 +0200
+@@ -1,6 +1,8 @@
+ <script lang="ts">
+ 	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
+ 	import HandCoins from '@lucide/svelte/icons/hand-coins';
++	import PiggyBank from '@lucide/svelte/icons/piggy-bank';
++	import Wallet from '@lucide/svelte/icons/wallet';
+ 	import Glass from '../ui/Glass.svelte';
+ 	import Money from '../ui/Money.svelte';
+ 
+@@ -20,10 +22,12 @@
+ <!-- RF-021: panel de avisos al abrir la app. -->
+ <Glass as="section" aria-label="Avisos" class="grid grid-cols-2 gap-x-3 gap-y-3">
+ 	<div>
++		<span class="mb-2 flex size-10 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true"><PiggyBank class="size-5" /></span>
+ 		<p class="text-[13px] leading-[18px] text-ink-muted">Hucha (teórica)</p>
+ 		<p class="mt-0.5 text-2xl font-bold leading-[30px] tracking-tight"><Money cents={huchaCents} tone={huchaCents < 0} /></p>
+ 	</div>
+ 	<div>
++		<span class="mb-2 flex size-10 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true"><Wallet class="size-5" /></span>
+ 		<p class="text-[13px] leading-[18px] text-ink-muted">Tu saldo</p>
+ 		<p class="mt-0.5 text-2xl font-bold leading-[30px] tracking-tight">
+ 			<Money cents={myBalanceCents} signed tone srSuffix={myBalanceCents < 0 ? 'debes' : myBalanceCents > 0 ? 'a tu favor' : undefined} />
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/capsulas/CapsuleIllustration.svelte b/src/lib/components/capsulas/CapsuleIllustration.svelte
+--- a/src/lib/components/capsulas/CapsuleIllustration.svelte	1970-01-01 01:00:00.000000000 +0100
++++ b/src/lib/components/capsulas/CapsuleIllustration.svelte	2026-10-24 10:41:08.973300067 +0200
+@@ -0,0 +1,44 @@
++<script lang="ts">
++	import { cn } from '#lib/utils';
++
++	type Props = {
++		/** Color del tipo (hex), elegido por el administrador (RF-001). */
++		color: string;
++		class?: string;
++	};
++	let { color, class: className }: Props = $props();
++	const id = $props.id();
++</script>
++
++<!-- Ilustración vectorial de cápsula en el estilo de Capsulito (cuerpo y cúpula del color del tipo, aro crema).
++     Decorativa: el nombre del tipo siempre va como texto al lado. Es la misma figura que static/ilustraciones/capsula.svg. -->
++<svg viewBox="0 0 100 100" aria-hidden="true" class={cn('block', className)} style="color:{color}">
++	<defs>
++		<linearGradient id="{id}-b" x1="0" x2="1" y1="0" y2="0">
++			<stop offset="0" stop-color="#fff" stop-opacity=".22" />
++			<stop offset=".35" stop-color="#fff" stop-opacity="0" />
++			<stop offset=".7" stop-color="#000" stop-opacity=".08" />
++			<stop offset="1" stop-color="#000" stop-opacity=".32" />
++		</linearGradient>
++		<radialGradient id="{id}-d" cx=".35" cy=".25" r=".7">
++			<stop offset="0" stop-color="#fff" stop-opacity=".55" />
++			<stop offset=".45" stop-color="#fff" stop-opacity=".08" />
++			<stop offset="1" stop-color="#000" stop-opacity=".18" />
++		</radialGradient>
++		<linearGradient id="{id}-r" x1="0" x2="0" y1="0" y2="1">
++			<stop offset="0" stop-color="#fbf3e8" />
++			<stop offset="1" stop-color="#dcc8b0" />
++		</linearGradient>
++	</defs>
++	<ellipse cx="50" cy="94" rx="24" ry="3.5" fill="#000" opacity=".14" />
++	<path d="M23 40 L77 40 L69.5 85 Q68.4 91 62 91 L38 91 Q31.6 91 30.5 85 Z" fill="currentColor" />
++	<path d="M23 40 L77 40 L69.5 85 Q68.4 91 62 91 L38 91 Q31.6 91 30.5 85 Z" fill="url(#{id}-b)" />
++	<path d="M31 46 L35 84" stroke="#fff" stroke-opacity=".35" stroke-width="3" stroke-linecap="round" />
++	<path d="M23 40 L77 40 L69.5 85 Q68.4 91 62 91 L38 91 Q31.6 91 30.5 85 Z" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="1.5" />
++	<path d="M19 33 Q19 9 50 9 Q81 9 81 33 Z" fill="currentColor" />
++	<path d="M19 33 Q19 9 50 9 Q81 9 81 33 Z" fill="url(#{id}-d)" />
++	<path d="M19 33 Q19 9 50 9 Q81 9 81 33" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="1.5" />
++	<rect x="13" y="30" width="74" height="13" rx="6.5" fill="url(#{id}-r)" />
++	<rect x="13" y="30" width="74" height="13" rx="6.5" fill="none" stroke="#6b5343" stroke-opacity=".45" stroke-width="1.5" />
++	<path d="M20 33.5 H62" stroke="#fff" stroke-opacity=".8" stroke-width="2" stroke-linecap="round" />
++</svg>
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/capsulas/CapsuleImage.svelte b/src/lib/components/capsulas/CapsuleImage.svelte
+--- a/src/lib/components/capsulas/CapsuleImage.svelte	2026-10-20 21:31:25.000000000 +0200
++++ b/src/lib/components/capsulas/CapsuleImage.svelte	2026-10-24 10:41:16.393299897 +0200
+@@ -1,30 +1,32 @@
+ <script lang="ts">
+ 	import { cn } from '#lib/utils';
++	import CapsuleIllustration from './CapsuleIllustration.svelte';
+ 
+ 	type Props = {
+ 		name: string;
+-		/** Color del tipo de cápsula (hex), elegido por el administrador (RF-001). */
++		/** Color del tipo de cápsula (hex), elegido por el administrador (RF-001). Obligatorio: es la seña de identidad del tipo. */
+ 		color: string;
+-		/** Foto subida por el administrador (RF-005). Si falta, se dibuja la cápsula con `color`. */
++		/** Foto subida por el administrador (RF-005). Si falta o no carga, se dibuja la ilustración con `color`. */
+ 		photoUrl?: string | null;
+-		size?: 'sm' | 'md' | 'lg';
++		/** sm 36 · md 48 · lg 64 · xl 88 (tarjeta de cápsula) */
++		size?: 'sm' | 'md' | 'lg' | 'xl';
+ 		class?: string;
+ 	};
+ 	let { name, color, photoUrl = null, size = 'md', class: className }: Props = $props();
+-	const sizes = { sm: 'size-9', md: 'size-12', lg: 'size-16' };
++	const sizes = { sm: 'size-9', md: 'size-12', lg: 'size-16', xl: 'size-[88px]' };
++	const ring = { sm: 'border-2', md: 'border-[3px]', lg: 'border-[3px]', xl: 'border-4' };
++	let failed = $state(false);
+ </script>
+ 
+-<!-- Decorativo (aria-hidden): el nombre del tipo siempre va como texto al lado. -->
+-{#if photoUrl}
+-	<span aria-hidden="true" class={cn('inline-block shrink-0 rounded-full border-[3px] bg-glass', sizes[size], className)} style="border-color:{color}">
+-		<img src={photoUrl} alt="" loading="lazy" class="size-full rounded-full object-cover" />
++<!-- Decorativo (aria-hidden): el nombre del tipo siempre va como texto al lado.
++     Foto: recortada en círculo con aro del color del tipo (el color sigue identificando el tipo).
++     Sin foto (o si falla la carga): ilustración vectorial teñida con el color. -->
++{#if photoUrl && !failed}
++	<span aria-hidden="true" class={cn('inline-block shrink-0 rounded-full bg-glass shadow-sm', ring[size], sizes[size], className)} style="border-color:{color}">
++		<img src={photoUrl} alt="" loading="lazy" class="size-full rounded-full object-cover" onerror={() => (failed = true)} />
+ 	</span>
+ {:else}
+-	<span
+-		aria-hidden="true"
+-		data-name={name}
+-		class={cn('inline-block shrink-0 rounded-full', sizes[size], className)}
+-		style="background: radial-gradient(circle at 34% 28%, rgba(255,255,255,.55), rgba(255,255,255,0) 38%), {color};
+-		box-shadow: inset 0 0 0 4px rgba(0,0,0,.16), inset 0 0 0 5px rgba(255,255,255,.18), inset 0 -6px 10px rgba(0,0,0,.3), 0 4px 10px rgba(0,0,0,.22);"
+-	></span>
++	<span aria-hidden="true" data-name={name} class={cn('inline-block shrink-0', sizes[size], className)}>
++		<CapsuleIllustration {color} class="size-full" />
++	</span>
+ {/if}
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/capsulas/CapsuleTile.svelte b/src/lib/components/capsulas/CapsuleTile.svelte
+--- a/src/lib/components/capsulas/CapsuleTile.svelte	1970-01-01 01:00:00.000000000 +0100
++++ b/src/lib/components/capsulas/CapsuleTile.svelte	2026-10-24 10:41:39.674351576 +0200
+@@ -0,0 +1,98 @@
++<script lang="ts">
++	import UserPlus from '@lucide/svelte/icons/user-plus';
++	import Package from '@lucide/svelte/icons/package';
++	import CalendarClock from '@lucide/svelte/icons/calendar-clock';
++	import CapsuleImage from './CapsuleImage.svelte';
++	import StockBadge from './StockBadge.svelte';
++	import { cn, formatMoney } from '#lib/utils';
++
++	type Props = {
++		name: string;
++		brand?: string;
++		/** Intensidad 1–13, opcional (RF-001). */
++		intensity?: number | null;
++		/** Stock registrado; puede ser ≤ 0 (RN-070). */
++		stock: number;
++		/** Umbral mínimo del tipo (RN-071). */
++		threshold: number;
++		/** Coste medio redondeado al céntimo, en céntimos (RN-021). */
++		avgCostCents: number;
++		color: string;
++		photoUrl?: string | null;
++		/** Días estimados restantes (RN-073); null = «sin datos» (RF-022). */
++		daysLeft?: number | null;
++		/** Un toque en la tarjeta registra un consumo (RF-011). */
++		onregister: () => void;
++		/** El botón de persona registra el consumo «para un invitado» (RF-014). */
++		onregisterGuest: () => void;
++		disabled?: boolean;
++		class?: string;
++	};
++	let { name, brand, intensity = null, stock, threshold, avgCostCents, color, photoUrl = null, daysLeft = null, onregister, onregisterGuest, disabled = false, class: className }: Props = $props();
++
++	const uid = $props.id();
++	const level = $derived(stock <= 0 ? 'out' : stock <= threshold ? 'low' : null);
++	const meta = $derived([brand, intensity ? `Int. ${intensity}` : null].filter(Boolean).join(' · '));
++	let pulse = $state(false);
++	function register() {
++		pulse = true;
++		onregister();
++	}
++</script>
++
++<!-- Tarjeta de cápsula: la versión GRÁFICA de CapsuleRow para Inicio (2 columnas en móvil, rejilla automática en escritorio).
++     Toda la tarjeta registra +1. El botón de persona (arriba a la derecha, hermano, no anidado) registra para un invitado.
++     La información de stock va como icono + número; el texto largo queda para el lector de pantalla (aria-describedby). -->
++<li class={cn('glass relative rounded-panel', className)}>
++	<button
++		type="button"
++		{disabled}
++		onclick={register}
++		onanimationend={() => (pulse = false)}
++		aria-label="Registrar un {name}"
++		aria-describedby="{uid}-meta"
++		class="group flex h-full min-h-[212px] w-full flex-col items-center gap-2 rounded-panel px-3 pb-3 pt-5 text-center active:scale-[0.98] motion-safe:transition disabled:opacity-50"
++	>
++		<CapsuleImage {name} {color} {photoUrl} size="xl" class={cn('motion-safe:transition-transform group-hover:-translate-y-0.5', pulse && 'capsule-pop')} />
++		<span class="line-clamp-2 text-[17px] font-semibold leading-[22px]">{name}</span>
++		<span id="{uid}-meta" class="sr-only">
++			{meta}{meta ? '. ' : ''}{formatMoney(avgCostCents)} por cápsula. Quedan {stock} unidades, {daysLeft == null ? 'sin datos de duración' : `unos ${daysLeft} días`}.
++		</span>
++		<span aria-hidden="true" class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-[13px] font-medium leading-[18px] text-ink-muted">
++			<span class="inline-flex items-center gap-1 tabular-nums"><Package class="size-3.5" />{stock}</span>
++			<span class="inline-flex items-center gap-1 tabular-nums"><CalendarClock class="size-3.5" />{daysLeft == null ? '—' : `${daysLeft} d`}</span>
++			<span class="tabular-nums">{formatMoney(avgCostCents)}</span>
++		</span>
++		{#if level}<StockBadge {level} />{/if}
++		<span
++			aria-hidden="true"
++			class="mt-auto inline-flex h-11 w-full items-center justify-center rounded-full bg-accent text-[17px] font-semibold text-on-accent shadow-sm group-hover:brightness-110">+1</span
++		>
++	</button>
++	<button
++		type="button"
++		{disabled}
++		onclick={onregisterGuest}
++		aria-label="Registrar {name} para un invitado"
++		title="Para un invitado"
++		class="absolute right-2 top-2 inline-flex size-11 items-center justify-center rounded-full bg-accent-soft text-ink active:scale-95 motion-safe:transition disabled:opacity-50"
++	>
++		<UserPlus class="size-5" aria-hidden="true" />
++	</button>
++</li>
++
++<style>
++	@keyframes capsule-pop {
++		40% {
++			transform: translateY(-10px) rotate(-6deg) scale(1.06);
++		}
++	}
++	:global(.capsule-pop) {
++		animation: capsule-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
++	}
++	@media (prefers-reduced-motion: reduce) {
++		:global(.capsule-pop) {
++			animation: none;
++		}
++	}
++</style>
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/layout/AppNav.svelte b/src/lib/components/layout/AppNav.svelte
+--- a/src/lib/components/layout/AppNav.svelte	2026-10-21 06:39:48.000000000 +0200
++++ b/src/lib/components/layout/AppNav.svelte	2026-10-24 10:46:34.770184098 +0200
+@@ -17,6 +17,14 @@
+ 		item.href === '/'
+ 			? page.url.pathname === '/'
+ 			: [item.href, ...(item.alsoActive ?? [])].some((h) => page.url.pathname.startsWith(h));
++
++	// Carril (md–lg): icono arriba y etiqueta corta debajo. Barra completa (lg+): icono y etiqueta en fila.
++	const link = (active: boolean) =>
++		cn(
++			'flex min-h-11 flex-col items-center justify-center gap-1 rounded-tile px-1 py-2 text-[11px] font-medium leading-[13px] motion-safe:transition',
++			'lg:flex-row lg:justify-start lg:gap-3 lg:px-3 lg:py-0 lg:text-[15px] lg:leading-5',
++			active ? 'bg-accent-soft text-accent' : 'text-ink hover:bg-accent-soft'
++		);
+ </script>
+ 
+ <!-- MÓVIL: píldora flotante de cristal con las 5 secciones. -->
+@@ -40,47 +48,40 @@
+ 	{/each}
+ </nav>
+ 
+-<!-- ESCRITORIO (md+): barra lateral de cristal, con el bloque de administración. -->
+-<aside class="glass-strong fixed inset-y-3 left-3 z-40 hidden w-60 flex-col rounded-sheet p-4 md:flex">
+-	<a href="/" class="mb-5 flex px-2 py-1" aria-label="beCafé, inicio"><BrandMark /></a>
++<!-- TABLETA (md–lg): carril de 88 px. ESCRITORIO (lg+): barra lateral de 240 px con el bloque de administración. -->
++<aside
++	class="glass-strong fixed inset-y-3 left-3 z-40 hidden w-24 flex-col overflow-y-auto rounded-sheet p-2 md:flex lg:w-60 lg:p-4"
++>
++	<a href="/" class="mb-4 flex justify-center px-2 py-1 lg:mb-5 lg:justify-start" aria-label="beCafé, inicio">
++		<span class="lg:hidden"><BrandMark wordmark={false} /></span>
++		<span class="hidden lg:inline"><BrandMark /></span>
++	</a>
+ 	<nav aria-label="Principal" class="flex flex-col gap-1">
+ 		{#each items as item (item.href)}
+ 			{@const active = isActive(item)}
+-			<a
+-				href={item.href}
+-				aria-current={active ? 'page' : undefined}
+-				class={cn(
+-					'flex min-h-11 items-center gap-3 rounded-tile px-3 text-[15px] font-medium motion-safe:transition',
+-					active ? 'bg-accent-soft text-accent' : 'text-ink hover:bg-accent-soft'
+-				)}
+-			>
+-				<item.icon class="size-5" aria-hidden="true" />
+-				{item.label}
++			<a href={item.href} aria-current={active ? 'page' : undefined} class={link(active)}>
++				<item.icon class="size-[22px] lg:size-5" aria-hidden="true" />
++				<span class="max-w-full truncate">{item.label}</span>
+ 			</a>
+ 		{/each}
+ 	</nav>
+ 	{#if adminItems.length}
+-		<p class="type-eyebrow mb-1 mt-6 px-3 text-ink-muted">Administración</p>
++		<p class="type-eyebrow mb-1 mt-6 hidden px-3 text-ink-muted lg:block">Administración</p>
++		<hr class="mx-2 my-3 border-hairline lg:hidden" />
+ 		<nav aria-label="Administración" class="flex flex-col gap-1">
+ 			{#each adminItems as item (item.href)}
+ 				{@const active = isActive(item)}
+-				<a
+-					href={item.href}
+-					aria-current={active ? 'page' : undefined}
+-					class={cn(
+-						'flex min-h-11 items-center gap-3 rounded-tile px-3 text-[15px] font-medium motion-safe:transition',
+-						active ? 'bg-accent-soft text-accent' : 'text-ink hover:bg-accent-soft'
+-					)}
+-				>
+-					<item.icon class="size-5" aria-hidden="true" />
+-					{item.label}
++				<a href={item.href} aria-current={active ? 'page' : undefined} class={link(active)} title={item.label}>
++					<item.icon class="size-[22px] lg:size-5" aria-hidden="true" />
++					<span class="max-w-full truncate lg:hidden">{item.short ?? item.label}</span>
++					<span class="hidden lg:inline">{item.label}</span>
+ 				</a>
+ 			{/each}
+ 		</nav>
+ 	{/if}
+-	<a href="/perfil" class="mt-auto flex items-center gap-3 rounded-tile px-2 py-2 hover:bg-accent-soft">
++	<a href="/perfil" class="mt-auto flex flex-col items-center gap-1 rounded-tile px-1 py-2 hover:bg-accent-soft lg:flex-row lg:gap-3 lg:px-2" aria-label="Tu perfil: {user.name}">
+ 		<Avatar name={user.name} size="md" />
+-		<span class="min-w-0">
++		<span class="hidden min-w-0 lg:block">
+ 			<span class="block truncate text-[15px] font-semibold leading-5">{user.name}</span>
+ 			<span class="block text-[13px] capitalize leading-[18px] text-ink-muted">{user.role}</span>
+ 		</span>
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/layout/AppShell.svelte b/src/lib/components/layout/AppShell.svelte
+--- a/src/lib/components/layout/AppShell.svelte	2026-10-21 06:11:23.000000000 +0200
++++ b/src/lib/components/layout/AppShell.svelte	2026-10-24 10:46:34.770813882 +0200
+@@ -10,14 +10,21 @@
+ 		nav: NavItem[];
+ 		adminNav?: NavItem[];
+ 		user: { name: string; role: 'miembro' | 'administrador' };
+-		/** Ancho de contenido: «normal» (pantallas de miembro) o «wide» (administración y tablas). */
+-		width?: 'normal' | 'wide';
++		/**
++		 * Ancho del contenido:
++		 * - «normal» 672 px: formularios y lectura (Perfil, Ayuda, Privacidad).
++		 * - «panel» 1200 px: pantallas con resumen + contenido (Inicio, Saldos, Historial, Compras, Estadísticas). Usa <PanelGrid>.
++		 * - «wide» 1024 px: administración y tablas.
++		 */
++		width?: 'normal' | 'panel' | 'wide';
+ 		children: Snippet;
+ 	};
+ 	let { nav, adminNav = [], user, width = 'normal', children }: Props = $props();
++	const max = { normal: 'max-w-2xl', panel: 'max-w-[75rem]', wide: 'max-w-5xl' };
+ </script>
+ 
+-<!-- Fondo de manchas + navegación + contenido + región de avisos. Todas las pantallas autenticadas viven aquí. -->
++<!-- Fondo de manchas + navegación + contenido + región de avisos. Todas las pantallas autenticadas viven aquí.
++     Puntos de ruptura: < md (768) móvil con píldora · md–lg (768–1023) carril de iconos de 96 px · ≥ lg (1024) barra lateral de 240 px. -->
+ <div class="wall-blobs min-h-dvh">
+ 	<a
+ 		href="#contenido"
+@@ -26,13 +33,10 @@
+ 		Saltar al contenido
+ 	</a>
+ 	<AppNav items={nav} adminItems={adminNav} {user} />
+-	<div class="md:pl-[16.5rem]">
++	<div class="md:pl-[8rem] lg:pl-[16.5rem]">
+ 		<main
+ 			id="contenido"
+-			class={cn(
+-				'mx-auto w-full px-5 pb-32 pt-[max(1rem,env(safe-area-inset-top))] md:px-8 md:pb-12 md:pt-8',
+-				width === 'wide' ? 'max-w-5xl' : 'max-w-2xl'
+-			)}
++			class={cn('mx-auto w-full px-5 pb-32 pt-[max(1rem,env(safe-area-inset-top))] md:px-8 md:pb-12 md:pt-8', max[width])}
+ 		>
+ 			{@render children()}
+ 		</main>
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/layout/ErrorPage.svelte b/src/lib/components/layout/ErrorPage.svelte
+--- a/src/lib/components/layout/ErrorPage.svelte	2026-10-21 06:20:46.000000000 +0200
++++ b/src/lib/components/layout/ErrorPage.svelte	2026-10-24 10:44:39.515488685 +0200
+@@ -5,6 +5,7 @@
+ 	import WifiOff from '@lucide/svelte/icons/wifi-off';
+ 	import Button from '../ui/Button.svelte';
+ 	import Glass from '../ui/Glass.svelte';
++	import Capsulito from '../mascota/Capsulito.svelte';
+ 
+ 	import type { ErrorKind } from './types';
+ 
+@@ -30,8 +31,13 @@
+ 	const retry = () => (onretry ? onretry() : location.reload());
+ </script>
+ 
+-<Glass as="section" radius="sheet" class="mx-auto flex max-w-sm flex-col items-center gap-3 px-6 py-10 text-center">
++{#snippet iconCircle()}
+ 	<span class="flex size-16 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true"><Icon class="size-8" /></span>
++{/snippet}
++
++<Glass as="section" radius="sheet" class="mx-auto flex max-w-sm flex-col items-center gap-3 px-6 py-10 text-center">
++	<!-- Cada tipo de error tiene su momento con el mismo nombre (sin-conexion, no-encontrada, sin-permiso, servidor). -->
++	<Capsulito momento={kind} mensaje={null} size="md" fallback={iconCircle} />
+ 	<h1 class="type-title-lg">{c.title}</h1>
+ 	<p class="text-[15px] leading-5 text-ink-muted">{message ?? c.body}</p>
+ 	{#if code}<p class="text-[13px] leading-[18px] text-ink-muted">Código {code}</p>{/if}
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/layout/PanelGrid.svelte b/src/lib/components/layout/PanelGrid.svelte
+--- a/src/lib/components/layout/PanelGrid.svelte	1970-01-01 01:00:00.000000000 +0100
++++ b/src/lib/components/layout/PanelGrid.svelte	2026-10-24 10:42:12.401298616 +0200
+@@ -0,0 +1,32 @@
++<script lang="ts">
++	import type { Snippet } from 'svelte';
++	import { cn } from '#lib/utils';
++
++	type Props = {
++		/** Resumen: lo primero que se lee (cifras, estado, Capsulito). Móvil: arriba. Escritorio: columna derecha, arriba y fija. */
++		resumen?: Snippet;
++		/** Contenido principal: la acción de la pantalla (cápsulas, lista de saldos, gráficos). Móvil: en medio. Escritorio: columna izquierda ancha. */
++		principal: Snippet;
++		/** Secundario: lo que se consulta después (últimos movimientos…). Móvil: al final. Escritorio: columna derecha, debajo del resumen. */
++		secundario?: Snippet;
++		class?: string;
++	};
++	let { resumen, principal, secundario, class: className }: Props = $props();
++</script>
++
++<!-- Rejilla de panel para AppShell width="panel".
++     El ORDEN DEL DOM es el de móvil y el de lectura (resumen → principal → secundario); en ≥ lg solo cambia la colocación:
++       ┌──────────────────────────┬──────────────┐
++       │ principal                │ resumen      │
++       │ (rejilla de cápsulas…)   ├──────────────┤
++       │                          │ secundario   │
++       └──────────────────────────┴──────────────┘ -->
++<div class={cn('flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-x-8 xl:grid-cols-[minmax(0,1fr)_24rem]', className)}>
++	{#if resumen}
++		<div class="flex min-w-0 flex-col gap-3 lg:col-start-2 lg:row-start-1">{@render resumen()}</div>
++	{/if}
++	<div class="min-w-0 lg:col-start-1 lg:row-span-2 lg:row-start-1">{@render principal()}</div>
++	{#if secundario}
++		<div class="flex min-w-0 flex-col gap-3 lg:col-start-2 lg:row-start-2">{@render secundario()}</div>
++	{/if}
++</div>
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/layout/types.ts b/src/lib/components/layout/types.ts
+--- a/src/lib/components/layout/types.ts	2026-10-21 06:39:48.000000000 +0200
++++ b/src/lib/components/layout/types.ts	2026-10-24 10:42:25.594129210 +0200
+@@ -3,6 +3,8 @@
+ export interface NavItem {
+ 	href: string;
+ 	label: string;
++	/** Etiqueta corta para el carril de iconos (768–1023 px), p. ej. «Arqueos». Si falta, se usa `label`. */
++	short?: string;
+ 	/** Componente de icono de Lucide. */
+ 	/** Rutas adicionales que dejan este elemento marcado como activo (p. ej. /historial cuelga de Saldos). */
+ 	alsoActive?: string[];
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/mascota/Bienvenida.svelte b/src/lib/components/mascota/Bienvenida.svelte
+--- a/src/lib/components/mascota/Bienvenida.svelte	1970-01-01 01:00:00.000000000 +0100
++++ b/src/lib/components/mascota/Bienvenida.svelte	2026-10-24 11:15:23.540403428 +0200
+@@ -0,0 +1,72 @@
++<script lang="ts">
++	import { Dialog } from 'bits-ui';
++	import Coffee from '@lucide/svelte/icons/coffee';
++	import PiggyBank from '@lucide/svelte/icons/piggy-bank';
++	import Droplets from '@lucide/svelte/icons/droplets';
++	import Hand from '@lucide/svelte/icons/hand';
++	import Capsulito from './Capsulito.svelte';
++	import Button from '../ui/Button.svelte';
++	import { usarMascota } from '#lib/mascota.svelte';
++	import { PASOS_BIENVENIDA } from '#lib/mascota/bienvenida';
++
++	type Props = {
++		/** Nombre de pila de quien entra, para el saludo. */
++		nombre: string;
++	};
++	let { nombre }: Props = $props();
++	const mascota = usarMascota();
++
++	// 4 pasos compartidos con /ayuda (sin JavaScript).
++	const iconos = { hand: Hand, coffee: Coffee, 'piggy-bank': PiggyBank, droplets: Droplets };
++	const pasos = PASOS_BIENVENIDA.map((p) => ({ ...p, icon: iconos[p.icono] }));
++	let paso = $state(0);
++	const p = $derived(pasos[paso]);
++	const ultimo = $derived(paso === pasos.length - 1);
++
++	// Se abre sola la primera vez (mascota.bienvenidaVista = false). Cerrarla de cualquier forma la marca como vista.
++	let open = $state(false);
++	$effect(() => {
++		const abrir = !mascota.bienvenidaVista;
++		open = abrir;
++		if (abrir) paso = 0;
++	});
++	function cerrar() {
++		open = false;
++		mascota.marcarBienvenidaVista();
++	}
++</script>
++
++{#snippet iconoGrande()}
++	<span class="flex size-40 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true"><p.icon class="size-16" /></span>
++{/snippet}
++
++<Dialog.Root bind:open onOpenChange={(v) => !v && cerrar()}>
++	<Dialog.Portal>
++		<Dialog.Overlay class="animate-fade-in fixed inset-0 z-50 bg-scrim" />
++		<Dialog.Content
++			class="animate-sheet-in glass-strong fixed inset-x-0 bottom-0 z-50 flex max-h-[92dvh] flex-col items-center rounded-t-sheet px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-6 text-center text-ink md:inset-x-auto md:bottom-auto md:left-1/2 md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-sheet md:pb-6"
++		>
++			{#key paso}
++				<Capsulito momento={p.momento} {nombre} size="xl" bocadillo="arriba" fallback={iconoGrande} />
++			{/key}
++			<Dialog.Title class="type-title-lg mt-4">{p.titulo}</Dialog.Title>
++			<Dialog.Description class="mt-2 max-w-xs text-[15px] leading-5 text-ink-muted">{p.texto}</Dialog.Description>
++
++			<div class="mt-5 flex gap-2" role="img" aria-label="Paso {paso + 1} de {pasos.length}">
++				{#each pasos as _, i (i)}
++					<span class={['h-2 rounded-full motion-safe:transition-all', i === paso ? 'w-6 bg-accent' : 'w-2 bg-ink-muted/40'].join(' ')}></span>
++				{/each}
++			</div>
++
++			<div class="mt-5 grid w-full grid-cols-2 gap-3">
++				{#if ultimo}
++					<Button variant="soft" size="lg" onclick={() => (paso = paso - 1)}>Atrás</Button>
++					<Button size="lg" onclick={cerrar}>¡A por el café!</Button>
++				{:else}
++					<Button variant="ghost" size="lg" onclick={cerrar}>Saltar</Button>
++					<Button size="lg" onclick={() => (paso = paso + 1)}>Siguiente</Button>
++				{/if}
++			</div>
++		</Dialog.Content>
++	</Dialog.Portal>
++</Dialog.Root>
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/mascota/Capsulito.svelte b/src/lib/components/mascota/Capsulito.svelte
+--- a/src/lib/components/mascota/Capsulito.svelte	1970-01-01 01:00:00.000000000 +0100
++++ b/src/lib/components/mascota/Capsulito.svelte	2026-10-24 11:14:40.008623103 +0200
+@@ -0,0 +1,166 @@
++<script lang="ts">
++	import type { Snippet } from 'svelte';
++	import { cn } from '#lib/utils';
++	import { usarMascota } from '#lib/mascota.svelte';
++	import { MOMENTOS, srcPose, textoDe, type MomentoId, type Pose } from '#lib/mascota/momentos';
++
++	type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
++	type Props = {
++		/** Lo normal: pedir un momento del catálogo (pose + texto + tono). */
++		momento?: MomentoId;
++		/** Solo para casos especiales: fuerza la pose (gana a la del momento). */
++		pose?: Pose;
++		/** Texto del bocadillo. Por defecto el del momento. `null` = sin bocadillo. */
++		mensaje?: string | null;
++		/** Sustituye `{nombre}` en el texto del momento. */
++		nombre?: string;
++		/** xs 40 px (avisos flotantes) · sm 64 · md 112 (vacíos, errores) · lg 160 (panel de escritorio) · xl 240 (bienvenida). */
++		size?: Size;
++		/** Dónde va el bocadillo respecto a la mascota. */
++		bocadillo?: 'derecha' | 'arriba';
++		/** Animación de entrada (solo si el sistema no pide reducir movimiento). */
++		animar?: boolean;
++		/** Qué pintar si la persona ha desactivado la mascota en Perfil (normalmente el icono de siempre). */
++		fallback?: Snippet;
++		class?: string;
++	};
++	let {
++		momento,
++		pose,
++		mensaje,
++		nombre,
++		size = 'md',
++		bocadillo = 'derecha',
++		animar = true,
++		fallback,
++		class: className
++	}: Props = $props();
++
++	const mascota = usarMascota();
++
++	const px: Record<Size, number> = { xs: 40, sm: 64, md: 112, lg: 160, xl: 240 };
++	const m = $derived(momento ? MOMENTOS[momento] : null);
++	const p = $derived<Pose>(pose ?? m?.pose ?? 'saludando');
++	const texto = $derived(mensaje === null ? null : (mensaje ?? (momento ? textoDe(momento, { nombre }) : null)));
++	const tono = $derived(m?.tono ?? 'neutro');
++	const w = $derived(px[size]);
++	// Se pide la imagen al doble de resolución que el tamaño en pantalla (pantallas retina), con srcset por si acaso.
++	const srcset = $derived([128, 256, 512, 1024].map((s) => `${srcPose(p, s as 128)} ${s}w`).join(', '));
++	const anim = $derived(animar && mascota.animar ? (tono === 'celebracion' ? 'capsulito-salto' : 'capsulito-entrada') : '');
++</script>
++
++<!--
++	La imagen es DECORATIVA (alt=""): la información siempre está en el texto del bocadillo o en el texto de la pantalla.
++	FASE 2: aquí se sustituirá <img> por el reproductor de animación (Rive/Lottie/vídeo) manteniendo la misma API
++	(momento, size, mensaje). `data-momento` y `data-pose` permiten localizarlo en pruebas y en analítica.
++-->
++{#if mascota.visible}
++	<div
++		class={cn('flex items-center gap-3', bocadillo === 'arriba' && 'flex-col-reverse gap-2', className)}
++		data-momento={momento}
++		data-pose={p}
++	>
++		<span class="capsulito-halo relative shrink-0" style="width:{w}px;height:{w}px">
++		<img
++			src={srcPose(p, w <= 64 ? 128 : w <= 128 ? 256 : 512)}
++			{srcset}
++			sizes="{w}px"
++			width={w}
++			height={w}
++			alt=""
++			aria-hidden="true"
++			decoding="async"
++			loading={size === 'xl' || size === 'lg' ? 'eager' : 'lazy'}
++			class={cn('relative select-none object-contain', anim)}
++			style="width:{w}px;height:{w}px"
++			draggable="false"
++		/>
++		</span>
++		{#if texto}
++			<p
++				class={cn(
++					'capsulito-bocadillo glass-strong relative max-w-[17rem] rounded-tile px-3.5 py-2.5 text-[15px] font-medium leading-5 text-ink',
++					bocadillo === 'arriba' ? 'capsulito-bocadillo--arriba text-center' : 'capsulito-bocadillo--derecha',
++					tono === 'aviso' && 'border-warning/40',
++					tono === 'problema' && 'border-negative/30'
++				)}
++			>
++				{texto}
++			</p>
++		{/if}
++	</div>
++{:else if fallback}
++	{@render fallback()}
++{/if}
++
++<style>
++	/* Halo detrás de la mascota: en claro casi invisible; en oscuro separa el marrón de Capsulito del fondo marrón (contraste ≥ 3:1 del contorno). */
++	.capsulito-halo::before {
++		content: '';
++		position: absolute;
++		inset: 6%;
++		border-radius: 9999px;
++		background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 70%);
++	}
++	:global([data-theme='oscuro']) .capsulito-halo::before {
++		background: radial-gradient(circle, rgba(245, 222, 196, 0.34) 0%, rgba(245, 222, 196, 0.1) 50%, rgba(245, 222, 196, 0) 72%);
++	}
++	/* Pico del bocadillo: un cuadrado girado con el mismo cristal. */
++	.capsulito-bocadillo::before {
++		content: '';
++		position: absolute;
++		width: 12px;
++		height: 12px;
++		background: inherit;
++		border: inherit;
++		border-right: 0;
++		border-top: 0;
++	}
++	.capsulito-bocadillo--derecha::before {
++		left: -7px;
++		top: calc(50% - 6px);
++		transform: rotate(45deg);
++	}
++	.capsulito-bocadillo--arriba::before {
++		bottom: -7px;
++		left: calc(50% - 6px);
++		transform: rotate(-45deg);
++	}
++	@keyframes capsulito-entrada {
++		from {
++			opacity: 0;
++			transform: translateY(8px) scale(0.92);
++		}
++		70% {
++			transform: translateY(-2px) scale(1.02);
++		}
++	}
++	@keyframes capsulito-salto {
++		0% {
++			opacity: 0;
++			transform: translateY(10px) scale(0.9);
++		}
++		40% {
++			opacity: 1;
++			transform: translateY(-12px) scale(1.04) rotate(-3deg);
++		}
++		70% {
++			transform: translateY(0) scale(0.98) rotate(2deg);
++		}
++		100% {
++			transform: none;
++		}
++	}
++	:global(.capsulito-entrada) {
++		animation: capsulito-entrada 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
++	}
++	:global(.capsulito-salto) {
++		animation: capsulito-salto 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
++	}
++	@media (prefers-reduced-motion: reduce) {
++		:global(.capsulito-entrada),
++		:global(.capsulito-salto) {
++			animation: none;
++		}
++	}
++</style>
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/ui/EmptyState.svelte b/src/lib/components/ui/EmptyState.svelte
+--- a/src/lib/components/ui/EmptyState.svelte	2026-10-20 21:30:26.000000000 +0200
++++ b/src/lib/components/ui/EmptyState.svelte	2026-10-24 10:42:44.853699940 +0200
+@@ -1,12 +1,30 @@
+ <script lang="ts">
+ 	import type { Snippet } from 'svelte';
++	import Capsulito from '../mascota/Capsulito.svelte';
++	import type { MomentoId } from '#lib/mascota/momentos';
+ 
+-	type Props = { title: string; description?: string; icon?: Snippet; action?: Snippet };
+-	let { title, description, icon, action }: Props = $props();
++	type Props = {
++		title: string;
++		description?: string;
++		/** Icono Lucide: se ve si no hay `momento` o si la persona ha desactivado la mascota. */
++		icon?: Snippet;
++		/** Capsulito en lugar del icono (vacíos de Inicio, Saldos, Compras, Historial, Estadísticas y Avisos). */
++		momento?: MomentoId;
++		action?: Snippet;
++	};
++	let { title, description, icon, momento, action }: Props = $props();
+ </script>
+ 
+-<div class="flex flex-col items-center gap-3 px-6 py-10 text-center">
++{#snippet iconCircle()}
+ 	{#if icon}<span class="flex size-14 items-center justify-center rounded-full bg-accent-soft text-accent" aria-hidden="true">{@render icon()}</span>{/if}
++{/snippet}
++
++<div class="flex flex-col items-center gap-3 px-6 py-10 text-center">
++	{#if momento}
++		<Capsulito {momento} mensaje={null} size="md" fallback={iconCircle} />
++	{:else}
++		{@render iconCircle()}
++	{/if}
+ 	<h3 class="type-title">{title}</h3>
+ 	{#if description}<p class="max-w-xs text-[15px] leading-5 text-ink-muted">{description}</p>{/if}
+ 	{#if action}<div class="mt-1">{@render action()}</div>{/if}
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/components/ui/UndoToast.svelte b/src/lib/components/ui/UndoToast.svelte
+--- a/src/lib/components/ui/UndoToast.svelte	2026-10-21 06:15:48.000000000 +0200
++++ b/src/lib/components/ui/UndoToast.svelte	2026-10-24 10:42:44.853465038 +0200
+@@ -4,6 +4,7 @@
+ 	import X from '@lucide/svelte/icons/x';
+ 	import Undo2 from '@lucide/svelte/icons/undo-2';
+ 	import CapsuleImage from '../capsulas/CapsuleImage.svelte';
++	import Capsulito from '../mascota/Capsulito.svelte';
+ 	import type { UndoToastData } from '#lib/toast.svelte';
+ 
+ 	type Props = { toast: UndoToastData; onclose: () => void };
+@@ -44,7 +45,18 @@
+ 	onfocusin={pause}
+ 	onfocusout={start}
+ >
+-	{#if toast.kind === 'ok' || toast.kind === 'warning'}
++	{#snippet kindIcon()}
++		<span
++			class={['flex size-9 shrink-0 items-center justify-center rounded-full', toast.kind === 'warning' ? 'bg-warning-soft text-warning' : 'bg-positive-soft text-positive'].join(' ')}
++			aria-hidden="true"
++		>
++			{#if toast.kind === 'warning'}<TriangleAlert class="size-5" />{:else}<Check class="size-5" />{/if}
++		</span>
++	{/snippet}
++	{#if toast.momento}
++		<!-- Capsulito asoma por encima del aviso (56 px) sin agrandar la píldora. -->
++		<span class="-my-3 -ml-1 shrink-0"><Capsulito momento={toast.momento} mensaje={null} size="sm" fallback={kindIcon} /></span>
++	{:else if toast.kind === 'ok' || toast.kind === 'warning'}
+ 		<span
+ 			class={['flex size-9 shrink-0 items-center justify-center rounded-full', toast.kind === 'ok' ? 'bg-positive-soft text-positive' : 'bg-warning-soft text-warning'].join(' ')}
+ 			aria-hidden="true"
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/index.ts b/src/lib/index.ts
+--- a/src/lib/index.ts	2026-10-21 06:41:28.000000000 +0200
++++ b/src/lib/index.ts	2026-10-24 11:14:40.013463050 +0200
+@@ -33,6 +33,8 @@
+ // Dominio (cápsulas, saldos, estadísticas)
+ export { default as CapsuleImage } from './components/capsulas/CapsuleImage.svelte';
+ export { default as CapsuleRow } from './components/capsulas/CapsuleRow.svelte';
++export { default as CapsuleTile } from './components/capsulas/CapsuleTile.svelte';
++export { default as CapsuleIllustration } from './components/capsulas/CapsuleIllustration.svelte';
+ export { default as StockBadge } from './components/capsulas/StockBadge.svelte';
+ export { default as AlertsPanel } from './components/capsulas/AlertsPanel.svelte';
+ export { default as MovementRow } from './components/capsulas/MovementRow.svelte';
+@@ -46,6 +48,13 @@
+ export { default as BarChart } from './components/capsulas/BarChart.svelte';
+ export { default as SplitBar } from './components/capsulas/SplitBar.svelte';
+ 
++// Mascota (fase 1: imágenes fijas; fase 2: animaciones con la misma API)
++export { default as Capsulito } from './components/mascota/Capsulito.svelte';
++export { default as Bienvenida } from './components/mascota/Bienvenida.svelte';
++export { crearContextoMascota, usarMascota, EstadoMascota, CLAVE_MASCOTA, CLAVE_BIENVENIDA } from './mascota.svelte';
++export { MOMENTOS, POSES, POSE_USO, momentoInicio, textoDe } from './mascota/momentos';
++export type { MomentoId, Pose, Tono } from './mascota/momentos';
++
+ // Legal
+ export { default as PrivacyText } from './components/legal/PrivacyText.svelte';
+ 
+@@ -59,6 +68,7 @@
+ export { default as AppNav } from './components/layout/AppNav.svelte';
+ export { default as PageHeader } from './components/layout/PageHeader.svelte';
+ export { default as Section } from './components/layout/Section.svelte';
++export { default as PanelGrid } from './components/layout/PanelGrid.svelte';
+ export { default as BrandMark } from './components/layout/BrandMark.svelte';
+ export { default as BackLink } from './components/layout/BackLink.svelte';
+ export { default as ErrorPage } from './components/layout/ErrorPage.svelte';
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/mascota/bienvenida.ts b/src/lib/mascota/bienvenida.ts
+--- a/src/lib/mascota/bienvenida.ts	1970-01-01 01:00:00.000000000 +0100
++++ b/src/lib/mascota/bienvenida.ts	2026-10-24 11:15:23.523389540 +0200
+@@ -0,0 +1,10 @@
++import type { MomentoId } from './momentos';
++
++/** Los 4 pasos de «Cómo funciona beCafé». Una sola fuente para la Bienvenida (diálogo, con JavaScript)
++ *  y para la sección fija de /ayuda (sin JavaScript, DEC-112 propuesto en CAMBIO-018). */
++export const PASOS_BIENVENIDA: { momento: MomentoId; titulo: string; texto: string; icono: 'hand' | 'coffee' | 'piggy-bank' | 'droplets' }[] = [
++	{ momento: 'bienvenida-hola', titulo: 'Esto es beCafé', texto: 'La cafetera del departamento, sin papeles: qué cápsulas quedan y cómo va la hucha.', icono: 'hand' },
++	{ momento: 'bienvenida-cafe', titulo: 'Un toque, un café', texto: 'Toca la cápsula que te pones y queda apuntada. ¿Te equivocaste? Pulsa «Deshacer».', icono: 'coffee' },
++	{ momento: 'bienvenida-hucha', titulo: 'Pagas lo que tomas', texto: 'Cada café descuenta su precio de tu saldo. Cuando estés en negativo, aporta a la hucha.', icono: 'piggy-bank' },
++	{ momento: 'bienvenida-agua', titulo: '¿Rellenas el agua?', texto: 'Dilo con un toque. Quien más la rellena es el aguador del mes.', icono: 'droplets' }
++];
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/mascota/momentos.ts b/src/lib/mascota/momentos.ts
+--- a/src/lib/mascota/momentos.ts	1970-01-01 01:00:00.000000000 +0100
++++ b/src/lib/mascota/momentos.ts	2026-10-24 10:47:59.434350306 +0200
+@@ -0,0 +1,113 @@
++// Catálogo CERRADO de poses y momentos de Capsulito (fase 1).
++//
++// Regla de oro: las pantallas nunca eligen una imagen; piden un MOMENTO («cafe-registrado», «vacio-compras»…).
++// Así, en la fase 2 se cambia la imagen fija por una animación (Rive/Lottie) o un vídeo editando SOLO este
++// catálogo y el componente <Capsulito>, sin tocar ninguna pantalla.
++
++/** Poses disponibles. Cada una tiene sus ficheros en /static/mascota/capsulito-{pose}-{128|256|512|1024}.webp */
++export const POSES = [
++	'saludando',
++	'senalando',
++	'pensando',
++	'caminando',
++	'celebrando',
++	'saltando',
++	'recordatorio',
++	'anadiendo-capsula'
++] as const;
++export type Pose = (typeof POSES)[number];
++
++/** Para qué sirve cada pose (documentación viva; también la usa el catálogo /componentes). */
++export const POSE_USO: Record<Pose, string> = {
++	saludando: 'Saludo y bienvenida.',
++	senalando: 'Señalar algo de la pantalla: explicar, guiar, «aquí».',
++	pensando: 'Vacíos, dudas, errores y cosas que no han salido bien.',
++	caminando: 'Esperas y pasos en curso: sin conexión, pendiente de enviar.',
++	celebrando: 'Logro normal: relleno de agua, compra registrada, aguador.',
++	saltando: 'Logro grande y poco frecuente: deuda saldada, primer café.',
++	recordatorio: 'Avisos que piden atención: stock bajo, deuda, pendientes.',
++	'anadiendo-capsula': 'Registrar o reponer cápsulas: primer uso, compras.'
++};
++
++/** Tono del momento: decide el estilo del bocadillo y si hay animación de celebración. */
++export type Tono = 'neutro' | 'celebracion' | 'aviso' | 'problema';
++
++export interface Momento {
++	pose: Pose;
++	tono: Tono;
++	/** Texto por defecto del bocadillo. Corto (≤ 60 caracteres), tuteo, sin jerga. `{nombre}` se sustituye. */
++	texto: string;
++}
++
++export const MOMENTOS = {
++	// --- Bienvenida (primer uso) ---
++	'bienvenida-hola': { pose: 'saludando', tono: 'neutro', texto: '¡Hola, {nombre}! Soy Capsulito.' },
++	'bienvenida-cafe': { pose: 'anadiendo-capsula', tono: 'neutro', texto: 'Toca tu cápsula y ya está apuntado.' },
++	'bienvenida-hucha': { pose: 'senalando', tono: 'neutro', texto: 'Aquí ves la hucha y lo que te toca.' },
++	'bienvenida-agua': { pose: 'celebrando', tono: 'neutro', texto: '¿Rellenas el agua? ¡Dilo y te lo apunto!' },
++
++	// --- Acceso (sin sesión) ---
++	'acceso-hola': { pose: 'saludando', tono: 'neutro', texto: '¡Hola! Entra y apunta tu café.' },
++	'acceso-contrasena': { pose: 'senalando', tono: 'neutro', texto: 'Elige una contraseña larga y fácil de recordar.' },
++
++	// --- Inicio (bocadillo contextual; en escritorio siempre visible, en móvil solo si hay aviso) ---
++	'saludo-manana': { pose: 'saludando', tono: 'neutro', texto: '¡Buenos días, {nombre}! ¿Qué te pones?' },
++	'saludo-tarde': { pose: 'saludando', tono: 'neutro', texto: '¡Buenas tardes, {nombre}! ¿Un café?' },
++	'aguador-tu': { pose: 'celebrando', tono: 'celebracion', texto: '¡Eres aguador del mes! Gracias.' },
++
++	// --- Celebraciones (aviso flotante) ---
++	'relleno-registrado': { pose: 'celebrando', tono: 'celebracion', texto: '¡Gracias por el agua!' },
++	'aportacion-registrada': { pose: 'celebrando', tono: 'celebracion', texto: '¡Aportación guardada!' },
++	'compra-registrada': { pose: 'anadiendo-capsula', tono: 'celebracion', texto: '¡Cápsulas a la despensa!' },
++	'deuda-saldada': { pose: 'saltando', tono: 'celebracion', texto: '¡Cuentas al día!' },
++	'primer-cafe': { pose: 'saltando', tono: 'celebracion', texto: '¡Tu primer café en beCafé!' },
++
++	// --- Avisos ---
++	'aviso-stock-bajo': { pose: 'recordatorio', tono: 'aviso', texto: 'Quedan pocas de algunas cápsulas.' },
++	'aviso-deuda': { pose: 'recordatorio', tono: 'aviso', texto: 'Tu saldo está por debajo del límite.' },
++	'aviso-pendientes': { pose: 'caminando', tono: 'aviso', texto: 'Tengo cafés guardados para enviar.' },
++	'consumo-rechazado': { pose: 'pensando', tono: 'problema', texto: 'Ese café no se ha podido apuntar.' },
++
++	// --- Vacíos ---
++	'vacio-capsulas': { pose: 'pensando', tono: 'neutro', texto: 'Aún no hay cápsulas para elegir.' },
++	'vacio-movimientos': { pose: 'caminando', tono: 'neutro', texto: 'Todavía no hay movimientos.' },
++	'vacio-compras': { pose: 'anadiendo-capsula', tono: 'neutro', texto: 'Aún no hay compras registradas.' },
++	'vacio-estadisticas': { pose: 'pensando', tono: 'neutro', texto: 'Sin cafés en este periodo.' },
++	'vacio-avisos': { pose: 'saludando', tono: 'neutro', texto: 'Todo tranquilo por aquí.' },
++
++	// --- Errores y estados ---
++	'sin-conexion': { pose: 'caminando', tono: 'problema', texto: 'Sin conexión. Tus cafés se guardan.' },
++	'no-encontrada': { pose: 'senalando', tono: 'problema', texto: 'Por aquí no es. ¡Vuelve al inicio!' },
++	'sin-permiso': { pose: 'pensando', tono: 'problema', texto: 'Esto solo lo ven los administradores.' },
++	servidor: { pose: 'pensando', tono: 'problema', texto: 'Algo ha fallado. No es culpa tuya.' }
++} as const satisfies Record<string, Momento>;
++
++export type MomentoId = keyof typeof MOMENTOS;
++
++export function textoDe(id: MomentoId, vars: { nombre?: string } = {}): string {
++	return MOMENTOS[id].texto.replace('{nombre}', vars.nombre ?? '').replace(/\s+([!?,.])/g, '$1').trim();
++}
++
++/** Ruta de una pose a un tamaño concreto. */
++export const srcPose = (pose: Pose, px: 128 | 256 | 512 | 1024) => `/mascota/capsulito-${pose}-${px}.webp`;
++
++/**
++ * Qué dice Capsulito en Inicio. Prioridad: problemas > avisos propios > avisos de equipo > logros > saludo.
++ * Solo ORIENTA la interfaz; los datos vienen del servidor como hasta ahora.
++ */
++export function momentoInicio(s: {
++	rechazado?: boolean;
++	pendientes?: number;
++	saldoCents: number;
++	limiteDeudaCents: number;
++	stockBajo: number;
++	soyAguador?: boolean;
++	hora?: number;
++}): MomentoId {
++	if (s.rechazado) return 'consumo-rechazado';
++	if (s.pendientes && s.pendientes > 0) return 'aviso-pendientes';
++	if (s.saldoCents < s.limiteDeudaCents) return 'aviso-deuda';
++	if (s.stockBajo > 0) return 'aviso-stock-bajo';
++	if (s.soyAguador) return 'aguador-tu';
++	return (s.hora ?? new Date().getHours()) < 14 ? 'saludo-manana' : 'saludo-tarde';
++}
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/mascota.svelte.ts b/src/lib/mascota.svelte.ts
+--- a/src/lib/mascota.svelte.ts	1970-01-01 01:00:00.000000000 +0100
++++ b/src/lib/mascota.svelte.ts	2026-10-24 11:14:31.993254253 +0200
+@@ -0,0 +1,74 @@
++import { getContext, setContext } from 'svelte';
++import { browser } from '$app/env';
++
++/**
++ * Preferencias de Capsulito como CONTEXTO (constitución XVII: sin estado compartido entre peticiones).
++ * Mismo patrón que el tema y la transparencia (F1, research R3 y R4):
++ * - Clave de dispositivo `becafe-mascota`: `visible` (por defecto) | `oculta`.
++ * - El script en línea de `src/app.html` la lee antes de pintar y pone `data-mascota` en <html>
++ *   (lista cerrada de valores; con `nonce` para la CSP). Así no parpadea al cargar.
++ * - En el repositorio, la lectura se valida con Zod en `lib/shared/contratos/apariencia.ts`; un valor
++ *   inválido vuelve a `visible` y registra `dato.invalido` en el cliente, sin el valor.
++ * - Sin JavaScript la mascota se ve siempre (valor por defecto) y el interruptor no está disponible,
++ *   igual que «Reducir transparencia».
++ * `bienvenida`: `becafe-bienvenida` = `vista` cuando ya se mostró en este dispositivo.
++ */
++export const CLAVE_MASCOTA = 'becafe-mascota';
++export const CLAVE_BIENVENIDA = 'becafe-bienvenida';
++
++export class EstadoMascota {
++	visible = $state(true);
++	animar = $state(true);
++	/** true hasta iniciar(): en el servidor y sin JavaScript nunca se abre la bienvenida. */
++	bienvenidaVista = $state(true);
++
++	/** Llamar en onMount del layout raíz. */
++	iniciar() {
++		if (!browser) return;
++		const attr = document.documentElement.dataset.mascota;
++		this.visible = attr !== 'oculta';
++		this.bienvenidaVista = leer(CLAVE_BIENVENIDA) === 'vista';
++		const mql = matchMedia('(prefers-reduced-motion: reduce)');
++		this.animar = !mql.matches;
++		mql.addEventListener('change', () => (this.animar = !mql.matches));
++	}
++
++	setVisible(v: boolean) {
++		this.visible = v;
++		document.documentElement.dataset.mascota = v ? 'visible' : 'oculta';
++		guardar(CLAVE_MASCOTA, v ? 'visible' : 'oculta');
++	}
++
++	marcarBienvenidaVista() {
++		this.bienvenidaVista = true;
++		guardar(CLAVE_BIENVENIDA, 'vista');
++	}
++
++	/** «Ver la bienvenida otra vez» (Perfil y Ayuda). */
++	repetirBienvenida() {
++		this.bienvenidaVista = false;
++	}
++}
++
++function leer(k: string): string | null {
++	try {
++		return localStorage.getItem(k);
++	} catch {
++		return null;
++	}
++}
++function guardar(k: string, v: string) {
++	try {
++		localStorage.setItem(k, v);
++	} catch {}
++}
++
++const KEY = Symbol('mascota');
++/** En el layout raíz: crea el estado de esta petición/sesión y lo comparte con los componentes. */
++export function crearContextoMascota(): EstadoMascota {
++	return setContext(KEY, new EstadoMascota());
++}
++/** En cualquier componente. Si no hay contexto (catálogo, pruebas), devuelve un estado por defecto. */
++export function usarMascota(): EstadoMascota {
++	return getContext<EstadoMascota | undefined>(KEY) ?? new EstadoMascota();
++}
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/lib/toast.svelte.ts b/src/lib/toast.svelte.ts
+--- a/src/lib/toast.svelte.ts	2026-10-21 06:15:48.000000000 +0200
++++ b/src/lib/toast.svelte.ts	2026-10-24 10:42:44.852786663 +0200
+@@ -1,3 +1,5 @@
++import type { MomentoId } from './mascota/momentos';
++
+ export interface UndoToastData {
+ 	/** Identificador único; cambia en cada aviso para reiniciar el temporizador. */
+ 	id: string;
+@@ -12,6 +14,8 @@
+ 	kind?: 'capsula' | 'ok' | 'warning';
+ 	/** Línea de advertencia bajo el detalle, p. ej. el descuadre de stock (RF-017). */
+ 	warning?: string;
++	/** Celebración o aviso con Capsulito: sustituye al icono por la mascota (si está activada en Perfil; si no, se ve el icono de `kind`). */
++	momento?: MomentoId;
+ 	/** Milisegundos hasta desaparecer. RF-013: 5000. */
+ 	duration?: number;
+ }
+@@ -26,6 +30,10 @@
+ 	notify(data: Omit<UndoToastData, 'id' | 'onundo'>) {
+ 		this.current = { kind: 'ok', ...data, id: crypto.randomUUID() };
+ 	}
++	/** Celebración: aviso con Capsulito (relleno de agua, aportación, compra, deuda saldada…). Puede llevar «Deshacer». */
++	celebrate(momento: MomentoId, data: Omit<UndoToastData, 'id' | 'momento'>) {
++		this.current = { kind: 'ok', ...data, momento, id: crypto.randomUUID() };
++	}
+ 	dismiss() {
+ 		this.current = null;
+ 	}
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/routes/(app)/+layout.svelte b/src/routes/(app)/+layout.svelte
+--- a/src/routes/(app)/+layout.svelte	2026-10-21 06:39:48.000000000 +0200
++++ b/src/routes/(app)/+layout.svelte	2026-10-24 10:44:18.726529456 +0200
+@@ -10,7 +10,7 @@
+ 	import Scale from '@lucide/svelte/icons/scale';
+ 	import Settings from '@lucide/svelte/icons/settings';
+ 	import DatabaseBackup from '@lucide/svelte/icons/database-backup';
+-	import { AppShell, notifications, type NavItem } from '#lib';
++	import { AppShell, Bienvenida, notifications, type NavItem } from '#lib';
+ 	import { me, notificationSeed } from '#lib/mock';
+ 
+ 	let { children } = $props();
+@@ -34,17 +34,24 @@
+ 	const adminNav: NavItem[] = [
+ 		{ href: '/admin/capsulas', label: 'Cápsulas', icon: Package },
+ 		{ href: '/admin/usuarios', label: 'Usuarios', icon: Users },
+-		{ href: '/admin/control', label: 'Arqueos y recuentos', icon: Scale },
+-		{ href: '/admin/configuracion', label: 'Configuración', icon: Settings },
+-		{ href: '/admin/copias', label: 'Copias de seguridad', icon: DatabaseBackup }
++		{ href: '/admin/control', label: 'Arqueos y recuentos', short: 'Arqueos', icon: Scale },
++		{ href: '/admin/configuracion', label: 'Configuración', short: 'Ajustes', icon: Settings },
++		{ href: '/admin/copias', label: 'Copias de seguridad', short: 'Copias', icon: DatabaseBackup }
+ 	];
++	// Ancho por pantalla: panel para las que tienen resumen + contenido; normal para formularios y lectura.
++	const PANEL = ['/', '/saldos', '/historial', '/compras', '/estadisticas'];
++	const widthFor = (path: string) =>
++		path.startsWith('/admin') ? 'wide' : PANEL.some((p) => (p === '/' ? path === '/' : path.startsWith(p))) ? 'panel' : 'normal';
+ </script>
+ 
+ <AppShell
+ 	{nav}
+ 	adminNav={me.role === 'administrador' ? adminNav : []}
+ 	user={me}
+-	width={page.url.pathname.startsWith('/admin') ? 'wide' : 'normal'}
++	width={widthFor(page.url.pathname)}
+ >
+ 	{@render children()}
+ </AppShell>
++
++<!-- Bienvenida de primer uso (se abre sola una vez; Perfil › «Ver la bienvenida otra vez» la reabre). -->
++<Bienvenida nombre={me.name.split(' ')[0]} />
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/routes/(app)/+page.svelte b/src/routes/(app)/+page.svelte
+--- a/src/routes/(app)/+page.svelte	2026-10-21 06:45:09.000000000 +0200
++++ b/src/routes/(app)/+page.svelte	2026-10-24 11:23:27.110934839 +0200
+@@ -1,99 +1,151 @@
+ <script lang="ts">
+ 	import { page } from '$app/state';
+-	import { AlertsPanel, Banner, Button, CapsuleRow, PageHeader, Section, Avatar, WaterRefillCard, toasts, formatMoney } from '#lib';
+-	import { capsules, members, huchaCents, debtLimitCents, me, aguador, lastRefill, refillIntervalMinutes } from '#lib/mock';
++	import UserPlus from '@lucide/svelte/icons/user-plus';
++	import {
++		AlertsPanel,
++		Avatar,
++		Banner,
++		Button,
++		CapsuleTile,
++		Capsulito,
++		EmptyState,
++		Glass,
++		MovementList,
++		PageHeader,
++		PanelGrid,
++		Section,
++		WaterRefillCard,
++		toasts,
++		formatMoney,
++		momentoInicio,
++		MOMENTOS
++	} from '#lib';
++	import { capsules, members, huchaCents, debtLimitCents, me, aguador, lastRefill, refillIntervalMinutes, myMovements, viewer, graceMinutes } from '#lib/mock';
+ 
++	const firstName = me.name.split(' ')[0];
+ 	const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' }).replace('.', '');
+-	const active = capsules.filter((c) => c.active && c.avgCostCents > 0); // RN-006: sin coste medio no se muestra
+-
+-	// Demo de estados (solo plantilla): /?demo=pendientes · /?demo=rechazado
++	// RN-006: sin coste medio no se muestra. Demo `?demo=vacio`: catálogo vacío.
+ 	const demo = $derived(page.url.searchParams.get('demo'));
++	const active = $derived(demo === 'vacio' ? [] : capsules.filter((c) => c.active && c.avgCostCents > 0));
++
+ 	let rejectedDismissed = $state(false);
+-	const pending = 3;
++	const pending = $derived(demo === 'pendientes' ? 3 : 0);
++	const myBalanceCents = -245;
+ 
+ 	// ---- Relleno de agua (RF-170 a RF-176) ----
+-	// Demos: ?demo=relleno-reciente (Jorge la rellenó hace 20 min) · sin-rellenos · sin-conexion · sin-aguador
+ 	let online = $state(true);
+-	const offline = $derived(demo === 'sin-conexion' || !online); // RN-081: sin conexión no se registra
++	const offline = $derived(demo === 'sin-conexion' || !online);
+ 	let last = $state<{ name: string; minutesAgo: number } | null>(lastRefill);
+-	$effect(() => {
+-		if (demo === 'relleno-reciente') last = { name: 'Jorge', minutesAgo: 20 };
+-		else if (demo === 'sin-rellenos') last = null;
+-	});
+ 	const aguadorShown = $derived(demo === 'sin-aguador' ? null : aguador);
+ 	function refill() {
+-		// En la app real: POST /api/rellenos { clienteId } (idempotente). No mueve dinero (RN-080) y no entra en la cola sin conexión.
+ 		const before = last;
+-		last = { name: me.name.split(' ')[0], minutesAgo: 0 };
+-		toasts.showUndo({
+-			title: 'Relleno registrado',
+-			detail: 'Gracias por ocuparte del agua.',
+-			kind: 'ok',
+-			onundo: () => (last = before) // «Deshacer» en 5 s, sin motivo (RN-083)
+-		});
++		last = { name: firstName, minutesAgo: 0 };
++		// Celebración con Capsulito (sustituye al antiguo aviso con icono ✓). Mantiene «Deshacer» 5 s (RN-083).
++		toasts.celebrate('relleno-registrado', { title: 'Relleno registrado', detail: 'Gracias por ocuparte del agua.', onundo: () => (last = before) });
+ 	}
+-	const lowStock = active.filter((c) => c.stock <= c.threshold).map((c) => c.name);
++	const lowStock = capsules.filter((c) => c.active && c.stock <= c.threshold).map((c) => c.name);
+ 	const debtors = members.filter((m) => m.active && m.balanceCents < debtLimitCents).map((m) => ({ name: m.name, cents: m.balanceCents }));
+ 
++	// ---- Qué dice Capsulito (prioridad en momentoInicio) ----
++	const momento = $derived(
++		momentoInicio({
++			rechazado: demo === 'rechazado' && !rejectedDismissed,
++			pendientes: pending,
++			saldoCents: myBalanceCents,
++			limiteDeudaCents: debtLimitCents,
++			stockBajo: lowStock.length,
++			soyAguador: !!aguadorShown?.meIncluded
++		})
++	);
++	// En móvil solo aparece si tiene algo que decir (aviso, problema o logro); el saludo se queda para escritorio.
++	const mobileVisible = $derived(MOMENTOS[momento].tono !== 'neutro');
++
+ 	function register(c: (typeof capsules)[number], guest: boolean) {
+-		// En la app real: POST /api/consumos con clienteId (idempotente) y, sin conexión, a la cola local (RF-015, RF-016).
+-		// RF-017: con stock ≤ 0 se registra igualmente (el stock queda negativo) y se avisa del descuadre.
++		// Café registrado: aviso con la cápsula (no con la mascota: pasa muchas veces al día y cansaría).
+ 		const noStock = c.stock <= 0;
+ 		toasts.showUndo({
+ 			title: `${c.name} registrado${guest ? ' · invitado' : ''}`,
+ 			detail: `${formatMoney(-c.avgCostCents)} · quedan ${c.stock - 1}`,
+-			warning: noStock ? 'No constaba stock: avisa a un administrador para revisar el recuento.' : undefined,
++			warning: noStock ? 'No constaba stock: avisa a un administrador.' : undefined,
+ 			duration: noStock ? 9000 : undefined,
+ 			color: c.color,
+ 			photoUrl: c.photoUrl,
+ 			onundo: () => {}
+ 		});
+ 	}
++	const recent = myMovements.filter((m) => m.kind === 'consumo' && !m.voided).slice(0, 4);
+ </script>
+ 
+-<PageHeader eyebrow={today} title="Hola, {me.name.split(' ')[0]}">
+-	{#snippet actions()}<Avatar name={me.name} size="md" />{/snippet}
++<svelte:window ononline={() => (online = true)} onoffline={() => (online = false)} />
++
++<PageHeader eyebrow={today} title="Hola, {firstName}">
++	<!-- En escritorio el avatar ya está en la barra lateral. -->
++	{#snippet actions()}<span class="md:hidden"><Avatar name={me.name} size="md" /></span>{/snippet}
+ </PageHeader>
+ 
+ {#if demo === 'rechazado' && !rejectedDismissed}
+-	<!-- RN-054: el servidor rechaza consumos de usuarios dados de baja, también los de la cola sin conexión. -->
+-	<Banner tone="negative" title="Consumo rechazado" class="mb-3">
++	<Banner tone="negative" title="Consumo rechazado" class="mb-4">
+ 		Tu cuenta está dada de baja y el consumo de «Ristretto» no se ha registrado. Habla con un administrador.
+ 		{#snippet actions()}<Button variant="soft" onclick={() => (rejectedDismissed = true)}>Entendido</Button>{/snippet}
+ 	</Banner>
+ {/if}
+-{#if demo === 'pendientes'}
+-	<!-- RF-019: la cola local solo vive en este navegador. -->
+-	<Banner tone="warning" title="{pending} consumos pendientes de enviar" class="mb-3">
++{#if pending}
++	<Banner tone="warning" title="{pending} cafés pendientes de enviar" class="mb-4">
+ 		Se enviarán cuando vuelva la conexión. Si borras los datos del navegador, se perderán.
+ 	</Banner>
+ {/if}
+ 
+-<AlertsPanel {huchaCents} myBalanceCents={-245} {lowStock} {debtors} />
+-
+-<svelte:window ononline={() => (online = true)} onoffline={() => (online = false)} />
+-
+-<WaterRefillCard class="mb-1 mt-3" {last} intervalMinutes={refillIntervalMinutes} {offline} aguador={aguadorShown} meName={me.name} onrefill={refill} />
+-
+-<Section title="¿Qué cápsula te pones?">
+-	<p class="-mt-1 mb-3 text-[13px] leading-[18px] text-ink-muted">
+-		Toca una cápsula para registrarla. El botón de persona la registra para un invitado.
+-	</p>
+-	<ul class="flex flex-col gap-2">
+-		{#each active as c (c.id)}
+-			<CapsuleRow
+-				name={c.name}
+-				brand={c.brand}
+-				intensity={c.intensity}
+-				stock={c.stock}
+-				threshold={c.threshold}
+-				avgCostCents={c.avgCostCents}
+-				color={c.color}
+-				photoUrl={c.photoUrl}
+-				daysLeft={c.daysLeft}
+-				onregister={() => register(c, false)}
+-				onregisterGuest={() => register(c, true)}
+-			/>
+-		{/each}
+-	</ul>
+-</Section>
++<PanelGrid>
++	{#snippet resumen()}
++		<!-- Capsulito contextual. Escritorio: grande y siempre. Móvil: pequeño y solo si avisa o celebra. -->
++		<Capsulito {momento} nombre={firstName} size="lg" class="hidden lg:flex" />
++		{#if mobileVisible}<Capsulito {momento} nombre={firstName} size="sm" class="lg:hidden" />{/if}
++		<AlertsPanel {huchaCents} {myBalanceCents} {lowStock} {debtors} />
++	{/snippet}
++
++	{#snippet principal()}
++		<section aria-labelledby="capsulas-title">
++			<h2 id="capsulas-title" class="type-title-lg">¿Qué cápsula te pones?</h2>
++			<!-- Una sola línea de ayuda, con el icono real del botón de invitado: se entiende sin leer un párrafo. -->
++			<p class="mb-3 mt-1 flex flex-wrap items-center gap-x-1.5 text-[13px] leading-[18px] text-ink-muted">
++				Toca para apuntar tu café ·
++				<span class="inline-flex items-center gap-1"><span class="inline-flex size-5 items-center justify-center rounded-full bg-accent-soft text-ink"><UserPlus class="size-3" aria-hidden="true" /></span> para un invitado</span>
++			</p>
++			{#if active.length}
++				<ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fill,minmax(11rem,1fr))]">
++					{#each active as c (c.id)}
++						<CapsuleTile
++							name={c.name}
++							brand={c.brand}
++							intensity={c.intensity}
++							stock={c.stock}
++							threshold={c.threshold}
++							avgCostCents={c.avgCostCents}
++							color={c.color}
++							photoUrl={c.photoUrl}
++							daysLeft={c.daysLeft}
++							onregister={() => register(c, false)}
++							onregisterGuest={() => register(c, true)}
++						/>
++					{/each}
++				</ul>
++			{:else}
++				<Glass>
++					<EmptyState momento="vacio-capsulas" title="Aún no hay cápsulas" description="Cuando un administrador registre la primera compra, aparecerán aquí.">
++						{#snippet action()}{#if me.role === 'administrador'}<Button href="/admin/capsulas">Dar de alta cápsulas</Button>{/if}{/snippet}
++					</EmptyState>
++				</Glass>
++			{/if}
++		</section>
++	{/snippet}
++
++	{#snippet secundario()}
++		<!-- DEC-111 (propuesto en CAMBIO-018): en móvil, el agua va DESPUÉS de las cápsulas para apuntar el café sin desplazarse. -->
++		<WaterRefillCard {last} intervalMinutes={refillIntervalMinutes} {offline} aguador={aguadorShown} meName={me.name} onrefill={refill} />
++		<!-- F3, aclaración 6: consumos propios dentro del plazo, con enlace a su detalle para anularlos. -->
++		<Section title="Tus últimos consumos" class="mt-3">
++			<MovementList items={recent} {viewer} {graceMinutes} emptyTitle="No hay consumos que puedas deshacer ahora" emptyDescription="Toca una cápsula y aparecerá aquí durante el plazo para deshacerlo." />
++			<Button href="/historial?quien=mios" variant="ghost" block class="mt-1">Ver todo mi historial</Button>
++		</Section>
++	{/snippet}
++</PanelGrid>
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/routes/(app)/ayuda/+page.svelte b/src/routes/(app)/ayuda/+page.svelte
+--- a/src/routes/(app)/ayuda/+page.svelte	2026-10-21 06:39:28.000000000 +0200
++++ b/src/routes/(app)/ayuda/+page.svelte	2026-10-24 11:15:40.583637347 +0200
+@@ -1,8 +1,29 @@
+ <script lang="ts">
+-	import { Banner, Button, Glass, PageHeader, Section } from '#lib';
++	import { Banner, Button, Capsulito, Glass, PageHeader, Section, usarMascota } from '#lib';
++	import { PASOS_BIENVENIDA } from '#lib/mascota/bienvenida';
++	import { onMount } from 'svelte';
++	const mascota = usarMascota();
++	let conJs = $state(false);
++	onMount(() => (conJs = true));
+ </script>
+ 
+-<PageHeader eyebrow="Ayuda" title="Instalar la app" />
++<PageHeader eyebrow="Ayuda" title="Cómo funciona" />
++
++<!-- Los 4 pasos de la bienvenida, fijos en la página: funcionan sin JavaScript (DEC-084) y sirven para repasarlos. -->
++<ol class="grid gap-3 sm:grid-cols-2" aria-label="Cómo funciona beCafé">
++	{#each PASOS_BIENVENIDA as p, i (p.momento)}
++		<li><Glass class="flex h-full items-center gap-3">
++			<Capsulito momento={p.momento} mensaje={null} size="sm" animar={false} />
++			<span class="min-w-0"><span class="type-title block">{i + 1}. {p.titulo}</span><span class="block text-[14px] leading-5 text-ink-muted">{p.texto}</span></span>
++		</Glass></li>
++	{/each}
++</ol>
++<!-- Con JavaScript, además, se puede ver como recorrido. Solo se pinta tras montar: sin JavaScript no aparece un botón que no haría nada. -->
++{#if conJs}
++	<Button variant="soft" class="mt-3" onclick={() => mascota.repetirBienvenida()}>Ver la bienvenida</Button>
++{/if}
++
++<h2 class="type-title-lg mt-8">Instalar la app</h2>
+ 
+ <Banner tone="info" title="En iPhone y iPad hace falta instalarla primero">
+ 	Los avisos solo funcionan si añades la app a la pantalla de inicio (iOS 16.4 o superior).
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/routes/(app)/perfil/+page.svelte b/src/routes/(app)/perfil/+page.svelte
+--- a/src/routes/(app)/perfil/+page.svelte	2026-10-21 06:19:53.000000000 +0200
++++ b/src/routes/(app)/perfil/+page.svelte	2026-10-24 11:14:40.016724311 +0200
+@@ -5,7 +5,7 @@
+ 	import ShieldCheck from '@lucide/svelte/icons/shield-check';
+ 	import KeyRound from '@lucide/svelte/icons/key-round';
+ 	import LogOut from '@lucide/svelte/icons/log-out';
+-	import { Avatar, Badge, Button, ConfirmDialog, Glass, ListRow, PageHeader, PasswordField, Section, Sheet, Switch, ThemeToggle } from '#lib';
++	import { Avatar, Badge, Button, ConfirmDialog, Glass, ListRow, PageHeader, PasswordField, Section, Sheet, Switch, ThemeToggle, usarMascota } from '#lib';
+ 	import { me } from '#lib/mock';
+ 
+ 	let lowStock = $state(true);
+@@ -18,6 +18,7 @@
+ 	let signOutAllOpen = $state(false);
+ 	let current = $state('');
+ 	let next = $state('');
++	const mascota = usarMascota();
+ </script>
+ 
+ <PageHeader eyebrow="Tu cuenta" title="Perfil" />
+@@ -46,6 +47,17 @@
+ <Section title="Apariencia">
+ 	<ThemeToggle />
+ 	<p class="mt-2 text-[13px] leading-[18px] text-ink-muted">«Automático» sigue el modo claro u oscuro de tu dispositivo.</p>
++	<Glass class="mt-3 py-1">
++		<Switch
++			checked={mascota.visible}
++			onchange={(v) => mascota.setVisible(v)}
++			label="Mostrar a Capsulito"
++			description="La mascota que te saluda, te avisa y celebra contigo. Si lo apagas, verás iconos."
++		/>
++		<button type="button" class="min-h-11 text-[15px] font-medium text-accent underline-offset-4 hover:underline" onclick={() => mascota.repetirBienvenida()}>
++			Ver la bienvenida otra vez
++		</button>
++	</Glass>
+ </Section>
+ 
+ <Section title="Notificaciones">
+diff -ruN '--exclude=node_modules' '--exclude=.svelte-kit' '--exclude=static' '--exclude=tokens.css' '--exclude=package-lock.json' a/src/routes/+layout.svelte b/src/routes/+layout.svelte
+--- a/src/routes/+layout.svelte	2026-10-21 08:24:13.000000000 +0200
++++ b/src/routes/+layout.svelte	2026-10-24 11:14:40.015584800 +0200
+@@ -4,12 +4,17 @@
+ 	import '@fontsource-variable/fraunces';
+ 	import { onMount } from 'svelte';
+ 	import { theme } from '#lib/theme.svelte';
++	import { crearContextoMascota } from '#lib/mascota.svelte';
+ 	import type { LayoutProps } from './$types';
+ 
+ 	let { children }: LayoutProps = $props();
++	const mascota = crearContextoMascota();
+ 
+ 	// Sincroniza el estado del tema con el que ya aplicó el script de app.html.
+-	onMount(() => theme.init());
++	onMount(() => {
++		theme.init();
++		mascota.iniciar();
++	});
+ </script>
+ 
+ <svelte:head>

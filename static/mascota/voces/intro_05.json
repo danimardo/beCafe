@@ -1,0 +1,268 @@
+{
+	"version": 1,
+	"audio": "intro_05.mp3",
+	"texto": "Cada café cuenta. ¡Y las cuentas también! Consulta tus aportaciones y tu saldo.",
+	"duration": 4.967,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.133,
+			"value": 2
+		},
+		{
+			"start": 0.133,
+			"end": 0.187,
+			"value": 6
+		},
+		{
+			"start": 0.187,
+			"end": 0.24,
+			"value": 2
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 2
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 5
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.709,
+			"end": 0.777,
+			"value": 6
+		},
+		{
+			"start": 0.777,
+			"end": 0.846,
+			"value": 4
+		},
+		{
+			"start": 0.846,
+			"end": 0.914,
+			"value": 1
+		},
+		{
+			"start": 0.914,
+			"end": 1.051,
+			"value": 6
+		},
+		{
+			"start": 1.051,
+			"end": 1.12,
+			"value": 2
+		},
+		{
+			"start": 1.4,
+			"end": 1.647,
+			"value": 2
+		},
+		{
+			"start": 1.687,
+			"end": 1.727,
+			"value": 1
+		},
+		{
+			"start": 1.82,
+			"end": 1.874,
+			"value": 6
+		},
+		{
+			"start": 1.874,
+			"end": 1.927,
+			"value": 4
+		},
+		{
+			"start": 1.927,
+			"end": 1.98,
+			"value": 1
+		},
+		{
+			"start": 1.98,
+			"end": 2.087,
+			"value": 6
+		},
+		{
+			"start": 2.087,
+			"end": 2.127,
+			"value": 2
+		},
+		{
+			"start": 2.127,
+			"end": 2.167,
+			"value": 6
+		},
+		{
+			"start": 2.227,
+			"end": 2.287,
+			"value": 6
+		},
+		{
+			"start": 2.287,
+			"end": 2.347,
+			"value": 2
+		},
+		{
+			"start": 2.347,
+			"end": 2.467,
+			"value": 7
+		},
+		{
+			"start": 2.467,
+			"end": 2.587,
+			"value": 1
+		},
+		{
+			"start": 2.587,
+			"end": 2.647,
+			"value": 6
+		},
+		{
+			"start": 3.007,
+			"end": 3.047,
+			"value": 6
+		},
+		{
+			"start": 3.047,
+			"end": 3.087,
+			"value": 3
+		},
+		{
+			"start": 3.087,
+			"end": 3.167,
+			"value": 6
+		},
+		{
+			"start": 3.167,
+			"end": 3.207,
+			"value": 4
+		},
+		{
+			"start": 3.207,
+			"end": 3.287,
+			"value": 6
+		},
+		{
+			"start": 3.287,
+			"end": 3.367,
+			"value": 2
+		},
+		{
+			"start": 3.407,
+			"end": 3.447,
+			"value": 6
+		},
+		{
+			"start": 3.447,
+			"end": 3.487,
+			"value": 4
+		},
+		{
+			"start": 3.487,
+			"end": 3.527,
+			"value": 6
+		},
+		{
+			"start": 3.567,
+			"end": 3.607,
+			"value": 2
+		},
+		{
+			"start": 3.607,
+			"end": 3.667,
+			"value": 7
+		},
+		{
+			"start": 3.667,
+			"end": 3.727,
+			"value": 3
+		},
+		{
+			"start": 3.727,
+			"end": 3.847,
+			"value": 6
+		},
+		{
+			"start": 3.847,
+			"end": 3.904,
+			"value": 2
+		},
+		{
+			"start": 3.904,
+			"end": 3.961,
+			"value": 6
+		},
+		{
+			"start": 3.961,
+			"end": 4.018,
+			"value": 1
+		},
+		{
+			"start": 4.018,
+			"end": 4.076,
+			"value": 3
+		},
+		{
+			"start": 4.076,
+			"end": 4.133,
+			"value": 6
+		},
+		{
+			"start": 4.133,
+			"end": 4.19,
+			"value": 1
+		},
+		{
+			"start": 4.19,
+			"end": 4.247,
+			"value": 6
+		},
+		{
+			"start": 4.287,
+			"end": 4.327,
+			"value": 1
+		},
+		{
+			"start": 4.354,
+			"end": 4.38,
+			"value": 6
+		},
+		{
+			"start": 4.38,
+			"end": 4.407,
+			"value": 4
+		},
+		{
+			"start": 4.474,
+			"end": 4.54,
+			"value": 6
+		},
+		{
+			"start": 4.54,
+			"end": 4.607,
+			"value": 2
+		},
+		{
+			"start": 4.607,
+			"end": 4.74,
+			"value": 6
+		},
+		{
+			"start": 4.74,
+			"end": 4.807,
+			"value": 3
+		}
+	]
+}

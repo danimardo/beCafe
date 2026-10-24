@@ -13,7 +13,7 @@
 	<title>{textos.historial.control.titulo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-6">
+<div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)/historial')} label={textos.historial.titulo} />
 	<PageHeader title={`${etiqueta} · ${formatDate(data.registro.fecha)}`} />
 
@@ -38,7 +38,7 @@
 
 	<Section title={textos.historial.control.reparto}>
 		{#if data.registro.repartos.length === 0}
-			<EmptyState title={textos.historial.control.sinReparto} />
+			<EmptyState momento="vacio-movimientos" title={textos.historial.control.sinReparto} />
 		{:else}
 			<ul class="flex flex-col">
 				{#each data.registro.repartos as reparto (reparto.usuarioId)}
@@ -51,4 +51,4 @@
 			</ul>
 		{/if}
 	</Section>
-</main>
+</div>

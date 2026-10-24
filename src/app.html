@@ -143,15 +143,19 @@
 			(function () {
 				var tema = 'auto';
 				var transparencia = 'normal';
+				var mascota = 'visible';
 				try {
 					tema = localStorage.getItem('becafe-tema') || 'auto';
 					transparencia = localStorage.getItem('becafe-transparencia') || 'normal';
+					mascota = localStorage.getItem('becafe-mascota') || 'visible';
 				} catch (e) {}
 				if (['auto', 'claro', 'oscuro'].indexOf(tema) < 0) tema = 'auto';
 				if (['normal', 'reducida'].indexOf(transparencia) < 0) transparencia = 'normal';
+				if (['visible', 'oculta'].indexOf(mascota) < 0) mascota = 'visible';
 				var oscuro = tema === 'oscuro' || (tema === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
 				document.documentElement.setAttribute('data-theme', oscuro ? 'oscuro' : 'claro');
 				document.documentElement.setAttribute('data-transparencia', transparencia);
+				document.documentElement.setAttribute('data-mascota', mascota);
 			})();
 		</script>
 		%sveltekit.head%

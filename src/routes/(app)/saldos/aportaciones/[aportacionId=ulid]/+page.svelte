@@ -19,7 +19,7 @@
 	<title>{textos.economia.detalleAportacion} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-6">
+<div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)/saldos')} label={textos.economia.saldos} />
 	<PageHeader title={textos.economia.detalleAportacion} />
 
@@ -41,4 +41,4 @@
 			<Button type="submit" variant="danger">{textos.economia.anularAportacion}</Button>
 		</form>
 	{/if}
-</main>
+</div>

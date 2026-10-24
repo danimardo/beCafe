@@ -11,7 +11,7 @@
 	<title>{textos.admin.titulo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-10">
+<div class="flex flex-col gap-6">
 	<PageHeader title={textos.admin.titulo} />
 	{#if data.avisoRestauracion}
 		<Banner tone="warning" title={data.avisoRestauracion === 'nunca' ? textos.copias.avisoNunca : textos.copias.avisoAntigua}>
@@ -27,4 +27,4 @@
 			<ListRow title={textos.configuracion.titulo} subtitle={textos.configuracion.ayuda} href={resolve('/(app)/admin/configuracion')} />
 		</ul>
 	</Section>
-</main>
+</div>

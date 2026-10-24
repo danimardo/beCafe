@@ -1,12 +1,26 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
-	import { Banner, Button, ListRow, Money, MoneyField, PageHeader, PhotoField, SelectField, Section, TextField } from '#lib/ui';
+	import {
+		Banner,
+		Button,
+		EmptyState,
+		ListRow,
+		Money,
+		MoneyField,
+		PageHeader,
+		PhotoField,
+		SelectField,
+		Section,
+		TextField,
+		usarMascota,
+	} from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 	import { parseMoney } from '#lib/shared/dinero';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
+	const mascota = usarMascota();
 
 	type LineaPrevia = { tipoCapsulaId: string; cantidad: string; importe: string };
 
@@ -70,7 +84,7 @@
 	<title>{textos.economia.compras} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-6">
+<div class="flex flex-col gap-6">
 	<PageHeader title={textos.economia.compras} />
 
 	{#if confirmacion}
@@ -88,8 +102,13 @@
 			action="?/registrar"
 			enctype="multipart/form-data"
 			use:enhance={() =>
-				async ({ update }) =>
-					update({ reset: false })}
+				async ({ update }) => {
+					await update({ reset: false });
+					if (form && 'id' in form) {
+						const frase = mascota.elegirFrase('compra.confirmada');
+						if (frase.conAudio) mascota.hablar(frase.id);
+					}
+				}}
 			class="flex flex-col gap-4"
 		>
 			<input type="hidden" name="clienteId" value={data.clienteId} />
@@ -137,7 +156,7 @@
 
 	<Section title={textos.economia.compras}>
 		{#if data.compras.length === 0}
-			<p class="text-sm text-ink-muted">{textos.economia.sinCompras}</p>
+			<EmptyState momento="vacio-compras" title={textos.economia.sinCompras} />
 		{:else}
 			<ul class="flex flex-col">
 				{#each data.compras as compra (compra.id)}
@@ -153,4 +172,4 @@
 			</ul>
 		{/if}
 	</Section>
-</main>
+</div>

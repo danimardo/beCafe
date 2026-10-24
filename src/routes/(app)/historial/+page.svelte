@@ -25,7 +25,7 @@
 	<title>{textos.historial.titulo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-6">
+<div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)')} label={textos.consumos.inicio} />
 	<PageHeader title={textos.historial.titulo} />
 
@@ -44,7 +44,7 @@
 	</form>
 
 	{#if data.filas.length === 0}
-		<EmptyState title={textos.historial.vacio} />
+		<EmptyState momento="vacio-movimientos" title={textos.historial.vacio} />
 	{:else}
 		<ul class="flex flex-col">
 			{#each data.filas as fila (fila.tipo + fila.id)}
@@ -90,4 +90,4 @@
 			<span></span>
 		{/if}
 	</nav>
-</main>
+</div>

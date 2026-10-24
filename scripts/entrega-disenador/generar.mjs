@@ -204,7 +204,12 @@ async function descubrir(page) {
 }
 
 function nombreDeRuta(ruta) {
-	return ruta === '/' ? 'inicio' : ruta.slice(1).replace(/\//g, '_').replace(/[^\w-]/g, '-');
+	return ruta === '/'
+		? 'inicio'
+		: ruta
+				.slice(1)
+				.replace(/\//g, '_')
+				.replace(/[^\w-]/g, '-');
 }
 
 // Captura de una persona: cada ruta, en cada tema y en cada vista. Si móvil y escritorio coinciden, se guarda una sola vez.
@@ -266,7 +271,10 @@ function limpiarHtml(html) {
 }
 
 function aplanar(ruta) {
-	return ruta.replace(/^\/+/, '').split(/[?#]/)[0].replace(/[^\w.-]/g, '_');
+	return ruta
+		.replace(/^\/+/, '')
+		.split(/[?#]/)[0]
+		.replace(/[^\w.-]/g, '_');
 }
 
 function reescribirEnlaces(html, entrada, mapa) {
@@ -316,7 +324,10 @@ async function descargarRecursos(api, rutasIniciales, carpeta) {
 				.replaceAll(ORIGEN, '')
 				.replace(/url\((["']?)\.\//g, (_, comilla) => `url(${comilla}${dir}`);
 			for (const dependencia of recursosDeCss(texto)) pendientes.push(dependencia);
-			const reescrito = texto.replace(/url\((["']?)\/([^"')\s]+)\1\)/g, (_, comilla, resto) => `url(${comilla}./${aplanar(`/${resto}`)}${comilla})`);
+			const reescrito = texto.replace(
+				/url\((["']?)\/([^"')\s]+)\1\)/g,
+				(_, comilla, resto) => `url(${comilla}./${aplanar(`/${resto}`)}${comilla})`,
+			);
 			await writeFile(join(carpeta, nombre), reescrito, 'utf8');
 		} else {
 			await writeFile(join(carpeta, nombre), cuerpo);

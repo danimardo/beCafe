@@ -1,4 +1,5 @@
 import { getContext, setContext } from 'svelte';
+import type { MomentoId } from '#lib/shared/mascota/momentos';
 
 export interface AvisoDeshacer {
 	/** Identificador único; cambia en cada aviso para reiniciar el temporizador. */
@@ -14,6 +15,8 @@ export interface AvisoDeshacer {
 	kind?: 'capsula' | 'ok' | 'warning';
 	/** Línea de advertencia bajo el detalle, p. ej. el descuadre de stock (RF-017). */
 	warning?: string;
+	/** Momento de Capsulito para acompañar o celebrar el aviso (RF-186). */
+	momento?: MomentoId;
 	/** Milisegundos hasta desaparecer. RF-013: 5000. */
 	duration?: number;
 }
@@ -31,6 +34,11 @@ export class EstadoAvisos {
 	/** Aviso informativo sin «Deshacer» (p. ej. «Rol cambiado»). */
 	informar(datos: Omit<AvisoDeshacer, 'id' | 'onundo'>) {
 		this.actual = { kind: 'ok', ...datos, id: crypto.randomUUID() };
+	}
+
+	/** Celebración o reacción con Capsulito (agua, compra, aportación, deuda saldada…). Puede incluir `onundo`. */
+	celebrar(momento: MomentoId, datos: Omit<AvisoDeshacer, 'id' | 'momento'>) {
+		this.actual = { kind: 'ok', ...datos, momento, id: crypto.randomUUID() };
 	}
 
 	cerrar() {

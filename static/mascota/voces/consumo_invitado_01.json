@@ -1,0 +1,168 @@
+{
+	"version": 1,
+	"audio": "consumo_invitado_01.mp3",
+	"texto": "¡Tenemos visita! Café de invitado apuntado.",
+	"duration": 2.967,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.24,
+			"value": 1
+		},
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 7
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 3
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.549,
+			"end": 0.617,
+			"value": 5
+		},
+		{
+			"start": 0.617,
+			"end": 0.686,
+			"value": 1
+		},
+		{
+			"start": 0.686,
+			"end": 0.754,
+			"value": 6
+		},
+		{
+			"start": 0.754,
+			"end": 0.823,
+			"value": 1
+		},
+		{
+			"start": 0.823,
+			"end": 0.891,
+			"value": 6
+		},
+		{
+			"start": 0.891,
+			"end": 0.96,
+			"value": 2
+		},
+		{
+			"start": 1.24,
+			"end": 1.448,
+			"value": 2
+		},
+		{
+			"start": 1.495,
+			"end": 1.543,
+			"value": 6
+		},
+		{
+			"start": 1.543,
+			"end": 1.591,
+			"value": 2
+		},
+		{
+			"start": 1.591,
+			"end": 1.639,
+			"value": 5
+		},
+		{
+			"start": 1.639,
+			"end": 1.687,
+			"value": 1
+		},
+		{
+			"start": 1.714,
+			"end": 1.74,
+			"value": 6
+		},
+		{
+			"start": 1.74,
+			"end": 1.767,
+			"value": 1
+		},
+		{
+			"start": 1.82,
+			"end": 1.874,
+			"value": 1
+		},
+		{
+			"start": 1.874,
+			"end": 1.927,
+			"value": 6
+		},
+		{
+			"start": 1.927,
+			"end": 1.98,
+			"value": 5
+		},
+		{
+			"start": 1.98,
+			"end": 2.034,
+			"value": 1
+		},
+		{
+			"start": 2.034,
+			"end": 2.087,
+			"value": 6
+		},
+		{
+			"start": 2.087,
+			"end": 2.14,
+			"value": 2
+		},
+		{
+			"start": 2.14,
+			"end": 2.194,
+			"value": 6
+		},
+		{
+			"start": 2.194,
+			"end": 2.247,
+			"value": 3
+		},
+		{
+			"start": 2.3,
+			"end": 2.354,
+			"value": 2
+		},
+		{
+			"start": 2.354,
+			"end": 2.407,
+			"value": 7
+		},
+		{
+			"start": 2.407,
+			"end": 2.46,
+			"value": 4
+		},
+		{
+			"start": 2.46,
+			"end": 2.567,
+			"value": 6
+		},
+		{
+			"start": 2.567,
+			"end": 2.674,
+			"value": 2
+		},
+		{
+			"start": 2.674,
+			"end": 2.78,
+			"value": 6
+		},
+		{
+			"start": 2.78,
+			"end": 2.887,
+			"value": 3
+		}
+	]
+}

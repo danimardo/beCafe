@@ -59,7 +59,7 @@
 </form>
 
 {#if sinDatos}
-	<EmptyState title={textos.estadisticas.vacio} />
+	<EmptyState momento="vacio-estadisticas" title={textos.estadisticas.vacio} />
 {:else}
 	<div class="grid grid-cols-2 gap-3">
 		<KpiTile label={textos.estadisticas.cafes} value={String(resumen.cafes)} />
@@ -104,7 +104,7 @@
 
 	<Section title={textos.estadisticas.porTipo}>
 		{#if totalTipos === 0}
-			<EmptyState title={textos.estadisticas.vacio} />
+			<EmptyState momento="vacio-estadisticas" title={textos.estadisticas.vacio} />
 		{:else}
 			<SplitBar
 				title={textos.estadisticas.porTipo}

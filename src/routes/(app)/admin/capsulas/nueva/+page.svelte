@@ -24,7 +24,7 @@
 	<title>{textos.capsulas.nuevo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-10">
+<div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)/admin/capsulas')} label={textos.capsulas.volver} />
 	<PageHeader title={textos.capsulas.nuevo} />
 
@@ -41,4 +41,4 @@
 	{/if}
 
 	<FormularioCapsula accion="?/crear" etiquetaBoton={textos.capsulas.crear} {valorDe} {errorDe} />
-</main>
+</div>

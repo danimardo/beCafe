@@ -7,6 +7,7 @@ export const RUTAS_PROTEGIDAS = [
 	'/perfil',
 	'/privacidad',
 	'/ayuda',
+	'/ayuda/capsulito',
 	'/avisos',
 	'/admin',
 	'/admin/usuarios',

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import { Capsulito } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 
 	// Solo los rechazos de permiso (403) muestran su mensaje, que es texto propio de la aplicación. Cualquier otro error
@@ -20,6 +21,7 @@
 </svelte:head>
 
 <main class="mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-4 px-4 py-10">
+	<Capsulito momento={noEncontrada ? 'no-encontrada' : sinPermiso ? 'sin-permiso' : 'servidor'} size="lg" bocadillo="arriba" />
 	<h1 class="font-serif text-2xl font-semibold text-ink">{titulo}</h1>
 	<p class="text-ink-muted">{ayuda}</p>
 	{#if page.error?.codigo && !sinPermiso && !noEncontrada}

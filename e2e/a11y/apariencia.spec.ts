@@ -78,6 +78,12 @@ test.describe('EV-061: modos de accesibilidad y 320 px', () => {
 		await entrarComo(page, servidor, 'miembro');
 		await page.goto(`${servidor.url}/perfil`);
 		await expectSinInfracciones(page);
+
+		await page.goto(`${servidor.url}/ayuda`);
+		await expectSinInfracciones(page);
+
+		await page.goto(`${servidor.url}/ayuda/capsulito`);
+		await expectSinInfracciones(page);
 	});
 
 	test('EV-061: a 320 px de ancho, la página no tiene desplazamiento horizontal', async ({ page, servidor }) => {

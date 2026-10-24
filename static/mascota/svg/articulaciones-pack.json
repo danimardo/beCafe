@@ -1,0 +1,827 @@
+{
+  "lienzo": [
+    1185,
+    1185
+  ],
+  "convencion": "izq/der: vista del espectador",
+  "transformacion_raiz": "translate(3 3) scale(.94)",
+  "nota": "Puntos de referencia. Requieren rig o segmentación en el editor de animación.",
+  "poses": {
+    "saludando": {
+      "puntos_locales": {
+        "hombro-izq": [
+          369,
+          704
+        ],
+        "codo-izq": [
+          279,
+          786
+        ],
+        "muneca-izq": [
+          340,
+          856
+        ],
+        "hombro-der": [
+          917,
+          615
+        ],
+        "codo-der": [
+          981,
+          568
+        ],
+        "muneca-der": [
+          1045,
+          511
+        ],
+        "cadera-izq": [
+          541,
+          875
+        ],
+        "rodilla-izq": [
+          515,
+          947
+        ],
+        "tobillo-izq": [
+          493,
+          1028
+        ],
+        "cadera-der": [
+          709,
+          867
+        ],
+        "rodilla-der": [
+          733,
+          946
+        ],
+        "tobillo-der": [
+          756,
+          1025
+        ]
+      },
+      "puntos_lienzo": {
+        "hombro-izq": [
+          349.86,
+          664.76
+        ],
+        "codo-izq": [
+          265.26,
+          741.84
+        ],
+        "muneca-izq": [
+          322.6,
+          807.64
+        ],
+        "hombro-der": [
+          864.98,
+          581.1
+        ],
+        "codo-der": [
+          925.14,
+          536.92
+        ],
+        "muneca-der": [
+          985.3,
+          483.34
+        ],
+        "cadera-izq": [
+          511.54,
+          825.5
+        ],
+        "rodilla-izq": [
+          487.1,
+          893.18
+        ],
+        "tobillo-izq": [
+          466.42,
+          969.32
+        ],
+        "cadera-der": [
+          669.46,
+          817.98
+        ],
+        "rodilla-der": [
+          692.02,
+          892.24
+        ],
+        "tobillo-der": [
+          713.64,
+          966.5
+        ]
+      }
+    },
+    "senalando": {
+      "puntos_locales": {
+        "hombro-izq": [
+          344,
+          654
+        ],
+        "codo-izq": [
+          254,
+          736
+        ],
+        "muneca-izq": [
+          315,
+          806
+        ],
+        "cadera-izq": [
+          520,
+          872
+        ],
+        "rodilla-izq": [
+          488,
+          944
+        ],
+        "tobillo-izq": [
+          465,
+          1025
+        ],
+        "cadera-der": [
+          707,
+          862
+        ],
+        "rodilla-der": [
+          738,
+          942
+        ],
+        "tobillo-der": [
+          762,
+          1025
+        ],
+        "hombro-der": [
+          904,
+          610
+        ],
+        "codo-der": [
+          985,
+          586
+        ],
+        "muneca-der": [
+          1060,
+          550
+        ]
+      },
+      "puntos_lienzo": {
+        "hombro-izq": [
+          326.36,
+          617.76
+        ],
+        "codo-izq": [
+          241.76,
+          694.84
+        ],
+        "muneca-izq": [
+          299.1,
+          760.64
+        ],
+        "cadera-izq": [
+          491.8,
+          822.68
+        ],
+        "rodilla-izq": [
+          461.72,
+          890.36
+        ],
+        "tobillo-izq": [
+          440.1,
+          966.5
+        ],
+        "cadera-der": [
+          667.58,
+          813.28
+        ],
+        "rodilla-der": [
+          696.72,
+          888.48
+        ],
+        "tobillo-der": [
+          719.28,
+          966.5
+        ],
+        "hombro-der": [
+          852.76,
+          576.4
+        ],
+        "codo-der": [
+          928.9,
+          553.84
+        ],
+        "muneca-der": [
+          999.4,
+          520.0
+        ]
+      }
+    },
+    "pensando": {
+      "puntos_locales": {
+        "hombro-izq": [
+          399,
+          659
+        ],
+        "codo-izq": [
+          309,
+          741
+        ],
+        "muneca-izq": [
+          370,
+          811
+        ],
+        "cadera-izq": [
+          570,
+          872
+        ],
+        "rodilla-izq": [
+          538,
+          944
+        ],
+        "tobillo-izq": [
+          515,
+          1025
+        ],
+        "cadera-der": [
+          707,
+          862
+        ],
+        "rodilla-der": [
+          738,
+          942
+        ],
+        "tobillo-der": [
+          762,
+          1025
+        ],
+        "hombro-der": [
+          949,
+          710
+        ],
+        "codo-der": [
+          961,
+          762
+        ],
+        "muneca-der": [
+          848,
+          705
+        ]
+      },
+      "puntos_lienzo": {
+        "hombro-izq": [
+          378.06,
+          622.46
+        ],
+        "codo-izq": [
+          293.46,
+          699.54
+        ],
+        "muneca-izq": [
+          350.8,
+          765.34
+        ],
+        "cadera-izq": [
+          538.8,
+          822.68
+        ],
+        "rodilla-izq": [
+          508.72,
+          890.36
+        ],
+        "tobillo-izq": [
+          487.1,
+          966.5
+        ],
+        "cadera-der": [
+          667.58,
+          813.28
+        ],
+        "rodilla-der": [
+          696.72,
+          888.48
+        ],
+        "tobillo-der": [
+          719.28,
+          966.5
+        ],
+        "hombro-der": [
+          895.06,
+          670.4
+        ],
+        "codo-der": [
+          906.34,
+          719.28
+        ],
+        "muneca-der": [
+          800.12,
+          665.7
+        ]
+      }
+    },
+    "caminando": {
+      "puntos_locales": {
+        "hombro-izq": [
+          389,
+          677
+        ],
+        "codo-izq": [
+          277,
+          747
+        ],
+        "muneca-izq": [
+          315,
+          819
+        ],
+        "hombro-der": [
+          960,
+          653
+        ],
+        "codo-der": [
+          1009,
+          683
+        ],
+        "muneca-der": [
+          1080,
+          629
+        ],
+        "cadera-izq": [
+          554,
+          885
+        ],
+        "rodilla-izq": [
+          533,
+          948
+        ],
+        "tobillo-izq": [
+          497,
+          1018
+        ],
+        "cadera-der": [
+          702,
+          875
+        ],
+        "rodilla-der": [
+          745,
+          943
+        ],
+        "tobillo-der": [
+          784,
+          1015
+        ]
+      },
+      "puntos_lienzo": {
+        "hombro-izq": [
+          368.66,
+          639.38
+        ],
+        "codo-izq": [
+          263.38,
+          705.18
+        ],
+        "muneca-izq": [
+          299.1,
+          772.86
+        ],
+        "hombro-der": [
+          905.4,
+          616.82
+        ],
+        "codo-der": [
+          951.46,
+          645.02
+        ],
+        "muneca-der": [
+          1018.2,
+          594.26
+        ],
+        "cadera-izq": [
+          523.76,
+          834.9
+        ],
+        "rodilla-izq": [
+          504.02,
+          894.12
+        ],
+        "tobillo-izq": [
+          470.18,
+          959.92
+        ],
+        "cadera-der": [
+          662.88,
+          825.5
+        ],
+        "rodilla-der": [
+          703.3,
+          889.42
+        ],
+        "tobillo-der": [
+          739.96,
+          957.1
+        ]
+      }
+    },
+    "celebrando": {
+      "puntos_locales": {
+        "hombro-izq": [
+          385,
+          647
+        ],
+        "codo-izq": [
+          276,
+          587
+        ],
+        "muneca-izq": [
+          183,
+          511
+        ],
+        "hombro-der": [
+          937,
+          565
+        ],
+        "codo-der": [
+          1009,
+          507
+        ],
+        "muneca-der": [
+          1070,
+          423
+        ],
+        "cadera-izq": [
+          574,
+          843
+        ],
+        "rodilla-izq": [
+          549,
+          920
+        ],
+        "tobillo-izq": [
+          532,
+          1007
+        ],
+        "cadera-der": [
+          787,
+          818
+        ],
+        "rodilla-der": [
+          832,
+          856
+        ],
+        "tobillo-der": [
+          855,
+          915
+        ]
+      },
+      "puntos_lienzo": {
+        "hombro-izq": [
+          364.9,
+          611.18
+        ],
+        "codo-izq": [
+          262.44,
+          554.78
+        ],
+        "muneca-izq": [
+          175.02,
+          483.34
+        ],
+        "hombro-der": [
+          883.78,
+          534.1
+        ],
+        "codo-der": [
+          951.46,
+          479.58
+        ],
+        "muneca-der": [
+          1008.8,
+          400.62
+        ],
+        "cadera-izq": [
+          542.56,
+          795.42
+        ],
+        "rodilla-izq": [
+          519.06,
+          867.8
+        ],
+        "tobillo-izq": [
+          503.08,
+          949.58
+        ],
+        "cadera-der": [
+          742.78,
+          771.92
+        ],
+        "rodilla-der": [
+          785.08,
+          807.64
+        ],
+        "tobillo-der": [
+          806.7,
+          863.1
+        ]
+      }
+    },
+    "saltando": {
+      "puntos_locales": {
+        "hombro-izq": [
+          377,
+          546
+        ],
+        "codo-izq": [
+          307,
+          475
+        ],
+        "muneca-izq": [
+          251,
+          397
+        ],
+        "hombro-der": [
+          895,
+          650
+        ],
+        "codo-der": [
+          979,
+          617
+        ],
+        "muneca-der": [
+          1053,
+          559
+        ],
+        "cadera-izq": [
+          469,
+          760
+        ],
+        "rodilla-izq": [
+          431,
+          802
+        ],
+        "tobillo-izq": [
+          422,
+          850
+        ],
+        "cadera-der": [
+          694,
+          841
+        ],
+        "rodilla-der": [
+          710,
+          910
+        ],
+        "tobillo-der": [
+          746,
+          975
+        ]
+      },
+      "puntos_lienzo": {
+        "hombro-izq": [
+          357.38,
+          516.24
+        ],
+        "codo-izq": [
+          291.58,
+          449.5
+        ],
+        "muneca-izq": [
+          238.94,
+          376.18
+        ],
+        "hombro-der": [
+          844.3,
+          614.0
+        ],
+        "codo-der": [
+          923.26,
+          582.98
+        ],
+        "muneca-der": [
+          992.82,
+          528.46
+        ],
+        "cadera-izq": [
+          443.86,
+          717.4
+        ],
+        "rodilla-izq": [
+          408.14,
+          756.88
+        ],
+        "tobillo-izq": [
+          399.68,
+          802.0
+        ],
+        "cadera-der": [
+          655.36,
+          793.54
+        ],
+        "rodilla-der": [
+          670.4,
+          858.4
+        ],
+        "tobillo-der": [
+          704.24,
+          919.5
+        ]
+      }
+    },
+    "recordatorio": {
+      "puntos_locales": {
+        "hombro-izq": [
+          379,
+          738
+        ],
+        "codo-izq": [
+          307,
+          801
+        ],
+        "muneca-izq": [
+          232,
+          748
+        ],
+        "hombro-der": [
+          903,
+          661
+        ],
+        "codo-der": [
+          978,
+          623
+        ],
+        "muneca-der": [
+          1042,
+          554
+        ],
+        "cadera-izq": [
+          536,
+          896
+        ],
+        "rodilla-izq": [
+          510,
+          955
+        ],
+        "tobillo-izq": [
+          480,
+          1025
+        ],
+        "cadera-der": [
+          722,
+          879
+        ],
+        "rodilla-der": [
+          757,
+          945
+        ],
+        "tobillo-der": [
+          782,
+          1020
+        ]
+      },
+      "puntos_lienzo": {
+        "hombro-izq": [
+          359.26,
+          696.72
+        ],
+        "codo-izq": [
+          291.58,
+          755.94
+        ],
+        "muneca-izq": [
+          221.08,
+          706.12
+        ],
+        "hombro-der": [
+          851.82,
+          624.34
+        ],
+        "codo-der": [
+          922.32,
+          588.62
+        ],
+        "muneca-der": [
+          982.48,
+          523.76
+        ],
+        "cadera-izq": [
+          506.84,
+          845.24
+        ],
+        "rodilla-izq": [
+          482.4,
+          900.7
+        ],
+        "tobillo-izq": [
+          454.2,
+          966.5
+        ],
+        "cadera-der": [
+          681.68,
+          829.26
+        ],
+        "rodilla-der": [
+          714.58,
+          891.3
+        ],
+        "tobillo-der": [
+          738.08,
+          961.8
+        ]
+      }
+    },
+    "anadiendo-capsula": {
+      "puntos_locales": {
+        "hombro-izq": [
+          429,
+          744
+        ],
+        "codo-izq": [
+          339,
+          826
+        ],
+        "muneca-izq": [
+          400,
+          896
+        ],
+        "hombro-der": [
+          854,
+          563
+        ],
+        "codo-der": [
+          913,
+          485
+        ],
+        "muneca-der": [
+          957,
+          391
+        ],
+        "cadera-izq": [
+          550,
+          936
+        ],
+        "rodilla-izq": [
+          527,
+          989
+        ],
+        "tobillo-izq": [
+          501,
+          1052
+        ],
+        "cadera-der": [
+          738,
+          903
+        ],
+        "rodilla-der": [
+          778,
+          949
+        ],
+        "tobillo-der": [
+          812,
+          997
+        ]
+      },
+      "puntos_lienzo": {
+        "hombro-izq": [
+          406.26,
+          702.36
+        ],
+        "codo-izq": [
+          321.66,
+          779.44
+        ],
+        "muneca-izq": [
+          379.0,
+          845.24
+        ],
+        "hombro-der": [
+          805.76,
+          532.22
+        ],
+        "codo-der": [
+          861.22,
+          458.9
+        ],
+        "muneca-der": [
+          902.58,
+          370.54
+        ],
+        "cadera-izq": [
+          520.0,
+          882.84
+        ],
+        "rodilla-izq": [
+          498.38,
+          932.66
+        ],
+        "tobillo-izq": [
+          473.94,
+          991.88
+        ],
+        "cadera-der": [
+          696.72,
+          851.82
+        ],
+        "rodilla-der": [
+          734.32,
+          895.06
+        ],
+        "tobillo-der": [
+          766.28,
+          940.18
+        ]
+      }
+    }
+  }
+}

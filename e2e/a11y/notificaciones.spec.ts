@@ -19,6 +19,12 @@ for (const esquema of ['light', 'dark'] as const) {
 			await expectSinInfracciones(page);
 		});
 
+		test('laboratorio de Capsulito: sin infracciones de axe', async ({ page, servidor }) => {
+			await entrarComo(page, servidor, 'miembro');
+			await page.goto(`${servidor.url}/ayuda/capsulito`);
+			await expectSinInfracciones(page);
+		});
+
 		test('página de avisos: sin infracciones de axe', async ({ page, servidor }) => {
 			await entrarComo(page, servidor, 'miembro');
 			await page.goto(`${servidor.url}/avisos`);

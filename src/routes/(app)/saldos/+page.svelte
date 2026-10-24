@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
-	import { Banner, Button, EmptyState, ListRow, Money, MoneyField, PageHeader, Section } from '#lib/ui';
+	import { Banner, Button, EmptyState, ListRow, Money, MoneyField, PageHeader, Section, usarMascota } from '#lib/ui';
 	import { formatMoneyPlain } from '#lib/shared/dinero';
 	import { textos } from '#lib/shared/textos';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
+	const mascota = usarMascota();
 	const errores: Partial<Record<string, { codigo: string; mensaje: string }>> = $derived(
 		(form && 'errores' in form ? form.errores : undefined) ?? {},
 	);
@@ -21,7 +22,7 @@
 	<title>{textos.economia.saldos} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-6">
+<div class="flex flex-col gap-6">
 	<PageHeader title={textos.economia.saldos} />
 
 	{#if confirmacion}
@@ -38,7 +39,7 @@
 
 	<Section title={textos.historial.saldosTitulo}>
 		{#if data.saldos.length === 0}
-			<EmptyState title={textos.historial.sinSaldos} />
+			<EmptyState momento="vacio-movimientos" title={textos.historial.sinSaldos} />
 		{:else}
 			<ul class="flex flex-col">
 				{#each data.saldos as persona (persona.usuarioId)}
@@ -71,7 +72,19 @@
 		{/if}
 	</Section>
 
-	<form method="post" action="?/aportar" use:enhance class="flex flex-col gap-4">
+	<form
+		method="post"
+		action="?/aportar"
+		use:enhance={() =>
+			async ({ update }) => {
+				await update();
+				if (form && 'confirmacion' in form) {
+					const frase = mascota.elegirFrase('aportacion.confirmada');
+					if (frase.conAudio) mascota.hablar(frase.id);
+				}
+			}}
+		class="flex flex-col gap-4"
+	>
 		<input type="hidden" name="clienteId" value={data.clienteId} />
 		<MoneyField label={textos.economia.importe} name="importe" bind:cents={importe} error={errorImporte} required />
 		<Button type="submit">{textos.economia.aportar}</Button>
@@ -117,4 +130,4 @@
 		{/if}
 		<a href={resolve('/(app)/historial')} class="text-accent underline">{textos.historial.verHistorial}</a>
 	</Section>
-</main>
+</div>

@@ -4,7 +4,24 @@
 	import { tick } from 'svelte';
 	import { ulid } from 'ulid';
 	import type { ElementoCola } from '#lib/shared/contratos/consumos';
-	import { Banner, Button, CapsuleRow, Glass, ListRow, Money, Section, WaterRefillCard, usarAvisos } from '#lib/ui';
+	import {
+		AlertsPanel,
+		Banner,
+		Button,
+		CapsuleTile,
+		Capsulito,
+		EmptyState,
+		Glass,
+		ListRow,
+		Money,
+		PageHeader,
+		PanelGrid,
+		Section,
+		WaterRefillCard,
+		usarAvisos,
+		usarMascota,
+	} from '#lib/ui';
+	import { MOMENTOS, momentoInicio } from '#lib/shared/mascota/momentos';
 	import { textos } from '#lib/shared/textos';
 	import { instanteDesdeFecha } from '#lib/shared/fechas/tipos';
 	import { anadirElemento, borrarElemento, enviarPendientes, limpiarRechazados, listarElementos } from '#lib/client/cola-consumos/index';
@@ -12,6 +29,7 @@
 
 	let { data, form }: PageProps = $props();
 	const avisos = usarAvisos();
+	const mascota = usarMascota();
 
 	// Con JavaScript, el formulario lo gestiona `use:enhance`; sin él, la página muestra la respuesta del servidor (principio XVII).
 	let conJs = $state(false);
@@ -37,6 +55,29 @@
 	// Sin conexión al enviar el relleno: el botón se desactiva y nunca se encola (RN-081).
 	let rellenoFallido = $state(false);
 
+	const primerNombre = $derived(data.nombre.trim().split(/\s+/)[0] ?? '');
+	const momentoSaludoBase = $derived(
+		momentoInicio({
+			rechazado: false,
+			pendientes: 0,
+			saldoCents: data.saldoPropio,
+			limiteDeudaCents: data.limiteDeuda,
+			stockBajo: data.avisos.length,
+			soyAguador: data.agua.aguador?.incluyeAlUsuario,
+		}),
+	);
+	const momentoSaludo = $derived(
+		momentoInicio({
+			rechazado: rechazados.length > 0,
+			pendientes: enCola.length,
+			saldoCents: data.saldoPropio,
+			limiteDeudaCents: data.limiteDeuda,
+			stockBajo: data.avisos.length,
+			soyAguador: data.agua.aguador?.incluyeAlUsuario,
+		}),
+	);
+	const poseSaludo = $derived(!enLinea ? MOMENTOS[momentoSaludoBase].pose : undefined);
+
 	function nombreDe(tipoCapsulaId: string): string {
 		return data.tipos.find((tipo) => tipo.id === tipoCapsulaId)?.nombre ?? '';
 	}
@@ -54,9 +95,15 @@
 	// Envía la cola de esta persona y, si algo falla por red o por el servidor, vuelve a intentarlo con su espera (plan D5).
 	async function sincronizar(): Promise<void> {
 		if (!navigator.onLine) return;
+		const previos = pendientes.filter((e) => e.estado === 'pendiente').length;
 		const resultado = await enviarPendientes(data.usuarioId);
 		sesionCaducada = resultado.sesionCaducada;
 		await cargarPendientes();
+		const actuales = pendientes.filter((e) => e.estado === 'pendiente').length;
+		if (previos > 0 && actuales < previos) {
+			const frase = mascota.elegirFrase('consumo.sincronizado');
+			if (frase.conAudio) mascota.hablar(frase.id);
+		}
 		if (resultado.reintentoEnMs !== null) temporizador = setTimeout(() => void sincronizar(), resultado.reintentoEnMs);
 	}
 
@@ -74,6 +121,8 @@
 	async function encolar(elemento: ElementoCola): Promise<void> {
 		await anadirElemento(elemento);
 		await cargarPendientes();
+		const frase = mascota.elegirFrase('consumo.pendiente');
+		if (frase.conAudio) mascota.hablar(frase.id);
 		void sincronizar();
 	}
 
@@ -110,9 +159,17 @@
 				await update();
 				const consumo = form && 'consumo' in form ? form.consumo : undefined;
 				if (consumo) {
+					const momentoEvento = consumo.descuadre
+						? 'stock.negativo'
+						: consumo.invitado
+							? 'consumo.invitado_confirmado'
+							: 'consumo.confirmado';
+					const frase = mascota.elegirFrase(momentoEvento);
+					if (frase.conAudio) mascota.hablar(frase.id);
 					avisos.mostrarDeshacer({
 						title: textos.consumos.registrado(nombreDe(consumo.tipoCapsulaId)),
 						warning: consumo.descuadre ? textos.consumos.descuadre : undefined,
+						momento: 'consumo.confirmado',
 						onundo: () => void deshacer(consumo.id),
 					});
 				}
@@ -130,8 +187,11 @@
 	function enviarDeshacer(formulario: HTMLFormElement) {
 		return enhance(formulario, () => async ({ update }) => {
 			await update({ reset: false });
-			if (form && 'deshecho' in form) avisos.informar({ title: textos.consumos.deshecho });
-			else if (form && 'errores' in form && form.errores)
+			if (form && 'deshecho' in form) {
+				const frase = mascota.elegirFrase('consumo.anulado');
+				if (frase.conAudio) mascota.hablar(frase.id);
+				avisos.informar({ title: textos.consumos.deshecho });
+			} else if (form && 'errores' in form && form.errores)
 				avisos.informar({
 					title: 'general' in form.errores ? form.errores.general.mensaje : textos.consumos.noDeshecho,
 					kind: 'warning',
@@ -154,10 +214,16 @@
 				await update({ reset: false });
 				const id = form && 'rellenoId' in form ? form.rellenoId : undefined;
 				if (id) {
+					const frase = mascota.elegirFrase('agua.confirmada');
+					if (frase.conAudio) mascota.hablar(frase.id);
 					avisos.mostrarDeshacer({
 						title: textos.rellenos.registrado,
+						momento: 'relleno-registrado',
 						onundo: () => void deshacerRelleno(id),
 					});
+				} else if (form && 'codigo' in form && form.codigo === 'RELLENO_RECIENTE') {
+					const frase = mascota.elegirFrase('agua.rechazada_reciente', { nombre: form.autor });
+					if (frase.conAudio) mascota.hablar(frase.id);
 				}
 			};
 		});
@@ -197,11 +263,15 @@
 		enLinea = true;
 		void sincronizar();
 	}}
-	onoffline={() => (enLinea = false)}
+	onoffline={() => {
+		enLinea = false;
+		const frase = mascota.elegirFrase('conexion.perdida');
+		if (frase.conAudio) mascota.hablar(frase.id);
+	}}
 />
 
-<main class="mx-auto flex min-h-dvh w-full max-w-md flex-col gap-6 px-4 py-10">
-	<h1 class="font-serif text-3xl font-semibold text-ink">{textos.inicio.saludo(data.nombre)}</h1>
+<div class="flex flex-col gap-6">
+	<PageHeader title={textos.inicio.saludo(data.nombre)} />
 	{#if data.privacidadAceptada}
 		<p role="status" class="text-[15px] text-ink">{textos.confirmaciones.privacidadAceptada}</p>
 	{/if}
@@ -230,144 +300,125 @@
 		<input type="hidden" name="consumoId" value={consumoADeshacer} />
 	</form>
 
-	<Section title={textos.economia.hucha}>
-		<p class="text-2xl font-semibold">
-			<Money cents={data.hucha} tone srSuffix={data.hucha < 0 ? textos.economia.huchaNegativa : undefined} />
-		</p>
-		<p class="text-[15px] text-ink-muted">
-			{textos.economia.tuSaldo}: <Money cents={data.saldoPropio} signed tone />
-		</p>
-	</Section>
+	<PanelGrid>
+		{#snippet resumen()}
+			<div class="flex flex-col gap-4">
+				{#if mascota.visible}
+					<Glass class="flex items-center gap-3 p-4">
+						<Capsulito momento={momentoSaludo} pose={poseSaludo} nombre={primerNombre} size="sm" bocadillo="derecha" />
+					</Glass>
+				{/if}
+				<AlertsPanel
+					huchaCents={data.hucha}
+					myBalanceCents={data.saldoPropio}
+					lowStock={data.avisos.map((aviso) => aviso.nombre)}
+					debtors={data.deudores.map((deudor) => ({ name: deudor.nombre, cents: deudor.saldo }))}
+				/>
+			</div>
+		{/snippet}
 
-	{#if data.deudores.length > 0}
-		<Section title={textos.economia.deudores}>
-			<ul class="flex flex-col gap-1 text-[15px]">
-				{#each data.deudores as deudor (deudor.nombre)}
-					<li class="flex justify-between gap-3">
-						<span>{deudor.nombre}</span>
-						<Money cents={deudor.saldo} tone />
-					</li>
-				{/each}
-			</ul>
-		</Section>
-	{/if}
+		{#snippet principal()}
+			<Section title={textos.consumos.titulo}>
+				{#if !enLinea}
+					<Banner tone="offline">{textos.consumos.sinConexion}</Banner>
+				{/if}
+				{#if enCola.length > 0}
+					<Banner tone="warning" title={textos.consumos.pendientes(enCola.length)}>{textos.consumos.perdidos}</Banner>
+				{/if}
+				{#if sesionCaducada}
+					<Banner tone="negative">{textos.consumos.inicieSesion}</Banner>
+				{/if}
+				{#if rechazados.length > 0}
+					<Banner tone="negative" title={textos.consumos.rechazados}>
+						<ul class="flex flex-col gap-1 text-[14px]">
+							{#each rechazados as rechazado (rechazado.clienteId)}
+								<li>{nombreDe(rechazado.tipoCapsulaId)}: {mensajeDeRechazo(rechazado.codigo)}</li>
+							{/each}
+						</ul>
+						<Button type="button" variant="soft" onclick={entenderRechazados}>{textos.consumos.entendido}</Button>
+					</Banner>
+				{/if}
 
-	<Section title={textos.capsulas.avisos.titulo}>
-		{#if data.avisos.length === 0}
-			<p class="text-[15px] text-ink-muted">{textos.capsulas.avisos.ninguno}</p>
-		{:else}
-			<ul class="flex flex-col gap-2">
-				{#each data.avisos as aviso (aviso.id)}
-					<li class="flex min-h-11 flex-wrap items-center justify-between gap-2">
-						<span class="text-[15px] font-semibold text-ink">{aviso.nombre}</span>
-						<span class="text-[14px] text-ink-muted">
-							{aviso.dias === null ? textos.capsulas.sinDatos : textos.capsulas.dias(aviso.dias)}
-						</span>
-					</li>
-				{/each}
-			</ul>
-		{/if}
-	</Section>
+				{#if data.tipos.length === 0}
+					<EmptyState momento="vacio-capsulas" title={textos.capsulas.vacio} description={textos.consumos.sinCapsulas} />
+				{:else}
+					<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+						{#each data.tipos as tipo (tipo.id)}
+							<CapsuleTile
+								tipoId={tipo.id}
+								clienteId={tipo.clienteId}
+								name={tipo.nombre}
+								brand={tipo.marca}
+								intensity={tipo.intensidad}
+								stock={tipo.stock}
+								threshold={tipo.umbralMinimo}
+								priceCents={tipo.precio}
+								color={tipo.color}
+								photoUrl={tipo.fotoUrl}
+								daysLeft={tipo.dias}
+								ownCount={tipo.propios}
+								guestCount={tipo.invitados}
+								enhancer={enviarToque}
+							/>
+						{/each}
+					</ul>
+				{/if}
 
-	<Section title={textos.consumos.titulo}>
-		<WaterRefillCard
-			ultimo={data.agua.ultimo}
-			aguador={data.agua.aguador}
-			clienteId={data.agua.clienteId}
-			enConexion={enLinea && !rellenoFallido}
-			rechazo={rechazoRelleno ? { nombre: rechazoRelleno.autor, hace: rechazoRelleno.hace, esPropio: rechazoRelleno.esPropio } : null}
-			enhancer={enviarRelleno}
-			historialHref={resolve('/(app)/historial')}
-		/>
-		{#if form && 'deshechoRelleno' in form && !conJs}
-			<p role="status" class="text-[15px] text-ink">{textos.rellenos.anuladoOk}</p>
-		{/if}
-		{#if rellenoRegistrado && !conJs}
-			<Banner tone="info" title={textos.rellenos.registrado}>
-				<form method="post" action="?/deshacerRelleno" class="mt-2">
-					<input type="hidden" name="rellenoId" value={rellenoRegistrado} />
-					<Button type="submit" variant="soft">{textos.consumos.deshacer}</Button>
-				</form>
-			</Banner>
-		{/if}
-		{#if !enLinea}
-			<Banner tone="offline">{textos.consumos.sinConexion}</Banner>
-		{/if}
-		{#if enCola.length > 0}
-			<Banner tone="warning" title={textos.consumos.pendientes(enCola.length)}>{textos.consumos.perdidos}</Banner>
-		{/if}
-		{#if sesionCaducada}
-			<Banner tone="negative">{textos.consumos.inicieSesion}</Banner>
-		{/if}
-		{#if rechazados.length > 0}
-			<Banner tone="negative" title={textos.consumos.rechazados}>
-				<ul class="flex flex-col gap-1 text-[14px]">
-					{#each rechazados as rechazado (rechazado.clienteId)}
-						<li>{nombreDe(rechazado.tipoCapsulaId)}: {mensajeDeRechazo(rechazado.codigo)}</li>
-					{/each}
-				</ul>
-				<Button type="button" variant="soft" onclick={entenderRechazados}>{textos.consumos.entendido}</Button>
-			</Banner>
-		{/if}
+				{#if enCola.length > 0}
+					<ul class="flex flex-col gap-1">
+						{#each enCola as elemento (elemento.clienteId)}
+							<li class="flex min-h-11 items-center justify-between gap-3 text-[15px]">
+								<span>{nombreDe(elemento.tipoCapsulaId)} · {textos.consumos.pendiente}</span>
+								<Button type="button" variant="ghost" onclick={() => quitarPendiente(elemento)}>{textos.consumos.deshacer}</Button>
+							</li>
+						{/each}
+					</ul>
+				{/if}
+			</Section>
+		{/snippet}
 
-		{#if data.tipos.length === 0}
-			<p class="text-[15px] text-ink-muted">{textos.consumos.sinCapsulas}</p>
-		{:else}
-			<ul class="flex flex-col gap-2">
-				{#each data.tipos as tipo (tipo.id)}
-					<CapsuleRow
-						tipoId={tipo.id}
-						clienteId={tipo.clienteId}
-						name={tipo.nombre}
-						brand={tipo.marca}
-						intensity={tipo.intensidad}
-						stock={tipo.stock}
-						threshold={tipo.umbralMinimo}
-						priceCents={tipo.precio}
-						color={tipo.color}
-						photoUrl={tipo.fotoUrl}
-						daysLeft={tipo.dias}
-						enhancer={enviarToque}
-					/>
-				{/each}
-			</ul>
-		{/if}
+		{#snippet secundario()}
+			<div class="flex flex-col gap-6">
+				<WaterRefillCard
+					ultimo={data.agua.ultimo}
+					aguador={data.agua.aguador}
+					clienteId={data.agua.clienteId}
+					enConexion={enLinea && !rellenoFallido}
+					rechazo={rechazoRelleno ? { nombre: rechazoRelleno.autor, hace: rechazoRelleno.hace, esPropio: rechazoRelleno.esPropio } : null}
+					enhancer={enviarRelleno}
+					historialHref={resolve('/(app)/historial')}
+				/>
+				{#if form && 'deshechoRelleno' in form && !conJs}
+					<p role="status" class="text-[15px] text-ink">{textos.rellenos.anuladoOk}</p>
+				{/if}
+				{#if rellenoRegistrado && !conJs}
+					<Banner tone="info" title={textos.rellenos.registrado}>
+						<form method="post" action="?/deshacerRelleno" class="mt-2">
+							<input type="hidden" name="rellenoId" value={rellenoRegistrado} />
+							<Button type="submit" variant="soft">{textos.consumos.deshacer}</Button>
+						</form>
+					</Banner>
+				{/if}
 
-		{#if enCola.length > 0}
-			<ul class="flex flex-col gap-1">
-				{#each enCola as elemento (elemento.clienteId)}
-					<li class="flex min-h-11 items-center justify-between gap-3 text-[15px]">
-						<span>{nombreDe(elemento.tipoCapsulaId)} · {textos.consumos.pendiente}</span>
-						<Button type="button" variant="ghost" onclick={() => quitarPendiente(elemento)}>{textos.consumos.deshacer}</Button>
-					</li>
-				{/each}
-			</ul>
-		{/if}
-	</Section>
-
-	<Section title={textos.consumos.ultimos}>
-		{#if data.recientes.length === 0}
-			<p class="text-sm text-ink-muted">{textos.consumos.sinUltimos}</p>
-		{:else}
-			<ul class="flex flex-col">
-				{#each data.recientes as consumo (consumo.id)}
-					<ListRow
-						title={`${consumo.tipo}${consumo.invitado ? ` · ${textos.consumos.invitado}` : ''}`}
-						href={resolve('/(app)/consumos/[consumoId=ulid]', { consumoId: consumo.id })}
-					>
-						{#snippet trailing()}
-							<Money cents={consumo.precio} />
-						{/snippet}
-					</ListRow>
-				{/each}
-			</ul>
-		{/if}
-	</Section>
-
-	<Glass class="flex flex-col gap-4">
-		<a class="text-accent underline" href={resolve('/(app)/perfil')}>{textos.perfil.titulo}</a>
-		<form method="post" action="/logout" use:enhance>
-			<Button type="submit" variant="soft" block>{textos.inicio.cerrarSesion}</Button>
-		</form>
-	</Glass>
-</main>
+				<Section title={textos.consumos.ultimos}>
+					{#if data.recientes.length === 0}
+						<p class="text-sm text-ink-muted">{textos.consumos.sinUltimos}</p>
+					{:else}
+						<ul class="flex flex-col">
+							{#each data.recientes as consumo (consumo.id)}
+								<ListRow
+									title={`${consumo.tipo}${consumo.invitado ? ` · ${textos.consumos.invitado}` : ''}`}
+									href={resolve('/(app)/consumos/[consumoId=ulid]', { consumoId: consumo.id })}
+								>
+									{#snippet trailing()}
+										<Money cents={consumo.precio} />
+									{/snippet}
+								</ListRow>
+							{/each}
+						</ul>
+					{/if}
+				</Section>
+			</div>
+		{/snippet}
+	</PanelGrid>
+</div>
