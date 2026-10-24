@@ -82,6 +82,8 @@ export function abrirAmbienteComando(entorno: Entorno, carpetaMigraciones: strin
 			limitadorRegistro: crearLimitador({ maximo: 30, ventanaMs: 60_000 }),
 			limitadorAvisos: crearLimitador({ maximo: 1, ventanaMs: 60_000 }),
 			azar: azarReal,
+			// Los comandos no programan copias: la lectura del panel no las necesita.
+			s3Activa: false,
 		},
 		cerrar: () => conexion.cerrar(),
 	};

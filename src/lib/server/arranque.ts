@@ -1,9 +1,11 @@
 import { join } from 'node:path';
 import { crearPrimerAdministrador, hayUsuarios } from '#lib/server/auth';
 import { enviarResumenMensual, mesAnteriorDe, TAREA_RESUMEN_MENSUAL } from '#lib/server/estadisticas';
+import { determinarAguador, TAREA_AGUADOR } from '#lib/server/rellenos';
 import { recordarDeudas, TAREA_RECORDATORIO_DEUDA } from '#lib/server/economia';
 import { borrarAvisosAntiguos, clavePublicaDesde, crearEnvioWebPush, entregarPendientes } from '#lib/server/notificaciones';
 import { fechaDeMadrid } from '#lib/shared/fechas/meses';
+import { crearSubidaS3, hacerCopiaDiaria, prepararArranqueCopias, TAREA_COPIA_DIARIA, type ConfiguracionS3 } from '#lib/server/copias';
 import { esquemaInstanteUtc, esquemaMes } from '#lib/shared/fechas/tipos';
 import {
 	abrirBaseDatos,
@@ -34,6 +36,8 @@ export type ConfiguracionArranque = {
 	carpetaMigraciones: string;
 	/** Claves VAPID. Sin ellas, el envío push y su tarea no se registran (plan F6 D6). */
 	vapid?: { privada: string; sujeto: string };
+	/** Copias en S3 (plan F8 D8). Sin ellas, la copia diaria no se registra. */
+	s3?: ConfiguracionS3;
 };
 
 /** Monta la base de datos, aplica las migraciones y crea el primer administrador si no hay personas. Puro salvo por la base. */
@@ -73,6 +77,7 @@ export function prepararAmbiente(configuracion: ConfiguracionArranque): Ambiente
 		limitadorRegistro: crearLimitador({ maximo: 30, ventanaMs: 60_000 }),
 		limitadorAvisos: crearLimitador({ maximo: 1, ventanaMs: 60_000 }),
 		azar: azarReal,
+		s3Activa: configuracion.s3 !== undefined,
 	};
 }
 
@@ -98,12 +103,38 @@ export async function arrancar(configuracion: ConfiguracionArranque): Promise<Am
 	const ambiente = prepararAmbiente(configuracion);
 	instancia = ambiente;
 	const planificador = crearPlanificador({ db: ambiente.db, reloj: ambiente.reloj });
+	// Una copia interrumpida por una caída queda fallida antes de programar nada (plan F8 D2).
+	await prepararArranqueCopias({ db: ambiente.db, reloj: ambiente.reloj, directorioDatos: configuracion.directorioDatos });
+	// Sin S3 en producción, el arranque lo dice con los nombres de las variables, nunca con sus valores (plan F8 D8).
+	if (!configuracion.desarrollo && !configuracion.s3) {
+		registrar('app.s3_no_configurado', { faltan: 'S3_ENDPOINT, S3_BUCKET, S3_REGION, S3_ACCESS_KEY, S3_SECRET_KEY' });
+	}
+	if (configuracion.s3) {
+		const s3 = configuracion.s3;
+		const subir = crearSubidaS3(s3);
+		// Copia a las 03:00 de Madrid (plan F8 D1, D12-5). Es la tarea de copias: no coincide con el resumen (09:00) ni el aguador (00:05).
+		planificador.registrar({
+			nombre: TAREA_COPIA_DIARIA,
+			cron: '0 3 * * *',
+			periodo: (instante) => fechaDeMadrid(esquemaInstanteUtc.parse(instante.toISOString())),
+			ejecutar: () => hacerCopiaDiaria({ db: ambiente.db, reloj: ambiente.reloj, directorioDatos: configuracion.directorioDatos, subir }),
+		});
+	}
 	planificador.registrar({
 		nombre: TAREA_RECORDATORIO_DEUDA,
 		cron: '0 9 * * *',
 		periodo: (instante) => fechaDeMadrid(esquemaInstanteUtc.parse(instante.toISOString())),
 		ejecutar: () => {
 			recordarDeudas({ db: ambiente.db, reloj: ambiente.reloj });
+		},
+	});
+	// El aguador va antes que el resumen: el mismo día 1, el resumen de las 09:00 lo incluye (plan F8 D5, Clarifications 5).
+	planificador.registrar({
+		nombre: TAREA_AGUADOR,
+		cron: '5 0 1 * *',
+		periodo: mesAnteriorDe,
+		ejecutar: ({ periodo }) => {
+			if (periodo) determinarAguador({ db: ambiente.db, reloj: ambiente.reloj, mes: esquemaMes.parse(periodo) });
 		},
 	});
 	planificador.registrar({

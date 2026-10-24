@@ -14,6 +14,8 @@ const esquemasDetalle = {
 		tipo: z.enum(['invitacion', 'recuperacion']),
 		origen: z.enum(['aplicacion', 'arranque', 'comando']),
 	}),
+	// Valores de negocio (plan F8 D7): números de configuración, sin datos personales.
+	'configuracion.cambiada': z.strictObject({ clave: z.string().min(1).max(60), anterior: z.number(), nuevo: z.number() }),
 } as const;
 
 export type AccionAuditoria = keyof typeof esquemasDetalle;
@@ -22,6 +24,8 @@ export type EntradaAuditoria<A extends AccionAuditoria> = {
 	actorId: string | null;
 	accion: A;
 	objetoId: string;
+	/** Tipo del objeto afectado. Por defecto, `usuario`. La configuración usa `configuracion`. */
+	objetoTipo?: 'usuario' | 'configuracion';
 	detalle: z.input<(typeof esquemasDetalle)[A]>;
 	instante: string;
 };
@@ -34,7 +38,7 @@ export function anotarAuditoria<A extends AccionAuditoria>(tx: Ejecutor, entrada
 			id: nuevoId(),
 			actorId: entrada.actorId,
 			accion: entrada.accion,
-			objetoTipo: 'usuario',
+			objetoTipo: entrada.objetoTipo ?? 'usuario',
 			objetoId: entrada.objetoId,
 			detalle: JSON.stringify(detalle),
 			creadoEn: entrada.instante,

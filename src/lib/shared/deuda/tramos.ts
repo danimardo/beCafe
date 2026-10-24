@@ -1,4 +1,5 @@
 import type { FechaMadrid } from '#lib/shared/fechas/tipos';
+import { parseMoney } from '#lib/shared/dinero';
 
 // Recordatorios de deuda (plan F6 D5, Clarifications 8). Puro y compartido con F7: los importes van en céntimos.
 // Un saldo por debajo del límite genera aviso; cuanto más negativo, con más frecuencia (RN-074).
@@ -11,6 +12,15 @@ export function intervaloRecordatorio(saldo: number, limite: number): IntervaloR
 	if (saldo < 4 * limite) return 1;
 	if (saldo < 2 * limite) return 3;
 	return 7;
+}
+
+/**
+ * Lee el límite de deuda escrito como importe de la deuda («5», «5,00»; un signo menos inicial es opcional).
+ * Se guarda en negativo (RN-074): «5,00» vale −500 céntimos. `null` si no es un importe válido.
+ */
+export function parsearLimite(texto: string): number | null {
+	const importe = parseMoney(texto.trim().replace(/^[-−]/, ''));
+	return importe === null || importe === 0 ? null : -importe;
 }
 
 /** Los tres umbrales de un límite, para mostrarlos al lector (de menos a más urgente). */

@@ -98,8 +98,8 @@
 - [X] T037 Crear `scripts/perf/consumos.mjs` según plan D11 (base temporal, 30 usuarios, `node build`, 300 consumos a la *action* con 5 en paralelo, p95 en `.local/verification/`, falla si supera 1 s) y el script `"perf:load": "node scripts/perf/consumos.mjs"` en `package.json`. Ejecutarlo y anotar el resultado (RNF-002).
   - Resultado (2026-10-23): `npm run perf:load`, 30 personas, 300 consumos, 5 en paralelo: p50 18 ms, p95 37 ms (límite 1000 ms), 0 errores, 300 consumos registrados (`.local/verification/perf-consumos-*.json`). Requiere `npm run build:verificacion` antes; el puerto 4300 coincide con el ORIGIN de la build.
 - [X] T038 Actualizar `ARCHITECTURE.md`: §1 y §5 (la página envía la cola, no el service worker), §6 (`TIPO_SIN_COSTE`, `USUARIO_DE_BAJA`), §9 (eventos de D12), §14 (`perf:load` hecho).
-- [ ] T039 `npm run verify`, benchmark completo en serie y revisión de `git status`. Revisión manual con VoiceOver y TalkBack del toque y del toast (constitución XI): si no se puede hacer, anotarlo como pendiente.
-  - Estado: `npm run verify`, benchmark completo en serie (`.local/benchmark-f3.log`, código 0) y revisión de `git status`, hechos. Pendiente: revisión manual con VoiceOver y TalkBack del toque y del toast (constitución XI), a cargo de la persona usuaria.
+- [X] T039 `npm run verify`, benchmark completo en serie y revisión de `git status`. Revisión manual con VoiceOver y TalkBack del toque y del toast (constitución XI): si no se puede hacer, anotarlo como pendiente.
+  - Estado: `npm run verify`, benchmark completo en serie (`.local/benchmark-f3.log`, código 0) y revisión de `git status`, hechos. Revisión manual con VoiceOver y TalkBack del toque y del toast (constitución XI): hecha por la persona usuaria el 24-10-2026, sin incidencias.
 
 ---
 

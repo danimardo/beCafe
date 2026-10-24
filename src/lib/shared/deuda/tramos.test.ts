@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import fc from 'fast-check';
 import { esquemaFechaMadrid, type FechaMadrid } from '#lib/shared/fechas/tipos';
-import { diasNaturales, intervaloRecordatorio, tocaRecordatorio, tramos } from './tramos';
+import { diasNaturales, intervaloRecordatorio, parsearLimite, tocaRecordatorio, tramos } from './tramos';
 
 // EV-101 y CA-074 (RN-074, Clarifications 8): recordatorios de deuda con límite de −500 céntimos (−5 €).
 const LIMITE = -500;
@@ -64,5 +64,21 @@ describe('tocaRecordatorio (CA-074 puntos 1, 2 y 4)', () => {
 
 	it('Clarifications 8: cuenta días naturales de calendario, también a través de fin de mes', () => {
 		expect(diasNaturales(fecha('2026-10-30'), fecha('2026-11-02'))).toBe(3);
+	});
+});
+
+describe('parsearLimite: el límite se escribe como importe de la deuda y se guarda en negativo', () => {
+	it.each([
+		['5', -500],
+		['5,00', -500],
+		['-5,00', -500],
+		['−100', -10_000],
+		['  6 €', -600],
+	])('«%s» vale %i céntimos', (texto, esperado) => {
+		expect(parsearLimite(texto)).toBe(esperado);
+	});
+
+	it.each(['', 'abc', '0', '1,234'])('«%s» no es un límite válido', (texto) => {
+		expect(parsearLimite(texto)).toBeNull();
 	});
 });

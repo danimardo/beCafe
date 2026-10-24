@@ -137,5 +137,5 @@ Propuestas que se aplican sin aprobación previa, según lo acordado en la sesi�
 - **Reintentos de push**: se agota tras el 5.º fallo (`MAX_INTENTOS = 5`). La espera de 720 minutos del plan no se usa.
 - **Código de error de la ruta de suscripción**: el contrato dice `ENTRADA_INVALIDA`; la implementación devuelve `VALIDACION`, que ya existe en el conjunto cerrado de códigos.
 - **Mutación (T043)**: `npm run test:mutacion` se ejecuta sin umbral y no elimina mutantes (1 de 189), con el mismo patrón que la línea base de F4. Queda abierto revisar la integración de Stryker con Vitest.
-- **Revisión manual pendiente**: VoiceOver y TalkBack en la pantalla de avisos, y la lista de Android e iPhone de `quickstart.md`.
+- **Revisión manual**: VoiceOver y TalkBack en la pantalla de avisos, hecha por la persona usuaria el 24-10-2026, sin incidencias. Sigue pendiente la lista de Android e iPhone de `quickstart.md`.
 

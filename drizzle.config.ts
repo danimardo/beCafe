@@ -10,6 +10,8 @@ export default defineConfig({
 		'./src/lib/server/catalogo/esquema.ts',
 		'./src/lib/server/economia/esquema.ts',
 		'./src/lib/server/notificaciones/esquema.ts',
+		'./src/lib/server/rellenos/esquema.ts',
+		'./src/lib/server/copias/esquema.ts',
 		'./src/lib/server/plataforma/db/esquema-planificador.ts',
 	],
 	out: './drizzle',

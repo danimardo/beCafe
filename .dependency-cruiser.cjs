@@ -72,8 +72,15 @@ module.exports = {
 			name: 'aristas-de-f1',
 			comment: 'Entre los módulos de F1 solo existe auth → usuarios (ARCHITECTURE.md §4).',
 			severity: 'error',
-			from: { path: '^src/lib/server/(usuarios|configuracion)/' },
-			to: { path: '^src/lib/server/(auth|usuarios|configuracion)/', pathNot: '^src/lib/server/$1/' },
+			from: { path: '^src/lib/server/usuarios/' },
+			to: { path: '^src/lib/server/(auth|configuracion)/' },
+		},
+		{
+			name: 'configuracion-solo-depende-de-usuarios',
+			comment: 'Plan F8 D7: configuracion → usuarios (auditoría). Ninguna otra arista (ARCHITECTURE.md §4).',
+			severity: 'error',
+			from: { path: '^src/lib/server/configuracion/' },
+			to: { path: '^src/lib/server/(auth|economia|rellenos|notificaciones|estadisticas|copias|catalogo)/' },
 		},
 		{
 			name: 'auth-solo-depende-de-usuarios',

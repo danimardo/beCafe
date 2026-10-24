@@ -82,6 +82,12 @@ export function fechaDeMadrid(instante: InstanteUtc): FechaMadrid {
 }
 
 /** Meses de Madrid desde `desde` hasta `hasta`, ambos incluidos, en orden. */
+/** Mes natural anterior a `mes`. */
+export function mesAnterior(mes: Mes): Mes {
+	const { anio, numero } = anioYNumero(mes);
+	return numero === 1 ? esquemaMes.parse(`${anio - 1}-12`) : esquemaMes.parse(`${anio}-${String(numero - 1).padStart(2, '0')}`);
+}
+
 export function mesesEntre(desde: Mes, hasta: Mes): Mes[] {
 	const meses: Mes[] = [];
 	let { anio, numero } = anioYNumero(desde);
@@ -96,4 +102,10 @@ export function mesesEntre(desde: Mes, hasta: Mes): Mes[] {
 		}
 	}
 	return meses;
+}
+
+/** Nombre del mes en español («octubre»), para textos de interfaz. Sin reloj: el mes llega como dato. */
+export function nombreDeMes(mes: Mes): string {
+	const [anio, numero] = mes.split('-').map(Number);
+	return new Intl.DateTimeFormat('es-ES', { month: 'long', timeZone: 'Europe/Madrid' }).format(new Date(Date.UTC(anio, numero - 1, 15)));
 }

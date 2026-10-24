@@ -25,9 +25,16 @@ export default defineConfig({
 			testIgnore: ['**/api/**', '**/sin-js/**'],
 			use: { ...devices['Pixel 7'] },
 		},
+		// WebKit se divide en dos proyectos con su propio navegador y servidor: en una sola ejecución, `a11y` seguido de `flujos`
+		// deja a Playwright sin respuesta de WebKit durante 30 s en un test de `flujos` (docs/pruebas.md §12.3). Por separado pasan.
 		{
 			name: 'webkit-movil',
-			testIgnore: ['**/api/**', '**/sin-js/**'],
+			testIgnore: ['**/api/**', '**/sin-js/**', '**/a11y/**'],
+			use: { ...devices['iPhone 13'] },
+		},
+		{
+			name: 'webkit-movil-a11y',
+			testMatch: ['**/a11y/**/*.spec.ts'],
 			use: { ...devices['iPhone 13'] },
 		},
 		{

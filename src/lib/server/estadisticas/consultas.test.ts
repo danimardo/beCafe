@@ -1,7 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type { Actor } from '#lib/server/auth';
+import { configuracion } from '#lib/server/configuracion';
 import { anularConsumo, darDeAltaCapsula, registrarCompra, registrarConsumo } from '#lib/server/economia';
-import { crearEntornoPrueba, enTransaccion, nuevoId, ErrorDeNegocio, type EntornoPrueba } from '#lib/server/plataforma';
+import { anularRelleno, registrarRelleno } from '#lib/server/rellenos';
+import { crearEntornoPrueba, crearRelojFijo, enTransaccion, nuevoId, ErrorDeNegocio, type EntornoPrueba } from '#lib/server/plataforma';
 import { cambiarRol, crearUsuario, marcarBaja } from '#lib/server/usuarios';
 import { esquemaInstanteUtc, esquemaMes } from '#lib/shared/fechas/tipos';
 import { leerEquipo, leerPersonales } from './consultas';
@@ -179,6 +181,94 @@ describe('estadísticas de consumo (CA-120, CA-121, CA-122, RN-035, RN-060, RN-0
 			gastado: 0,
 			porMes: [],
 			porTipo: [],
+			rellenos: 0,
+			ranking: [],
 		});
+	});
+});
+
+describe('ranking de rellenos del equipo (CA-175, RN-085, RF-175)', () => {
+	let entorno: EntornoPrueba;
+
+	beforeEach(() => {
+		entorno = crearEntornoPrueba(INSTANTE);
+		// Sin intervalo, cada relleno se acepta: el ranking depende del autor, no de la espera.
+		entorno.ambiente.db
+			.insert(configuracion)
+			.values({ clave: 'intervalo_rellenos_min', valor: '0', modificadoPor: ADMIN_CATALOGO.usuarioId, modificadoEn: INSTANTE })
+			.onConflictDoUpdate({ target: configuracion.clave, set: { valor: '0' } })
+			.run();
+	});
+
+	afterEach(() => {
+		entorno.cerrar();
+	});
+
+	function persona(nombre: string, rol: 'miembro' | 'administrador' = 'miembro'): string {
+		const id = nuevoId();
+		crearUsuario(entorno.ambiente.db, { id, nombre, correo: `${id}@example.test`, rol, instante: INSTANTE });
+		return id;
+	}
+
+	function rellenar(usuarioId: string): string {
+		return registrarRelleno(entorno.ambiente, { usuarioId }, { clienteId: nuevoId() }).id;
+	}
+
+	const OCTUBRE = { periodo: 'mes' as const, mes: esquemaMes.parse('2026-10') };
+	const NOVIEMBRE = { periodo: 'mes' as const, mes: esquemaMes.parse('2026-11') };
+
+	it('CA-175: el ranking ordena por número de rellenos, de más a menos', () => {
+		const ana = persona('Ana');
+		const bea = persona('Bea');
+		rellenar(bea);
+		rellenar(ana);
+		rellenar(ana);
+
+		const equipo = leerEquipo(entorno.ambiente.db, actorDe(ana), { periodo: 'todo' }, AHORA);
+
+		expect(equipo.rellenos).toBe(3);
+		expect(equipo.ranking).toEqual([
+			{ usuarioId: ana, nombre: 'Ana', rellenos: 2, baja: false },
+			{ usuarioId: bea, nombre: 'Bea', rellenos: 1, baja: false },
+		]);
+	});
+
+	it('CA-175: un relleno anulado no cuenta en el ranking', () => {
+		const ana = persona('Ana');
+		const bea = persona('Bea');
+		const admin = persona('Administración', 'administrador');
+		rellenar(ana);
+		const anulado = rellenar(bea);
+		anularRelleno(entorno.ambiente, { usuarioId: admin }, anulado, 'Registro de prueba');
+
+		const equipo = leerEquipo(entorno.ambiente.db, actorDe(ana), { periodo: 'todo' }, AHORA);
+
+		expect(equipo.ranking.map((fila) => fila.nombre)).toEqual(['Ana']);
+	});
+
+	it('CA-175: una persona dada de baja sigue en el ranking, marcada como baja (RN-085)', () => {
+		const ana = persona('Ana');
+		const luis = persona('Luis');
+		rellenar(luis);
+		enTransaccion(entorno.ambiente.db, (tx) => marcarBaja(tx, { usuarioId: luis, instante: INSTANTE }));
+
+		const equipo = leerEquipo(entorno.ambiente.db, actorDe(ana), { periodo: 'todo' }, AHORA);
+
+		expect(equipo.ranking).toEqual([{ usuarioId: luis, nombre: 'Luis', rellenos: 1, baja: true }]);
+	});
+
+	it('CA-175: un relleno a las 23:59 del 31 de octubre en Madrid cuenta en octubre; a las 00:00 del 1 de noviembre, en noviembre', () => {
+		const ana = persona('Ana');
+		const reloj = crearRelojFijo('2026-10-31T22:59:00.000Z');
+		const ambiente = { ...entorno.ambiente, reloj };
+		registrarRelleno(ambiente, { usuarioId: ana }, { clienteId: nuevoId() });
+		reloj.avanzar(60_000);
+		registrarRelleno(ambiente, { usuarioId: ana }, { clienteId: nuevoId() });
+
+		const octubre = leerEquipo(entorno.ambiente.db, actorDe(ana), OCTUBRE, AHORA);
+		const noviembre = leerEquipo(entorno.ambiente.db, actorDe(ana), NOVIEMBRE, AHORA);
+
+		expect(octubre.rellenos).toBe(1);
+		expect(noviembre.rellenos).toBe(1);
 	});
 });

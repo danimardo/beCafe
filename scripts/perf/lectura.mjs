@@ -1,5 +1,5 @@
 // Lectura (RNF-002 y plan F5 D9): p95 de `/saldos`, `/historial` y `/estadisticas?periodo=todo` con sesión, con 30 personas
-// y unos tres años de registros (30 000 consumos, aportaciones, compras y un arqueo al mes). Arranca `node build` con una base
+// y unos tres años de registros (30 000 consumos, 3 000 rellenos de agua, aportaciones, compras y un arqueo al mes). Arranca `node build` con una base
 // temporal, siembra con SQL directo (solo para preparar los datos; la medición pasa por las páginas) y escribe el resultado en
 // `.local/verification/`. Falla si algún p95 supera 1 s. Uso: `npm run perf:lectura` después de `npm run build:verificacion`.
 import { createHash, randomBytes } from 'node:crypto';
@@ -15,6 +15,8 @@ const Database = require('better-sqlite3');
 const PERSONAS = 30;
 const MESES = 36;
 const CONSUMOS = 30_000;
+/** Rellenos de agua vigentes: el historial mezcla estos con los movimientos económicos (F8, plan D6). */
+const RELLENOS = 3000;
 const PETICIONES_POR_PAGINA = 40;
 const PARALELO = 5;
 const LIMITE_P95_MS = 1000;
@@ -119,7 +121,14 @@ function sembrar(directorioDatos) {
 		'INSERT INTO arqueo (id, admin_id, realizado_en, saldo_teorico, contado, diferencia) VALUES (?, ?, ?, 0, 0, 0)',
 	);
 
+	const insertarRelleno = db.prepare(
+		"INSERT INTO relleno_agua (id, cliente_id, usuario_id, registrado_en, estado, anulado_por, anulado_en, motivo_anulacion) VALUES (?, ?, ?, ?, 'vigente', NULL, NULL, NULL)",
+	);
+
 	db.transaction(() => {
+		for (let i = 0; i < RELLENOS; i += 1) {
+			insertarRelleno.run(ulid(), ulid(), personas[i % PERSONAS], instanteDe(i % MESES, 1 + (i % 27), 9 + (i % 10)));
+		}
 		for (let i = 0; i < CONSUMOS; i += 1) {
 			const usuarioId = personas[i % PERSONAS];
 			const hora = instanteDe(i % MESES, 1 + (i % 27), 8 + (i % 12));

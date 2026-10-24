@@ -18,11 +18,14 @@ export const RUTAS_PROTEGIDAS = [
 	'/compras',
 	`/compras/${CAPSULA_DE_PRUEBA}`,
 	`/consumos/${CAPSULA_DE_PRUEBA}`,
+	`/rellenos/${CAPSULA_DE_PRUEBA}`,
 	'/historial',
 	`/historial/control/${CAPSULA_DE_PRUEBA}`,
 	'/estadisticas',
 	`/estadisticas/${CAPSULA_DE_PRUEBA}`,
 	'/admin/control',
+	'/admin/copias',
+	'/admin/configuracion',
 	`/admin/usuarios/${CAPSULA_DE_PRUEBA}/baja`,
 ] as const;
 export const RUTAS_DE_ADMINISTRACION = [
@@ -32,6 +35,8 @@ export const RUTAS_DE_ADMINISTRACION = [
 	'/admin/capsulas/nueva',
 	`/admin/capsulas/${CAPSULA_DE_PRUEBA}`,
 	'/admin/control',
+	'/admin/copias',
+	'/admin/configuracion',
 	`/admin/usuarios/${CAPSULA_DE_PRUEBA}/baja`,
 ] as const;
 // Rutas de API que exigen sesión (F3). Un POST sin sesión responde 401 y no registra nada.

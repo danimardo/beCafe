@@ -43,7 +43,21 @@ export const esquemaAsuntoVapid = z
 /** Clave pública VAPID: el navegador la necesita para suscribirse. Es la única variable pública de notificaciones. */
 export const esquemaClavePublicaVapid = z.string().trim().min(1, { error: 'PUBLIC_VAPID_KEY no puede estar vacía' }).optional();
 
+/** Copias en un bucket S3 (plan F8 D8). Opcionales en desarrollo y pruebas; sin ellas, la copia diaria no se registra. */
+export const esquemaEndpointS3 = z.url({ protocol: /^https$/, error: 'S3_ENDPOINT debe ser una URL https' }).optional();
+export const esquemaTextoS3 = (nombre: string) =>
+	z
+		.string()
+		.trim()
+		.min(1, { error: `${nombre} no puede estar vacía` })
+		.optional();
+
 export const esquemasEntorno = {
+	S3_ENDPOINT: esquemaEndpointS3,
+	S3_BUCKET: esquemaTextoS3('S3_BUCKET'),
+	S3_REGION: esquemaTextoS3('S3_REGION'),
+	S3_ACCESS_KEY: esquemaTextoS3('S3_ACCESS_KEY'),
+	S3_SECRET_KEY: esquemaTextoS3('S3_SECRET_KEY'),
 	ORIGIN: esquemaOrigin,
 	DIRECTORIO_DATOS: esquemaDirectorioDatos,
 	LOG_LEVEL: esquemaNivelLog,
@@ -56,6 +70,11 @@ export const esquemasEntorno = {
 } as const;
 
 export const variables = defineEnvVars({
+	S3_ENDPOINT: { schema: esquemaEndpointS3, public: false, static: false },
+	S3_BUCKET: { schema: esquemaTextoS3('S3_BUCKET'), public: false, static: false },
+	S3_REGION: { schema: esquemaTextoS3('S3_REGION'), public: false, static: false },
+	S3_ACCESS_KEY: { schema: esquemaTextoS3('S3_ACCESS_KEY'), public: false, static: false },
+	S3_SECRET_KEY: { schema: esquemaTextoS3('S3_SECRET_KEY'), public: false, static: false },
 	ORIGIN: { schema: esquemaOrigin, public: false, static: false },
 	DIRECTORIO_DATOS: { schema: esquemaDirectorioDatos, public: false, static: false },
 	LOG_LEVEL: { schema: esquemaNivelLog, public: false, static: false },

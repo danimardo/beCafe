@@ -1,9 +1,10 @@
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, falloDeNegocio, fallo } from './fallo';
-import { nuevoId } from '#lib/server/plataforma';
+import { ErrorDeNegocio, nuevoId } from '#lib/server/plataforma';
 import { buscarUsuarioPorId } from '#lib/server/usuarios';
+import { deshacerRelleno, leerEstadoAgua, registrarRelleno } from '#lib/server/rellenos';
 import {
 	deshacerConsumo,
 	leerAvisosStock,
@@ -16,6 +17,9 @@ import {
 } from '#lib/server/economia';
 import { esquemaAvisoInicio } from '#lib/shared/contratos/privacidad';
 import { esquemaConsumirForm, esquemaDeshacerForm } from '#lib/shared/contratos/consumos';
+import { esquemaDeshacerRelleno, esquemaRellenar } from '#lib/shared/contratos/rellenos';
+import { formatearHace } from '#lib/shared/fechas/formato';
+import { nombreDeMes } from '#lib/shared/fechas/meses';
 import { urlFotoCapsula } from '#lib/shared/contratos/capsulas';
 
 // Pantalla principal (RF-010 a RF-019, RF-060, RF-063). El toque es un formulario por fila: funciona sin JavaScript (principio XVII).
@@ -51,7 +55,27 @@ export const load: PageServerLoad = ({ locals, url }) => {
 	}));
 	const nombres = new Map(tipos.map((tipo) => [tipo.id, tipo.nombre]));
 	const hucha = leerSaldoHucha(db);
+	const estadoAgua = leerEstadoAgua(db, actor, ahora);
+	const agua = {
+		clienteId: nuevoId(),
+		ultimo: estadoAgua.ultimo
+			? {
+					id: estadoAgua.ultimo.id,
+					nombre: estadoAgua.ultimo.nombre,
+					hace: formatearHace(estadoAgua.ultimo.registradoEn, ahora),
+					esPropio: estadoAgua.ultimo.esPropio,
+				}
+			: null,
+		aguador: estadoAgua.aguadores
+			? {
+					mes: nombreDeMes(estadoAgua.aguadores.mes),
+					nombres: estadoAgua.aguadores.personas.map((persona) => persona.nombre).join(' y '),
+					incluyeAlUsuario: estadoAgua.aguadores.personas.some((persona) => persona.esPropio),
+				}
+			: null,
+	};
 	return {
+		agua,
 		nombre: persona?.nombre ?? '',
 		usuarioId: actor.usuarioId,
 		saldoPropio: leerSaldoPropio(db, actor),
@@ -71,6 +95,46 @@ export const load: PageServerLoad = ({ locals, url }) => {
 };
 
 export const actions: Actions = {
+	// «He rellenado el agua» (RF-170, RF-172): el servidor decide el intervalo; un rechazo vuelve con quién y cuándo (409).
+	rellenar: async ({ request, locals }) => {
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		const entrada = esquemaRellenar.safeParse(Object.fromEntries(await request.formData()));
+		if (!entrada.success) return fallo(400, entrada.error, {});
+
+		let resultado: ReturnType<typeof registrarRelleno>;
+		try {
+			resultado = registrarRelleno(locals.ambiente, actor, { clienteId: entrada.data.clienteId });
+		} catch (causa) {
+			if (!(causa instanceof ErrorDeNegocio) || causa.codigo !== 'RELLENO_RECIENTE' || !causa.detalle) {
+				return ejecutarAccion({}, () => {
+					throw causa;
+				});
+			}
+			const autorId = String(causa.detalle.autorId);
+			return fail(409, {
+				codigo: causa.codigo,
+				autor: buscarUsuarioPorId(locals.ambiente.db, autorId)?.nombre ?? '',
+				esPropio: causa.detalle.esPropio === true,
+				hace: formatearHace(String(causa.detalle.registradoEn), locals.ambiente.reloj.ahora()),
+			});
+		}
+		return { registrado: true as const, rellenoId: resultado.id };
+	},
+
+	// «Deshacer» de un relleno (RF-013, RF-171): solo el autor dentro del plazo (CA-171).
+	deshacerRelleno: async ({ request, locals }) => {
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		const entrada = esquemaDeshacerRelleno.safeParse(Object.fromEntries(await request.formData()));
+		if (!entrada.success) return fallo(400, entrada.error, {});
+
+		return ejecutarAccion({}, () => {
+			deshacerRelleno(locals.ambiente, actor, entrada.data.rellenoId);
+			return { deshechoRelleno: true as const };
+		});
+	},
+
 	// `invitado` llega del botón pulsado: «0» la fila, «1» el botón de invitado (RF-014).
 	consumir: async ({ request, locals }) => {
 		const actor = locals.actor;

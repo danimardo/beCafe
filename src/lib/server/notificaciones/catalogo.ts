@@ -23,6 +23,8 @@ export const ESQUEMAS_DATOS = Object.freeze({
 		cafes: z.int().nonnegative(),
 		invitados: z.int().nonnegative(),
 		saldo: z.int(),
+		/** Nombres de los aguadores del mes (plan F8 D5). Se guardan al enviar el resumen; sin ellos no hay franja. */
+		aguadores: z.array(z.string().max(200)).max(50).optional(),
 	}),
 	fallo_copia: z.strictObject({ copiaId: esquemaUlid }),
 } satisfies Record<TipoNotificacion, z.ZodType>);
@@ -85,7 +87,12 @@ export function construirMensaje(tipo: TipoNotificacion, datos: unknown): Mensaj
 			const d = ESQUEMAS_DATOS.resumen_mensual.parse(datos);
 			return {
 				titulo: textos.notificaciones.resumenMensual.titulo(d.mes),
-				texto: textos.notificaciones.resumenMensual.texto(d.cafes, d.invitados, formatMoney(d.saldo)),
+				texto: [
+					textos.notificaciones.resumenMensual.texto(d.cafes, d.invitados, formatMoney(d.saldo)),
+					d.aguadores?.length ? textos.notificaciones.resumenMensual.aguador(d.aguadores.join(' y ')) : undefined,
+				]
+					.filter(Boolean)
+					.join(' '),
 				enlace: '/estadisticas',
 			};
 		}

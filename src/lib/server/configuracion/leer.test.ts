@@ -16,7 +16,7 @@ describe('configuración con valores por defecto (RN-032, RN-074, RN-082)', () =
 		expect(leerConfiguracion(entorno.ambiente.db)).toEqual({
 			plazoAutoanulacionMin: 15,
 			limiteDeudaCentimos: -500,
-			intervalorRellenosMin: 60,
+			intervaloRellenosMin: 60,
 		});
 	});
 

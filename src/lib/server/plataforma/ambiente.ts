@@ -14,4 +14,6 @@ export type Ambiente = {
 	limitadorAvisos: Limitador;
 	/** Azar del reparto de céntimos (RN-014). Las pruebas lo sustituyen por uno fijo. */
 	azar: Azar;
+	/** Hay bucket S3 configurado: la copia diaria está registrada (plan F8 D8). */
+	s3Activa: boolean;
 };

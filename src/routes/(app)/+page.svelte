@@ -4,7 +4,7 @@
 	import { tick } from 'svelte';
 	import { ulid } from 'ulid';
 	import type { ElementoCola } from '#lib/shared/contratos/consumos';
-	import { Banner, Button, CapsuleRow, Glass, ListRow, Money, Section, usarAvisos } from '#lib/ui';
+	import { Banner, Button, CapsuleRow, Glass, ListRow, Money, Section, WaterRefillCard, usarAvisos } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 	import { instanteDesdeFecha } from '#lib/shared/fechas/tipos';
 	import { anadirElemento, borrarElemento, enviarPendientes, limpiarRechazados, listarElementos } from '#lib/client/cola-consumos/index';
@@ -29,6 +29,13 @@
 		form && 'errores' in form && form.errores && 'general' in form.errores ? form.errores.general.mensaje : undefined,
 	);
 	const deshechoAhora = $derived(Boolean(form && 'deshecho' in form));
+	// Rechazo por intervalo (RF-172): el servidor responde 409 con quién y hace cuánto.
+	const rechazoRelleno = $derived(form && 'codigo' in form && form.codigo === 'RELLENO_RECIENTE' ? form : null);
+	const rellenoRegistrado = $derived(form && 'rellenoId' in form ? form.rellenoId : undefined);
+	let rellenoADeshacer = $state('');
+	let formularioDeshacerRelleno: HTMLFormElement | undefined = $state();
+	// Sin conexión al enviar el relleno: el botón se desactiva y nunca se encola (RN-081).
+	let rellenoFallido = $state(false);
 
 	function nombreDe(tipoCapsulaId: string): string {
 		return data.tipos.find((tipo) => tipo.id === tipoCapsulaId)?.nombre ?? '';
@@ -132,6 +139,43 @@
 		});
 	}
 
+	// «He rellenado el agua»: formulario del servidor con mejora de JavaScript; «Deshacer» durante 5 s (RF-171).
+	function enviarRelleno(formulario: HTMLFormElement) {
+		return enhance(formulario, ({ formData }) => {
+			conJs = true;
+			rellenoFallido = false;
+			// Cada pulsación tiene su identificador: el servidor ignora un reenvío del mismo.
+			formData.set('clienteId', ulid());
+			return async ({ result, update }) => {
+				if (result.type === 'error') {
+					rellenoFallido = true;
+					return;
+				}
+				await update({ reset: false });
+				const id = form && 'rellenoId' in form ? form.rellenoId : undefined;
+				if (id) {
+					avisos.mostrarDeshacer({
+						title: textos.rellenos.registrado,
+						onundo: () => void deshacerRelleno(id),
+					});
+				}
+			};
+		});
+	}
+
+	async function deshacerRelleno(id: string): Promise<void> {
+		rellenoADeshacer = id;
+		await tick();
+		formularioDeshacerRelleno?.requestSubmit();
+	}
+
+	function enviarDeshacerRelleno(formulario: HTMLFormElement) {
+		return enhance(formulario, () => async ({ update }) => {
+			await update({ reset: false });
+			if (form && 'deshechoRelleno' in form) avisos.informar({ title: textos.rellenos.anuladoOk });
+		});
+	}
+
 	async function quitarPendiente(elemento: ElementoCola): Promise<void> {
 		await borrarElemento(elemento.clienteId);
 		avisos.informar({ title: textos.consumos.deshecho });
@@ -178,6 +222,10 @@
 		</Banner>
 	{/if}
 
+	<form method="post" action="?/deshacerRelleno" class="hidden" bind:this={formularioDeshacerRelleno} use:enviarDeshacerRelleno>
+		<input type="hidden" name="rellenoId" value={rellenoADeshacer} />
+	</form>
+
 	<form method="post" action="?/deshacer" class="hidden" bind:this={formularioDeshacer} use:enviarDeshacer>
 		<input type="hidden" name="consumoId" value={consumoADeshacer} />
 	</form>
@@ -222,6 +270,26 @@
 	</Section>
 
 	<Section title={textos.consumos.titulo}>
+		<WaterRefillCard
+			ultimo={data.agua.ultimo}
+			aguador={data.agua.aguador}
+			clienteId={data.agua.clienteId}
+			enConexion={enLinea && !rellenoFallido}
+			rechazo={rechazoRelleno ? { nombre: rechazoRelleno.autor, hace: rechazoRelleno.hace, esPropio: rechazoRelleno.esPropio } : null}
+			enhancer={enviarRelleno}
+			historialHref={resolve('/(app)/historial')}
+		/>
+		{#if form && 'deshechoRelleno' in form && !conJs}
+			<p role="status" class="text-[15px] text-ink">{textos.rellenos.anuladoOk}</p>
+		{/if}
+		{#if rellenoRegistrado && !conJs}
+			<Banner tone="info" title={textos.rellenos.registrado}>
+				<form method="post" action="?/deshacerRelleno" class="mt-2">
+					<input type="hidden" name="rellenoId" value={rellenoRegistrado} />
+					<Button type="submit" variant="soft">{textos.consumos.deshacer}</Button>
+				</form>
+			</Banner>
+		{/if}
 		{#if !enLinea}
 			<Banner tone="offline">{textos.consumos.sinConexion}</Banner>
 		{/if}

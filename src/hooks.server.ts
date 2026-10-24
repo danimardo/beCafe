@@ -24,6 +24,7 @@ try {
 		desarrollo: import.meta.env.DEV,
 		carpetaMigraciones: `${process.cwd()}/drizzle`,
 		vapid: entorno.vapid,
+		s3: entorno.s3,
 	});
 } catch (error) {
 	if (!(error instanceof Error && error.message === 'ENTORNO_NO_VALIDO')) throw error;

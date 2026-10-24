@@ -1,4 +1,5 @@
 import { contarConsumos, saldoPersona } from '#lib/server/economia';
+import { leerAguador } from '#lib/server/rellenos';
 import { registrarAviso } from '#lib/server/notificaciones';
 import { enTransaccion, marcarEjecucion, type Db, type Reloj } from '#lib/server/plataforma';
 import { listarUsuarios } from '#lib/server/usuarios';
@@ -23,6 +24,8 @@ export function enviarResumenMensual({ db, reloj, periodo }: { db: Db; reloj: Re
 	return enTransaccion(db, (tx) => {
 		if (!marcarEjecucion(tx, TAREA_RESUMEN_MENSUAL, periodo, instante)) return 0;
 		let registrados = 0;
+		// El aguador lo fija una tarea anterior del mismo día 1 (plan F8 D5): el resumen lo incluye si ya existe.
+		const aguadores = leerAguador(tx, periodo).map((fila) => fila.nombre);
 		for (const persona of listarUsuarios(tx)) {
 			if (persona.estado !== 'activo') continue;
 			const consumos = contarConsumos(tx, { desde, hasta, usuarioId: persona.id });
@@ -34,6 +37,7 @@ export function enviarResumenMensual({ db, reloj, periodo }: { db: Db; reloj: Re
 					cafes: consumos.filter((consumo) => !consumo.invitado).length,
 					invitados: consumos.filter((consumo) => consumo.invitado).length,
 					saldo: saldoPersona(tx, persona.id),
+					...(aguadores.length > 0 ? { aguadores } : {}),
 				},
 				instante,
 			});

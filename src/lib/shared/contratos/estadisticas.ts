@@ -7,7 +7,7 @@ import { esquemaMes } from '#lib/shared/fechas/tipos';
 /** Consulta del historial: `quien`, `tipo`, `anulados` y `pagina` (20 registros por página). */
 export const esquemaConsultaHistorial = z.strictObject({
 	quien: z.enum(['todo', 'mios']).default('todo'),
-	tipo: z.enum(['todos', 'consumos', 'aportaciones', 'compras', 'control']).default('todos'),
+	tipo: z.enum(['todos', 'consumos', 'aportaciones', 'compras', 'control', 'rellenos']).default('todos'),
 	anulados: z.literal('on').optional(),
 	pagina: z.coerce.number().int().min(1).default(1),
 });

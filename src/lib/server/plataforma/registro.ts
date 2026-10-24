@@ -64,6 +64,15 @@ export const NIVEL_EVENTO = {
 	'tarea.iniciada': 'info',
 	'tarea.completada': 'info',
 	'tarea.fallida': 'error',
+	'copia.completada': 'info',
+	'app.s3_no_configurado': 'warn',
+	'copia.fallida': 'error',
+	'restauracion.anotada': 'info',
+	'configuracion.cambiada': 'info',
+	'relleno.registrado': 'info',
+	'relleno.anulado': 'info',
+	'relleno.rechazado_intervalo': 'info',
+	'aguador.determinado': 'info',
 } as const;
 
 export type CodigoEvento = keyof typeof NIVEL_EVENTO;
@@ -127,6 +136,15 @@ export type CamposEvento = {
 	'tarea.iniciada': { tarea: string; periodo?: string };
 	'tarea.completada': { tarea: string; duracionMs: number };
 	'tarea.fallida': { tarea: string; duracionMs: number; tipo: string };
+	'app.s3_no_configurado': { faltan: string };
+	'copia.completada': { copiaId: string; tamano: number; duracionMs: number };
+	'copia.fallida': { copiaId: string; codigo: string; estadoHttp?: number };
+	'restauracion.anotada': { pruebaId: string; usuarioId: string; resultado: string };
+	'configuracion.cambiada': { clave: string };
+	'relleno.registrado': { rellenoId: string; usuarioId: string };
+	'relleno.anulado': { rellenoId: string; usuarioId: string };
+	'relleno.rechazado_intervalo': { usuarioId: string };
+	'aguador.determinado': { mes: string; personas: number };
 };
 
 /** Un registrador recibe eventos ya tipados. El enlace de RF-139 tiene su propio método (solo salida estándar). */

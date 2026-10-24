@@ -8,6 +8,12 @@ import { darDeAltaCapsula, registrarAportacion, registrarCompra } from '#lib/ser
 import { z } from 'zod';
 
 const esquemaConsumoRegistrado = z.object({ consumo: z.object({ id: z.string() }) });
+const esquemaRellenoRegistrado = z.object({ rellenoId: z.string() });
+
+/** Extrae el identificador del relleno que devuelve la acción `rellenar`; otro resultado falla la prueba. */
+function idDelRelleno(resultado: unknown): string {
+	return esquemaRellenoRegistrado.parse(resultado).rellenoId;
+}
 
 /** Extrae el identificador del consumo que devuelve la acción `consumir`; otro resultado falla la prueba. */
 function idDelConsumo(resultado: unknown): string {
@@ -147,5 +153,65 @@ describe('acciones de la pantalla principal', () => {
 		const { estado } = desenvolverFallo(await consumir(undefined, { tipoCapsulaId, clienteId: nuevoId(), invitado: '0' }));
 
 		expect(estado).toBe(401);
+	});
+
+	function rellenar(actor: Actor | undefined, clienteId: string) {
+		return actions.rellenar(
+			crearEventoAccion({
+				locals: { ambiente: entorno.ambiente, actor },
+				ruta: '/(app)',
+				params: {},
+				cuerpo: new URLSearchParams({ clienteId }),
+				cabeceras: { 'content-type': 'application/x-www-form-urlencoded' },
+			}),
+		);
+	}
+
+	it('RF-170: rellenar registra el relleno y devuelve su identificador para «Deshacer»', async () => {
+		const ana = sesionDe('miembro', 'Marta');
+
+		const resultado = await rellenar(ana, nuevoId());
+
+		expect(resultado).toMatchObject({ registrado: true });
+		expect(idDelRelleno(resultado)).not.toBe('');
+	});
+
+	it('CA-172: un relleno dentro del intervalo devuelve 409 con el autor, su hora y si es propio', async () => {
+		const marta = sesionDe('miembro', 'Marta');
+		const luis = sesionDe('miembro', 'Luis');
+		await rellenar(marta, nuevoId());
+		entorno.reloj.avanzar(20 * 60_000);
+
+		const { estado, datos } = desenvolverFallo(await rellenar(luis, nuevoId()));
+
+		expect(estado).toBe(409);
+		expect(datos).toMatchObject({ codigo: 'RELLENO_RECIENTE', autor: 'Marta', esPropio: false, hace: 'hace 20 min' });
+	});
+
+	it('RF-170: rellenar con el mismo clienteId no registra dos veces', async () => {
+		const ana = sesionDe('miembro', 'Marta');
+		const clienteId = nuevoId();
+
+		const primera = await rellenar(ana, clienteId);
+		const reenvio = await rellenar(ana, clienteId);
+
+		expect(idDelRelleno(reenvio)).toBe(idDelRelleno(primera));
+	});
+
+	it('CA-171: deshacer el propio relleno dentro del plazo lo anula', async () => {
+		const ana = sesionDe('miembro', 'Marta');
+		const rellenoId = idDelRelleno(await rellenar(ana, nuevoId()));
+
+		await expect(
+			actions.deshacerRelleno(
+				crearEventoAccion({
+					locals: { ambiente: entorno.ambiente, actor: ana },
+					ruta: '/(app)',
+					params: {},
+					cuerpo: new URLSearchParams({ rellenoId }),
+					cabeceras: { 'content-type': 'application/x-www-form-urlencoded' },
+				}),
+			),
+		).resolves.toMatchObject({ deshechoRelleno: true });
 	});
 });

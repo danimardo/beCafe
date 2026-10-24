@@ -31,6 +31,7 @@ export function crearEntornoPrueba(inicio: string = INSTANTE_INICIAL, azar: Azar
 		limitadorRegistro: crearLimiteFalso(),
 		limitadorAvisos: crearLimiteFalso(),
 		azar,
+		s3Activa: false,
 	};
 	return {
 		base,

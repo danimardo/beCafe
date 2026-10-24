@@ -31,13 +31,18 @@ export const CODIGOS_NEGOCIO = [
 export type CodigoNegocio = (typeof CODIGOS_NEGOCIO)[number];
 
 /** Rechazo esperado de una regla. El mensaje se toma de `textos.errores` en la capa de presentación. */
+/** Datos que acompañan a un rechazo y que la interfaz necesita (p. ej. quién registró el relleno). Nunca llevan datos personales al log. */
+export type DetalleNegocio = Readonly<Record<string, string | number | boolean | null>>;
+
 export class ErrorDeNegocio extends Error {
 	readonly codigo: CodigoNegocio;
+	readonly detalle: DetalleNegocio | undefined;
 
-	constructor(codigo: CodigoNegocio) {
+	constructor(codigo: CodigoNegocio, detalle?: DetalleNegocio) {
 		super(codigo);
 		this.name = 'ErrorDeNegocio';
 		this.codigo = codigo;
+		this.detalle = detalle;
 	}
 }
 

@@ -138,6 +138,8 @@ flowchart TD
     auth --> usuarios
     rellenos --> usuarios
     rellenos --> configuracion
+    configuracion --> usuarios
+    copias --> usuarios
     notificaciones --> usuarios
     estadisticas --> economia
     estadisticas --> rellenos
@@ -395,8 +397,8 @@ Las reglas están en el principio XVI de la constitución. Las decisiones son DE
 | Catálogo y stock (F2)             | `capsula.alta`, `capsula.modificada`, `capsula.desactivada`, `capsula.reactivada`, `capsula.borrada`, `foto.procesada` (info); `foto.rechazada` (warn); `stock.entrada_bajo_registrada` (info)                                                                                                                                                                                                                                  |
 | Economía                          | `consumo.registrado` (via `directo` \| `cola`), `consumo.duplicado`, `stock.negativo_registrado` (warn), `compra.registrada`, `aportacion.registrada`, `anulacion.registrada`, `arqueo.registrado`, `recuento.registrado`, `reparto.aplicado`, `liquidacion.aplicada`, `usuario.baja`, `regularizacion.aplicada`, `hucha.negativa_registrada`, `registro.duplicado`, `operacion.rechazada` (info); `invariante.violada` (error) |
 | Notificaciones                    | `aviso.registrado`, `push.enviado` (debug); `push.suscripcion_registrada` (info); `push.fallido` (warn); `push.suscripcion_caducada` (info); `push.reintentos_agotados` (error)                                                                                                                                                                                                                                                 |
-| Tareas y copias                   | `tarea.iniciada`, `tarea.completada`, `copia.completada` (info); `tarea.fallida`, `copia.fallida` (error)                                                                                                                                                                                                                                                                                                                       |
-| Rellenos                          | `relleno.registrado`, `aguador.determinado` (info)                                                                                                                                                                                                                                                                                                                                                                              |
+| Tareas y copias                   | `tarea.iniciada`, `tarea.completada`, `copia.completada`, `restauracion.anotada` (info); `tarea.fallida`, `copia.fallida` (error); `app.s3_no_configurado` (warn)                                                                                                                                                                                                                                                               |
+| Rellenos                          | `relleno.registrado`, `relleno.anulado`, `relleno.rechazado_intervalo`, `aguador.determinado` (info)                                                                                                                                                                                                                                                                                                                            |
 | Cliente                           | `cliente.cola_idb_error`, `cliente.cola_elemento_invalido`, `cliente.cola_sincronizacion_fallida`, `cliente.sw_instalacion_fallida`, `cliente.push_suscripcion_fallida`, `cliente.error_no_previsto` (warn o error); `cliente.registro_rechazado` (warn)                                                                                                                                                                        |
 
 **Log técnico frente a auditoría.**
@@ -433,6 +435,7 @@ Las tecnologías y sus versiones de referencia están en la sección 10.3 de `hi
 | `loglevel`                         | `lib/client/registro.ts`         |
 | `web-push`                         | `notificaciones/entrega-push.ts` |
 | `aws4fetch`                        | `copias/subida-s3.ts`            |
+| `tar`                              | `copias/empaquetado.ts`          |
 | `@node-rs/argon2`                  | `auth/contrasenas.ts`            |
 | `sharp`                            | `plataforma/imagenes.ts`         |
 | `croner`                           | `plataforma/planificador.ts`     |

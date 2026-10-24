@@ -17,6 +17,7 @@
 		{ value: 'aportaciones', label: textos.historial.tipoAportaciones },
 		{ value: 'compras', label: textos.historial.tipoCompras },
 		{ value: 'control', label: textos.historial.tipoControl },
+		{ value: 'rellenos', label: textos.historial.tipoRellenos },
 	];
 </script>
 
@@ -54,7 +55,11 @@
 					voided={fila.anulado}
 				>
 					{#snippet trailing()}
-						<Money cents={fila.importe} signed tone />
+						{#if fila.sinImporte}
+							<span class="text-[13px] text-ink-muted">{textos.historial.noMueveDinero}</span>
+						{:else}
+							<Money cents={fila.importe} signed tone />
+						{/if}
 					{/snippet}
 				</ListRow>
 			{/each}

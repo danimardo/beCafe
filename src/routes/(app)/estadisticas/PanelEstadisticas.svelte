@@ -12,6 +12,8 @@
 			gastado: number;
 			porMes: { mes: string; cafes: number; invitados: number }[];
 			porTipo: { nombre: string; cafes: number; color: string }[];
+			rellenos: number;
+			ranking: { usuarioId: string; nombre: string; rellenos: number; baja: boolean }[];
 		};
 		consulta: { periodo: 'mes' | 'anio' | 'todo'; vista: 'mias' | 'equipo'; mes?: string; anio?: number };
 		consultaValida: boolean;
@@ -19,7 +21,8 @@
 	};
 	let { titulo, resumen, consulta, consultaValida, cabecera }: Props = $props();
 
-	const sinDatos = $derived(resumen.cafes === 0 && resumen.invitados === 0);
+	// Los rellenos cuentan aunque no haya consumos (RN-085): sin ellos tampoco hay datos que mostrar.
+	const sinDatos = $derived(resumen.cafes === 0 && resumen.invitados === 0 && resumen.rellenos === 0);
 	const opcionesPeriodo = [
 		{ value: 'mes', label: textos.estadisticas.mes },
 		{ value: 'anio', label: textos.estadisticas.anio },
@@ -30,6 +33,7 @@
 		{ value: 'equipo', label: textos.estadisticas.equipo },
 	];
 	const totalTipos = $derived(resumen.porTipo.reduce((suma, tipo) => suma + tipo.cafes, 0));
+	const maximoRellenos = $derived(Math.max(1, ...resumen.ranking.map((fila) => fila.rellenos)));
 </script>
 
 <PageHeader title={titulo} />
@@ -61,7 +65,23 @@
 		<KpiTile label={textos.estadisticas.cafes} value={String(resumen.cafes)} />
 		<KpiTile label={textos.estadisticas.invitados} value={String(resumen.invitados)} hint={textos.estadisticas.invitadosAparte} />
 		<KpiTile label={textos.estadisticas.gastado} value={`${formatMoneyPlain(resumen.gastado)} €`} />
+		<KpiTile label={textos.rellenos.kpi} value={String(resumen.rellenos)} />
 	</div>
+
+	{#if resumen.ranking.length > 0}
+		<Section title={textos.rellenos.ranking}>
+			<ol class="flex flex-col gap-3 text-[15px]">
+				{#each resumen.ranking as fila, indice (fila.usuarioId)}
+					<li class="flex flex-col gap-1">
+						<span>{indice + 1}. {fila.nombre} · {fila.rellenos}{fila.baja ? ` · ${textos.rellenos.rankingBaja}` : ''}</span>
+						<span class="block h-2 w-full rounded-full bg-accent-soft" aria-hidden="true">
+							<span class="block h-2 rounded-full bg-accent" style:width={`${(fila.rellenos / maximoRellenos) * 100}%`}></span>
+						</span>
+					</li>
+				{/each}
+			</ol>
+		</Section>
+	{/if}
 
 	<Section title={textos.estadisticas.porMes}>
 		<BarChart title={textos.estadisticas.porMes} data={resumen.porMes.map((fila) => ({ label: fila.mes, value: fila.cafes }))} />

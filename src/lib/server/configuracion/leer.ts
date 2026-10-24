@@ -1,17 +1,26 @@
 import { z } from 'zod';
 import { configuracion } from './esquema';
-import { registrar, type Db } from '#lib/server/plataforma';
+import { registrar, type Ejecutor } from '#lib/server/plataforma';
 
 // Parámetros de negocio con valores por defecto (ARCHITECTURE.md §8; data-model.md). Sin fila, vale el defecto.
-const CLAVES = {
-	plazo_autoanulacion_min: { defecto: 15, esquema: z.number().int().positive() },
-	limite_deuda_centimos: { defecto: -500, esquema: z.number().int().max(0) },
-	intervalo_rellenos_min: { defecto: 60, esquema: z.number().int().positive() },
+// Rangos de cada parámetro (plan F8 D7, Clarifications 2). Los mismos esquemas leen y escriben: un valor fuera de rango no se guarda.
+export const RANGOS = {
+	plazo_autoanulacion_min: z.number().int().min(1).max(1440),
+	limite_deuda_centimos: z.number().int().min(-10_000).max(-100),
+	intervalo_rellenos_min: z.number().int().min(0).max(1440),
 } as const;
 
-export type Configuracion = { plazoAutoanulacionMin: number; limiteDeudaCentimos: number; intervalorRellenosMin: number };
+const CLAVES = {
+	plazo_autoanulacion_min: { defecto: 15, esquema: RANGOS.plazo_autoanulacion_min },
+	limite_deuda_centimos: { defecto: -500, esquema: RANGOS.limite_deuda_centimos },
+	intervalo_rellenos_min: { defecto: 60, esquema: RANGOS.intervalo_rellenos_min },
+} as const;
 
-export function leerConfiguracion(db: Db): Configuracion {
+export type ClaveConfiguracion = keyof typeof CLAVES;
+
+export type Configuracion = { plazoAutoanulacionMin: number; limiteDeudaCentimos: number; intervaloRellenosMin: number };
+
+export function leerConfiguracion(db: Ejecutor): Configuracion {
 	const filas = new Map(
 		db
 			.select()
@@ -36,7 +45,7 @@ export function leerConfiguracion(db: Db): Configuracion {
 	return {
 		plazoAutoanulacionMin: valor('plazo_autoanulacion_min'),
 		limiteDeudaCentimos: valor('limite_deuda_centimos'),
-		intervalorRellenosMin: valor('intervalo_rellenos_min'),
+		intervaloRellenosMin: valor('intervalo_rellenos_min'),
 	};
 }
 

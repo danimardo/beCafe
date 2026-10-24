@@ -16,6 +16,15 @@ export async function tiposDeCompra(page: Page, servidor: ServidorDePrueba): Pro
 	return [primero, segundo];
 }
 
+/** Da de alta un tipo como administrador y cierra su sesión. Menos pasos que `tiposDeCompra`: menos navegaciones en WebKit. */
+export async function tipoDeCompra(page: Page, servidor: ServidorDePrueba): Promise<string> {
+	await entrarComo(page, servidor, 'administrador');
+	const nombre = nombreUnico('Compra');
+	await darDeAltaCapsula(page, servidor, { nombre, umbral: '3' });
+	await cerrarSesion(page, servidor);
+	return nombre;
+}
+
 /** Cierra la sesión desde la pantalla principal y espera a estar en `/login`. */
 export async function cerrarSesion(page: Page, servidor: ServidorDePrueba): Promise<void> {
 	await page.goto(`${servidor.url}/`);
@@ -26,6 +35,8 @@ export async function cerrarSesion(page: Page, servidor: ServidorDePrueba): Prom
 /** Aporta un importe en `/saldos` (RF-030) y espera el aviso de aportación registrada. */
 export async function aportar(page: Page, servidor: ServidorDePrueba, importe: string): Promise<void> {
 	await page.goto(`${servidor.url}/saldos`);
+	// Espera a que la página termine de cargar antes de actuar: en el primer arranque de un navegador, el clic llegaba antes de la hidratación.
+	await page.waitForLoadState('load');
 	await page.getByRole('textbox', { name: 'Importe', exact: true }).fill(importe);
 	await page.getByRole('button', { name: 'Aportar', exact: true }).click();
 	await expect(page.getByRole('status').filter({ hasText: 'Aportación registrada' }).first()).toBeVisible();

@@ -2,7 +2,8 @@ import { redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { PageServerLoad } from './$types';
 import { errorDeCarga } from '../fallo';
-import { leerHistorial, TAMANO_PAGINA } from '#lib/server/economia';
+import { TAMANO_PAGINA } from '#lib/server/economia';
+import { leerHistorial } from '#lib/server/estadisticas';
 import { normalizarConsulta } from './consulta';
 import { vistaDeFilas } from './vista';
 

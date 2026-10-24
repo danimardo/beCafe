@@ -32,3 +32,30 @@ jobs:
           path: |
             test-results/
             playwright-report/
+
+  imagen:
+    needs: verificacion
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construir la imagen con el commit
+        run: docker build --build-arg GIT_COMMIT=${{ github.sha }} -t becafe:ci .
+      - name: Arrancar con un volumen temporal y variables de prueba
+        run: |
+          docker volume create becafe-ci
+          printf 'ORIGIN=http://localhost:3000\nDIRECTORIO_DATOS=/data\nADMIN_INICIAL_EMAIL=ci@example.test\nADMIN_INICIAL_NOMBRE=CI\nVAPID_SUBJECT=mailto:ci@example.test\nTZ=Europe/Madrid\n' > ci.env
+          node scripts/vapid/generar-claves.mjs >> ci.env
+          docker run -d --name becafe-ci --env-file ci.env -p 3000:3000 -v becafe-ci:/data becafe:ci
+      - name: Esperar a /api/salud
+        run: |
+          for i in $(seq 1 60); do curl -fs http://127.0.0.1:3000/api/salud && exit 0; sleep 2; done
+          docker logs becafe-ci
+          exit 1
+      - name: Reiniciar y comprobar que el volumen conserva los datos
+        run: |
+          docker restart becafe-ci
+          for i in $(seq 1 60); do curl -fs http://127.0.0.1:3000/api/salud && break; sleep 2; done
+          test "$(docker logs becafe-ci 2>&1 | grep -c '"codigo":"usuario.alta"')" -eq 1
+      - if: always()
+        run: docker rm -f becafe-ci || true

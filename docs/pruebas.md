@@ -149,10 +149,13 @@ Ejemplo: `F4-L2 → CA-041, CA-045, EV-031 → coste medio con stock negativo; r
 | Proyecto | Dispositivo | Cuándo |
 | --- | --- | --- |
 | `chromium-movil` | Pixel (Chrome Android) | Trabajo diario, lotes y `test:e2e:quick` |
-| `webkit-movil` | iPhone (aproxima Safari iOS) | Puerta de funcionalidad y CI |
+| `webkit-movil` | iPhone (aproxima Safari iOS); todas las suites salvo `a11y` | Puerta de funcionalidad y CI |
+| `webkit-movil-a11y` | Mismo dispositivo; solo la suite `a11y` | Puerta de funcionalidad y CI |
 | `chromium-escritorio` | 1280 px (pantallas de administración) | Puerta de funcionalidad y CI |
 | `sin-js` | Chromium sin JavaScript | Lote, si toca un formulario crítico; puerta y CI |
 | `api` | Sin navegador | Lote, si añade una ruta; puerta y CI |
+
+**Por qué WebKit va en dos proyectos:** con `a11y` y `flujos` en el mismo navegador de WebKit, un test de `flujos/agua` (CA-170) falló en 6 de 6 ejecuciones. Playwright dejaba de recibir respuesta de WebKit durante 30 s, en un paso distinto cada vez, aunque la página respondía bien. Por separado pasan: `a11y` solo, `a11y` repetido dos veces, `flujos` solo y cada mitad de `a11y` seguida de `flujos/agua`. Se descartaron la carga de la máquina, el volumen de datos, la edad del navegador, los timeouts y `bringToFront()`. Playwright 1.64.1 es la última versión estable. Es una mitigación de un atasco entre Playwright y WebKit, no una corrección de la aplicación. Si se localiza la causa, los dos proyectos pueden volver a unirse.
 
 WebKit de Playwright no sustituye a Safari en un iPhone real: la revisión manual con VoiceOver del principio XI se hace en un dispositivo. La matriz se amplía en un lote cuando cambia algo sensible al motor: formularios, foco, scroll, subida de fotos, service worker, IndexedDB o notificaciones.
 

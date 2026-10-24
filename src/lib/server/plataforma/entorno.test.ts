@@ -9,6 +9,11 @@ vi.mock('$app/env/private', () => ({
 	ADMIN_INICIAL_NOMBRE: 'Admin',
 	VAPID_PRIVATE_KEY: undefined,
 	VAPID_SUBJECT: undefined,
+	S3_ENDPOINT: undefined,
+	S3_BUCKET: undefined,
+	S3_REGION: undefined,
+	S3_ACCESS_KEY: undefined,
+	S3_SECRET_KEY: undefined,
 }));
 
 describe('configuración de entorno (ARCHITECTURE.md §8)', () => {

@@ -4,5 +4,14 @@
 		"strict": true
 	},
 	"exclude": ["src/service-worker"],
-	"include": ["src", "e2e", "vite.config.ts", "playwright.config.ts", "drizzle.config.ts", "vite.comandos.config.ts", "scripts/servidor"]
+	"include": [
+		"src",
+		"e2e",
+		"vite.config.ts",
+		"playwright.config.ts",
+		"drizzle.config.ts",
+		"vite.comandos.config.ts",
+		"scripts/servidor",
+		"scripts/copias"
+	]
 }

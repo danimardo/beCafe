@@ -15,6 +15,8 @@ for (const esquema of ['light', 'dark'] as const) {
 
 		test('pantalla principal con el aviso «Deshacer» visible no tiene infracciones de axe', async ({ page, servidor }) => {
 			const tipo = await tipoConCoste(page, servidor);
+			// Con movimiento reducido, el aviso aparece sin su animación de entrada: el contraste se mide sobre el estado final (constitución XI).
+			await page.emulateMedia({ reducedMotion: 'reduce' });
 			await page.goto(`${servidor.url}/`);
 			await botonDeToque(page, tipo).click();
 			await expectSinInfracciones(page);

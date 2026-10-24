@@ -494,7 +494,7 @@ Los rellenos aparecen en `/historial` como un tipo más («Rellenos de agua», i
 
 ![Equipo](screens/estadisticas-equipo.webp)
 
-- **Equipo**: tarjeta «Rellenos de agua» con el `SegmentedControl` de periodo (Semana / Mes / Año) que ya existe, ahora compartido. Lista ordenada «1. Jorge Gil · 7» con barra proporcional (`bg-accent` sobre `accent-soft`), texto y número: el color no es la única señal. Las personas dadas de baja siguen en el ranking con «· baja» (RN-085).
+- **Equipo**: tarjeta «Rellenos de agua» con el `SegmentedControl` de periodo (Mes / Año / Desde el principio), el mismo que el resto de estadísticas. Lista ordenada «1. Jorge Gil · 7» con barra proporcional (`bg-accent` sobre `accent-soft`), texto y número: el color no es la única señal. Las personas dadas de baja siguen en el ranking con «· baja» (RN-085).
 - **Mías**: 4.º `KpiTile` «rellenos de agua» con el número del periodo elegido. Con selector de persona (administradores), muestra los de esa persona.
 - El ranking **no otorga título**: el título de aguador es solo del mes natural anterior (RN-084) y se ve en Inicio.
 
@@ -503,8 +503,10 @@ Los rellenos aparecen en `/historial` como un tipo más («Rellenos de agua», i
 ![Configuración](screens/admin-configuracion.webp)
 
 - Desaparece el desplegable «Recordatorio de deuda».
+- El límite se escribe como importe de la deuda, entre 1 € y 100 € (se guarda en negativo). El plazo para deshacer va de 1 a 1440 minutos.
+- Guardar pide la contraseña si la sesión tiene más de 15 minutos (CA-138). Cada campo muestra su último cambio.
 - En su lugar, un **bloque informativo** (no editable, fondo `accent-soft`) «Recordatorio de deuda (automático)» con los tramos calculados a partir del límite L que se está editando, en vivo: con 5,00 € → «Por debajo de −5,00 €: cada 7 días», «−10,00 €: cada 3 días», «−20,00 €: cada día». Añade la aclaración de que pasar de tramo no envía un aviso inmediato.
-- Nuevo campo **«Intervalo mínimo entre rellenos de agua (minutos)»**, número entero ≥ 1, 60 por defecto. Lleva la ayuda «Tras un relleno, nadie puede registrar otro hasta que pasa este tiempo. Los rellenos anulados no cuentan». Cada cambio sigue registrándose con autor y fecha.
+- Nuevo campo **«Intervalo mínimo entre rellenos de agua (minutos)»**, número entero entre 0 y 1440, 60 por defecto. Con 0, no se limita el intervalo. Lleva la ayuda «Tras un relleno, nadie puede registrar otro hasta que pasa este tiempo. Los rellenos anulados no cuentan». Cada cambio sigue registrándose con autor y fecha.
 
 ### 8.6 Avisos: resumen mensual con aguador (RF-104)
 

@@ -175,7 +175,7 @@
 - [X] T061 Comprobar cobertura: 90 % en `economia` y `dominio/` (constitución VIII) con `npm run test`. Añadir pruebas si no llega; nunca excluir archivos.
 - [X] T062 Pedir a la persona usuaria autorización para el CAMBIO de `historias.md` §10.4 (tablas `reparto`, `regularizacion`, `aviso_economia`, estado por línea de recuento) con respaldo previo en `.respaldos/`. Sin autorización, dejarlo anotado como pendiente. CAMBIO-016 aplicado en §10.4 de `historias.md` con respaldo previo en `.respaldos/`.
 - [X] T063 `npm run verify` y benchmark completo en serie (`scripts/benchmark.sh`). Revisar `git status` (sin `.env`, `*.db`, informes ni `.local/`). Informar de lo ejecutado según AGENTS.md §8. Benchmark completo en serie pasado (22-10-2026); informe en `.local/benchmark/`.
-- [ ] T064 Revisión manual con VoiceOver (iOS) y TalkBack (Android) de `/saldos`, `/compras`, `/compras/[id]`, `/admin/control` y el asistente de baja: lectura de importes con signo, mensajes de confirmación anunciados, diálogos de confirmación y de contraseña, foco (constitución XI). La hace la persona usuaria o se deja anotada como pendiente, con su motivo, en el informe de cierre; F4 no se cierra sin ella.
+- [X] T064 Revisión manual con VoiceOver (iOS) y TalkBack (Android) de `/saldos`, `/compras`, `/compras/[id]`, `/admin/control` y el asistente de baja: lectura de importes con signo, mensajes de confirmación anunciados, diálogos de confirmación y de contraseña, foco (constitución XI). La hace la persona usuaria o se deja anotada como pendiente, con su motivo, en el informe de cierre; F4 no se cierra sin ella. Hecha por la persona usuaria el 24-10-2026, sin incidencias.
 
 ---
 
