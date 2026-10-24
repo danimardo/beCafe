@@ -53,3 +53,6 @@ vite.config.ts.timestamp-*
 
 # Copia estática de pantallas para el diseñador (generada por scripts/entrega-disenador/generar.mjs; no se versiona)
 /docs/diseno/entrega-disenador/
+
+# Base de datos y registros de desarrollo (DIRECTORIO_DATOS=./datos en .env): datos reales, nunca al repositorio
+/datos/
