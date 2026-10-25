@@ -6,6 +6,8 @@ import { leerAportacion, leerAportacionesPropias, leerSaldoHucha, leerSaldoPropi
 import { anotarMovimientos, saldoHucha, saldoPersona } from './libro';
 import { prepararMiembros, prepararAportacion } from './pruebas/constructores';
 import { aportacion } from './esquema';
+import { marcarBaja } from '#lib/server/usuarios';
+import { notificacion } from '#lib/server/notificaciones';
 
 const INSTANTE = '2026-10-21T09:00:00.000Z';
 
@@ -100,5 +102,45 @@ describe('aportaciones (CA-030, RF-046, RN-034, RNF-010)', () => {
 		const id = prepararAportacion(entorno.ambiente.db, { usuarioId: ana, importe: 500, instante: INSTANTE });
 		expect(() => leerAportacion(entorno.ambiente.db, actorDe(bea), id)).toThrow('RECURSO_NO_ENCONTRADO');
 		expect(leerAportacion(entorno.ambiente.db, actorDe(bea, 'administrador'), id).id).toBe(id);
+	});
+
+	it('CA-200, RN-087: un administrador aporta en nombre de otra persona; los dos movimientos son de la beneficiaria y ella recibe el aviso', () => {
+		const [admin, bea] = prepararMiembros(entorno.ambiente.db, 2);
+		const { id } = registrarAportacion(entorno.ambiente, actorDe(admin, 'administrador'), {
+			clienteId: nuevoId(),
+			importe: 1000,
+			beneficiarioId: bea,
+		});
+
+		const fila = entorno.ambiente.db.select().from(aportacion).all()[0];
+		expect(fila).toMatchObject({ id, usuarioId: bea, registradaPor: admin });
+		expect(saldoPersona(entorno.ambiente.db, bea)).toBe(1000);
+		expect(saldoPersona(entorno.ambiente.db, admin)).toBe(0);
+		expect(saldoHucha(entorno.ambiente.db)).toBe(1000);
+		const avisos = entorno.ambiente.db.select().from(notificacion).all();
+		expect(avisos.map((a) => [a.usuarioId, a.tipo])).toEqual([[bea, 'aportacion_en_tu_nombre']]);
+		expect(entorno.eventos().map((evento) => evento.codigo)).toContain('aportacion.en_nombre_de');
+	});
+
+	it('EV-105: un miembro que aporta en nombre de otra persona recibe SIN_PERMISO y no se escribe nada', () => {
+		const [ana, bea] = prepararMiembros(entorno.ambiente.db, 2);
+
+		expect(() => registrarAportacion(entorno.ambiente, actorDe(ana), { clienteId: nuevoId(), importe: 500, beneficiarioId: bea })).toThrow(
+			expect.objectContaining({ codigo: 'SIN_PERMISO' }),
+		);
+		expect(entorno.ambiente.db.select().from(aportacion).all()).toHaveLength(0);
+		expect(entorno.eventos().map((evento) => evento.codigo)).toContain('auth.permiso_denegado');
+	});
+
+	it('RN-087: no se puede aportar en nombre de una persona dada de baja; en nombre propio no hay aviso', () => {
+		const [admin, bea] = prepararMiembros(entorno.ambiente.db, 2);
+		enTransaccion(entorno.ambiente.db, (tx) => marcarBaja(tx, { usuarioId: bea, instante: INSTANTE }));
+		const actor = actorDe(admin, 'administrador');
+
+		expect(() => registrarAportacion(entorno.ambiente, actor, { clienteId: nuevoId(), importe: 500, beneficiarioId: bea })).toThrow(
+			ErrorDeNegocio,
+		);
+		registrarAportacion(entorno.ambiente, actor, { clienteId: nuevoId(), importe: 500, beneficiarioId: admin });
+		expect(entorno.ambiente.db.select().from(notificacion).all()).toHaveLength(0);
 	});
 });

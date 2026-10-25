@@ -30,6 +30,7 @@ export const RUTAS_PROTEGIDAS = [
 	`/admin/usuarios/${CAPSULA_DE_PRUEBA}/baja`,
 	'/visitantes',
 	'/admin/visitantes',
+	`/saldos/personas/${CAPSULA_DE_PRUEBA}`,
 	// Sin visita ni sesión, la pantalla del visitante también lleva a la entrada (F10, CA-194).
 	'/visita',
 ] as const;

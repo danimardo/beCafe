@@ -30,6 +30,8 @@ const casilla = z.literal('on').optional();
 
 export const esquemaAportacion = z.strictObject({
 	clienteId: esquemaUlid,
+	// RF-200: solo un administrador puede elegir otra persona; vacío («Yo») es la persona que registra.
+	beneficiarioId: z.preprocess((valor) => (valor === '' ? undefined : valor), esquemaUlid.optional()),
 	importe: esquemaImporte.pipe(
 		z
 			.number()
@@ -132,4 +134,9 @@ export const esquemaAnulacionControl = z.strictObject({
 	id: esquemaUlid,
 	motivo: esquemaAnulacion.shape.motivo,
 	contrasenaActual: z.string().min(1, { error: 'Escribe tu contraseña' }).optional(),
+});
+
+/** Página del detalle de aportaciones de una persona (`/saldos/personas/[usuarioId]?pagina=`, RF-199). */
+export const esquemaPaginaAportaciones = z.strictObject({
+	pagina: z.coerce.number().int().positive().default(1),
 });

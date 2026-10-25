@@ -3,13 +3,16 @@ export { darDeAltaCapsula, editarCapsula, cambiarEstadoCapsula, borrarCapsula, t
 export { leerEstadoTipos, leerAvisosStock, leerCatalogoAdmin, leerCapsulaAdmin, type FilaEstado } from './panel';
 export { fijarStock, fijarUmbral } from './existencias';
 export type { EstimacionDias } from './dominio/stock';
-export { registrarAportacion, type ResultadoAportacion } from './aportaciones';
+export { registrarAportacion, type DatosAportacion, type ResultadoAportacion } from './aportaciones';
 export {
 	leerSaldoPropio,
 	leerSaldoHucha,
 	leerSaldos,
 	leerAportacionesPropias,
 	leerAportacion,
+	leerAportacionesDe,
+	APORTACIONES_POR_PAGINA,
+	type AportacionDePersona,
 	type SaldoDePersona,
 	type UltimoArqueo,
 } from './saldos';

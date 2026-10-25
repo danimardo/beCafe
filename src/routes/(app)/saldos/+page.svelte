@@ -1,8 +1,20 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
-	import { Banner, Button, EmptyState, ListRow, Money, MoneyField, PanelGrid, PageHeader, Section, usarMascota } from '#lib/ui';
-	import { formatMoneyPlain } from '#lib/shared/dinero';
+	import {
+		Banner,
+		Button,
+		EmptyState,
+		ListRow,
+		Money,
+		MoneyField,
+		PanelGrid,
+		PageHeader,
+		Section,
+		SelectField,
+		usarMascota,
+	} from '#lib/ui';
+	import { formatMoney, formatMoneyPlain } from '#lib/shared/dinero';
 	import { textos } from '#lib/shared/textos';
 	import type { PageProps } from './$types';
 
@@ -16,6 +28,12 @@
 	// Tras un rechazo, el servidor devuelve los errores por campo (constitución XVII). El formulario también funciona sin JavaScript.
 	const errorImporte = $derived(errores.importe?.mensaje);
 	const confirmacion = $derived(form && 'confirmacion' in form ? form.confirmacion : undefined);
+	const errorGeneral = $derived(errores.general?.mensaje ?? errores.beneficiarioId?.mensaje);
+	// RF-200: el administrador elige para quién es la aportación; «Yo» por defecto.
+	const opcionesPara = $derived([
+		{ value: '', label: textos.economia.paraYo },
+		...data.saldos.filter((persona) => !persona.esPropia).map((persona) => ({ value: persona.usuarioId, label: persona.nombre })),
+	]);
 </script>
 
 <svelte:head>
@@ -29,6 +47,9 @@
 		<div role="status">
 			<Banner tone="info">{confirmacion}</Banner>
 		</div>
+	{/if}
+	{#if errorGeneral}
+		<div role="alert"><Banner tone="negative">{errorGeneral}</Banner></div>
 	{/if}
 
 	<PanelGrid>
@@ -71,6 +92,15 @@
 					class="flex flex-col gap-3 sm:flex-row sm:items-end"
 				>
 					<input type="hidden" name="clienteId" value={data.clienteId} />
+					{#if data.esAdministrador}
+						<SelectField
+							class="sm:w-56"
+							label={textos.economia.para}
+							name="beneficiarioId"
+							options={opcionesPara}
+							hint={textos.economia.ayudaPara}
+						/>
+					{/if}
 					<MoneyField class="sm:w-56" label={textos.economia.importe} name="importe" bind:cents={importe} error={errorImporte} required />
 					<Button type="submit" class="sm:min-w-40">{textos.economia.aportar}</Button>
 				</form>
@@ -82,7 +112,11 @@
 				{:else}
 					<ul class="flex flex-col">
 						{#each data.saldos as persona (persona.usuarioId)}
-							<ListRow title={persona.esPropia ? `${persona.nombre} ${textos.historial.tuMarca}` : persona.nombre}>
+							<ListRow
+								title={persona.esPropia ? `${persona.nombre} ${textos.historial.tuMarca}` : persona.nombre}
+								subtitle={textos.economia.aportado(formatMoney(persona.totalAportado))}
+								href={resolve('/(app)/saldos/personas/[usuarioId=ulid]', { usuarioId: persona.usuarioId })}
+							>
 								{#snippet trailing()}
 									<Money cents={persona.saldo} signed tone srSuffix={persona.saldo >= 0 ? textos.economia.aFavor : textos.economia.debes} />
 								{/snippet}

@@ -2,7 +2,10 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type { Actor } from '#lib/server/auth';
 import { crearEntornoPrueba, enTransaccion, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
 import { crearUsuario, marcarBaja } from '#lib/server/usuarios';
-import { leerSaldoHucha, leerSaldos } from './saldos';
+import { leerAportacionesDe, leerSaldoHucha, leerSaldos } from './saldos';
+import { registrarAportacion } from './aportaciones';
+import { anularAportacion } from './anulaciones';
+import { RecursoNoEncontrado } from '#lib/server/plataforma';
 import { anotarMovimientos } from './libro';
 
 // Plan F5 D1 y tareas T006: saldos de todas las personas activas (CA-110), orden y marca de la fila propia (CA-111).
@@ -42,8 +45,8 @@ describe('saldos de todas las personas (CA-110, CA-111)', () => {
 		const saldos = leerSaldos(entorno.ambiente.db, ana);
 
 		expect(saldos).toEqual([
-			{ usuarioId: ana.usuarioId, nombre: 'Ana', saldo: 0, esPropia: true },
-			{ usuarioId: bea.usuarioId, nombre: 'Bea', saldo: -350, esPropia: false },
+			{ usuarioId: ana.usuarioId, nombre: 'Ana', saldo: 0, totalAportado: 0, esPropia: true },
+			{ usuarioId: bea.usuarioId, nombre: 'Bea', saldo: -350, totalAportado: 0, esPropia: false },
 		]);
 	});
 
@@ -88,5 +91,31 @@ describe('saldos de todas las personas (CA-110, CA-111)', () => {
 		);
 
 		expect(leerSaldoHucha(entorno.ambiente.db)).toEqual({ saldo: 1200, ultimoArqueo: null });
+	});
+
+	it('CA-199: cada persona muestra el total de sus aportaciones vigentes y su detalle dice quién registró cada una', () => {
+		const admin: Actor = { ...actorDe('Admin'), rol: 'administrador' };
+		const bea = actorDe('Bea');
+		registrarAportacion(entorno.ambiente, bea, { clienteId: nuevoId(), importe: 500 });
+		entorno.reloj.avanzar(60_000);
+		const { id: anulada } = registrarAportacion(entorno.ambiente, bea, { clienteId: nuevoId(), importe: 300 });
+		anularAportacion(entorno.ambiente, bea, anulada, 'Error');
+		entorno.reloj.avanzar(60_000);
+		registrarAportacion(entorno.ambiente, admin, { clienteId: nuevoId(), importe: 1000, beneficiarioId: bea.usuarioId });
+
+		expect(leerSaldos(entorno.ambiente.db, ana).find((fila) => fila.usuarioId === bea.usuarioId)?.totalAportado).toBe(1500);
+		const detalle = leerAportacionesDe(entorno.ambiente.db, ana, bea.usuarioId, 1);
+		expect(detalle).toMatchObject({ nombre: 'Bea', totalAportado: 1500, total: 3 });
+		expect(detalle.filas.map((f) => [f.importe, f.estado, f.registradaPorNombre, f.registradaPorOtra])).toEqual([
+			[1000, 'vigente', 'Admin', true],
+			[300, 'anulado', 'Bea', false],
+			[500, 'vigente', 'Bea', false],
+		]);
+		expect(leerAportacionesDe(entorno.ambiente.db, ana, bea.usuarioId, 2).filas).toEqual([]);
+	});
+
+	it('CA-199: el detalle de una persona que no existe es «no encontrada» y sin sesión se rechaza', () => {
+		expect(() => leerAportacionesDe(entorno.ambiente.db, ana, nuevoId(), 1)).toThrow(RecursoNoEncontrado);
+		expect(() => leerAportacionesDe(entorno.ambiente.db, undefined, ana.usuarioId, 1)).toThrow();
 	});
 });

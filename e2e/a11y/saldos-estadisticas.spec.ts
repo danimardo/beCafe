@@ -13,6 +13,21 @@ for (const esquema of ['light', 'dark'] as const) {
 			await expectSinInfracciones(page);
 		});
 
+		test('saldos del administrador con «Para» y el detalle de aportaciones de una persona no tienen infracciones de axe', async ({
+			page,
+			servidor,
+		}) => {
+			await entrarComo(page, servidor, 'administrador');
+			await page.goto(`${servidor.url}/saldos`);
+			await expectSinInfracciones(page);
+			await page
+				.getByRole('link', { name: /^Marta/ })
+				.first()
+				.click();
+			await page.getByRole('heading', { level: 1, name: 'Aportaciones de Marta' }).waitFor();
+			await expectSinInfracciones(page);
+		});
+
 		test('historial con filtros no tiene infracciones de axe', async ({ page, servidor }) => {
 			await entrarComo(page, servidor, 'miembro');
 			await page.goto(`${servidor.url}/historial`);

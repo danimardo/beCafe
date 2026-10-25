@@ -61,3 +61,12 @@ test('sin JavaScript, el arqueo muestra la vista previa y se confirma con contra
 	await entrarComo(page, servidor, 'administrador');
 	await arquear(page, servidor, '0,00');
 });
+
+test('CA-200: sin JavaScript, un administrador registra una aportación para otra persona', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'administrador');
+	await page.goto(`${servidor.url}/saldos`);
+	await page.getByRole('combobox', { name: 'Para', exact: true }).selectOption({ label: 'Marta' });
+	await page.getByRole('textbox', { name: 'Importe', exact: true }).fill('3,00');
+	await page.getByRole('button', { name: 'Aportar', exact: true }).click();
+	await expect(page.getByRole('status').filter({ hasText: 'Aportación registrada a nombre de Marta' }).first()).toBeVisible();
+});

@@ -6,6 +6,7 @@ import { leerAportacionesPropias, leerSaldoHucha, leerSaldoPropio, leerSaldos, r
 import { ultimosRegistros } from '../historial/vista';
 import { esquemaAportacion } from '#lib/shared/contratos/economia';
 import { nuevoId } from '#lib/server/plataforma';
+import { buscarUsuarioPorId } from '#lib/server/usuarios';
 import { textos } from '#lib/shared/textos';
 
 const LIMITE_APORTACIONES = 20;
@@ -18,6 +19,7 @@ export const load: PageServerLoad = ({ locals }) => {
 		return {
 			saldoPropio: leerSaldoPropio(db, actor),
 			saldos: leerSaldos(db, actor),
+			esAdministrador: actor.rol === 'administrador',
 			recientes: ultimosRegistros(db, actor, 5),
 			hucha: leerSaldoHucha(db),
 			aportaciones: leerAportacionesPropias(db, actor, LIMITE_APORTACIONES),
@@ -36,9 +38,16 @@ export const actions: Actions = {
 		const actor = locals.actor;
 		if (!actor) return falloDeNegocio('SIN_SESION', {});
 
-		return ejecutarAccion({}, () => {
+		return ejecutarAccion({ beneficiarioId: datos.beneficiarioId }, () => {
 			const { id, duplicado } = registrarAportacion(locals.ambiente, actor, entrada.data);
-			return { id, duplicado, confirmacion: textos.economia.aportacionRegistrada };
+			const beneficiario = entrada.data.beneficiarioId;
+			const nombre =
+				beneficiario && beneficiario !== actor.usuarioId ? buscarUsuarioPorId(locals.ambiente.db, beneficiario)?.nombre : undefined;
+			return {
+				id,
+				duplicado,
+				confirmacion: nombre ? textos.economia.aportacionRegistradaPara(nombre) : textos.economia.aportacionRegistrada,
+			};
 		});
 	},
 };
