@@ -219,11 +219,15 @@ test('CA-206, CA-207: una cuenta nueva ve la oferta de avisos y la tarjeta de in
 	await persona.getByRole('button', { name: 'Saltar', exact: true }).click();
 	const oferta = persona.getByRole('heading', { name: '¿Te aviso de las novedades?' });
 	const tarjeta = persona.getByRole('heading', { name: 'Instalar beCafé' });
-	await expect(oferta).toBeVisible();
+	// El WebKit de Playwright no tiene `PushManager` ni `Notification`: sin ellos la oferta de avisos no se muestra.
+	const hayAvisos = await persona.evaluate(() => 'PushManager' in window && 'Notification' in window);
+	if (hayAvisos) await expect(oferta).toBeVisible();
+	else await expect(oferta).toHaveCount(0);
 	await expect(tarjeta).toBeVisible();
 
-	await persona.getByRole('button', { name: 'Ahora no', exact: true }).first().click();
-	await persona.getByRole('button', { name: 'Ahora no', exact: true }).first().click();
+	for (let descartes = hayAvisos ? 2 : 1; descartes > 0; descartes--) {
+		await persona.getByRole('button', { name: 'Ahora no', exact: true }).first().click();
+	}
 	await expect(oferta).toBeHidden();
 	await expect(tarjeta).toBeHidden();
 

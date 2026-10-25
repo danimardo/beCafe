@@ -94,7 +94,7 @@
 	<Dialog.Portal>
 		<Dialog.Overlay class="animate-fade-in fixed inset-0 z-50 bg-scrim" />
 		<Dialog.Content
-			class="animate-sheet-in glass-strong fixed inset-x-0 bottom-0 z-50 flex max-h-[92dvh] flex-col items-center rounded-t-sheet px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 text-center text-ink md:inset-x-auto md:bottom-auto md:left-1/2 md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-sheet md:pb-6"
+			class="animate-sheet-in glass-strong fixed inset-x-0 bottom-0 z-50 flex max-h-[92dvh] flex-col overflow-y-auto items-center rounded-t-sheet px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 text-center text-ink md:inset-x-auto md:bottom-auto md:left-1/2 md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-sheet md:pb-6"
 		>
 			<div class="mb-2 flex w-full items-center justify-between gap-2">
 				<span class="text-[13px] font-medium text-ink-muted">
