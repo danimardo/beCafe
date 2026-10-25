@@ -77,7 +77,12 @@ test('CA-213: con Capsulito oculto no hay bocadillo ni frase, pero el café se r
 
 	await botonDeToque(page, tipo).click();
 
-	await expect(page.getByRole('status').filter({ hasText: `${tipo} registrado` }).first()).toBeVisible();
+	await expect(
+		page
+			.getByRole('status')
+			.filter({ hasText: `${tipo} registrado` })
+			.first(),
+	).toBeVisible();
 	await expect(bocadillo(page)).toHaveCount(0);
 });
 
@@ -109,7 +114,11 @@ test('CA-214: una cuenta nueva oye un saludo del anexo al abrir Inicio y despué
 	await contexto.close();
 });
 
-test('CA-215: dos dispositivos de la misma cuenta que registran a la vez no reciben la misma frase', async ({ browser, page, servidor }) => {
+test('CA-215: dos dispositivos de la misma cuenta que registran a la vez no reciben la misma frase', async ({
+	browser,
+	page,
+	servidor,
+}) => {
 	const tipo = await tipoConVariasCapsulas(page, servidor);
 	await page.goto(`${servidor.url}/`);
 	await page.waitForLoadState('load');

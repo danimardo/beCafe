@@ -8,6 +8,10 @@ export interface NavItem {
 	short?: string;
 	/** Rutas adicionales que dejan este elemento marcado como activo (p. ej. /historial cuelga de Saldos). */
 	alsoActive?: string[];
+	/** No aparece en la barra móvil (5 secciones); sí en el carril y la barra lateral. */
+	hiddenOnMobile?: boolean;
+	/** Rutas que dejan este elemento activo solo en la barra móvil (p. ej. /ajustes marca Perfil porque allí no hay entrada propia). */
+	alsoActiveMobile?: string[];
 	/** Componente de icono de Lucide. */
 	icon: Component<{ class?: string; 'aria-hidden'?: boolean | 'true' | 'false' }>;
 }

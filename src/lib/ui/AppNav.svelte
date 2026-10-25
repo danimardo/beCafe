@@ -20,6 +20,8 @@
 	const isActive = (item: NavItem) =>
 		item.href === '/' ? page.url.pathname === '/' : [item.href, ...(item.alsoActive ?? [])].some((h) => page.url.pathname.startsWith(h));
 
+	const isActiveMobile = (item: NavItem) => isActive(item) || (item.alsoActiveMobile ?? []).some((h) => page.url.pathname.startsWith(h));
+
 	// Carril (md–lg): icono arriba y etiqueta corta debajo. Barra completa (lg+): icono y etiqueta en fila.
 	const link = (active: boolean) =>
 		cn(
@@ -36,8 +38,8 @@
 	data-sveltekit-preload-data="tap"
 	class="glass-strong fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex rounded-full p-1.5 md:hidden"
 >
-	{#each items as item (item.href)}
-		{@const active = isActive(item)}
+	{#each items.filter((item) => !item.hiddenOnMobile) as item (item.href)}
+		{@const active = isActiveMobile(item)}
 		<a
 			href={item.href}
 			aria-current={active ? 'page' : undefined}

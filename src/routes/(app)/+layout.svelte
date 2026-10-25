@@ -8,6 +8,7 @@
 	import Package from '@lucide/svelte/icons/package';
 	import Scale from '@lucide/svelte/icons/scale';
 	import Settings from '@lucide/svelte/icons/settings';
+	import Settings2 from '@lucide/svelte/icons/settings-2';
 	import ShoppingBag from '@lucide/svelte/icons/shopping-bag';
 	import UserRound from '@lucide/svelte/icons/user-round';
 	import Users from '@lucide/svelte/icons/users';
@@ -53,7 +54,15 @@
 			href: resolve('/(app)/perfil'),
 			label: 'Perfil',
 			icon: UserRound,
+			alsoActiveMobile: ['/ajustes'],
 			active: ruta.startsWith('/perfil') || ruta.startsWith('/privacidad') || ruta.startsWith('/ayuda') || ruta.startsWith('/avisos'),
+		},
+		{
+			href: resolve('/(app)/ajustes'),
+			label: 'Ajustes',
+			icon: Settings2,
+			hiddenOnMobile: true,
+			active: ruta.startsWith('/ajustes'),
 		},
 	]);
 

@@ -68,7 +68,10 @@ test('CA-183, CA-184, EV-102: la tarjeta muestra ilustración cuando no hay foto
 
 	// El primer toque dejó el tipo en 0: el de invitado pide confirmación antes de registrar (RF-217).
 	await btnInvitado.click();
-	await page.getByRole('alertdialog', { name: 'El sistema dice que no quedan' }).getByRole('button', { name: 'Sí, registrar', exact: true }).click();
+	await page
+		.getByRole('alertdialog', { name: 'El sistema dice que no quedan' })
+		.getByRole('button', { name: 'Sí, registrar', exact: true })
+		.click();
 	await expect(page.getByRole('link', { name: new RegExp(`${tipo} · Invitado`) }).first()).toBeVisible();
 });
 
@@ -77,7 +80,7 @@ test('CA-185, CA-186, EV-101: ocultar a Capsulito y activar su voz persisten en 
 	servidor,
 }) => {
 	await entrarComo(page, servidor, 'miembro');
-	await page.goto(`${servidor.url}/perfil`);
+	await page.goto(`${servidor.url}/ajustes`);
 
 	await expect(page.locator('html')).toHaveAttribute('data-mascota', 'visible');
 
@@ -123,8 +126,8 @@ test('CA-187: la bienvenida de 8 escenas se abre en la primera visita a Inicio, 
 	await page.reload();
 	await expect(page.getByRole('dialog')).toHaveCount(0);
 
-	// Desde Perfil se puede volver a abrir («Ver la bienvenida otra vez»).
-	await page.goto(`${servidor.url}/perfil`);
+	// Desde Ajustes se puede volver a abrir («Ver la bienvenida otra vez»).
+	await page.goto(`${servidor.url}/ajustes`);
 	await page.getByRole('button', { name: 'Ver la bienvenida otra vez', exact: true }).click();
 	await expect(page.getByRole('dialog')).toBeVisible();
 });
@@ -240,8 +243,8 @@ test('CA-206, CA-207: una cuenta nueva ve la oferta de avisos y la tarjeta de in
 	await expect(oferta).toBeHidden();
 	await expect(tarjeta).toBeHidden();
 
-	// CA-206: Perfil conserva la opción de instalar aunque se haya descartado la tarjeta.
-	await persona.goto(`${servidor.url}/perfil`);
+	// CA-206: Ajustes conserva la opción de instalar aunque se haya descartado la tarjeta.
+	await persona.goto(`${servidor.url}/ajustes`);
 	await expect(persona.getByRole('heading', { name: 'Instalar la aplicación' })).toBeVisible();
 	await expect(persona.getByRole('button', { name: 'Instalar', exact: true })).toBeVisible();
 	await contexto.close();

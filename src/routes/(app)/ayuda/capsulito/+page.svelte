@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import Volume2 from '@lucide/svelte/icons/volume-2';
-	import { BackLink, Button, Capsulito, Glass, PageHeader, Section, Switch, usarMascota } from '#lib/ui';
+	import { BackLink, Button, Capsulito, Glass, ILUSTRACIONES, PageHeader, Section, Switch, usarMascota } from '#lib/ui';
 	import { ESCENAS_BIENVENIDA } from '#lib/shared/mascota/bienvenida';
 	import type { FormaBoca } from '#lib/shared/mascota/lip-sync';
 	import {
@@ -17,6 +17,9 @@
 	} from '#lib/shared/mascota/momentos';
 
 	const mascota = usarMascota();
+	// Tokens `bg-avatar-N` escritos completos para que Tailwind los genere.
+	const COLORES_MUESTRA = ['bg-avatar-1', 'bg-avatar-2', 'bg-avatar-3', 'bg-avatar-4', 'bg-avatar-5', 'bg-avatar-6'] as const;
+	const NOMBRES_ILUSTRACION = ['Taza', 'Cápsula', 'Grano', 'Cafetera', 'Molinillo', 'Vaso para llevar', 'Cruasán', 'Cucharilla'] as const;
 
 	let momentoActivo = $state<MomentoId>('saludo-manana');
 	let poseForzada = $state<Pose>('saludando');
@@ -233,5 +236,19 @@
 				</div>
 			{/each}
 		</div>
+	</Section>
+
+	<!-- RF-222: muestra para la revisión de la persona usuaria. Cada fila es una ilustración sobre los 6 colores de avatar. -->
+	<Section title="Ilustraciones del avatar">
+		<ul class="flex flex-col gap-3">
+			{#each ILUSTRACIONES as Ilustracion, indice (indice)}
+				<li class="flex flex-wrap items-center gap-3">
+					<span class="w-36 text-[15px] font-medium">{NOMBRES_ILUSTRACION[indice]}</span>
+					{#each COLORES_MUESTRA as color (color)}
+						<span class="inline-flex size-11 items-center justify-center rounded-full text-ink {color}"><Ilustracion /></span>
+					{/each}
+				</li>
+			{/each}
+		</ul>
 	</Section>
 </div>

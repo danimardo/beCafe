@@ -151,6 +151,24 @@ describe('acciones de perfil', () => {
 	});
 });
 
+describe('compatibilidad de preferencias tras mover los avisos a Ajustes (CA-220)', () => {
+	it('CA-220: ?/preferencia en Perfil redirige con 308 a Ajustes para conservar método y cuerpo', () => {
+		const entorno = crearEntornoPrueba(INSTANTE);
+		let redireccion: { status: number; location: string } | undefined;
+		try {
+			void actions.preferencia(
+				crearEventoAccion({ locals: { ambiente: entorno.ambiente, actor: undefined }, ruta: '/(app)/perfil', params: {} }),
+			);
+		} catch (error) {
+			if (!isRedirect(error)) throw error;
+			redireccion = { status: error.status, location: error.location };
+		} finally {
+			entorno.cerrar();
+		}
+		expect(redireccion).toEqual({ status: 308, location: '/ajustes?/preferencia' });
+	});
+});
+
 describe('foto propia en el perfil (RF-208, CA-208)', () => {
 	let entorno: EntornoPrueba;
 	let usuarioId: string;

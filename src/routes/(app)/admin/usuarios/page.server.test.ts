@@ -1,3 +1,5 @@
+import { existsSync, readdirSync } from 'node:fs';
+import sharp from 'sharp';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { actions } from './+page.server';
 import { crearEventoAccion, desenvolverFallo } from '#lib/shared/pruebas/acciones';
@@ -33,14 +35,19 @@ describe('acción de alta de personas', () => {
 		return crearActor(sesion);
 	}
 
-	function alta(actor: Actor | undefined, datos: Record<string, string>) {
+	function alta(actor: Actor | undefined, datos: Record<string, string | File>) {
+		const cuerpo = new FormData();
+		for (const [clave, valor] of Object.entries(datos)) cuerpo.append(clave, valor);
+		return altaConCuerpo(actor, cuerpo);
+	}
+
+	function altaConCuerpo(actor: Actor | undefined, cuerpo: FormData) {
 		return actions.alta(
 			crearEventoAccion({
 				locals: { ambiente: { ...entorno.ambiente, origen: ORIGEN }, actor },
 				ruta: '/(app)/admin/usuarios',
 				params: {},
-				cuerpo: new URLSearchParams(datos),
-				cabeceras: { 'content-type': 'application/x-www-form-urlencoded' },
+				cuerpo,
 			}),
 		);
 	}
@@ -107,5 +114,27 @@ describe('acción de alta de personas', () => {
 
 		expect(estado).toBe(400);
 		expect(datos).toHaveProperty(['errores', 'nombre']);
+	});
+	it('CA-223: el alta con foto válida la guarda; con una foto de 6 MB responde 400, no crea a la persona y no deja archivos', async () => {
+		const admin = actorDe(personaCon('administrador', 'ana@ejemplo.es'));
+		const archivos = (): string[] => (existsSync(entorno.ambiente.directorioFotos) ? readdirSync(entorno.ambiente.directorioFotos) : []);
+		const jpeg = new Uint8Array(
+			await sharp({ create: { width: 320, height: 240, channels: 3, background: { r: 90, g: 50, b: 30 } } })
+				.jpeg()
+				.toBuffer(),
+		);
+
+		const grande = desenvolverFallo(
+			await alta(admin, { ...DATOS, foto: new File([new Uint8Array(6 * 1024 * 1024)], 'grande.jpg', { type: 'image/jpeg' }) }),
+		);
+		expect(grande.estado).toBe(400);
+		expect(grande.datos).toHaveProperty('errores.foto');
+		expect(grande.datos).toMatchObject({ valores: { nombre: 'Pedro' } });
+		expect(JSON.stringify(grande.datos)).not.toContain('grande.jpg');
+		expect(archivos()).toEqual([]);
+
+		const resultado = await alta(admin, { ...DATOS, foto: new File([jpeg], 'foto.jpg', { type: 'image/jpeg' }) });
+		expect(z.object({ enlace: z.string() }).safeParse(resultado).success).toBe(true);
+		expect(archivos()).toHaveLength(1);
 	});
 });

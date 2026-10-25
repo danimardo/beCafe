@@ -5,6 +5,7 @@ export const CAPSULA_DE_PRUEBA = '01ARZ3NDEKTSV4RRFFQ69G5FAV';
 export const RUTAS_PROTEGIDAS = [
 	'/',
 	'/perfil',
+	'/ajustes',
 	'/privacidad',
 	'/ayuda',
 	'/ayuda/capsulito',

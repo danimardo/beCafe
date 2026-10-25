@@ -4,10 +4,10 @@ import { entrarComo } from '../fixtures/sesiones';
 import { fotoDePrueba } from '../fixtures/capsulas';
 import { botonDeToque, tipoConCoste } from '../fixtures/consumos';
 
-// Preferencias de avisos en el perfil (RF-102, CA-102): el aviso de deuda no se puede desactivar y los demás sí.
+// Preferencias de avisos en Ajustes (RF-102, CA-102): el aviso de deuda no se puede desactivar y los demás sí.
 test('CA-102: el aviso de deuda aparece siempre activado y «Stock bajo» se puede desactivar', async ({ page, servidor }) => {
 	await entrarComo(page, servidor, 'miembro');
-	await page.goto(`${servidor.url}/perfil`);
+	await page.goto(`${servidor.url}/ajustes`);
 
 	await expect(page.getByText('Siempre activado')).toBeVisible();
 	const stockBajo = page.getByRole('switch', { name: 'Stock bajo', exact: true });
@@ -22,12 +22,12 @@ test('CA-102: el aviso de deuda aparece siempre activado y «Stock bajo» se pue
 // Avisos de administración solo para administradores (RF-102).
 test('un administrador ve los avisos de administración y un miembro no', async ({ page, servidor }) => {
 	await entrarComo(page, servidor, 'administrador');
-	await page.goto(`${servidor.url}/perfil`);
+	await page.goto(`${servidor.url}/ajustes`);
 	await expect(page.getByRole('switch', { name: 'Stock negativo', exact: true })).toBeVisible();
 
 	await cerrarSesion(page, servidor);
 	await entrarComo(page, servidor, 'miembro');
-	await page.goto(`${servidor.url}/perfil`);
+	await page.goto(`${servidor.url}/ajustes`);
 	await expect(page.getByRole('switch', { name: 'Stock negativo', exact: true })).toHaveCount(0);
 });
 

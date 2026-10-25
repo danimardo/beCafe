@@ -8,7 +8,7 @@ export function normalizarCorreo(correo: string): string {
 }
 
 /** Crea una persona activa. El índice único de `email` impide duplicados: se traduce a `CORREO_DUPLICADO`. */
-export function crearUsuario(tx: Ejecutor, entrada: { id: string; nombre: string; correo: string; rol: Rol; instante: string }): void {
+export function crearUsuario(tx: Ejecutor, entrada: { id: string; nombre: string; correo: string; rol: Rol; instante: string; fotoRuta?: string | undefined }): void {
 	if (!ROLES.includes(entrada.rol)) throw new ErrorDeNegocio('VALIDACION');
 	try {
 		tx.insert(usuario)
@@ -18,6 +18,7 @@ export function crearUsuario(tx: Ejecutor, entrada: { id: string; nombre: string
 				email: normalizarCorreo(entrada.correo),
 				rol: entrada.rol,
 				estado: 'activo',
+				fotoRuta: entrada.fotoRuta ?? null,
 				creadoEn: entrada.instante,
 			})
 			.run();

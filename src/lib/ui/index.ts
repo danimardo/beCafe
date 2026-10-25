@@ -43,6 +43,7 @@ export { default as CapsuleIllustration } from './CapsuleIllustration.svelte';
 export { default as CapsuleRow } from './CapsuleRow.svelte';
 export { default as CapsuleTile } from './CapsuleTile.svelte';
 export { default as StockBadge } from './StockBadge.svelte';
+export { ILUSTRACIONES } from './avatares';
 export { default as AlertsPanel } from './AlertsPanel.svelte';
 export { default as MovementRow } from './MovementRow.svelte';
 export type { MovementKind } from './movimientos';

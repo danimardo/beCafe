@@ -33,7 +33,9 @@ test('CA-229: cada destino de la barra lateral y de administración aparece una 
 	await entrarComo(page, servidor, 'administrador');
 	await page.goto(`${servidor.url}/compras`);
 	await page.waitForLoadState('load');
-	const enlaces = await page.locator('aside nav a').evaluateAll((as) => as.map((a) => (a instanceof HTMLAnchorElement ? a.getAttribute('href') : null)));
+	const enlaces = await page
+		.locator('aside nav a')
+		.evaluateAll((as) => as.map((a) => (a instanceof HTMLAnchorElement ? a.getAttribute('href') : null)));
 	const repetidos = enlaces.filter((href, i) => enlaces.indexOf(href) !== i);
 	expect(repetidos).toEqual([]);
 });

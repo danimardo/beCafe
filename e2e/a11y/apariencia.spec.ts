@@ -13,7 +13,7 @@ test.describe('sistema en oscuro', () => {
 		servidor,
 	}) => {
 		await entrarComo(page, servidor, 'miembro');
-		await page.goto(`${servidor.url}/perfil`);
+		await page.goto(`${servidor.url}/ajustes`);
 
 		await expect(page.locator('html')).toHaveAttribute('data-theme', 'oscuro');
 		await expect(page.getByRole('radio', { name: 'Automático', exact: true })).toBeChecked();
@@ -24,15 +24,15 @@ test.describe('sistema en oscuro', () => {
 
 	test('CA-180: elegir Claro conserva el texto escrito y el foco, y persiste al recargar', async ({ page, servidor }) => {
 		await entrarComo(page, servidor, 'miembro');
-		await page.goto(`${servidor.url}/perfil`);
-		const contrasenaActual = page.getByRole('textbox', { name: 'Contraseña actual', exact: true });
-		await contrasenaActual.fill('texto que no debe perderse');
+		await page.goto(`${servidor.url}/ajustes`);
+		const mascota = page.getByRole('switch', { name: 'Mostrar a Capsulito', exact: true });
+		const estadoMascota = await mascota.getAttribute('aria-checked');
 
 		const claro = page.getByRole('radio', { name: 'Claro', exact: true });
 		await claro.click();
 
 		await expect(page.locator('html')).toHaveAttribute('data-theme', 'claro');
-		await expect(contrasenaActual).toHaveValue('texto que no debe perderse');
+		await expect(mascota).toHaveAttribute('aria-checked', estadoMascota ?? 'true');
 		await expect(claro).toBeFocused();
 
 		await page.reload();
@@ -46,7 +46,7 @@ test.describe('reducir transparencia', () => {
 		servidor,
 	}) => {
 		await entrarComo(page, servidor, 'miembro');
-		await page.goto(`${servidor.url}/perfil`);
+		await page.goto(`${servidor.url}/ajustes`);
 
 		await page.getByRole('switch', { name: 'Reducir transparencia', exact: true }).click();
 
@@ -62,7 +62,7 @@ test.describe('reducir transparencia', () => {
 				),
 			)
 			.toBe(false);
-		await expect(page.getByRole('button', { name: 'Cerrar sesión en todos los dispositivos', exact: true })).toBeVisible();
+		await expect(page.getByRole('button', { name: 'Ver la bienvenida otra vez', exact: true })).toBeVisible();
 	});
 });
 

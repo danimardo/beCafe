@@ -21,6 +21,12 @@ test.describe('tema claro', () => {
 		await page.goto(`${servidor.url}/perfil`);
 		await expectSinInfracciones(page);
 	});
+
+	test('ajustes: la pantalla no tiene infracciones de axe', async ({ page, servidor }) => {
+		await entrarComo(page, servidor, 'miembro');
+		await page.goto(`${servidor.url}/ajustes`);
+		await expectSinInfracciones(page);
+	});
 });
 
 test.describe('tema oscuro', () => {
@@ -34,6 +40,12 @@ test.describe('tema oscuro', () => {
 	test('perfil: la pantalla no tiene infracciones de axe', async ({ page, servidor }) => {
 		await entrarComo(page, servidor, 'miembro');
 		await page.goto(`${servidor.url}/perfil`);
+		await expectSinInfracciones(page);
+	});
+
+	test('ajustes: la pantalla no tiene infracciones de axe', async ({ page, servidor }) => {
+		await entrarComo(page, servidor, 'miembro');
+		await page.goto(`${servidor.url}/ajustes`);
 		await expectSinInfracciones(page);
 	});
 });

@@ -3,12 +3,10 @@ import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, falloDeNegocio, fallo } from '../fallo';
 import { cambiarContrasena, cerrarSesionesGlobal as cerrarTodasLasSesiones, NOMBRE_COOKIE } from '#lib/server/auth';
-import { cambiarPreferencia, leerPreferencias } from '#lib/server/notificaciones';
 import { buscarUsuarioPorId, cambiarFoto } from '#lib/server/usuarios';
 import { esquemaQuitarFotoPersona, esquemaSubirFotoPersona, urlFotoUsuario } from '#lib/shared/contratos/fotos-usuario';
 import { bytesDeFoto } from '../admin/capsulas/formulario';
 import { esquemaCambioContrasena } from '#lib/shared/contratos/auth';
-import { esquemaPreferencia } from '#lib/shared/contratos/preferencias';
 import { textos } from '#lib/shared/textos';
 
 // Perfil de la persona que entra (RF-137, RF-138). Solo toca su propia cuenta: el actor de la sesión decide.
@@ -17,13 +15,11 @@ export const load: PageServerLoad = ({ locals }) => {
 	if (!actor) redirect(303, resolve('/(auth)/login'));
 	const persona = buscarUsuarioPorId(locals.ambiente.db, actor.usuarioId);
 	if (!persona) redirect(303, resolve('/(auth)/login'));
-	const preferencias = leerPreferencias(locals.ambiente.db, { usuarioId: persona.id, rol: persona.rol });
 	return {
 		id: persona.id,
 		nombre: persona.nombre,
 		email: persona.email,
 		rol: persona.rol,
-		preferencias,
 		fotoUrl: persona.fotoRuta ? urlFotoUsuario(persona.id, persona.fotoRuta) : null,
 	};
 };
@@ -73,22 +69,9 @@ export const actions: Actions = {
 		});
 	},
 
-	// Activa o desactiva un tipo de aviso para la persona (RF-102). Sin JavaScript funciona igual: es un formulario.
-	preferencia: async ({ request, locals }) => {
-		const datos = Object.fromEntries(await request.formData());
-		const entrada = esquemaPreferencia.safeParse(datos);
-		const valores = {};
-		if (!entrada.success) return fallo(400, entrada.error, valores);
-		const actor = locals.actor;
-		if (!actor) return falloDeNegocio('SIN_SESION', valores);
-		const persona = buscarUsuarioPorId(locals.ambiente.db, actor.usuarioId);
-		if (!persona) return falloDeNegocio('SIN_SESION', valores);
-
-		return ejecutarAccion(valores, () => {
-			cambiarPreferencia(locals.ambiente, { usuarioId: persona.id, rol: persona.rol }, entrada.data);
-			return { confirmacion: textos.notificaciones.preferenciaGuardada };
-		});
-	},
+	// Compatibilidad F11: las preferencias de avisos se movieron a Ajustes. Un formulario antiguo (o en caché del service worker)
+	// sigue funcionando porque 308 conserva el método y el cuerpo. Se retira cuando no queden clientes de la versión anterior.
+	preferencia: () => redirect(308, `${resolve('/(app)/ajustes')}?/preferencia`),
 
 	// Cierre en todos los dispositivos (RF-137, CA-137). Incluye la sesión actual: la cookie se borra y se vuelve a la entrada.
 	cerrarSesionesGlobal: ({ locals, cookies }) => {

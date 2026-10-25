@@ -7,9 +7,9 @@ for (const esquema of ['light', 'dark'] as const) {
 	test.describe(`tema ${esquema === 'light' ? 'claro' : 'oscuro'}`, () => {
 		test.use({ colorScheme: esquema });
 
-		test('perfil con sus avisos: sin infracciones de axe', async ({ page, servidor }) => {
+		test('ajustes con sus avisos: sin infracciones de axe', async ({ page, servidor }) => {
 			await entrarComo(page, servidor, 'miembro');
-			await page.goto(`${servidor.url}/perfil`);
+			await page.goto(`${servidor.url}/ajustes`);
 			await expectSinInfracciones(page);
 		});
 

@@ -2,8 +2,9 @@
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
-	import { Banner, Button, CopyField, ListRow, PageHeader, PasswordField, Section, SelectField, TextField } from '#lib/ui';
+	import { Banner, Button, CopyField, ListRow, PageHeader, PasswordField, PhotoField, Section, SelectField, TextField } from '#lib/ui';
 	import { formatDate } from '#lib/shared/fechas/formato';
+	import { TAMANO_MAXIMO_FOTO } from '#lib/shared/contratos/capsulas';
 	import { textos } from '#lib/shared/textos';
 
 	type Formulario = {
@@ -15,6 +16,7 @@
 	} | null;
 
 	let { data, form }: PageProps = $props();
+	let foto = $state<File | null>(null);
 	const formulario: Formulario = $derived(form);
 	const errores = $derived(formulario?.errores ?? {});
 	const valor = (campo: string): string => {
@@ -42,7 +44,7 @@
 	<Section title={textos.admin.darDeAlta}>
 		<p class="text-ink-muted">{textos.admin.ayuda}</p>
 		<div class="rounded-panel border border-hairline bg-wall-base p-5">
-			<form method="post" action="?/alta" use:enhance class="grid gap-4 md:grid-cols-2" novalidate>
+			<form method="post" action="?/alta" enctype="multipart/form-data" use:enhance class="grid gap-4 md:grid-cols-2" novalidate>
 				{#if errores.general}
 					<p role="alert" class="md:col-span-2 rounded-chip bg-negative-soft px-3 py-2 text-[15px] text-ink">{errores.general.mensaje}</p>
 				{/if}
@@ -63,6 +65,13 @@
 					options={opcionesRol}
 					error={errores.rol?.mensaje}
 				/>
+				<div class="md:col-span-2 md:max-w-sm">
+					<PhotoField name="foto" label={textos.fotoPersona.campoAlta} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
+					{#if errores.foto}<p role="alert" class="text-[13px] font-medium leading-[18px] text-negative">{errores.foto.mensaje}</p>{/if}
+					{#if formulario?.errores && !formulario.enlace}<p class="mt-1 text-[13px] text-ink-muted">
+							{textos.fotoPersona.volverAAdjuntar}
+						</p>{/if}
+				</div>
 				{#if errores.contrasenaActual}
 					<PasswordField
 						class="md:col-span-2 md:max-w-sm"

@@ -11,6 +11,11 @@ export const esquemaSubirFotoPersona = z.strictObject({
 	foto: z.preprocess(archivoVacioComoAusente, z.file().max(TAMANO_MAXIMO_FOTO)),
 });
 
+/** Foto opcional al dar de alta (RF-223): sin archivo, la persona queda sin foto. Mismas validaciones que RF-005. */
+export const esquemaFotoAlta = z.strictObject({
+	foto: z.preprocess(archivoVacioComoAusente, z.file().max(TAMANO_MAXIMO_FOTO).optional()),
+});
+
 /** Quitar la foto: la casilla de confirmación evita un borrado accidental sin JavaScript. */
 export const esquemaQuitarFotoPersona = z.strictObject({
 	quitar: z.literal('si'),

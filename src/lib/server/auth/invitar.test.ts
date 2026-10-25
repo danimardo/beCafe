@@ -1,4 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { existsSync, readdirSync } from 'node:fs';
+import sharp from 'sharp';
 import { eq } from 'drizzle-orm';
 import { darDeAltaConInvitacion } from './invitar';
 import { validarEnlace, VIGENCIA_INVITACION_MS } from './enlaces';
@@ -122,5 +124,60 @@ describe('invitación y alta de personas (RF-130, RF-131, CA-130, CA-131, CA-139
 				instante: CUANDO(),
 			}),
 		).rejects.toMatchObject({ codigo: 'REAUTENTICACION_REQUERIDA' });
+	});
+	describe('foto al dar de alta (RF-223, CA-223)', () => {
+		const archivos = (): string[] => (existsSync(ambiente.directorioFotos) ? readdirSync(ambiente.directorioFotos) : []);
+		const jpeg = async (): Promise<Uint8Array> =>
+			new Uint8Array(
+				await sharp({ create: { width: 640, height: 480, channels: 3, background: { r: 90, g: 50, b: 30 } } })
+					.jpeg()
+					.toBuffer(),
+			);
+
+		it('CA-223: una foto válida se guarda y queda asociada a la persona', async () => {
+			const { usuarioId } = await darDeAltaConInvitacion(ambiente.db, {
+				actor: admin,
+				nombre: 'Pedro',
+				correo: 'pedro@ejemplo.es',
+				rol: 'miembro',
+				contrasenaActual: undefined,
+				foto: { bytes: await jpeg(), directorio: ambiente.directorioFotos },
+				instante: CUANDO(),
+			});
+			const fila = ambiente.db.select().from(usuario).where(eq(usuario.id, usuarioId)).get();
+			expect(fila?.fotoRuta).toMatch(/\.webp$/);
+			expect(archivos()).toEqual([fila?.fotoRuta]);
+		});
+
+		it('CA-223: un contenido que no es imagen rechaza el alta sin crear a la persona ni dejar archivos', async () => {
+			await expect(
+				darDeAltaConInvitacion(ambiente.db, {
+					actor: admin,
+					nombre: 'Pedro',
+					correo: 'pedro@ejemplo.es',
+					rol: 'miembro',
+					contrasenaActual: undefined,
+					foto: { bytes: new TextEncoder().encode('no soy una imagen'), directorio: ambiente.directorioFotos },
+					instante: CUANDO(),
+				}),
+			).rejects.toBeDefined();
+			expect(ambiente.db.select().from(usuario).where(eq(usuario.email, 'pedro@ejemplo.es')).get()).toBeUndefined();
+			expect(archivos()).toEqual([]);
+		});
+
+		it('CA-223: si el alta falla por correo duplicado, la foto recién escrita se borra', async () => {
+			await expect(
+				darDeAltaConInvitacion(ambiente.db, {
+					actor: admin,
+					nombre: 'Otra Ana',
+					correo: 'ana@ejemplo.es',
+					rol: 'miembro',
+					contrasenaActual: undefined,
+					foto: { bytes: await jpeg(), directorio: ambiente.directorioFotos },
+					instante: CUANDO(),
+				}),
+			).rejects.toMatchObject({ codigo: 'CORREO_DUPLICADO' });
+			expect(archivos()).toEqual([]);
+		});
 	});
 });

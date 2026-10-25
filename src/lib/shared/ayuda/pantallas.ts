@@ -114,12 +114,24 @@ const AYUDA = {
 	},
 	perfil: {
 		titulo: 'Perfil',
-		proposito: 'Aquí cambias tu contraseña, la apariencia, la mascota y los avisos de este dispositivo.',
+		proposito: 'Aquí ves tus datos, cambias tu foto y tu contraseña y cierras tus sesiones. Los ajustes del dispositivo están en Ajustes.',
 		acciones: [
 			{ nombre: 'Cambiar contraseña', explicacion: 'Necesitas la actual y una nueva de al menos 15 caracteres.' },
 			{ nombre: 'Cerrar sesión en todos los dispositivos', explicacion: 'Pide confirmación y te saca de todas partes.' },
 		],
-		campos: [{ nombre: 'Tema', explicacion: 'Automático sigue al sistema; Claro y Oscuro lo fijan en este dispositivo.' }],
+		campos: [],
+	},
+	ajustes: {
+		titulo: 'Ajustes',
+		proposito: 'Aquí eliges cómo se ve la aplicación, cómo te acompaña Capsulito, qué avisos recibes y si la instalas en este dispositivo.',
+		acciones: [
+			{ nombre: 'Activar o desactivar un aviso', explicacion: 'Cada tipo de aviso se guarda en tu cuenta.' },
+			{ nombre: 'Ver la bienvenida otra vez', explicacion: 'Repite la bienvenida de Capsulito.' },
+		],
+		campos: [
+			{ nombre: 'Tema', explicacion: 'Automático sigue al sistema; Claro y Oscuro lo fijan en este dispositivo.' },
+			{ nombre: 'Reducir transparencia', explicacion: 'Cambia el cristal por superficies opacas en este dispositivo.' },
+		],
 	},
 	avisos: {
 		titulo: 'Avisos',
@@ -252,6 +264,7 @@ const RUTAS: Readonly<Record<string, IdPantalla>> = Object.freeze({
 	'/(app)/estadisticas/[usuarioId=ulid]': 'estadisticasPersona',
 	'/(app)/visitantes': 'visitantes',
 	'/(app)/perfil': 'perfil',
+	'/(app)/ajustes': 'ajustes',
 	'/(app)/avisos': 'avisos',
 	'/(app)/ayuda': 'ayuda',
 	'/(app)/ayuda/capsulito': 'capsulito',

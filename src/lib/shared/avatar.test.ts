@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
-import { COLORES_AVATAR, colorAvatar } from './avatar';
+import { COLORES_AVATAR, ILUSTRACIONES_AVATAR, colorAvatar, ilustracionAvatar } from './avatar';
 import { ulid } from 'ulid';
 
 describe('color del avatar (RF-209, CA-209)', () => {
@@ -22,6 +22,35 @@ describe('color del avatar (RF-209, CA-209)', () => {
 			expect(veces).toBeGreaterThan(120);
 			expect(veces).toBeLessThan(280);
 		}
+	});
+});
+
+describe('ilustración del avatar (RF-222, CA-222)', () => {
+	it('CA-222: es estable y está dentro de las 8 ilustraciones', () => {
+		const id = '01J8Z3K9Q4V7M2N5P8R0T6W1XY';
+		expect(ILUSTRACIONES_AVATAR).toBe(8);
+		expect(ilustracionAvatar(id)).toBe(ilustracionAvatar(id));
+		expect(ilustracionAvatar(id)).toBeGreaterThanOrEqual(0);
+		expect(ilustracionAvatar(id)).toBeLessThan(ILUSTRACIONES_AVATAR);
+	});
+
+	it('CA-222: reparte las personas entre las 8 ilustraciones sin que ninguna quede vacía ni domine', () => {
+		const cuenta = new Array<number>(ILUSTRACIONES_AVATAR).fill(0);
+		for (let i = 0; i < 1600; i++) cuenta[ilustracionAvatar(ulid())] += 1;
+
+		for (const veces of cuenta) {
+			expect(veces).toBeGreaterThan(130);
+			expect(veces).toBeLessThan(270);
+		}
+	});
+
+	it('CA-222: color e ilustración no van siempre emparejados', () => {
+		const parejas = new Set<string>();
+		for (let i = 0; i < 400; i++) {
+			const id = ulid();
+			parejas.add(`${colorAvatar(id)}-${ilustracionAvatar(id)}`);
+		}
+		expect(parejas.size).toBeGreaterThan(30);
 	});
 });
 

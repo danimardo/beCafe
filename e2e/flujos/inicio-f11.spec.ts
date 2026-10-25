@@ -19,7 +19,10 @@ test('CA-216: Capsulito va arriba, después las cápsulas y después el agua (m�
 	expect(tarjeta?.y ?? 0).toBeLessThan(agua?.y ?? 0);
 });
 
-test('CA-216: en escritorio, las cápsulas van a la izquierda y el agua en la columna estrecha de la derecha', async ({ page, servidor }) => {
+test('CA-216: en escritorio, las cápsulas van a la izquierda y el agua en la columna estrecha de la derecha', async ({
+	page,
+	servidor,
+}) => {
 	const tipo = await tipoConCoste(page, servidor);
 	await page.setViewportSize({ width: 1440, height: 900 });
 	await page.goto(`${servidor.url}/`);
@@ -32,13 +35,21 @@ test('CA-216: en escritorio, las cápsulas van a la izquierda y el agua en la co
 	expect(tarjeta?.x ?? 0).toBeLessThan(agua?.x ?? 0);
 });
 
-test('CA-217: la tarjeta «Sin stock» pregunta; «Cancelar» no registra y «Sí, registrar» registra con «Deshacer»', async ({ page, servidor }) => {
+test('CA-217: la tarjeta «Sin stock» pregunta; «Cancelar» no registra y «Sí, registrar» registra con «Deshacer»', async ({
+	page,
+	servidor,
+}) => {
 	const tipo = await tipoConCoste(page, servidor);
 	await page.goto(`${servidor.url}/`);
 	await page.waitForLoadState('load');
 	// Un toque con stock deja el tipo en 0 sin pedir confirmación (RF-011).
 	await botonDeToque(page, tipo).click();
-	await expect(page.getByRole('status').filter({ hasText: `${tipo} registrado` }).first()).toBeVisible();
+	await expect(
+		page
+			.getByRole('status')
+			.filter({ hasText: `${tipo} registrado` })
+			.first(),
+	).toBeVisible();
 	await expect(page.getByText('Sin stock').first()).toBeVisible();
 
 	await botonDeToque(page, tipo).click();
