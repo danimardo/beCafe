@@ -116,3 +116,35 @@ test('CA-228: tras terminar el tour hasta el último paso, «Repetir el tour» l
 	await page.getByRole('button', { name: 'Repetir el tour', exact: true }).click();
 	await expect(paso1).toBeVisible();
 });
+
+test('CA-227: con la voz activa, Capsulito aparece junto a cada paso del tour y de la ayuda y los dice', async ({ page, servidor }) => {
+	await page.addInitScript(() => {
+		localStorage.setItem('becafe-mascota', 'visible');
+		localStorage.setItem('becafe-voz', 'activa');
+	});
+	const locuciones: string[] = [];
+	page.on('request', (peticion) => {
+		const coincidencia = /\/mascota\/voces\/([a-z0-9_]+)\.json$/.exec(peticion.url());
+		if (coincidencia?.[1]) locuciones.push(coincidencia[1]);
+	});
+	await entrarComo(page, servidor, 'miembro');
+	await page.goto(`${servidor.url}/?tour=si`);
+
+	const paso1 = page.getByRole('dialog', { name: 'Un toque, un café' });
+	await expect(paso1).toBeVisible();
+	await expect(paso1.getByText('Toca la cápsula que vas a tomar.')).toBeVisible();
+	await expect(paso1.getByRole('img')).toHaveCount(0);
+	await expect(paso1.locator('img')).toHaveCount(1);
+	await expect.poll(() => locuciones).toContain('tour_01');
+
+	await page.getByRole('button', { name: 'Siguiente', exact: true }).click();
+	await expect(page.getByRole('dialog', { name: 'Si invitas a alguien' })).toBeVisible();
+	await expect.poll(() => locuciones).toContain('tour_02');
+
+	await page.getByRole('button', { name: 'Saltar', exact: true }).click();
+	await page.getByRole('button', { name: 'Ayuda de esta pantalla', exact: true }).click();
+	const ayuda = page.getByRole('dialog', { name: 'Ayuda: Inicio' });
+	await expect(ayuda).toBeVisible();
+	await expect(ayuda.locator('img').first()).toBeVisible();
+	await expect.poll(() => locuciones).toContain('ayuda_inicio');
+});

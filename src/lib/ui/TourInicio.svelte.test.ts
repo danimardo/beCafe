@@ -34,7 +34,7 @@ describe('TourInicio (RF-204)', () => {
 	it('CA-204: sin ancla en la pantalla, el paso se muestra centrado y con su texto completo', async () => {
 		await render(TourInicio, {
 			onterminar: () => {},
-			pasos: [{ ancla: 'deshacer', titulo: 'Paso suelto', texto: 'Texto completo del paso.' }],
+			pasos: [{ id: 'tour_99', ancla: 'deshacer', pose: 'pensando', titulo: 'Paso suelto', texto: 'Texto completo del paso.' }],
 		});
 
 		const tarjeta = page.getByRole('dialog', { name: 'Paso suelto' });
@@ -53,5 +53,13 @@ describe('TourInicio (RF-204)', () => {
 		await page.getByRole('button', { name: 'Siguiente', exact: true }).click();
 		expect(ancla.hasAttribute('data-tour-activo')).toBe(false);
 		ancla.remove();
+	});
+
+	it('CA-227: cada paso muestra a Capsulito decorativo junto al texto completo', async () => {
+		await render(TourInicio, { onterminar: () => {} });
+
+		const tarjeta = page.getByRole('dialog', { name: PASOS_TOUR[0]?.titulo ?? '' });
+		await expect.element(tarjeta).toHaveAccessibleDescription(PASOS_TOUR[0]?.texto ?? '');
+		expect(tarjeta.element().querySelectorAll('img[alt=""], img[aria-hidden="true"]').length).toBeGreaterThan(0);
 	});
 });

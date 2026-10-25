@@ -109,8 +109,8 @@
 
 ## Fase 9: Historia 7 — Errores con Capsulito y narración (P3)
 
-- [ ] T036 [US7] Páginas de error (RF-226): `ErrorKind` con `peticion`; textos gamberros en `textos.errorPagina` (400, 403, 404, 500) con qué ha pasado y qué hacer; momentos `error.peticion`, `error.sin_permiso`, `error.no_encontrada`, `error.servidor` en `momentos.ts`; `src/routes/+error.svelte` con `ErrorPage` y la correspondencia de `contracts/formularios.md`; la 500 muestra `page.error.codigo`. E2E y `a11y` en `e2e/flujos/errores.spec.ts` (`CA-226`).
-- [ ] T037 [US7] Narración (RF-227): `TourInicio.svelte` y `AyudaPanel.svelte` muestran `Capsulito` (pose por paso o pantalla) junto al texto y llaman a `hablar('tour_0N')` / `hablar('ayuda_<pantalla>')` con la voz activa. Pasos del tour con `id` estable y pose. Pruebas de componente (`CA-227`).
+- [X] T036 [US7] Páginas de error (RF-226): `ErrorKind` con `peticion`; textos gamberros en `textos.errorPagina` (400, 403, 404, 500) con qué ha pasado y qué hacer; momentos `error.peticion`, `error.sin_permiso`, `error.no_encontrada`, `error.servidor` en `momentos.ts`; `src/routes/+error.svelte` con `ErrorPage` y la correspondencia de `contracts/formularios.md`; la 500 muestra `page.error.codigo`. E2E y `a11y` en `e2e/flujos/errores.spec.ts` (`CA-226`).
+- [X] T037 [US7] Narración (RF-227): `TourInicio.svelte` y `AyudaPanel.svelte` muestran `Capsulito` (pose por paso o pantalla) junto al texto y llaman a `hablar('tour_0N')` / `hablar('ayuda_<pantalla>')` con la voz activa. Pasos del tour con `id` estable y pose. Pruebas de componente (`CA-227`).
 
 ---
 

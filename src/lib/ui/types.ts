@@ -16,4 +16,4 @@ export interface NavItem {
 	icon: Component<{ class?: string; 'aria-hidden'?: boolean | 'true' | 'false' }>;
 }
 
-export type ErrorKind = 'no-encontrada' | 'sin-permiso' | 'servidor' | 'sin-conexion';
+export type ErrorKind = 'peticion' | 'no-encontrada' | 'sin-permiso' | 'servidor' | 'sin-conexion';

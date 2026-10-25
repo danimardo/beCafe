@@ -30,13 +30,31 @@ export const textos = {
 		CONFIRMAR_SIN_STOCK: 'El sistema dice que no quedan. Confirma si has cogido una igualmente.',
 	},
 	errorPagina: {
-		titulo: 'Algo ha fallado',
-		noEncontrada: 'No encontramos esa página',
-		noEncontradaAyuda: 'Revisa la dirección o vuelve al inicio.',
-		sinPermiso: 'Acceso no permitido',
-		ayuda: 'Inténtalo de nuevo. Si vuelve a pasar, comunica el código de incidencia a la persona administradora.',
-		codigo: 'Código de incidencia:',
-		volverInicio: 'Volver al inicio',
+		peticion: {
+			titulo: 'No hemos entendido esa petición',
+			ayuda: 'La dirección o los datos enviados no son válidos. Vuelve al inicio y prueba de nuevo.',
+		},
+		noEncontrada: {
+			titulo: 'No encontramos esa página',
+			ayuda: 'Puede que el enlace esté mal escrito o que ya no exista. Revisa la dirección o vuelve al inicio.',
+		},
+		sinPermiso: {
+			titulo: 'No tienes permiso para ver esto',
+			ayuda: 'Esta pantalla es solo para administradores. Si crees que es un error, díselo a uno de ellos.',
+		},
+		servidor: {
+			titulo: 'Algo ha fallado por nuestra parte',
+			ayuda:
+				'No es culpa tuya. Tus datos están a salvo. Inténtalo de nuevo en un momento y, si vuelve a pasar, comunica el código de incidencia a la persona administradora.',
+		},
+		sinConexion: {
+			titulo: 'Sin conexión',
+			ayuda:
+				'Esta pantalla necesita internet. Los cafés que registres desde Inicio se guardan en tu móvil y se envían al volver la conexión.',
+		},
+		codigo: 'Código de incidencia',
+		reintentar: 'Reintentar',
+		irInicio: 'Ir al inicio',
 	},
 	errorNoPrevisto: 'Algo ha fallado. Inténtalo de nuevo. Si vuelve a pasar, comunica el código de incidencia.',
 	sinConexion: 'Sin conexión. Esta acción necesita red: vuelve a intentarlo cuando tengas conexión.',

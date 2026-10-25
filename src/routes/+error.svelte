@@ -1,18 +1,25 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
-	import { Capsulito } from '#lib/ui';
+	import { ErrorPage, type ErrorKind } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 
-	// Solo los rechazos de permiso (403) muestran su mensaje, que es texto propio de la aplicación. Cualquier otro error
-	// muestra el texto genérico y el código de incidencia, sin detalles internos (constitución XIII).
-	const noEncontrada = $derived(page.status === 404);
-	const sinPermiso = $derived(page.status === 403);
-	const titulo = $derived(
-		noEncontrada ? textos.errorPagina.noEncontrada : sinPermiso ? textos.errorPagina.sinPermiso : textos.errorPagina.titulo,
+	// 403 y 404 tienen página propia; el resto de 4xx usa «peticion» y 5xx, «servidor» (contracts/formularios.md).
+	const kind: ErrorKind = $derived(
+		page.status === 403 ? 'sin-permiso' : page.status === 404 ? 'no-encontrada' : page.status < 500 ? 'peticion' : 'servidor',
 	);
-	const ayuda = $derived(
-		noEncontrada ? textos.errorPagina.noEncontradaAyuda : sinPermiso ? (page.error?.message ?? '') : textos.errorPagina.ayuda,
+	// Solo el 403 muestra el mensaje del servidor, que es texto propio de la aplicación. Cualquier otro error muestra el
+	// texto genérico y, en la 500, el código de incidencia, sin detalles internos (constitución XIII).
+	const mensaje = $derived(page.status === 403 ? page.error?.message : undefined);
+	const codigo = $derived(kind === 'servidor' ? page.error?.codigo : undefined);
+	const titulo = $derived(
+		{
+			peticion: textos.errorPagina.peticion.titulo,
+			'no-encontrada': textos.errorPagina.noEncontrada.titulo,
+			'sin-permiso': textos.errorPagina.sinPermiso.titulo,
+			servidor: textos.errorPagina.servidor.titulo,
+			'sin-conexion': textos.errorPagina.sinConexion.titulo,
+		}[kind],
 	);
 </script>
 
@@ -20,12 +27,6 @@
 	<title>{titulo} · beCafé</title>
 </svelte:head>
 
-<main class="mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-4 px-4 py-10">
-	<Capsulito momento={noEncontrada ? 'no-encontrada' : sinPermiso ? 'sin-permiso' : 'servidor'} size="lg" bocadillo="arriba" />
-	<h1 class="font-serif text-2xl font-semibold text-ink">{titulo}</h1>
-	<p class="text-ink-muted">{ayuda}</p>
-	{#if page.error?.codigo && !sinPermiso && !noEncontrada}
-		<p class="text-sm text-ink-muted">{textos.errorPagina.codigo} <code>{page.error.codigo}</code></p>
-	{/if}
-	<a class="text-accent underline" href={resolve('/(app)')}>{textos.errorPagina.volverInicio}</a>
+<main class="mx-auto flex min-h-dvh max-w-md flex-col justify-center px-4 py-10">
+	<ErrorPage {kind} code={codigo} message={mensaje} inicioHref={resolve('/(app)')} />
 </main>

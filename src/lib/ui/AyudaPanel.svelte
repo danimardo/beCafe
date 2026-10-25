@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import Capsulito from './Capsulito.svelte';
+	import { usarMascota } from './contextos/mascota.svelte';
 	import Sheet from './Sheet.svelte';
 	import { CATALOGO_AYUDA, type IdPantalla } from '#lib/shared/ayuda/pantallas';
 
@@ -19,13 +20,19 @@
 		onrepetirtour();
 	}
 	const entrada = $derived(CATALOGO_AYUDA[pantalla]);
+	const mascota = usarMascota();
+
+	// Al abrir la ayuda con la voz activa, Capsulito dice el propósito de la pantalla (RF-227).
+	$effect(() => {
+		if (open) mascota.hablar(`ayuda_${pantalla}`);
+	});
 </script>
 
 <!-- Ayuda de Capsulito para la pantalla actual (RF-203). Hoja inferior en móvil y diálogo en escritorio, sobre superficie estable. -->
 <Sheet bind:open title={`Ayuda: ${entrada.titulo}`}>
 	<div class="flex flex-col gap-4 rounded-panel bg-wall-base p-4 text-[15px] leading-6 text-ink">
 		<div class="flex items-start gap-3">
-			<Capsulito momento="acceso-hola" size="sm" modo="svg" mensaje={null} />
+			<Capsulito pose="senalando" size="sm" modo="svg" mensaje={null} />
 			<p class="min-w-0 flex-1">{entrada.proposito}</p>
 		</div>
 		{#if entrada.acciones.length > 0}

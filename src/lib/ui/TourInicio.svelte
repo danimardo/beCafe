@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
 	import { PASOS_TOUR, type PasoTour } from '#lib/shared/ayuda/tour';
+	import Capsulito from './Capsulito.svelte';
+	import { usarMascota } from './contextos/mascota.svelte';
 	import { buttonClasses } from './utils';
 
 	type Props = {
@@ -16,6 +18,7 @@
 	const paso = $derived(pasos[indice]);
 	const ultimo = $derived(indice === pasos.length - 1);
 	const uid = $props.id();
+	const mascota = usarMascota();
 
 	/** El ancla visible del paso (la navegación existe dos veces: móvil y escritorio). `null` si no hay ninguna. */
 	function anclaDe(nombre: string): HTMLElement | null {
@@ -40,6 +43,11 @@
 			posicion = null;
 		}
 		void tick().then(() => caja?.querySelector<HTMLElement>('[data-tour-primario]')?.focus());
+	});
+
+	// Con la voz activa, Capsulito dice cada paso (RF-227). Hablar es una API externa del navegador.
+	$effect(() => {
+		mascota.hablar(paso.id);
 	});
 
 	onMount(() => () => document.querySelectorAll('[data-tour-activo]').forEach((elemento) => elemento.removeAttribute('data-tour-activo')));
@@ -86,8 +94,14 @@
 			: 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%)'}
 	>
 		<p class="text-[12px] font-semibold uppercase tracking-wide text-ink-muted">Paso {indice + 1} de {pasos.length}</p>
-		<h2 id="{uid}-titulo" class="mt-1 text-[17px] font-semibold">{paso.titulo}</h2>
-		<p id="{uid}-texto" class="mt-1 text-[15px] leading-6 text-ink-muted">{paso.texto}</p>
+		<div class="mt-1 flex items-start gap-3">
+			<!-- Imagen decorativa: el texto del paso contiene siempre el mensaje completo (constitución XVIII). -->
+			<Capsulito pose={paso.pose} size="sm" modo="svg" mensaje={null} />
+			<div class="min-w-0 flex-1">
+				<h2 id="{uid}-titulo" class="text-[17px] font-semibold">{paso.titulo}</h2>
+				<p id="{uid}-texto" class="mt-1 text-[15px] leading-6 text-ink-muted">{paso.texto}</p>
+			</div>
+		</div>
 		<div class="mt-4 flex justify-end gap-2">
 			<button type="button" class={buttonClasses('ghost')} onclick={onterminar}>Saltar</button>
 			<button type="button" data-tour-primario class={buttonClasses('primary')} onclick={siguiente}

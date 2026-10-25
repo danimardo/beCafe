@@ -813,45 +813,59 @@ export const MOMENTOS = {
 			},
 		],
 	},
-	'no-encontrada': {
+	'error.peticion': {
+		pose: 'pensando',
+		poseRiv: 'alerta',
+		expresion: 'sorprendido',
+		tono: 'problema',
+		texto: 'Esa petición no me cuadra ni con un café doble.',
+		variantes: [
+			{
+				id: 'error_400_01',
+				texto: 'Esa petición no me cuadra ni con un café doble.',
+				textoVoz: '[sighs] Esa petición no me cuadra ni con un café doble.',
+			},
+		],
+	},
+	'error.no_encontrada': {
 		pose: 'senalando',
 		poseRiv: 'pensando',
 		expresion: 'sorprendido',
 		tono: 'problema',
-		texto: 'Esta página no existe. Puedes volver al inicio.',
+		texto: 'Aquí no hay nada, ni una triste cápsula. Te has perdido.',
 		variantes: [
 			{
 				id: 'error_404_01',
-				texto: 'Esta página no existe. Puedes volver al inicio.',
-				textoVoz: 'Esta página no existe. Puedes volver al inicio.',
+				texto: 'Aquí no hay nada, ni una triste cápsula. Te has perdido.',
+				textoVoz: '[curious] Aquí no hay nada, ni una triste cápsula. Te has perdido.',
 			},
 		],
 	},
-	'sin-permiso': {
+	'error.sin_permiso': {
 		pose: 'pensando',
 		poseRiv: 'alerta',
 		expresion: 'pensando',
 		tono: 'problema',
-		texto: 'Esta sección requiere permisos de administración.',
+		texto: 'Alto ahí, jefe. Esta zona es solo para administradores.',
 		variantes: [
 			{
 				id: 'error_403_01',
-				texto: 'Esta sección requiere permisos de administración.',
-				textoVoz: 'Esta sección requiere permisos de administración.',
+				texto: 'Alto ahí, jefe. Esta zona es solo para administradores.',
+				textoVoz: '[firmly] Alto ahí, jefe. Esta zona es solo para administradores.',
 			},
 		],
 	},
-	servidor: {
+	'error.servidor': {
 		pose: 'pensando',
 		poseRiv: 'triste',
 		expresion: 'triste',
 		tono: 'problema',
-		texto: 'Se ha producido un fallo técnico. Inténtalo de nuevo en unos instantes.',
+		texto: 'He roto algo, lo siento. Tus datos están a salvo.',
 		variantes: [
 			{
 				id: 'error_500_01',
-				texto: 'Se ha producido un fallo técnico. Inténtalo de nuevo en unos instantes.',
-				textoVoz: 'Se ha producido un fallo técnico. Inténtalo de nuevo en unos instantes.',
+				texto: 'He roto algo, lo siento. Tus datos están a salvo.',
+				textoVoz: '[sighs] He roto algo, lo siento. Tus datos están a salvo.',
 			},
 		],
 	},

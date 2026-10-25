@@ -53,8 +53,8 @@ describe('catálogo de momentos, eventos y bienvenida de Capsulito (RF-185, RF-1
 			MOMENTOS['consumo-rechazado'],
 			MOMENTOS['stock.negativo'],
 			MOMENTOS['agua.rechazada_reciente'],
-			MOMENTOS['sin-permiso'],
-			MOMENTOS.servidor,
+			MOMENTOS['error.sin_permiso'],
+			MOMENTOS['error.servidor'],
 		];
 		for (const momento of serios) {
 			expect(['aviso', 'problema']).toContain(momento.tono);
