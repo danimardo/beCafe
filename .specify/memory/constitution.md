@@ -1,10 +1,11 @@
 <!--
-Sync Impact Report (v1.6.0 -> v1.7.0, 2026-10-24):
-- Incremento MENOR (1.6.0 -> 1.7.0): amplía los principios V y XVIII y la tabla de tecnologías obligatorias (CAMBIO-018, ADR-0006).
-- Principio V (Almacenamiento de datos): incluye las preferencias de mascota, voz y bienvenida en `localStorage` junto con las de apariencia.
-- Principio XVIII (Identidad visual, temas y efectos): documenta las excepciones cerradas de cristal (`CapsuleTile` de Inicio y bocadillo/tostada de Capsulito) y las reglas de la mascota Capsulito (imagen decorativa, Rive `.riv` con respaldo SVG, voz pregenerada opcional con sincronización labial, respeto a `prefers-reduced-motion` y ajustes de Perfil).
-- Tecnologías obligatorias: añade `@rive-app/canvas` (2.x), importado solo en `lib/client/rive.ts`.
-- Plantillas y documentos sincronizados: `docs/diseno/design-principles.md`, `.specify/templates/plan-template.md`, `docs/adr/0006-rive-y-sincronizacion-voz-capsulito.md`.
+Sync Impact Report (v1.7.0 -> v1.8.0, 2026-10-25):
+- Incremento MENOR (1.7.0 -> 1.8.0): amplía los principios X y XVIII para F11 (specs/011-inicio-cafe-capsulito, CAMBIO-022).
+- Principio X (Usabilidad): el registro de un consumo admite una confirmación cuando el sistema indica que no queda stock del tipo (RF-217).
+- Principio XVIII (Identidad visual, temas y efectos): Capsulito PUEDE aparecer también en la pantalla de entrada, las páginas de error y la ayuda (RF-225, RF-226, RF-227).
+- Secciones añadidas o eliminadas: ninguna.
+- Plantillas: sin cambios (leen la constitución al ejecutarse).
+- TODO pendientes: ninguno.
 -->
 # Constitución de beCafé
 
@@ -185,8 +186,10 @@ Motivo: generar código no demuestra que funcione; una verificación lenta deja 
 
 - La aplicación DEBE diseñarse primero para móvil (RT-001) y funcionar en las dos últimas versiones
   de Safari para iOS (≥ 16.4) y de Chrome para Android (RNF-013).
-- Registrar un consumo DEBE requerir un solo toque, sin pasos adicionales (RF-011), y confirmarse
-  en pantalla en 1 s o menos en el percentil 95 con red (RNF-002).
+- Registrar un consumo DEBE requerir un solo toque, sin pasos adicionales (RF-011), salvo cuando
+  el sistema indica que no queda stock del tipo, en que DEBE pedir una confirmación antes de
+  registrarlo (RF-217). El registro DEBE confirmarse en pantalla en 1 s o menos en el percentil 95
+  con red (RNF-002).
 - Toda acción que registra algo DEBE confirmar su resultado con un mensaje anunciado al lector de
   pantalla. Las acciones de un toque DEBEN ofrecer «Deshacer» durante 5 segundos (RF-013, RF-171).
   Sin JavaScript, «Deshacer» sigue disponible sin cuenta atrás (principio XVII).
@@ -365,8 +368,9 @@ estado de una persona visible a otra) se evitan con reglas explícitas.
   y en los dos temas.
 - El movimiento SOLO PUEDE usarse con una función (confirmar, orientar o explicar un cambio), NO
   DEBE retrasar la respuesta y DEBE desactivarse con `prefers-reduced-motion`.
-- La mascota del departamento («Capsulito») PUEDE aparecer en bienvenidas, estados vacíos, avisos y
-  confirmaciones para acompañar la acción, nunca como único medio de entender la pantalla ni por
+- La mascota del departamento («Capsulito») PUEDE aparecer en bienvenidas, estados vacíos, avisos,
+  confirmaciones, la pantalla de entrada, las páginas de error y la ayuda para acompañar la acción,
+  nunca como único medio de entender la pantalla ni por
   encima de los controles principales. Su imagen es decorativa (`alt=""` o `aria-hidden="true"`):
   el texto que la acompaña contiene siempre el mensaje completo. Sus poses, expresiones, textos y
   locuciones DEBEN seleccionarse desde un catálogo tipado en función del estado o del evento, nunca
@@ -450,4 +454,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.7.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-24
+**Versión**: 1.8.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-25
