@@ -17,6 +17,8 @@ export const esquemaImporte = z.string({ error: 'Escribe un importe en euros, co
 });
 
 const MAXIMO_APORTACION = 50_000;
+/** Tope del contador de cada tipo en la compra (RF-197). */
+export const MAXIMO_CANTIDAD = 999;
 
 /** Un archivo sin elegir llega como `File` vacío: se trata como ausente (igual que en `capsulas`). */
 const archivoVacioComoAusente = (valor: unknown) => (valor === '' || (valor instanceof File && valor.size === 0) ? undefined : valor);
@@ -39,25 +41,41 @@ export const esquemaAportacion = z.strictObject({
 
 export const esquemaLineaCompra = z.strictObject({
 	tipoCapsulaId: esquemaUlid,
-	cantidad: z.coerce.number().int().positive({ error: 'La cantidad debe ser al menos 1' }),
+	cantidad: z.coerce
+		.number()
+		.int()
+		.positive({ error: 'La cantidad debe ser al menos 1' })
+		.max(MAXIMO_CANTIDAD, { error: 'La cantidad no puede superar 999' }),
 	importe: esquemaImporte,
 });
 
-/** Las líneas llegan como tres listas paralelas (`tipo[]`, `cantidad[]`, `importe[]`) y se normalizan por posición. */
+/**
+ * Las líneas llegan como tres listas paralelas (`tipo[]`, `cantidad[]`, `importe[]`) y se normalizan por posición.
+ * La cuadrícula envía todos los tipos: las líneas con cantidad vacía o 0 se descartan (RF-197).
+ */
 export function lineasDesdeFormulario(tipos: readonly string[], cantidades: readonly string[], importes: readonly string[]) {
-	return tipos.map((tipoCapsulaId, indice) => ({
-		tipoCapsulaId,
-		cantidad: cantidades[indice] ?? '',
-		importe: importes[indice] ?? '',
-	}));
+	return tipos
+		.map((tipoCapsulaId, indice) => ({
+			tipoCapsulaId,
+			cantidad: (cantidades[indice] ?? '').trim(),
+			importe: importes[indice] ?? '',
+		}))
+		.filter((linea) => linea.cantidad !== '' && Number(linea.cantidad) !== 0);
 }
 
-export const esquemaCompra = z.strictObject({
-	clienteId: esquemaUlid,
-	lineas: z.array(esquemaLineaCompra).min(1, { error: 'Añade al menos una línea de compra' }),
-	foto: campoFotoTicket,
-	confirmoHuchaNegativa: casilla,
-});
+export const esquemaCompra = z
+	.strictObject({
+		clienteId: esquemaUlid,
+		lineas: z.array(esquemaLineaCompra).min(1, { error: 'Sube la cantidad de al menos un tipo' }),
+		foto: campoFotoTicket,
+		// RF-198: «Registrar igualmente» envía la confirmación con el saldo que la persona vio.
+		confirmarHuchaNegativa: z.literal('si').optional(),
+		saldoConfirmado: z.coerce.number().int().optional(),
+	})
+	.refine((datos) => datos.confirmarHuchaNegativa === undefined || datos.saldoConfirmado !== undefined, {
+		error: 'Falta el saldo confirmado',
+		path: ['saldoConfirmado'],
+	});
 
 export const esquemaAnulacion = z.strictObject({
 	motivo: z

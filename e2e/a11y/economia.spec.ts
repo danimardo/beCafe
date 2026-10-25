@@ -1,7 +1,7 @@
 import { test } from '../fixtures/errores-navegador';
 import { entrarComo } from '../fixtures/sesiones';
 import { expectSinInfracciones } from './axe';
-import { aportar, registrarCompra, tiposDeCompra } from '../fixtures/economia';
+import { aportar, registrarCompra, rellenarLineaDeCompra, tipoDeCompra, tiposDeCompra } from '../fixtures/economia';
 import { darDeAltaPersona } from '../fixtures/usuarios';
 import { nombreUnico } from '../fixtures/capsulas';
 
@@ -37,6 +37,18 @@ for (const esquema of ['light', 'dark'] as const) {
 			await entrarComo(page, servidor, 'miembro');
 			await aportar(page, servidor, '50,00');
 			await registrarCompra(page, servidor, tipo, '12,00');
+			await expectSinInfracciones(page);
+		});
+
+		test('compras: la cuadrícula y el diálogo de hucha negativa no tienen infracciones de axe', async ({ page, servidor }) => {
+			const tipo = await tipoDeCompra(page, servidor);
+			await entrarComo(page, servidor, 'miembro');
+			await page.goto(`${servidor.url}/compras`);
+			await page.waitForLoadState('load');
+			await rellenarLineaDeCompra(page, tipo, '1', '1000000,00');
+			await expectSinInfracciones(page);
+			await page.getByRole('button', { name: 'Registrar compra', exact: true }).click();
+			await page.getByRole('alertdialog').waitFor();
 			await expectSinInfracciones(page);
 		});
 

@@ -42,9 +42,15 @@ export async function aportar(page: Page, servidor: ServidorDePrueba, importe: s
 	await expect(page.getByRole('status').filter({ hasText: 'Aportación registrada' }).first()).toBeVisible();
 }
 
+/** Pone la cantidad y el importe de un tipo en la cuadrícula de `/compras` (RF-197). */
+export async function rellenarLineaDeCompra(page: Page, tipo: string, cantidad: string, importe: string): Promise<void> {
+	await page.getByRole('spinbutton', { name: `Cantidad de ${tipo}`, exact: true }).fill(cantidad);
+	await page.getByRole('textbox', { name: `Importe de ${tipo}`, exact: true }).fill(importe);
+}
+
 /**
  * Registra una compra de una cápsula como la persona miembro y devuelve el enlace a su detalle.
- * `confirmarHuchaNegativa` marca la casilla de confirmación (RN-019) cuando la hucha compartida ya está en negativo.
+ * `confirmarHuchaNegativa` pulsa «Registrar igualmente» (RF-198) si la compra deja la hucha compartida en negativo.
  */
 export async function registrarCompra(
 	page: Page,
@@ -54,13 +60,15 @@ export async function registrarCompra(
 	confirmarHuchaNegativa = false,
 ): Promise<string> {
 	await page.goto(`${servidor.url}/compras`);
-	await page.getByRole('combobox', { name: 'Tipo de cápsula', exact: true }).first().selectOption({ label: tipo });
-	await page.getByRole('spinbutton', { name: 'Cantidad', exact: true }).first().fill('1');
-	await page.getByRole('textbox', { name: 'Importe', exact: true }).first().fill(importe);
-	if (confirmarHuchaNegativa) {
-		await page.getByRole('checkbox', { name: 'Registrar aunque la hucha quede en negativo', exact: true }).check();
-	}
+	await page.waitForLoadState('load');
+	await rellenarLineaDeCompra(page, tipo, '1', importe);
 	await page.getByRole('button', { name: 'Registrar compra', exact: true }).click();
+	if (confirmarHuchaNegativa) {
+		const igualmente = page.getByRole('button', { name: 'Registrar igualmente', exact: true });
+		const detalle = /\/compras\/[0-9A-Z]{26}$/;
+		await expect.poll(async () => detalle.test(page.url()) || (await igualmente.isVisible())).toBe(true);
+		if (!detalle.test(page.url())) await igualmente.click();
+	}
 	await expect(page).toHaveURL(/\/compras\/[0-9A-Z]{26}$/);
 	return page.url();
 }

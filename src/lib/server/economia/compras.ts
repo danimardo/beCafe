@@ -30,7 +30,17 @@ import { leerConfiguracion } from '#lib/server/configuracion';
 // La foto del ticket se guarda antes de la transacción; si la transacción falla o la compra ya existía, se borra.
 
 export type LineaCompra = { tipoCapsulaId: string; cantidad: number; importe: number };
-export type DatosCompra = { clienteId: string; lineas: readonly LineaCompra[]; foto?: Uint8Array; confirmoHuchaNegativa: boolean };
+/**
+ * `saldoConfirmado` es el saldo de la hucha que la persona vio al confirmar (RF-198). Si el saldo cambió desde entonces,
+ * la compra pide confirmar otra vez (EV-106).
+ */
+export type DatosCompra = {
+	clienteId: string;
+	lineas: readonly LineaCompra[];
+	foto?: Uint8Array;
+	confirmoHuchaNegativa: boolean;
+	saldoConfirmado?: number;
+};
 export type ResultadoCompra = { id: string; duplicado: boolean };
 export type ResumenRegularizacion = { usuarioId: string; importe: number };
 
@@ -65,7 +75,10 @@ function escribirCompra(
 	}
 
 	const total = datos.lineas.reduce((suma, linea) => suma + linea.importe, 0);
-	if (saldoHucha(tx) - total < 0 && !datos.confirmoHuchaNegativa) throw new ErrorDeNegocio('CONFIRMACION_REQUERIDA');
+	const saldo = saldoHucha(tx);
+	const resultado = saldo - total;
+	const confirmada = datos.confirmoHuchaNegativa && (datos.saldoConfirmado === undefined || datos.saldoConfirmado === saldo);
+	if (resultado < 0 && !confirmada) throw new ErrorDeNegocio('CONFIRMACION_REQUERIDA', { saldo, importe: total, resultado });
 
 	const id = nuevoId();
 	tx.insert(compra)

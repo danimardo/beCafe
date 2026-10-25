@@ -26,4 +26,23 @@ describe('contratos de economía', () => {
 	it('una compra sin líneas se rechaza', () => {
 		expect(esquemaCompra.safeParse({ clienteId: CLIENTE, lineas: [] }).success).toBe(false);
 	});
+
+	it('CA-197: las líneas con cantidad 0 o vacía se descartan y queda una compra de dos líneas', () => {
+		const lineas = lineasDesdeFormulario([TIPO, CLIENTE, TIPO], ['0', '3', ' '], ['', '4,00', '']);
+		expect(lineas).toEqual([{ tipoCapsulaId: CLIENTE, cantidad: '3', importe: '4,00' }]);
+		expect(esquemaCompra.safeParse({ clienteId: CLIENTE, lineas }).success).toBe(true);
+	});
+
+	it('CA-197: todas las cantidades a 0 dejan la compra sin líneas y se rechaza; más de 999 también', () => {
+		expect(esquemaCompra.safeParse({ clienteId: CLIENTE, lineas: lineasDesdeFormulario([TIPO], ['0'], ['']) }).success).toBe(false);
+		const grande = lineasDesdeFormulario([TIPO], ['1000'], ['4,00']);
+		expect(esquemaCompra.safeParse({ clienteId: CLIENTE, lineas: grande }).success).toBe(false);
+	});
+
+	it('CA-198: confirmar la hucha negativa exige el saldo confirmado', () => {
+		const lineas = lineasDesdeFormulario([TIPO], ['1'], ['4,00']);
+		expect(esquemaCompra.safeParse({ clienteId: CLIENTE, lineas, confirmarHuchaNegativa: 'si' }).success).toBe(false);
+		const confirmada = esquemaCompra.safeParse({ clienteId: CLIENTE, lineas, confirmarHuchaNegativa: 'si', saldoConfirmado: '-150' });
+		expect(confirmada.success && confirmada.data.saldoConfirmado).toBe(-150);
+	});
 });

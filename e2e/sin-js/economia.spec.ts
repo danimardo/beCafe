@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/errores-navegador';
 import { entrarComo } from '../fixtures/sesiones';
-import { aportar, arquear, registrarCompra, tiposDeCompra } from '../fixtures/economia';
+import { aportar, arquear, registrarCompra, rellenarLineaDeCompra, tiposDeCompra } from '../fixtures/economia';
 
 // Sin JavaScript, la economía de F4 funciona con los formularios del servidor (constitución XVII).
 
@@ -9,22 +9,23 @@ test('sin JavaScript, una aportación muestra el aviso de aportación registrada
 	await aportar(page, servidor, '5,00');
 });
 
-test('sin JavaScript, «Añadir línea» conserva lo escrito en la línea anterior', async ({ page, servidor }) => {
-	const [primero] = await tiposDeCompra(page, servidor);
+test('CA-197: sin JavaScript, la cuadrícula muestra el importe de cada tipo y registra solo los de cantidad mayor que 0', async ({
+	page,
+	servidor,
+}) => {
+	const [primero, segundo] = await tiposDeCompra(page, servidor);
 	await entrarComo(page, servidor, 'miembro');
+	await aportar(page, servidor, '50,00');
 	await page.goto(`${servidor.url}/compras`);
 
-	await page.getByRole('combobox', { name: 'Tipo de cápsula', exact: true }).first().selectOption({ label: primero });
-	await page.getByRole('spinbutton', { name: 'Cantidad', exact: true }).first().fill('2');
-	await page.getByRole('textbox', { name: 'Importe', exact: true }).first().fill('24,00');
-	await page.getByRole('button', { name: 'Añadir línea', exact: true }).click();
+	await expect(page.getByRole('textbox', { name: `Importe de ${segundo}`, exact: true })).toBeVisible();
+	await rellenarLineaDeCompra(page, primero, '2', '8,00');
+	await page.getByRole('button', { name: 'Registrar compra', exact: true }).click();
 
-	await expect(page.getByText('Línea 2')).toBeVisible();
-	await expect(page.getByRole('spinbutton', { name: 'Cantidad', exact: true }).first()).toHaveValue('2');
-	await expect(page.getByRole('textbox', { name: 'Importe', exact: true }).first()).toHaveValue('24,00');
+	await expect(page).toHaveURL(/\/compras\/[0-9A-Z]{26}$/);
 });
 
-test('sin JavaScript, una compra que deja la hucha en negativo pide confirmación y se registra al confirmarla', async ({
+test('EV-106, CA-198: sin JavaScript, una compra que deja la hucha en negativo muestra el paso intermedio y se registra igualmente', async ({
 	page,
 	servidor,
 }) => {
@@ -32,14 +33,14 @@ test('sin JavaScript, una compra que deja la hucha en negativo pide confirmació
 	await entrarComo(page, servidor, 'miembro');
 	await page.goto(`${servidor.url}/compras`);
 
-	await page.getByRole('combobox', { name: 'Tipo de cápsula', exact: true }).first().selectOption({ label: primero });
-	await page.getByRole('spinbutton', { name: 'Cantidad', exact: true }).first().fill('1');
-	await page.getByRole('textbox', { name: 'Importe', exact: true }).first().fill('1000000,00');
+	await rellenarLineaDeCompra(page, primero, '1', '1000000,00');
 	await page.getByRole('button', { name: 'Registrar compra', exact: true }).click();
 
-	await expect(page.getByRole('alert').filter({ hasText: 'Esta acción tiene efectos' })).toBeVisible();
-	await page.getByRole('checkbox', { name: 'Registrar aunque la hucha quede en negativo', exact: true }).check();
-	await page.getByRole('button', { name: 'Registrar compra', exact: true }).click();
+	const paso = page.getByRole('alert').filter({ hasText: 'La hucha quedará en negativo' });
+	await expect(paso).toBeVisible();
+	await expect(paso.getByText('Saldo resultante')).toBeVisible();
+	await expect(page.getByRole('spinbutton', { name: `Cantidad de ${primero}`, exact: true })).toHaveValue('1');
+	await page.getByRole('button', { name: 'Registrar igualmente', exact: true }).click();
 
 	await expect(page).toHaveURL(/\/compras\/[0-9A-Z]{26}$/);
 });

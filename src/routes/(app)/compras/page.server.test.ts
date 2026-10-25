@@ -1,3 +1,4 @@
+import { isRedirect } from '@sveltejs/kit';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { actions } from './+page.server';
 import { crearEventoAccion, desenvolverFallo } from '#lib/shared/pruebas/acciones';
@@ -8,6 +9,14 @@ import { darDeAltaCapsula, leerComprasRecientes, registrarAportacion } from '#li
 
 // Acciones de compras (CA-040, CA-043, RF-046) con evento falso. La hucha se dota antes con una aportación.
 const INSTANTE = '2026-10-21T09:00:00.000Z';
+
+async function capturar(operacion: () => unknown): Promise<unknown> {
+	try {
+		return await operacion();
+	} catch (causa) {
+		return causa;
+	}
+}
 
 describe('acciones de /compras', () => {
 	let entorno: EntornoPrueba;
@@ -40,7 +49,7 @@ describe('acciones de /compras', () => {
 		return id;
 	}
 
-	function enviar(accion: 'registrar' | 'anadirLinea' | 'quitarLinea', actor: Actor | undefined, cuerpo: URLSearchParams) {
+	function enviar(accion: 'registrar', actor: Actor | undefined, cuerpo: URLSearchParams) {
 		return actions[accion](
 			crearEventoAccion({
 				locals: { ambiente: entorno.ambiente, actor },
@@ -88,7 +97,7 @@ describe('acciones de /compras', () => {
 				new URLSearchParams([
 					['clienteId', nuevoId()],
 					['tipo', tipo],
-					['cantidad', '0'],
+					['cantidad', '-1'],
 					['importe', '24,00'],
 				]),
 			),
@@ -99,53 +108,33 @@ describe('acciones de /compras', () => {
 		expect(leerComprasRecientes(entorno.ambiente.db, marta, 10)).toHaveLength(0);
 	});
 
-	it('anadirLinea devuelve la línea escrita y una línea más, sin registrar nada', async () => {
+	it('CA-197: la cuadrícula envía todos los tipos; los de cantidad 0 se descartan y queda una compra de una línea', async () => {
 		const marta = sesionDe('miembro', 'Marta');
+		const admin = sesionDe('administrador', 'Admin');
+		registrarAportacion(entorno.ambiente, marta, { clienteId: nuevoId(), importe: 5000 });
+		const [uno, dos] = [await tipoActivo(admin), await tipoActivo(admin)];
 
-		const resultado = await enviar(
-			'anadirLinea',
-			marta,
-			new URLSearchParams([
-				['tipo', 'T1'],
-				['cantidad', '1'],
-				['importe', '3,00'],
-			]),
-		);
-
-		expect(resultado).toMatchObject({ numeroLineas: 2, lineas: [{ tipoCapsulaId: 'T1', cantidad: '1', importe: '3,00' }] });
-		expect(leerComprasRecientes(entorno.ambiente.db, marta, 10)).toHaveLength(0);
-	});
-
-	it('quitarLinea devuelve una línea menos sin dejar de tener una, y no registra nada', async () => {
-		const marta = sesionDe('miembro', 'Marta');
-		const cuerpo = new URLSearchParams([
-			['tipo', 'T1'],
-			['cantidad', '1'],
-			['importe', '3,00'],
-			['tipo', 'T2'],
-			['cantidad', '2'],
-			['importe', '6,00'],
-		]);
-
-		await expect(enviar('quitarLinea', marta, cuerpo)).resolves.toMatchObject({ numeroLineas: 1, lineas: [{ tipoCapsulaId: 'T1' }] });
-		await expect(
+		const lanzado = await capturar(() =>
 			enviar(
-				'quitarLinea',
+				'registrar',
 				marta,
 				new URLSearchParams([
-					['tipo', 'T1'],
-					['cantidad', '1'],
-					['importe', '3,00'],
+					['clienteId', nuevoId()],
+					['tipo', uno],
+					['cantidad', '0'],
+					['importe', ''],
+					['tipo', dos],
+					['cantidad', '3'],
+					['importe', '12,00'],
 				]),
 			),
-		).resolves.toMatchObject({
-			numeroLineas: 1,
-			lineas: [],
-		});
-		expect(leerComprasRecientes(entorno.ambiente.db, marta, 10)).toHaveLength(0);
+		);
+
+		expect(isRedirect(lanzado)).toBe(true);
+		expect(leerComprasRecientes(entorno.ambiente.db, marta, 10).map((c) => c.importeTotal)).toEqual([1200]);
 	});
 
-	it('T031: sin hucha para la compra, la confirmación devuelve 409 con el saldo teórico y no escribe', async () => {
+	it('CA-198: sin hucha, la acción devuelve la confirmación con saldo, importe y resultado, sin escribir', async () => {
 		const marta = sesionDe('miembro', 'Marta');
 		const admin = sesionDe('administrador', 'Admin');
 		const tipo = await tipoActivo(admin);
@@ -161,10 +150,26 @@ describe('acciones de /compras', () => {
 			]),
 		);
 
-		expect(resultado).toMatchObject({
-			status: 409,
-			data: { saldoTeorico: 0, errores: { general: { codigo: 'CONFIRMACION_REQUERIDA' } } },
-		});
+		expect(resultado).toMatchObject({ status: 409, data: { confirmacion: { saldo: 0, importe: 2400, resultado: -2400 } } });
 		expect(leerComprasRecientes(entorno.ambiente.db, marta, 10)).toHaveLength(0);
+	});
+
+	it('EV-106, CA-198: «Registrar igualmente» con el saldo vigente registra; con un saldo desfasado vuelve a pedir confirmación', async () => {
+		const marta = sesionDe('miembro', 'Marta');
+		const admin = sesionDe('administrador', 'Admin');
+		const tipo = await tipoActivo(admin);
+		const cuerpo = (saldoConfirmado: string) =>
+			new URLSearchParams([
+				['clienteId', nuevoId()],
+				['tipo', tipo],
+				['cantidad', '2'],
+				['importe', '24,00'],
+				['confirmarHuchaNegativa', 'si'],
+				['saldoConfirmado', saldoConfirmado],
+			]);
+
+		await expect(enviar('registrar', marta, cuerpo('500'))).resolves.toMatchObject({ status: 409, data: { confirmacion: { saldo: 0 } } });
+		expect(isRedirect(await capturar(() => enviar('registrar', marta, cuerpo('0'))))).toBe(true);
+		expect(leerComprasRecientes(entorno.ambiente.db, marta, 10)).toHaveLength(1);
 	});
 });

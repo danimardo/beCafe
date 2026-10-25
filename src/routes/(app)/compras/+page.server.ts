@@ -1,15 +1,19 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
+import { z } from 'zod';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../fallo';
 import { bytesDeFoto } from '../admin/capsulas/formulario';
 import { leerComprasRecientes, leerSaldoHucha, leerTiposComprables, registrarCompra } from '#lib/server/economia';
 import { buscarUsuarioPorId } from '#lib/server/usuarios';
+import { esErrorDeNegocio, nuevoId, registrarRechazo } from '#lib/server/plataforma';
 import { esquemaCompra, lineasDesdeFormulario } from '#lib/shared/contratos/economia';
-import { nuevoId } from '#lib/server/plataforma';
+import { urlFotoCapsula } from '#lib/shared/contratos/capsulas';
 
 const LIMITE_COMPRAS = 20;
-const LINEAS_INICIALES = 1;
+
+// Detalle del rechazo por hucha negativa (RF-198): lo que la confirmación enseña a la persona.
+const esquemaConfirmacion = z.object({ saldo: z.number().int(), importe: z.number().int(), resultado: z.number().int() });
 
 export const load: PageServerLoad = ({ locals }) => {
 	const actor = locals.actor;
@@ -25,9 +29,14 @@ export const load: PageServerLoad = ({ locals }) => {
 		}));
 		return {
 			compras,
-			tipos: leerTiposComprables(db, actor).map((tipo) => ({ id: tipo.id, nombre: tipo.nombre })),
+			// RF-197: todos los tipos activos, con coste medio o sin él (la primera compra lo crea).
+			tipos: leerTiposComprables(db, actor).map((tipo) => ({
+				id: tipo.id,
+				nombre: tipo.nombre,
+				color: tipo.color,
+				fotoUrl: tipo.fotoRuta ? urlFotoCapsula(tipo.id) : null,
+			})),
 			saldoHucha: leerSaldoHucha(db).saldo,
-			numeroLineas: LINEAS_INICIALES,
 			clienteId: nuevoId(),
 		};
 	} catch (causa) {
@@ -36,28 +45,6 @@ export const load: PageServerLoad = ({ locals }) => {
 };
 
 export const actions: Actions = {
-	// Sin JavaScript, «Añadir línea» vuelve a mostrar el formulario con una línea más y lo que ya estaba escrito.
-	anadirLinea: async ({ request }) => {
-		const formulario = await request.formData();
-		const lineas = lineasDesdeFormulario(
-			formulario.getAll('tipo').map(String),
-			formulario.getAll('cantidad').map(String),
-			formulario.getAll('importe').map(String),
-		);
-		return { lineas, numeroLineas: Math.max(lineas.length, LINEAS_INICIALES) + 1 };
-	},
-
-	// Quita la última línea sin registrar nada; siempre queda una línea (CA-040).
-	quitarLinea: async ({ request }) => {
-		const formulario = await request.formData();
-		const lineas = lineasDesdeFormulario(
-			formulario.getAll('tipo').map(String),
-			formulario.getAll('cantidad').map(String),
-			formulario.getAll('importe').map(String),
-		).slice(0, -1);
-		return { lineas, numeroLineas: Math.max(lineas.length, LINEAS_INICIALES) };
-	},
-
 	registrar: async ({ request, locals }) => {
 		const formulario = await request.formData();
 		const datos = Object.fromEntries(formulario);
@@ -66,17 +53,14 @@ export const actions: Actions = {
 			formulario.getAll('cantidad').map(String),
 			formulario.getAll('importe').map(String),
 		);
-		const valores = {
-			clienteId: datos.clienteId,
-			lineas,
-			confirmoHuchaNegativa: datos.confirmoHuchaNegativa,
-			numeroLineas: Math.max(lineas.length, LINEAS_INICIALES),
-		};
+		// Sin el archivo: el navegador no puede volver a rellenar un campo de archivo (contracts/formularios.md).
+		const valores = { clienteId: datos.clienteId, lineas };
 		const entrada = esquemaCompra.safeParse({
 			clienteId: datos.clienteId,
 			lineas,
 			foto: datos.foto,
-			confirmoHuchaNegativa: datos.confirmoHuchaNegativa,
+			confirmarHuchaNegativa: datos.confirmarHuchaNegativa,
+			saldoConfirmado: datos.saldoConfirmado,
 		});
 		if (!entrada.success) return fallo(400, entrada.error, valores);
 		const actor = locals.actor;
@@ -84,19 +68,26 @@ export const actions: Actions = {
 
 		const resultado = await ejecutarAccion(valores, async () => {
 			const foto = await bytesDeFoto(entrada.data.foto);
-			const { id } = await registrarCompra(locals.ambiente, actor, {
-				clienteId: entrada.data.clienteId,
-				lineas: entrada.data.lineas,
-				foto,
-				confirmoHuchaNegativa: entrada.data.confirmoHuchaNegativa === 'on',
-			});
-			return { id };
+			try {
+				const { id } = await registrarCompra(locals.ambiente, actor, {
+					clienteId: entrada.data.clienteId,
+					lineas: entrada.data.lineas,
+					foto,
+					confirmoHuchaNegativa: entrada.data.confirmarHuchaNegativa === 'si',
+					saldoConfirmado: entrada.data.saldoConfirmado,
+				});
+				return { id };
+			} catch (causa) {
+				if (!esErrorDeNegocio(causa) || causa.codigo !== 'CONFIRMACION_REQUERIDA') throw causa;
+				const confirmacion = esquemaConfirmacion.safeParse(causa.detalle);
+				if (!confirmacion.success) throw causa;
+				registrarRechazo(causa);
+				return { confirmacion: confirmacion.data };
+			}
 		});
-		// El 409 de la confirmación de hucha negativa incluye el saldo teórico para que la vista lo muestre (T031).
-		if (!('id' in resultado)) {
-			if (resultado.status !== 409) return resultado;
-			return fail(409, { ...resultado.data, saldoTeorico: leerSaldoHucha(locals.ambiente.db).saldo });
-		}
+		// RF-198: la confirmación pendiente vuelve con el saldo, el importe y el resultado; la página la muestra como diálogo o paso intermedio.
+		if ('confirmacion' in resultado) return fail(409, { confirmacion: resultado.confirmacion, valores });
+		if (!('id' in resultado)) return resultado;
 		redirect(303, resolve('/(app)/compras/[compraId=ulid]', { compraId: resultado.id }));
 	},
 };

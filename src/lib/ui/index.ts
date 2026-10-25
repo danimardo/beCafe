@@ -28,6 +28,7 @@ export { default as Skeleton } from './Skeleton.svelte';
 export { default as ListRow } from './ListRow.svelte';
 export { default as Pagination } from './Pagination.svelte';
 export { default as Stepper } from './Stepper.svelte';
+export { default as CounterField } from './CounterField.svelte';
 export { default as CopyField } from './CopyField.svelte';
 export { default as ThemeToggle } from './ThemeToggle.svelte';
 

@@ -1,18 +1,20 @@
 <script lang="ts">
+	import { onMount, untrack } from 'svelte';
 	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import {
 		Banner,
 		Button,
+		CapsuleImage,
+		ConfirmDialog,
+		CounterField,
 		EmptyState,
 		ListRow,
 		Money,
 		MoneyField,
 		PageHeader,
 		PhotoField,
-		SelectField,
 		Section,
-		TextField,
 		usarMascota,
 	} from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
@@ -37,120 +39,176 @@
 		);
 	}
 
-	// Las líneas escritas vuelven en `lineas` (añadir o quitar) o en `valores.lineas` (rechazo) para rellenar las filas sin JavaScript.
+	// Tras un rechazo o una confirmación pendiente, `valores.lineas` trae lo escrito para rellenar la cuadrícula sin JavaScript.
 	function lineasPrevias(respuesta: typeof form): LineaPrevia[] {
-		if (!respuesta) return [];
-		const valores: unknown = 'valores' in respuesta ? respuesta.valores : undefined;
-		const candidatas: unknown =
-			'lineas' in respuesta
-				? respuesta.lineas
-				: typeof valores === 'object' && valores !== null && 'lineas' in valores
-					? valores.lineas
-					: undefined;
-		const lista: unknown[] = Array.isArray(candidatas) ? candidatas : [];
-		return lista.filter(esLineaPrevia);
+		const valores: unknown = respuesta && 'valores' in respuesta ? respuesta.valores : undefined;
+		const lista: unknown = typeof valores === 'object' && valores !== null && 'lineas' in valores ? valores.lineas : undefined;
+		return Array.isArray(lista) ? lista.filter(esLineaPrevia) : [];
 	}
 
-	function numeroLineasDeValores(valores: unknown): number | undefined {
-		return typeof valores === 'object' && valores !== null && 'numeroLineas' in valores && typeof valores.numeroLineas === 'number'
-			? valores.numeroLineas
-			: undefined;
+	function estadoInicial() {
+		const previas = lineasPrevias(form);
+		const cantidades: Record<string, number> = {};
+		const importes: Record<string, number | null> = {};
+		for (const tipo of data.tipos) {
+			const previa = previas.find((linea) => linea.tipoCapsulaId === tipo.id);
+			const cantidad = Number(previa?.cantidad ?? '0');
+			cantidades[tipo.id] = Number.isInteger(cantidad) && cantidad > 0 ? cantidad : 0;
+			importes[tipo.id] = parseMoney(previa?.importe ?? '');
+		}
+		return { cantidades, importes };
 	}
+
+	const inicial = untrack(estadoInicial);
+	let cantidades = $state(inicial.cantidades);
+	let importes = $state(inicial.importes);
+	// Sin JavaScript, todos los importes están visibles; con JavaScript, solo los de cantidad mayor que 0.
+	let conJavaScript = $state(false);
+	onMount(() => {
+		conJavaScript = true;
+	});
+
+	const lineas = $derived(data.tipos.filter((tipo) => (cantidades[tipo.id] ?? 0) > 0));
+	const total = $derived(lineas.reduce((suma, tipo) => suma + (importes[tipo.id] ?? 0), 0));
+	const resultadoPrevisto = $derived(data.saldoHucha - total);
+
 	const errores: Partial<Record<string, { codigo: string; mensaje: string }>> = $derived(
 		(form && 'errores' in form ? form.errores : undefined) ?? {},
 	);
+	const errorGeneral = $derived(Object.values(errores)[0]?.mensaje);
+	// RF-198: la confirmación que pide el servidor (sin JavaScript o si el saldo cambió desde que se mostró).
+	const confirmacionServidor = $derived(form && 'confirmacion' in form ? form.confirmacion : undefined);
+	const confirmacionRegistrada = $derived(form && 'id' in form ? textos.economia.compraRegistrada : undefined);
 
-	// Importes escritos en el cliente. Si no hay, se usa el de la respuesta del servidor (sin JavaScript o tras un rechazo).
-	let importes = $state<(number | null)[]>([]);
-	const previas = $derived(lineasPrevias(form));
-	const importeDeFila = (indice: number): number | null => importes[indice] ?? parseMoney(previas[indice]?.importe ?? '');
+	let formulario: HTMLFormElement | undefined = $state();
+	let dialogoAbierto = $state(false);
+	let confirmadaEnCliente = false;
 
-	// Tras un rechazo, `valores` conserva las líneas escritas; sin esto la vista volvería a una sola línea.
-	const numeroLineas = $derived(
-		(form && 'numeroLineas' in form && typeof form.numeroLineas === 'number' ? form.numeroLineas : undefined) ??
-			(form && 'valores' in form ? numeroLineasDeValores(form.valores) : undefined) ??
-			data.numeroLineas,
-	);
-	const total = $derived(Array.from({ length: numeroLineas }, (_valor, indice) => importeDeFila(indice) ?? 0).reduce((a, b) => a + b, 0));
-	const filas = $derived(Array.from({ length: numeroLineas }, (_valor, indice: number) => indice));
-	const opciones = $derived(data.tipos.map((tipo) => ({ value: tipo.id, label: tipo.nombre })));
-	const errorGeneral = $derived(errores.general?.mensaje);
-	const codigo = $derived(errores.general?.codigo);
-	const confirmacionPendiente = $derived(codigo === 'CONFIRMACION_REQUERIDA');
-	const confirmacion = $derived(form && 'id' in form ? textos.economia.compraRegistrada : undefined);
+	function confirmarEnCliente() {
+		confirmadaEnCliente = true;
+		formulario?.requestSubmit();
+	}
 </script>
 
 <svelte:head>
 	<title>{textos.economia.compras} · beCafé</title>
 </svelte:head>
 
+{#snippet efecto(saldo: number, importe: number, resultado: number)}
+	<dl class="flex flex-col gap-1 text-[15px]">
+		<div class="flex justify-between gap-3">
+			<dt class="text-ink-muted">{textos.economia.saldoActual}</dt>
+			<dd><Money cents={saldo} /></dd>
+		</div>
+		<div class="flex justify-between gap-3">
+			<dt class="text-ink-muted">{textos.economia.importeCompra}</dt>
+			<dd><Money cents={importe} /></dd>
+		</div>
+		<div class="flex justify-between gap-3 font-semibold">
+			<dt>{textos.economia.saldoResultante}</dt>
+			<dd><Money cents={resultado} signed tone /></dd>
+		</div>
+	</dl>
+{/snippet}
+
 <div class="flex flex-col gap-6">
 	<PageHeader title={textos.economia.compras} />
 
-	{#if confirmacion}
-		<div role="status"><Banner tone="info">{confirmacion}</Banner></div>
+	{#if confirmacionRegistrada}
+		<div role="status"><Banner tone="info">{confirmacionRegistrada}</Banner></div>
 	{/if}
 	{#if errorGeneral}
-		<div role="alert"><Banner tone={confirmacionPendiente ? 'warning' : 'negative'}>{errorGeneral}</Banner></div>
+		<div role="alert"><Banner tone="negative">{errorGeneral}</Banner></div>
 	{/if}
 
 	{#if data.tipos.length === 0}
 		<p class="text-[15px] text-ink-muted">{textos.economia.sinTipos}</p>
 	{:else}
 		<form
+			bind:this={formulario}
 			method="post"
 			action="?/registrar"
 			enctype="multipart/form-data"
-			use:enhance={() =>
-				async ({ update }) => {
+			use:enhance={({ cancel, formData, submitter }) => {
+				const confirmadaEnPanel = submitter?.getAttribute('name') === 'confirmarHuchaNegativa';
+				if (resultadoPrevisto < 0 && !confirmadaEnCliente && !confirmadaEnPanel) {
+					cancel();
+					dialogoAbierto = true;
+					return;
+				}
+				if (confirmadaEnCliente) {
+					formData.set('confirmarHuchaNegativa', 'si');
+					formData.set('saldoConfirmado', String(data.saldoHucha));
+				}
+				confirmadaEnCliente = false;
+				return async ({ update }) => {
 					await update({ reset: false });
 					if (form && 'id' in form) {
 						const frase = mascota.elegirFrase('compra.confirmada');
 						if (frase.conAudio) mascota.hablar(frase.id);
 					}
-				}}
+				};
+			}}
 			class="flex flex-col gap-4"
 		>
 			<input type="hidden" name="clienteId" value={data.clienteId} />
-			<input type="hidden" name="numeroLineas" value={numeroLineas} />
+			<p class="text-[15px] text-ink-muted">{textos.economia.ayudaCompra}</p>
 
-			{#each filas as indice (indice)}
-				<fieldset class="flex flex-col gap-3 rounded-card border border-ink-muted/40 p-3">
-					<legend class="px-1 text-sm font-semibold">{textos.economia.linea} {indice + 1}</legend>
-					<SelectField label={textos.economia.tipo} name="tipo" options={opciones} value={previas[indice]?.tipoCapsulaId ?? ''} />
-					<TextField
-						label={textos.economia.cantidad}
-						name="cantidad"
-						type="number"
-						inputmode="numeric"
-						min="1"
-						step="1"
-						value={previas[indice]?.cantidad ?? ''}
-					/>
-					<MoneyField
-						label={textos.economia.importe}
-						name="importe"
-						bind:cents={() => importeDeFila(indice), (valor: number | null) => (importes[indice] = valor)}
-					/>
-				</fieldset>
-			{/each}
+			<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+				{#each data.tipos as tipo (tipo.id)}
+					{@const cantidad = cantidades[tipo.id] ?? 0}
+					<li class="flex flex-col gap-3 rounded-panel border border-hairline bg-wall-base p-4">
+						<div class="flex items-center gap-3">
+							<CapsuleImage name={tipo.nombre} color={tipo.color} photoUrl={tipo.fotoUrl} size="md" />
+							<p class="min-w-0 flex-1 text-[15px] font-semibold">{tipo.nombre}</p>
+						</div>
+						<input type="hidden" name="tipo" value={tipo.id} />
+						<CounterField
+							label={textos.economia.cantidadDe(tipo.nombre)}
+							name="cantidad"
+							bind:value={() => cantidades[tipo.id] ?? 0, (valor: number) => (cantidades[tipo.id] = valor)}
+							decreaseLabel={textos.economia.quitarUnaDe(tipo.nombre)}
+							increaseLabel={textos.economia.anadirUnaDe(tipo.nombre)}
+						/>
+						{#if !conJavaScript || cantidad > 0}
+							<MoneyField
+								label={textos.economia.importeDe(tipo.nombre)}
+								name="importe"
+								hint={conJavaScript ? textos.economia.ayudaImporte : textos.economia.ayudaImporteSinJs}
+								bind:cents={() => importes[tipo.id] ?? null, (valor: number | null) => (importes[tipo.id] = valor)}
+							/>
+						{:else}
+							<input type="hidden" name="importe" value="" />
+						{/if}
+					</li>
+				{/each}
+			</ul>
 
-			<p class="text-[15px]">{textos.economia.total}: <Money cents={total} /></p>
+			<div class="flex flex-col gap-1 rounded-panel border border-hairline bg-wall-base p-4" aria-live="polite">
+				<p class="text-[15px]">
+					{textos.economia.resumenCompra(lineas.length)} · {textos.economia.total}: <Money cents={total} />
+				</p>
+				<p class="text-[13px] text-ink-muted">{lineas.length === 0 ? textos.economia.sinLineas : textos.economia.ayudaTotal}</p>
+			</div>
 
 			<PhotoField label={textos.economia.fotoTicket} name="foto" />
 
-			<label class="flex min-h-11 items-center gap-3 text-[15px]">
-				<input type="checkbox" name="confirmoHuchaNegativa" value="on" class="size-5" checked={confirmacionPendiente} />
-				<span>{textos.economia.confirmarHuchaNegativa}</span>
-			</label>
-
-			<div class="flex flex-wrap gap-3">
-				<Button type="submit" formaction="?/anadirLinea" variant="soft">{textos.economia.nuevaLinea}</Button>
-				{#if numeroLineas > 1}
-					<Button type="submit" formaction="?/quitarLinea" variant="ghost">{textos.economia.quitarLinea}</Button>
-				{/if}
+			{#if confirmacionServidor}
+				<!-- RF-198 sin JavaScript: el mismo efecto como paso intermedio, con «Registrar igualmente» y «Cancelar». -->
+				<div class="flex flex-col gap-3 rounded-panel border border-warning bg-wall-base p-4" role="alert">
+					<h2 class="type-title-lg">{textos.economia.huchaNegativaTitulo}</h2>
+					<p class="text-[15px] text-ink-muted">{textos.economia.huchaNegativaDescripcion}</p>
+					{@render efecto(confirmacionServidor.saldo, confirmacionServidor.importe, confirmacionServidor.resultado)}
+					<p class="text-[13px] text-ink-muted">{textos.economia.repetirFoto}</p>
+					<input type="hidden" name="saldoConfirmado" value={confirmacionServidor.saldo} />
+					<Button type="submit" name="confirmarHuchaNegativa" value="si" variant="danger">{textos.economia.registrarIgualmente}</Button>
+					<a href={resolve('/(app)/compras')} class="text-center text-[15px] font-semibold text-accent underline"
+						>{textos.economia.cancelar}</a
+					>
+				</div>
+			{:else}
 				<Button type="submit">{textos.economia.registrarCompra}</Button>
-			</div>
+			{/if}
 		</form>
 	{/if}
 
@@ -173,3 +231,15 @@
 		{/if}
 	</Section>
 </div>
+
+<ConfirmDialog
+	bind:open={dialogoAbierto}
+	title={textos.economia.huchaNegativaTitulo}
+	description={textos.economia.huchaNegativaDescripcion}
+	confirmLabel={textos.economia.registrarIgualmente}
+	cancelLabel={textos.economia.cancelar}
+	tone="danger"
+	onconfirm={confirmarEnCliente}
+>
+	{@render efecto(data.saldoHucha, total, resultadoPrevisto)}
+</ConfirmDialog>

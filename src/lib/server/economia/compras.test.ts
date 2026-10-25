@@ -2,7 +2,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import type { Actor } from '#lib/server/auth';
-import { crearEntornoPrueba, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
+import { crearEntornoPrueba, ErrorDeNegocio, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
 import { cambiarEstadoCapsula } from './capsulas';
 import { leerCompra, leerComprasRecientes, registrarCompra } from './compras';
 import { registrarAportacion } from './aportaciones';
@@ -150,6 +150,36 @@ describe('compras de cápsulas (CA-040 a CA-043, RN-001, RN-002, RF-046, RNF-010
 
 		expect(huchaSaldo()).toBe(-800);
 		expect(entorno.ambiente.db.select().from(avisoEconomia).all()).toHaveLength(1);
+	});
+
+	it('CA-198: el rechazo por hucha negativa trae el saldo, el importe y el saldo resultante', async () => {
+		dotarHucha(1200);
+		const [marta] = prepararMiembros(entorno.ambiente.db, 1);
+		const tipo = await prepararTipo(entorno.ambiente);
+		const datos = { clienteId: nuevoId(), lineas: [{ tipoCapsulaId: tipo, cantidad: 10, importe: 2000 }], confirmoHuchaNegativa: false };
+
+		const rechazo = await registrarCompra(entorno.ambiente, actorDe(marta), datos).catch((causa: unknown) => causa);
+
+		expect(rechazo).toBeInstanceOf(ErrorDeNegocio);
+		expect(rechazo instanceof ErrorDeNegocio && rechazo.detalle).toEqual({ saldo: 1200, importe: 2000, resultado: -800 });
+	});
+
+	it('EV-106: si el saldo cambió entre la confirmación y el envío, la compra pide confirmar otra vez', async () => {
+		dotarHucha(1200);
+		const [marta] = prepararMiembros(entorno.ambiente.db, 1);
+		const tipo = await prepararTipo(entorno.ambiente);
+		const datos = {
+			clienteId: nuevoId(),
+			lineas: [{ tipoCapsulaId: tipo, cantidad: 10, importe: 2000 }],
+			confirmoHuchaNegativa: true,
+			saldoConfirmado: 1500,
+		};
+
+		await expect(registrarCompra(entorno.ambiente, actorDe(marta), datos)).rejects.toThrow('CONFIRMACION_REQUERIDA');
+		expect(huchaSaldo()).toBe(1200);
+
+		await registrarCompra(entorno.ambiente, actorDe(marta), { ...datos, saldoConfirmado: 1200 });
+		expect(huchaSaldo()).toBe(-800);
 	});
 
 	it('RF-046: reenviar la misma compra no la duplica', async () => {
