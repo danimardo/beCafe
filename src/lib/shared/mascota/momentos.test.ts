@@ -71,3 +71,10 @@ describe('catálogo de momentos, eventos y bienvenida de Capsulito (RF-185, RF-1
 		expect(srcRiv('celebrando')).toBe('/mascota/riv/capsulito-celebrando.riv');
 	});
 });
+
+describe('saludo sin nombre (RF-195)', () => {
+	it('CA-195: «¡Hola, {nombre}!» sin nombre queda «¡Hola!» y con nombre lo conserva', () => {
+		expect(textoDe('bienvenida-hola')).toMatch(/^¡Hola! Soy Capsulito/);
+		expect(textoDe('bienvenida-hola', { nombre: 'Ana' })).toMatch(/^¡Hola, Ana! Soy Capsulito/);
+	});
+});

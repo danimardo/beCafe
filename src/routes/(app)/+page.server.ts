@@ -33,6 +33,7 @@ export const load: PageServerLoad = ({ locals, url }) => {
 	const db = locals.ambiente.db;
 	const ahora = locals.ambiente.reloj.ahora();
 	const persona = buscarUsuarioPorId(db, actor.usuarioId);
+	const marcas = leerMarcasCuenta(db, actor.usuarioId);
 	// Un parámetro desconocido o con otro valor no muestra aviso; no es un error de la página.
 	const aviso = esquemaAvisoInicio.safeParse(Object.fromEntries(url.searchParams));
 	const avisos = leerAvisosStock(db, actor, ahora).map((tipo) => ({
@@ -103,7 +104,11 @@ export const load: PageServerLoad = ({ locals, url }) => {
 		deudores: leerPersonasBajoLimite(db, actor).map((persona) => ({ nombre: persona.nombre, saldo: persona.saldo })),
 		privacidadAceptada: aviso.success && aviso.data.aviso === 'privacidad-aceptada',
 		// RF-204: el tour se ofrece una vez por cuenta, o cuando la persona lo pide desde la ayuda.
-		tourPendiente: !leerMarcasCuenta(db, actor.usuarioId).tourInicioVisto || (aviso.success && aviso.data.tour === 'si'),
+		tourPendiente: !marcas.tourInicioVisto || (aviso.success && aviso.data.tour === 'si'),
+		// RF-206: descartar la tarjeta de instalación se guarda en la cuenta.
+		instalacionDescartada: marcas.instalacionDescartada,
+		// RF-207: la oferta de avisos se hace una sola vez por cuenta.
+		ofertaAvisosVista: marcas.ofertaAvisosVista,
 		avisos,
 		tipos,
 		recientes: leerConsumosRecientesPropios(db, actor, ahora).map((consumo) => ({
@@ -117,6 +122,22 @@ export const load: PageServerLoad = ({ locals, url }) => {
 };
 
 export const actions: Actions = {
+	// RF-206: «Ahora no» en la tarjeta de instalación. Repetirlo no cambia nada.
+	descartarInstalacion: ({ locals }) => {
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		marcarCuenta(locals.ambiente, actor.usuarioId, 'instalacion_descartada');
+		return { instalacionDescartada: true };
+	},
+
+	// RF-207: «Activar avisos» o «Ahora no» en la oferta. Las dos la dan por vista; el permiso lo gestiona el navegador.
+	ofertaAvisosVista: ({ locals }) => {
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		marcarCuenta(locals.ambiente, actor.usuarioId, 'oferta_avisos_vista');
+		return { ofertaAvisosVista: true };
+	},
+
 	// RF-204: terminar o saltar el tour lo marca como visto en la cuenta. Repetirlo no cambia nada.
 	tourVisto: ({ locals }) => {
 		const actor = locals.actor;

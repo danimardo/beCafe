@@ -35,6 +35,22 @@ const CRONOMETRO_ARRANQUE_MS = 60_000;
  * El arranque se detecta por la línea que escribe el adaptador de Node; no hay bucles de espera.
  */
 export const test = base.extend<object, { servidor: ServidorDePrueba }>({
+	// La bienvenida de antes de entrar (RF-195) taparía el formulario de `/login` en cada prueba. Las pruebas que la
+	// comprueban abren su propio contexto con `browser.newContext()`, que no pasa por este valor.
+	context: async ({ context }, use) => {
+		await context.addInitScript(() => {
+			try {
+				// Solo la primera vez de cada pestaña: una prueba puede borrar la marca y recargar para ver la bienvenida.
+				if (sessionStorage.getItem('becafe-e2e-inicio') === null) {
+					localStorage.setItem('becafe-bienvenida', 'vista');
+					sessionStorage.setItem('becafe-e2e-inicio', '1');
+				}
+			} catch {
+				// Sin almacenamiento disponible.
+			}
+		});
+		await use(context);
+	},
 	servidor: [
 		async ({}, use, workerInfo) => {
 			const puerto = PUERTO_BASE + workerInfo.parallelIndex;

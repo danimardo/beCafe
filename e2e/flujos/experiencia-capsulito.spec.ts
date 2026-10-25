@@ -1,6 +1,10 @@
 import { test, expect } from '../fixtures/errores-navegador';
 import { botonDeInvitado, botonDeToque, tipoConCoste } from '../fixtures/consumos';
 import { entrarComo } from '../fixtures/sesiones';
+import { cerrarSesion } from '../fixtures/economia';
+import { nombreUnico } from '../fixtures/capsulas';
+import { crearEnlaceVisitante } from '../fixtures/visitantes';
+import { activarPersona, darDeAltaYLeerEnlace } from '../fixtures/usuarios';
 
 // F9/F10: navegación adaptable, tarjetas de cápsula con ilustración, mascota Capsulito, bienvenida de 8 escenas y laboratorio (CA-182 a CA-188, EV-101, EV-102).
 
@@ -138,4 +142,101 @@ test('CA-188: el laboratorio /ayuda/capsulito permite inspeccionar poses, expres
 	await page.getByRole('button', { name: 'Modo SVG / WebP', exact: true }).click();
 	await page.getByRole('button', { name: '4 · Abierta (A)', exact: true }).click();
 	await expect(page.getByRole('button', { name: '4 · Abierta (A)', exact: true })).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('CA-195: en un dispositivo limpio, /login muestra primero la bienvenida con «Empezar» y no vuelve a mostrarla', async ({
+	browser,
+	servidor,
+}) => {
+	const contexto = await browser.newContext();
+	const pagina = await contexto.newPage();
+	await pagina.goto(`${servidor.url}/login`);
+
+	const dialogo = pagina.getByRole('dialog');
+	await expect(dialogo.getByRole('heading', { name: 'Conoce a Capsulito' })).toBeVisible();
+	await dialogo.getByRole('button', { name: 'Empezar', exact: true }).click();
+	await expect(dialogo.getByText('Escena 1 de 8')).toBeVisible();
+	for (let escena = 2; escena <= 8; escena++) await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
+	await expect(dialogo.getByRole('link', { name: 'Entrar', exact: true })).toHaveCount(0);
+	await dialogo.getByRole('button', { name: 'Entrar', exact: true }).click();
+	await expect(dialogo).toHaveCount(0);
+	await expect(pagina.getByRole('textbox', { name: 'Correo electrónico', exact: true })).toBeVisible();
+
+	await pagina.reload();
+	await expect(pagina.getByRole('dialog')).toHaveCount(0);
+	await contexto.close();
+});
+
+test('CA-195: con un enlace de visitante la bienvenida termina con «Soy visitante» y un enlace «Entrar»', async ({
+	browser,
+	page,
+	servidor,
+}) => {
+	await entrarComo(page, servidor, 'miembro');
+	const enlace = await crearEnlaceVisitante(page, servidor);
+
+	const contexto = await browser.newContext();
+	const visitante = await contexto.newPage();
+	await visitante.goto(enlace);
+	const dialogo = visitante.getByRole('dialog');
+	await dialogo.getByRole('button', { name: 'Empezar', exact: true }).click();
+	for (let escena = 2; escena <= 8; escena++) await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
+	await expect(dialogo.getByRole('link', { name: 'Entrar', exact: true })).toHaveAttribute('href', '/login');
+	await dialogo.getByRole('button', { name: 'Soy visitante', exact: true }).click();
+	await expect(visitante.getByRole('textbox', { name: 'Tu nombre', exact: true })).toBeVisible();
+	await contexto.close();
+});
+
+test('CA-206, CA-207: una cuenta nueva ve la oferta de avisos y la tarjeta de instalación una sola vez, y Perfil conserva la instalación', async ({
+	browser,
+	page,
+	servidor,
+}) => {
+	await entrarComo(page, servidor, 'administrador');
+	const enlace = await darDeAltaYLeerEnlace(page, servidor, nombreUnico('Primer'));
+	await cerrarSesion(page, servidor);
+
+	const contexto = await browser.newContext();
+	await contexto.addInitScript(() => {
+		try {
+			localStorage.setItem('becafe-voz', 'silenciada');
+		} catch {
+			// Sin almacenamiento disponible.
+		}
+		// Chromium sin interfaz informa el permiso de avisos como «denied»: se fija «default» para que la oferta sea posible.
+		if ('Notification' in window) Object.defineProperty(Notification, 'permission', { get: () => 'default' });
+		// Chromium solo lanza `beforeinstallprompt` con una PWA instalable; se simula repitiéndolo hasta que la aplicación escucha.
+		const lanzar = setInterval(() => {
+			const peticion = new Event('beforeinstallprompt', { cancelable: true });
+			Object.assign(peticion, { prompt: async () => {}, userChoice: Promise.resolve({ outcome: 'dismissed' }) });
+			window.dispatchEvent(peticion);
+		}, 200);
+		setTimeout(() => clearInterval(lanzar), 15_000);
+	});
+	const persona = await contexto.newPage();
+	await activarPersona(persona, servidor, enlace, true);
+
+	await persona.getByRole('button', { name: 'Saltar', exact: true }).click();
+	const oferta = persona.getByRole('heading', { name: '¿Te aviso de las novedades?' });
+	const tarjeta = persona.getByRole('heading', { name: 'Instalar beCafé' });
+	await expect(oferta).toBeVisible();
+	await expect(tarjeta).toBeVisible();
+
+	await persona.getByRole('button', { name: 'Ahora no', exact: true }).first().click();
+	await persona.getByRole('button', { name: 'Ahora no', exact: true }).first().click();
+	await expect(oferta).toBeHidden();
+	await expect(tarjeta).toBeHidden();
+
+	// Las dos decisiones se guardan en la cuenta: no vuelven a aparecer.
+	await persona.goto(`${servidor.url}/saldos`);
+	await persona.goto(`${servidor.url}/`);
+	await persona.waitForLoadState('load');
+	await expect(oferta).toBeHidden();
+	await expect(tarjeta).toBeHidden();
+
+	// CA-206: Perfil conserva la opción de instalar aunque se haya descartado la tarjeta.
+	await persona.goto(`${servidor.url}/perfil`);
+	await expect(persona.getByRole('heading', { name: 'Instalar la aplicación' })).toBeVisible();
+	await expect(persona.getByRole('button', { name: 'Instalar', exact: true })).toBeVisible();
+	await contexto.close();
 });

@@ -2,7 +2,21 @@
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
-	import { Button, ConfirmDialog, ListRow, PageHeader, PasswordField, Section, Switch, ThemeToggle, usarMascota, usarTema } from '#lib/ui';
+	import { onMount } from 'svelte';
+	import {
+		Button,
+		ConfirmDialog,
+		ListRow,
+		PageHeader,
+		PasswordField,
+		Section,
+		Switch,
+		TarjetaInstalacion,
+		ThemeToggle,
+		usarMascota,
+		usarTema,
+	} from '#lib/ui';
+	import { crearInstalacion, type EstadoInstalacion } from '#lib/client/instalacion';
 	import { textos } from '#lib/shared/textos';
 	import SeccionAvisos from './SeccionAvisos.svelte';
 
@@ -20,6 +34,14 @@
 	const mascota = usarMascota();
 	let confirmando = $state(false);
 	let formularioSesiones: HTMLFormElement | undefined;
+
+	// RF-206: la opción de instalar está siempre en Perfil, aunque se haya descartado la tarjeta de Inicio.
+	let estadoInstalacion = $state<EstadoInstalacion>('no_disponible');
+	let instalacion: ReturnType<typeof crearInstalacion> | undefined;
+	onMount(() => {
+		instalacion = crearInstalacion(window, (estado) => (estadoInstalacion = estado));
+		return () => instalacion?.destruir();
+	});
 </script>
 
 <svelte:head>
@@ -63,6 +85,18 @@
 			</div>
 		</Section>
 	{/if}
+
+	<Section title="Instalar la aplicación">
+		{#if estadoInstalacion === 'instalable' || estadoInstalacion === 'ios'}
+			<TarjetaInstalacion compacta estado={estadoInstalacion} oninstalar={() => void instalacion?.instalar()} />
+		{:else}
+			<p class="rounded-panel border border-hairline bg-wall-base p-4 text-[15px] leading-6 text-ink-muted">
+				{estadoInstalacion === 'instalada'
+					? 'beCafé ya está instalada en este dispositivo.'
+					: 'Este navegador no ofrece instalar la aplicación. Prueba con Chrome en Android o con Safari en iPhone y iPad.'}
+			</p>
+		{/if}
+	</Section>
 
 	<Section title={textos.apariencia.titulo}>
 		<div class="flex flex-col gap-4 rounded-panel border border-hairline bg-wall-base p-5">

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { PageProps } from './$types';
-	import { Button, TextField, PasswordField, opcionesFormulario, usarAvisos } from '#lib/ui';
+	import { Bienvenida, Button, TextField, PasswordField, opcionesFormulario, usarAvisos } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 
 	type Formulario = { errores?: Partial<Record<string, { mensaje: string }>>; valores?: Record<string, unknown> } | null;
@@ -16,6 +16,9 @@
 <svelte:head>
 	<title>{textos.inicioSesion.titulo} · beCafé</title>
 </svelte:head>
+
+<!-- RF-195: si el dispositivo nunca vio la bienvenida, se muestra antes del formulario. -->
+<Bienvenida modo="antesDeEntrar" />
 
 <main class="mx-auto flex min-h-dvh w-full max-w-sm flex-col justify-center gap-6 px-4 py-10">
 	<h1 class="font-serif text-3xl font-semibold text-ink">{textos.inicioSesion.titulo}</h1>

@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
-	import { Banner, Button, TextField } from '#lib/ui';
+	import { Banner, Bienvenida, Button, TextField } from '#lib/ui';
 	import { TEXTO_VISITANTES } from '#lib/shared/privacidad';
 	import { textos } from '#lib/shared/textos';
 
@@ -22,6 +23,11 @@
 <svelte:head>
 	<title>{textos.visitantes.tituloEntrada} · beCafé</title>
 </svelte:head>
+
+{#if data.valido}
+	<!-- RF-195: con un enlace vigente, la bienvenida va antes de pedir el nombre. -->
+	<Bienvenida modo="antesDeEntrar" visitante hrefEntrar={resolve('/(auth)/login')} />
+{/if}
 
 <main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-8">
 	{#if data.valido}

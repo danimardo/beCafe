@@ -37,11 +37,13 @@ export async function activarPersona(page: Page, servidor: ServidorDePrueba, enl
 	await page.getByRole('button', { name: 'He leído el texto y lo acepto', exact: true }).click();
 	await expect(page).toHaveURL(`${servidor.url}/?aviso=privacidad-aceptada`);
 	if (conTour) return;
-	// La cuenta nueva no ha visto el tour de Inicio (RF-204): se marca como visto con su acción y se recarga sin él.
-	const respuesta = await page.request.post(`${servidor.url}/?/tourVisto`, {
-		headers: { origin: servidor.url, 'content-type': 'application/x-www-form-urlencoded' },
-		data: '',
-	});
-	expect(respuesta.ok()).toBe(true);
+	// La cuenta nueva no ha visto el tour, la instalación ni la oferta de avisos (RF-204, RF-206, RF-207): se marcan con sus acciones.
+	for (const accion of ['tourVisto', 'descartarInstalacion', 'ofertaAvisosVista']) {
+		const respuesta = await page.request.post(`${servidor.url}/?/${accion}`, {
+			headers: { origin: servidor.url, 'content-type': 'application/x-www-form-urlencoded' },
+			data: '',
+		});
+		expect(respuesta.ok()).toBe(true);
+	}
 	await page.goto(`${servidor.url}/`);
 }

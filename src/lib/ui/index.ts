@@ -29,6 +29,8 @@ export { default as ListRow } from './ListRow.svelte';
 export { default as Pagination } from './Pagination.svelte';
 export { default as Stepper } from './Stepper.svelte';
 export { default as TourInicio } from './TourInicio.svelte';
+export { default as OfertaAvisos } from './OfertaAvisos.svelte';
+export { default as TarjetaInstalacion } from './TarjetaInstalacion.svelte';
 export { default as AyudaPanel } from './AyudaPanel.svelte';
 export { default as CounterField } from './CounterField.svelte';
 export { default as CopyField } from './CopyField.svelte';

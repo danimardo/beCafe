@@ -37,3 +37,22 @@ test.describe('tema oscuro', () => {
 		await expectSinInfracciones(page);
 	});
 });
+
+// RF-195: la bienvenida de antes de entrar, en sus dos pantallas (Empezar y escena 1), en los dos temas.
+for (const esquema of ['light', 'dark'] as const) {
+	test.describe(`bienvenida antes de entrar, tema ${esquema === 'light' ? 'claro' : 'oscuro'}`, () => {
+		test.use({ colorScheme: esquema });
+
+		test('«Empezar» y la primera escena no tienen infracciones de axe', async ({ browser, servidor }) => {
+			const contexto = await browser.newContext({ colorScheme: esquema });
+			const pagina = await contexto.newPage();
+			await pagina.goto(`${servidor.url}/login`);
+			await pagina.getByRole('dialog').getByRole('button', { name: 'Empezar', exact: true }).waitFor();
+			await expectSinInfracciones(pagina);
+			await pagina.getByRole('button', { name: 'Empezar', exact: true }).click();
+			await pagina.getByText('Escena 1 de 8').waitFor();
+			await expectSinInfracciones(pagina);
+			await contexto.close();
+		});
+	});
+}

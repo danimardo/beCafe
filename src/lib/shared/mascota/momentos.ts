@@ -861,8 +861,9 @@ export type MomentoId = keyof typeof MOMENTOS;
 
 /** Sustituye `{nombre}` en un texto del catálogo y limpia espacios antes de signos de puntuación. */
 export function formatearTextoMascota(plantilla: string, vars: { nombre?: string } = {}): string {
-	return plantilla
-		.replace('{nombre}', vars.nombre ?? '')
+	// Sin nombre (bienvenida antes de entrar), «¡Hola, {nombre}!» queda «¡Hola!»: se quita también la coma previa.
+	const sustituida = vars.nombre ? plantilla.replace('{nombre}', vars.nombre) : plantilla.replace(/,?\s*\{nombre\}/, '');
+	return sustituida
 		.replace(/\s+([!?,.…])/g, '$1')
 		.replace(/\s{2,}/g, ' ')
 		.trim();

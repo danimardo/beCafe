@@ -59,8 +59,12 @@ async function sembrar(): Promise<number> {
 			aceptarPrivacidadPersona(ambiente.db, { usuarioId, version: VERSION_PRIVACIDAD, instante: ambiente.reloj.ahora() });
 		}
 
-		// El tour de Inicio (RF-204) se prueba con una cuenta nueva: las sembradas ya lo han visto y no tapa sus pruebas.
-		for (const usuarioId of [ana, luis, pedro, marta]) marcarCuenta(ambiente, usuarioId, 'tour_inicio_visto');
+		// El tour, la tarjeta de instalación y la oferta de avisos (RF-204, RF-206, RF-207) se prueban con una cuenta nueva:
+		// las sembradas ya los han visto y no tapan sus pruebas.
+		for (const usuarioId of [ana, luis, pedro, marta]) {
+			for (const clave of ['tour_inicio_visto', 'instalacion_descartada', 'oferta_avisos_vista'] as const)
+				marcarCuenta(ambiente, usuarioId, clave);
+		}
 
 		const siembra = {
 			correos: { administrador: CORREO_ANA, miembro: CORREO_LUIS, invitada: CORREO_PEDRO, pendiente: CORREO_MARTA },

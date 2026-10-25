@@ -18,6 +18,8 @@
 		PageHeader,
 		PanelGrid,
 		Section,
+		OfertaAvisos,
+		TarjetaInstalacion,
 		TourInicio,
 		WaterRefillCard,
 		usarAvisos,
@@ -26,6 +28,8 @@
 	import { MOMENTOS, momentoInicio } from '#lib/shared/mascota/momentos';
 	import { textos } from '#lib/shared/textos';
 	import { instanteDesdeFecha } from '#lib/shared/fechas/tipos';
+	import { activarPush } from '#lib/client/push';
+	import { crearInstalacion, type EstadoInstalacion } from '#lib/client/instalacion';
 	import { anadirElemento, borrarElemento, enviarPendientes, limpiarRechazados, listarElementos } from '#lib/client/cola-consumos/index';
 	import type { PageProps } from './$types';
 
@@ -48,13 +52,47 @@
 		tourCerrado = false;
 	});
 	let montado = $state(false);
+	// RF-206: tarjeta de instalación. Solo se ofrece si el navegador puede instalar y la cuenta no la descartó.
+	let estadoInstalacion = $state<EstadoInstalacion>('no_disponible');
+	let instalacion: ReturnType<typeof crearInstalacion> | undefined;
+	let formularioInstalacion: HTMLFormElement | undefined = $state();
+	let instalacionOculta = $state(false);
 	onMount(() => {
 		montado = true;
+		instalacion = crearInstalacion(window, (estado) => (estadoInstalacion = estado));
+		return () => instalacion?.destruir();
 	});
+	function descartarInstalacion() {
+		instalacionOculta = true;
+		formularioInstalacion?.requestSubmit();
+	}
 	const mostrarTour = $derived(montado && data.tourPendiente && !tourCerrado && mascota.bienvenidaVista && !mascota.bienvenidaManual);
 	function terminarTour() {
 		tourCerrado = true;
 		formularioTour?.requestSubmit();
+	}
+
+	// RF-207: tras la bienvenida y el tour, Capsulito ofrece los avisos una sola vez, si el navegador aún no ha decidido.
+	let formularioOferta: HTMLFormElement | undefined = $state();
+	let ofertaCerrada = $state(false);
+	const mostrarOferta = $derived(
+		montado &&
+			!data.ofertaAvisosVista &&
+			!ofertaCerrada &&
+			!mostrarTour &&
+			(!data.tourPendiente || tourCerrado) &&
+			mascota.bienvenidaVista &&
+			!mascota.bienvenidaManual &&
+			typeof Notification !== 'undefined' &&
+			Notification.permission === 'default',
+	);
+	function cerrarOferta() {
+		ofertaCerrada = true;
+		formularioOferta?.requestSubmit();
+	}
+	async function activarDesdeOferta() {
+		await activarPush();
+		cerrarOferta();
 	}
 	let temporizador: ReturnType<typeof setTimeout> | undefined;
 
@@ -327,6 +365,30 @@
 			async ({ update }) =>
 				update({ reset: false, invalidateAll: false })}
 	></form>
+	<form
+		method="post"
+		action="?/descartarInstalacion"
+		class="hidden"
+		bind:this={formularioInstalacion}
+		use:enhance={() =>
+			async ({ update }) =>
+				update({ reset: false, invalidateAll: false })}
+	></form>
+	<form
+		method="post"
+		action="?/ofertaAvisosVista"
+		class="hidden"
+		bind:this={formularioOferta}
+		use:enhance={() =>
+			async ({ update }) =>
+				update({ reset: false, invalidateAll: false })}
+	></form>
+	{#if mostrarOferta}
+		<OfertaAvisos onactivar={activarDesdeOferta} onahoranoo={cerrarOferta} />
+	{/if}
+	{#if montado && !data.instalacionDescartada && !instalacionOculta && (estadoInstalacion === 'instalable' || estadoInstalacion === 'ios')}
+		<TarjetaInstalacion estado={estadoInstalacion} oninstalar={() => void instalacion?.instalar()} ondescartar={descartarInstalacion} />
+	{/if}
 	{#if mostrarTour}
 		<TourInicio onterminar={terminarTour} />
 	{/if}
