@@ -1,9 +1,10 @@
-import { limitesDeAnio, limitesDeMes, mesesEntre } from '#lib/shared/fechas/meses';
+import { limitesDeAnio, limitesDeMes, mesAnterior, mesesEntre } from '#lib/shared/fechas/meses';
 import type { InstanteUtc, Mes } from '#lib/shared/fechas/tipos';
 
 // Periodos de las estadísticas (plan F5 D9; spec.md, Clarifications 2). Función pura: el mes actual llega por parámetro.
 
-export type Periodo = { tipo: 'mes'; mes: Mes } | { tipo: 'anio'; anio: number } | { tipo: 'todo' };
+/** `ultimos`: los `meses` meses naturales que terminan en el mes actual, incluido (RF-202). */
+export type Periodo = { tipo: 'mes'; mes: Mes } | { tipo: 'anio'; anio: number } | { tipo: 'ultimos'; meses: number } | { tipo: 'todo' };
 
 export type Limites = { desde: InstanteUtc; hasta: InstanteUtc };
 
@@ -17,6 +18,9 @@ export function limitesDePeriodo(periodo: Periodo, primerMes: Mes | null, mesAct
 	}
 	if (periodo.tipo === 'anio') {
 		return limitesDeAnio(periodo.anio);
+	}
+	if (periodo.tipo === 'ultimos') {
+		return { desde: limitesDeMes(primerMesDeUltimos(periodo.meses, mesActual)).desde, hasta: limitesDeMes(mesActual).hasta };
 	}
 	if (primerMes === null) {
 		return null;
@@ -34,4 +38,16 @@ export function rellenarMeses(serie: Map<Mes, number>, meses: Mes[]): { mes: Mes
 /** Meses de un periodo `todo` entre el primero con datos y el actual, ambos incluidos. */
 export function mesesDelPeriodo(primerMes: Mes | null, mesActual: Mes): Mes[] {
 	return primerMes === null ? [] : mesesEntre(primerMes, mesActual);
+}
+
+/** Primer mes de los últimos `meses` meses que terminan en `mesActual` (con 1, el propio mes actual). */
+export function primerMesDeUltimos(meses: number, mesActual: Mes): Mes {
+	let mes = mesActual;
+	for (let i = 1; i < meses; i += 1) mes = mesAnterior(mes);
+	return mes;
+}
+
+/** Meses de los últimos `meses` meses, del más antiguo al actual. */
+export function mesesDeUltimos(meses: number, mesActual: Mes): Mes[] {
+	return mesesEntre(primerMesDeUltimos(meses, mesActual), mesActual);
 }

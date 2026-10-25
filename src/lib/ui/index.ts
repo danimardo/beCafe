@@ -48,6 +48,8 @@ export { default as RegularizationSummary } from './RegularizationSummary.svelte
 export type { Regularization, RegularizationResult } from './RegularizationSummary.svelte';
 export { default as KpiTile } from './KpiTile.svelte';
 export { default as BarChart } from './BarChart.svelte';
+export { default as LineChart } from './LineChart.svelte';
+export { default as StackedBarChart } from './StackedBarChart.svelte';
 export { default as SplitBar } from './SplitBar.svelte';
 
 // Mascota (Capsulito: Rive + respaldo SVG + sincronización labial, RF-185 a RF-188)

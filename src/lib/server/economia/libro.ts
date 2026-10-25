@@ -1,8 +1,9 @@
-import { and, eq, sql, type SQL } from 'drizzle-orm';
+import { and, eq, lt, sql, type SQL } from 'drizzle-orm';
 import { ErrorDeNegocio, nuevoId, type Ejecutor, type Tx } from '#lib/server/plataforma';
 import { registrarAviso } from '#lib/server/notificaciones';
 import { leerConfiguracion } from '#lib/server/configuracion';
-import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
+import { esquemaInstanteUtc, type Mes } from '#lib/shared/fechas/tipos';
+import { limitesDeMes } from '#lib/shared/fechas/meses';
 import { movimiento, type ORIGENES_MOVIMIENTO, type TIPOS_MOVIMIENTO } from './esquema';
 
 // Libro de movimientos (constitución IV). Interno de `economia`: no se exporta desde `index.ts`.
@@ -83,6 +84,17 @@ export function saldoPersona(db: Ejecutor, usuarioId: string): number {
 /** Saldo teórico de la hucha: suma de sus movimientos vigentes (RN-011). 0 si no tiene ninguno. */
 export function saldoHucha(db: Ejecutor): number {
 	return sumaVigente(db, eq(movimiento.cuenta, 'hucha'));
+}
+
+/**
+ * Saldo teórico de la hucha al cierre de cada mes de `Europe/Madrid` (RF-202), en céntimos, desde los movimientos
+ * vigentes. Un mes sin movimientos repite el saldo del anterior.
+ */
+export function leerEvolucionHucha(db: Ejecutor, meses: readonly Mes[]): { mes: Mes; saldo: number }[] {
+	return meses.map((mes) => ({
+		mes,
+		saldo: sumaVigente(db, and(eq(movimiento.cuenta, 'hucha'), lt(movimiento.creadoEn, limitesDeMes(mes).hasta))),
+	}));
 }
 
 function sumaVigente(db: Ejecutor, filtro: SQL | undefined): number {

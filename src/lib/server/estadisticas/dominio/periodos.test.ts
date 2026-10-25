@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { esquemaMes, type Mes } from '#lib/shared/fechas/tipos';
-import { limitesDePeriodo, mesesDelPeriodo, rellenarMeses } from './periodos';
+import { limitesDePeriodo, mesesDelPeriodo, mesesDeUltimos, rellenarMeses } from './periodos';
+import { limitesDeMes } from '#lib/shared/fechas/meses';
 
 // Plan F5 D9 y tarea T003: periodos mes, año y todo; meses sin datos con 0 y año sin datos.
 const mes = (texto: string): Mes => esquemaMes.parse(texto);
@@ -50,5 +51,15 @@ describe('rellenarMeses', () => {
 
 	it('todo sin consumos no genera meses', () => {
 		expect(mesesDelPeriodo(null, mes('2026-10'))).toEqual([]);
+	});
+
+	it('CA-202: «últimos 3 meses» va del inicio del antepenúltimo mes al final del actual, cruzando el año', () => {
+		const actual = esquemaMes.parse('2027-01');
+		expect(mesesDeUltimos(3, actual)).toEqual(['2026-11', '2026-12', '2027-01']);
+		expect(mesesDeUltimos(12, actual)).toHaveLength(12);
+		expect(limitesDePeriodo({ tipo: 'ultimos', meses: 3 }, null, actual)).toEqual({
+			desde: limitesDeMes(esquemaMes.parse('2026-11')).desde,
+			hasta: limitesDeMes(actual).hasta,
+		});
 	});
 });

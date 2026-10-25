@@ -1,10 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type { Actor } from '#lib/server/auth';
 import { configuracion } from '#lib/server/configuracion';
-import { anularConsumo, darDeAltaCapsula, registrarCompra, registrarConsumo } from '#lib/server/economia';
+import {
+	anularConsumo,
+	darDeAltaCapsula,
+	registrarCafeVisitante,
+	registrarCompra,
+	registrarConsumo,
+	revisarCafesVisitante,
+} from '#lib/server/economia';
 import { anularRelleno, registrarRelleno } from '#lib/server/rellenos';
 import { crearEntornoPrueba, crearRelojFijo, enTransaccion, nuevoId, ErrorDeNegocio, type EntornoPrueba } from '#lib/server/plataforma';
-import { cambiarRol, crearUsuario, marcarBaja } from '#lib/server/usuarios';
+import { crearUsuario, marcarBaja } from '#lib/server/usuarios';
 import { esquemaInstanteUtc, esquemaMes } from '#lib/shared/fechas/tipos';
 import { leerEquipo, leerPersonales } from './consultas';
 
@@ -133,24 +140,71 @@ describe('estadísticas de consumo (CA-120, CA-121, CA-122, RN-035, RN-060, RN-0
 		expect(noviembre.cafes).toBe(1);
 	});
 
-	it('CA-122: un miembro que pide las estadísticas de otra persona recibe SIN_PERMISO', () => {
+	it('CA-201: cualquier miembro ve las estadísticas de otra persona (RF-201, DEC-118)', async () => {
 		const ana = persona('Ana');
 		const bea = persona('Bea');
+		const tipoCafe = await tipo();
+		toque(ana, tipoCafe, '2026-10-09T09:00:00.000Z');
 
-		expect(() => leerPersonales(entorno.ambiente.db, actorDe(bea), ana, { periodo: 'todo' }, AHORA)).toThrow(ErrorDeNegocio);
+		expect(leerPersonales(entorno.ambiente.db, actorDe(bea), ana, OCTUBRE, AHORA).cafes).toBe(1);
+		expect(() => leerPersonales(entorno.ambiente.db, undefined, ana, OCTUBRE, AHORA)).toThrow(ErrorDeNegocio);
 	});
 
-	it('RN-060: un administrador degradado deja de ver las estadísticas de otras personas en la siguiente consulta', () => {
+	it('CA-201: el departamento lista los cafés de cada persona activa, de mayor a menor, también con 0', async () => {
 		const ana = persona('Ana');
-		const admin = persona('Administración', 'administrador');
-		expect(() => leerPersonales(entorno.ambiente.db, actorDe(admin, 'administrador'), ana, { periodo: 'todo' }, AHORA)).not.toThrow();
+		const bea = persona('Bea');
+		persona('Carla');
+		const tipoCafe = await tipo();
+		toque(bea, tipoCafe, '2026-10-09T09:00:00.000Z');
+		toque(bea, tipoCafe, '2026-10-10T09:00:00.000Z', true);
+		toque(ana, tipoCafe, '2026-10-11T09:00:00.000Z');
 
-		const otroAdmin = persona('Otra administración', 'administrador');
-		enTransaccion(entorno.ambiente.db, (tx) =>
-			cambiarRol(tx, { usuarioId: admin, rolNuevo: 'miembro', actorId: otroAdmin, instante: INSTANTE }),
-		);
+		const porPersona = leerEquipo(entorno.ambiente.db, actorDe(ana), OCTUBRE, AHORA).porPersona;
 
-		expect(() => leerPersonales(entorno.ambiente.db, actorDe(admin), ana, { periodo: 'todo' }, AHORA)).toThrow(ErrorDeNegocio);
+		expect(porPersona.filter((fila) => fila.nombre !== 'Comprador').map((fila) => [fila.nombre, fila.cafes, fila.invitados])).toEqual([
+			['Bea', 1, 1],
+			['Ana', 1, 0],
+			['Carla', 0, 0],
+		]);
+		expect(leerPersonales(entorno.ambiente.db, actorDe(ana), ana, OCTUBRE, AHORA).porPersona).toEqual([]);
+	});
+
+	it('CA-201, CA-202: los cafés de visitante aprobados cuentan aparte; los pendientes no', async () => {
+		const ana = persona('Ana');
+		const admin = actorDe(persona('Admin', 'administrador'), 'administrador');
+		const tipoCafe = await tipo();
+		const visita = { id: nuevoId(), enlaceId: nuevoId(), nombre: 'Marta', expiraEn: '2026-11-06T10:00:00.000Z' };
+		const aprobado = registrarCafeVisitante(entorno.ambiente, visita, {
+			clienteId: nuevoId(),
+			tipoCapsulaId: tipoCafe,
+			horaGesto: '2026-11-05T09:00:00.000Z',
+		});
+		registrarCafeVisitante(entorno.ambiente, visita, {
+			clienteId: nuevoId(),
+			tipoCapsulaId: tipoCafe,
+			horaGesto: '2026-11-05T09:30:00.000Z',
+		});
+		revisarCafesVisitante(entorno.ambiente, admin, { ids: [aprobado.id], decision: 'aprobar' });
+
+		const equipo = leerEquipo(entorno.ambiente.db, actorDe(ana), { periodo: 'ultimos3' }, AHORA);
+
+		expect(equipo.visitantes).toBe(1);
+		expect(equipo.cafes).toBe(0);
+		expect(equipo.porMes.map((fila) => fila.mes)).toEqual(['2026-09', '2026-10', '2026-11']);
+		expect(equipo.porMes.at(-1)).toEqual({ mes: '2026-11', cafes: 0, invitados: 0, visitantes: 1 });
+		expect(equipo.evolucion).toHaveLength(12);
+		expect(leerPersonales(entorno.ambiente.db, actorDe(ana), ana, { periodo: 'ultimos12' }, AHORA).visitantes).toBe(0);
+	});
+
+	it('CA-202: la evolución de la hucha cubre 12 meses y acaba en el saldo actual', async () => {
+		const ana = persona('Ana');
+		await tipo();
+
+		const hucha = leerEquipo(entorno.ambiente.db, actorDe(ana), OCTUBRE, AHORA).hucha;
+
+		expect(hucha).toHaveLength(12);
+		expect(hucha.at(-1)).toEqual({ mes: '2026-11', saldo: -3483 });
+		expect(hucha.at(0)?.saldo).toBe(0);
 	});
 
 	it('el equipo incluye a las personas dadas de baja (RN-046)', async () => {
@@ -178,11 +232,13 @@ describe('estadísticas de consumo (CA-120, CA-121, CA-122, RN-035, RN-060, RN-0
 		expect(leerPersonales(entorno.ambiente.db, actorDe(ana), ana, { periodo: 'todo' }, AHORA)).toEqual({
 			cafes: 0,
 			invitados: 0,
+			visitantes: 0,
 			gastado: 0,
 			porMes: [],
 			porTipo: [],
 			rellenos: 0,
 			ranking: [],
+			porPersona: [],
 		});
 	});
 });

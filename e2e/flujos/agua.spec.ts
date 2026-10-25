@@ -48,7 +48,7 @@ test('RN-085, CA-174: el ranking cuenta el relleno y anularlo desde su detalle d
 	await page.getByRole('button', { name: 'He rellenado el agua' }).click();
 	await expect(page.getByRole('status').filter({ hasText: 'Relleno registrado' }).first()).toBeVisible();
 
-	await page.goto(`${servidor.url}/estadisticas?vista=equipo&periodo=todo`);
+	await page.goto(`${servidor.url}/estadisticas?periodo=ultimos12`);
 	await expect(page.getByRole('heading', { name: 'Rellenos de agua' })).toBeVisible();
 
 	await page.goto(`${servidor.url}/historial?tipo=rellenos`);

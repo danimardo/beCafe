@@ -1,32 +1,60 @@
 import { exigirSesion, type Actor } from '#lib/server/auth';
-import { contarConsumos, primerConsumo } from '#lib/server/economia';
-import { ErrorDeNegocio, type Ejecutor } from '#lib/server/plataforma';
+import { contarCafesVisitante, contarConsumos, leerEvolucionHucha, primerConsumo } from '#lib/server/economia';
+import type { Ejecutor } from '#lib/server/plataforma';
 import { esquemaInstanteUtc, esquemaMes, type InstanteUtc, type Mes } from '#lib/shared/fechas/tipos';
 import { mesDeInstante, mesesEntre } from '#lib/shared/fechas/meses';
 import { contarRellenos } from '#lib/server/rellenos';
 import { listarUsuarios } from '#lib/server/usuarios';
-import { limitesDePeriodo, mesesDelPeriodo, type Periodo } from './dominio/periodos';
+import { limitesDePeriodo, mesesDelPeriodo, mesesDeUltimos, type Periodo } from './dominio/periodos';
 
-// Estadísticas de consumo (plan F5 D3, D4; RF-120 a RF-123). Solo lee. Los consumos anulados no cuentan (RN-035).
+// Estadísticas de consumo (plan F5 D3, D4; RF-120 a RF-123; plan F10 D7, RF-201, RF-202). Solo lee. Los consumos
+// anulados no cuentan (RN-035). Los cafés de visitante cuentan cuando están aprobados y vigentes (RN-086).
 
-export type ConsultaPeriodo = { periodo: 'mes' | 'anio' | 'todo'; mes?: Mes; anio?: number };
+export type ConsultaPeriodo = { periodo: 'mes' | 'ultimos3' | 'ultimos12' | 'anio' | 'todo'; mes?: Mes; anio?: number };
+
+/** Cafés de una persona activa en el periodo (RF-202). La lista va de quien más tomó a quien menos. */
+export type CafesDePersona = { usuarioId: string; nombre: string; cafes: number; invitados: number };
 
 /** Una persona en el ranking de rellenos (RF-175). `baja` la marca sin quitarla del ranking (RN-085). */
 export type RankingRelleno = { usuarioId: string; nombre: string; rellenos: number; baja: boolean };
 
+export type FilaMes = { mes: Mes; cafes: number; invitados: number; visitantes: number };
+
 export type EstadisticasDeConsumo = {
 	cafes: number;
 	invitados: number;
+	/** Cafés de visitante aprobados del periodo. 0 en la vista personal. */
+	visitantes: number;
 	gastado: number;
-	porMes: { mes: Mes; cafes: number; invitados: number }[];
+	porMes: FilaMes[];
 	porTipo: { tipoCapsulaId: string; cafes: number }[];
 	/** Rellenos de agua vigentes del periodo (de la persona, o del equipo en la vista de equipo). */
 	rellenos: number;
 	/** Ranking de rellenos del equipo, del que más registró al que menos. Vacío en la vista personal. */
 	ranking: RankingRelleno[];
+	/** Cafés por persona activa. Vacío en la vista personal. */
+	porPersona: CafesDePersona[];
 };
 
-const VACIO: EstadisticasDeConsumo = { cafes: 0, invitados: 0, gastado: 0, porMes: [], porTipo: [], rellenos: 0, ranking: [] };
+/** Vista del departamento: añade la evolución de los últimos 12 meses y la de la hucha (RF-202). */
+export type EstadisticasDeEquipo = EstadisticasDeConsumo & {
+	evolucion: FilaMes[];
+	hucha: { mes: Mes; saldo: number }[];
+};
+
+const VACIO: EstadisticasDeConsumo = {
+	cafes: 0,
+	invitados: 0,
+	visitantes: 0,
+	gastado: 0,
+	porMes: [],
+	porTipo: [],
+	rellenos: 0,
+	ranking: [],
+	porPersona: [],
+};
+
+const MESES_DE_EVOLUCION = 12;
 
 /** Inicio de la historia del departamento: el periodo «desde el principio» cuenta los rellenos desde aquí si no hay consumos. */
 const INICIO_HISTORIA = esquemaInstanteUtc.parse('1970-01-01T00:00:00.000Z');
@@ -51,6 +79,8 @@ function rankingDe(db: Ejecutor, rellenos: { usuarioId: string }[], usuarioId?: 
 export function resolverPeriodo(consulta: ConsultaPeriodo, ahora: InstanteUtc): Periodo {
 	const mesActual = mesDeInstante(ahora);
 	if (consulta.periodo === 'todo') return { tipo: 'todo' };
+	if (consulta.periodo === 'ultimos3') return { tipo: 'ultimos', meses: 3 };
+	if (consulta.periodo === 'ultimos12') return { tipo: 'ultimos', meses: 12 };
 	if (consulta.periodo === 'anio') return { tipo: 'anio', anio: consulta.anio ?? Number(mesActual.slice(0, 4)) };
 	return { tipo: 'mes', mes: consulta.mes ?? mesActual };
 }
@@ -74,8 +104,9 @@ function agregar(db: Ejecutor, periodo: Periodo, ahora: InstanteUtc, usuarioId?:
 	if (limites === null) return { ...VACIO, rellenos: rellenos.length, ranking: rankingDe(db, rellenos, usuarioId) };
 
 	const consumos = contarConsumos(db, { desde: limites.desde, hasta: limites.hasta, usuarioId });
-	const meses =
-		periodo.tipo === 'mes' ? [periodo.mes] : periodo.tipo === 'anio' ? mesesDeAnio(periodo.anio) : mesesDelPeriodo(primerMes, mesActual);
+	// Los cafés de visitante no son de ninguna persona: solo cuentan en la vista del departamento.
+	const cafesVisitante = usuarioId ? [] : contarCafesVisitante(db, limites);
+	const meses = mesesDe(periodo, primerMes, mesActual);
 
 	const cafesPorMes = new Map<Mes, number>();
 	const invitadosPorMes = new Map<Mes, number>();
@@ -83,8 +114,13 @@ function agregar(db: Ejecutor, periodo: Periodo, ahora: InstanteUtc, usuarioId?:
 	let cafes = 0;
 	let invitados = 0;
 	let gastado = 0;
+	const porPersona = new Map<string, { cafes: number; invitados: number }>();
 	for (const consumo of consumos) {
 		gastado += consumo.precioAplicado;
+		const persona = porPersona.get(consumo.usuarioId) ?? { cafes: 0, invitados: 0 };
+		if (consumo.invitado) persona.invitados += 1;
+		else persona.cafes += 1;
+		porPersona.set(consumo.usuarioId, persona);
 		const mes = mesDeInstante(esquemaInstanteUtc.parse(consumo.horaGesto));
 		if (consumo.invitado) {
 			invitados += 1;
@@ -95,29 +131,61 @@ function agregar(db: Ejecutor, periodo: Periodo, ahora: InstanteUtc, usuarioId?:
 			cafesPorTipo.set(consumo.tipoCapsulaId, (cafesPorTipo.get(consumo.tipoCapsulaId) ?? 0) + 1);
 		}
 	}
+	const visitantesPorMes = new Map<Mes, number>();
+	for (const cafe of cafesVisitante) {
+		const mes = mesDeInstante(esquemaInstanteUtc.parse(cafe.horaGesto));
+		visitantesPorMes.set(mes, (visitantesPorMes.get(mes) ?? 0) + 1);
+	}
 	return {
 		cafes,
 		invitados,
+		visitantes: cafesVisitante.length,
 		gastado,
-		porMes: meses.map((mes) => ({ mes, cafes: cafesPorMes.get(mes) ?? 0, invitados: invitadosPorMes.get(mes) ?? 0 })),
+		porMes: meses.map((mes) => ({
+			mes,
+			cafes: cafesPorMes.get(mes) ?? 0,
+			invitados: invitadosPorMes.get(mes) ?? 0,
+			visitantes: visitantesPorMes.get(mes) ?? 0,
+		})),
 		porTipo: [...cafesPorTipo].map(([tipoCapsulaId, total]) => ({ tipoCapsulaId, cafes: total })),
 		rellenos: rellenos.length,
 		ranking: rankingDe(db, rellenos, usuarioId),
+		porPersona: usuarioId ? [] : cafesPorPersona(db, porPersona),
 	};
 }
 
-/**
- * Estadísticas de una persona (RF-121). Las ve esa persona o un administrador; a un miembro que pide otra persona
- * se le niega con `SIN_PERMISO` y sin datos (RN-060, RN-061, CA-122). El permiso se comprueba en cada consulta.
- */
+function mesesDe(periodo: Periodo, primerMes: Mes | null, mesActual: Mes): Mes[] {
+	if (periodo.tipo === 'mes') return [periodo.mes];
+	if (periodo.tipo === 'anio') return mesesDeAnio(periodo.anio);
+	if (periodo.tipo === 'ultimos') return mesesDeUltimos(periodo.meses, mesActual);
+	return mesesDelPeriodo(primerMes, mesActual);
+}
+
+/** Todas las personas activas, también las que no tomaron café, de mayor a menor y por nombre (RF-202). */
+function cafesPorPersona(db: Ejecutor, conteos: Map<string, { cafes: number; invitados: number }>): CafesDePersona[] {
+	return listarUsuarios(db)
+		.filter((persona) => persona.estado === 'activo')
+		.map((persona) => ({ usuarioId: persona.id, nombre: persona.nombre, cafes: 0, invitados: 0, ...conteos.get(persona.id) }))
+		.sort((a, b) => b.cafes + b.invitados - (a.cafes + a.invitados) || a.nombre.localeCompare(b.nombre, 'es'));
+}
+
+/** Estadísticas de una persona (RF-121). Cualquier miembro con sesión las ve (RF-201, RN-061 modificada por DEC-118). */
 export function leerPersonales(db: Ejecutor, actor: Actor | undefined, usuarioId: string, consulta: ConsultaPeriodo, ahora: InstanteUtc) {
-	const autor = exigirSesion(actor);
-	if (autor.usuarioId !== usuarioId && autor.rol !== 'administrador') throw new ErrorDeNegocio('SIN_PERMISO');
+	exigirSesion(actor);
 	return agregar(db, resolverPeriodo(consulta, ahora), ahora, usuarioId);
 }
 
-/** Estadísticas del equipo (RF-120). Incluye a las personas dadas de baja (RN-046). */
-export function leerEquipo(db: Ejecutor, actor: Actor | undefined, consulta: ConsultaPeriodo, ahora: InstanteUtc): EstadisticasDeConsumo {
+/**
+ * Estadísticas del departamento (RF-120, RF-202). Las cifras usan el periodo pedido; la evolución mensual y la de la
+ * hucha cubren siempre los últimos 12 meses. Los consumos incluyen a las personas dadas de baja (RN-046).
+ */
+export function leerEquipo(db: Ejecutor, actor: Actor | undefined, consulta: ConsultaPeriodo, ahora: InstanteUtc): EstadisticasDeEquipo {
 	exigirSesion(actor);
-	return agregar(db, resolverPeriodo(consulta, ahora), ahora);
+	const ultimos12: Periodo = { tipo: 'ultimos', meses: MESES_DE_EVOLUCION };
+	const meses = mesesDeUltimos(MESES_DE_EVOLUCION, mesDeInstante(ahora));
+	return {
+		...agregar(db, resolverPeriodo(consulta, ahora), ahora),
+		evolucion: agregar(db, ultimos12, ahora).porMes,
+		hucha: leerEvolucionHucha(db, meses),
+	};
 }

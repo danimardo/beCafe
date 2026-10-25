@@ -13,13 +13,13 @@ test('sin JavaScript, «Míos» en el historial se aplica con «Aplicar»', asyn
 	await expect(page.getByRole('combobox', { name: 'Ver', exact: true })).toHaveValue('mios');
 });
 
-test('sin JavaScript, el periodo de las estadísticas se aplica con «Aplicar»', async ({ page, servidor }) => {
+test('CA-202: sin JavaScript, el periodo de las estadísticas se aplica con «Aplicar»', async ({ page, servidor }) => {
 	await entrarComo(page, servidor, 'miembro');
 	await page.goto(`${servidor.url}/estadisticas`);
 
-	await page.getByRole('combobox', { name: 'Periodo', exact: true }).selectOption('anio');
+	await page.getByRole('combobox', { name: 'Periodo', exact: true }).selectOption('ultimos3');
 	await page.getByRole('button', { name: 'Aplicar', exact: true }).click();
 
-	await expect(page).toHaveURL(/periodo=anio/);
-	await expect(page.getByRole('combobox', { name: 'Periodo', exact: true })).toHaveValue('anio');
+	await expect(page).toHaveURL(/periodo=ultimos3/);
+	await expect(page.getByRole('combobox', { name: 'Periodo', exact: true })).toHaveValue('ultimos3');
 });

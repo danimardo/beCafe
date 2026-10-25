@@ -15,7 +15,8 @@ export const esquemaConsultaHistorial = z.strictObject({
 /** Consulta de las estadísticas: `vista`, `periodo` y el mes o el año del periodo. */
 export const esquemaConsultaEstadisticas = z.strictObject({
 	vista: z.enum(['mias', 'equipo']).default('mias'),
-	periodo: z.enum(['mes', 'anio', 'todo']).default('mes'),
+	// RF-202: mes actual, últimos 3 y últimos 12 meses. «anio» y «todo» se siguen aceptando para no romper enlaces.
+	periodo: z.enum(['mes', 'ultimos3', 'ultimos12', 'anio', 'todo']).default('mes'),
 	mes: esquemaMes.optional(),
 	anio: z.coerce.number().int().min(2026).optional(),
 });

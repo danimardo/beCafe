@@ -1,42 +1,80 @@
 <script lang="ts">
-	import { BarChart, Banner, EmptyState, KpiTile, PageHeader, Section, SelectField, SplitBar } from '#lib/ui';
-	import { formatMoneyPlain } from '#lib/shared/dinero';
+	import type { Snippet } from 'svelte';
+	import { resolve } from '$app/paths';
+	import {
+		Avatar,
+		Banner,
+		Button,
+		EmptyState,
+		KpiTile,
+		LineChart,
+		PageHeader,
+		PanelGrid,
+		Section,
+		SelectField,
+		SplitBar,
+		StackedBarChart,
+	} from '#lib/ui';
+	import { formatMoney, formatMoneyPlain } from '#lib/shared/dinero';
+	import { esquemaMes } from '#lib/shared/fechas/tipos';
+	import { nombreDeMes } from '#lib/shared/fechas/meses';
 	import { textos } from '#lib/shared/textos';
 
-	// Gráficas con su tabla debajo: el color no es la única señal y cada valor se lee como texto (RNF-001, plan F5 D5).
+	// Estadísticas del departamento o de una persona (RF-201, RF-202). Cada gráfico tiene su tabla en «Ver datos» y una
+	// leyenda con texto: el color no es la única señal (constitución XI).
+	type FilaMes = { mes: string; cafes: number; invitados: number; visitantes: number };
 	type Props = {
 		titulo: string;
+		subtitulo?: string;
 		resumen: {
 			cafes: number;
 			invitados: number;
+			visitantes: number;
 			gastado: number;
-			porMes: { mes: string; cafes: number; invitados: number }[];
+			porMes: FilaMes[];
 			porTipo: { nombre: string; cafes: number; color: string }[];
 			rellenos: number;
 			ranking: { usuarioId: string; nombre: string; rellenos: number; baja: boolean }[];
+			porPersona: { usuarioId: string; nombre: string; cafes: number; invitados: number }[];
+			/** Solo en el departamento: últimos 12 meses y saldo de la hucha. */
+			evolucion?: FilaMes[];
+			hucha?: { mes: string; saldo: number }[];
 		};
-		consulta: { periodo: 'mes' | 'anio' | 'todo'; vista: 'mias' | 'equipo'; mes?: string; anio?: number };
+		consulta: { periodo: 'mes' | 'ultimos3' | 'ultimos12' | 'anio' | 'todo' };
 		consultaValida: boolean;
-		cabecera?: import('svelte').Snippet;
+		cabecera?: Snippet;
 	};
-	let { titulo, resumen, consulta, consultaValida, cabecera }: Props = $props();
+	let { titulo, subtitulo, resumen, consulta, consultaValida, cabecera }: Props = $props();
 
+	const departamento = $derived(resumen.evolucion !== undefined);
 	// Los rellenos cuentan aunque no haya consumos (RN-085): sin ellos tampoco hay datos que mostrar.
-	const sinDatos = $derived(resumen.cafes === 0 && resumen.invitados === 0 && resumen.rellenos === 0);
+	const sinDatos = $derived(resumen.cafes === 0 && resumen.invitados === 0 && resumen.visitantes === 0 && resumen.rellenos === 0);
 	const opcionesPeriodo = [
-		{ value: 'mes', label: textos.estadisticas.mes },
-		{ value: 'anio', label: textos.estadisticas.anio },
-		{ value: 'todo', label: textos.estadisticas.todo },
+		{ value: 'mes', label: textos.estadisticas.mesActual },
+		{ value: 'ultimos3', label: textos.estadisticas.ultimos3 },
+		{ value: 'ultimos12', label: textos.estadisticas.ultimos12 },
 	];
-	const opcionesVista = [
-		{ value: 'mias', label: textos.estadisticas.mias },
-		{ value: 'equipo', label: textos.estadisticas.equipo },
-	];
+
+	function etiquetaMes(mes: string, corta: boolean): string {
+		const valido = esquemaMes.safeParse(mes);
+		if (!valido.success) return mes;
+		const nombre = nombreDeMes(valido.data);
+		return corta ? nombre.slice(0, 3) : `${nombre} ${mes.slice(0, 4)}`;
+	}
+
+	const serieMeses = $derived(resumen.evolucion ?? resumen.porMes);
+	const series = $derived([
+		{ label: textos.estadisticas.propios, className: 'bg-accent' },
+		{ label: textos.estadisticas.invitados, className: 'bg-cap-azul' },
+		...(departamento ? [{ label: textos.estadisticas.visitantes, className: 'bg-warning' }] : []),
+	]);
 	const totalTipos = $derived(resumen.porTipo.reduce((suma, tipo) => suma + tipo.cafes, 0));
+	const maximoPersona = $derived(Math.max(1, ...resumen.porPersona.map((fila) => fila.cafes + fila.invitados)));
 	const maximoRellenos = $derived(Math.max(1, ...resumen.ranking.map((fila) => fila.rellenos)));
 </script>
 
 <PageHeader title={titulo} />
+{#if subtitulo}<p class="-mt-4 text-[15px] text-ink-muted">{subtitulo}</p>{/if}
 
 {#if cabecera}{@render cabecera()}{/if}
 
@@ -44,29 +82,135 @@
 	<Banner tone="info">{textos.estadisticas.avisoConsulta}</Banner>
 {/if}
 
-<form method="get" class="flex flex-col gap-4">
-	<SelectField label={textos.estadisticas.vista} name="vista" value={consulta.vista} options={opcionesVista} />
-	<SelectField label={textos.estadisticas.periodo} name="periodo" value={consulta.periodo} options={opcionesPeriodo} />
-	<label class="flex flex-col gap-1 text-[15px]">
-		{textos.estadisticas.mesLabel}
-		<input type="month" name="mes" value={consulta.mes} class="rounded-md border border-line bg-surface px-3 py-2" />
-	</label>
-	<label class="flex flex-col gap-1 text-[15px]">
-		{textos.estadisticas.anio}
-		<input type="number" name="anio" min="2026" value={consulta.anio} class="rounded-md border border-line bg-surface px-3 py-2" />
-	</label>
-	<button type="submit" class="self-start rounded-md bg-accent px-4 py-2 text-on-accent">{textos.estadisticas.aplicar}</button>
+<!-- Periodo con un formulario GET: funciona igual sin JavaScript (ARCHITECTURE.md §7). -->
+<form method="get" class="flex flex-col gap-3 sm:flex-row sm:items-end">
+	<SelectField class="sm:w-64" label={textos.estadisticas.periodo} name="periodo" value={consulta.periodo} options={opcionesPeriodo} />
+	<Button type="submit" variant="soft">{textos.estadisticas.aplicar}</Button>
 </form>
+
+{#snippet tabla(cabeceras: string[], filas: (string | number)[][])}
+	<details class="mt-3 text-[14px]">
+		<summary class="min-h-6 cursor-pointer font-semibold text-accent">{textos.estadisticas.verDatos}</summary>
+		<table class="mt-2 w-full text-left tabular-nums">
+			<caption class="sr-only">{textos.estadisticas.tabla}</caption>
+			<thead>
+				<tr
+					>{#each cabeceras as cabecera (cabecera)}<th scope="col" class="py-1 pr-2">{cabecera}</th>{/each}</tr
+				>
+			</thead>
+			<tbody>
+				{#each filas as fila, i (i)}
+					<tr class="border-t border-hairline"
+						>{#each fila as celda, j (j)}<td class="py-1 pr-2">{celda}</td>{/each}</tr
+					>
+				{/each}
+			</tbody>
+		</table>
+	</details>
+{/snippet}
 
 {#if sinDatos}
 	<EmptyState momento="vacio-estadisticas" title={textos.estadisticas.vacio} />
 {:else}
+	<PanelGrid resumen={cifras} {principal} {secundario} />
+{/if}
+
+{#snippet principal()}
+	{#if departamento}
+		<Section title={textos.estadisticas.porPersona}>
+			<p class="text-[13px] text-ink-muted">{textos.estadisticas.porPersonaAyuda}</p>
+			<ol class="flex flex-col gap-2">
+				{#each resumen.porPersona as fila (fila.usuarioId)}
+					<li>
+						<a
+							href={resolve('/(app)/estadisticas/[usuarioId=ulid]', { usuarioId: fila.usuarioId })}
+							aria-label={textos.estadisticas.verPersona(fila.nombre)}
+							class="flex min-h-11 items-center gap-3 rounded-chip px-1 hover:bg-accent-soft"
+						>
+							<Avatar name={fila.nombre} />
+							<span class="flex min-w-0 flex-1 flex-col gap-1">
+								<span class="flex justify-between gap-2 text-[15px]">
+									<span class="truncate">{fila.nombre}</span>
+									<span class="tabular-nums font-semibold">{fila.cafes + fila.invitados}</span>
+								</span>
+								<span class="block h-2 w-full rounded-full bg-accent-soft" aria-hidden="true">
+									<span class="block h-2 rounded-full bg-accent" style:width={`${((fila.cafes + fila.invitados) / maximoPersona) * 100}%`}
+									></span>
+								</span>
+							</span>
+						</a>
+					</li>
+				{/each}
+			</ol>
+			{@render tabla(
+				[textos.estadisticas.personaLabel, textos.estadisticas.propios, textos.estadisticas.invitados],
+				resumen.porPersona.map((fila) => [fila.nombre, fila.cafes, fila.invitados]),
+			)}
+		</Section>
+	{/if}
+
+	<Section title={textos.estadisticas.porTipo}>
+		{#if totalTipos === 0}
+			<p class="text-[15px] text-ink-muted">{textos.estadisticas.vacio}</p>
+		{:else}
+			<SplitBar
+				title={textos.estadisticas.porTipo}
+				segments={resumen.porTipo.map((tipo) => ({ label: tipo.nombre, value: tipo.cafes, color: tipo.color }))}
+			/>
+			{@render tabla(
+				[textos.estadisticas.tipoLabel, textos.estadisticas.cantidad],
+				resumen.porTipo.map((tipo) => [tipo.nombre, tipo.cafes]),
+			)}
+		{/if}
+	</Section>
+
+	<Section title={departamento ? textos.estadisticas.evolucion : textos.estadisticas.porMes}>
+		<StackedBarChart
+			title={departamento ? textos.estadisticas.evolucion : textos.estadisticas.porMes}
+			{series}
+			data={serieMeses.map((fila) => ({
+				label: etiquetaMes(fila.mes, true),
+				values: departamento ? [fila.cafes, fila.invitados, fila.visitantes] : [fila.cafes, fila.invitados],
+			}))}
+		/>
+		{@render tabla(
+			[textos.estadisticas.mesLabel, ...series.map((serie) => serie.label)],
+			serieMeses.map((fila) =>
+				departamento
+					? [etiquetaMes(fila.mes, false), fila.cafes, fila.invitados, fila.visitantes]
+					: [etiquetaMes(fila.mes, false), fila.cafes, fila.invitados],
+			),
+		)}
+	</Section>
+{/snippet}
+
+{#snippet cifras()}
 	<div class="grid grid-cols-2 gap-3">
 		<KpiTile label={textos.estadisticas.cafes} value={String(resumen.cafes)} />
 		<KpiTile label={textos.estadisticas.invitados} value={String(resumen.invitados)} hint={textos.estadisticas.invitadosAparte} />
-		<KpiTile label={textos.estadisticas.gastado} value={`${formatMoneyPlain(resumen.gastado)} €`} />
-		<KpiTile label={textos.rellenos.kpi} value={String(resumen.rellenos)} />
+		{#if departamento}
+			<KpiTile label={textos.estadisticas.visitantes} value={String(resumen.visitantes)} hint={textos.estadisticas.visitantesAyuda} />
+		{:else}
+			<KpiTile label={textos.rellenos.kpi} value={String(resumen.rellenos)} />
+		{/if}
+		<KpiTile label={textos.estadisticas.coste} value={`${formatMoneyPlain(resumen.gastado)} €`} hint={textos.estadisticas.costeAyuda} />
 	</div>
+{/snippet}
+
+{#snippet secundario()}
+	{#if resumen.hucha}
+		<Section title={textos.estadisticas.hucha}>
+			<LineChart
+				title={textos.estadisticas.hucha}
+				format={formatMoney}
+				data={resumen.hucha.map((fila) => ({ label: etiquetaMes(fila.mes, true), value: fila.saldo }))}
+			/>
+			{@render tabla(
+				[textos.estadisticas.mesLabel, textos.estadisticas.saldo],
+				resumen.hucha.map((fila) => [etiquetaMes(fila.mes, false), formatMoney(fila.saldo)]),
+			)}
+		</Section>
+	{/if}
 
 	{#if resumen.ranking.length > 0}
 		<Section title={textos.rellenos.ranking}>
@@ -82,49 +226,4 @@
 			</ol>
 		</Section>
 	{/if}
-
-	<Section title={textos.estadisticas.porMes}>
-		<BarChart title={textos.estadisticas.porMes} data={resumen.porMes.map((fila) => ({ label: fila.mes, value: fila.cafes }))} />
-		<table class="mt-3 w-full text-left text-[14px]">
-			<caption class="sr-only">{textos.estadisticas.tabla}</caption>
-			<thead>
-				<tr
-					><th scope="col">{textos.estadisticas.mesLabel}</th><th scope="col">{textos.estadisticas.cafes}</th><th scope="col"
-						>{textos.estadisticas.invitados}</th
-					></tr
-				>
-			</thead>
-			<tbody>
-				{#each resumen.porMes as fila (fila.mes)}
-					<tr><td>{fila.mes}</td><td>{fila.cafes}</td><td>{fila.invitados}</td></tr>
-				{/each}
-			</tbody>
-		</table>
-	</Section>
-
-	<Section title={textos.estadisticas.porTipo}>
-		{#if totalTipos === 0}
-			<EmptyState momento="vacio-estadisticas" title={textos.estadisticas.vacio} />
-		{:else}
-			<SplitBar
-				title={textos.estadisticas.porTipo}
-				segments={resumen.porTipo.map((tipo) => ({ label: tipo.nombre, value: tipo.cafes, color: tipo.color }))}
-			/>
-			<table class="mt-3 w-full text-left text-[14px]">
-				<caption class="sr-only">{textos.estadisticas.tabla}</caption>
-				<thead>
-					<tr><th scope="col">{textos.estadisticas.tipoLabel}</th><th scope="col">{textos.estadisticas.cantidad}</th></tr>
-				</thead>
-				<tbody>
-					{#each resumen.porTipo as tipo (tipo.nombre)}
-						<tr><td>{tipo.nombre}</td><td>{tipo.cafes}</td></tr>
-					{/each}
-				</tbody>
-			</table>
-		{/if}
-	</Section>
-
-	<Section title={textos.estadisticas.invitados}>
-		<p class="text-[15px]">{textos.estadisticas.invitadosAparte}</p>
-	</Section>
-{/if}
+{/snippet}

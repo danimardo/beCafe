@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { enTransaccion, ErrorDeNegocio, nuevoId, crearEntornoPrueba, type EntornoPrueba } from '#lib/server/plataforma';
-import { anotarMovimientos, anularMovimientosDe, saldoHucha, saldoPersona, type NuevoMovimiento } from './libro';
+import { anotarMovimientos, anularMovimientosDe, leerEvolucionHucha, saldoHucha, saldoPersona, type NuevoMovimiento } from './libro';
+import { esquemaMes } from '#lib/shared/fechas/tipos';
 import { prepararMiembros } from './pruebas/constructores';
 
 const INSTANTE = '2026-10-21T09:00:00.000Z';
@@ -56,6 +57,30 @@ describe('libro de movimientos', () => {
 			]);
 		});
 		expect(saldoHucha(entorno.ambiente.db)).toBe(600);
+	});
+
+	it('CA-201: la evolución de la hucha da el saldo al cierre de cada mes de Madrid; un mes sin movimientos repite el anterior', () => {
+		const hucha = (importe: number, creadoEn: string, tipo: 'hucha_aportacion' | 'hucha_compra' = 'hucha_aportacion'): NuevoMovimiento => ({
+			cuenta: 'hucha',
+			usuarioId: null,
+			tipo,
+			importe,
+			origenTipo: tipo === 'hucha_compra' ? 'compra' : 'aportacion',
+			origenId: nuevoId(),
+			creadoEn,
+		});
+		enTransaccion(entorno.ambiente.db, (tx) =>
+			anotarMovimientos(tx, [
+				hucha(1000, '2026-08-10T10:00:00.000Z'),
+				// 31 de agosto a las 23:30 en Madrid (21:30 UTC): cuenta en agosto.
+				hucha(-300, '2026-08-31T21:30:00.000Z', 'hucha_compra'),
+				// 1 de octubre a las 00:30 en Madrid (22:30 UTC del 30 de septiembre): cuenta en octubre.
+				hucha(500, '2026-09-30T22:30:00.000Z'),
+			]),
+		);
+		const meses = ['2026-07', '2026-08', '2026-09', '2026-10'].map((mes) => esquemaMes.parse(mes));
+
+		expect(leerEvolucionHucha(entorno.ambiente.db, meses).map((fila) => fila.saldo)).toEqual([0, 700, 700, 1200]);
 	});
 
 	it('INV-05: anular un origen deja sus movimientos fuera del saldo y no los vuelve a vigentes', () => {

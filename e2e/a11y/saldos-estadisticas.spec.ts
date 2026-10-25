@@ -34,9 +34,11 @@ for (const esquema of ['light', 'dark'] as const) {
 			await expectSinInfracciones(page);
 		});
 
-		test('estadísticas del mes no tiene infracciones de axe', async ({ page, servidor }) => {
+		test('estadísticas del departamento con datos y sus tablas abiertas no tienen infracciones de axe', async ({ page, servidor }) => {
 			await entrarComo(page, servidor, 'miembro');
-			await page.goto(`${servidor.url}/estadisticas`);
+			await page.goto(`${servidor.url}/estadisticas?periodo=ultimos12`);
+			await expectSinInfracciones(page);
+			for (const resumen of await page.getByText('Ver datos').all()) await resumen.click();
 			await expectSinInfracciones(page);
 		});
 	});

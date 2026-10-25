@@ -67,7 +67,7 @@ export {
 } from './control';
 export { darDeBaja, leerLiquidacion, modosPosibles, previsualizarBaja, type ModoBaja, type PrevisionBaja } from './baja';
 export { recordarDeudas, TAREA_RECORDATORIO_DEUDA } from './recordatorio-deuda';
-export { saldoPersona } from './libro';
+export { saldoPersona, leerEvolucionHucha } from './libro';
 export {
 	registrarCafeVisitante,
 	revisarCafesVisitante,
