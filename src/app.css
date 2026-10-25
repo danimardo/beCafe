@@ -168,3 +168,119 @@
 	outline: 3px solid var(--accent);
 	outline-offset: 4px;
 }
+
+/* Microinteracciones (RF-233 a RF-236). Solo con movimiento permitido: con prefers-reduced-motion el estado final aparece sin transición. */
+@media (prefers-reduced-motion: no-preference) {
+	@keyframes campo-haz {
+		from {
+			box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+		}
+		to {
+			box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 0%, transparent);
+		}
+	}
+	@keyframes campo-sacudida {
+		20%,
+		60% {
+			translate: calc(var(--motion-shake-distance) * -1) 0;
+		}
+		40%,
+		80% {
+			translate: var(--motion-shake-distance) 0;
+		}
+	}
+	@keyframes mensaje-error-entrada {
+		from {
+			opacity: 0;
+			translate: 0 -0.25rem;
+		}
+	}
+	@keyframes marca-dibujo {
+		from {
+			stroke-dashoffset: var(--motion-check-length);
+		}
+	}
+	.campo-control:focus-visible {
+		animation: campo-haz 0.45s ease-out;
+	}
+	.campo-sacudida {
+		animation: campo-sacudida 0.3s ease-in-out;
+	}
+	.mensaje-error {
+		animation: mensaje-error-entrada 0.18s ease-out;
+	}
+	.marca-exito path {
+		stroke-dasharray: var(--motion-check-length);
+		animation: marca-dibujo 0.24s ease-out;
+	}
+
+	/* Casillas, botones de opción e interruptores: respuesta breve al pulsar. */
+	input[type='checkbox'],
+	input[type='radio'] {
+		transition: scale 0.12s ease-out;
+	}
+	input[type='checkbox']:active:not(:disabled),
+	input[type='radio']:active:not(:disabled) {
+		scale: var(--motion-icon-pop-scale);
+	}
+	.interruptor:active:not(:disabled) .interruptor-pulgar {
+		scale: calc(1 / var(--motion-switch-squish)) var(--motion-switch-squish);
+	}
+
+	/* Indicador deslizante: una vez medido, la opción marcada pierde su propio fondo y lo lleva el indicador. */
+	.grupo-indicador {
+		position: relative;
+	}
+	.grupo-indicador[data-indicador-listo]::before {
+		transition:
+			translate 0.18s ease-out,
+			width 0.18s ease-out;
+	}
+
+	/* Brillo de borde que sigue al puntero (nunca sobre cristal). */
+	.spotlight:not(.glass) {
+		position: relative;
+	}
+	.spotlight:not(.glass)::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		padding: var(--motion-spotlight-border);
+		background: radial-gradient(
+			var(--motion-spotlight-size) circle at var(--spot-x, 50%) var(--spot-y, 50%),
+			color-mix(in srgb, var(--accent) var(--motion-spotlight-strength), transparent),
+			transparent 70%
+		);
+		mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		mask-composite: exclude;
+		opacity: 0;
+		transition: opacity 0.18s ease-out;
+		pointer-events: none;
+	}
+	.spotlight[data-spotlight-activo]:not(.glass)::before {
+		opacity: 1;
+	}
+}
+
+/* El indicador existe siempre que haya medida (también con movimiento reducido, sin transición). */
+.grupo-indicador[data-indicador-listo]::before {
+	content: '';
+	position: absolute;
+	top: 3px;
+	bottom: 3px;
+	left: 0;
+	width: var(--indicador-ancho);
+	translate: var(--indicador-x) 0;
+	border-radius: 9999px;
+	background: var(--accent-soft);
+	box-shadow: inset 0 1px 0 var(--glass-highlight);
+	pointer-events: none;
+}
+.grupo-indicador[data-indicador-listo] > [data-state='checked'] {
+	background: transparent;
+	box-shadow: none;
+	position: relative;
+}

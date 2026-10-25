@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { cn } from './utils';
+	import { sacudida } from './movimiento';
 
 	type Props = Omit<HTMLInputAttributes, 'value' | 'class'> & {
 		label: string;
@@ -19,7 +20,7 @@
 	const id = `f-${uid}`;
 	const describedBy = $derived([hint ? `${id}-hint` : '', error ? `${id}-err` : ''].filter(Boolean).join(' ') || undefined);
 	const field =
-		'w-full rounded-chip border bg-glass px-3 text-[15px] text-ink placeholder:text-ink-muted shadow-[inset_0_1px_0_var(--glass-highlight)] outline-offset-2';
+		'campo-control w-full rounded-chip border bg-glass px-3 text-[15px] text-ink placeholder:text-ink-muted shadow-[inset_0_1px_0_var(--glass-highlight)] outline-offset-2';
 </script>
 
 <div class={cn('flex flex-col gap-1.5', className)}>
@@ -35,6 +36,7 @@
 			{required}
 			aria-invalid={error ? true : undefined}
 			aria-describedby={describedBy}
+			use:sacudida={error}
 			class={cn(field, 'py-2.5', error ? 'border-negative' : 'border-ink-muted/75')}></textarea>
 	{:else}
 		<input
@@ -44,10 +46,11 @@
 			{required}
 			aria-invalid={error ? true : undefined}
 			aria-describedby={describedBy}
+			use:sacudida={error}
 			class={cn(field, 'min-h-12', error ? 'border-negative' : 'border-ink-muted/75')}
 			{...rest}
 		/>
 	{/if}
 	{#if hint}<p id="{id}-hint" class="text-[13px] leading-[18px] text-ink-muted">{hint}</p>{/if}
-	{#if error}<p id="{id}-err" class="text-[13px] font-medium leading-[18px] text-negative">{error}</p>{/if}
+	{#if error}<p id="{id}-err" class="mensaje-error text-[13px] font-medium leading-[18px] text-negative">{error}</p>{/if}
 </div>

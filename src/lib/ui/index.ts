@@ -3,6 +3,7 @@
 // Base
 export { default as Glass } from './Glass.svelte';
 export { default as Button } from './Button.svelte';
+export { crearExito } from './movimiento';
 export { default as IconButton } from './IconButton.svelte';
 export { default as Badge } from './Badge.svelte';
 export { default as Money } from './Money.svelte';

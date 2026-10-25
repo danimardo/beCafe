@@ -28,10 +28,10 @@
 		bind:checked
 		{disabled}
 		onCheckedChange={(v) => onchange?.(v)}
-		class="relative inline-flex h-8 w-14 shrink-0 items-center rounded-full border-2 border-ink-muted bg-transparent p-0.5 motion-safe:transition data-[state=checked]:border-accent data-[state=checked]:bg-accent disabled:opacity-60"
+		class="interruptor relative inline-flex h-8 w-14 shrink-0 items-center rounded-full border-2 border-ink-muted bg-transparent p-0.5 motion-safe:transition data-[state=checked]:border-accent data-[state=checked]:bg-accent disabled:opacity-60"
 	>
 		<Switch.Thumb
-			class="pointer-events-none block size-5 rounded-full bg-ink-muted motion-safe:transition data-[state=checked]:translate-x-6 data-[state=checked]:bg-white"
+			class="interruptor-pulgar pointer-events-none block size-5 rounded-full bg-ink-muted motion-safe:transition data-[state=checked]:translate-x-6 data-[state=checked]:bg-white"
 		/>
 	</Switch.Root>
 </div>

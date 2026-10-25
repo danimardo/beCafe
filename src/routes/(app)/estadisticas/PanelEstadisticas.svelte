@@ -187,14 +187,29 @@
 
 {#snippet cifras()}
 	<div class="grid grid-cols-2 gap-3">
-		<KpiTile label={textos.estadisticas.cafes} value={String(resumen.cafes)} />
-		<KpiTile label={textos.estadisticas.invitados} value={String(resumen.invitados)} hint={textos.estadisticas.invitadosAparte} />
+		<KpiTile label={textos.estadisticas.cafes} value={String(resumen.cafes)} numero={{ valor: resumen.cafes, formato: String }} />
+		<KpiTile
+			label={textos.estadisticas.invitados}
+			value={String(resumen.invitados)}
+			numero={{ valor: resumen.invitados, formato: String }}
+			hint={textos.estadisticas.invitadosAparte}
+		/>
 		{#if departamento}
-			<KpiTile label={textos.estadisticas.visitantes} value={String(resumen.visitantes)} hint={textos.estadisticas.visitantesAyuda} />
+			<KpiTile
+				label={textos.estadisticas.visitantes}
+				value={String(resumen.visitantes)}
+				numero={{ valor: resumen.visitantes, formato: String }}
+				hint={textos.estadisticas.visitantesAyuda}
+			/>
 		{:else}
-			<KpiTile label={textos.rellenos.kpi} value={String(resumen.rellenos)} />
+			<KpiTile label={textos.rellenos.kpi} value={String(resumen.rellenos)} numero={{ valor: resumen.rellenos, formato: String }} />
 		{/if}
-		<KpiTile label={textos.estadisticas.coste} value={`${formatMoneyPlain(resumen.gastado)} €`} hint={textos.estadisticas.costeAyuda} />
+		<KpiTile
+			label={textos.estadisticas.coste}
+			value={`${formatMoneyPlain(resumen.gastado)} €`}
+			numero={{ valor: resumen.gastado, formato: (n: number) => `${formatMoneyPlain(n)} €` }}
+			hint={textos.estadisticas.costeAyuda}
+		/>
 	</div>
 {/snippet}
 

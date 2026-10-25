@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import { cn } from './utils';
+	import { sacudida } from './movimiento';
 
 	type Props = {
 		label: string;
@@ -26,8 +27,9 @@
 			{name}
 			bind:value
 			aria-invalid={error ? true : undefined}
+			use:sacudida={error}
 			class={cn(
-				'min-h-12 w-full appearance-none rounded-chip border bg-glass pl-3 pr-10 text-[15px] text-ink shadow-[inset_0_1px_0_var(--glass-highlight)]',
+				'campo-control min-h-12 w-full appearance-none rounded-chip border bg-glass pl-3 pr-10 text-[15px] text-ink shadow-[inset_0_1px_0_var(--glass-highlight)]',
 				error ? 'border-negative' : 'border-ink-muted/75',
 			)}
 		>
@@ -36,5 +38,5 @@
 		<ChevronDown class="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-ink-muted" aria-hidden="true" />
 	</div>
 	{#if hint}<p class="text-[13px] leading-[18px] text-ink-muted">{hint}</p>{/if}
-	{#if error}<p class="text-[13px] font-medium leading-[18px] text-negative">{error}</p>{/if}
+	{#if error}<p class="mensaje-error text-[13px] font-medium leading-[18px] text-negative">{error}</p>{/if}
 </div>

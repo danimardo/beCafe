@@ -2,6 +2,7 @@
 	import Eye from '@lucide/svelte/icons/eye';
 	import EyeOff from '@lucide/svelte/icons/eye-off';
 	import { cn } from './utils';
+	import { sacudida } from './movimiento';
 
 	type Props = {
 		label?: string;
@@ -44,8 +45,9 @@
 			{minlength}
 			aria-invalid={error ? true : undefined}
 			aria-describedby={describedBy}
+			use:sacudida={error}
 			class={cn(
-				'min-h-12 w-full rounded-chip border bg-glass pl-3 pr-12 text-[15px] text-ink shadow-[inset_0_1px_0_var(--glass-highlight)]',
+				'campo-control min-h-12 w-full rounded-chip border bg-glass pl-3 pr-12 text-[15px] text-ink shadow-[inset_0_1px_0_var(--glass-highlight)]',
 				error ? 'border-negative' : 'border-ink-muted/75',
 			)}
 		/>
@@ -60,5 +62,5 @@
 		</button>
 	</div>
 	{#if hint}<p id="{id}-hint" class="text-[13px] leading-[18px] text-ink-muted">{hint}</p>{/if}
-	{#if error}<p id="{id}-err" class="text-[13px] font-medium leading-[18px] text-negative">{error}</p>{/if}
+	{#if error}<p id="{id}-err" class="mensaje-error text-[13px] font-medium leading-[18px] text-negative">{error}</p>{/if}
 </div>

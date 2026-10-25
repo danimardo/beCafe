@@ -55,15 +55,21 @@
 
 	<PanelGrid>
 		{#snippet resumen()}
-			<Section class="mt-0 rounded-panel border border-hairline bg-wall-raised p-4" title={textos.economia.tuSaldo}>
+			<Section panel title={textos.economia.tuSaldo}>
 				<p class="text-2xl font-semibold">
-					<Money cents={data.saldoPropio} signed tone srSuffix={data.saldoPropio >= 0 ? textos.economia.aFavor : textos.economia.debes} />
+					<Money
+						cents={data.saldoPropio}
+						signed
+						tone
+						animar
+						srSuffix={data.saldoPropio >= 0 ? textos.economia.aFavor : textos.economia.debes}
+					/>
 				</p>
 			</Section>
 
-			<Section class="mt-0 rounded-panel border border-hairline bg-wall-raised p-4" title={textos.economia.hucha}>
+			<Section panel title={textos.economia.hucha}>
 				<p class="text-2xl font-semibold">
-					<Money cents={data.hucha.saldo} tone srSuffix={data.hucha.saldo < 0 ? textos.economia.huchaNegativa : undefined} />
+					<Money cents={data.hucha.saldo} tone animar srSuffix={data.hucha.saldo < 0 ? textos.economia.huchaNegativa : undefined} />
 				</p>
 				{#if data.hucha.ultimoArqueo}
 					<p class="text-sm text-ink-muted">
@@ -160,7 +166,7 @@
 		{/snippet}
 
 		{#snippet secundario()}
-			<Section class="mt-0 rounded-panel border border-hairline bg-wall-raised p-4" title={textos.historial.ultimos}>
+			<Section panel title={textos.historial.ultimos}>
 				{#if data.recientes.length === 0}
 					<p class="text-sm text-ink-muted">{textos.historial.vacio}</p>
 				{:else}

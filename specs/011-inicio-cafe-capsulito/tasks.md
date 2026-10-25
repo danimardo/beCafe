@@ -116,11 +116,11 @@
 
 ## Fase 10: Historia 8 — Microinteracciones (P3)
 
-- [ ] T038 [P] [US8] Campos (RF-233): haz de foco, sacudida única al aparecer el error (clase que se reinicia con cada error nuevo) y entrada del mensaje en `TextField`, `MoneyField`, `PasswordField` y `SelectField` (este, solo sacudida y mensaje). Pruebas de componente (`CA-233`).
-- [ ] T039 [P] [US8] Selección y navegación (RF-234): respuesta de `Switch`, casillas y radios; acción `src/lib/ui/movimiento/indicador.ts` (`ResizeObserver` + `MutationObserver`, variables CSS, desconecta al desmontar) en `SegmentedControl` y `ThemeToggle`; selección visible antes de hidratar. Pruebas de componente (`CA-234`).
-- [ ] T040 [P] [US8] Brillo (RF-235): acción `src/lib/ui/movimiento/spotlight.ts` (solo con `(pointer: fine)`, `::before` con máscara, sin estado de Svelte por movimiento) en las tarjetas opacas (`Section` con borde, `ListRow` de tarjeta); nunca en `glass`. Prueba de componente (`CA-235`).
-- [ ] T041 [P] [US8] Éxito y cifras (RF-236): prop `success` de `Button` con check de Lucide (`stroke-dashoffset`), activada por la página solo con `result.type === 'success'` y apagada a los 1,2 s (Perfil, Ajustes, Configuración, ficha de cápsula); `src/lib/ui/movimiento/cifra.svelte.ts` (interpolación de 240 ms con `requestAnimationFrame`, continúa desde el valor visible, valor accesible final) en `Money` de saldo y hucha y en `KpiTile`. Pruebas de componente (`CA-236`).
-- [ ] T042 [US8] E2E `e2e/flujos/movimiento.spec.ts` con `reducedMotion: 'reduce'` (`EV-110`): ninguna animación de movimiento en curso en Inicio, entrada, Ajustes y compras (`document.getAnimations()`), y la selección, el foco y la confirmación siguen visibles.
+- [X] T038 [P] [US8] Campos (RF-233): haz de foco, sacudida única al aparecer el error (clase que se reinicia con cada error nuevo) y entrada del mensaje en `TextField`, `MoneyField`, `PasswordField` y `SelectField` (este, solo sacudida y mensaje). Pruebas de componente (`CA-233`).
+- [X] T039 [P] [US8] Selección y navegación (RF-234): respuesta de `Switch`, casillas y radios; acción `src/lib/ui/movimiento/indicador.ts` (`ResizeObserver` + `MutationObserver`, variables CSS, desconecta al desmontar) en `SegmentedControl` y `ThemeToggle`; selección visible antes de hidratar. Pruebas de componente (`CA-234`).
+- [X] T040 [P] [US8] Brillo (RF-235): acción `src/lib/ui/movimiento/spotlight.ts` (solo con `(pointer: fine)`, `::before` con máscara, sin estado de Svelte por movimiento) en las tarjetas opacas (`Section` con borde, `ListRow` de tarjeta); nunca en `glass`. Prueba de componente (`CA-235`).
+- [X] T041 [P] [US8] Éxito y cifras (RF-236): prop `success` de `Button` con check de Lucide (`stroke-dashoffset`), activada por la página solo con `result.type === 'success'` y apagada a los 1,2 s (Perfil, Ajustes, Configuración, ficha de cápsula); `src/lib/ui/movimiento/cifra.svelte.ts` (interpolación de 240 ms con `requestAnimationFrame`, continúa desde el valor visible, valor accesible final) en `Money` de saldo y hucha y en `KpiTile`. Pruebas de componente (`CA-236`).
+- [X] T042 [US8] E2E `e2e/flujos/movimiento.spec.ts` con `reducedMotion: 'reduce'` (`EV-110`): ninguna animación de movimiento en curso en Inicio, entrada, Ajustes y compras (`document.getAnimations()`), y la selección, el foco y la confirmación siguen visibles.
 
 ---
 

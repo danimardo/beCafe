@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
-	import { Button, ConfirmDialog, ListRow, PageHeader, PasswordField, Section } from '#lib/ui';
+	import { Button, ConfirmDialog, crearExito, ListRow, PageHeader, PasswordField, Section } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 	import FotoPersona from '../FotoPersona.svelte';
 
@@ -16,6 +16,7 @@
 	const errores = $derived(formulario?.errores ?? {});
 	const rol = $derived(data.rol === 'administrador' ? textos.admin.administrador : textos.admin.miembro);
 
+	const exito = crearExito();
 	let confirmando = $state(false);
 	let formularioSesiones: HTMLFormElement | undefined;
 </script>
@@ -78,7 +79,17 @@
 		<div class="flex flex-col gap-6">
 			<Section title={textos.perfil.cambiarContrasena}>
 				<div class="rounded-panel border border-hairline bg-wall-base p-5">
-					<form method="post" action="?/cambiarContrasena" use:enhance class="flex flex-col gap-4" novalidate>
+					<form
+						method="post"
+						action="?/cambiarContrasena"
+						use:enhance={() =>
+							async ({ result, update }) => {
+								await update();
+								if (result.type === 'success') exito.marcar();
+							}}
+						class="flex flex-col gap-4"
+						novalidate
+					>
 						<PasswordField
 							label={textos.perfil.contrasenaActual}
 							name="contrasenaActual"
@@ -99,7 +110,7 @@
 							error={errores.repeticion?.mensaje}
 						/>
 						<p class="text-[14px] text-ink-muted">{textos.perfil.ayudaCambio}</p>
-						<Button type="submit" block>{textos.perfil.cambiarContrasena}</Button>
+						<Button type="submit" block success={exito.activo}>{textos.perfil.cambiarContrasena}</Button>
 					</form>
 				</div>
 			</Section>

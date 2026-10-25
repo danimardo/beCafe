@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Button, CapsuleColorField, PhotoField, SelectField, TextField } from '#lib/ui';
+	import { Button, CapsuleColorField, crearExito, PhotoField, SelectField, TextField } from '#lib/ui';
 	import { COLORES_CAPSULA, TAMANO_MAXIMO_FOTO } from '#lib/shared/contratos/capsulas';
 	import { textos } from '#lib/shared/textos';
 
@@ -13,6 +13,7 @@
 	};
 	let { accion, etiquetaBoton, valorDe, errorDe, fotoActual = null }: Props = $props();
 
+	const exito = crearExito();
 	let foto = $state<File | null>(null);
 
 	const opcionesColor = COLORES_CAPSULA.map((valor) => ({ value: valor, label: textos.capsulas.colores[valor] }));
@@ -22,7 +23,17 @@
 	];
 </script>
 
-<form method="post" action={accion} enctype="multipart/form-data" use:enhance class="grid gap-5 lg:grid-cols-2 lg:items-start lg:gap-x-8">
+<form
+	method="post"
+	action={accion}
+	enctype="multipart/form-data"
+	use:enhance={() =>
+		async ({ result, update }) => {
+			await update();
+			if (result.type === 'success') exito.marcar();
+		}}
+	class="grid gap-5 lg:grid-cols-2 lg:items-start lg:gap-x-8"
+>
 	<TextField name="nombre" label={textos.capsulas.nombre} value={valorDe('nombre')} error={errorDe('nombre')} required maxlength={60} />
 	<TextField name="marca" label={textos.capsulas.marca} value={valorDe('marca')} error={errorDe('marca')} required maxlength={60} />
 	<SelectField
@@ -53,5 +64,5 @@
 		{/if}
 		<PhotoField name="foto" label={textos.capsulas.foto} hint={textos.capsulas.fotoAyuda} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
 	</div>
-	<Button type="submit" block class="lg:col-span-2">{etiquetaBoton}</Button>
+	<Button type="submit" block success={exito.activo} class="lg:col-span-2">{etiquetaBoton}</Button>
 </form>

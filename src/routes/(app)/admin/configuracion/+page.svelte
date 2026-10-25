@@ -2,13 +2,14 @@
 	import { untrack } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import { Banner, Button, Money, PageHeader, PasswordField, Section, TextField } from '#lib/ui';
+	import { Banner, Button, crearExito, Money, PageHeader, PasswordField, Section, TextField } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 	import { parsearLimite, tramos } from '#lib/shared/deuda/tramos';
 	import { formatMoneyPlain } from '#lib/shared/dinero';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
+	const exito = crearExito();
 
 	const errores: Partial<Record<string, { codigo: string; mensaje: string }>> = $derived(
 		form && 'errores' in form && form.errores ? form.errores : {},
@@ -33,7 +34,16 @@
 	{/if}
 
 	<Section title={textos.configuracion.titulo}>
-		<form method="post" action="?/guardar" use:enhance class="grid gap-5 md:grid-cols-3 md:items-start">
+		<form
+			method="post"
+			action="?/guardar"
+			use:enhance={() =>
+				async ({ result, update }) => {
+					await update();
+					if (result.type === 'success') exito.marcar();
+				}}
+			class="grid gap-5 md:grid-cols-3 md:items-start"
+		>
 			<div class="flex flex-col gap-1">
 				<TextField
 					label={textos.configuracion.plazo}
@@ -80,7 +90,7 @@
 				autocomplete="current-password"
 			/>
 
-			<div class="md:col-span-3"><Button type="submit">{textos.configuracion.guardar}</Button></div>
+			<div class="md:col-span-3"><Button type="submit" success={exito.activo}>{textos.configuracion.guardar}</Button></div>
 		</form>
 	</Section>
 

@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import type { ResolvedPathname } from '$app/types';
 	import { cn } from './utils';
+	import { spotlight } from './movimiento';
 
 	type Props = {
 		title: string;
@@ -16,9 +17,22 @@
 		voided?: boolean;
 		/** En móvil, el contenido de la derecha pasa a una segunda línea (útil con acciones). */
 		stackTrailing?: boolean;
+		/** Fila que es una tarjeta (con esquinas redondeadas): el borde brilla alrededor del puntero fino (RF-235). */
+		tarjeta?: boolean;
 		class?: string;
 	};
-	let { title, subtitle, leading, trailing, href, onclick, voided = false, stackTrailing = false, class: className }: Props = $props();
+	let {
+		title,
+		subtitle,
+		leading,
+		trailing,
+		href,
+		onclick,
+		voided = false,
+		stackTrailing = false,
+		tarjeta = false,
+		class: className,
+	}: Props = $props();
 	const base = $derived(cn('flex min-h-14 w-full items-center gap-3 py-2.5 text-left', stackTrailing && 'max-md:flex-wrap'));
 </script>
 
@@ -36,7 +50,7 @@
 {/snippet}
 
 <!-- Se usa dentro de <ul class="divide-y divide-hairline"> -->
-<li class={className}>
+<li class={cn(tarjeta && 'rounded-chip', className)} use:spotlight={tarjeta && Boolean(href || onclick)}>
 	{#if href}
 		<a {href} class={base}>{@render inner()}</a>
 	{:else if onclick}

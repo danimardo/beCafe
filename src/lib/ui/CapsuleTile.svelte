@@ -94,7 +94,11 @@
 				{color}
 				{photoUrl}
 				size="xl"
-				class={cn('motion-safe:transition-transform group-hover:-translate-y-0.5', pulse && 'capsule-pop', level === 'out' && !visitante && 'opacity-50 grayscale')}
+				class={cn(
+					'motion-safe:transition-transform group-hover:-translate-y-0.5',
+					pulse && 'capsule-pop',
+					level === 'out' && !visitante && 'opacity-50 grayscale',
+				)}
 			/>
 			<span class="sr-only">Registrar</span>
 			<span class="line-clamp-2 text-[17px] font-semibold leading-[22px]">{name}</span>
@@ -152,7 +156,11 @@
 		<span id="{uid}-meta" class="sr-only">
 			{#if visitante}{meta}{:else}{meta}{meta ? '. ' : ''}{formatMoney(priceCents)} por cápsula. Quedan {stock} unidades, {daysLeft == null
 					? 'sin datos de duración'
-					: `unos ${daysLeft} días`}.{level === 'out' ? ` ${textos.inicio.sinStock}.` : level === 'low' ? ` ${textos.inicio.quedanPocas}.` : ''}{/if}
+					: `unos ${daysLeft} días`}.{level === 'out'
+					? ` ${textos.inicio.sinStock}.`
+					: level === 'low'
+						? ` ${textos.inicio.quedanPocas}.`
+						: ''}{/if}
 		</span>
 		{#if !visitante}
 			<button
