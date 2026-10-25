@@ -55,13 +55,13 @@
 
 	<PanelGrid>
 		{#snippet resumen()}
-			<Section title={textos.economia.tuSaldo}>
+			<Section class="mt-0 rounded-panel border border-hairline bg-wall-raised p-4" title={textos.economia.tuSaldo}>
 				<p class="text-2xl font-semibold">
 					<Money cents={data.saldoPropio} signed tone srSuffix={data.saldoPropio >= 0 ? textos.economia.aFavor : textos.economia.debes} />
 				</p>
 			</Section>
 
-			<Section title={textos.economia.hucha}>
+			<Section class="mt-0 rounded-panel border border-hairline bg-wall-raised p-4" title={textos.economia.hucha}>
 				<p class="text-2xl font-semibold">
 					<Money cents={data.hucha.saldo} tone srSuffix={data.hucha.saldo < 0 ? textos.economia.huchaNegativa : undefined} />
 				</p>
@@ -120,7 +120,14 @@
 							>
 								{#snippet leading()}<Avatar name={persona.nombre} usuarioId={persona.usuarioId} fotoUrl={persona.fotoUrl} />{/snippet}
 								{#snippet trailing()}
-									<Money cents={persona.saldo} signed tone srSuffix={persona.saldo >= 0 ? textos.economia.aFavor : textos.economia.debes} />
+									<span class="min-w-24 text-right tabular-nums">
+										<Money
+											cents={persona.saldo}
+											signed
+											tone
+											srSuffix={persona.saldo >= 0 ? textos.economia.aFavor : textos.economia.debes}
+										/>
+									</span>
 								{/snippet}
 							</ListRow>
 						{/each}
@@ -143,7 +150,7 @@
 								href={resolve('/(app)/saldos/aportaciones/[aportacionId=ulid]', { aportacionId: aportacion.id })}
 							>
 								{#snippet trailing()}
-									<Money cents={aportacion.importe} signed tone />
+									<span class="min-w-24 text-right tabular-nums"><Money cents={aportacion.importe} signed tone /></span>
 								{/snippet}
 							</ListRow>
 						{/each}
@@ -153,7 +160,7 @@
 		{/snippet}
 
 		{#snippet secundario()}
-			<Section title={textos.historial.ultimos}>
+			<Section class="mt-0 rounded-panel border border-hairline bg-wall-raised p-4" title={textos.historial.ultimos}>
 				{#if data.recientes.length === 0}
 					<p class="text-sm text-ink-muted">{textos.historial.vacio}</p>
 				{:else}
@@ -166,7 +173,7 @@
 								voided={fila.anulado}
 							>
 								{#snippet trailing()}
-									<Money cents={fila.importe} signed tone />
+									<span class="min-w-24 text-right tabular-nums"><Money cents={fila.importe} signed tone /></span>
 								{/snippet}
 							</ListRow>
 						{/each}

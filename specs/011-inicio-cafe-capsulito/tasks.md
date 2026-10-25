@@ -99,11 +99,11 @@
 
 ## Fase 8: Historia 6 — Pantallas de escritorio, saldos, estadísticas y agua (P2)
 
-- [ ] T031 [P] [US6] Ficha de cápsula `src/routes/(app)/admin/capsulas/[capsulaId=ulid]/+page.svelte` y `nueva/+page.svelte` en dos columnas a ≥ 1024 px (`CA-230`).
-- [ ] T032 [P] [US6] Detalle de compra `src/routes/(app)/compras/[compraId=ulid]/+page.svelte`: líneas y resumen en `lg:grid-cols-[2fr_1fr]`; motivo de anulación `max-w-md` y botón con su ancho (`CA-230`).
-- [ ] T033 [P] [US6] Saldos `src/routes/(app)/saldos/+page.svelte`: filas en rejilla con importes alineados a la derecha y `tabular-nums`; columna derecha sobre `Section` con `border border-hairline bg-wall-raised` (`CA-231`).
-- [ ] T034 [P] [US6] Estadísticas: `<details open>` en cada «Ver datos» (`CA-232`).
-- [ ] T035 [US6] E2E en `e2e/flujos/maquetacion-f11.spec.ts` (`CA-230` a `CA-232`, 390 y 1440 px) y referencias de regresión visual de esas pantallas.
+- [X] T031 [P] [US6] Ficha de cápsula `src/routes/(app)/admin/capsulas/[capsulaId=ulid]/+page.svelte` y `nueva/+page.svelte` en dos columnas a ≥ 1024 px (`CA-230`).
+- [X] T032 [P] [US6] Detalle de compra `src/routes/(app)/compras/[compraId=ulid]/+page.svelte`: líneas y resumen en `lg:grid-cols-[2fr_1fr]`; motivo de anulación `max-w-md` y botón con su ancho (`CA-230`).
+- [X] T033 [P] [US6] Saldos `src/routes/(app)/saldos/+page.svelte`: filas en rejilla con importes alineados a la derecha y `tabular-nums`; columna derecha sobre `Section` con `border border-hairline bg-wall-raised` (`CA-231`).
+- [X] T034 [P] [US6] Estadísticas: `<details open>` en cada «Ver datos» (`CA-232`).
+- [X] T035 [US6] E2E en `e2e/flujos/maquetacion-f11.spec.ts` (`CA-230` a `CA-232`, 390 y 1440 px) y referencias de regresión visual de esas pantallas. (Resultado: el repositorio no tiene pruebas de regresión visual; las posiciones y los anchos se comprueban por geometría.)
 
 ---
 

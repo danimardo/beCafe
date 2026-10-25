@@ -54,22 +54,24 @@
 
 	<FormularioCapsula accion="?/guardar" etiquetaBoton={textos.capsulas.guardar} {valorDe} {errorDe} fotoActual={data.tipo.fotoUrl} />
 
-	<Section title={data.tipo.estado === 'activo' ? textos.capsulas.retirar : textos.capsulas.reactivar}>
-		<form method="post" action={data.tipo.estado === 'activo' ? '?/retirar' : '?/reactivar'} use:enhance>
-			<Button type="submit" variant="soft" block>
-				{data.tipo.estado === 'activo' ? textos.capsulas.retirar : textos.capsulas.reactivar}
-			</Button>
-		</form>
-	</Section>
+	<div class="grid gap-6 lg:grid-cols-2 lg:items-start">
+		<Section class="mt-0" title={data.tipo.estado === 'activo' ? textos.capsulas.retirar : textos.capsulas.reactivar}>
+			<form method="post" action={data.tipo.estado === 'activo' ? '?/retirar' : '?/reactivar'} use:enhance>
+				<Button type="submit" variant="soft" block>
+					{data.tipo.estado === 'activo' ? textos.capsulas.retirar : textos.capsulas.reactivar}
+				</Button>
+			</form>
+		</Section>
 
-	<Section title={textos.capsulas.borrar}>
-		<p class="mb-3 text-[14px] text-ink-muted">{textos.capsulas.borrarAyuda}</p>
-		<form method="post" action="?/borrar" use:enhance class="flex flex-col gap-3">
-			<label class="flex min-h-11 items-center gap-3 text-[15px]">
-				<input type="checkbox" name="confirmo" value="on" class="size-5" required />
-				<span>{textos.capsulas.confirmarBorrar}</span>
-			</label>
-			<Button type="submit" variant="soft" block>{textos.capsulas.borrar}</Button>
-		</form>
-	</Section>
+		<Section class="mt-0" title={textos.capsulas.borrar}>
+			<p class="mb-3 text-[14px] text-ink-muted">{textos.capsulas.borrarAyuda}</p>
+			<form method="post" action="?/borrar" use:enhance class="flex flex-col gap-3">
+				<label class="flex min-h-11 items-center gap-3 text-[15px]">
+					<input type="checkbox" name="confirmo" value="on" class="size-5" required />
+					<span>{textos.capsulas.confirmarBorrar}</span>
+				</label>
+				<Button type="submit" variant="soft" block>{textos.capsulas.borrar}</Button>
+			</form>
+		</Section>
+	</div>
 </div>

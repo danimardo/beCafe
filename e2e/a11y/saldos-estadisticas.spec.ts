@@ -38,7 +38,7 @@ for (const esquema of ['light', 'dark'] as const) {
 			await entrarComo(page, servidor, 'miembro');
 			await page.goto(`${servidor.url}/estadisticas?periodo=ultimos12`);
 			await expectSinInfracciones(page);
-			for (const resumen of await page.getByText('Ver datos').all()) await resumen.click();
+			// Las tablas «Ver datos» ya salen abiertas (F11, CA-232): no hay que abrirlas antes de la segunda comprobación.
 			await expectSinInfracciones(page);
 		});
 	});

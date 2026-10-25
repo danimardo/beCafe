@@ -89,7 +89,7 @@
 </form>
 
 {#snippet tabla(cabeceras: string[], filas: (string | number)[][])}
-	<details class="mt-3 text-[14px]">
+	<details open class="mt-3 text-[14px]">
 		<summary class="min-h-6 cursor-pointer font-semibold text-accent">{textos.estadisticas.verDatos}</summary>
 		<table class="mt-2 w-full text-left tabular-nums">
 			<caption class="sr-only">{textos.estadisticas.tabla}</caption>

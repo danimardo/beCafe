@@ -38,42 +38,46 @@
 		<div role="alert"><Banner tone="negative">{errorGeneral}</Banner></div>
 	{/if}
 
-	<Section title={data.compra.autor}>
-		<p class="text-sm text-ink-muted">{data.compra.fecha.slice(0, 16).replace('T', ' ')} UTC</p>
-		<ul class="flex flex-col gap-1 text-[15px]">
-			{#each data.compra.lineas as linea, indice (indice)}
-				<li class="flex justify-between gap-3">
-					<span>{linea.tipo} · {linea.cantidad}</span>
-					<Money cents={linea.importe} />
-				</li>
-			{/each}
-		</ul>
-		<p class="font-semibold">{textos.economia.total}: <Money cents={data.compra.importe} /></p>
-		{#if data.compra.tieneFoto}
-			<img src={`/fotos/compras/${data.compra.id}`} alt={textos.economia.fotoTicket} class="max-h-72 rounded-card" />
-		{/if}
-		{#if anulada}
-			<p class="font-semibold">{textos.economia.compraAnulada}</p>
-		{/if}
-	</Section>
-
-	{#if regularizaciones.length > 0}
-		<Section title={textos.economia.regularizaciones}>
+	<div class="grid gap-6 lg:grid-cols-[2fr_1fr] lg:items-start">
+		<Section class="mt-0" title={data.compra.autor}>
+			<p class="text-sm text-ink-muted">{data.compra.fecha.slice(0, 16).replace('T', ' ')} UTC</p>
 			<ul class="flex flex-col gap-1 text-[15px]">
-				{#each regularizaciones as fila, indice (indice)}
+				{#each data.compra.lineas as linea, indice (indice)}
 					<li class="flex justify-between gap-3">
-						<span>{fila.usuario}</span>
-						<Money cents={fila.importe} signed tone />
+						<span>{linea.tipo} · {linea.cantidad}</span>
+						<Money cents={linea.importe} />
 					</li>
 				{/each}
 			</ul>
+			<p class="font-semibold">{textos.economia.total}: <Money cents={data.compra.importe} /></p>
+			{#if data.compra.tieneFoto}
+				<img src={`/fotos/compras/${data.compra.id}`} alt={textos.economia.fotoTicket} class="max-h-72 rounded-card" />
+			{/if}
+			{#if anulada}
+				<p class="font-semibold">{textos.economia.compraAnulada}</p>
+			{/if}
 		</Section>
-	{/if}
 
-	{#if !anulada}
-		<form method="post" action="?/anular" use:enhance class="flex flex-col gap-4">
-			<TextField label={textos.economia.motivoAnulacion} name="motivo" rows={2} error={errorMotivo} required />
-			<Button type="submit" variant="danger">{textos.economia.anularCompra}</Button>
-		</form>
-	{/if}
+		<div class="flex flex-col gap-6">
+			{#if regularizaciones.length > 0}
+				<Section class="mt-0" title={textos.economia.regularizaciones}>
+					<ul class="flex flex-col gap-1 text-[15px]">
+						{#each regularizaciones as fila, indice (indice)}
+							<li class="flex justify-between gap-3">
+								<span>{fila.usuario}</span>
+								<Money cents={fila.importe} signed tone />
+							</li>
+						{/each}
+					</ul>
+				</Section>
+			{/if}
+
+			{#if !anulada}
+				<form method="post" action="?/anular" use:enhance class="flex max-w-md flex-col gap-4">
+					<TextField label={textos.economia.motivoAnulacion} name="motivo" rows={2} error={errorMotivo} required />
+					<Button type="submit" variant="danger" class="self-start">{textos.economia.anularCompra}</Button>
+				</form>
+			{/if}
+		</div>
+	</div>
 </div>

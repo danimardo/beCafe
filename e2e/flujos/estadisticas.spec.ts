@@ -25,7 +25,7 @@ test('CA-201, CA-202: un miembro ve las cifras, los cafés por persona, la evolu
 	await expect(page.getByRole('img', { name: /^Saldo de la hucha al cierre de cada mes/ })).toBeVisible();
 
 	// CA-202: cada gráfico tiene su tabla con los mismos datos.
-	await page.getByText('Ver datos').first().click();
+	// Las tablas salen abiertas por defecto (F11, CA-232).
 	await expect(page.getByRole('table').first()).toBeVisible();
 
 	// RF-201: la fila de una persona abre sus estadísticas, sin restricción de administrador.

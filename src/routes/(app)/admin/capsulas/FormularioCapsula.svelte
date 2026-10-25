@@ -22,7 +22,7 @@
 	];
 </script>
 
-<form method="post" action={accion} enctype="multipart/form-data" use:enhance class="flex flex-col gap-5">
+<form method="post" action={accion} enctype="multipart/form-data" use:enhance class="grid gap-5 lg:grid-cols-2 lg:items-start lg:gap-x-8">
 	<TextField name="nombre" label={textos.capsulas.nombre} value={valorDe('nombre')} error={errorDe('nombre')} required maxlength={60} />
 	<TextField name="marca" label={textos.capsulas.marca} value={valorDe('marca')} error={errorDe('marca')} required maxlength={60} />
 	<SelectField
@@ -45,11 +45,13 @@
 		step="1"
 		required
 	/>
-	{#if fotoActual}
-		<img src={fotoActual} alt={textos.capsulas.fotoActual} class="size-16 rounded-chip object-cover" />
-	{:else}
-		<p class="text-[14px] text-ink-muted">{textos.capsulas.sinFoto}</p>
-	{/if}
-	<PhotoField name="foto" label={textos.capsulas.foto} hint={textos.capsulas.fotoAyuda} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
-	<Button type="submit" block>{etiquetaBoton}</Button>
+	<div class="flex flex-col gap-3">
+		{#if fotoActual}
+			<img src={fotoActual} alt={textos.capsulas.fotoActual} class="size-16 rounded-chip object-cover" />
+		{:else}
+			<p class="text-[14px] text-ink-muted">{textos.capsulas.sinFoto}</p>
+		{/if}
+		<PhotoField name="foto" label={textos.capsulas.foto} hint={textos.capsulas.fotoAyuda} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
+	</div>
+	<Button type="submit" block class="lg:col-span-2">{etiquetaBoton}</Button>
 </form>
