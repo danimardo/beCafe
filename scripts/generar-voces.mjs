@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Generador local de locuciones MP3 y pistas de sincronización labial JSON con ElevenLabs v3 (RF-187, DEC-115, ADR-0006).
 // Uso: `npm run voces:generar` (o `node scripts/generar-voces.mjs [--force]`).
@@ -8,7 +9,7 @@ import { resolve } from 'node:path';
 const ETIQUETAS_RISA = new Set(['laughs', 'laughing', 'chuckles', 'giggles', 'risas', 'risa']);
 
 /** Catálogo de locuciones pregeneradas en `static/mascota/voces/`. */
-const LOCUCIONES = [
+export const LOCUCIONES = [
 	{
 		id: 'intro_01',
 		texto: 'Soy tu compañero de café en el departamento. Te ayudo a saber qué cápsulas quedan y cómo va nuestra hucha común.',
@@ -138,7 +139,7 @@ const LOCUCIONES = [
 	},
 ];
 
-function cargarDotEnv() {
+export function cargarDotEnv() {
 	const rutaEnv = resolve(process.cwd(), '.env');
 	const mapa = {};
 	if (!existsSync(rutaEnv)) return mapa;
@@ -231,10 +232,51 @@ function construirCuesLipSync(alineacion) {
 		}));
 }
 
+export const VOZ_POR_DEFECTO = 'TfkjFyM0u8G2kDTCi1Qi';
+
+/**
+ * Pide a ElevenLabs la locución y devuelve el audio y su pista JSON de sincronización labial, sin escribir nada.
+ * `urlApi` solo cambia en las pruebas.
+ */
+export async function generarLocucion(item, { apiKey, voiceId, urlApi = 'https://api.elevenlabs.io' }) {
+	const respuesta = await fetch(`${urlApi}/v1/text-to-speech/${voiceId}/with-timestamps`, {
+		method: 'POST',
+		headers: {
+			'xi-api-key': apiKey,
+			'content-type': 'application/json',
+		},
+		body: JSON.stringify({
+			text: item.textoVoz,
+			model_id: 'eleven_v3',
+			voice_settings: {
+				stability: 0.45,
+				similarity_boost: 0.8,
+				style: 0.35,
+				use_speaker_boost: true,
+			},
+		}),
+	});
+	if (!respuesta.ok) throw new Error(`Error HTTP ${respuesta.status} al generar ${item.id}`);
+
+	const datos = await respuesta.json();
+	const audio = Buffer.from(datos.audio_base64, 'base64');
+	const alineacion = datos.normalized_alignment ?? datos.alignment;
+	const cues = alineacion ? construirCuesLipSync(alineacion) : [];
+	const ends = alineacion?.character_end_times_seconds ?? [];
+	const duration = ends.length > 0 ? redondearTiempo(ends[ends.length - 1]) : 0;
+	return { audio, cues, duration, json: { version: 1, audio: `${item.id}.mp3`, texto: item.texto, duration, cues } };
+}
+
+/** Escribe el MP3 y su pista JSON de una locución ya generada. */
+export function escribirLocucion(dirSalida, item, resultado) {
+	writeFileSync(resolve(dirSalida, `${item.id}.mp3`), resultado.audio);
+	writeFileSync(resolve(dirSalida, `${item.id}.json`), `${JSON.stringify(resultado.json, null, '\t')}\n`);
+}
+
 async function principal() {
 	const envArchivo = cargarDotEnv();
 	const apiKey = process.env.ELEVENLABS_API_KEY || envArchivo.ELEVENLABS_API_KEY;
-	const voiceId = process.env.ELEVENLABS_VOICE_ID || envArchivo.ELEVENLABS_VOICE_ID || 'TfkjFyM0u8G2kDTCi1Qi';
+	const voiceId = process.env.ELEVENLABS_VOICE_ID || envArchivo.ELEVENLABS_VOICE_ID || VOZ_POR_DEFECTO;
 	const forzar = process.argv.includes('--force');
 	// `--prefijo=intro_` limita la generación a las locuciones cuyo identificador empieza así.
 	const prefijo = process.argv.find((a) => a.startsWith('--prefijo='))?.slice('--prefijo='.length) ?? '';
@@ -252,63 +294,26 @@ async function principal() {
 
 	for (const item of LOCUCIONES) {
 		if (!item.id.startsWith(prefijo)) continue;
-		const rutaMp3 = resolve(dirSalida, `${item.id}.mp3`);
-		const rutaJson = resolve(dirSalida, `${item.id}.json`);
-		if (!forzar && existsSync(rutaMp3) && existsSync(rutaJson)) {
+		if (!forzar && existsSync(resolve(dirSalida, `${item.id}.mp3`)) && existsSync(resolve(dirSalida, `${item.id}.json`))) {
 			omitidas += 1;
 			continue;
 		}
-
-		const respuesta = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/with-timestamps`, {
-			method: 'POST',
-			headers: {
-				'xi-api-key': apiKey,
-				'content-type': 'application/json',
-			},
-			body: JSON.stringify({
-				text: item.textoVoz,
-				model_id: 'eleven_v3',
-				voice_settings: {
-					stability: 0.45,
-					similarity_boost: 0.8,
-					style: 0.35,
-					use_speaker_boost: true,
-				},
-			}),
-		});
-
-		if (!respuesta.ok) {
-			process.stderr.write(`Error HTTP ${respuesta.status} al generar ${item.id}\n`);
+		let resultado;
+		try {
+			resultado = await generarLocucion(item, { apiKey, voiceId });
+		} catch (causa) {
+			process.stderr.write(`${causa instanceof Error ? causa.message : String(causa)}\n`);
 			process.exit(1);
 		}
-
-		const datos = await respuesta.json();
-		const bufferAudio = Buffer.from(datos.audio_base64, 'base64');
-		const alineacion = datos.normalized_alignment ?? datos.alignment;
-		const cues = alineacion ? construirCuesLipSync(alineacion) : [];
-		const ends = alineacion?.character_end_times_seconds ?? [];
-		const duration = ends.length > 0 ? redondearTiempo(ends[ends.length - 1]) : 0;
-
-		writeFileSync(rutaMp3, bufferAudio);
-		writeFileSync(
-			rutaJson,
-			`${JSON.stringify(
-				{
-					version: 1,
-					audio: `${item.id}.mp3`,
-					texto: item.texto,
-					duration,
-					cues,
-				},
-				null,
-				'\t',
-			)}\n`,
-		);
+		escribirLocucion(dirSalida, item, resultado);
 		generadas += 1;
-		process.stdout.write(`Generada locución ${item.id} (${bufferAudio.length} B, ${cues.length} cues, ${duration}s)\n`);
+		process.stdout.write(
+			`Generada locución ${item.id} (${resultado.audio.length} B, ${resultado.cues.length} cues, ${resultado.duration}s)\n`,
+		);
 	}
 
 	process.stdout.write(`Completado: ${generadas} generadas, ${omitidas} ya existentes en static/mascota/voces/.\n`);
 }
 
-await principal();
+// Solo se ejecuta al lanzarlo directamente: `scripts/voces-interactivo.mjs` importa el catálogo y la generación.
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await principal();

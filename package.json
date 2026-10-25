@@ -6,6 +6,7 @@
 	"scripts": {
 		"tokens": "node scripts/generate-tokens.mjs",
 		"voces:generar": "node scripts/generar-voces.mjs",
+		"voces": "node scripts/voces-interactivo.mjs",
 		"vapid:generar": "node scripts/vapid/generar-claves.mjs",
 		"copia:verificar": "tsx scripts/copias/verificar-copia.ts",
 		"predev": "npm run tokens",

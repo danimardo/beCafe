@@ -12,6 +12,7 @@
 		"drizzle.config.ts",
 		"vite.comandos.config.ts",
 		"scripts/servidor",
-		"scripts/copias"
+		"scripts/copias",
+		"scripts/voces-interactivo.test.ts"
 	]
 }
