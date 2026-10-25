@@ -1,5 +1,6 @@
 import { test, expect } from '../fixtures/errores-navegador';
 import { entrarComo } from '../fixtures/sesiones';
+import { fotoDePrueba } from '../fixtures/capsulas';
 import { aportar, arquear, registrarCompra, rellenarLineaDeCompra, tiposDeCompra } from '../fixtures/economia';
 
 // Sin JavaScript, la economía de F4 funciona con los formularios del servidor (constitución XVII).
@@ -40,9 +41,13 @@ test('EV-106, CA-198: sin JavaScript, una compra que deja la hucha en negativo m
 	await expect(paso).toBeVisible();
 	await expect(paso.getByText('Saldo resultante')).toBeVisible();
 	await expect(page.getByRole('spinbutton', { name: `Cantidad de ${primero}`, exact: true })).toHaveValue('1');
+	// El navegador no puede volver a rellenar un campo de archivo (constitución XVII: `valores` no lleva archivos): el paso lo avisa.
+	await expect(paso.getByText('vuelve a elegirla antes de registrar')).toBeVisible();
+	await page.getByLabel('Hacer o elegir foto').setInputFiles({ name: 'ticket.jpg', mimeType: 'image/jpeg', buffer: await fotoDePrueba() });
 	await page.getByRole('button', { name: 'Registrar igualmente', exact: true }).click();
 
 	await expect(page).toHaveURL(/\/compras\/[0-9A-Z]{26}$/);
+	await expect(page.getByRole('img', { name: 'Foto del ticket' })).toBeVisible();
 });
 
 test('sin JavaScript, una compra se anula desde su detalle con el motivo', async ({ page, servidor }) => {

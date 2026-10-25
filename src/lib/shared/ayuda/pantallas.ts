@@ -276,7 +276,7 @@ export function pantallaDeRuta(routeId: string | null): IdPantalla | undefined {
 	return routeId === null ? undefined : RUTAS[routeId];
 }
 
-/** Lista ordenada para `/ayuda`: cada entrada con su identificador, que es también el ancla (`/ayuda#<id>`). */
+/** Lista ordenada para `/ayuda`: cada entrada con su identificador, que es el valor de `?pantalla=` con el que `/ayuda` la muestra primero. */
 export function listaAyuda(): { id: IdPantalla; entrada: EntradaAyuda }[] {
 	return Object.values(RUTAS)
 		.filter((id, indice, todas) => todas.indexOf(id) === indice)
