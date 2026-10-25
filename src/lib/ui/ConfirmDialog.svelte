@@ -31,7 +31,7 @@
 	<AlertDialog.Portal>
 		<AlertDialog.Overlay class="animate-fade-in fixed inset-0 z-50 bg-scrim" />
 		<AlertDialog.Content
-			class="animate-sheet-in glass-strong fixed left-1/2 top-1/2 z-50 w-[calc(100%-2.5rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-sheet p-6 text-ink"
+			class="animate-sheet-in border border-hairline bg-wall-base shadow-[var(--shadow-glass)] fixed left-1/2 top-1/2 z-50 w-[calc(100%-2.5rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-sheet p-6 text-ink"
 		>
 			<AlertDialog.Title class="type-title-lg">{title}</AlertDialog.Title>
 			<AlertDialog.Description class="mt-2 text-[15px] leading-5 text-ink-muted">{description}</AlertDialog.Description>

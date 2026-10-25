@@ -10,7 +10,7 @@ export async function expectSinInfracciones(page: Page): Promise<void> {
 			document
 				.getAnimations()
 				.filter((animacion) => animacion.effect?.getComputedTiming().iterations !== Infinity)
-				.map((animacion) => animacion.finished),
+				.map((animacion) => animacion.finished.catch(() => undefined)),
 		),
 	);
 	const resultado = await new AxeBuilder({ page }).analyze();

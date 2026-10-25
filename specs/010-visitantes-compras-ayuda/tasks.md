@@ -158,8 +158,8 @@
 - [X] T057 Actualizar `ARCHITECTURE.md` §2 (`(visita)`, `lib/shared/ayuda/`, `lib/client/instalacion.ts`, `plataforma/qr.ts`), §3 (tablas nuevas de `auth`, `economia` y `usuarios`) y §11 (`uqr` en su único archivo); actualizar `docs/pruebas.md` con las rutas nuevas de `acceso` y `a11y`.
 - [X] T058 Proponer a la persona usuaria el CAMBIO-020 de `historias.md` (§10.3 `uqr`, §10.4 tablas, §10.5 rutas) y aplicarlo solo con su autorización, con respaldo previo en `.respaldos/`.
 - [ ] T059 Ejecutar `scripts/benchmark.sh` completo en serie (verificación completa y E2E de todos los proyectos) y comprobar la Definition of Done de `docs/pruebas.md` §20.2; cobertura ≥ 90 % en `economia` y ≥ 80 % en `lib/server` + `lib/shared`.
-- [ ] T060 Pedir a la persona usuaria la revisión manual con VoiceOver (iOS) y TalkBack (Android) de `/visita`, `/compras`, `/estadisticas`, el panel de ayuda y el tour (constitución XI), y anotar el resultado en este archivo.
-- [ ] T061 Comprobar `git status` (sin `.env`, `*.db`, `.local/`, informes ni capturas de `.logs/`) e informar de lo ejecutado, lo reutilizado y lo no verificado.
+- [X] T060 Pedir a la persona usuaria la revisión manual con VoiceOver (iOS) y TalkBack (Android) de `/visita`, `/compras`, `/estadisticas`, el panel de ayuda y el tour (constitución XI), y anotar el resultado en este archivo. Resultado (25-10-2026): la persona usuaria revisó las pantallas con VoiceOver y TalkBack y respondió «todo ok»; no aportó incidencias.
+- [X] T061 Comprobar `git status` (sin `.env`, `*.db`, `.local/`, informes ni capturas de `.logs/`) e informar de lo ejecutado, lo reutilizado y lo no verificado.
 
 ---
 
