@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { afterNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { tick } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { ulid } from 'ulid';
 	import type { ElementoCola } from '#lib/shared/contratos/consumos';
 	import {
@@ -17,6 +18,7 @@
 		PageHeader,
 		PanelGrid,
 		Section,
+		TourInicio,
 		WaterRefillCard,
 		usarAvisos,
 		usarMascota,
@@ -38,6 +40,22 @@
 	let sesionCaducada = $state(false);
 	let consumoADeshacer = $state('');
 	let formularioDeshacer: HTMLFormElement | undefined = $state();
+	// RF-204: el tour aparece tras la bienvenida, con JavaScript, si la cuenta no lo ha visto o se pidió repetirlo.
+	let formularioTour: HTMLFormElement | undefined = $state();
+	let tourCerrado = $state(false);
+	// «Repetir el tour» navega a la misma página con `tour=si`: el componente se conserva y el tour vuelve a abrirse.
+	afterNavigate(() => {
+		tourCerrado = false;
+	});
+	let montado = $state(false);
+	onMount(() => {
+		montado = true;
+	});
+	const mostrarTour = $derived(montado && data.tourPendiente && !tourCerrado && mascota.bienvenidaVista && !mascota.bienvenidaManual);
+	function terminarTour() {
+		tourCerrado = true;
+		formularioTour?.requestSubmit();
+	}
 	let temporizador: ReturnType<typeof setTimeout> | undefined;
 
 	const enCola = $derived(pendientes.filter((elemento) => elemento.estado === 'pendiente'));
@@ -299,6 +317,19 @@
 	<form method="post" action="?/deshacer" class="hidden" bind:this={formularioDeshacer} use:enviarDeshacer>
 		<input type="hidden" name="consumoId" value={consumoADeshacer} />
 	</form>
+
+	<form
+		method="post"
+		action="?/tourVisto"
+		class="hidden"
+		bind:this={formularioTour}
+		use:enhance={() =>
+			async ({ update }) =>
+				update({ reset: false, invalidateAll: false })}
+	></form>
+	{#if mostrarTour}
+		<TourInicio onterminar={terminarTour} />
+	{/if}
 
 	<PanelGrid>
 		{#snippet resumen()}

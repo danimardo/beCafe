@@ -4,7 +4,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, falloDeNegocio, fallo } from './fallo';
 import { ErrorDeNegocio, nuevoId } from '#lib/server/plataforma';
 import { leerConfiguracion } from '#lib/server/configuracion';
-import { buscarUsuarioPorId } from '#lib/server/usuarios';
+import { buscarUsuarioPorId, leerMarcasCuenta, marcarCuenta } from '#lib/server/usuarios';
 import { deshacerRelleno, leerEstadoAgua, registrarRelleno } from '#lib/server/rellenos';
 import {
 	contarConsumos,
@@ -102,6 +102,8 @@ export const load: PageServerLoad = ({ locals, url }) => {
 		hucha: hucha.saldo,
 		deudores: leerPersonasBajoLimite(db, actor).map((persona) => ({ nombre: persona.nombre, saldo: persona.saldo })),
 		privacidadAceptada: aviso.success && aviso.data.aviso === 'privacidad-aceptada',
+		// RF-204: el tour se ofrece una vez por cuenta, o cuando la persona lo pide desde la ayuda.
+		tourPendiente: !leerMarcasCuenta(db, actor.usuarioId).tourInicioVisto || (aviso.success && aviso.data.tour === 'si'),
 		avisos,
 		tipos,
 		recientes: leerConsumosRecientesPropios(db, actor, ahora).map((consumo) => ({
@@ -115,6 +117,14 @@ export const load: PageServerLoad = ({ locals, url }) => {
 };
 
 export const actions: Actions = {
+	// RF-204: terminar o saltar el tour lo marca como visto en la cuenta. Repetirlo no cambia nada.
+	tourVisto: ({ locals }) => {
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		marcarCuenta(locals.ambiente, actor.usuarioId, 'tour_inicio_visto');
+		return { tourVisto: true };
+	},
+
 	// «He rellenado el agua» (RF-170, RF-172): el servidor decide el intervalo; un rechazo vuelve con quién y cuándo (409).
 	rellenar: async ({ request, locals }) => {
 		const actor = locals.actor;

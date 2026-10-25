@@ -4,5 +4,10 @@ import { expect, type Page } from '@playwright/test';
 /** Falla si la pantalla tiene infracciones de axe (constitución XI: sin infracciones en las pruebas E2E). */
 export async function expectSinInfracciones(page: Page): Promise<void> {
 	const resultado = await new AxeBuilder({ page }).analyze();
-	expect(resultado.violations.map((infraccion) => `${infraccion.id}: ${infraccion.help}`)).toEqual([]);
+	// El selector de cada nodo localiza la infracción sin abrir el informe completo.
+	expect(
+		resultado.violations.map(
+			(infraccion) => `${infraccion.id}: ${infraccion.help} → ${infraccion.nodes.map((nodo) => nodo.target.join(' ')).join(', ')}`,
+		),
+	).toEqual([]);
 }

@@ -21,7 +21,7 @@ export async function darDeAltaYLeerEnlace(page: Page, servidor: ServidorDePrueb
 }
 
 /** Activa una persona invitada en su propio contexto: define la contraseña y acepta la privacidad (CA-132, CA-160). */
-export async function activarPersona(page: Page, servidor: ServidorDePrueba, enlace: string): Promise<void> {
+export async function activarPersona(page: Page, servidor: ServidorDePrueba, enlace: string, conTour = false): Promise<void> {
 	await page.goto(enlace);
 	await page.evaluate(() => {
 		try {
@@ -36,4 +36,12 @@ export async function activarPersona(page: Page, servidor: ServidorDePrueba, enl
 	await expect(page).toHaveURL(`${servidor.url}/aceptar-privacidad`);
 	await page.getByRole('button', { name: 'He leído el texto y lo acepto', exact: true }).click();
 	await expect(page).toHaveURL(`${servidor.url}/?aviso=privacidad-aceptada`);
+	if (conTour) return;
+	// La cuenta nueva no ha visto el tour de Inicio (RF-204): se marca como visto con su acción y se recarga sin él.
+	const respuesta = await page.request.post(`${servidor.url}/?/tourVisto`, {
+		headers: { origin: servidor.url, 'content-type': 'application/x-www-form-urlencoded' },
+		data: '',
+	});
+	expect(respuesta.ok()).toBe(true);
+	await page.goto(`${servidor.url}/`);
 }

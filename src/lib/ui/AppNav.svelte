@@ -32,6 +32,7 @@
 <!-- MÓVIL: píldora flotante de cristal con las 5 secciones. -->
 <nav
 	aria-label="Principal"
+	data-tour="navegacion"
 	data-sveltekit-preload-data="tap"
 	class="glass-strong fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex rounded-full p-1.5 md:hidden"
 >
@@ -67,7 +68,7 @@
 			<span class="hidden lg:inline"><BrandMark /></span>
 		</div>
 	{/if}
-	<nav aria-label="Principal" class="flex flex-col gap-1">
+	<nav aria-label="Principal" data-tour="navegacion" class="flex flex-col gap-1">
 		{#each items as item (item.href)}
 			{@const active = isActive(item)}
 			<a href={item.href} aria-current={active ? 'page' : undefined} class={link(active)}>

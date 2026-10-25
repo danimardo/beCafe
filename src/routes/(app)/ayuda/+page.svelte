@@ -3,8 +3,13 @@
 	import { BackLink, Button, Capsulito, PageHeader, Section, usarMascota } from '#lib/ui';
 	import { ESCENAS_BIENVENIDA } from '#lib/shared/mascota/bienvenida';
 	import { textos } from '#lib/shared/textos';
+	import { CATALOGO_AYUDA, listaAyuda } from '#lib/shared/ayuda/pantallas';
+	import type { PageProps } from './$types';
 
+	let { data }: PageProps = $props();
 	const mascota = usarMascota();
+	// La pantalla desde la que se llegó va primero; el resto, en el orden del catálogo (RF-203).
+	const pantallas = $derived(listaAyuda().filter((fila) => fila.id !== data.pantalla));
 </script>
 
 <svelte:head>
@@ -14,6 +19,29 @@
 <div class="flex flex-col gap-6">
 	<BackLink href={resolve('/(app)/perfil')} label={textos.perfil.volver} />
 	<PageHeader title={textos.notificaciones.ayuda.titulo} />
+
+	{#snippet bloque(id: string, entrada: (typeof CATALOGO_AYUDA)[keyof typeof CATALOGO_AYUDA], abierto: boolean)}
+		<details {id} open={abierto} class="rounded-panel border border-hairline bg-wall-base p-4 text-[15px] leading-6 text-ink">
+			<summary class="min-h-6 cursor-pointer font-semibold">{entrada.titulo}</summary>
+			<p class="mt-2">{entrada.proposito}</p>
+			{#if entrada.acciones.length + entrada.campos.length > 0}
+				<dl class="mt-2 flex flex-col gap-2">
+					{#each [...entrada.acciones, ...entrada.campos] as item (item.nombre)}
+						<div>
+							<dt class="font-semibold">{item.nombre}</dt>
+							<dd class="text-ink-muted">{item.explicacion}</dd>
+						</div>
+					{/each}
+				</dl>
+			{/if}
+		</details>
+	{/snippet}
+
+	{#if data.pantalla}
+		<Section title="Ayuda de la pantalla">
+			{@render bloque(data.pantalla, CATALOGO_AYUDA[data.pantalla], true)}
+		</Section>
+	{/if}
 
 	<div class="flex flex-col gap-4 rounded-panel border border-hairline bg-wall-base p-5 text-[15px] leading-6 text-ink">
 		<p>{textos.notificaciones.ayuda.instalar}</p>
@@ -46,6 +74,14 @@
 					</li>
 				{/each}
 			</ol>
+		</div>
+	</Section>
+
+	<Section title="Qué hace cada pantalla">
+		<div class="flex flex-col gap-2">
+			{#each pantallas as fila (fila.id)}
+				{@render bloque(fila.id, fila.entrada, false)}
+			{/each}
 		</div>
 	</Section>
 </div>

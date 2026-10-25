@@ -2,7 +2,7 @@ import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { definirContrasenaConEnlace, generarEnlace } from '#lib/server/auth';
 import { enTransaccion, nuevoId, type Ambiente } from '#lib/server/plataforma';
-import { aceptarPrivacidadPersona, crearUsuario } from '#lib/server/usuarios';
+import { aceptarPrivacidadPersona, crearUsuario, marcarCuenta } from '#lib/server/usuarios';
 import { VERSION_PRIVACIDAD } from '#lib/shared/privacidad';
 import { abrirAmbienteComando, validarEntorno } from './comando';
 
@@ -58,6 +58,9 @@ async function sembrar(): Promise<number> {
 			// Entran con el texto ya aceptado; Pedro lo acepta en su flujo de invitación (T076).
 			aceptarPrivacidadPersona(ambiente.db, { usuarioId, version: VERSION_PRIVACIDAD, instante: ambiente.reloj.ahora() });
 		}
+
+		// El tour de Inicio (RF-204) se prueba con una cuenta nueva: las sembradas ya lo han visto y no tapa sus pruebas.
+		for (const usuarioId of [ana, luis, pedro, marta]) marcarCuenta(ambiente, usuarioId, 'tour_inicio_visto');
 
 		const siembra = {
 			correos: { administrador: CORREO_ANA, miembro: CORREO_LUIS, invitada: CORREO_PEDRO, pendiente: CORREO_MARTA },

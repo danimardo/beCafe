@@ -75,6 +75,7 @@
 		<input type="hidden" name="clienteId" value={clienteId} />
 		<button
 			type="submit"
+			data-tour={visitante ? undefined : 'capsula'}
 			name={visitante ? undefined : 'invitado'}
 			value={visitante ? undefined : '0'}
 			{disabled}
@@ -136,6 +137,7 @@
 		{#if !visitante}
 			<button
 				type="submit"
+				data-tour="invitado"
 				name="invitado"
 				value="1"
 				{disabled}

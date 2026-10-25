@@ -26,3 +26,13 @@ test('CA-182, CA-187: sin JavaScript, /ayuda muestra las 8 escenas estáticas y 
 	await page.getByRole('button', { name: 'Cerrar sesión', exact: true }).click();
 	await expect(page).toHaveURL(`${servidor.url}/login`);
 });
+
+test('CA-203: sin JavaScript, «?» lleva a /ayuda con la ayuda de la pantalla primero', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'miembro');
+	await page.goto(`${servidor.url}/compras`);
+	await page.getByRole('button', { name: 'Ayuda de esta pantalla', exact: true }).click();
+
+	await expect(page).toHaveURL(`${servidor.url}/ayuda?pantalla=compras`);
+	await expect(page.getByRole('heading', { name: 'Ayuda de la pantalla' })).toBeVisible();
+	await expect(page.getByText('Registra las cápsulas que has comprado con dinero de la hucha.')).toBeVisible();
+});

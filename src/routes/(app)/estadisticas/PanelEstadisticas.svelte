@@ -124,13 +124,14 @@
 					<li>
 						<a
 							href={resolve('/(app)/estadisticas/[usuarioId=ulid]', { usuarioId: fila.usuarioId })}
-							aria-label={textos.estadisticas.verPersona(fila.nombre)}
 							class="flex min-h-11 items-center gap-3 rounded-chip px-1 hover:bg-accent-soft"
 						>
 							<Avatar name={fila.nombre} />
 							<span class="flex min-w-0 flex-1 flex-col gap-1">
 								<span class="flex justify-between gap-2 text-[15px]">
-									<span class="truncate">{fila.nombre}</span>
+									<!-- WCAG 2.5.3: el nombre accesible empieza por la acción y contiene el texto visible (nombre y cafés). -->
+									<span class="sr-only">{textos.estadisticas.verPersona(fila.nombre)}</span>
+									<span class="truncate" aria-hidden="true">{fila.nombre}</span>
 									<span class="tabular-nums font-semibold">{fila.cafes + fila.invitados}</span>
 								</span>
 								<span class="block h-2 w-full rounded-full bg-accent-soft" aria-hidden="true">

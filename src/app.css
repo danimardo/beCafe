@@ -150,3 +150,9 @@
 }
 
 /* Utilidad para el contenido solo para lectores de pantalla ya existe como sr-only de Tailwind. */
+
+/* Tour de Inicio (RF-204): el elemento del paso actual se resalta con el mismo anillo que el foco. */
+[data-tour-activo] {
+	outline: 3px solid var(--accent);
+	outline-offset: 4px;
+}
