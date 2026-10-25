@@ -35,7 +35,7 @@
 			porTipo: { nombre: string; cafes: number; color: string }[];
 			rellenos: number;
 			ranking: { usuarioId: string; nombre: string; rellenos: number; baja: boolean }[];
-			porPersona: { usuarioId: string; nombre: string; cafes: number; invitados: number }[];
+			porPersona: { usuarioId: string; nombre: string; fotoUrl: string | null; cafes: number; invitados: number }[];
 			/** Solo en el departamento: últimos 12 meses y saldo de la hucha. */
 			evolucion?: FilaMes[];
 			hucha?: { mes: string; saldo: number }[];
@@ -126,7 +126,7 @@
 							href={resolve('/(app)/estadisticas/[usuarioId=ulid]', { usuarioId: fila.usuarioId })}
 							class="flex min-h-11 items-center gap-3 rounded-chip px-1 hover:bg-accent-soft"
 						>
-							<Avatar name={fila.nombre} />
+							<Avatar name={fila.nombre} usuarioId={fila.usuarioId} fotoUrl={fila.fotoUrl} />
 							<span class="flex min-w-0 flex-1 flex-col gap-1">
 								<span class="flex justify-between gap-2 text-[15px]">
 									<!-- WCAG 2.5.3: el nombre accesible empieza por la acción y contiene el texto visible (nombre y cafés). -->

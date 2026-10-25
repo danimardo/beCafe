@@ -10,7 +10,7 @@
 		items: NavItem[];
 		/** Solo para administradores: se muestra en la barra lateral (escritorio). En móvil se entra desde Perfil. */
 		adminItems?: NavItem[];
-		user: { name: string; role: 'miembro' | 'administrador' };
+		user: { name: string; role: 'miembro' | 'administrador'; id?: string; fotoUrl?: string | null };
 		/** Destinos de la marca y del perfil, ya resueltos con `resolve()`. Sin destino, el elemento no es un enlace. */
 		inicioHref?: ResolvedPathname;
 		perfilHref?: ResolvedPathname;
@@ -92,7 +92,7 @@
 		</nav>
 	{/if}
 	{#snippet cuenta()}
-		<Avatar name={user.name} size="md" />
+		<Avatar name={user.name} usuarioId={user.id} fotoUrl={user.fotoUrl} size="md" />
 		<span class="sr-only min-w-0 lg:not-sr-only lg:block">
 			<span class="block truncate text-[15px] font-semibold leading-5"><span class="sr-only">Tu perfil:</span> {user.name}</span>
 			<span aria-hidden="true" class="block text-[13px] capitalize leading-[18px] text-ink-muted">{user.role}</span>

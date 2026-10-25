@@ -1,6 +1,7 @@
 import { exigirSesion, type Actor } from '#lib/server/auth';
 import { contarCafesVisitante, contarConsumos, leerEvolucionHucha, primerConsumo } from '#lib/server/economia';
 import type { Ejecutor } from '#lib/server/plataforma';
+import { urlFotoUsuario } from '#lib/shared/contratos/fotos-usuario';
 import { esquemaInstanteUtc, esquemaMes, type InstanteUtc, type Mes } from '#lib/shared/fechas/tipos';
 import { mesDeInstante, mesesEntre } from '#lib/shared/fechas/meses';
 import { contarRellenos } from '#lib/server/rellenos';
@@ -13,7 +14,7 @@ import { limitesDePeriodo, mesesDelPeriodo, mesesDeUltimos, type Periodo } from 
 export type ConsultaPeriodo = { periodo: 'mes' | 'ultimos3' | 'ultimos12' | 'anio' | 'todo'; mes?: Mes; anio?: number };
 
 /** Cafés de una persona activa en el periodo (RF-202). La lista va de quien más tomó a quien menos. */
-export type CafesDePersona = { usuarioId: string; nombre: string; cafes: number; invitados: number };
+export type CafesDePersona = { usuarioId: string; nombre: string; fotoUrl: string | null; cafes: number; invitados: number };
 
 /** Una persona en el ranking de rellenos (RF-175). `baja` la marca sin quitarla del ranking (RN-085). */
 export type RankingRelleno = { usuarioId: string; nombre: string; rellenos: number; baja: boolean };
@@ -165,7 +166,14 @@ function mesesDe(periodo: Periodo, primerMes: Mes | null, mesActual: Mes): Mes[]
 function cafesPorPersona(db: Ejecutor, conteos: Map<string, { cafes: number; invitados: number }>): CafesDePersona[] {
 	return listarUsuarios(db)
 		.filter((persona) => persona.estado === 'activo')
-		.map((persona) => ({ usuarioId: persona.id, nombre: persona.nombre, cafes: 0, invitados: 0, ...conteos.get(persona.id) }))
+		.map((persona) => ({
+			usuarioId: persona.id,
+			nombre: persona.nombre,
+			fotoUrl: persona.fotoRuta ? urlFotoUsuario(persona.id, persona.fotoRuta) : null,
+			cafes: 0,
+			invitados: 0,
+			...conteos.get(persona.id),
+		}))
 		.sort((a, b) => b.cafes + b.invitados - (a.cafes + a.invitados) || a.nombre.localeCompare(b.nombre, 'es'));
 }
 

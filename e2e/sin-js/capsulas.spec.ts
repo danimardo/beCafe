@@ -40,3 +40,18 @@ test('sin JavaScript, la edición de un tipo guarda la marca y confirma el cambi
 	await expect(page.getByText('Cambios guardados.')).toBeVisible();
 	await expect(page.getByRole('textbox', { name: 'Marca', exact: true })).toHaveValue('Marca editada');
 });
+
+// Foto de persona sin JavaScript (RF-208, constitución XVII): el formulario de Perfil sube y quita la foto con un envío normal.
+test('CA-208: sin JavaScript, Perfil sube y quita la foto de la persona', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'miembro');
+	await page.goto(`${servidor.url}/perfil`);
+	await page.getByLabel('Hacer o elegir foto').setInputFiles({ name: 'foto.jpg', mimeType: 'image/jpeg', buffer: await fotoDePrueba() });
+	await page.getByRole('button', { name: 'Guardar foto', exact: true }).click();
+
+	await expect(page.getByText('Foto guardada.')).toBeVisible();
+	await expect(page.locator('img[src^="/fotos/usuarios/"]').last()).toBeVisible();
+
+	await page.getByRole('button', { name: 'Quitar foto', exact: true }).click();
+	await expect(page.getByText('Foto quitada.')).toBeVisible();
+	await expect(page.locator('img[src^="/fotos/usuarios/"]')).toHaveCount(0);
+});

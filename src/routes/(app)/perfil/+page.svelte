@@ -18,6 +18,7 @@
 	} from '#lib/ui';
 	import { crearInstalacion, type EstadoInstalacion } from '#lib/client/instalacion';
 	import { textos } from '#lib/shared/textos';
+	import FotoPersona from '../FotoPersona.svelte';
 	import SeccionAvisos from './SeccionAvisos.svelte';
 
 	type Formulario = {
@@ -85,6 +86,10 @@
 			</div>
 		</Section>
 	{/if}
+
+	<Section title={textos.fotoPersona.titulo}>
+		<FotoPersona nombre={data.nombre} usuarioId={data.id} fotoUrl={data.fotoUrl} error={errores.foto?.mensaje} />
+	</Section>
 
 	<Section title="Instalar la aplicación">
 		{#if estadoInstalacion === 'instalable' || estadoInstalacion === 'ios'}

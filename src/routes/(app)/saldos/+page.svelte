@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import {
+		Avatar,
 		Banner,
 		Button,
 		EmptyState,
@@ -117,6 +118,7 @@
 								subtitle={textos.economia.aportado(formatMoney(persona.totalAportado))}
 								href={resolve('/(app)/saldos/personas/[usuarioId=ulid]', { usuarioId: persona.usuarioId })}
 							>
+								{#snippet leading()}<Avatar name={persona.nombre} usuarioId={persona.usuarioId} fotoUrl={persona.fotoUrl} />{/snippet}
 								{#snippet trailing()}
 									<Money cents={persona.saldo} signed tone srSuffix={persona.saldo >= 0 ? textos.economia.aFavor : textos.economia.debes} />
 								{/snippet}

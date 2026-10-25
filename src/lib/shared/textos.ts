@@ -151,6 +151,17 @@ export const textos = {
 		reducirTransparencia: 'Reducir transparencia',
 		ayudaTransparencia: 'Sustituye los fondos translúcidos por color sólido. El ajuste del sistema siempre se respeta.',
 	},
+	fotoPersona: {
+		titulo: 'Foto',
+		ayuda: 'JPEG, PNG o WebP de 5 MB como máximo. Sin foto, se muestran tus iniciales.',
+		ayudaOtra: 'JPEG, PNG o WebP de 5 MB como máximo. Sin foto, se muestran sus iniciales.',
+		campo: 'Elegir foto',
+		guardar: 'Guardar foto',
+		quitar: 'Quitar foto',
+		guardada: 'Foto guardada.',
+		quitada: 'Foto quitada.',
+		noEncontrada: 'Esta persona no tiene foto.',
+	},
 	perfil: {
 		titulo: 'Mi perfil',
 		nombre: 'Nombre',

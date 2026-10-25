@@ -8,7 +8,7 @@
 	type Props = {
 		nav: NavItem[];
 		adminNav?: NavItem[];
-		user: { name: string; role: 'miembro' | 'administrador' };
+		user: { name: string; role: 'miembro' | 'administrador'; id?: string; fotoUrl?: string | null };
 		inicioHref?: ResolvedPathname;
 		perfilHref?: ResolvedPathname;
 		/**

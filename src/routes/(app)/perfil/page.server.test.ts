@@ -12,7 +12,8 @@ import {
 	type Actor,
 } from '#lib/server/auth';
 import { crearEntornoPrueba, enTransaccion, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
-import { crearUsuario } from '#lib/server/usuarios';
+import { crearUsuario, leerFotoUsuario } from '#lib/server/usuarios';
+import sharp from 'sharp';
 
 // Perfil (RF-137, RF-138, CA-137): cambio de contraseña con sus errores y cierre de sesiones.
 const INSTANTE = '2026-10-21T09:00:00.000Z';
@@ -149,3 +150,78 @@ describe('acciones de perfil', () => {
 		expect(evento.cookies.get(NOMBRE_COOKIE)).toBeUndefined();
 	});
 });
+
+describe('foto propia en el perfil (RF-208, CA-208)', () => {
+	let entorno: EntornoPrueba;
+	let usuarioId: string;
+	let actor: Actor;
+
+	beforeEach(() => {
+		entorno = crearEntornoPrueba(INSTANTE);
+		usuarioId = nuevoId();
+		enTransaccion(entorno.ambiente.db, (tx) =>
+			crearUsuario(tx, { id: usuarioId, nombre: 'Luis', correo: 'luis@ejemplo.es', rol: 'miembro', instante: INSTANTE }),
+		);
+		const token = enTransaccion(entorno.ambiente.db, (tx) => crearSesion(tx, { usuarioId, instante: INSTANTE }));
+		const sesion = resolverSesion(entorno.ambiente.db, token, INSTANTE);
+		if (!sesion) throw new Error('La sesión de prueba debe resolverse');
+		actor = crearActor(sesion);
+	});
+
+	afterEach(() => entorno.cerrar());
+
+	function ejecutar(accion: 'foto' | 'quitarFoto', conActor: Actor | undefined, cuerpo: FormData) {
+		return actions[accion](
+			crearEventoAccion({ locals: { ambiente: entorno.ambiente, actor: conActor }, ruta: '/(app)/perfil', params: {}, cuerpo }),
+		);
+	}
+
+	async function fotoValida(): Promise<File> {
+		const imagen = await sharp({ create: { width: 64, height: 64, channels: 3, background: { r: 120, g: 70, b: 40 } } })
+			.png()
+			.toBuffer();
+		return new File([new Uint8Array(imagen)], 'foto.png', { type: 'image/png' });
+	}
+
+	it('CA-208: subir una foto válida la guarda en la cuenta y quitarla la borra', async () => {
+		const subida = await ejecutar('foto', actor, formulario({ foto: await fotoValida() }));
+		expect(subida).toEqual({ confirmacion: 'Foto guardada.' });
+		expect(leerFotoUsuario(entorno.ambiente.db, usuarioId)).toMatch(/\.webp$/);
+
+		const quitada = await ejecutar('quitarFoto', actor, formulario({ quitar: 'si' }));
+		expect(quitada).toEqual({ confirmacion: 'Foto quitada.' });
+		expect(leerFotoUsuario(entorno.ambiente.db, usuarioId)).toBeNull();
+	});
+
+	it('CA-208: un archivo que no es una imagen devuelve el fallo en el campo foto y no cambia nada', async () => {
+		const texto = new File([new TextEncoder().encode('no soy una imagen')], 'foto.png', { type: 'image/png' });
+
+		const { datos } = desenvolverFallo(await ejecutar('foto', actor, formulario({ foto: texto })));
+
+		expect(datos).toMatchObject({ errores: { foto: { codigo: 'FOTO_NO_VALIDA' } } });
+		expect(leerFotoUsuario(entorno.ambiente.db, usuarioId)).toBeNull();
+	});
+
+	it('CA-208: sin archivo o con más de 5 MB devuelve 400 en el campo foto', async () => {
+		const grande = new File([new Uint8Array(6 * 1024 * 1024)], 'foto.png', { type: 'image/png' });
+
+		for (const cuerpo of [formulario({}), formulario({ foto: new File([], 'vacio.png') }), formulario({ foto: grande })]) {
+			const { estado, datos } = desenvolverFallo(await ejecutar('foto', actor, cuerpo));
+			expect(estado).toBe(400);
+			expect(datos).toHaveProperty(['errores', 'foto']);
+		}
+	});
+
+	it('quitar la foto exige la confirmación y, sin sesión, devuelve el fallo de sesión', async () => {
+		expect(desenvolverFallo(await ejecutar('quitarFoto', actor, formulario({}))).estado).toBe(400);
+		expect(desenvolverFallo(await ejecutar('foto', undefined, formulario({ foto: await fotoValida() }))).datos).toMatchObject({
+			errores: { general: { codigo: 'SIN_SESION' } },
+		});
+	});
+});
+
+function formulario(campos: Record<string, string | File>): FormData {
+	const datos = new FormData();
+	for (const [nombre, valor] of Object.entries(campos)) datos.append(nombre, valor);
+	return datos;
+}

@@ -2,6 +2,7 @@ import { and, desc, eq, sql } from 'drizzle-orm';
 import { exigirSesion, type Actor } from '#lib/server/auth';
 import { RecursoNoEncontrado, type Ejecutor } from '#lib/server/plataforma';
 import { buscarUsuarioPorId, listarUsuarios } from '#lib/server/usuarios';
+import { urlFotoUsuario } from '#lib/shared/contratos/fotos-usuario';
 import { aportacion, arqueo, movimiento } from './esquema';
 import { saldoHucha, saldoPersona } from './libro';
 
@@ -14,7 +15,14 @@ export function leerSaldoPropio(db: Ejecutor, actor: Actor): number {
 }
 
 /** `totalAportado`: suma de las aportaciones vigentes de la persona, en céntimos (RF-199). */
-export type SaldoDePersona = { usuarioId: string; nombre: string; saldo: number; totalAportado: number; esPropia: boolean };
+export type SaldoDePersona = {
+	usuarioId: string;
+	nombre: string;
+	fotoUrl: string | null;
+	saldo: number;
+	totalAportado: number;
+	esPropia: boolean;
+};
 
 /**
  * Saldos de las personas activas (CA-110). La fila propia va primero y el resto, por nombre (CA-111).
@@ -45,6 +53,7 @@ export function leerSaldos(db: Ejecutor, actor: Actor): SaldoDePersona[] {
 		.map((persona) => ({
 			usuarioId: persona.id,
 			nombre: persona.nombre,
+			fotoUrl: persona.fotoRuta ? urlFotoUsuario(persona.id, persona.fotoRuta) : null,
 			saldo: saldoPorId.get(persona.id) ?? 0,
 			totalAportado: aportadoPorId.get(persona.id) ?? 0,
 			esPropia: persona.id === actor.usuarioId,

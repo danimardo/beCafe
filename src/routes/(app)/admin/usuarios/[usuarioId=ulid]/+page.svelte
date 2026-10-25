@@ -3,6 +3,7 @@
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
 	import { Button, CopyField, PageHeader, PasswordField, Section, SelectField } from '#lib/ui';
+	import FotoPersona from '../../../FotoPersona.svelte';
 	import { formatDate } from '#lib/shared/fechas/formato';
 	import { textos } from '#lib/shared/textos';
 
@@ -59,6 +60,16 @@
 			>{textos.economia.darDeBaja}</a
 		>
 	{/if}
+
+	<Section title={textos.fotoPersona.titulo}>
+		<FotoPersona
+			nombre={persona.nombre}
+			usuarioId={persona.id}
+			fotoUrl={persona.fotoUrl ?? null}
+			error={errores.foto?.mensaje}
+			propia={false}
+		/>
+	</Section>
 
 	<Section title={textos.admin.cambiarRol}>
 		<div class="rounded-panel border border-hairline bg-wall-base p-5">

@@ -45,8 +45,8 @@ describe('saldos de todas las personas (CA-110, CA-111)', () => {
 		const saldos = leerSaldos(entorno.ambiente.db, ana);
 
 		expect(saldos).toEqual([
-			{ usuarioId: ana.usuarioId, nombre: 'Ana', saldo: 0, totalAportado: 0, esPropia: true },
-			{ usuarioId: bea.usuarioId, nombre: 'Bea', saldo: -350, totalAportado: 0, esPropia: false },
+			{ usuarioId: ana.usuarioId, nombre: 'Ana', fotoUrl: null, saldo: 0, totalAportado: 0, esPropia: true },
+			{ usuarioId: bea.usuarioId, nombre: 'Bea', fotoUrl: null, saldo: -350, totalAportado: 0, esPropia: false },
 		]);
 	});
 

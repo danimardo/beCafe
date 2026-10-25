@@ -4,6 +4,9 @@ import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../../../fallo';
 import { esquemaCambioRol, esquemaSoloReautenticacion } from '#lib/shared/contratos/usuarios';
 import { cambiarRolPersona, generarEnlaceParaPersona, obtenerPersona, reactivarPersona } from '#lib/server/auth';
+import { cambiarFoto } from '#lib/server/usuarios';
+import { esquemaQuitarFotoPersona, esquemaSubirFotoPersona } from '#lib/shared/contratos/fotos-usuario';
+import { bytesDeFoto } from '../../capsulas/formulario';
 import { textos } from '#lib/shared/textos';
 
 export const load: PageServerLoad = ({ locals, params, url }) => {
@@ -17,6 +20,29 @@ export const load: PageServerLoad = ({ locals, params, url }) => {
 };
 
 export const actions: Actions = {
+	// Foto de otra persona (RF-208): el caso de uso exige que quien actúa sea administrador o la propia persona.
+	foto: async ({ request, locals, params }) => {
+		const entrada = esquemaSubirFotoPersona.safeParse(Object.fromEntries(await request.formData()));
+		if (!entrada.success) return fallo(400, entrada.error, {});
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		return ejecutarAccion({}, async () => {
+			await cambiarFoto(locals.ambiente, actor, params.usuarioId, (await bytesDeFoto(entrada.data.foto)) ?? null);
+			return { confirmacion: textos.fotoPersona.guardada };
+		});
+	},
+
+	quitarFoto: async ({ request, locals, params }) => {
+		const entrada = esquemaQuitarFotoPersona.safeParse(Object.fromEntries(await request.formData()));
+		if (!entrada.success) return fallo(400, entrada.error, {});
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		return ejecutarAccion({}, async () => {
+			await cambiarFoto(locals.ambiente, actor, params.usuarioId, null);
+			return { confirmacion: textos.fotoPersona.quitada };
+		});
+	},
+
 	cambiarRol: async ({ request, locals, params }) => {
 		const datos = Object.fromEntries(await request.formData());
 		const entrada = esquemaCambioRol.safeParse(datos);

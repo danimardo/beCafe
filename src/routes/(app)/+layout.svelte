@@ -117,7 +117,7 @@
 <AppShell
 	{nav}
 	{adminNav}
-	user={{ name: data.usuario?.nombre ?? '', role: data.usuario?.rol ?? 'miembro' }}
+	user={{ name: data.usuario?.nombre ?? '', role: data.usuario?.rol ?? 'miembro', id: data.usuario?.id, fotoUrl: data.usuario?.fotoUrl }}
 	inicioHref={resolve('/(app)')}
 	perfilHref={resolve('/(app)/perfil')}
 	width={ancho}
