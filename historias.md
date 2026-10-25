@@ -6,8 +6,8 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ubicación | `historias.md` en la raíz del repositorio `github.com/danimardo/beCafe` (en el servidor de desarrollo, `/Apps/beCafe/historias.md`) |
-| Versión | 0.19.0 — CAMBIO-019 |
-| Fecha | 24-10-2026 |
+| Versión | 0.21.0 — CAMBIO-021 |
+| Fecha | 25-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), versión 2.0.0-candidata |
 | Estado del refinamiento | **Cerrado y aprobado sobre v0.14.0 (21-10-2026); CAMBIO-018 (24-10-2026): experiencia visual y Capsulito (F9), reevaluado según la guía de refinamiento, §19. CAMBIO-019 (24-10-2026): visitantes, compras rápidas, estadísticas del departamento y ayuda de Capsulito (F10), según `specs/010-visitantes-compras-ayuda/spec.md`. Sin bloqueantes.** PEND-034 a PEND-036 se resuelven en el plan de F1. Aplazados: PEND-014 (texto de privacidad, antes del uso con datos reales), PEND-033 (resuelto en F8) y PEND-037 (gamificación ligera). |
@@ -522,7 +522,7 @@ Especificación: `specs/010-visitantes-compras-ayuda/spec.md` (aprobada el 24-10
 | ID | Enunciado | Origen | Estado | CA |
 | --- | --- | --- | --- | --- |
 | RF-189 | Cualquier miembro activo deberá poder generar un enlace de visitante con su código QR. El enlace caduca 24 horas después de crearse. Quien lo creó y los administradores deberán poder revocarlo antes. | CAMBIO-019 | Confirmado | CA-189 |
-| RF-190 | Una persona sin sesión que abre un enlace vigente deberá poder entrar como visitante tras escribir un nombre de 1 a 40 caracteres, sin cuenta ni contraseña. La sesión de visitante termina cuando caduca o se revoca el enlace. | CAMBIO-019 | Confirmado | CA-190 |
+| RF-190 | Una persona sin sesión que abre un enlace vigente deberá poder entrar como visitante tras escribir un nombre de 1 a 60 caracteres, sin cuenta ni contraseña. La sesión de visitante termina cuando caduca o se revoca el enlace. | CAMBIO-019, CAMBIO-021 | Confirmado | CA-190 |
 | RF-191 | El visitante deberá poder registrar un café con un solo toque sobre un tipo activo con coste medio. El café queda pendiente, no cambia el stock, el coste medio ni ningún saldo, y es idempotente por identificador de cliente (RF-016). La confirmación dice «Pendiente de aprobación». | CAMBIO-019 | Confirmado | CA-191 |
 | RF-192 | Cada café de visitante pendiente deberá notificarse a los administradores con el tipo de aviso «Café de visitante pendiente» y mostrarse en una lista de pendientes con el nombre del visitante, el tipo, la hora y quién generó el enlace. | CAMBIO-019 | Confirmado | CA-192 |
 | RF-193 | Un administrador deberá poder aprobar o rechazar cada café de visitante pendiente, o varios a la vez. Aprobar aplica RN-086. Rechazar lo deja rechazado sin efectos. Un café aprobado se puede anular después: el stock vuelve a subir en 1. | CAMBIO-019 | Confirmado | CA-193 |
@@ -789,6 +789,7 @@ Versiones de referencia comprobadas en npm el 21-10-2026. Las versiones exactas 
 | Pruebas de componentes | Vitest Browser Mode con `@vitest/browser-playwright` y `vitest-browser-svelte` | 5.0 / 3.1 | Componentes con estado propio | DEC-089 |
 | Pruebas de mutación | StrykerJS (`@stryker-mutator/core`, `@stryker-mutator/vitest-runner`) | 10.0 | Solo `dominio/`; piloto en F4 | DEC-092 |
 | Calidad | ESLint, typescript-eslint, eslint-plugin-svelte, `@eslint-community/eslint-plugin-eslint-comments`, Prettier con prettier-plugin-svelte y prettier-plugin-tailwindcss, dependency-cruiser | 10.13 / 8.72 / 3.23 / 4.8 / 3.9 / 18.7 | `ARCHITECTURE.md` §12 | DEC-069 |
+| Códigos QR | `uqr` (aislada en `plataforma/qr.ts`) | 0.1 | RF-189 (QR del enlace de visitante) | CAMBIO-020 |
 
 ### 10.4 Modelo de datos (SQLite, propuesto)
 
@@ -823,6 +824,11 @@ Convenciones: claves primarias de texto con ULID; fechas en UTC (ISO 8601); impo
 | `prueba_restauracion` | id, admin_id, realizada_en, resultado, notas | — |
 | `relleno_agua` | id, cliente_id, usuario_id, registrado_en, estado + campos de anulación | `cliente_id` único; índice por (estado, registrado_en). No genera movimientos (RN-080) |
 | `aguador_mes` | mes (AAAA-MM), usuario_id, rellenos, determinado_en | PK (mes, usuario_id); una fila por ganador, varias si hay empate |
+| `enlace_visitante` | id, token_hash, creado_por, creado_en, expira_en (creado_en + 24 h), revocado_en (nulo), revocado_por (nulo) | Dueño `auth`. `token_hash` único |
+| `visita` | id, enlace_id, token_hash, nombre (nulo tras RF-210), nombre_eliminado_en (nulo), creada_en | Dueño `auth`. `token_hash` único |
+| `cafe_visitante` | id, cliente_id, visita_id, tipo_capsula_id, hora_gesto, hora_registro, estado (`pendiente`/`aprobado`/`rechazado`/`anulado`), revisado_por, revisado_en, coste_medio_aplicado (nulo), anulado_por, anulado_en, motivo_anulacion | Dueño `economia`. `cliente_id` único; índice por (estado, hora_registro); CHECK en estado |
+| `preferencia_cuenta` | usuario_id, clave (`tour_inicio_visto`/`instalacion_descartada`/`oferta_avisos_vista`), valor_en | Dueño `usuarios`. PK (usuario_id, clave); CHECK en clave |
+| `usuario` (campo nuevo, CAMBIO-020) | foto_ruta (nulo) | Archivo plano en `/data/fotos`; sin foto, iniciales (RF-209) |
 
 **Tipos de movimiento**: `cargo_consumo`, `abono_aportacion`, `hucha_aportacion`, `hucha_compra`, `hucha_ajuste_arqueo`, `reparto_arqueo`, `reparto_recuento`, `regularizacion`, `devolucion_baja`, `hucha_devolucion_baja`, `abono_incobrable`, `reparto_incobrable`.
 
@@ -857,6 +863,17 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 | GET/POST `/privacidad` | Ver el texto vigente y registrar su lectura | Usuario | Redirección obligatoria según RF-160 |
 | GET `/api/salud` | Comprobación de salud para Coolify | Público | Sin datos sensibles |
 | GET `/robots.txt` | Excluir la aplicación de los buscadores (RNF-016) | Público | `Disallow: /` |
+| GET/POST `/visitantes` | Crear (acción `crear`) y revocar (`revocar`) enlaces de visitante | Miembro | Devuelve URL y QR; caduca a las 24 h |
+| GET/POST `/visita/[token]` | Entrada del visitante: nombre y privacidad (acción `entrar`) | Sin cuenta | 410 `ENLACE_NO_VALIDO` si caducó o se revocó |
+| GET/POST `/visita` | Pantalla del visitante: registrar café (acción `registrar`) | Visita vigente | Pendiente de aprobación; `LIMITE_SUPERADO` (429) a 10 cafés por visita y minuto |
+| GET/POST `/admin/visitantes` | Revisar (`revisar`), anular (`anular`) y eliminar el nombre (`eliminarNombre`) | Administrador | Aprobar descuenta stock sin tocar saldos |
+| GET `/saldos/personas/[usuarioId]` | Aportaciones de una persona, paginadas | Miembro | Formulario GET para paginar |
+| GET `/fotos/usuarios/[usuarioId]` | Foto de una persona | Miembro | 404 sin foto; `Cache-Control: private, max-age=300` |
+| POST `/perfil?/foto`, `?/quitarFoto` y `/admin/usuarios/[usuarioId]?/foto`, `?/quitarFoto` | Subir o quitar la foto | La propia persona o administrador | Mismas validaciones que RF-005 |
+| POST `/?/tourVisto`, `?/descartarInstalacion`, `?/ofertaAvisosVista` | Marcas de la cuenta | Miembro | Idempotentes |
+| GET `/estadisticas` (cambio) | Añade `periodo` ∈ `ultimos3`, `ultimos12` | Miembro | Sin selector de persona |
+| POST `/compras?/registrar` (cambio) | `confirmarHuchaNegativa=si` y `saldoConfirmado` | Miembro | `fail(409, { confirmacion })` con saldo, importe y resultado |
+| POST `/saldos?/aportar` (cambio) | `beneficiarioId` opcional | Administrador si es otra persona | `SIN_PERMISO` (403) si un miembro lo envía |
 
 **Errores**: respuestas JSON `{codigo, mensaje}` en español. Códigos propuestos: `SIN_SESION`, `SIN_PERMISO`, `FUERA_DE_PLAZO`, `YA_ANULADO`, `VALIDACION`, `REAUTENTICACION_REQUERIDA`, `ULTIMO_ADMIN`, `RELLENO_RECIENTE`.
 
@@ -1252,6 +1269,8 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | Cierre | 21-10-2026 | Refinamiento cerrado y aprobado sobre v0.14.0 (SHA-256 7aeb5af7…96d70dbb). Reevaluados RF-139, CA-139, RF-139c, CA-139c y RN-055 (CAMBIO-014). Aplazados: PEND-014 y PEND-033. Para el plan de F1: PEND-034 a PEND-036. Riesgo aceptado: HALL-008. | Aprobado por el responsable del departamento («apruebo el nuevo cierre del refinamiento sobre la v0.14.0») |
 | 0.18.0 | 24-10-2026 | CAMBIO-018: experiencia visual y Capsulito interactivo unificados (F9). Navegación en tres tamaños, escritorio en dos columnas (`PanelGrid`), Inicio móvil con cápsulas arriba, tarjeta de cada tipo con foto o ilustración vectorial (`CapsuleTile`, `CapsuleIllustration`), mascota Capsulito con animaciones Rive (`.riv`), 56 SVG vectoriales por capas, sincronización labial con voz MP3 de ElevenLabs, feedback contextual estilo Duolingo, historia de bienvenida de 8 escenas y laboratorio interactivo (`/ayuda/capsulito`). RF-182 a RF-188, CA-182 a CA-188, EV-102, DEC-105 a DEC-115, HALL-017, HALL-018, PEND-037, glosario, riesgos y F9. Enmienda de la constitución v1.7.0 y ADR-0006 | Escritura autorizada el 24-10-2026 («ok»); respaldo de 0.17.0 (SHA-256 d2b3d82981fb6949b17d9bfb9ced4d5248240c509db5bac1e210f72de44c63fb) en `.respaldos/historias-v0.17.0-20261024-141230.md` |
 | 0.19.0 | 24-10-2026 | CAMBIO-019: visitantes, compras rápidas, estadísticas del departamento y ayuda de Capsulito (F10), traspasados desde `specs/010-visitantes-compras-ayuda/spec.md` (aprobada el 24-10-2026). Nuevos: RF-189 a RF-210, RN-086, RN-087, CA-189 a CA-210, EV-103 a EV-106, DEC-116 a DEC-118, HU-18 a HU-21, glosario («Visitante», «Café de visitante»), §7.16 y F10 en §15. Modificados: RF-030, RF-043, RF-101, RF-102, RF-121 a RF-123, RF-187, RN-008, RN-061, CA-121, CA-122, DEC-022, glosario («Aportación») y anexo A (versión 2) | Escritura autorizada el 24-10-2026 («Sí, con respaldo (Recomendado)»); respaldo de 0.18.0 (SHA-256 9bb58481d639f0f856d41a38e31a41a38a0d40eb9ec60de28f5757316ad015bf) en `.respaldos/historias-v0.18.0-20261024-223330.md` |
+| 0.20.0 | 25-10-2026 | CAMBIO-020: §10.3 (`uqr`), §10.4 (tablas de visitantes, marcas de cuenta y foto) y §10.5 (rutas y acciones de F10), tal como quedaron implementadas. Sin cambios de requisitos ni de reglas | Autorizado en la sesión del 25-10-2026; respaldo de 0.19.0 en `.respaldos/historias-v0.19.0-20261025.md` |
+| 0.21.0 | 25-10-2026 | CAMBIO-021: RF-190 pasa de 40 a 60 caracteres para el nombre del visitante, como implementa F10 y recoge su `data-model` | Autorizado en la sesión del 25-10-2026; respaldo de 0.20.0 en `.respaldos/historias-v0.20.0-20261025.md` |
 
 ---
 

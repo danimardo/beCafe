@@ -155,7 +155,7 @@ Cada persona puede subir su foto desde Perfil. Un administrador puede subir o qu
 **Visitantes**
 
 - **RF-189**: Cualquier miembro activo deberá poder generar un enlace de visitante con su código QR. El enlace caduca 24 horas después de crearse. Quien lo creó y los administradores deberán poder revocarlo antes.
-- **RF-190**: Una persona sin sesión que abre un enlace vigente deberá poder entrar como visitante tras escribir un nombre de 1 a 40 caracteres, sin cuenta ni contraseña. La sesión de visitante termina cuando caduca o se revoca el enlace.
+- **RF-190**: Una persona sin sesión que abre un enlace vigente deberá poder entrar como visitante tras escribir un nombre de 1 a 60 caracteres, sin cuenta ni contraseña. La sesión de visitante termina cuando caduca o se revoca el enlace.
 - **RF-191**: El visitante deberá poder registrar un café con un solo toque sobre un tipo activo con coste medio. El café queda pendiente, no cambia el stock, el coste medio ni ningún saldo, y es idempotente por identificador de cliente (RF-016). La confirmación dice «Pendiente de aprobación».
 - **RF-192**: Cada café de visitante pendiente deberá notificarse a los administradores mediante un tipo de aviso nuevo, «Café de visitante pendiente», y mostrarse en una lista de pendientes con el nombre del visitante, el tipo, la hora y quién generó el enlace.
 - **RF-193**: Un administrador deberá poder aprobar o rechazar cada café de visitante pendiente, o varios a la vez. Aprobar aplica RN-086. Rechazar lo deja rechazado sin efectos. Un café aprobado se puede anular después: el stock vuelve a subir en 1.
