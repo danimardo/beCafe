@@ -7,6 +7,7 @@ export { default as IconButton } from './IconButton.svelte';
 export { default as Badge } from './Badge.svelte';
 export { default as Money } from './Money.svelte';
 export { default as Avatar } from './Avatar.svelte';
+export { default as Paginacion } from './Paginacion.svelte';
 export { default as SegmentedControl } from './SegmentedControl.svelte';
 export { default as TextField } from './TextField.svelte';
 export { default as PasswordField } from './PasswordField.svelte';

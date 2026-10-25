@@ -527,6 +527,9 @@ export const textos = {
 	visitantes: {
 		// Pantallas del visitante (plan F10 D3; RF-190, RF-191, RF-194).
 		tituloEntrada: 'Te han invitado a un café',
+		paginas: 'Páginas de cafés de visitante',
+		paginaAnterior: 'Página anterior',
+		paginaSiguiente: 'Página siguiente',
 		ayudaEntrada: 'Escribe tu nombre para que el departamento sepa quién ha tomado el café. No necesitas cuenta.',
 		nombre: 'Tu nombre',
 		ayudaNombre: 'Solo lo verán los administradores, para aprobar tus cafés.',

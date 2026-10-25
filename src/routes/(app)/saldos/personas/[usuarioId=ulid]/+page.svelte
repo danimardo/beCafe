@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { BackLink, Button, EmptyState, ListRow, Money, PageHeader, Section } from '#lib/ui';
+	import { BackLink, EmptyState, ListRow, Money, PageHeader, Paginacion, Section } from '#lib/ui';
 	import { formatearFechaHoraMadrid } from '#lib/shared/fechas/formato';
 	import { textos } from '#lib/shared/textos';
 	import type { PageProps } from './$types';
@@ -41,16 +41,13 @@
 				{/each}
 			</ul>
 		{/if}
-		{#if data.paginas > 1}
-			<!-- Paginación con un formulario GET (ARCHITECTURE.md §7): funciona igual sin JavaScript. -->
-			<form method="get" action={ruta} aria-label={textos.economia.paginasAportaciones} class="flex justify-between gap-3">
-				{#if data.pagina > 1}
-					<Button type="submit" variant="ghost" name="pagina" value={String(data.pagina - 1)}>{textos.economia.masRecientes}</Button>
-				{:else}<span></span>{/if}
-				{#if data.pagina < data.paginas}
-					<Button type="submit" variant="ghost" name="pagina" value={String(data.pagina + 1)}>{textos.economia.masAntiguas}</Button>
-				{/if}
-			</form>
-		{/if}
+		<Paginacion
+			pagina={data.pagina}
+			paginas={data.paginas}
+			etiqueta={textos.economia.paginasAportaciones}
+			anterior={textos.economia.masRecientes}
+			siguiente={textos.economia.masAntiguas}
+			action={ruta}
+		/>
 	</Section>
 </div>

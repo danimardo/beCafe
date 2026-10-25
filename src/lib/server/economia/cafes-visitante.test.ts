@@ -118,6 +118,23 @@ describe('cafés de visitante (CA-191 a CA-193, RN-086)', () => {
 		expect(contarCafesVisitante(entorno.ambiente.db, { desde: INSTANTE, hasta: '2026-11-01T00:00:00.000Z' })).toHaveLength(1);
 	});
 
+	it('RF-101, CA-193: aprobar con el stock a 0 avisa a los administradores; con stock suficiente no avisa', () => {
+		const ids = Array.from({ length: 11 }, () => registrarCafe().id);
+
+		revisarCafesVisitante(entorno.ambiente, admin, { ids: ids.slice(0, 10), decision: 'aprobar' });
+		const stockNegativo = () => entorno.ambiente.db.select().from(notificacion).where(eq(notificacion.tipo, 'stock_negativo')).all();
+		expect(stock()).toBe(0);
+		expect(stockNegativo()).toHaveLength(0);
+
+		revisarCafesVisitante(entorno.ambiente, admin, { ids: ids.slice(10), decision: 'aprobar' });
+		expect(stock()).toBe(-1);
+		expect(
+			stockNegativo()
+				.map((a) => a.usuarioId)
+				.sort(),
+		).toEqual([admin.usuarioId, otroAdmin.usuarioId].sort());
+	});
+
 	it('CA-193: rechazar descarta el café sin efectos y una segunda revisión no hace nada', () => {
 		const { id } = registrarCafe();
 		const antes = stock();

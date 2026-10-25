@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { PageProps } from './$types';
-	import { Badge, Button, EmptyState, PageHeader, Section, TextField, opcionesFormulario, usarAvisos } from '#lib/ui';
+	import { Badge, Button, EmptyState, PageHeader, Paginacion, Section, TextField, opcionesFormulario, usarAvisos } from '#lib/ui';
 	import { formatearFechaHoraMadrid } from '#lib/shared/fechas/formato';
 	import { textos } from '#lib/shared/textos';
 
@@ -12,6 +12,7 @@
 	const tono = { pendiente: 'warning', aprobado: 'positive', rechazado: 'negative', anulado: 'neutral' } as const;
 	const revision = $derived(form && 'revision' in form ? form.revision : null);
 	const errorGeneral = $derived(form && 'errores' in form ? Object.values(form.errores ?? {})[0]?.mensaje : undefined);
+	const paginas = $derived(Math.max(1, Math.ceil(data.total / data.tamanoPagina)));
 	const pestanas = [
 		{ vista: 'pendientes', etiqueta: t.pendientes },
 		{ vista: 'revisados', etiqueta: t.revisados },
@@ -123,4 +124,13 @@
 			</ul>
 		</Section>
 	{/if}
+
+	<Paginacion
+		pagina={data.pagina}
+		{paginas}
+		etiqueta={t.paginas}
+		anterior={t.paginaAnterior}
+		siguiente={t.paginaSiguiente}
+		conservar={{ vista: data.vista }}
+	/>
 </div>

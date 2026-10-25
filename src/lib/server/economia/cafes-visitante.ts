@@ -130,8 +130,24 @@ function revisarUno(tx: Tx, actor: Actor, id: string, decision: DecisionCafeVisi
 		.where(and(eq(cafeVisitante.id, id), eq(cafeVisitante.estado, 'pendiente')))
 		.run();
 	if (cambio.changes !== 1) return false;
-	if (decision === 'aprobar') fijarStock(tx, fila.tipoCapsulaId, existencia.stock - 1, ahora);
+	if (decision === 'aprobar') {
+		fijarStock(tx, fila.tipoCapsulaId, existencia.stock - 1, ahora);
+		// Igual que un consumo con el stock a 0 (RF-101): los administradores reciben el aviso del descuadre.
+		if (existencia.stock <= 0) avisarStockNegativo(tx, fila.tipoCapsulaId, existencia.stock - 1, id, ahora);
+	}
 	return true;
+}
+
+function avisarStockNegativo(tx: Tx, tipoCapsulaId: string, stock: number, cafeId: string, ahora: string): void {
+	const tipo = leerTipo(tx, tipoCapsulaId);
+	if (!tipo) throw new RecursoNoEncontrado();
+	registrarAviso(tx, {
+		tipo: 'stock_negativo',
+		datos: { tipoCapsulaId, nombreTipo: tipo.nombre, stock },
+		origenId: cafeId,
+		instante: esquemaInstanteUtc.parse(ahora),
+	});
+	registrar('stock.negativo_registrado', { tipoCapsulaId });
 }
 
 /** Anula un café aprobado (RF-193): vuelve a sumar la cápsula al stock. Solo un administrador y con motivo. */
