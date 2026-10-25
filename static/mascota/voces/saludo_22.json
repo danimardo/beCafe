@@ -1,0 +1,258 @@
+{
+	"version": 1,
+	"audio": "saludo_22.mp3",
+	"texto": "¡Buenos días! Hoy puede ser un gran día. O un lunes de mierda. Ya veremos.",
+	"duration": 8.08,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.16,
+			"value": 7
+		},
+		{
+			"start": 0.16,
+			"end": 0.187,
+			"value": 4
+		},
+		{
+			"start": 0.187,
+			"end": 0.213,
+			"value": 1
+		},
+		{
+			"start": 0.213,
+			"end": 0.24,
+			"value": 6
+		},
+		{
+			"start": 0.24,
+			"end": 0.28,
+			"value": 3
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 1.02,
+			"end": 1.07,
+			"value": 3
+		},
+		{
+			"start": 1.07,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.16,
+			"end": 1.2,
+			"value": 7
+		},
+		{
+			"start": 1.2,
+			"end": 1.24,
+			"value": 4
+		},
+		{
+			"start": 1.24,
+			"end": 1.28,
+			"value": 1
+		},
+		{
+			"start": 1.28,
+			"end": 1.32,
+			"value": 6
+		},
+		{
+			"start": 1.32,
+			"end": 1.36,
+			"value": 1
+		},
+		{
+			"start": 1.42,
+			"end": 1.48,
+			"value": 6
+		},
+		{
+			"start": 1.48,
+			"end": 1.54,
+			"value": 1
+		},
+		{
+			"start": 1.54,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.627,
+			"end": 1.653,
+			"value": 4
+		},
+		{
+			"start": 1.653,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.728,
+			"end": 1.824,
+			"value": 6
+		},
+		{
+			"start": 1.824,
+			"end": 1.872,
+			"value": 2
+		},
+		{
+			"start": 1.872,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 2.02,
+			"end": 2.12,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.22,
+			"value": 1
+		},
+		{
+			"start": 2.22,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.92,
+			"end": 3.12,
+			"value": 3
+		},
+		{
+			"start": 3.173,
+			"end": 3.227,
+			"value": 4
+		},
+		{
+			"start": 3.227,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.5,
+			"value": 4
+		},
+		{
+			"start": 3.5,
+			"end": 3.56,
+			"value": 6
+		},
+		{
+			"start": 3.56,
+			"end": 3.62,
+			"value": 1
+		},
+		{
+			"start": 3.62,
+			"end": 3.733,
+			"value": 6
+		},
+		{
+			"start": 3.733,
+			"end": 3.76,
+			"value": 1
+		},
+		{
+			"start": 3.8,
+			"end": 3.84,
+			"value": 7
+		},
+		{
+			"start": 3.84,
+			"end": 3.947,
+			"value": 1
+		},
+		{
+			"start": 3.947,
+			"end": 4.12,
+			"value": 6
+		},
+		{
+			"start": 4.12,
+			"end": 4.24,
+			"value": 2
+		},
+		{
+			"start": 4.773,
+			"end": 4.907,
+			"value": 1
+		},
+		{
+			"start": 4.907,
+			"end": 5.04,
+			"value": 2
+		},
+		{
+			"start": 5.08,
+			"end": 5.12,
+			"value": 5
+		},
+		{
+			"start": 5.12,
+			"end": 5.16,
+			"value": 1
+		},
+		{
+			"start": 5.16,
+			"end": 5.2,
+			"value": 6
+		},
+		{
+			"start": 5.2,
+			"end": 5.3,
+			"value": 1
+		},
+		{
+			"start": 5.3,
+			"end": 5.4,
+			"value": 7
+		},
+		{
+			"start": 5.4,
+			"end": 5.5,
+			"value": 3
+		},
+		{
+			"start": 5.5,
+			"end": 5.6,
+			"value": 6
+		}
+	]
+}

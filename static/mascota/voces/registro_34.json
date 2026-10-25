@@ -1,0 +1,223 @@
+{
+	"version": 1,
+	"audio": "registro_34.mp3",
+	"texto": "No te juzgo. Bueno, sí. Pero me pagan por contar cápsulas.",
+	"duration": 5.36,
+	"cues": [
+		{
+			"start": 0.213,
+			"end": 0.267,
+			"value": 6
+		},
+		{
+			"start": 0.267,
+			"end": 0.32,
+			"value": 3
+		},
+		{
+			"start": 0.373,
+			"end": 0.427,
+			"value": 6
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.68,
+			"value": 4
+		},
+		{
+			"start": 0.68,
+			"end": 0.84,
+			"value": 6
+		},
+		{
+			"start": 0.84,
+			"end": 0.96,
+			"value": 3
+		},
+		{
+			"start": 1.68,
+			"end": 1.8,
+			"value": 7
+		},
+		{
+			"start": 1.8,
+			"end": 1.92,
+			"value": 4
+		},
+		{
+			"start": 1.92,
+			"end": 2.04,
+			"value": 1
+		},
+		{
+			"start": 2.04,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 3
+		},
+		{
+			"start": 2.507,
+			"end": 2.573,
+			"value": 6
+		},
+		{
+			"start": 2.573,
+			"end": 2.64,
+			"value": 1
+		},
+		{
+			"start": 2.88,
+			"end": 3.04,
+			"value": 7
+		},
+		{
+			"start": 3.04,
+			"end": 3.2,
+			"value": 1
+		},
+		{
+			"start": 3.2,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.52,
+			"value": 3
+		},
+		{
+			"start": 3.573,
+			"end": 3.627,
+			"value": 7
+		},
+		{
+			"start": 3.627,
+			"end": 3.68,
+			"value": 1
+		},
+		{
+			"start": 3.733,
+			"end": 3.787,
+			"value": 7
+		},
+		{
+			"start": 3.787,
+			"end": 3.84,
+			"value": 2
+		},
+		{
+			"start": 3.84,
+			"end": 3.893,
+			"value": 6
+		},
+		{
+			"start": 3.893,
+			"end": 3.947,
+			"value": 2
+		},
+		{
+			"start": 3.947,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4.04,
+			"end": 4.08,
+			"value": 7
+		},
+		{
+			"start": 4.08,
+			"end": 4.12,
+			"value": 3
+		},
+		{
+			"start": 4.12,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.206,
+			"end": 4.251,
+			"value": 6
+		},
+		{
+			"start": 4.251,
+			"end": 4.297,
+			"value": 3
+		},
+		{
+			"start": 4.297,
+			"end": 4.389,
+			"value": 6
+		},
+		{
+			"start": 4.389,
+			"end": 4.434,
+			"value": 2
+		},
+		{
+			"start": 4.434,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.533,
+			"end": 4.587,
+			"value": 6
+		},
+		{
+			"start": 4.587,
+			"end": 4.64,
+			"value": 2
+		},
+		{
+			"start": 4.64,
+			"end": 4.72,
+			"value": 7
+		},
+		{
+			"start": 4.72,
+			"end": 4.8,
+			"value": 6
+		},
+		{
+			"start": 4.8,
+			"end": 4.86,
+			"value": 4
+		},
+		{
+			"start": 4.86,
+			"end": 4.92,
+			"value": 6
+		},
+		{
+			"start": 4.92,
+			"end": 4.98,
+			"value": 2
+		},
+		{
+			"start": 4.98,
+			"end": 5.04,
+			"value": 6
+		},
+		{
+			"start": 5.16,
+			"end": 5.36,
+			"value": 2
+		}
+	]
+}

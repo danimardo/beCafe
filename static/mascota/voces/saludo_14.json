@@ -1,0 +1,353 @@
+{
+	"version": 1,
+	"audio": "saludo_14.mp3",
+	"texto": "¡Bienvenido! Recuerda: el café no da la felicidad, pero hace más soportables a los gilipollas.",
+	"duration": 6.72,
+	"cues": [
+		{
+			"start": 0.29,
+			"end": 0.31,
+			"value": 1
+		},
+		{
+			"start": 0.32,
+			"end": 0.373,
+			"value": 5
+		},
+		{
+			"start": 0.373,
+			"end": 0.427,
+			"value": 1
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 3
+		},
+		{
+			"start": 1.07,
+			"end": 1.14,
+			"value": 6
+		},
+		{
+			"start": 1.14,
+			"end": 1.21,
+			"value": 1
+		},
+		{
+			"start": 1.21,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.333,
+			"value": 4
+		},
+		{
+			"start": 1.333,
+			"end": 1.387,
+			"value": 1
+		},
+		{
+			"start": 1.387,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.6,
+			"value": 2
+		},
+		{
+			"start": 1.813,
+			"end": 1.867,
+			"value": 1
+		},
+		{
+			"start": 1.867,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 2,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.16,
+			"value": 2
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 5
+		},
+		{
+			"start": 2.24,
+			"end": 2.32,
+			"value": 1
+		},
+		{
+			"start": 2.373,
+			"end": 2.427,
+			"value": 6
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 3
+		},
+		{
+			"start": 2.533,
+			"end": 2.587,
+			"value": 6
+		},
+		{
+			"start": 2.587,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.667,
+			"end": 2.693,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.72,
+			"value": 2
+		},
+		{
+			"start": 2.78,
+			"end": 2.84,
+			"value": 5
+		},
+		{
+			"start": 2.84,
+			"end": 2.9,
+			"value": 1
+		},
+		{
+			"start": 2.9,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3,
+			"value": 1
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 1
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 2
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.648,
+			"end": 3.696,
+			"value": 7
+		},
+		{
+			"start": 3.696,
+			"end": 3.744,
+			"value": 1
+		},
+		{
+			"start": 3.744,
+			"end": 3.792,
+			"value": 6
+		},
+		{
+			"start": 3.792,
+			"end": 3.84,
+			"value": 3
+		},
+		{
+			"start": 3.936,
+			"end": 3.984,
+			"value": 2
+		},
+		{
+			"start": 3.984,
+			"end": 4.032,
+			"value": 6
+		},
+		{
+			"start": 4.032,
+			"end": 4.08,
+			"value": 1
+		},
+		{
+			"start": 4.12,
+			"end": 4.16,
+			"value": 7
+		},
+		{
+			"start": 4.16,
+			"end": 4.2,
+			"value": 2
+		},
+		{
+			"start": 4.2,
+			"end": 4.24,
+			"value": 6
+		},
+		{
+			"start": 4.32,
+			"end": 4.4,
+			"value": 6
+		},
+		{
+			"start": 4.4,
+			"end": 4.48,
+			"value": 3
+		},
+		{
+			"start": 4.48,
+			"end": 4.52,
+			"value": 7
+		},
+		{
+			"start": 4.52,
+			"end": 4.56,
+			"value": 3
+		},
+		{
+			"start": 4.56,
+			"end": 4.64,
+			"value": 6
+		},
+		{
+			"start": 4.64,
+			"end": 4.704,
+			"value": 2
+		},
+		{
+			"start": 4.704,
+			"end": 4.768,
+			"value": 7
+		},
+		{
+			"start": 4.768,
+			"end": 4.832,
+			"value": 6
+		},
+		{
+			"start": 4.832,
+			"end": 4.896,
+			"value": 1
+		},
+		{
+			"start": 4.896,
+			"end": 4.96,
+			"value": 6
+		},
+		{
+			"start": 5,
+			"end": 5.04,
+			"value": 2
+		},
+		{
+			"start": 5.08,
+			"end": 5.12,
+			"value": 6
+		},
+		{
+			"start": 5.12,
+			"end": 5.16,
+			"value": 3
+		},
+		{
+			"start": 5.16,
+			"end": 5.2,
+			"value": 6
+		},
+		{
+			"start": 5.24,
+			"end": 5.28,
+			"value": 6
+		},
+		{
+			"start": 5.28,
+			"end": 5.34,
+			"value": 1
+		},
+		{
+			"start": 5.34,
+			"end": 5.4,
+			"value": 6
+		},
+		{
+			"start": 5.4,
+			"end": 5.46,
+			"value": 1
+		},
+		{
+			"start": 5.46,
+			"end": 5.52,
+			"value": 7
+		},
+		{
+			"start": 5.52,
+			"end": 5.6,
+			"value": 3
+		},
+		{
+			"start": 5.6,
+			"end": 5.76,
+			"value": 6
+		},
+		{
+			"start": 5.76,
+			"end": 5.84,
+			"value": 2
+		},
+		{
+			"start": 5.84,
+			"end": 5.92,
+			"value": 6
+		},
+		{
+			"start": 6.16,
+			"end": 6.72,
+			"value": 2
+		}
+	]
+}

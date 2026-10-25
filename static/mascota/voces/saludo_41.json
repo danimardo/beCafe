@@ -1,0 +1,243 @@
+{
+	"version": 1,
+	"audio": "saludo_41.mp3",
+	"texto": "¡Hostia, tú otra vez! ¡Qué alegría! Bueno, alegría… lo que se dice alegría…",
+	"duration": 6.56,
+	"cues": [
+		{
+			"start": 0.293,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.36,
+			"value": 1
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 2
+		},
+		{
+			"start": 0.533,
+			"end": 0.587,
+			"value": 6
+		},
+		{
+			"start": 0.587,
+			"end": 0.64,
+			"value": 4
+		},
+		{
+			"start": 0.688,
+			"end": 0.736,
+			"value": 3
+		},
+		{
+			"start": 0.736,
+			"end": 0.832,
+			"value": 6
+		},
+		{
+			"start": 0.832,
+			"end": 0.88,
+			"value": 2
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 5
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.467,
+			"value": 6
+		},
+		{
+			"start": 1.467,
+			"end": 1.493,
+			"value": 4
+		},
+		{
+			"start": 1.493,
+			"end": 1.52,
+			"value": 1
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 2
+		},
+		{
+			"start": 1.6,
+			"end": 1.64,
+			"value": 6
+		},
+		{
+			"start": 1.64,
+			"end": 1.68,
+			"value": 1
+		},
+		{
+			"start": 1.68,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.84,
+			"end": 1.96,
+			"value": 1
+		},
+		{
+			"start": 1.96,
+			"end": 2.08,
+			"value": 2
+		},
+		{
+			"start": 2.288,
+			"end": 2.416,
+			"value": 7
+		},
+		{
+			"start": 2.416,
+			"end": 2.544,
+			"value": 4
+		},
+		{
+			"start": 2.544,
+			"end": 2.672,
+			"value": 1
+		},
+		{
+			"start": 2.672,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.84,
+			"value": 3
+		},
+		{
+			"start": 2.94,
+			"end": 3,
+			"value": 2
+		},
+		{
+			"start": 3,
+			"end": 3.06,
+			"value": 6
+		},
+		{
+			"start": 3.06,
+			"end": 3.12,
+			"value": 1
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.36,
+			"value": 1
+		},
+		{
+			"start": 3.36,
+			"end": 3.52,
+			"value": 2
+		},
+		{
+			"start": 3.973,
+			"end": 4.027,
+			"value": 6
+		},
+		{
+			"start": 4.027,
+			"end": 4.08,
+			"value": 3
+		},
+		{
+			"start": 4.1,
+			"end": 4.12,
+			"value": 6
+		},
+		{
+			"start": 4.14,
+			"end": 4.16,
+			"value": 1
+		},
+		{
+			"start": 4.213,
+			"end": 4.267,
+			"value": 6
+		},
+		{
+			"start": 4.267,
+			"end": 4.32,
+			"value": 1
+		},
+		{
+			"start": 4.368,
+			"end": 4.416,
+			"value": 6
+		},
+		{
+			"start": 4.416,
+			"end": 4.464,
+			"value": 1
+		},
+		{
+			"start": 4.464,
+			"end": 4.512,
+			"value": 6
+		},
+		{
+			"start": 4.512,
+			"end": 4.56,
+			"value": 1
+		},
+		{
+			"start": 4.6,
+			"end": 4.64,
+			"value": 2
+		},
+		{
+			"start": 4.64,
+			"end": 4.68,
+			"value": 6
+		},
+		{
+			"start": 4.68,
+			"end": 4.72,
+			"value": 1
+		},
+		{
+			"start": 4.72,
+			"end": 4.8,
+			"value": 6
+		},
+		{
+			"start": 4.8,
+			"end": 4.92,
+			"value": 1
+		},
+		{
+			"start": 4.92,
+			"end": 5.04,
+			"value": 2
+		}
+	]
+}

@@ -1,0 +1,278 @@
+{
+	"version": 1,
+	"audio": "tour_04.mp3",
+	"texto": "El resto de beCafé. Desde aquí vas a Saldos, Compras, Estadísticas y tu Perfil.",
+	"duration": 5.12,
+	"cues": [
+		{
+			"start": 0.213,
+			"end": 0.267,
+			"value": 6
+		},
+		{
+			"start": 0.267,
+			"end": 0.32,
+			"value": 1
+		},
+		{
+			"start": 0.32,
+			"end": 0.427,
+			"value": 6
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 3
+		},
+		{
+			"start": 0.533,
+			"end": 0.587,
+			"value": 6
+		},
+		{
+			"start": 0.587,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.667,
+			"end": 0.693,
+			"value": 7
+		},
+		{
+			"start": 0.693,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 2
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 5
+		},
+		{
+			"start": 0.96,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.493,
+			"end": 1.547,
+			"value": 6
+		},
+		{
+			"start": 1.547,
+			"end": 1.6,
+			"value": 1
+		},
+		{
+			"start": 1.6,
+			"end": 1.707,
+			"value": 6
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 1
+		},
+		{
+			"start": 1.808,
+			"end": 1.856,
+			"value": 2
+		},
+		{
+			"start": 1.856,
+			"end": 1.904,
+			"value": 6
+		},
+		{
+			"start": 1.904,
+			"end": 1.952,
+			"value": 4
+		},
+		{
+			"start": 1.952,
+			"end": 2,
+			"value": 1
+		},
+		{
+			"start": 2.06,
+			"end": 2.12,
+			"value": 5
+		},
+		{
+			"start": 2.12,
+			"end": 2.18,
+			"value": 2
+		},
+		{
+			"start": 2.18,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.28,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.533,
+			"value": 2
+		},
+		{
+			"start": 2.533,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.64,
+			"end": 2.72,
+			"value": 3
+		},
+		{
+			"start": 2.72,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.08,
+			"value": 3
+		},
+		{
+			"start": 3.08,
+			"end": 3.18,
+			"value": 7
+		},
+		{
+			"start": 3.18,
+			"end": 3.24,
+			"value": 6
+		},
+		{
+			"start": 3.24,
+			"end": 3.3,
+			"value": 2
+		},
+		{
+			"start": 3.3,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.48,
+			"end": 3.52,
+			"value": 1
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.6,
+			"end": 3.64,
+			"value": 2
+		},
+		{
+			"start": 3.64,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 1
+		},
+		{
+			"start": 3.76,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 1
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 6
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 2
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 6
+		},
+		{
+			"start": 4.32,
+			"end": 4.4,
+			"value": 1
+		},
+		{
+			"start": 4.453,
+			"end": 4.507,
+			"value": 6
+		},
+		{
+			"start": 4.507,
+			"end": 4.56,
+			"value": 4
+		},
+		{
+			"start": 4.6,
+			"end": 4.64,
+			"value": 7
+		},
+		{
+			"start": 4.64,
+			"end": 4.68,
+			"value": 1
+		},
+		{
+			"start": 4.68,
+			"end": 4.72,
+			"value": 6
+		},
+		{
+			"start": 4.72,
+			"end": 4.827,
+			"value": 5
+		},
+		{
+			"start": 4.827,
+			"end": 4.933,
+			"value": 1
+		},
+		{
+			"start": 4.933,
+			"end": 5.04,
+			"value": 6
+		}
+	]
+}

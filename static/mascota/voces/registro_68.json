@@ -1,0 +1,273 @@
+{
+	"version": 1,
+	"audio": "registro_68.mp3",
+	"texto": "Un estudio inventado por mí confirma que eres un espécimen fascinante.",
+	"duration": 5.04,
+	"cues": [
+		{
+			"start": 0.22,
+			"end": 0.28,
+			"value": 1
+		},
+		{
+			"start": 0.28,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.46,
+			"value": 4
+		},
+		{
+			"start": 0.46,
+			"end": 0.52,
+			"value": 6
+		},
+		{
+			"start": 0.52,
+			"end": 0.58,
+			"value": 1
+		},
+		{
+			"start": 0.58,
+			"end": 0.64,
+			"value": 3
+		},
+		{
+			"start": 0.709,
+			"end": 0.777,
+			"value": 1
+		},
+		{
+			"start": 0.777,
+			"end": 0.846,
+			"value": 6
+		},
+		{
+			"start": 0.846,
+			"end": 0.914,
+			"value": 5
+		},
+		{
+			"start": 0.914,
+			"end": 0.983,
+			"value": 1
+		},
+		{
+			"start": 0.983,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.12,
+			"end": 1.173,
+			"value": 2
+		},
+		{
+			"start": 1.173,
+			"end": 1.227,
+			"value": 6
+		},
+		{
+			"start": 1.227,
+			"end": 1.28,
+			"value": 3
+		},
+		{
+			"start": 1.3,
+			"end": 1.32,
+			"value": 7
+		},
+		{
+			"start": 1.32,
+			"end": 1.34,
+			"value": 3
+		},
+		{
+			"start": 1.34,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 7
+		},
+		{
+			"start": 1.52,
+			"end": 1.6,
+			"value": 1
+		},
+		{
+			"start": 1.68,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 3
+		},
+		{
+			"start": 1.84,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 2,
+			"value": 5
+		},
+		{
+			"start": 2,
+			"end": 2.06,
+			"value": 1
+		},
+		{
+			"start": 2.06,
+			"end": 2.12,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.18,
+			"value": 7
+		},
+		{
+			"start": 2.18,
+			"end": 2.24,
+			"value": 2
+		},
+		{
+			"start": 2.28,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.36,
+			"value": 4
+		},
+		{
+			"start": 2.36,
+			"end": 2.453,
+			"value": 1
+		},
+		{
+			"start": 2.453,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 1
+		},
+		{
+			"start": 2.56,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 4
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.86,
+			"end": 2.92,
+			"value": 1
+		},
+		{
+			"start": 2.92,
+			"end": 2.98,
+			"value": 6
+		},
+		{
+			"start": 2.98,
+			"end": 3.04,
+			"value": 7
+		},
+		{
+			"start": 3.04,
+			"end": 3.08,
+			"value": 1
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.18,
+			"value": 1
+		},
+		{
+			"start": 3.18,
+			"end": 3.24,
+			"value": 7
+		},
+		{
+			"start": 3.24,
+			"end": 3.3,
+			"value": 1
+		},
+		{
+			"start": 3.3,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 5
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 2
+		},
+		{
+			"start": 3.6,
+			"end": 3.76,
+			"value": 6
+		},
+		{
+			"start": 3.76,
+			"end": 3.8,
+			"value": 1
+		},
+		{
+			"start": 3.8,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 2
+		},
+		{
+			"start": 3.92,
+			"end": 4.08,
+			"value": 6
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 1
+		},
+		{
+			"start": 4.52,
+			"end": 5.04,
+			"value": 2
+		}
+	]
+}

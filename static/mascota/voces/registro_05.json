@@ -1,0 +1,283 @@
+{
+	"version": 1,
+	"audio": "registro_05.mp3",
+	"texto": "El café no soluciona tus problemas, pero te pone nervioso para afrontarlos.",
+	"duration": 4.96,
+	"cues": [
+		{
+			"start": 0.224,
+			"end": 0.288,
+			"value": 6
+		},
+		{
+			"start": 0.288,
+			"end": 0.352,
+			"value": 2
+		},
+		{
+			"start": 0.352,
+			"end": 0.416,
+			"value": 5
+		},
+		{
+			"start": 0.416,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.507,
+			"end": 0.533,
+			"value": 6
+		},
+		{
+			"start": 0.533,
+			"end": 0.56,
+			"value": 3
+		},
+		{
+			"start": 0.62,
+			"end": 0.68,
+			"value": 6
+		},
+		{
+			"start": 0.68,
+			"end": 0.74,
+			"value": 3
+		},
+		{
+			"start": 0.74,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 4
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1,
+			"value": 1
+		},
+		{
+			"start": 1,
+			"end": 1.04,
+			"value": 3
+		},
+		{
+			"start": 1.04,
+			"end": 1.08,
+			"value": 6
+		},
+		{
+			"start": 1.08,
+			"end": 1.12,
+			"value": 2
+		},
+		{
+			"start": 1.16,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.24,
+			"value": 4
+		},
+		{
+			"start": 1.24,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.344,
+			"end": 1.408,
+			"value": 7
+		},
+		{
+			"start": 1.408,
+			"end": 1.472,
+			"value": 6
+		},
+		{
+			"start": 1.472,
+			"end": 1.536,
+			"value": 3
+		},
+		{
+			"start": 1.536,
+			"end": 1.6,
+			"value": 7
+		},
+		{
+			"start": 1.6,
+			"end": 1.664,
+			"value": 6
+		},
+		{
+			"start": 1.664,
+			"end": 1.728,
+			"value": 1
+		},
+		{
+			"start": 1.728,
+			"end": 1.792,
+			"value": 7
+		},
+		{
+			"start": 1.792,
+			"end": 1.856,
+			"value": 2
+		},
+		{
+			"start": 1.856,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 2.304,
+			"end": 2.368,
+			"value": 7
+		},
+		{
+			"start": 2.368,
+			"end": 2.432,
+			"value": 1
+		},
+		{
+			"start": 2.432,
+			"end": 2.496,
+			"value": 6
+		},
+		{
+			"start": 2.496,
+			"end": 2.56,
+			"value": 3
+		},
+		{
+			"start": 2.613,
+			"end": 2.667,
+			"value": 6
+		},
+		{
+			"start": 2.667,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.76,
+			"end": 2.8,
+			"value": 7
+		},
+		{
+			"start": 2.8,
+			"end": 2.853,
+			"value": 3
+		},
+		{
+			"start": 2.853,
+			"end": 2.907,
+			"value": 6
+		},
+		{
+			"start": 2.907,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 3.008,
+			"end": 3.056,
+			"value": 6
+		},
+		{
+			"start": 3.056,
+			"end": 3.104,
+			"value": 1
+		},
+		{
+			"start": 3.104,
+			"end": 3.152,
+			"value": 6
+		},
+		{
+			"start": 3.152,
+			"end": 3.2,
+			"value": 5
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 1
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 3
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 3
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.76,
+			"end": 3.808,
+			"value": 5
+		},
+		{
+			"start": 3.808,
+			"end": 3.856,
+			"value": 6
+		},
+		{
+			"start": 3.856,
+			"end": 3.904,
+			"value": 3
+		},
+		{
+			"start": 3.904,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 2
+		},
+		{
+			"start": 4.08,
+			"end": 4.267,
+			"value": 6
+		},
+		{
+			"start": 4.267,
+			"end": 4.373,
+			"value": 3
+		},
+		{
+			"start": 4.373,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.66,
+			"end": 4.96,
+			"value": 2
+		}
+	]
+}

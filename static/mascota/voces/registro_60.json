@@ -1,0 +1,263 @@
+{
+	"version": 1,
+	"audio": "registro_60.mp3",
+	"texto": "Venga, sonríe. Que las cámaras no distinguen la felicidad del sarcasmo.",
+	"duration": 6.16,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.22,
+			"value": 1
+		},
+		{
+			"start": 0.22,
+			"end": 0.34,
+			"value": 6
+		},
+		{
+			"start": 0.34,
+			"end": 0.4,
+			"value": 2
+		},
+		{
+			"start": 0.6,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.68,
+			"value": 3
+		},
+		{
+			"start": 0.68,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.8,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.32,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.4,
+			"value": 4
+		},
+		{
+			"start": 1.4,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.48,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.56,
+			"value": 2
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.653,
+			"end": 1.707,
+			"value": 6
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 2
+		},
+		{
+			"start": 1.76,
+			"end": 1.813,
+			"value": 7
+		},
+		{
+			"start": 1.813,
+			"end": 1.867,
+			"value": 2
+		},
+		{
+			"start": 1.867,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 1.96,
+			"value": 2
+		},
+		{
+			"start": 1.96,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2.053,
+			"end": 2.107,
+			"value": 6
+		},
+		{
+			"start": 2.107,
+			"end": 2.16,
+			"value": 3
+		},
+		{
+			"start": 2.208,
+			"end": 2.256,
+			"value": 6
+		},
+		{
+			"start": 2.256,
+			"end": 2.304,
+			"value": 1
+		},
+		{
+			"start": 2.304,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.427,
+			"value": 1
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.533,
+			"value": 4
+		},
+		{
+			"start": 2.533,
+			"end": 2.587,
+			"value": 1
+		},
+		{
+			"start": 2.587,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 6
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 2
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 5
+		},
+		{
+			"start": 2.88,
+			"end": 2.92,
+			"value": 1
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3,
+			"value": 1
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.1,
+			"value": 1
+		},
+		{
+			"start": 3.1,
+			"end": 3.16,
+			"value": 6
+		},
+		{
+			"start": 3.16,
+			"end": 3.22,
+			"value": 2
+		},
+		{
+			"start": 3.22,
+			"end": 3.32,
+			"value": 6
+		},
+		{
+			"start": 3.32,
+			"end": 3.34,
+			"value": 1
+		},
+		{
+			"start": 3.34,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.424,
+			"end": 3.488,
+			"value": 6
+		},
+		{
+			"start": 3.488,
+			"end": 3.552,
+			"value": 2
+		},
+		{
+			"start": 3.552,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.96,
+			"value": 7
+		},
+		{
+			"start": 3.96,
+			"end": 4.08,
+			"value": 3
+		},
+		{
+			"start": 4.14,
+			"end": 6.16,
+			"value": 2
+		}
+	]
+}

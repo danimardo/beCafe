@@ -1,0 +1,353 @@
+{
+	"version": 1,
+	"audio": "registro_40.mp3",
+	"texto": "Yo soy una cápsula con ojos y, aun así, tengo más estabilidad emocional que esta oficina.",
+	"duration": 5.92,
+	"cues": [
+		{
+			"start": 0.187,
+			"end": 0.213,
+			"value": 1
+		},
+		{
+			"start": 0.213,
+			"end": 0.24,
+			"value": 3
+		},
+		{
+			"start": 0.3,
+			"end": 0.36,
+			"value": 6
+		},
+		{
+			"start": 0.36,
+			"end": 0.42,
+			"value": 3
+		},
+		{
+			"start": 0.42,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 4
+		},
+		{
+			"start": 0.56,
+			"end": 0.6,
+			"value": 6
+		},
+		{
+			"start": 0.6,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.693,
+			"end": 0.747,
+			"value": 6
+		},
+		{
+			"start": 0.747,
+			"end": 0.8,
+			"value": 2
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 7
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.013,
+			"value": 4
+		},
+		{
+			"start": 1.013,
+			"end": 1.067,
+			"value": 6
+		},
+		{
+			"start": 1.067,
+			"end": 1.12,
+			"value": 2
+		},
+		{
+			"start": 1.16,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.24,
+			"value": 3
+		},
+		{
+			"start": 1.24,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 3
+		},
+		{
+			"start": 1.44,
+			"end": 1.493,
+			"value": 6
+		},
+		{
+			"start": 1.493,
+			"end": 1.547,
+			"value": 3
+		},
+		{
+			"start": 1.547,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 1.76,
+			"value": 1
+		},
+		{
+			"start": 1.91,
+			"end": 1.94,
+			"value": 2
+		},
+		{
+			"start": 1.94,
+			"end": 1.97,
+			"value": 4
+		},
+		{
+			"start": 1.97,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.16,
+			"value": 2
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.32,
+			"value": 1
+		},
+		{
+			"start": 2.647,
+			"end": 2.693,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.74,
+			"value": 1
+		},
+		{
+			"start": 2.74,
+			"end": 2.833,
+			"value": 6
+		},
+		{
+			"start": 2.833,
+			"end": 2.88,
+			"value": 3
+		},
+		{
+			"start": 2.94,
+			"end": 3,
+			"value": 7
+		},
+		{
+			"start": 3,
+			"end": 3.06,
+			"value": 2
+		},
+		{
+			"start": 3.06,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.18,
+			"end": 3.24,
+			"value": 1
+		},
+		{
+			"start": 3.24,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.41,
+			"value": 2
+		},
+		{
+			"start": 3.41,
+			"end": 3.46,
+			"value": 7
+		},
+		{
+			"start": 3.46,
+			"end": 3.51,
+			"value": 1
+		},
+		{
+			"start": 3.51,
+			"end": 3.56,
+			"value": 6
+		},
+		{
+			"start": 3.56,
+			"end": 3.61,
+			"value": 1
+		},
+		{
+			"start": 3.61,
+			"end": 3.66,
+			"value": 6
+		},
+		{
+			"start": 3.66,
+			"end": 3.71,
+			"value": 2
+		},
+		{
+			"start": 3.71,
+			"end": 3.76,
+			"value": 6
+		},
+		{
+			"start": 3.824,
+			"end": 3.888,
+			"value": 1
+		},
+		{
+			"start": 3.888,
+			"end": 3.952,
+			"value": 7
+		},
+		{
+			"start": 3.952,
+			"end": 4.016,
+			"value": 3
+		},
+		{
+			"start": 4.016,
+			"end": 4.08,
+			"value": 6
+		},
+		{
+			"start": 4.08,
+			"end": 4.128,
+			"value": 1
+		},
+		{
+			"start": 4.128,
+			"end": 4.176,
+			"value": 3
+		},
+		{
+			"start": 4.176,
+			"end": 4.224,
+			"value": 6
+		},
+		{
+			"start": 4.224,
+			"end": 4.272,
+			"value": 2
+		},
+		{
+			"start": 4.272,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.36,
+			"end": 4.4,
+			"value": 6
+		},
+		{
+			"start": 4.4,
+			"end": 4.44,
+			"value": 4
+		},
+		{
+			"start": 4.44,
+			"end": 4.48,
+			"value": 1
+		},
+		{
+			"start": 4.528,
+			"end": 4.576,
+			"value": 1
+		},
+		{
+			"start": 4.576,
+			"end": 4.672,
+			"value": 6
+		},
+		{
+			"start": 4.672,
+			"end": 4.72,
+			"value": 2
+		},
+		{
+			"start": 4.773,
+			"end": 4.827,
+			"value": 3
+		},
+		{
+			"start": 4.827,
+			"end": 4.88,
+			"value": 5
+		},
+		{
+			"start": 4.88,
+			"end": 4.944,
+			"value": 1
+		},
+		{
+			"start": 4.944,
+			"end": 5.008,
+			"value": 6
+		},
+		{
+			"start": 5.008,
+			"end": 5.072,
+			"value": 1
+		},
+		{
+			"start": 5.072,
+			"end": 5.136,
+			"value": 6
+		},
+		{
+			"start": 5.136,
+			"end": 5.2,
+			"value": 2
+		},
+		{
+			"start": 5.32,
+			"end": 5.92,
+			"value": 2
+		}
+	]
+}

@@ -1,0 +1,243 @@
+{
+	"version": 1,
+	"audio": "registro_30.mp3",
+	"texto": "Si fueras un servidor, ya te habría saltado una alerta en Zabbix.",
+	"duration": 4.24,
+	"cues": [
+		{
+			"start": 0.208,
+			"end": 0.256,
+			"value": 5
+		},
+		{
+			"start": 0.256,
+			"end": 0.304,
+			"value": 4
+		},
+		{
+			"start": 0.304,
+			"end": 0.352,
+			"value": 1
+		},
+		{
+			"start": 0.352,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 2
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.533,
+			"end": 0.587,
+			"value": 4
+		},
+		{
+			"start": 0.587,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 1
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 5
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 3
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.467,
+			"end": 1.493,
+			"value": 1
+		},
+		{
+			"start": 1.493,
+			"end": 1.52,
+			"value": 2
+		},
+		{
+			"start": 1.573,
+			"end": 1.627,
+			"value": 6
+		},
+		{
+			"start": 1.627,
+			"end": 1.68,
+			"value": 1
+		},
+		{
+			"start": 1.76,
+			"end": 1.8,
+			"value": 2
+		},
+		{
+			"start": 1.8,
+			"end": 1.84,
+			"value": 7
+		},
+		{
+			"start": 1.84,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 1.96,
+			"value": 1
+		},
+		{
+			"start": 1.96,
+			"end": 2,
+			"value": 2
+		},
+		{
+			"start": 2.064,
+			"end": 2.128,
+			"value": 6
+		},
+		{
+			"start": 2.128,
+			"end": 2.192,
+			"value": 2
+		},
+		{
+			"start": 2.192,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.373,
+			"value": 2
+		},
+		{
+			"start": 2.373,
+			"end": 2.427,
+			"value": 6
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 3
+		},
+		{
+			"start": 2.52,
+			"end": 2.56,
+			"value": 4
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 6
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.707,
+			"end": 2.773,
+			"value": 2
+		},
+		{
+			"start": 2.773,
+			"end": 2.84,
+			"value": 6
+		},
+		{
+			"start": 2.84,
+			"end": 2.907,
+			"value": 1
+		},
+		{
+			"start": 2.907,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 2
+		},
+		{
+			"start": 3.147,
+			"end": 3.173,
+			"value": 1
+		},
+		{
+			"start": 3.173,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.24,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 2
+		},
+		{
+			"start": 3.36,
+			"end": 3.52,
+			"value": 7
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 1
+		},
+		{
+			"start": 3.6,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.98,
+			"end": 4.24,
+			"value": 2
+		}
+	]
+}

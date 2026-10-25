@@ -1,0 +1,268 @@
+{
+	"version": 1,
+	"audio": "registro_48.mp3",
+	"texto": "Qué bonito es verte tomar decisiones sin consultar con tu sentido común.",
+	"duration": 4.16,
+	"cues": [
+		{
+			"start": 0.22,
+			"end": 0.28,
+			"value": 7
+		},
+		{
+			"start": 0.28,
+			"end": 0.34,
+			"value": 3
+		},
+		{
+			"start": 0.34,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.453,
+			"value": 1
+		},
+		{
+			"start": 0.453,
+			"end": 0.507,
+			"value": 6
+		},
+		{
+			"start": 0.507,
+			"end": 0.56,
+			"value": 3
+		},
+		{
+			"start": 0.587,
+			"end": 0.613,
+			"value": 1
+		},
+		{
+			"start": 0.613,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.693,
+			"end": 0.747,
+			"value": 5
+		},
+		{
+			"start": 0.747,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.8,
+			"end": 0.907,
+			"value": 6
+		},
+		{
+			"start": 0.907,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 1.013,
+			"end": 1.067,
+			"value": 6
+		},
+		{
+			"start": 1.067,
+			"end": 1.12,
+			"value": 3
+		},
+		{
+			"start": 1.12,
+			"end": 1.173,
+			"value": 7
+		},
+		{
+			"start": 1.173,
+			"end": 1.227,
+			"value": 2
+		},
+		{
+			"start": 1.227,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.333,
+			"end": 1.387,
+			"value": 6
+		},
+		{
+			"start": 1.387,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.44,
+			"end": 1.493,
+			"value": 6
+		},
+		{
+			"start": 1.493,
+			"end": 1.547,
+			"value": 1
+		},
+		{
+			"start": 1.547,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.6,
+			"end": 1.653,
+			"value": 1
+		},
+		{
+			"start": 1.653,
+			"end": 1.707,
+			"value": 3
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.8,
+			"value": 1
+		},
+		{
+			"start": 1.8,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 1.96,
+			"value": 1
+		},
+		{
+			"start": 1.96,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2.048,
+			"end": 2.096,
+			"value": 6
+		},
+		{
+			"start": 2.096,
+			"end": 2.144,
+			"value": 3
+		},
+		{
+			"start": 2.144,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.288,
+			"value": 4
+		},
+		{
+			"start": 2.288,
+			"end": 2.384,
+			"value": 6
+		},
+		{
+			"start": 2.384,
+			"end": 2.432,
+			"value": 2
+		},
+		{
+			"start": 2.432,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.52,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 3
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 6
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 4
+		},
+		{
+			"start": 2.86,
+			"end": 2.92,
+			"value": 6
+		},
+		{
+			"start": 2.92,
+			"end": 2.98,
+			"value": 1
+		},
+		{
+			"start": 2.98,
+			"end": 3.1,
+			"value": 6
+		},
+		{
+			"start": 3.1,
+			"end": 3.16,
+			"value": 1
+		},
+		{
+			"start": 3.16,
+			"end": 3.22,
+			"value": 6
+		},
+		{
+			"start": 3.22,
+			"end": 3.28,
+			"value": 3
+		},
+		{
+			"start": 3.32,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.4,
+			"value": 3
+		},
+		{
+			"start": 3.4,
+			"end": 3.44,
+			"value": 7
+		},
+		{
+			"start": 3.44,
+			"end": 3.56,
+			"value": 4
+		},
+		{
+			"start": 3.56,
+			"end": 3.68,
+			"value": 6
+		}
+	]
+}

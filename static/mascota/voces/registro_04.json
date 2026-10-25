@@ -1,0 +1,148 @@
+{
+	"version": 1,
+	"audio": "registro_04.mp3",
+	"texto": "He visto drogodependencias más baratas.",
+	"duration": 2.8,
+	"cues": [
+		{
+			"start": 0.227,
+			"end": 0.293,
+			"value": 5
+		},
+		{
+			"start": 0.293,
+			"end": 0.36,
+			"value": 1
+		},
+		{
+			"start": 0.36,
+			"end": 0.493,
+			"value": 6
+		},
+		{
+			"start": 0.493,
+			"end": 0.56,
+			"value": 3
+		},
+		{
+			"start": 0.6,
+			"end": 0.68,
+			"value": 6
+		},
+		{
+			"start": 0.68,
+			"end": 0.72,
+			"value": 3
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.8,
+			"end": 0.853,
+			"value": 3
+		},
+		{
+			"start": 0.853,
+			"end": 0.907,
+			"value": 6
+		},
+		{
+			"start": 0.907,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 0.96,
+			"end": 1.02,
+			"value": 7
+		},
+		{
+			"start": 1.02,
+			"end": 1.08,
+			"value": 1
+		},
+		{
+			"start": 1.08,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.253,
+			"value": 1
+		},
+		{
+			"start": 1.253,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.413,
+			"value": 1
+		},
+		{
+			"start": 1.413,
+			"end": 1.467,
+			"value": 2
+		},
+		{
+			"start": 1.467,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 7
+		},
+		{
+			"start": 1.6,
+			"end": 1.64,
+			"value": 2
+		},
+		{
+			"start": 1.64,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.74,
+			"end": 1.8,
+			"value": 7
+		},
+		{
+			"start": 1.8,
+			"end": 1.86,
+			"value": 2
+		},
+		{
+			"start": 1.86,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 2.02,
+			"value": 2
+		},
+		{
+			"start": 2.02,
+			"end": 2.12,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.22,
+			"value": 2
+		},
+		{
+			"start": 2.22,
+			"end": 2.32,
+			"value": 6
+		}
+	]
+}

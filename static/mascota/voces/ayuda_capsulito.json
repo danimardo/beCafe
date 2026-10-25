@@ -1,0 +1,148 @@
+{
+	"version": 1,
+	"audio": "ayuda_capsulito.mp3",
+	"texto": "Muestra las poses y frases de la mascota.",
+	"duration": 2.08,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.12,
+			"value": 4
+		},
+		{
+			"start": 0.12,
+			"end": 0.16,
+			"value": 1
+		},
+		{
+			"start": 0.16,
+			"end": 0.28,
+			"value": 6
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 2
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 2
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.547,
+			"end": 0.613,
+			"value": 7
+		},
+		{
+			"start": 0.613,
+			"end": 0.68,
+			"value": 3
+		},
+		{
+			"start": 0.68,
+			"end": 0.747,
+			"value": 6
+		},
+		{
+			"start": 0.747,
+			"end": 0.813,
+			"value": 1
+		},
+		{
+			"start": 0.813,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 0.987,
+			"end": 1.013,
+			"value": 5
+		},
+		{
+			"start": 1.013,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 2
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 1
+		},
+		{
+			"start": 1.28,
+			"end": 1.413,
+			"value": 6
+		},
+		{
+			"start": 1.413,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.467,
+			"end": 1.493,
+			"value": 6
+		},
+		{
+			"start": 1.493,
+			"end": 1.52,
+			"value": 2
+		},
+		{
+			"start": 1.584,
+			"end": 1.648,
+			"value": 7
+		},
+		{
+			"start": 1.648,
+			"end": 1.712,
+			"value": 2
+		},
+		{
+			"start": 1.712,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.84,
+			"end": 1.92,
+			"value": 3
+		},
+		{
+			"start": 1.92,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2,
+			"end": 2.08,
+			"value": 2
+		}
+	]
+}

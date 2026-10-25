@@ -1,0 +1,288 @@
+{
+	"version": 1,
+	"audio": "registro_12.mp3",
+	"texto": "¿Sabías que las jirafas duermen poquísimo? Pues tú, con este café, tampoco.",
+	"duration": 5.84,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.213,
+			"value": 6
+		},
+		{
+			"start": 0.213,
+			"end": 0.267,
+			"value": 2
+		},
+		{
+			"start": 0.267,
+			"end": 0.32,
+			"value": 7
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 1
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 2
+		},
+		{
+			"start": 0.48,
+			"end": 0.6,
+			"value": 6
+		},
+		{
+			"start": 0.6,
+			"end": 0.62,
+			"value": 4
+		},
+		{
+			"start": 0.62,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.68,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.76,
+			"value": 2
+		},
+		{
+			"start": 0.76,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.92,
+			"value": 1
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 2
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 5
+		},
+		{
+			"start": 1.12,
+			"end": 1.16,
+			"value": 2
+		},
+		{
+			"start": 1.16,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.253,
+			"end": 1.307,
+			"value": 6
+		},
+		{
+			"start": 1.307,
+			"end": 1.36,
+			"value": 4
+		},
+		{
+			"start": 1.36,
+			"end": 1.424,
+			"value": 1
+		},
+		{
+			"start": 1.424,
+			"end": 1.488,
+			"value": 6
+		},
+		{
+			"start": 1.488,
+			"end": 1.552,
+			"value": 7
+		},
+		{
+			"start": 1.552,
+			"end": 1.616,
+			"value": 1
+		},
+		{
+			"start": 1.616,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.733,
+			"end": 1.787,
+			"value": 7
+		},
+		{
+			"start": 1.787,
+			"end": 1.84,
+			"value": 3
+		},
+		{
+			"start": 1.84,
+			"end": 1.88,
+			"value": 6
+		},
+		{
+			"start": 1.88,
+			"end": 1.92,
+			"value": 4
+		},
+		{
+			"start": 1.92,
+			"end": 2,
+			"value": 1
+		},
+		{
+			"start": 2,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.133,
+			"value": 1
+		},
+		{
+			"start": 2.133,
+			"end": 2.187,
+			"value": 7
+		},
+		{
+			"start": 2.187,
+			"end": 2.24,
+			"value": 3
+		},
+		{
+			"start": 2.84,
+			"end": 3.04,
+			"value": 7
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 4
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 1
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.333,
+			"end": 3.387,
+			"value": 6
+		},
+		{
+			"start": 3.387,
+			"end": 3.44,
+			"value": 4
+		},
+		{
+			"start": 3.59,
+			"end": 3.62,
+			"value": 6
+		},
+		{
+			"start": 3.62,
+			"end": 3.65,
+			"value": 3
+		},
+		{
+			"start": 3.65,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.744,
+			"end": 3.808,
+			"value": 1
+		},
+		{
+			"start": 3.808,
+			"end": 3.936,
+			"value": 6
+		},
+		{
+			"start": 3.936,
+			"end": 4,
+			"value": 1
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 2
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 5
+		},
+		{
+			"start": 4.32,
+			"end": 4.4,
+			"value": 1
+		},
+		{
+			"start": 4.688,
+			"end": 4.736,
+			"value": 6
+		},
+		{
+			"start": 4.736,
+			"end": 4.784,
+			"value": 2
+		},
+		{
+			"start": 4.784,
+			"end": 4.88,
+			"value": 7
+		},
+		{
+			"start": 4.88,
+			"end": 4.987,
+			"value": 3
+		},
+		{
+			"start": 4.987,
+			"end": 5.093,
+			"value": 6
+		},
+		{
+			"start": 5.093,
+			"end": 5.2,
+			"value": 3
+		},
+		{
+			"start": 5.26,
+			"end": 5.84,
+			"value": 2
+		}
+	]
+}

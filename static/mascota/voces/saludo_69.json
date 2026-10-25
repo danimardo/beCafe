@@ -1,0 +1,278 @@
+{
+	"version": 1,
+	"audio": "saludo_69.mp3",
+	"texto": "¡Bienvenido! ¡Hoy me he levantado con ganas de conquistar Portugal! ¿Te apuntas?",
+	"duration": 5.36,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.14,
+			"value": 7
+		},
+		{
+			"start": 0.14,
+			"end": 0.26,
+			"value": 1
+		},
+		{
+			"start": 0.26,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.347,
+			"value": 5
+		},
+		{
+			"start": 0.347,
+			"end": 0.373,
+			"value": 1
+		},
+		{
+			"start": 0.373,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.507,
+			"value": 1
+		},
+		{
+			"start": 0.507,
+			"end": 0.613,
+			"value": 6
+		},
+		{
+			"start": 0.613,
+			"end": 0.72,
+			"value": 3
+		},
+		{
+			"start": 1.2,
+			"end": 1.24,
+			"value": 3
+		},
+		{
+			"start": 1.24,
+			"end": 1.28,
+			"value": 1
+		},
+		{
+			"start": 1.307,
+			"end": 1.333,
+			"value": 7
+		},
+		{
+			"start": 1.333,
+			"end": 1.36,
+			"value": 1
+		},
+		{
+			"start": 1.413,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.5,
+			"end": 1.56,
+			"value": 6
+		},
+		{
+			"start": 1.56,
+			"end": 1.62,
+			"value": 1
+		},
+		{
+			"start": 1.62,
+			"end": 1.68,
+			"value": 5
+		},
+		{
+			"start": 1.68,
+			"end": 1.76,
+			"value": 2
+		},
+		{
+			"start": 1.76,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 1.947,
+			"value": 2
+		},
+		{
+			"start": 1.947,
+			"end": 1.973,
+			"value": 6
+		},
+		{
+			"start": 1.973,
+			"end": 2,
+			"value": 3
+		},
+		{
+			"start": 2.06,
+			"end": 2.12,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.18,
+			"value": 3
+		},
+		{
+			"start": 2.18,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.36,
+			"value": 2
+		},
+		{
+			"start": 2.36,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 2
+		},
+		{
+			"start": 2.48,
+			"end": 2.613,
+			"value": 6
+		},
+		{
+			"start": 2.613,
+			"end": 2.64,
+			"value": 1
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.72,
+			"end": 2.76,
+			"value": 3
+		},
+		{
+			"start": 2.76,
+			"end": 2.84,
+			"value": 6
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 4
+		},
+		{
+			"start": 2.88,
+			"end": 2.928,
+			"value": 1
+		},
+		{
+			"start": 2.928,
+			"end": 3.024,
+			"value": 6
+		},
+		{
+			"start": 3.024,
+			"end": 3.072,
+			"value": 2
+		},
+		{
+			"start": 3.072,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.182,
+			"end": 3.244,
+			"value": 7
+		},
+		{
+			"start": 3.244,
+			"end": 3.307,
+			"value": 3
+		},
+		{
+			"start": 3.307,
+			"end": 3.431,
+			"value": 6
+		},
+		{
+			"start": 3.431,
+			"end": 3.493,
+			"value": 4
+		},
+		{
+			"start": 3.493,
+			"end": 3.556,
+			"value": 6
+		},
+		{
+			"start": 3.556,
+			"end": 3.618,
+			"value": 2
+		},
+		{
+			"start": 3.618,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.04,
+			"value": 6
+		},
+		{
+			"start": 4.04,
+			"end": 4.08,
+			"value": 1
+		},
+		{
+			"start": 4.133,
+			"end": 4.187,
+			"value": 2
+		},
+		{
+			"start": 4.187,
+			"end": 4.24,
+			"value": 7
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 4
+		},
+		{
+			"start": 4.32,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.48,
+			"end": 4.56,
+			"value": 2
+		},
+		{
+			"start": 4.56,
+			"end": 4.64,
+			"value": 6
+		},
+		{
+			"start": 4.88,
+			"end": 5.36,
+			"value": 2
+		}
+	]
+}

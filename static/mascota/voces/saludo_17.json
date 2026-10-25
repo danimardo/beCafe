@@ -1,0 +1,288 @@
+{
+	"version": 1,
+	"audio": "saludo_17.mp3",
+	"texto": "¡Buenos días! Otro maravilloso día para fingir que nos apasiona nuestro trabajo.",
+	"duration": 6.16,
+	"cues": [
+		{
+			"start": 0.331,
+			"end": 0.366,
+			"value": 7
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 3
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.592,
+			"end": 0.704,
+			"value": 6
+		},
+		{
+			"start": 0.704,
+			"end": 0.816,
+			"value": 1
+		},
+		{
+			"start": 0.816,
+			"end": 0.928,
+			"value": 2
+		},
+		{
+			"start": 0.928,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.307,
+			"end": 1.373,
+			"value": 3
+		},
+		{
+			"start": 1.373,
+			"end": 1.48,
+			"value": 6
+		},
+		{
+			"start": 1.48,
+			"end": 1.52,
+			"value": 3
+		},
+		{
+			"start": 1.58,
+			"end": 1.64,
+			"value": 7
+		},
+		{
+			"start": 1.64,
+			"end": 1.7,
+			"value": 2
+		},
+		{
+			"start": 1.7,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.8,
+			"value": 2
+		},
+		{
+			"start": 1.8,
+			"end": 1.84,
+			"value": 5
+		},
+		{
+			"start": 1.84,
+			"end": 1.88,
+			"value": 1
+		},
+		{
+			"start": 1.88,
+			"end": 1.96,
+			"value": 6
+		},
+		{
+			"start": 1.96,
+			"end": 2,
+			"value": 3
+		},
+		{
+			"start": 2,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.16,
+			"value": 3
+		},
+		{
+			"start": 2.22,
+			"end": 2.28,
+			"value": 6
+		},
+		{
+			"start": 2.28,
+			"end": 2.34,
+			"value": 1
+		},
+		{
+			"start": 2.34,
+			"end": 2.4,
+			"value": 2
+		},
+		{
+			"start": 2.448,
+			"end": 2.496,
+			"value": 7
+		},
+		{
+			"start": 2.496,
+			"end": 2.544,
+			"value": 2
+		},
+		{
+			"start": 2.544,
+			"end": 2.592,
+			"value": 6
+		},
+		{
+			"start": 2.592,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.688,
+			"end": 2.736,
+			"value": 5
+		},
+		{
+			"start": 2.736,
+			"end": 2.784,
+			"value": 1
+		},
+		{
+			"start": 2.784,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.88,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 2.96,
+			"end": 3.08,
+			"value": 6
+		},
+		{
+			"start": 3.08,
+			"end": 3.1,
+			"value": 4
+		},
+		{
+			"start": 3.1,
+			"end": 3.12,
+			"value": 1
+		},
+		{
+			"start": 3.16,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.24,
+			"value": 3
+		},
+		{
+			"start": 3.24,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.333,
+			"end": 3.387,
+			"value": 2
+		},
+		{
+			"start": 3.387,
+			"end": 3.44,
+			"value": 7
+		},
+		{
+			"start": 3.44,
+			"end": 3.504,
+			"value": 2
+		},
+		{
+			"start": 3.504,
+			"end": 3.568,
+			"value": 6
+		},
+		{
+			"start": 3.568,
+			"end": 3.632,
+			"value": 1
+		},
+		{
+			"start": 3.632,
+			"end": 3.696,
+			"value": 3
+		},
+		{
+			"start": 3.696,
+			"end": 3.76,
+			"value": 6
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 2
+		},
+		{
+			"start": 3.88,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.92,
+			"end": 3.96,
+			"value": 4
+		},
+		{
+			"start": 3.96,
+			"end": 4,
+			"value": 1
+		},
+		{
+			"start": 4,
+			"end": 4.12,
+			"value": 6
+		},
+		{
+			"start": 4.12,
+			"end": 4.16,
+			"value": 3
+		},
+		{
+			"start": 4.23,
+			"end": 4.37,
+			"value": 6
+		},
+		{
+			"start": 4.37,
+			"end": 4.44,
+			"value": 2
+		},
+		{
+			"start": 4.44,
+			"end": 4.51,
+			"value": 7
+		},
+		{
+			"start": 4.51,
+			"end": 4.58,
+			"value": 2
+		},
+		{
+			"start": 4.58,
+			"end": 4.65,
+			"value": 6
+		},
+		{
+			"start": 4.65,
+			"end": 4.72,
+			"value": 3
+		}
+	]
+}

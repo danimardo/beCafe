@@ -1,0 +1,298 @@
+{
+	"version": 1,
+	"audio": "saludo_64.mp3",
+	"texto": "¡Bienvenido al maravilloso mundo de trabajar! ¡Donde el café sustituye a la esperanza!",
+	"duration": 5.28,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.14,
+			"value": 7
+		},
+		{
+			"start": 0.14,
+			"end": 0.26,
+			"value": 1
+		},
+		{
+			"start": 0.26,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.347,
+			"value": 5
+		},
+		{
+			"start": 0.347,
+			"end": 0.373,
+			"value": 1
+		},
+		{
+			"start": 0.373,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.453,
+			"value": 1
+		},
+		{
+			"start": 0.453,
+			"end": 0.507,
+			"value": 6
+		},
+		{
+			"start": 0.507,
+			"end": 0.56,
+			"value": 3
+		},
+		{
+			"start": 0.613,
+			"end": 0.667,
+			"value": 2
+		},
+		{
+			"start": 0.667,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.76,
+			"end": 0.8,
+			"value": 7
+		},
+		{
+			"start": 0.8,
+			"end": 0.84,
+			"value": 2
+		},
+		{
+			"start": 0.84,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 2
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 5
+		},
+		{
+			"start": 1.04,
+			"end": 1.08,
+			"value": 1
+		},
+		{
+			"start": 1.08,
+			"end": 1.16,
+			"value": 6
+		},
+		{
+			"start": 1.16,
+			"end": 1.2,
+			"value": 3
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 3
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 7
+		},
+		{
+			"start": 1.52,
+			"end": 1.6,
+			"value": 4
+		},
+		{
+			"start": 1.6,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 3
+		},
+		{
+			"start": 1.867,
+			"end": 1.893,
+			"value": 6
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 1
+		},
+		{
+			"start": 1.982,
+			"end": 2.107,
+			"value": 6
+		},
+		{
+			"start": 2.107,
+			"end": 2.169,
+			"value": 2
+		},
+		{
+			"start": 2.169,
+			"end": 2.231,
+			"value": 7
+		},
+		{
+			"start": 2.231,
+			"end": 2.293,
+			"value": 2
+		},
+		{
+			"start": 2.293,
+			"end": 2.356,
+			"value": 6
+		},
+		{
+			"start": 2.356,
+			"end": 2.418,
+			"value": 2
+		},
+		{
+			"start": 2.418,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.093,
+			"value": 6
+		},
+		{
+			"start": 3.093,
+			"end": 3.147,
+			"value": 3
+		},
+		{
+			"start": 3.147,
+			"end": 3.22,
+			"value": 6
+		},
+		{
+			"start": 3.22,
+			"end": 3.267,
+			"value": 1
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 2
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 5
+		},
+		{
+			"start": 3.6,
+			"end": 3.68,
+			"value": 1
+		},
+		{
+			"start": 3.744,
+			"end": 3.808,
+			"value": 6
+		},
+		{
+			"start": 3.808,
+			"end": 3.872,
+			"value": 4
+		},
+		{
+			"start": 3.872,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 1
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 4
+		},
+		{
+			"start": 4.24,
+			"end": 4.4,
+			"value": 1
+		},
+		{
+			"start": 4.42,
+			"end": 4.44,
+			"value": 2
+		},
+		{
+			"start": 4.533,
+			"end": 4.587,
+			"value": 1
+		},
+		{
+			"start": 4.587,
+			"end": 4.64,
+			"value": 6
+		},
+		{
+			"start": 4.64,
+			"end": 4.693,
+			"value": 7
+		},
+		{
+			"start": 4.693,
+			"end": 4.747,
+			"value": 1
+		},
+		{
+			"start": 4.747,
+			"end": 4.8,
+			"value": 6
+		},
+		{
+			"start": 4.8,
+			"end": 4.88,
+			"value": 2
+		},
+		{
+			"start": 4.88,
+			"end": 5.04,
+			"value": 6
+		},
+		{
+			"start": 5.04,
+			"end": 5.12,
+			"value": 2
+		}
+	]
+}

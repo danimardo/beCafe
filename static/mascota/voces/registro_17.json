@@ -1,0 +1,193 @@
+{
+	"version": 1,
+	"audio": "registro_17.mp3",
+	"texto": "Otro café. Otra oportunidad para parecer ocupado.",
+	"duration": 3.36,
+	"cues": [
+		{
+			"start": 0.307,
+			"end": 0.36,
+			"value": 6
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 3
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 5
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 1.16,
+			"end": 1.28,
+			"value": 3
+		},
+		{
+			"start": 1.28,
+			"end": 1.387,
+			"value": 6
+		},
+		{
+			"start": 1.387,
+			"end": 1.44,
+			"value": 2
+		},
+		{
+			"start": 1.5,
+			"end": 1.56,
+			"value": 3
+		},
+		{
+			"start": 1.56,
+			"end": 1.62,
+			"value": 7
+		},
+		{
+			"start": 1.62,
+			"end": 1.68,
+			"value": 3
+		},
+		{
+			"start": 1.68,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.86,
+			"value": 4
+		},
+		{
+			"start": 1.86,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 1.98,
+			"value": 1
+		},
+		{
+			"start": 1.98,
+			"end": 2.04,
+			"value": 6
+		},
+		{
+			"start": 2.04,
+			"end": 2.1,
+			"value": 2
+		},
+		{
+			"start": 2.1,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.192,
+			"end": 2.224,
+			"value": 7
+		},
+		{
+			"start": 2.224,
+			"end": 2.256,
+			"value": 2
+		},
+		{
+			"start": 2.256,
+			"end": 2.288,
+			"value": 6
+		},
+		{
+			"start": 2.288,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.368,
+			"end": 2.416,
+			"value": 7
+		},
+		{
+			"start": 2.416,
+			"end": 2.464,
+			"value": 2
+		},
+		{
+			"start": 2.464,
+			"end": 2.512,
+			"value": 6
+		},
+		{
+			"start": 2.512,
+			"end": 2.56,
+			"value": 1
+		},
+		{
+			"start": 2.56,
+			"end": 2.613,
+			"value": 6
+		},
+		{
+			"start": 2.613,
+			"end": 2.667,
+			"value": 1
+		},
+		{
+			"start": 2.667,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.784,
+			"end": 2.848,
+			"value": 3
+		},
+		{
+			"start": 2.848,
+			"end": 2.912,
+			"value": 6
+		},
+		{
+			"start": 2.912,
+			"end": 2.976,
+			"value": 4
+		},
+		{
+			"start": 2.976,
+			"end": 3.04,
+			"value": 7
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 2
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 3
+		}
+	]
+}

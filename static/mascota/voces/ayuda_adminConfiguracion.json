@@ -1,0 +1,253 @@
+{
+	"version": 1,
+	"audio": "ayuda_adminConfiguracion.mp3",
+	"texto": "Ajusta los límites del departamento: deuda máxima, plazos y avisos.",
+	"duration": 4.32,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.14,
+			"value": 6
+		},
+		{
+			"start": 0.14,
+			"end": 0.2,
+			"value": 4
+		},
+		{
+			"start": 0.2,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 2
+		},
+		{
+			"start": 0.42,
+			"end": 0.44,
+			"value": 6
+		},
+		{
+			"start": 0.44,
+			"end": 0.46,
+			"value": 3
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.72,
+			"end": 0.768,
+			"value": 7
+		},
+		{
+			"start": 0.768,
+			"end": 0.816,
+			"value": 1
+		},
+		{
+			"start": 0.816,
+			"end": 0.864,
+			"value": 6
+		},
+		{
+			"start": 0.864,
+			"end": 0.912,
+			"value": 1
+		},
+		{
+			"start": 0.912,
+			"end": 1,
+			"value": 6
+		},
+		{
+			"start": 1,
+			"end": 1.02,
+			"value": 1
+		},
+		{
+			"start": 1.02,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.095,
+			"end": 1.151,
+			"value": 6
+		},
+		{
+			"start": 1.151,
+			"end": 1.206,
+			"value": 1
+		},
+		{
+			"start": 1.206,
+			"end": 1.262,
+			"value": 7
+		},
+		{
+			"start": 1.262,
+			"end": 1.317,
+			"value": 2
+		},
+		{
+			"start": 1.317,
+			"end": 1.428,
+			"value": 6
+		},
+		{
+			"start": 1.428,
+			"end": 1.483,
+			"value": 2
+		},
+		{
+			"start": 1.483,
+			"end": 1.538,
+			"value": 7
+		},
+		{
+			"start": 1.538,
+			"end": 1.594,
+			"value": 1
+		},
+		{
+			"start": 1.594,
+			"end": 1.705,
+			"value": 6
+		},
+		{
+			"start": 1.705,
+			"end": 1.76,
+			"value": 3
+		},
+		{
+			"start": 2.133,
+			"end": 2.187,
+			"value": 6
+		},
+		{
+			"start": 2.187,
+			"end": 2.24,
+			"value": 1
+		},
+		{
+			"start": 2.24,
+			"end": 2.293,
+			"value": 4
+		},
+		{
+			"start": 2.293,
+			"end": 2.347,
+			"value": 6
+		},
+		{
+			"start": 2.347,
+			"end": 2.4,
+			"value": 2
+		},
+		{
+			"start": 2.453,
+			"end": 2.507,
+			"value": 7
+		},
+		{
+			"start": 2.507,
+			"end": 2.56,
+			"value": 2
+		},
+		{
+			"start": 2.56,
+			"end": 2.62,
+			"value": 6
+		},
+		{
+			"start": 2.62,
+			"end": 2.68,
+			"value": 1
+		},
+		{
+			"start": 2.68,
+			"end": 2.74,
+			"value": 7
+		},
+		{
+			"start": 2.74,
+			"end": 2.8,
+			"value": 2
+		},
+		{
+			"start": 2.96,
+			"end": 3.04,
+			"value": 7
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 2
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.4,
+			"value": 3
+		},
+		{
+			"start": 3.4,
+			"end": 3.52,
+			"value": 6
+		},
+		{
+			"start": 3.6,
+			"end": 3.68,
+			"value": 1
+		},
+		{
+			"start": 3.744,
+			"end": 3.808,
+			"value": 2
+		},
+		{
+			"start": 3.808,
+			"end": 3.872,
+			"value": 5
+		},
+		{
+			"start": 3.872,
+			"end": 3.936,
+			"value": 1
+		},
+		{
+			"start": 3.936,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 3
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 6
+		}
+	]
+}

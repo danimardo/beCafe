@@ -1,0 +1,398 @@
+{
+	"version": 1,
+	"audio": "ayuda_adminVisitantes.mp3",
+	"texto": "Revisa los cafés que han registrado los visitantes. Al aprobarlos, la cápsula sale del stock y la paga la hucha.",
+	"duration": 6.72,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.28,
+			"value": 5
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 1
+		},
+		{
+			"start": 0.32,
+			"end": 0.36,
+			"value": 6
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 2
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 3
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 2
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 5
+		},
+		{
+			"start": 0.88,
+			"end": 0.92,
+			"value": 1
+		},
+		{
+			"start": 0.92,
+			"end": 1,
+			"value": 6
+		},
+		{
+			"start": 1,
+			"end": 1.02,
+			"value": 4
+		},
+		{
+			"start": 1.02,
+			"end": 1.04,
+			"value": 1
+		},
+		{
+			"start": 1.12,
+			"end": 1.16,
+			"value": 2
+		},
+		{
+			"start": 1.16,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.251,
+			"end": 1.302,
+			"value": 6
+		},
+		{
+			"start": 1.302,
+			"end": 1.353,
+			"value": 1
+		},
+		{
+			"start": 1.353,
+			"end": 1.404,
+			"value": 6
+		},
+		{
+			"start": 1.404,
+			"end": 1.455,
+			"value": 1
+		},
+		{
+			"start": 1.455,
+			"end": 1.607,
+			"value": 6
+		},
+		{
+			"start": 1.607,
+			"end": 1.658,
+			"value": 2
+		},
+		{
+			"start": 1.658,
+			"end": 1.709,
+			"value": 6
+		},
+		{
+			"start": 1.709,
+			"end": 1.76,
+			"value": 3
+		},
+		{
+			"start": 1.8,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.84,
+			"end": 1.88,
+			"value": 3
+		},
+		{
+			"start": 1.88,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.973,
+			"end": 2.027,
+			"value": 5
+		},
+		{
+			"start": 2.027,
+			"end": 2.08,
+			"value": 1
+		},
+		{
+			"start": 2.08,
+			"end": 2.133,
+			"value": 6
+		},
+		{
+			"start": 2.133,
+			"end": 2.187,
+			"value": 1
+		},
+		{
+			"start": 2.187,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.304,
+			"value": 2
+		},
+		{
+			"start": 2.304,
+			"end": 2.432,
+			"value": 6
+		},
+		{
+			"start": 2.432,
+			"end": 2.496,
+			"value": 1
+		},
+		{
+			"start": 2.496,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.16,
+			"value": 2
+		},
+		{
+			"start": 3.16,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.328,
+			"end": 3.376,
+			"value": 2
+		},
+		{
+			"start": 3.376,
+			"end": 3.424,
+			"value": 7
+		},
+		{
+			"start": 3.424,
+			"end": 3.472,
+			"value": 6
+		},
+		{
+			"start": 3.472,
+			"end": 3.52,
+			"value": 3
+		},
+		{
+			"start": 3.52,
+			"end": 3.573,
+			"value": 7
+		},
+		{
+			"start": 3.573,
+			"end": 3.627,
+			"value": 2
+		},
+		{
+			"start": 3.627,
+			"end": 3.787,
+			"value": 6
+		},
+		{
+			"start": 3.787,
+			"end": 3.893,
+			"value": 3
+		},
+		{
+			"start": 3.893,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4.107,
+			"end": 4.133,
+			"value": 6
+		},
+		{
+			"start": 4.133,
+			"end": 4.16,
+			"value": 2
+		},
+		{
+			"start": 4.213,
+			"end": 4.267,
+			"value": 6
+		},
+		{
+			"start": 4.267,
+			"end": 4.32,
+			"value": 2
+		},
+		{
+			"start": 4.32,
+			"end": 4.36,
+			"value": 7
+		},
+		{
+			"start": 4.36,
+			"end": 4.4,
+			"value": 6
+		},
+		{
+			"start": 4.4,
+			"end": 4.453,
+			"value": 4
+		},
+		{
+			"start": 4.453,
+			"end": 4.507,
+			"value": 6
+		},
+		{
+			"start": 4.507,
+			"end": 4.56,
+			"value": 2
+		},
+		{
+			"start": 4.608,
+			"end": 4.656,
+			"value": 6
+		},
+		{
+			"start": 4.656,
+			"end": 4.704,
+			"value": 2
+		},
+		{
+			"start": 4.704,
+			"end": 4.752,
+			"value": 6
+		},
+		{
+			"start": 4.752,
+			"end": 4.8,
+			"value": 1
+		},
+		{
+			"start": 4.84,
+			"end": 4.88,
+			"value": 6
+		},
+		{
+			"start": 4.88,
+			"end": 4.92,
+			"value": 1
+		},
+		{
+			"start": 4.92,
+			"end": 4.96,
+			"value": 6
+		},
+		{
+			"start": 5.067,
+			"end": 5.28,
+			"value": 6
+		},
+		{
+			"start": 5.28,
+			"end": 5.387,
+			"value": 3
+		},
+		{
+			"start": 5.387,
+			"end": 5.6,
+			"value": 6
+		},
+		{
+			"start": 5.64,
+			"end": 5.68,
+			"value": 1
+		},
+		{
+			"start": 5.733,
+			"end": 5.787,
+			"value": 6
+		},
+		{
+			"start": 5.787,
+			"end": 5.84,
+			"value": 2
+		},
+		{
+			"start": 5.88,
+			"end": 5.92,
+			"value": 7
+		},
+		{
+			"start": 5.92,
+			"end": 5.973,
+			"value": 2
+		},
+		{
+			"start": 5.973,
+			"end": 6.027,
+			"value": 6
+		},
+		{
+			"start": 6.027,
+			"end": 6.08,
+			"value": 2
+		},
+		{
+			"start": 6.133,
+			"end": 6.187,
+			"value": 6
+		},
+		{
+			"start": 6.187,
+			"end": 6.24,
+			"value": 2
+		},
+		{
+			"start": 6.32,
+			"end": 6.4,
+			"value": 4
+		},
+		{
+			"start": 6.4,
+			"end": 6.48,
+			"value": 6
+		},
+		{
+			"start": 6.56,
+			"end": 6.64,
+			"value": 2
+		}
+	]
+}

@@ -64,7 +64,7 @@ export const TEXTO_PRIVACIDAD: readonly BloquePrivacidad[] = [
 		tipo: 'parrafo',
 		entrada: 'Notificaciones.',
 		texto:
-			'Solo recibes notificaciones si las aceptas en tu dispositivo. Vienen todas activadas y puedes desactivar cada tipo en tu perfil, salvo el aviso de deuda.',
+			'Solo recibes notificaciones si las aceptas en tu dispositivo. Vienen todas activadas y puedes desactivar cada tipo en Ajustes, salvo el aviso de deuda.',
 	},
 	{
 		tipo: 'parrafo',

@@ -1,0 +1,198 @@
+{
+	"version": 1,
+	"audio": "saludo_71.mp3",
+	"texto": "¡Hostia, qué susto! ¡Pensaba que eras el inspector de cápsulas!",
+	"duration": 5.04,
+	"cues": [
+		{
+			"start": 0.216,
+			"end": 0.24,
+			"value": 6
+		},
+		{
+			"start": 0.24,
+			"end": 0.28,
+			"value": 1
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 2
+		},
+		{
+			"start": 0.42,
+			"end": 0.44,
+			"value": 6
+		},
+		{
+			"start": 0.44,
+			"end": 0.46,
+			"value": 4
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 4
+		},
+		{
+			"start": 0.72,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 1.28,
+			"value": 3
+		},
+		{
+			"start": 1.361,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.44,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.6,
+			"end": 1.653,
+			"value": 2
+		},
+		{
+			"start": 1.653,
+			"end": 1.707,
+			"value": 7
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 2
+		},
+		{
+			"start": 1.78,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.82,
+			"value": 4
+		},
+		{
+			"start": 1.82,
+			"end": 1.893,
+			"value": 1
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 1.96,
+			"value": 2
+		},
+		{
+			"start": 1.96,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2.027,
+			"end": 2.053,
+			"value": 1
+		},
+		{
+			"start": 2.053,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.128,
+			"end": 2.176,
+			"value": 1
+		},
+		{
+			"start": 2.176,
+			"end": 2.272,
+			"value": 6
+		},
+		{
+			"start": 2.272,
+			"end": 2.32,
+			"value": 7
+		},
+		{
+			"start": 2.32,
+			"end": 2.368,
+			"value": 1
+		},
+		{
+			"start": 2.368,
+			"end": 2.464,
+			"value": 6
+		},
+		{
+			"start": 2.464,
+			"end": 2.512,
+			"value": 3
+		},
+		{
+			"start": 2.512,
+			"end": 2.613,
+			"value": 6
+		},
+		{
+			"start": 2.613,
+			"end": 2.64,
+			"value": 1
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 6
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 2
+		},
+		{
+			"start": 2.8,
+			"end": 2.88,
+			"value": 7
+		},
+		{
+			"start": 2.88,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3.38,
+			"value": 4
+		},
+		{
+			"start": 3.38,
+			"end": 3.8,
+			"value": 6
+		},
+		{
+			"start": 3.8,
+			"end": 4.22,
+			"value": 2
+		},
+		{
+			"start": 4.22,
+			"end": 4.64,
+			"value": 6
+		}
+	]
+}

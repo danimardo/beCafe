@@ -1,0 +1,373 @@
+{
+	"version": 1,
+	"audio": "ayuda_admin.mp3",
+	"texto": "Reúne las tareas de administración: cápsulas, personas, arqueos, configuración, copias y visitantes.",
+	"duration": 6.801,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 4
+		},
+		{
+			"start": 0.32,
+			"end": 0.36,
+			"value": 6
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 1
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 2
+		},
+		{
+			"start": 0.52,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.704,
+			"value": 2
+		},
+		{
+			"start": 0.704,
+			"end": 0.768,
+			"value": 6
+		},
+		{
+			"start": 0.768,
+			"end": 0.832,
+			"value": 1
+		},
+		{
+			"start": 0.832,
+			"end": 0.896,
+			"value": 2
+		},
+		{
+			"start": 0.896,
+			"end": 0.961,
+			"value": 6
+		},
+		{
+			"start": 1.009,
+			"end": 1.057,
+			"value": 2
+		},
+		{
+			"start": 1.057,
+			"end": 1.105,
+			"value": 6
+		},
+		{
+			"start": 1.105,
+			"end": 1.153,
+			"value": 7
+		},
+		{
+			"start": 1.153,
+			"end": 1.201,
+			"value": 1
+		},
+		{
+			"start": 1.201,
+			"end": 1.249,
+			"value": 6
+		},
+		{
+			"start": 1.249,
+			"end": 1.297,
+			"value": 1
+		},
+		{
+			"start": 1.297,
+			"end": 1.441,
+			"value": 6
+		},
+		{
+			"start": 1.441,
+			"end": 1.505,
+			"value": 2
+		},
+		{
+			"start": 1.505,
+			"end": 1.569,
+			"value": 6
+		},
+		{
+			"start": 1.569,
+			"end": 1.633,
+			"value": 1
+		},
+		{
+			"start": 1.633,
+			"end": 1.697,
+			"value": 3
+		},
+		{
+			"start": 1.697,
+			"end": 1.761,
+			"value": 6
+		},
+		{
+			"start": 2.081,
+			"end": 2.161,
+			"value": 6
+		},
+		{
+			"start": 2.161,
+			"end": 2.241,
+			"value": 2
+		},
+		{
+			"start": 2.241,
+			"end": 2.361,
+			"value": 7
+		},
+		{
+			"start": 2.361,
+			"end": 2.481,
+			"value": 6
+		},
+		{
+			"start": 2.481,
+			"end": 2.521,
+			"value": 4
+		},
+		{
+			"start": 2.521,
+			"end": 2.561,
+			"value": 6
+		},
+		{
+			"start": 2.561,
+			"end": 2.601,
+			"value": 2
+		},
+		{
+			"start": 2.601,
+			"end": 2.641,
+			"value": 6
+		},
+		{
+			"start": 3.041,
+			"end": 3.081,
+			"value": 7
+		},
+		{
+			"start": 3.081,
+			"end": 3.121,
+			"value": 1
+		},
+		{
+			"start": 3.121,
+			"end": 3.201,
+			"value": 6
+		},
+		{
+			"start": 3.201,
+			"end": 3.241,
+			"value": 3
+		},
+		{
+			"start": 3.241,
+			"end": 3.281,
+			"value": 6
+		},
+		{
+			"start": 3.281,
+			"end": 3.321,
+			"value": 2
+		},
+		{
+			"start": 3.321,
+			"end": 3.361,
+			"value": 6
+		},
+		{
+			"start": 3.574,
+			"end": 3.628,
+			"value": 2
+		},
+		{
+			"start": 3.628,
+			"end": 3.734,
+			"value": 6
+		},
+		{
+			"start": 3.734,
+			"end": 3.788,
+			"value": 4
+		},
+		{
+			"start": 3.788,
+			"end": 3.841,
+			"value": 1
+		},
+		{
+			"start": 3.841,
+			"end": 3.921,
+			"value": 3
+		},
+		{
+			"start": 3.921,
+			"end": 4.001,
+			"value": 6
+		},
+		{
+			"start": 4.357,
+			"end": 4.392,
+			"value": 6
+		},
+		{
+			"start": 4.392,
+			"end": 4.428,
+			"value": 3
+		},
+		{
+			"start": 4.428,
+			"end": 4.463,
+			"value": 6
+		},
+		{
+			"start": 4.463,
+			"end": 4.499,
+			"value": 5
+		},
+		{
+			"start": 4.499,
+			"end": 4.534,
+			"value": 1
+		},
+		{
+			"start": 4.534,
+			"end": 4.57,
+			"value": 6
+		},
+		{
+			"start": 4.57,
+			"end": 4.605,
+			"value": 4
+		},
+		{
+			"start": 4.605,
+			"end": 4.641,
+			"value": 6
+		},
+		{
+			"start": 4.641,
+			"end": 4.721,
+			"value": 2
+		},
+		{
+			"start": 4.721,
+			"end": 4.801,
+			"value": 6
+		},
+		{
+			"start": 4.801,
+			"end": 4.881,
+			"value": 1
+		},
+		{
+			"start": 4.881,
+			"end": 4.961,
+			"value": 3
+		},
+		{
+			"start": 4.961,
+			"end": 5.041,
+			"value": 6
+		},
+		{
+			"start": 5.341,
+			"end": 5.401,
+			"value": 6
+		},
+		{
+			"start": 5.401,
+			"end": 5.461,
+			"value": 3
+		},
+		{
+			"start": 5.461,
+			"end": 5.521,
+			"value": 7
+		},
+		{
+			"start": 5.521,
+			"end": 5.601,
+			"value": 1
+		},
+		{
+			"start": 5.601,
+			"end": 5.681,
+			"value": 2
+		},
+		{
+			"start": 5.681,
+			"end": 5.761,
+			"value": 6
+		},
+		{
+			"start": 5.841,
+			"end": 5.921,
+			"value": 1
+		},
+		{
+			"start": 5.988,
+			"end": 6.054,
+			"value": 5
+		},
+		{
+			"start": 6.054,
+			"end": 6.121,
+			"value": 1
+		},
+		{
+			"start": 6.121,
+			"end": 6.188,
+			"value": 6
+		},
+		{
+			"start": 6.188,
+			"end": 6.254,
+			"value": 1
+		},
+		{
+			"start": 6.254,
+			"end": 6.321,
+			"value": 6
+		},
+		{
+			"start": 6.321,
+			"end": 6.385,
+			"value": 2
+		},
+		{
+			"start": 6.385,
+			"end": 6.513,
+			"value": 6
+		},
+		{
+			"start": 6.513,
+			"end": 6.577,
+			"value": 1
+		},
+		{
+			"start": 6.577,
+			"end": 6.641,
+			"value": 6
+		}
+	]
+}

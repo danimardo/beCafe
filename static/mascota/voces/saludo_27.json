@@ -1,0 +1,283 @@
+{
+	"version": 1,
+	"audio": "saludo_27.mp3",
+	"texto": "¡BUENOS DÍAS, TERRÍCOLA! Tu nivel de dignidad es bajo, pero tu café promete.",
+	"duration": 5.36,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 1
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 3
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.72,
+			"end": 0.76,
+			"value": 2
+		},
+		{
+			"start": 0.76,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.013,
+			"value": 1
+		},
+		{
+			"start": 1.013,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 1
+		},
+		{
+			"start": 1.2,
+			"end": 1.253,
+			"value": 6
+		},
+		{
+			"start": 1.253,
+			"end": 1.307,
+			"value": 3
+		},
+		{
+			"start": 1.307,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 2
+		},
+		{
+			"start": 1.707,
+			"end": 1.773,
+			"value": 6
+		},
+		{
+			"start": 1.773,
+			"end": 1.84,
+			"value": 4
+		},
+		{
+			"start": 1.893,
+			"end": 1.947,
+			"value": 6
+		},
+		{
+			"start": 1.947,
+			"end": 2,
+			"value": 1
+		},
+		{
+			"start": 2,
+			"end": 2.053,
+			"value": 5
+		},
+		{
+			"start": 2.053,
+			"end": 2.107,
+			"value": 1
+		},
+		{
+			"start": 2.107,
+			"end": 2.213,
+			"value": 6
+		},
+		{
+			"start": 2.213,
+			"end": 2.24,
+			"value": 1
+		},
+		{
+			"start": 2.288,
+			"end": 2.336,
+			"value": 6
+		},
+		{
+			"start": 2.336,
+			"end": 2.384,
+			"value": 1
+		},
+		{
+			"start": 2.384,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.52,
+			"value": 1
+		},
+		{
+			"start": 2.52,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 2
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 1
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.88,
+			"end": 2.96,
+			"value": 7
+		},
+		{
+			"start": 2.96,
+			"end": 3.04,
+			"value": 2
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 3
+		},
+		{
+			"start": 3.392,
+			"end": 3.424,
+			"value": 7
+		},
+		{
+			"start": 3.424,
+			"end": 3.456,
+			"value": 1
+		},
+		{
+			"start": 3.456,
+			"end": 3.488,
+			"value": 6
+		},
+		{
+			"start": 3.488,
+			"end": 3.52,
+			"value": 3
+		},
+		{
+			"start": 3.573,
+			"end": 3.627,
+			"value": 6
+		},
+		{
+			"start": 3.627,
+			"end": 3.68,
+			"value": 4
+		},
+		{
+			"start": 3.744,
+			"end": 3.808,
+			"value": 6
+		},
+		{
+			"start": 3.808,
+			"end": 3.872,
+			"value": 2
+		},
+		{
+			"start": 3.872,
+			"end": 3.936,
+			"value": 5
+		},
+		{
+			"start": 3.936,
+			"end": 4,
+			"value": 1
+		},
+		{
+			"start": 4.064,
+			"end": 4.128,
+			"value": 7
+		},
+		{
+			"start": 4.128,
+			"end": 4.192,
+			"value": 6
+		},
+		{
+			"start": 4.192,
+			"end": 4.256,
+			"value": 3
+		},
+		{
+			"start": 4.256,
+			"end": 4.32,
+			"value": 7
+		},
+		{
+			"start": 4.32,
+			"end": 4.427,
+			"value": 1
+		},
+		{
+			"start": 4.427,
+			"end": 4.533,
+			"value": 6
+		},
+		{
+			"start": 4.533,
+			"end": 4.64,
+			"value": 1
+		},
+		{
+			"start": 4.7,
+			"end": 5.36,
+			"value": 2
+		}
+	]
+}

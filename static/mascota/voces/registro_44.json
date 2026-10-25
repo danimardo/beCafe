@@ -1,0 +1,228 @@
+{
+	"version": 1,
+	"audio": "registro_44.mp3",
+	"texto": "No sé qué te mantiene en pie, pero desde luego no es la ilusión.",
+	"duration": 4.322,
+	"cues": [
+		{
+			"start": 0.267,
+			"end": 0.293,
+			"value": 6
+		},
+		{
+			"start": 0.293,
+			"end": 0.32,
+			"value": 3
+		},
+		{
+			"start": 0.373,
+			"end": 0.427,
+			"value": 6
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.6,
+			"value": 4
+		},
+		{
+			"start": 0.6,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.667,
+			"end": 0.693,
+			"value": 6
+		},
+		{
+			"start": 0.693,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 7
+		},
+		{
+			"start": 0.88,
+			"end": 0.94,
+			"value": 2
+		},
+		{
+			"start": 0.94,
+			"end": 1.06,
+			"value": 6
+		},
+		{
+			"start": 1.06,
+			"end": 1.147,
+			"value": 1
+		},
+		{
+			"start": 1.147,
+			"end": 1.173,
+			"value": 6
+		},
+		{
+			"start": 1.173,
+			"end": 1.253,
+			"value": 1
+		},
+		{
+			"start": 1.253,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 7
+		},
+		{
+			"start": 1.44,
+			"end": 1.6,
+			"value": 1
+		},
+		{
+			"start": 1.712,
+			"end": 1.824,
+			"value": 7
+		},
+		{
+			"start": 1.824,
+			"end": 1.936,
+			"value": 1
+		},
+		{
+			"start": 1.936,
+			"end": 2.048,
+			"value": 6
+		},
+		{
+			"start": 2.048,
+			"end": 2.16,
+			"value": 3
+		},
+		{
+			"start": 2.213,
+			"end": 2.267,
+			"value": 6
+		},
+		{
+			"start": 2.267,
+			"end": 2.32,
+			"value": 1
+		},
+		{
+			"start": 2.32,
+			"end": 2.427,
+			"value": 6
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 1
+		},
+		{
+			"start": 2.533,
+			"end": 2.587,
+			"value": 6
+		},
+		{
+			"start": 2.587,
+			"end": 2.64,
+			"value": 4
+		},
+		{
+			"start": 2.64,
+			"end": 2.693,
+			"value": 1
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 6
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 3
+		},
+		{
+			"start": 2.96,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.28,
+			"value": 3
+		},
+		{
+			"start": 3.333,
+			"end": 3.387,
+			"value": 1
+		},
+		{
+			"start": 3.387,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.493,
+			"end": 3.547,
+			"value": 6
+		},
+		{
+			"start": 3.547,
+			"end": 3.6,
+			"value": 2
+		},
+		{
+			"start": 3.627,
+			"end": 3.653,
+			"value": 1
+		},
+		{
+			"start": 3.653,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 4
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 1
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 3
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 6
+		}
+	]
+}

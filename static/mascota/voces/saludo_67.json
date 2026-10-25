@@ -1,0 +1,298 @@
+{
+	"version": 1,
+	"audio": "saludo_67.mp3",
+	"texto": "¡Hola, humano! ¡Acabo de descubrir que las cucharillas no tienen sentimientos! ¡Qué horror!",
+	"duration": 6.48,
+	"cues": [
+		{
+			"start": 0.76,
+			"end": 0.8,
+			"value": 4
+		},
+		{
+			"start": 0.8,
+			"end": 0.84,
+			"value": 7
+		},
+		{
+			"start": 0.84,
+			"end": 0.88,
+			"value": 2
+		},
+		{
+			"start": 0.88,
+			"end": 0.92,
+			"value": 6
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 3
+		},
+		{
+			"start": 1.2,
+			"end": 1.32,
+			"value": 2
+		},
+		{
+			"start": 1.32,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.467,
+			"value": 2
+		},
+		{
+			"start": 1.467,
+			"end": 1.493,
+			"value": 7
+		},
+		{
+			"start": 1.493,
+			"end": 1.52,
+			"value": 3
+		},
+		{
+			"start": 1.547,
+			"end": 1.573,
+			"value": 6
+		},
+		{
+			"start": 1.573,
+			"end": 1.6,
+			"value": 1
+		},
+		{
+			"start": 1.648,
+			"end": 1.696,
+			"value": 6
+		},
+		{
+			"start": 1.696,
+			"end": 1.744,
+			"value": 1
+		},
+		{
+			"start": 1.744,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.84,
+			"end": 1.92,
+			"value": 4
+		},
+		{
+			"start": 1.92,
+			"end": 2,
+			"value": 7
+		},
+		{
+			"start": 2,
+			"end": 2.027,
+			"value": 6
+		},
+		{
+			"start": 2.027,
+			"end": 2.053,
+			"value": 1
+		},
+		{
+			"start": 2.053,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.2,
+			"value": 4
+		},
+		{
+			"start": 2.2,
+			"end": 2.24,
+			"value": 1
+		},
+		{
+			"start": 2.28,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.36,
+			"value": 2
+		},
+		{
+			"start": 2.36,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.44,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.528,
+			"value": 4
+		},
+		{
+			"start": 2.528,
+			"end": 2.576,
+			"value": 6
+		},
+		{
+			"start": 2.624,
+			"end": 2.672,
+			"value": 2
+		},
+		{
+			"start": 2.672,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.72,
+			"end": 2.784,
+			"value": 1
+		},
+		{
+			"start": 2.784,
+			"end": 2.912,
+			"value": 6
+		},
+		{
+			"start": 2.912,
+			"end": 2.976,
+			"value": 2
+		},
+		{
+			"start": 2.976,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.093,
+			"end": 3.147,
+			"value": 6
+		},
+		{
+			"start": 3.147,
+			"end": 3.2,
+			"value": 3
+		},
+		{
+			"start": 3.246,
+			"end": 3.291,
+			"value": 6
+		},
+		{
+			"start": 3.291,
+			"end": 3.383,
+			"value": 1
+		},
+		{
+			"start": 3.383,
+			"end": 3.429,
+			"value": 6
+		},
+		{
+			"start": 3.429,
+			"end": 3.474,
+			"value": 1
+		},
+		{
+			"start": 3.474,
+			"end": 3.52,
+			"value": 6
+		},
+		{
+			"start": 3.584,
+			"end": 3.648,
+			"value": 6
+		},
+		{
+			"start": 3.648,
+			"end": 3.712,
+			"value": 1
+		},
+		{
+			"start": 3.712,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.91,
+			"value": 1
+		},
+		{
+			"start": 3.91,
+			"end": 3.98,
+			"value": 7
+		},
+		{
+			"start": 3.98,
+			"end": 4.12,
+			"value": 1
+		},
+		{
+			"start": 4.12,
+			"end": 4.26,
+			"value": 6
+		},
+		{
+			"start": 4.26,
+			"end": 4.33,
+			"value": 3
+		},
+		{
+			"start": 4.33,
+			"end": 4.4,
+			"value": 6
+		},
+		{
+			"start": 4.72,
+			"end": 4.747,
+			"value": 6
+		},
+		{
+			"start": 4.747,
+			"end": 4.773,
+			"value": 4
+		},
+		{
+			"start": 4.773,
+			"end": 4.8,
+			"value": 1
+		},
+		{
+			"start": 4.96,
+			"end": 5.04,
+			"value": 3
+		},
+		{
+			"start": 5.04,
+			"end": 5.2,
+			"value": 6
+		},
+		{
+			"start": 5.2,
+			"end": 5.28,
+			"value": 3
+		},
+		{
+			"start": 5.28,
+			"end": 5.36,
+			"value": 6
+		}
+	]
+}

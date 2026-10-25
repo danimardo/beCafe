@@ -1,0 +1,253 @@
+{
+	"version": 1,
+	"audio": "saludo_18.mp3",
+	"texto": "¡Eh, currante! ¿Listo para convertir ocho horas de tu vida en una nómina?",
+	"duration": 4.56,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.24,
+			"value": 1
+		},
+		{
+			"start": 0.464,
+			"end": 0.488,
+			"value": 6
+		},
+		{
+			"start": 0.488,
+			"end": 0.512,
+			"value": 4
+		},
+		{
+			"start": 0.512,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.62,
+			"value": 2
+		},
+		{
+			"start": 0.62,
+			"end": 0.74,
+			"value": 6
+		},
+		{
+			"start": 0.74,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 1.12,
+			"end": 1.16,
+			"value": 6
+		},
+		{
+			"start": 1.16,
+			"end": 1.2,
+			"value": 1
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 3
+		},
+		{
+			"start": 1.408,
+			"end": 1.456,
+			"value": 7
+		},
+		{
+			"start": 1.456,
+			"end": 1.504,
+			"value": 2
+		},
+		{
+			"start": 1.504,
+			"end": 1.552,
+			"value": 6
+		},
+		{
+			"start": 1.552,
+			"end": 1.6,
+			"value": 2
+		},
+		{
+			"start": 1.65,
+			"end": 1.7,
+			"value": 6
+		},
+		{
+			"start": 1.7,
+			"end": 1.75,
+			"value": 3
+		},
+		{
+			"start": 1.75,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.85,
+			"value": 5
+		},
+		{
+			"start": 1.85,
+			"end": 1.9,
+			"value": 1
+		},
+		{
+			"start": 1.9,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2,
+			"end": 2.04,
+			"value": 1
+		},
+		{
+			"start": 2.04,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 3
+		},
+		{
+			"start": 2.24,
+			"end": 2.267,
+			"value": 6
+		},
+		{
+			"start": 2.293,
+			"end": 2.32,
+			"value": 3
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 3
+		},
+		{
+			"start": 2.48,
+			"end": 2.533,
+			"value": 6
+		},
+		{
+			"start": 2.533,
+			"end": 2.587,
+			"value": 2
+		},
+		{
+			"start": 2.587,
+			"end": 2.693,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.773,
+			"end": 2.827,
+			"value": 6
+		},
+		{
+			"start": 2.827,
+			"end": 2.88,
+			"value": 4
+		},
+		{
+			"start": 2.928,
+			"end": 2.976,
+			"value": 5
+		},
+		{
+			"start": 2.976,
+			"end": 3.024,
+			"value": 1
+		},
+		{
+			"start": 3.024,
+			"end": 3.072,
+			"value": 6
+		},
+		{
+			"start": 3.072,
+			"end": 3.12,
+			"value": 2
+		},
+		{
+			"start": 3.173,
+			"end": 3.227,
+			"value": 1
+		},
+		{
+			"start": 3.227,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.34,
+			"end": 3.4,
+			"value": 4
+		},
+		{
+			"start": 3.4,
+			"end": 3.46,
+			"value": 6
+		},
+		{
+			"start": 3.46,
+			"end": 3.52,
+			"value": 2
+		},
+		{
+			"start": 3.573,
+			"end": 3.627,
+			"value": 6
+		},
+		{
+			"start": 3.627,
+			"end": 3.68,
+			"value": 3
+		},
+		{
+			"start": 3.68,
+			"end": 3.74,
+			"value": 7
+		},
+		{
+			"start": 3.74,
+			"end": 3.8,
+			"value": 1
+		},
+		{
+			"start": 3.8,
+			"end": 3.86,
+			"value": 6
+		},
+		{
+			"start": 3.86,
+			"end": 3.92,
+			"value": 2
+		},
+		{
+			"start": 4.18,
+			"end": 4.56,
+			"value": 2
+		}
+	]
+}

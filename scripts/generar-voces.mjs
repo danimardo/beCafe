@@ -1,6 +1,9 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CATALOGO_AYUDA } from '../src/lib/shared/ayuda/pantallas.ts';
+import { PASOS_TOUR } from '../src/lib/shared/ayuda/tour.ts';
+import { FRASES_REGISTRO, FRASES_SALUDO } from '../src/lib/shared/mascota/frases.ts';
 
 // Generador local de locuciones MP3 y pistas de sincronización labial JSON con ElevenLabs v3 (RF-187, DEC-115, ADR-0006).
 // Uso: `npm run voces:generar` (o `node scripts/generar-voces.mjs [--force]`).
@@ -9,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 const ETIQUETAS_RISA = new Set(['laughs', 'laughing', 'chuckles', 'giggles', 'risas', 'risa']);
 
 /** Catálogo de locuciones pregeneradas en `static/mascota/voces/`. */
-export const LOCUCIONES = [
+const LOCUCIONES_BASE = [
 	{
 		id: 'intro_01',
 		texto: 'Soy tu compañero de café en el departamento. Te ayudo a saber qué cápsulas quedan y cómo va nuestra hucha común.',
@@ -56,21 +59,6 @@ export const LOCUCIONES = [
 		texto: 'Cápsulas controladas, cuentas claras y agua lista. Puedes volver a ver esta guía o apagarme cuando quieras desde Perfil.',
 		textoVoz:
 			'[excited] Cápsulas controladas, cuentas claras y agua lista. [cheerful] Puedes volver a ver esta guía o apagarme cuando quieras desde Perfil.',
-	},
-	{
-		id: 'consumo_confirmado_01',
-		texto: '¡Cafeína cargada en memoria!',
-		textoVoz: '[excited] ¡Cafeína cargada!',
-	},
-	{
-		id: 'consumo_confirmado_02',
-		texto: '¡Café apuntado! Latencia cero hasta la taza.',
-		textoVoz: '[cheerful] ¡Café apuntado! [chuckles]',
-	},
-	{
-		id: 'consumo_invitado_01',
-		texto: '¡Tenemos visita! Café de invitado apuntado.',
-		textoVoz: '[excited] ¡Tenemos visita! [chuckles] Café de invitado apuntado.',
 	},
 	{
 		id: 'consumo_pendiente_01',
@@ -137,6 +125,23 @@ export const LOCUCIONES = [
 		texto: 'No se ha podido registrar un consumo pendiente. Revisa el aviso.',
 		textoVoz: 'No se ha podido completar la operación. Consulta el aviso.',
 	},
+];
+
+// Un único enunciado por texto (constitución I): las frases, el tour y la ayuda se leen de sus catálogos (RF-237).
+const deFrase = (frase) => ({ id: frase.id, texto: frase.texto, textoVoz: frase.textoVoz });
+const deTour = (paso) => ({ id: paso.id, texto: `${paso.titulo}. ${paso.texto}`, textoVoz: `[cheerful] ${paso.titulo}. ${paso.texto}` });
+const deAyuda = ([pantalla, entrada]) => ({
+	id: `ayuda_${pantalla}`,
+	texto: entrada.proposito,
+	textoVoz: `[cheerful] ${entrada.proposito}`,
+});
+
+export const LOCUCIONES = [
+	...LOCUCIONES_BASE,
+	...FRASES_REGISTRO.map(deFrase),
+	...FRASES_SALUDO.map(deFrase),
+	...PASOS_TOUR.map(deTour),
+	...Object.entries(CATALOGO_AYUDA).map(deAyuda),
 ];
 
 export function cargarDotEnv() {

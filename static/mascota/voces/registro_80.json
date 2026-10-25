@@ -1,0 +1,268 @@
+{
+	"version": 1,
+	"audio": "registro_80.mp3",
+	"texto": "Tu cuerpo pide vacaciones, pero el sistema responde: acceso denegado.",
+	"duration": 6.4,
+	"cues": [
+		{
+			"start": 0.137,
+			"end": 0.194,
+			"value": 6
+		},
+		{
+			"start": 0.194,
+			"end": 0.251,
+			"value": 4
+		},
+		{
+			"start": 0.251,
+			"end": 0.309,
+			"value": 1
+		},
+		{
+			"start": 0.309,
+			"end": 0.366,
+			"value": 6
+		},
+		{
+			"start": 0.366,
+			"end": 0.423,
+			"value": 7
+		},
+		{
+			"start": 0.423,
+			"end": 0.48,
+			"value": 3
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 7
+		},
+		{
+			"start": 0.64,
+			"end": 0.693,
+			"value": 1
+		},
+		{
+			"start": 0.693,
+			"end": 0.747,
+			"value": 6
+		},
+		{
+			"start": 0.747,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.84,
+			"end": 0.88,
+			"value": 5
+		},
+		{
+			"start": 0.88,
+			"end": 0.92,
+			"value": 2
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 2
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 1
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 3
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.712,
+			"end": 1.744,
+			"value": 7
+		},
+		{
+			"start": 1.744,
+			"end": 1.776,
+			"value": 1
+		},
+		{
+			"start": 1.776,
+			"end": 1.808,
+			"value": 6
+		},
+		{
+			"start": 1.808,
+			"end": 1.84,
+			"value": 3
+		},
+		{
+			"start": 1.867,
+			"end": 1.893,
+			"value": 1
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.98,
+			"end": 2.04,
+			"value": 6
+		},
+		{
+			"start": 2.04,
+			"end": 2.1,
+			"value": 1
+		},
+		{
+			"start": 2.1,
+			"end": 2.22,
+			"value": 6
+		},
+		{
+			"start": 2.22,
+			"end": 2.28,
+			"value": 1
+		},
+		{
+			"start": 2.28,
+			"end": 2.34,
+			"value": 7
+		},
+		{
+			"start": 2.34,
+			"end": 2.4,
+			"value": 2
+		},
+		{
+			"start": 2.46,
+			"end": 2.52,
+			"value": 6
+		},
+		{
+			"start": 2.52,
+			"end": 2.58,
+			"value": 1
+		},
+		{
+			"start": 2.58,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.64,
+			"end": 2.704,
+			"value": 7
+		},
+		{
+			"start": 2.704,
+			"end": 2.768,
+			"value": 3
+		},
+		{
+			"start": 2.768,
+			"end": 2.896,
+			"value": 6
+		},
+		{
+			"start": 2.896,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 3.417,
+			"end": 3.474,
+			"value": 2
+		},
+		{
+			"start": 3.474,
+			"end": 3.589,
+			"value": 6
+		},
+		{
+			"start": 3.589,
+			"end": 3.646,
+			"value": 1
+		},
+		{
+			"start": 3.646,
+			"end": 3.703,
+			"value": 6
+		},
+		{
+			"start": 3.703,
+			"end": 3.76,
+			"value": 3
+		},
+		{
+			"start": 3.8,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.88,
+			"value": 1
+		},
+		{
+			"start": 3.88,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 1
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 6
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 2
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 6
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 3
+		}
+	]
+}

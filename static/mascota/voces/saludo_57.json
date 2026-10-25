@@ -1,0 +1,308 @@
+{
+	"version": 1,
+	"audio": "saludo_57.mp3",
+	"texto": "¡Buenos días, asalariado del apocalipsis! ¡Vamos a darle alegría a esta condena!",
+	"duration": 5.52,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 4
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 1
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 3
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 2
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 1.12,
+			"end": 1.16,
+			"value": 2
+		},
+		{
+			"start": 1.16,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.24,
+			"value": 2
+		},
+		{
+			"start": 1.24,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 2
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 1
+		},
+		{
+			"start": 1.52,
+			"end": 1.573,
+			"value": 2
+		},
+		{
+			"start": 1.573,
+			"end": 1.627,
+			"value": 6
+		},
+		{
+			"start": 1.627,
+			"end": 1.68,
+			"value": 3
+		},
+		{
+			"start": 1.72,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.8,
+			"value": 1
+		},
+		{
+			"start": 1.8,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.867,
+			"end": 1.893,
+			"value": 2
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 7
+		},
+		{
+			"start": 1.92,
+			"end": 1.98,
+			"value": 3
+		},
+		{
+			"start": 1.98,
+			"end": 2.04,
+			"value": 6
+		},
+		{
+			"start": 2.04,
+			"end": 2.1,
+			"value": 2
+		},
+		{
+			"start": 2.1,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 1
+		},
+		{
+			"start": 2.24,
+			"end": 2.32,
+			"value": 7
+		},
+		{
+			"start": 2.32,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 1
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.92,
+			"value": 5
+		},
+		{
+			"start": 2.92,
+			"end": 2.95,
+			"value": 2
+		},
+		{
+			"start": 2.95,
+			"end": 2.98,
+			"value": 7
+		},
+		{
+			"start": 2.98,
+			"end": 3.01,
+			"value": 3
+		},
+		{
+			"start": 3.01,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 2
+		},
+		{
+			"start": 3.16,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.24,
+			"value": 2
+		},
+		{
+			"start": 3.24,
+			"end": 3.32,
+			"value": 6
+		},
+		{
+			"start": 3.32,
+			"end": 3.36,
+			"value": 1
+		},
+		{
+			"start": 3.4,
+			"end": 3.44,
+			"value": 2
+		},
+		{
+			"start": 3.44,
+			"end": 3.48,
+			"value": 6
+		},
+		{
+			"start": 3.48,
+			"end": 3.52,
+			"value": 1
+		},
+		{
+			"start": 3.52,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 1
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 2
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 2
+		},
+		{
+			"start": 4.032,
+			"end": 4.064,
+			"value": 1
+		},
+		{
+			"start": 4.064,
+			"end": 4.128,
+			"value": 6
+		},
+		{
+			"start": 4.128,
+			"end": 4.16,
+			"value": 2
+		},
+		{
+			"start": 4.22,
+			"end": 4.28,
+			"value": 6
+		},
+		{
+			"start": 4.28,
+			"end": 4.34,
+			"value": 3
+		},
+		{
+			"start": 4.34,
+			"end": 4.453,
+			"value": 6
+		},
+		{
+			"start": 4.453,
+			"end": 4.507,
+			"value": 1
+		},
+		{
+			"start": 4.507,
+			"end": 4.56,
+			"value": 6
+		},
+		{
+			"start": 4.56,
+			"end": 4.64,
+			"value": 2
+		},
+		{
+			"start": 4.92,
+			"end": 5.52,
+			"value": 2
+		}
+	]
+}

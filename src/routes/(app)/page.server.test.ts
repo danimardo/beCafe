@@ -169,8 +169,12 @@ describe('acciones de la pantalla principal', () => {
 		const tipoCapsulaId = await tipoConCoste();
 		const ana = sesionDe('miembro', 'Marta');
 
-		const propio = esquemaConsumoRegistrado.parse(await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '0', mascota: 'si' }));
-		const invitado = esquemaConsumoRegistrado.parse(await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '1', mascota: 'si' }));
+		const propio = esquemaConsumoRegistrado.parse(
+			await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '0', mascota: 'si' }),
+		);
+		const invitado = esquemaConsumoRegistrado.parse(
+			await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '1', mascota: 'si' }),
+		);
 
 		for (const { consumo } of [propio, invitado]) {
 			expect(consumo.fraseId).toMatch(/^registro_\d{2}$/);

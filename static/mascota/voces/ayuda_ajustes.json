@@ -1,0 +1,468 @@
+{
+	"version": 1,
+	"audio": "ayuda_ajustes.mp3",
+	"texto": "Aquí eliges cómo se ve la aplicación, cómo te acompaña Capsulito, qué avisos recibes y si la instalas en este dispositivo.",
+	"duration": 6.72,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.36,
+			"value": 1
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 1
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 1
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.6,
+			"value": 1
+		},
+		{
+			"start": 0.6,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.688,
+			"end": 0.736,
+			"value": 6
+		},
+		{
+			"start": 0.736,
+			"end": 0.784,
+			"value": 3
+		},
+		{
+			"start": 0.784,
+			"end": 0.832,
+			"value": 7
+		},
+		{
+			"start": 0.832,
+			"end": 0.88,
+			"value": 3
+		},
+		{
+			"start": 0.933,
+			"end": 0.987,
+			"value": 6
+		},
+		{
+			"start": 0.987,
+			"end": 1.04,
+			"value": 1
+		},
+		{
+			"start": 1.067,
+			"end": 1.093,
+			"value": 5
+		},
+		{
+			"start": 1.093,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.173,
+			"end": 1.227,
+			"value": 6
+		},
+		{
+			"start": 1.227,
+			"end": 1.28,
+			"value": 2
+		},
+		{
+			"start": 1.331,
+			"end": 1.382,
+			"value": 2
+		},
+		{
+			"start": 1.382,
+			"end": 1.433,
+			"value": 7
+		},
+		{
+			"start": 1.433,
+			"end": 1.484,
+			"value": 6
+		},
+		{
+			"start": 1.484,
+			"end": 1.535,
+			"value": 1
+		},
+		{
+			"start": 1.535,
+			"end": 1.585,
+			"value": 6
+		},
+		{
+			"start": 1.585,
+			"end": 1.636,
+			"value": 2
+		},
+		{
+			"start": 1.636,
+			"end": 1.687,
+			"value": 6
+		},
+		{
+			"start": 1.687,
+			"end": 1.738,
+			"value": 1
+		},
+		{
+			"start": 1.738,
+			"end": 1.789,
+			"value": 3
+		},
+		{
+			"start": 1.789,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 2.128,
+			"end": 2.176,
+			"value": 6
+		},
+		{
+			"start": 2.176,
+			"end": 2.224,
+			"value": 3
+		},
+		{
+			"start": 2.224,
+			"end": 2.272,
+			"value": 7
+		},
+		{
+			"start": 2.272,
+			"end": 2.32,
+			"value": 3
+		},
+		{
+			"start": 2.347,
+			"end": 2.373,
+			"value": 6
+		},
+		{
+			"start": 2.373,
+			"end": 2.4,
+			"value": 1
+		},
+		{
+			"start": 2.453,
+			"end": 2.507,
+			"value": 2
+		},
+		{
+			"start": 2.507,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.613,
+			"value": 3
+		},
+		{
+			"start": 2.613,
+			"end": 2.72,
+			"value": 7
+		},
+		{
+			"start": 2.72,
+			"end": 2.773,
+			"value": 2
+		},
+		{
+			"start": 2.773,
+			"end": 2.827,
+			"value": 6
+		},
+		{
+			"start": 2.827,
+			"end": 2.88,
+			"value": 2
+		},
+		{
+			"start": 2.928,
+			"end": 2.976,
+			"value": 6
+		},
+		{
+			"start": 2.976,
+			"end": 3.024,
+			"value": 2
+		},
+		{
+			"start": 3.024,
+			"end": 3.072,
+			"value": 7
+		},
+		{
+			"start": 3.072,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.16,
+			"value": 4
+		},
+		{
+			"start": 3.16,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 1
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 3
+		},
+		{
+			"start": 3.69,
+			"end": 3.74,
+			"value": 6
+		},
+		{
+			"start": 3.74,
+			"end": 3.79,
+			"value": 4
+		},
+		{
+			"start": 3.79,
+			"end": 3.84,
+			"value": 1
+		},
+		{
+			"start": 3.904,
+			"end": 3.968,
+			"value": 2
+		},
+		{
+			"start": 3.968,
+			"end": 4.032,
+			"value": 5
+		},
+		{
+			"start": 4.032,
+			"end": 4.096,
+			"value": 1
+		},
+		{
+			"start": 4.096,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.2,
+			"value": 3
+		},
+		{
+			"start": 4.2,
+			"end": 4.24,
+			"value": 6
+		},
+		{
+			"start": 4.293,
+			"end": 4.347,
+			"value": 6
+		},
+		{
+			"start": 4.347,
+			"end": 4.4,
+			"value": 1
+		},
+		{
+			"start": 4.4,
+			"end": 4.453,
+			"value": 6
+		},
+		{
+			"start": 4.453,
+			"end": 4.507,
+			"value": 1
+		},
+		{
+			"start": 4.507,
+			"end": 4.56,
+			"value": 7
+		},
+		{
+			"start": 4.56,
+			"end": 4.68,
+			"value": 1
+		},
+		{
+			"start": 4.68,
+			"end": 4.8,
+			"value": 6
+		},
+		{
+			"start": 4.88,
+			"end": 4.96,
+			"value": 1
+		},
+		{
+			"start": 4.987,
+			"end": 5.013,
+			"value": 6
+		},
+		{
+			"start": 5.013,
+			"end": 5.04,
+			"value": 1
+		},
+		{
+			"start": 5.067,
+			"end": 5.093,
+			"value": 6
+		},
+		{
+			"start": 5.093,
+			"end": 5.12,
+			"value": 2
+		},
+		{
+			"start": 5.166,
+			"end": 5.211,
+			"value": 1
+		},
+		{
+			"start": 5.211,
+			"end": 5.349,
+			"value": 6
+		},
+		{
+			"start": 5.349,
+			"end": 5.394,
+			"value": 2
+		},
+		{
+			"start": 5.394,
+			"end": 5.44,
+			"value": 6
+		},
+		{
+			"start": 5.44,
+			"end": 5.52,
+			"value": 2
+		},
+		{
+			"start": 5.52,
+			"end": 5.6,
+			"value": 6
+		},
+		{
+			"start": 5.627,
+			"end": 5.653,
+			"value": 1
+		},
+		{
+			"start": 5.653,
+			"end": 5.68,
+			"value": 6
+		},
+		{
+			"start": 5.728,
+			"end": 5.776,
+			"value": 1
+		},
+		{
+			"start": 5.776,
+			"end": 5.872,
+			"value": 6
+		},
+		{
+			"start": 5.872,
+			"end": 5.92,
+			"value": 1
+		},
+		{
+			"start": 5.987,
+			"end": 6.053,
+			"value": 6
+		},
+		{
+			"start": 6.053,
+			"end": 6.12,
+			"value": 1
+		},
+		{
+			"start": 6.12,
+			"end": 6.187,
+			"value": 6
+		},
+		{
+			"start": 6.187,
+			"end": 6.253,
+			"value": 7
+		},
+		{
+			"start": 6.253,
+			"end": 6.32,
+			"value": 3
+		},
+		{
+			"start": 6.32,
+			"end": 6.387,
+			"value": 6
+		},
+		{
+			"start": 6.387,
+			"end": 6.453,
+			"value": 1
+		},
+		{
+			"start": 6.453,
+			"end": 6.52,
+			"value": 6
+		},
+		{
+			"start": 6.52,
+			"end": 6.587,
+			"value": 1
+		},
+		{
+			"start": 6.587,
+			"end": 6.653,
+			"value": 5
+		},
+		{
+			"start": 6.653,
+			"end": 6.72,
+			"value": 3
+		}
+	]
+}

@@ -1,0 +1,278 @@
+{
+	"version": 1,
+	"audio": "saludo_47.mp3",
+	"texto": "¡Buenos días, cabroncete! ¡Tú y yo vamos a llevarnos sospechosamente bien!",
+	"duration": 5.04,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 7
+		},
+		{
+			"start": 0.32,
+			"end": 0.347,
+			"value": 4
+		},
+		{
+			"start": 0.347,
+			"end": 0.373,
+			"value": 1
+		},
+		{
+			"start": 0.373,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 3
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.624,
+			"end": 0.688,
+			"value": 6
+		},
+		{
+			"start": 0.688,
+			"end": 0.752,
+			"value": 1
+		},
+		{
+			"start": 0.752,
+			"end": 0.816,
+			"value": 2
+		},
+		{
+			"start": 0.816,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 1.03,
+			"end": 1.06,
+			"value": 6
+		},
+		{
+			"start": 1.06,
+			"end": 1.09,
+			"value": 2
+		},
+		{
+			"start": 1.09,
+			"end": 1.12,
+			"value": 7
+		},
+		{
+			"start": 1.12,
+			"end": 1.173,
+			"value": 6
+		},
+		{
+			"start": 1.173,
+			"end": 1.227,
+			"value": 3
+		},
+		{
+			"start": 1.227,
+			"end": 1.38,
+			"value": 6
+		},
+		{
+			"start": 1.38,
+			"end": 1.48,
+			"value": 1
+		},
+		{
+			"start": 1.48,
+			"end": 1.58,
+			"value": 6
+		},
+		{
+			"start": 1.58,
+			"end": 1.68,
+			"value": 1
+		},
+		{
+			"start": 1.92,
+			"end": 1.96,
+			"value": 6
+		},
+		{
+			"start": 1.96,
+			"end": 2,
+			"value": 4
+		},
+		{
+			"start": 2.04,
+			"end": 2.08,
+			"value": 1
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 1
+		},
+		{
+			"start": 2.24,
+			"end": 2.32,
+			"value": 3
+		},
+		{
+			"start": 2.373,
+			"end": 2.427,
+			"value": 5
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 2
+		},
+		{
+			"start": 2.48,
+			"end": 2.533,
+			"value": 7
+		},
+		{
+			"start": 2.533,
+			"end": 2.587,
+			"value": 3
+		},
+		{
+			"start": 2.587,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.72,
+			"end": 2.8,
+			"value": 2
+		},
+		{
+			"start": 2.823,
+			"end": 2.869,
+			"value": 6
+		},
+		{
+			"start": 2.869,
+			"end": 2.891,
+			"value": 1
+		},
+		{
+			"start": 2.891,
+			"end": 2.914,
+			"value": 5
+		},
+		{
+			"start": 2.914,
+			"end": 2.937,
+			"value": 2
+		},
+		{
+			"start": 2.937,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 3
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.26,
+			"end": 3.32,
+			"value": 6
+		},
+		{
+			"start": 3.32,
+			"end": 3.38,
+			"value": 3
+		},
+		{
+			"start": 3.38,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.48,
+			"value": 7
+		},
+		{
+			"start": 3.48,
+			"end": 3.52,
+			"value": 1
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 3
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 2
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 7
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 1
+		},
+		{
+			"start": 4.08,
+			"end": 4.24,
+			"value": 6
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 1
+		},
+		{
+			"start": 4.384,
+			"end": 4.448,
+			"value": 7
+		},
+		{
+			"start": 4.448,
+			"end": 4.576,
+			"value": 1
+		},
+		{
+			"start": 4.576,
+			"end": 4.64,
+			"value": 6
+		},
+		{
+			"start": 4.76,
+			"end": 5.04,
+			"value": 2
+		}
+	]
+}

@@ -1,0 +1,318 @@
+{
+	"version": 1,
+	"audio": "saludo_34.mp3",
+	"texto": "¡Bienvenido, humano.exe! Tu licencia para trabajar ha caducado. La de beber café, no.",
+	"duration": 6.88,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.22,
+			"value": 7
+		},
+		{
+			"start": 0.22,
+			"end": 0.34,
+			"value": 1
+		},
+		{
+			"start": 0.34,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.453,
+			"value": 5
+		},
+		{
+			"start": 0.453,
+			"end": 0.507,
+			"value": 1
+		},
+		{
+			"start": 0.507,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 3
+		},
+		{
+			"start": 1.017,
+			"end": 1.086,
+			"value": 4
+		},
+		{
+			"start": 1.086,
+			"end": 1.154,
+			"value": 7
+		},
+		{
+			"start": 1.154,
+			"end": 1.223,
+			"value": 2
+		},
+		{
+			"start": 1.223,
+			"end": 1.291,
+			"value": 6
+		},
+		{
+			"start": 1.291,
+			"end": 1.36,
+			"value": 3
+		},
+		{
+			"start": 1.52,
+			"end": 1.68,
+			"value": 1
+		},
+		{
+			"start": 1.68,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.84,
+			"end": 2,
+			"value": 1
+		},
+		{
+			"start": 2.373,
+			"end": 2.427,
+			"value": 6
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 4
+		},
+		{
+			"start": 2.52,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 1
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.64,
+			"end": 2.688,
+			"value": 1
+		},
+		{
+			"start": 2.688,
+			"end": 2.784,
+			"value": 6
+		},
+		{
+			"start": 2.784,
+			"end": 2.832,
+			"value": 1
+		},
+		{
+			"start": 2.832,
+			"end": 2.88,
+			"value": 2
+		},
+		{
+			"start": 2.928,
+			"end": 2.976,
+			"value": 7
+		},
+		{
+			"start": 2.976,
+			"end": 3.024,
+			"value": 2
+		},
+		{
+			"start": 3.024,
+			"end": 3.072,
+			"value": 6
+		},
+		{
+			"start": 3.072,
+			"end": 3.12,
+			"value": 2
+		},
+		{
+			"start": 3.173,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.333,
+			"value": 2
+		},
+		{
+			"start": 3.333,
+			"end": 3.387,
+			"value": 7
+		},
+		{
+			"start": 3.387,
+			"end": 3.44,
+			"value": 2
+		},
+		{
+			"start": 3.44,
+			"end": 3.493,
+			"value": 6
+		},
+		{
+			"start": 3.493,
+			"end": 3.547,
+			"value": 2
+		},
+		{
+			"start": 3.547,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.707,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.8,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.88,
+			"value": 2
+		},
+		{
+			"start": 3.88,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.92,
+			"end": 3.96,
+			"value": 4
+		},
+		{
+			"start": 3.96,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 2
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 3
+		},
+		{
+			"start": 4.453,
+			"end": 4.587,
+			"value": 6
+		},
+		{
+			"start": 4.587,
+			"end": 4.72,
+			"value": 2
+		},
+		{
+			"start": 4.773,
+			"end": 4.827,
+			"value": 6
+		},
+		{
+			"start": 4.827,
+			"end": 4.88,
+			"value": 1
+		},
+		{
+			"start": 4.907,
+			"end": 4.933,
+			"value": 7
+		},
+		{
+			"start": 4.933,
+			"end": 4.96,
+			"value": 1
+		},
+		{
+			"start": 4.96,
+			"end": 5.013,
+			"value": 7
+		},
+		{
+			"start": 5.013,
+			"end": 5.067,
+			"value": 1
+		},
+		{
+			"start": 5.067,
+			"end": 5.12,
+			"value": 6
+		},
+		{
+			"start": 5.216,
+			"end": 5.312,
+			"value": 6
+		},
+		{
+			"start": 5.312,
+			"end": 5.408,
+			"value": 2
+		},
+		{
+			"start": 5.408,
+			"end": 5.504,
+			"value": 5
+		},
+		{
+			"start": 5.504,
+			"end": 5.6,
+			"value": 1
+		},
+		{
+			"start": 5.867,
+			"end": 5.933,
+			"value": 6
+		},
+		{
+			"start": 5.933,
+			"end": 6,
+			"value": 3
+		},
+		{
+			"start": 6.12,
+			"end": 6.88,
+			"value": 2
+		}
+	]
+}

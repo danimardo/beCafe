@@ -1,0 +1,258 @@
+{
+	"version": 1,
+	"audio": "saludo_13.mp3",
+	"texto": "¡Ey, figura! He soñado contigo. Estabas bebiendo agua. ¡Menuda pesadilla!",
+	"duration": 6,
+	"cues": [
+		{
+			"start": 0.272,
+			"end": 0.32,
+			"value": 1
+		},
+		{
+			"start": 0.549,
+			"end": 0.577,
+			"value": 5
+		},
+		{
+			"start": 0.577,
+			"end": 0.606,
+			"value": 1
+		},
+		{
+			"start": 0.606,
+			"end": 0.634,
+			"value": 6
+		},
+		{
+			"start": 0.634,
+			"end": 0.663,
+			"value": 4
+		},
+		{
+			"start": 0.663,
+			"end": 0.691,
+			"value": 6
+		},
+		{
+			"start": 0.691,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 1.053,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.173,
+			"end": 1.227,
+			"value": 6
+		},
+		{
+			"start": 1.227,
+			"end": 1.28,
+			"value": 3
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.413,
+			"value": 2
+		},
+		{
+			"start": 1.413,
+			"end": 1.467,
+			"value": 6
+		},
+		{
+			"start": 1.467,
+			"end": 1.52,
+			"value": 3
+		},
+		{
+			"start": 1.568,
+			"end": 1.616,
+			"value": 6
+		},
+		{
+			"start": 1.616,
+			"end": 1.664,
+			"value": 3
+		},
+		{
+			"start": 1.664,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.867,
+			"value": 1
+		},
+		{
+			"start": 1.867,
+			"end": 1.973,
+			"value": 6
+		},
+		{
+			"start": 1.973,
+			"end": 2.08,
+			"value": 3
+		},
+		{
+			"start": 2.38,
+			"end": 2.44,
+			"value": 1
+		},
+		{
+			"start": 2.44,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 2
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 7
+		},
+		{
+			"start": 2.64,
+			"end": 2.68,
+			"value": 2
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.747,
+			"end": 2.773,
+			"value": 7
+		},
+		{
+			"start": 2.773,
+			"end": 2.8,
+			"value": 1
+		},
+		{
+			"start": 2.8,
+			"end": 2.88,
+			"value": 7
+		},
+		{
+			"start": 2.88,
+			"end": 3,
+			"value": 1
+		},
+		{
+			"start": 3,
+			"end": 3.08,
+			"value": 6
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 3
+		},
+		{
+			"start": 3.184,
+			"end": 3.248,
+			"value": 2
+		},
+		{
+			"start": 3.248,
+			"end": 3.312,
+			"value": 6
+		},
+		{
+			"start": 3.312,
+			"end": 3.376,
+			"value": 4
+		},
+		{
+			"start": 3.376,
+			"end": 3.44,
+			"value": 2
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 7
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 1
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.92,
+			"end": 3.973,
+			"value": 4
+		},
+		{
+			"start": 3.973,
+			"end": 4.027,
+			"value": 6
+		},
+		{
+			"start": 4.027,
+			"end": 4.08,
+			"value": 2
+		},
+		{
+			"start": 4.14,
+			"end": 4.2,
+			"value": 7
+		},
+		{
+			"start": 4.2,
+			"end": 4.26,
+			"value": 1
+		},
+		{
+			"start": 4.26,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.32,
+			"end": 4.4,
+			"value": 2
+		},
+		{
+			"start": 4.4,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.48,
+			"end": 4.56,
+			"value": 1
+		},
+		{
+			"start": 4.56,
+			"end": 4.72,
+			"value": 6
+		},
+		{
+			"start": 4.72,
+			"end": 4.8,
+			"value": 2
+		}
+	]
+}

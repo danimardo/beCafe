@@ -1,0 +1,133 @@
+{
+	"version": 1,
+	"audio": "ayuda_adminCapsulas.mp3",
+	"texto": "Lista los tipos de cápsula y su estado.",
+	"duration": 2.08,
+	"cues": [
+		{
+			"start": 0.368,
+			"end": 0.389,
+			"value": 6
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 3
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.613,
+			"end": 0.667,
+			"value": 6
+		},
+		{
+			"start": 0.667,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.72,
+			"end": 0.773,
+			"value": 7
+		},
+		{
+			"start": 0.773,
+			"end": 0.827,
+			"value": 3
+		},
+		{
+			"start": 0.827,
+			"end": 0.933,
+			"value": 6
+		},
+		{
+			"start": 0.933,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 1.013,
+			"end": 1.067,
+			"value": 6
+		},
+		{
+			"start": 1.067,
+			"end": 1.12,
+			"value": 2
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 7
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.307,
+			"value": 4
+		},
+		{
+			"start": 1.307,
+			"end": 1.333,
+			"value": 6
+		},
+		{
+			"start": 1.333,
+			"end": 1.36,
+			"value": 2
+		},
+		{
+			"start": 1.4,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.493,
+			"end": 1.547,
+			"value": 6
+		},
+		{
+			"start": 1.547,
+			"end": 1.6,
+			"value": 4
+		},
+		{
+			"start": 1.657,
+			"end": 1.714,
+			"value": 1
+		},
+		{
+			"start": 1.714,
+			"end": 1.829,
+			"value": 6
+		},
+		{
+			"start": 1.829,
+			"end": 1.886,
+			"value": 2
+		},
+		{
+			"start": 1.886,
+			"end": 1.943,
+			"value": 6
+		},
+		{
+			"start": 1.943,
+			"end": 2,
+			"value": 3
+		}
+	]
+}

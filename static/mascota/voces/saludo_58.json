@@ -1,0 +1,283 @@
+{
+	"version": 1,
+	"audio": "saludo_58.mp3",
+	"texto": "¡Otro día en la oficina! ¡Qué emocionante es cambiar horas de vida por dinero!",
+	"duration": 5.76,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.32,
+			"value": 3
+		},
+		{
+			"start": 0.32,
+			"end": 0.427,
+			"value": 6
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 3
+		},
+		{
+			"start": 0.54,
+			"end": 0.6,
+			"value": 6
+		},
+		{
+			"start": 0.6,
+			"end": 0.66,
+			"value": 1
+		},
+		{
+			"start": 0.66,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 0.747,
+			"end": 0.773,
+			"value": 1
+		},
+		{
+			"start": 0.773,
+			"end": 0.853,
+			"value": 6
+		},
+		{
+			"start": 0.853,
+			"end": 0.88,
+			"value": 2
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 3
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 5
+		},
+		{
+			"start": 1.12,
+			"end": 1.184,
+			"value": 1
+		},
+		{
+			"start": 1.184,
+			"end": 1.248,
+			"value": 6
+		},
+		{
+			"start": 1.248,
+			"end": 1.312,
+			"value": 1
+		},
+		{
+			"start": 1.312,
+			"end": 1.376,
+			"value": 6
+		},
+		{
+			"start": 1.376,
+			"end": 1.44,
+			"value": 2
+		},
+		{
+			"start": 1.84,
+			"end": 1.867,
+			"value": 6
+		},
+		{
+			"start": 1.867,
+			"end": 1.893,
+			"value": 4
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 1
+		},
+		{
+			"start": 1.968,
+			"end": 2.016,
+			"value": 1
+		},
+		{
+			"start": 2.016,
+			"end": 2.064,
+			"value": 7
+		},
+		{
+			"start": 2.064,
+			"end": 2.112,
+			"value": 3
+		},
+		{
+			"start": 2.112,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.187,
+			"value": 1
+		},
+		{
+			"start": 2.187,
+			"end": 2.213,
+			"value": 3
+		},
+		{
+			"start": 2.213,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.32,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 1
+		},
+		{
+			"start": 2.613,
+			"end": 2.667,
+			"value": 1
+		},
+		{
+			"start": 2.667,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.77,
+			"end": 2.82,
+			"value": 6
+		},
+		{
+			"start": 2.82,
+			"end": 2.87,
+			"value": 2
+		},
+		{
+			"start": 2.87,
+			"end": 2.97,
+			"value": 7
+		},
+		{
+			"start": 2.97,
+			"end": 3.02,
+			"value": 1
+		},
+		{
+			"start": 3.02,
+			"end": 3.07,
+			"value": 2
+		},
+		{
+			"start": 3.07,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.227,
+			"end": 3.28,
+			"value": 3
+		},
+		{
+			"start": 3.28,
+			"end": 3.333,
+			"value": 6
+		},
+		{
+			"start": 3.333,
+			"end": 3.387,
+			"value": 2
+		},
+		{
+			"start": 3.387,
+			"end": 3.493,
+			"value": 6
+		},
+		{
+			"start": 3.493,
+			"end": 3.52,
+			"value": 1
+		},
+		{
+			"start": 3.584,
+			"end": 3.648,
+			"value": 5
+		},
+		{
+			"start": 3.648,
+			"end": 3.712,
+			"value": 1
+		},
+		{
+			"start": 3.712,
+			"end": 3.776,
+			"value": 6
+		},
+		{
+			"start": 3.776,
+			"end": 3.84,
+			"value": 2
+		},
+		{
+			"start": 3.88,
+			"end": 3.92,
+			"value": 7
+		},
+		{
+			"start": 3.92,
+			"end": 3.96,
+			"value": 3
+		},
+		{
+			"start": 3.96,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 1
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.32,
+			"end": 4.4,
+			"value": 1
+		},
+		{
+			"start": 4.4,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.48,
+			"end": 4.56,
+			"value": 3
+		}
+	]
+}

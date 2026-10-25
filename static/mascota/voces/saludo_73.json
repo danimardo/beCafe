@@ -1,0 +1,233 @@
+{
+	"version": 1,
+	"audio": "saludo_73.mp3",
+	"texto": "¡Mira quién aparece! ¡Justo cuando estaba disfrutando del silencio!",
+	"duration": 5.76,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.16,
+			"value": 7
+		},
+		{
+			"start": 0.16,
+			"end": 0.187,
+			"value": 1
+		},
+		{
+			"start": 0.187,
+			"end": 0.213,
+			"value": 6
+		},
+		{
+			"start": 0.213,
+			"end": 0.24,
+			"value": 2
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.36,
+			"value": 4
+		},
+		{
+			"start": 0.36,
+			"end": 0.44,
+			"value": 1
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.547,
+			"end": 0.613,
+			"value": 2
+		},
+		{
+			"start": 0.613,
+			"end": 0.68,
+			"value": 7
+		},
+		{
+			"start": 0.68,
+			"end": 0.747,
+			"value": 2
+		},
+		{
+			"start": 0.747,
+			"end": 0.813,
+			"value": 6
+		},
+		{
+			"start": 0.813,
+			"end": 0.88,
+			"value": 1
+		},
+		{
+			"start": 0.88,
+			"end": 1,
+			"value": 6
+		},
+		{
+			"start": 1,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.36,
+			"end": 1.42,
+			"value": 6
+		},
+		{
+			"start": 1.42,
+			"end": 1.48,
+			"value": 4
+		},
+		{
+			"start": 1.48,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.6,
+			"end": 1.72,
+			"value": 3
+		},
+		{
+			"start": 1.789,
+			"end": 1.823,
+			"value": 6
+		},
+		{
+			"start": 1.886,
+			"end": 1.931,
+			"value": 1
+		},
+		{
+			"start": 1.931,
+			"end": 2.023,
+			"value": 6
+		},
+		{
+			"start": 2.023,
+			"end": 2.069,
+			"value": 2
+		},
+		{
+			"start": 2.069,
+			"end": 2.114,
+			"value": 7
+		},
+		{
+			"start": 2.114,
+			"end": 2.16,
+			"value": 2
+		},
+		{
+			"start": 2.2,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.28,
+			"value": 1
+		},
+		{
+			"start": 2.28,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.36,
+			"value": 5
+		},
+		{
+			"start": 2.36,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 4
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.62,
+			"value": 2
+		},
+		{
+			"start": 2.62,
+			"end": 2.74,
+			"value": 6
+		},
+		{
+			"start": 2.74,
+			"end": 2.8,
+			"value": 3
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.88,
+			"end": 2.92,
+			"value": 1
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.08,
+			"value": 1
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 1
+		},
+		{
+			"start": 3.2,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 1
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 3
+		}
+	]
+}

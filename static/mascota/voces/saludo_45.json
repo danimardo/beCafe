@@ -1,0 +1,208 @@
+{
+	"version": 1,
+	"audio": "saludo_45.mp3",
+	"texto": "¡Bienvenido, fenómeno! ¡Qué pena que el fenómeno seas tú!",
+	"duration": 3.92,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.293,
+			"value": 5
+		},
+		{
+			"start": 0.293,
+			"end": 0.347,
+			"value": 1
+		},
+		{
+			"start": 0.347,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 3
+		},
+		{
+			"start": 0.79,
+			"end": 0.82,
+			"value": 5
+		},
+		{
+			"start": 0.82,
+			"end": 0.85,
+			"value": 1
+		},
+		{
+			"start": 0.85,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 3
+		},
+		{
+			"start": 0.96,
+			"end": 1.02,
+			"value": 7
+		},
+		{
+			"start": 1.02,
+			"end": 1.08,
+			"value": 1
+		},
+		{
+			"start": 1.08,
+			"end": 1.14,
+			"value": 6
+		},
+		{
+			"start": 1.14,
+			"end": 1.2,
+			"value": 3
+		},
+		{
+			"start": 1.6,
+			"end": 1.653,
+			"value": 6
+		},
+		{
+			"start": 1.653,
+			"end": 1.707,
+			"value": 4
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 1
+		},
+		{
+			"start": 1.792,
+			"end": 1.824,
+			"value": 7
+		},
+		{
+			"start": 1.824,
+			"end": 1.856,
+			"value": 1
+		},
+		{
+			"start": 1.856,
+			"end": 1.888,
+			"value": 6
+		},
+		{
+			"start": 1.888,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 1.94,
+			"end": 1.96,
+			"value": 6
+		},
+		{
+			"start": 1.96,
+			"end": 1.98,
+			"value": 4
+		},
+		{
+			"start": 1.98,
+			"end": 2.053,
+			"value": 1
+		},
+		{
+			"start": 2.053,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.16,
+			"value": 5
+		},
+		{
+			"start": 2.16,
+			"end": 2.2,
+			"value": 1
+		},
+		{
+			"start": 2.2,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.32,
+			"value": 3
+		},
+		{
+			"start": 2.32,
+			"end": 2.38,
+			"value": 7
+		},
+		{
+			"start": 2.38,
+			"end": 2.44,
+			"value": 1
+		},
+		{
+			"start": 2.44,
+			"end": 2.5,
+			"value": 6
+		},
+		{
+			"start": 2.5,
+			"end": 2.56,
+			"value": 3
+		},
+		{
+			"start": 2.624,
+			"end": 2.688,
+			"value": 6
+		},
+		{
+			"start": 2.688,
+			"end": 2.752,
+			"value": 1
+		},
+		{
+			"start": 2.752,
+			"end": 2.816,
+			"value": 2
+		},
+		{
+			"start": 2.816,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.933,
+			"end": 2.987,
+			"value": 6
+		},
+		{
+			"start": 2.987,
+			"end": 3.04,
+			"value": 4
+		},
+		{
+			"start": 3.32,
+			"end": 3.92,
+			"value": 2
+		}
+	]
+}

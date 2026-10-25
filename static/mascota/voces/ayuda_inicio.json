@@ -1,0 +1,318 @@
+{
+	"version": 1,
+	"audio": "ayuda_inicio.mp3",
+	"texto": "Aquí registras tus cafés con un solo toque y ves cuántas cápsulas quedan de cada tipo.",
+	"duration": 4.72,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.51,
+			"end": 0.54,
+			"value": 6
+		},
+		{
+			"start": 0.54,
+			"end": 0.57,
+			"value": 1
+		},
+		{
+			"start": 0.57,
+			"end": 0.6,
+			"value": 6
+		},
+		{
+			"start": 0.6,
+			"end": 0.63,
+			"value": 1
+		},
+		{
+			"start": 0.63,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.76,
+			"value": 2
+		},
+		{
+			"start": 0.76,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.92,
+			"value": 4
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 1.02,
+			"end": 1.08,
+			"value": 6
+		},
+		{
+			"start": 1.08,
+			"end": 1.14,
+			"value": 2
+		},
+		{
+			"start": 1.14,
+			"end": 1.2,
+			"value": 5
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 1
+		},
+		{
+			"start": 1.28,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.48,
+			"value": 3
+		},
+		{
+			"start": 1.48,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.547,
+			"end": 1.573,
+			"value": 4
+		},
+		{
+			"start": 1.573,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.648,
+			"end": 1.696,
+			"value": 6
+		},
+		{
+			"start": 1.696,
+			"end": 1.744,
+			"value": 3
+		},
+		{
+			"start": 1.744,
+			"end": 1.792,
+			"value": 6
+		},
+		{
+			"start": 1.792,
+			"end": 1.84,
+			"value": 3
+		},
+		{
+			"start": 1.92,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2,
+			"end": 2.08,
+			"value": 3
+		},
+		{
+			"start": 2.08,
+			"end": 2.107,
+			"value": 6
+		},
+		{
+			"start": 2.107,
+			"end": 2.133,
+			"value": 4
+		},
+		{
+			"start": 2.133,
+			"end": 2.16,
+			"value": 1
+		},
+		{
+			"start": 2.32,
+			"end": 2.48,
+			"value": 1
+		},
+		{
+			"start": 2.54,
+			"end": 2.6,
+			"value": 5
+		},
+		{
+			"start": 2.6,
+			"end": 2.66,
+			"value": 1
+		},
+		{
+			"start": 2.66,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.773,
+			"end": 2.827,
+			"value": 6
+		},
+		{
+			"start": 2.827,
+			"end": 2.88,
+			"value": 4
+		},
+		{
+			"start": 2.88,
+			"end": 2.907,
+			"value": 2
+		},
+		{
+			"start": 2.907,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3.04,
+			"value": 2
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.173,
+			"end": 3.227,
+			"value": 6
+		},
+		{
+			"start": 3.227,
+			"end": 3.28,
+			"value": 2
+		},
+		{
+			"start": 3.28,
+			"end": 3.32,
+			"value": 7
+		},
+		{
+			"start": 3.32,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.42,
+			"value": 4
+		},
+		{
+			"start": 3.42,
+			"end": 3.48,
+			"value": 6
+		},
+		{
+			"start": 3.48,
+			"end": 3.54,
+			"value": 2
+		},
+		{
+			"start": 3.54,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.648,
+			"end": 3.696,
+			"value": 6
+		},
+		{
+			"start": 3.696,
+			"end": 3.744,
+			"value": 4
+		},
+		{
+			"start": 3.744,
+			"end": 3.792,
+			"value": 1
+		},
+		{
+			"start": 3.792,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.88,
+			"value": 2
+		},
+		{
+			"start": 3.88,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.973,
+			"end": 4.027,
+			"value": 6
+		},
+		{
+			"start": 4.027,
+			"end": 4.08,
+			"value": 1
+		},
+		{
+			"start": 4.128,
+			"end": 4.176,
+			"value": 6
+		},
+		{
+			"start": 4.176,
+			"end": 4.224,
+			"value": 2
+		},
+		{
+			"start": 4.224,
+			"end": 4.272,
+			"value": 6
+		},
+		{
+			"start": 4.272,
+			"end": 4.32,
+			"value": 2
+		},
+		{
+			"start": 4.384,
+			"end": 4.448,
+			"value": 6
+		},
+		{
+			"start": 4.448,
+			"end": 4.512,
+			"value": 1
+		},
+		{
+			"start": 4.512,
+			"end": 4.576,
+			"value": 7
+		},
+		{
+			"start": 4.576,
+			"end": 4.64,
+			"value": 3
+		}
+	]
+}

@@ -1,0 +1,208 @@
+{
+	"version": 1,
+	"audio": "ayuda_estadisticasPersona.mp3",
+	"texto": "Muestra los cafés de una persona en el periodo elegido.",
+	"duration": 2.88,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.12,
+			"value": 4
+		},
+		{
+			"start": 0.12,
+			"end": 0.16,
+			"value": 1
+		},
+		{
+			"start": 0.16,
+			"end": 0.28,
+			"value": 6
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 2
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 3
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 5
+		},
+		{
+			"start": 0.8,
+			"end": 0.84,
+			"value": 1
+		},
+		{
+			"start": 0.84,
+			"end": 0.933,
+			"value": 6
+		},
+		{
+			"start": 0.933,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 1.02,
+			"end": 1.08,
+			"value": 4
+		},
+		{
+			"start": 1.08,
+			"end": 1.14,
+			"value": 6
+		},
+		{
+			"start": 1.14,
+			"end": 1.2,
+			"value": 2
+		},
+		{
+			"start": 1.26,
+			"end": 1.32,
+			"value": 7
+		},
+		{
+			"start": 1.32,
+			"end": 1.38,
+			"value": 1
+		},
+		{
+			"start": 1.38,
+			"end": 1.5,
+			"value": 6
+		},
+		{
+			"start": 1.5,
+			"end": 1.56,
+			"value": 3
+		},
+		{
+			"start": 1.56,
+			"end": 1.62,
+			"value": 6
+		},
+		{
+			"start": 1.62,
+			"end": 1.68,
+			"value": 2
+		},
+		{
+			"start": 1.707,
+			"end": 1.733,
+			"value": 1
+		},
+		{
+			"start": 1.733,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.813,
+			"end": 1.867,
+			"value": 1
+		},
+		{
+			"start": 1.867,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.97,
+			"end": 2.02,
+			"value": 7
+		},
+		{
+			"start": 2.02,
+			"end": 2.07,
+			"value": 1
+		},
+		{
+			"start": 2.07,
+			"end": 2.12,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.17,
+			"value": 1
+		},
+		{
+			"start": 2.17,
+			"end": 2.22,
+			"value": 3
+		},
+		{
+			"start": 2.22,
+			"end": 2.27,
+			"value": 6
+		},
+		{
+			"start": 2.27,
+			"end": 2.32,
+			"value": 3
+		},
+		{
+			"start": 2.384,
+			"end": 2.448,
+			"value": 1
+		},
+		{
+			"start": 2.448,
+			"end": 2.512,
+			"value": 6
+		},
+		{
+			"start": 2.512,
+			"end": 2.576,
+			"value": 1
+		},
+		{
+			"start": 2.576,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.64,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.72,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.88,
+			"value": 3
+		}
+	]
+}

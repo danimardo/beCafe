@@ -1,0 +1,293 @@
+{
+	"version": 1,
+	"audio": "registro_09.mp3",
+	"texto": "Una cápsula menos. Un pingüino en Cuenca acaba de estornudar. Casualidad, no creo.",
+	"duration": 6.4,
+	"cues": [
+		{
+			"start": 0.293,
+			"end": 0.347,
+			"value": 6
+		},
+		{
+			"start": 0.347,
+			"end": 0.4,
+			"value": 2
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 7
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.613,
+			"value": 4
+		},
+		{
+			"start": 0.613,
+			"end": 0.667,
+			"value": 6
+		},
+		{
+			"start": 0.667,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 7
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 3
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 2.08,
+			"value": 4
+		},
+		{
+			"start": 2.08,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.544,
+			"end": 2.608,
+			"value": 7
+		},
+		{
+			"start": 2.608,
+			"end": 2.672,
+			"value": 1
+		},
+		{
+			"start": 2.672,
+			"end": 2.799,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.853,
+			"value": 1
+		},
+		{
+			"start": 2.853,
+			"end": 2.907,
+			"value": 6
+		},
+		{
+			"start": 2.907,
+			"end": 2.96,
+			"value": 3
+		},
+		{
+			"start": 2.987,
+			"end": 3.013,
+			"value": 1
+		},
+		{
+			"start": 3.013,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 4
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 1
+		},
+		{
+			"start": 3.28,
+			"end": 3.4,
+			"value": 6
+		},
+		{
+			"start": 3.4,
+			"end": 3.44,
+			"value": 2
+		},
+		{
+			"start": 3.493,
+			"end": 3.547,
+			"value": 2
+		},
+		{
+			"start": 3.547,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.6,
+			"end": 3.653,
+			"value": 2
+		},
+		{
+			"start": 3.653,
+			"end": 3.707,
+			"value": 7
+		},
+		{
+			"start": 3.707,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.787,
+			"end": 3.813,
+			"value": 6
+		},
+		{
+			"start": 3.813,
+			"end": 3.84,
+			"value": 1
+		},
+		{
+			"start": 3.88,
+			"end": 3.92,
+			"value": 1
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.053,
+			"value": 3
+		},
+		{
+			"start": 4.053,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.2,
+			"value": 4
+		},
+		{
+			"start": 4.2,
+			"end": 4.24,
+			"value": 6
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 2
+		},
+		{
+			"start": 4.32,
+			"end": 4.399,
+			"value": 6
+		},
+		{
+			"start": 4.491,
+			"end": 4.583,
+			"value": 6
+		},
+		{
+			"start": 4.583,
+			"end": 4.674,
+			"value": 2
+		},
+		{
+			"start": 4.674,
+			"end": 4.766,
+			"value": 6
+		},
+		{
+			"start": 4.766,
+			"end": 4.857,
+			"value": 4
+		},
+		{
+			"start": 4.857,
+			"end": 4.949,
+			"value": 2
+		},
+		{
+			"start": 4.949,
+			"end": 5.04,
+			"value": 6
+		},
+		{
+			"start": 5.04,
+			"end": 5.12,
+			"value": 1
+		},
+		{
+			"start": 5.12,
+			"end": 5.2,
+			"value": 6
+		},
+		{
+			"start": 5.2,
+			"end": 5.28,
+			"value": 2
+		},
+		{
+			"start": 5.28,
+			"end": 5.36,
+			"value": 6
+		},
+		{
+			"start": 5.52,
+			"end": 5.6,
+			"value": 6
+		},
+		{
+			"start": 5.6,
+			"end": 5.68,
+			"value": 3
+		},
+		{
+			"start": 5.76,
+			"end": 5.92,
+			"value": 6
+		},
+		{
+			"start": 5.92,
+			"end": 6,
+			"value": 1
+		},
+		{
+			"start": 6,
+			"end": 6.08,
+			"value": 3
+		}
+	]
+}

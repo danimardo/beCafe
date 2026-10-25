@@ -1,0 +1,178 @@
+{
+	"version": 1,
+	"audio": "registro_08.mp3",
+	"texto": "Hay gente que desayuna fruta. Qué putos raros.",
+	"duration": 3.76,
+	"cues": [
+		{
+			"start": 0.133,
+			"end": 0.187,
+			"value": 6
+		},
+		{
+			"start": 0.187,
+			"end": 0.24,
+			"value": 1
+		},
+		{
+			"start": 0.24,
+			"end": 0.347,
+			"value": 6
+		},
+		{
+			"start": 0.347,
+			"end": 0.4,
+			"value": 1
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 4
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.6,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.68,
+			"value": 1
+		},
+		{
+			"start": 0.68,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 2
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 1
+		},
+		{
+			"start": 0.88,
+			"end": 0.933,
+			"value": 4
+		},
+		{
+			"start": 0.933,
+			"end": 0.987,
+			"value": 6
+		},
+		{
+			"start": 0.987,
+			"end": 1.04,
+			"value": 2
+		},
+		{
+			"start": 1.093,
+			"end": 1.147,
+			"value": 5
+		},
+		{
+			"start": 1.147,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.307,
+			"value": 4
+		},
+		{
+			"start": 1.307,
+			"end": 1.413,
+			"value": 6
+		},
+		{
+			"start": 1.413,
+			"end": 1.519,
+			"value": 2
+		},
+		{
+			"start": 1.66,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.94,
+			"value": 4
+		},
+		{
+			"start": 1.94,
+			"end": 2.08,
+			"value": 1
+		},
+		{
+			"start": 2.14,
+			"end": 2.2,
+			"value": 7
+		},
+		{
+			"start": 2.2,
+			"end": 2.26,
+			"value": 4
+		},
+		{
+			"start": 2.26,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.36,
+			"value": 3
+		},
+		{
+			"start": 2.36,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.64,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.72,
+			"end": 2.8,
+			"value": 3
+		},
+		{
+			"start": 2.8,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 3.18,
+			"end": 3.76,
+			"value": 2
+		}
+	]
+}

@@ -1,0 +1,288 @@
+{
+	"version": 1,
+	"audio": "saludo_51.mp3",
+	"texto": "¡Huele a café recién hecho y a sueños profesionales abandonados! ¡Me encanta!",
+	"duration": 5.52,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.22,
+			"value": 4
+		},
+		{
+			"start": 0.22,
+			"end": 0.28,
+			"value": 1
+		},
+		{
+			"start": 0.28,
+			"end": 0.34,
+			"value": 6
+		},
+		{
+			"start": 0.34,
+			"end": 0.4,
+			"value": 1
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 2
+		},
+		{
+			"start": 0.528,
+			"end": 0.576,
+			"value": 6
+		},
+		{
+			"start": 0.576,
+			"end": 0.624,
+			"value": 2
+		},
+		{
+			"start": 0.624,
+			"end": 0.672,
+			"value": 5
+		},
+		{
+			"start": 0.672,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.093,
+			"value": 1
+		},
+		{
+			"start": 1.093,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.227,
+			"end": 1.28,
+			"value": 1
+		},
+		{
+			"start": 1.28,
+			"end": 1.333,
+			"value": 6
+		},
+		{
+			"start": 1.387,
+			"end": 1.44,
+			"value": 3
+		},
+		{
+			"start": 1.56,
+			"end": 1.68,
+			"value": 1
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 2
+		},
+		{
+			"start": 1.88,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 1.96,
+			"value": 4
+		},
+		{
+			"start": 1.96,
+			"end": 2,
+			"value": 1
+		},
+		{
+			"start": 2,
+			"end": 2.027,
+			"value": 6
+		},
+		{
+			"start": 2.027,
+			"end": 2.053,
+			"value": 3
+		},
+		{
+			"start": 2.053,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.137,
+			"end": 2.194,
+			"value": 7
+		},
+		{
+			"start": 2.194,
+			"end": 2.251,
+			"value": 6
+		},
+		{
+			"start": 2.251,
+			"end": 2.309,
+			"value": 3
+		},
+		{
+			"start": 2.309,
+			"end": 2.366,
+			"value": 5
+		},
+		{
+			"start": 2.366,
+			"end": 2.423,
+			"value": 1
+		},
+		{
+			"start": 2.423,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.537,
+			"value": 1
+		},
+		{
+			"start": 2.537,
+			"end": 2.594,
+			"value": 3
+		},
+		{
+			"start": 2.594,
+			"end": 2.651,
+			"value": 6
+		},
+		{
+			"start": 2.651,
+			"end": 2.709,
+			"value": 2
+		},
+		{
+			"start": 2.709,
+			"end": 2.766,
+			"value": 6
+		},
+		{
+			"start": 2.766,
+			"end": 2.823,
+			"value": 1
+		},
+		{
+			"start": 2.823,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.93,
+			"end": 2.98,
+			"value": 2
+		},
+		{
+			"start": 2.98,
+			"end": 3.03,
+			"value": 7
+		},
+		{
+			"start": 3.03,
+			"end": 3.08,
+			"value": 2
+		},
+		{
+			"start": 3.08,
+			"end": 3.18,
+			"value": 6
+		},
+		{
+			"start": 3.18,
+			"end": 3.23,
+			"value": 3
+		},
+		{
+			"start": 3.23,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 2
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 3
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.04,
+			"value": 7
+		},
+		{
+			"start": 4.04,
+			"end": 4.08,
+			"value": 1
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 1
+		},
+		{
+			"start": 4.24,
+			"end": 4.4,
+			"value": 6
+		},
+		{
+			"start": 4.4,
+			"end": 4.5,
+			"value": 2
+		},
+		{
+			"start": 4.5,
+			"end": 4.7,
+			"value": 6
+		},
+		{
+			"start": 4.7,
+			"end": 4.8,
+			"value": 2
+		},
+		{
+			"start": 4.98,
+			"end": 5.52,
+			"value": 2
+		}
+	]
+}

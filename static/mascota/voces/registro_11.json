@@ -1,0 +1,208 @@
+{
+	"version": 1,
+	"audio": "registro_11.mp3",
+	"texto": "Cada vez que tomas café, un becario obtiene sus alas.",
+	"duration": 5.36,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.213,
+			"value": 2
+		},
+		{
+			"start": 0.213,
+			"end": 0.267,
+			"value": 6
+		},
+		{
+			"start": 0.267,
+			"end": 0.32,
+			"value": 2
+		},
+		{
+			"start": 0.38,
+			"end": 0.44,
+			"value": 5
+		},
+		{
+			"start": 0.44,
+			"end": 0.5,
+			"value": 1
+		},
+		{
+			"start": 0.5,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.68,
+			"value": 4
+		},
+		{
+			"start": 0.68,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.773,
+			"end": 0.827,
+			"value": 6
+		},
+		{
+			"start": 0.827,
+			"end": 0.88,
+			"value": 3
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 7
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 2
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.184,
+			"end": 1.248,
+			"value": 6
+		},
+		{
+			"start": 1.248,
+			"end": 1.312,
+			"value": 2
+		},
+		{
+			"start": 1.312,
+			"end": 1.376,
+			"value": 5
+		},
+		{
+			"start": 1.376,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.813,
+			"end": 1.867,
+			"value": 4
+		},
+		{
+			"start": 1.867,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.98,
+			"end": 2.04,
+			"value": 7
+		},
+		{
+			"start": 2.04,
+			"end": 2.1,
+			"value": 1
+		},
+		{
+			"start": 2.1,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 2
+		},
+		{
+			"start": 2.24,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.4,
+			"value": 1
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 3
+		},
+		{
+			"start": 2.54,
+			"end": 2.6,
+			"value": 3
+		},
+		{
+			"start": 2.6,
+			"end": 2.66,
+			"value": 7
+		},
+		{
+			"start": 2.66,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.72,
+			"end": 2.84,
+			"value": 1
+		},
+		{
+			"start": 2.84,
+			"end": 2.9,
+			"value": 6
+		},
+		{
+			"start": 2.9,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 3.02,
+			"end": 3.08,
+			"value": 6
+		},
+		{
+			"start": 3.08,
+			"end": 3.14,
+			"value": 4
+		},
+		{
+			"start": 3.14,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 2
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 2
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.8,
+			"end": 5.36,
+			"value": 2
+		}
+	]
+}

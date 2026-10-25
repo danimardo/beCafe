@@ -1,0 +1,268 @@
+{
+	"version": 1,
+	"audio": "ayuda_aportacionesPersona.mp3",
+	"texto": "Lista las aportaciones de una persona, con la fecha, el importe y quién las registró.",
+	"duration": 4.64,
+	"cues": [
+		{
+			"start": 0.36,
+			"end": 0.38,
+			"value": 2
+		},
+		{
+			"start": 0.38,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 2
+		},
+		{
+			"start": 0.56,
+			"end": 0.6,
+			"value": 7
+		},
+		{
+			"start": 0.6,
+			"end": 0.64,
+			"value": 3
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.777,
+			"value": 2
+		},
+		{
+			"start": 0.777,
+			"end": 0.834,
+			"value": 6
+		},
+		{
+			"start": 0.834,
+			"end": 0.891,
+			"value": 1
+		},
+		{
+			"start": 0.891,
+			"end": 0.949,
+			"value": 3
+		},
+		{
+			"start": 0.949,
+			"end": 1.006,
+			"value": 6
+		},
+		{
+			"start": 1.006,
+			"end": 1.063,
+			"value": 1
+		},
+		{
+			"start": 1.063,
+			"end": 1.173,
+			"value": 6
+		},
+		{
+			"start": 1.173,
+			"end": 1.2,
+			"value": 1
+		},
+		{
+			"start": 1.26,
+			"end": 1.32,
+			"value": 4
+		},
+		{
+			"start": 1.32,
+			"end": 1.38,
+			"value": 6
+		},
+		{
+			"start": 1.38,
+			"end": 1.44,
+			"value": 2
+		},
+		{
+			"start": 1.5,
+			"end": 1.56,
+			"value": 7
+		},
+		{
+			"start": 1.56,
+			"end": 1.62,
+			"value": 1
+		},
+		{
+			"start": 1.62,
+			"end": 1.74,
+			"value": 6
+		},
+		{
+			"start": 1.74,
+			"end": 1.8,
+			"value": 3
+		},
+		{
+			"start": 1.8,
+			"end": 1.86,
+			"value": 6
+		},
+		{
+			"start": 1.86,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 2.04,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.12,
+			"value": 3
+		},
+		{
+			"start": 2.12,
+			"end": 2.213,
+			"value": 6
+		},
+		{
+			"start": 2.213,
+			"end": 2.24,
+			"value": 2
+		},
+		{
+			"start": 2.307,
+			"end": 2.373,
+			"value": 5
+		},
+		{
+			"start": 2.373,
+			"end": 2.44,
+			"value": 1
+		},
+		{
+			"start": 2.44,
+			"end": 2.507,
+			"value": 6
+		},
+		{
+			"start": 2.573,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.773,
+			"end": 2.827,
+			"value": 1
+		},
+		{
+			"start": 2.827,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.937,
+			"end": 2.994,
+			"value": 1
+		},
+		{
+			"start": 2.994,
+			"end": 3.109,
+			"value": 7
+		},
+		{
+			"start": 3.109,
+			"end": 3.166,
+			"value": 3
+		},
+		{
+			"start": 3.166,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 1
+		},
+		{
+			"start": 3.48,
+			"end": 3.6,
+			"value": 1
+		},
+		{
+			"start": 3.64,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.68,
+			"end": 3.72,
+			"value": 4
+		},
+		{
+			"start": 3.72,
+			"end": 3.8,
+			"value": 1
+		},
+		{
+			"start": 3.8,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.88,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.92,
+			"end": 3.96,
+			"value": 2
+		},
+		{
+			"start": 3.96,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4.06,
+			"end": 4.12,
+			"value": 6
+		},
+		{
+			"start": 4.12,
+			"end": 4.18,
+			"value": 1
+		},
+		{
+			"start": 4.18,
+			"end": 4.24,
+			"value": 6
+		},
+		{
+			"start": 4.24,
+			"end": 4.3,
+			"value": 1
+		},
+		{
+			"start": 4.3,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.48,
+			"end": 4.56,
+			"value": 3
+		}
+	]
+}

@@ -1,0 +1,233 @@
+{
+	"version": 1,
+	"audio": "ayuda_compra.mp3",
+	"texto": "Muestra las líneas de una compra, quién la hizo y la foto del ticket.",
+	"duration": 3.68,
+	"cues": [
+		{
+			"start": 0.32,
+			"end": 0.347,
+			"value": 7
+		},
+		{
+			"start": 0.364,
+			"end": 0.391,
+			"value": 6
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 2
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.613,
+			"end": 0.667,
+			"value": 6
+		},
+		{
+			"start": 0.667,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.72,
+			"end": 0.76,
+			"value": 6
+		},
+		{
+			"start": 0.76,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.8,
+			"end": 0.84,
+			"value": 2
+		},
+		{
+			"start": 0.84,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.933,
+			"end": 0.987,
+			"value": 6
+		},
+		{
+			"start": 0.987,
+			"end": 1.04,
+			"value": 1
+		},
+		{
+			"start": 1.08,
+			"end": 1.12,
+			"value": 4
+		},
+		{
+			"start": 1.12,
+			"end": 1.16,
+			"value": 6
+		},
+		{
+			"start": 1.16,
+			"end": 1.2,
+			"value": 2
+		},
+		{
+			"start": 1.257,
+			"end": 1.314,
+			"value": 6
+		},
+		{
+			"start": 1.314,
+			"end": 1.371,
+			"value": 3
+		},
+		{
+			"start": 1.371,
+			"end": 1.486,
+			"value": 7
+		},
+		{
+			"start": 1.486,
+			"end": 1.543,
+			"value": 6
+		},
+		{
+			"start": 1.543,
+			"end": 1.6,
+			"value": 2
+		},
+		{
+			"start": 1.78,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.82,
+			"value": 4
+		},
+		{
+			"start": 1.82,
+			"end": 1.88,
+			"value": 1
+		},
+		{
+			"start": 1.88,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.973,
+			"end": 2.027,
+			"value": 6
+		},
+		{
+			"start": 2.027,
+			"end": 2.08,
+			"value": 2
+		},
+		{
+			"start": 2.208,
+			"end": 2.272,
+			"value": 1
+		},
+		{
+			"start": 2.272,
+			"end": 2.336,
+			"value": 6
+		},
+		{
+			"start": 2.336,
+			"end": 2.4,
+			"value": 3
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 1
+		},
+		{
+			"start": 2.613,
+			"end": 2.667,
+			"value": 6
+		},
+		{
+			"start": 2.667,
+			"end": 2.72,
+			"value": 2
+		},
+		{
+			"start": 2.784,
+			"end": 2.848,
+			"value": 5
+		},
+		{
+			"start": 2.848,
+			"end": 2.912,
+			"value": 3
+		},
+		{
+			"start": 2.912,
+			"end": 2.976,
+			"value": 6
+		},
+		{
+			"start": 2.976,
+			"end": 3.04,
+			"value": 3
+		},
+		{
+			"start": 3.06,
+			"end": 3.08,
+			"value": 6
+		},
+		{
+			"start": 3.08,
+			"end": 3.1,
+			"value": 1
+		},
+		{
+			"start": 3.1,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.177,
+			"end": 3.234,
+			"value": 6
+		},
+		{
+			"start": 3.234,
+			"end": 3.291,
+			"value": 1
+		},
+		{
+			"start": 3.291,
+			"end": 3.406,
+			"value": 6
+		},
+		{
+			"start": 3.406,
+			"end": 3.463,
+			"value": 1
+		},
+		{
+			"start": 3.463,
+			"end": 3.52,
+			"value": 6
+		}
+	]
+}

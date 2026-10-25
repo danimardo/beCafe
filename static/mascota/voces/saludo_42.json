@@ -1,0 +1,298 @@
+{
+	"version": 1,
+	"audio": "saludo_42.mp3",
+	"texto": "¡Buenos días, pedazo de desastre! ¡Hoy tienes una oportunidad nueva de cagarla!",
+	"duration": 5.6,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.24,
+			"value": 7
+		},
+		{
+			"start": 0.24,
+			"end": 0.267,
+			"value": 4
+		},
+		{
+			"start": 0.267,
+			"end": 0.293,
+			"value": 1
+		},
+		{
+			"start": 0.293,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.36,
+			"value": 3
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 7
+		},
+		{
+			"start": 0.96,
+			"end": 1,
+			"value": 1
+		},
+		{
+			"start": 1,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.147,
+			"value": 2
+		},
+		{
+			"start": 1.147,
+			"end": 1.253,
+			"value": 6
+		},
+		{
+			"start": 1.253,
+			"end": 1.36,
+			"value": 3
+		},
+		{
+			"start": 1.387,
+			"end": 1.413,
+			"value": 6
+		},
+		{
+			"start": 1.413,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.48,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.56,
+			"value": 1
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.6,
+			"end": 1.68,
+			"value": 2
+		},
+		{
+			"start": 1.68,
+			"end": 1.88,
+			"value": 6
+		},
+		{
+			"start": 1.88,
+			"end": 1.92,
+			"value": 1
+		},
+		{
+			"start": 2.24,
+			"end": 2.28,
+			"value": 3
+		},
+		{
+			"start": 2.28,
+			"end": 2.32,
+			"value": 1
+		},
+		{
+			"start": 2.366,
+			"end": 2.411,
+			"value": 6
+		},
+		{
+			"start": 2.411,
+			"end": 2.503,
+			"value": 1
+		},
+		{
+			"start": 2.503,
+			"end": 2.549,
+			"value": 6
+		},
+		{
+			"start": 2.549,
+			"end": 2.594,
+			"value": 1
+		},
+		{
+			"start": 2.594,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 4
+		},
+		{
+			"start": 2.72,
+			"end": 2.76,
+			"value": 6
+		},
+		{
+			"start": 2.76,
+			"end": 2.8,
+			"value": 2
+		},
+		{
+			"start": 2.86,
+			"end": 2.92,
+			"value": 3
+		},
+		{
+			"start": 2.92,
+			"end": 2.98,
+			"value": 7
+		},
+		{
+			"start": 2.98,
+			"end": 3.04,
+			"value": 3
+		},
+		{
+			"start": 3.04,
+			"end": 3.16,
+			"value": 6
+		},
+		{
+			"start": 3.16,
+			"end": 3.22,
+			"value": 4
+		},
+		{
+			"start": 3.22,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.32,
+			"value": 1
+		},
+		{
+			"start": 3.32,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.4,
+			"value": 2
+		},
+		{
+			"start": 3.4,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.493,
+			"end": 3.547,
+			"value": 6
+		},
+		{
+			"start": 3.547,
+			"end": 3.6,
+			"value": 4
+		},
+		{
+			"start": 3.6,
+			"end": 3.653,
+			"value": 1
+		},
+		{
+			"start": 3.653,
+			"end": 3.707,
+			"value": 5
+		},
+		{
+			"start": 3.707,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.813,
+			"end": 3.867,
+			"value": 6
+		},
+		{
+			"start": 3.867,
+			"end": 3.92,
+			"value": 1
+		},
+		{
+			"start": 3.96,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.06,
+			"value": 2
+		},
+		{
+			"start": 4.06,
+			"end": 4.12,
+			"value": 6
+		},
+		{
+			"start": 4.12,
+			"end": 4.18,
+			"value": 2
+		},
+		{
+			"start": 4.18,
+			"end": 4.36,
+			"value": 6
+		},
+		{
+			"start": 4.36,
+			"end": 4.48,
+			"value": 2
+		},
+		{
+			"start": 4.6,
+			"end": 5.6,
+			"value": 2
+		}
+	]
+}

@@ -328,13 +328,11 @@ export const MOMENTOS = {
 				id: 'consumo_confirmado_01',
 				texto: '¡Cafeína cargada en memoria!',
 				textoVoz: '[excited] ¡Cafeína cargada!',
-				conAudio: true,
 			},
 			{
 				id: 'consumo_confirmado_02',
 				texto: '¡Café apuntado! Latencia cero hasta la taza.',
 				textoVoz: '[cheerful] ¡Café apuntado! [chuckles]',
-				conAudio: true,
 			},
 			{
 				id: 'consumo_confirmado_03',
@@ -354,7 +352,6 @@ export const MOMENTOS = {
 				id: 'consumo_invitado_01',
 				texto: '¡Tenemos visita! Café de invitado apuntado.',
 				textoVoz: '[excited] ¡Tenemos visita! [chuckles] Café de invitado apuntado.',
-				conAudio: true,
 			},
 			{
 				id: 'consumo_invitado_02',

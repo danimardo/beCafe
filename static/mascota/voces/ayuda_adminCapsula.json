@@ -1,0 +1,193 @@
+{
+	"version": 1,
+	"audio": "ayuda_adminCapsula.mp3",
+	"texto": "Edita los datos de un tipo, ajusta su stock o lo retira.",
+	"duration": 3.28,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.213,
+			"value": 1
+		},
+		{
+			"start": 0.213,
+			"end": 0.267,
+			"value": 6
+		},
+		{
+			"start": 0.267,
+			"end": 0.32,
+			"value": 2
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 3
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.533,
+			"end": 0.587,
+			"value": 6
+		},
+		{
+			"start": 0.587,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.64,
+			"end": 0.693,
+			"value": 6
+		},
+		{
+			"start": 0.693,
+			"end": 0.747,
+			"value": 3
+		},
+		{
+			"start": 0.747,
+			"end": 0.853,
+			"value": 6
+		},
+		{
+			"start": 0.853,
+			"end": 0.88,
+			"value": 1
+		},
+		{
+			"start": 0.933,
+			"end": 0.987,
+			"value": 4
+		},
+		{
+			"start": 0.987,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.104,
+			"end": 1.168,
+			"value": 6
+		},
+		{
+			"start": 1.168,
+			"end": 1.232,
+			"value": 1
+		},
+		{
+			"start": 1.232,
+			"end": 1.296,
+			"value": 7
+		},
+		{
+			"start": 1.296,
+			"end": 1.36,
+			"value": 3
+		},
+		{
+			"start": 1.587,
+			"end": 1.653,
+			"value": 2
+		},
+		{
+			"start": 1.653,
+			"end": 1.72,
+			"value": 6
+		},
+		{
+			"start": 1.72,
+			"end": 1.787,
+			"value": 4
+		},
+		{
+			"start": 1.787,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 2,
+			"value": 2
+		},
+		{
+			"start": 2.027,
+			"end": 2.053,
+			"value": 6
+		},
+		{
+			"start": 2.053,
+			"end": 2.08,
+			"value": 4
+		},
+		{
+			"start": 2.16,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.4,
+			"value": 3
+		},
+		{
+			"start": 2.4,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 3
+		},
+		{
+			"start": 2.667,
+			"end": 2.693,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.72,
+			"value": 3
+		},
+		{
+			"start": 2.78,
+			"end": 2.84,
+			"value": 6
+		},
+		{
+			"start": 2.84,
+			"end": 2.9,
+			"value": 1
+		},
+		{
+			"start": 2.9,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3.04,
+			"value": 1
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 2
+		}
+	]
+}

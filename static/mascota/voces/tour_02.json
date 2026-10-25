@@ -1,0 +1,313 @@
+{
+	"version": 1,
+	"audio": "tour_02.mp3",
+	"texto": "Si invitas a alguien. Este botón registra un café para una persona invitada. Lo pagas tú.",
+	"duration": 5.44,
+	"cues": [
+		{
+			"start": 0.267,
+			"end": 0.3,
+			"value": 1
+		},
+		{
+			"start": 0.32,
+			"end": 0.38,
+			"value": 1
+		},
+		{
+			"start": 0.38,
+			"end": 0.44,
+			"value": 6
+		},
+		{
+			"start": 0.44,
+			"end": 0.5,
+			"value": 2
+		},
+		{
+			"start": 0.5,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.6,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.69,
+			"end": 0.74,
+			"value": 2
+		},
+		{
+			"start": 0.74,
+			"end": 0.84,
+			"value": 6
+		},
+		{
+			"start": 0.84,
+			"end": 0.89,
+			"value": 4
+		},
+		{
+			"start": 0.89,
+			"end": 0.99,
+			"value": 1
+		},
+		{
+			"start": 0.99,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.248,
+			"end": 1.376,
+			"value": 1
+		},
+		{
+			"start": 1.376,
+			"end": 1.632,
+			"value": 6
+		},
+		{
+			"start": 1.632,
+			"end": 1.76,
+			"value": 1
+		},
+		{
+			"start": 1.8,
+			"end": 1.84,
+			"value": 7
+		},
+		{
+			"start": 1.84,
+			"end": 1.88,
+			"value": 3
+		},
+		{
+			"start": 1.88,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 2.04,
+			"value": 3
+		},
+		{
+			"start": 2.04,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.217,
+			"end": 2.274,
+			"value": 6
+		},
+		{
+			"start": 2.274,
+			"end": 2.331,
+			"value": 1
+		},
+		{
+			"start": 2.331,
+			"end": 2.389,
+			"value": 6
+		},
+		{
+			"start": 2.389,
+			"end": 2.446,
+			"value": 1
+		},
+		{
+			"start": 2.446,
+			"end": 2.6,
+			"value": 6
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.667,
+			"end": 2.693,
+			"value": 4
+		},
+		{
+			"start": 2.693,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.88,
+			"end": 2.96,
+			"value": 2
+		},
+		{
+			"start": 2.96,
+			"end": 3.04,
+			"value": 5
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 1
+		},
+		{
+			"start": 3.152,
+			"end": 3.184,
+			"value": 7
+		},
+		{
+			"start": 3.184,
+			"end": 3.216,
+			"value": 2
+		},
+		{
+			"start": 3.216,
+			"end": 3.248,
+			"value": 6
+		},
+		{
+			"start": 3.248,
+			"end": 3.28,
+			"value": 2
+		},
+		{
+			"start": 3.34,
+			"end": 3.4,
+			"value": 4
+		},
+		{
+			"start": 3.4,
+			"end": 3.46,
+			"value": 6
+		},
+		{
+			"start": 3.46,
+			"end": 3.52,
+			"value": 2
+		},
+		{
+			"start": 3.57,
+			"end": 3.62,
+			"value": 7
+		},
+		{
+			"start": 3.62,
+			"end": 3.67,
+			"value": 1
+		},
+		{
+			"start": 3.67,
+			"end": 3.77,
+			"value": 6
+		},
+		{
+			"start": 3.77,
+			"end": 3.82,
+			"value": 3
+		},
+		{
+			"start": 3.82,
+			"end": 3.87,
+			"value": 6
+		},
+		{
+			"start": 3.87,
+			"end": 3.92,
+			"value": 2
+		},
+		{
+			"start": 3.96,
+			"end": 4,
+			"value": 1
+		},
+		{
+			"start": 4,
+			"end": 4.04,
+			"value": 6
+		},
+		{
+			"start": 4.04,
+			"end": 4.08,
+			"value": 5
+		},
+		{
+			"start": 4.08,
+			"end": 4.12,
+			"value": 1
+		},
+		{
+			"start": 4.12,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 2
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.32,
+			"end": 4.4,
+			"value": 2
+		},
+		{
+			"start": 4.72,
+			"end": 4.8,
+			"value": 6
+		},
+		{
+			"start": 4.8,
+			"end": 4.88,
+			"value": 3
+		},
+		{
+			"start": 4.92,
+			"end": 4.96,
+			"value": 7
+		},
+		{
+			"start": 4.96,
+			"end": 5,
+			"value": 2
+		},
+		{
+			"start": 5,
+			"end": 5.04,
+			"value": 6
+		},
+		{
+			"start": 5.04,
+			"end": 5.08,
+			"value": 2
+		},
+		{
+			"start": 5.08,
+			"end": 5.12,
+			"value": 6
+		},
+		{
+			"start": 5.173,
+			"end": 5.227,
+			"value": 6
+		},
+		{
+			"start": 5.227,
+			"end": 5.28,
+			"value": 4
+		}
+	]
+}

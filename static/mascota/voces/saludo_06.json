@@ -1,0 +1,218 @@
+{
+	"version": 1,
+	"audio": "saludo_06.mp3",
+	"texto": "¡Coño, qué alegría! Ya estaba pensando en buscarme otro humano.",
+	"duration": 5.76,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 3
+		},
+		{
+			"start": 0.5,
+			"end": 0.52,
+			"value": 6
+		},
+		{
+			"start": 0.52,
+			"end": 0.54,
+			"value": 4
+		},
+		{
+			"start": 0.54,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.62,
+			"end": 0.68,
+			"value": 2
+		},
+		{
+			"start": 0.68,
+			"end": 0.74,
+			"value": 6
+		},
+		{
+			"start": 0.74,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 1.04,
+			"value": 1
+		},
+		{
+			"start": 1.04,
+			"end": 1.2,
+			"value": 2
+		},
+		{
+			"start": 1.68,
+			"end": 1.8,
+			"value": 1
+		},
+		{
+			"start": 1.8,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 1.977,
+			"end": 2.034,
+			"value": 1
+		},
+		{
+			"start": 2.034,
+			"end": 2.149,
+			"value": 6
+		},
+		{
+			"start": 2.149,
+			"end": 2.206,
+			"value": 2
+		},
+		{
+			"start": 2.206,
+			"end": 2.263,
+			"value": 7
+		},
+		{
+			"start": 2.263,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.368,
+			"end": 2.416,
+			"value": 7
+		},
+		{
+			"start": 2.416,
+			"end": 2.464,
+			"value": 1
+		},
+		{
+			"start": 2.464,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 2
+		},
+		{
+			"start": 2.6,
+			"end": 2.68,
+			"value": 6
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 3
+		},
+		{
+			"start": 2.747,
+			"end": 2.773,
+			"value": 1
+		},
+		{
+			"start": 2.773,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.848,
+			"end": 2.896,
+			"value": 7
+		},
+		{
+			"start": 2.896,
+			"end": 2.944,
+			"value": 4
+		},
+		{
+			"start": 2.944,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.1,
+			"value": 2
+		},
+		{
+			"start": 3.1,
+			"end": 3.16,
+			"value": 6
+		},
+		{
+			"start": 3.16,
+			"end": 3.22,
+			"value": 7
+		},
+		{
+			"start": 3.22,
+			"end": 3.28,
+			"value": 1
+		},
+		{
+			"start": 3.328,
+			"end": 3.376,
+			"value": 3
+		},
+		{
+			"start": 3.376,
+			"end": 3.472,
+			"value": 6
+		},
+		{
+			"start": 3.472,
+			"end": 3.52,
+			"value": 3
+		},
+		{
+			"start": 3.657,
+			"end": 3.726,
+			"value": 4
+		},
+		{
+			"start": 3.726,
+			"end": 3.794,
+			"value": 7
+		},
+		{
+			"start": 3.794,
+			"end": 3.863,
+			"value": 2
+		},
+		{
+			"start": 3.863,
+			"end": 3.931,
+			"value": 6
+		},
+		{
+			"start": 3.931,
+			"end": 4,
+			"value": 3
+		},
+		{
+			"start": 4.18,
+			"end": 5.76,
+			"value": 2
+		}
+	]
+}

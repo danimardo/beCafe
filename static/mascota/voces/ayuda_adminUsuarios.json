@@ -1,0 +1,198 @@
+{
+	"version": 1,
+	"audio": "ayuda_adminUsuarios.mp3",
+	"texto": "Da de alta personas, cambia su rol y gestiona sus bajas.",
+	"duration": 3.36,
+	"cues": [
+		{
+			"start": 0.213,
+			"end": 0.267,
+			"value": 6
+		},
+		{
+			"start": 0.267,
+			"end": 0.32,
+			"value": 1
+		},
+		{
+			"start": 0.368,
+			"end": 0.416,
+			"value": 2
+		},
+		{
+			"start": 0.416,
+			"end": 0.512,
+			"value": 6
+		},
+		{
+			"start": 0.512,
+			"end": 0.56,
+			"value": 2
+		},
+		{
+			"start": 0.622,
+			"end": 0.684,
+			"value": 7
+		},
+		{
+			"start": 0.684,
+			"end": 0.747,
+			"value": 1
+		},
+		{
+			"start": 0.747,
+			"end": 0.871,
+			"value": 6
+		},
+		{
+			"start": 0.871,
+			"end": 0.933,
+			"value": 3
+		},
+		{
+			"start": 0.933,
+			"end": 0.996,
+			"value": 6
+		},
+		{
+			"start": 0.996,
+			"end": 1.058,
+			"value": 2
+		},
+		{
+			"start": 1.058,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.248,
+			"end": 1.296,
+			"value": 6
+		},
+		{
+			"start": 1.296,
+			"end": 1.344,
+			"value": 2
+		},
+		{
+			"start": 1.344,
+			"end": 1.44,
+			"value": 7
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 1
+		},
+		{
+			"start": 1.52,
+			"end": 1.6,
+			"value": 2
+		},
+		{
+			"start": 1.627,
+			"end": 1.653,
+			"value": 6
+		},
+		{
+			"start": 1.653,
+			"end": 1.68,
+			"value": 4
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.84,
+			"end": 1.92,
+			"value": 3
+		},
+		{
+			"start": 1.92,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.24,
+			"value": 1
+		},
+		{
+			"start": 2.288,
+			"end": 2.336,
+			"value": 6
+		},
+		{
+			"start": 2.336,
+			"end": 2.384,
+			"value": 1
+		},
+		{
+			"start": 2.384,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.54,
+			"value": 1
+		},
+		{
+			"start": 2.54,
+			"end": 2.6,
+			"value": 3
+		},
+		{
+			"start": 2.6,
+			"end": 2.66,
+			"value": 6
+		},
+		{
+			"start": 2.66,
+			"end": 2.72,
+			"value": 2
+		},
+		{
+			"start": 2.78,
+			"end": 2.84,
+			"value": 6
+		},
+		{
+			"start": 2.84,
+			"end": 2.9,
+			"value": 4
+		},
+		{
+			"start": 2.9,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 7
+		},
+		{
+			"start": 3.12,
+			"end": 3.16,
+			"value": 2
+		},
+		{
+			"start": 3.16,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.24,
+			"value": 2
+		},
+		{
+			"start": 3.24,
+			"end": 3.28,
+			"value": 6
+		}
+	]
+}

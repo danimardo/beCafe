@@ -1,0 +1,188 @@
+{
+	"version": 1,
+	"audio": "registro_26.mp3",
+	"texto": "¿Has probado a reiniciarte? Ah, no, que eso es el café.",
+	"duration": 5.201,
+	"cues": [
+		{
+			"start": 0.187,
+			"end": 0.213,
+			"value": 2
+		},
+		{
+			"start": 0.213,
+			"end": 0.24,
+			"value": 6
+		},
+		{
+			"start": 0.304,
+			"end": 0.368,
+			"value": 7
+		},
+		{
+			"start": 0.368,
+			"end": 0.432,
+			"value": 6
+		},
+		{
+			"start": 0.432,
+			"end": 0.496,
+			"value": 3
+		},
+		{
+			"start": 0.496,
+			"end": 0.56,
+			"value": 7
+		},
+		{
+			"start": 0.56,
+			"end": 0.587,
+			"value": 2
+		},
+		{
+			"start": 0.587,
+			"end": 0.613,
+			"value": 6
+		},
+		{
+			"start": 0.613,
+			"end": 0.64,
+			"value": 3
+		},
+		{
+			"start": 0.68,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 0.768,
+			"end": 0.816,
+			"value": 6
+		},
+		{
+			"start": 0.816,
+			"end": 0.912,
+			"value": 1
+		},
+		{
+			"start": 0.912,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 1
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 1
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 2
+		},
+		{
+			"start": 1.28,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 1
+		},
+		{
+			"start": 2.053,
+			"end": 2.187,
+			"value": 2
+		},
+		{
+			"start": 2.533,
+			"end": 2.587,
+			"value": 6
+		},
+		{
+			"start": 2.587,
+			"end": 2.64,
+			"value": 3
+		},
+		{
+			"start": 2.76,
+			"end": 2.78,
+			"value": 4
+		},
+		{
+			"start": 2.78,
+			"end": 2.8,
+			"value": 1
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 1
+		},
+		{
+			"start": 2.88,
+			"end": 2.92,
+			"value": 6
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 3
+		},
+		{
+			"start": 2.987,
+			"end": 3.013,
+			"value": 1
+		},
+		{
+			"start": 3.013,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.093,
+			"end": 3.147,
+			"value": 1
+		},
+		{
+			"start": 3.147,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.296,
+			"end": 3.392,
+			"value": 6
+		},
+		{
+			"start": 3.392,
+			"end": 3.488,
+			"value": 2
+		},
+		{
+			"start": 3.488,
+			"end": 3.584,
+			"value": 5
+		},
+		{
+			"start": 3.584,
+			"end": 3.68,
+			"value": 1
+		},
+		{
+			"start": 4.76,
+			"end": 5.201,
+			"value": 2
+		}
+	]
+}

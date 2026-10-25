@@ -1,0 +1,293 @@
+{
+	"version": 1,
+	"audio": "registro_72.mp3",
+	"texto": "Según mis cálculos, una cabra con corbata dirigiría mejor esta reunión.",
+	"duration": 5.36,
+	"cues": [
+		{
+			"start": 0.32,
+			"end": 0.347,
+			"value": 6
+		},
+		{
+			"start": 0.347,
+			"end": 0.373,
+			"value": 1
+		},
+		{
+			"start": 0.373,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 4
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 7
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.72,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 2
+		},
+		{
+			"start": 0.96,
+			"end": 1.104,
+			"value": 6
+		},
+		{
+			"start": 1.104,
+			"end": 1.168,
+			"value": 4
+		},
+		{
+			"start": 1.168,
+			"end": 1.232,
+			"value": 6
+		},
+		{
+			"start": 1.232,
+			"end": 1.296,
+			"value": 3
+		},
+		{
+			"start": 1.296,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.61,
+			"end": 1.66,
+			"value": 4
+		},
+		{
+			"start": 1.66,
+			"end": 1.71,
+			"value": 6
+		},
+		{
+			"start": 1.71,
+			"end": 1.76,
+			"value": 2
+		},
+		{
+			"start": 1.82,
+			"end": 1.88,
+			"value": 6
+		},
+		{
+			"start": 1.88,
+			"end": 1.94,
+			"value": 2
+		},
+		{
+			"start": 1.94,
+			"end": 2,
+			"value": 7
+		},
+		{
+			"start": 2,
+			"end": 2.04,
+			"value": 6
+		},
+		{
+			"start": 2.04,
+			"end": 2.08,
+			"value": 2
+		},
+		{
+			"start": 2.14,
+			"end": 2.2,
+			"value": 6
+		},
+		{
+			"start": 2.2,
+			"end": 2.26,
+			"value": 3
+		},
+		{
+			"start": 2.26,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.36,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.44,
+			"value": 3
+		},
+		{
+			"start": 2.44,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 7
+		},
+		{
+			"start": 2.56,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.64,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.72,
+			"end": 2.8,
+			"value": 2
+		},
+		{
+			"start": 2.853,
+			"end": 2.907,
+			"value": 6
+		},
+		{
+			"start": 2.907,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 2.96,
+			"end": 3.013,
+			"value": 6
+		},
+		{
+			"start": 3.013,
+			"end": 3.067,
+			"value": 1
+		},
+		{
+			"start": 3.067,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.16,
+			"value": 1
+		},
+		{
+			"start": 3.16,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 1
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 2
+		},
+		{
+			"start": 3.427,
+			"end": 3.493,
+			"value": 7
+		},
+		{
+			"start": 3.493,
+			"end": 3.56,
+			"value": 1
+		},
+		{
+			"start": 3.56,
+			"end": 3.627,
+			"value": 6
+		},
+		{
+			"start": 3.627,
+			"end": 3.693,
+			"value": 3
+		},
+		{
+			"start": 3.693,
+			"end": 3.76,
+			"value": 6
+		},
+		{
+			"start": 3.808,
+			"end": 3.856,
+			"value": 1
+		},
+		{
+			"start": 3.856,
+			"end": 3.952,
+			"value": 6
+		},
+		{
+			"start": 3.952,
+			"end": 4,
+			"value": 2
+		},
+		{
+			"start": 4.064,
+			"end": 4.128,
+			"value": 6
+		},
+		{
+			"start": 4.128,
+			"end": 4.192,
+			"value": 1
+		},
+		{
+			"start": 4.192,
+			"end": 4.256,
+			"value": 4
+		},
+		{
+			"start": 4.256,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.32,
+			"end": 4.373,
+			"value": 1
+		},
+		{
+			"start": 4.373,
+			"end": 4.427,
+			"value": 3
+		},
+		{
+			"start": 4.427,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.66,
+			"end": 5.36,
+			"value": 2
+		}
+	]
+}

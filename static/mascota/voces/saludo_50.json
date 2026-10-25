@@ -1,0 +1,278 @@
+{
+	"version": 1,
+	"audio": "saludo_50.mp3",
+	"texto": "¡Aleluya, hermano! ¡Otro día que el café nos salva de cometer estupideces!",
+	"duration": 5.2,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.16,
+			"value": 2
+		},
+		{
+			"start": 0.16,
+			"end": 0.24,
+			"value": 6
+		},
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 1
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 4
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.76,
+			"end": 0.78,
+			"value": 1
+		},
+		{
+			"start": 0.78,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 7
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 2
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.2,
+			"value": 3
+		},
+		{
+			"start": 1.44,
+			"end": 1.6,
+			"value": 3
+		},
+		{
+			"start": 1.6,
+			"end": 1.653,
+			"value": 6
+		},
+		{
+			"start": 1.653,
+			"end": 1.68,
+			"value": 3
+		},
+		{
+			"start": 1.74,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.86,
+			"value": 1
+		},
+		{
+			"start": 1.86,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 1.96,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2,
+			"end": 2.04,
+			"value": 4
+		},
+		{
+			"start": 2.04,
+			"end": 2.133,
+			"value": 1
+		},
+		{
+			"start": 2.133,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.224,
+			"end": 2.288,
+			"value": 6
+		},
+		{
+			"start": 2.288,
+			"end": 2.352,
+			"value": 2
+		},
+		{
+			"start": 2.352,
+			"end": 2.416,
+			"value": 5
+		},
+		{
+			"start": 2.416,
+			"end": 2.48,
+			"value": 1
+		},
+		{
+			"start": 2.54,
+			"end": 2.6,
+			"value": 6
+		},
+		{
+			"start": 2.6,
+			"end": 2.66,
+			"value": 3
+		},
+		{
+			"start": 2.66,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.84,
+			"value": 2
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.88,
+			"end": 2.92,
+			"value": 5
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 2
+		},
+		{
+			"start": 2.987,
+			"end": 3.013,
+			"value": 6
+		},
+		{
+			"start": 3.013,
+			"end": 3.04,
+			"value": 1
+		},
+		{
+			"start": 3.1,
+			"end": 3.16,
+			"value": 6
+		},
+		{
+			"start": 3.16,
+			"end": 3.22,
+			"value": 3
+		},
+		{
+			"start": 3.22,
+			"end": 3.28,
+			"value": 7
+		},
+		{
+			"start": 3.28,
+			"end": 3.34,
+			"value": 1
+		},
+		{
+			"start": 3.34,
+			"end": 3.4,
+			"value": 6
+		},
+		{
+			"start": 3.4,
+			"end": 3.46,
+			"value": 1
+		},
+		{
+			"start": 3.46,
+			"end": 3.52,
+			"value": 6
+		},
+		{
+			"start": 3.58,
+			"end": 3.64,
+			"value": 1
+		},
+		{
+			"start": 3.64,
+			"end": 3.76,
+			"value": 6
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 4
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 7
+		},
+		{
+			"start": 3.92,
+			"end": 3.973,
+			"value": 1
+		},
+		{
+			"start": 3.973,
+			"end": 4.027,
+			"value": 6
+		},
+		{
+			"start": 4.027,
+			"end": 4.08,
+			"value": 1
+		},
+		{
+			"start": 4.08,
+			"end": 4.213,
+			"value": 6
+		},
+		{
+			"start": 4.213,
+			"end": 4.347,
+			"value": 1
+		},
+		{
+			"start": 4.347,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.6,
+			"end": 5.2,
+			"value": 2
+		}
+	]
+}

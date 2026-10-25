@@ -1,0 +1,158 @@
+{
+	"version": 1,
+	"audio": "registro_20.mp3",
+	"texto": "Café registrado. Productividad no encontrada.",
+	"duration": 3.2,
+	"cues": [
+		{
+			"start": 0.371,
+			"end": 0.422,
+			"value": 6
+		},
+		{
+			"start": 0.422,
+			"end": 0.473,
+			"value": 1
+		},
+		{
+			"start": 0.473,
+			"end": 0.524,
+			"value": 6
+		},
+		{
+			"start": 0.524,
+			"end": 0.575,
+			"value": 1
+		},
+		{
+			"start": 0.575,
+			"end": 0.727,
+			"value": 6
+		},
+		{
+			"start": 0.727,
+			"end": 0.778,
+			"value": 2
+		},
+		{
+			"start": 0.778,
+			"end": 0.829,
+			"value": 6
+		},
+		{
+			"start": 0.829,
+			"end": 0.88,
+			"value": 3
+		},
+		{
+			"start": 1.24,
+			"end": 1.28,
+			"value": 7
+		},
+		{
+			"start": 1.28,
+			"end": 1.32,
+			"value": 6
+		},
+		{
+			"start": 1.32,
+			"end": 1.36,
+			"value": 3
+		},
+		{
+			"start": 1.36,
+			"end": 1.4,
+			"value": 6
+		},
+		{
+			"start": 1.4,
+			"end": 1.44,
+			"value": 4
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.56,
+			"value": 1
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 5
+		},
+		{
+			"start": 1.6,
+			"end": 1.64,
+			"value": 1
+		},
+		{
+			"start": 1.64,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 1.72,
+			"value": 2
+		},
+		{
+			"start": 1.72,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.813,
+			"end": 1.867,
+			"value": 6
+		},
+		{
+			"start": 1.867,
+			"end": 1.92,
+			"value": 3
+		},
+		{
+			"start": 1.98,
+			"end": 2.04,
+			"value": 1
+		},
+		{
+			"start": 2.04,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.22,
+			"value": 3
+		},
+		{
+			"start": 2.22,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.507,
+			"value": 2
+		},
+		{
+			"start": 2.507,
+			"end": 2.613,
+			"value": 6
+		},
+		{
+			"start": 2.613,
+			"end": 2.72,
+			"value": 2
+		},
+		{
+			"start": 2.82,
+			"end": 3.2,
+			"value": 2
+		}
+	]
+}

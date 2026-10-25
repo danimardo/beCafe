@@ -4,7 +4,14 @@ import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, falloDeNegocio, fallo } from './fallo';
 import { ErrorDeNegocio, esErrorDeNegocio, nuevoId, registrar } from '#lib/server/plataforma';
 import { leerConfiguracion } from '#lib/server/configuracion';
-import { buscarUsuarioPorId, entregarFrase, entregarSaludo, leerMarcasCuenta, leerSaludoDisponible, marcarCuenta } from '#lib/server/usuarios';
+import {
+	buscarUsuarioPorId,
+	entregarFrase,
+	entregarSaludo,
+	leerMarcasCuenta,
+	leerSaludoDisponible,
+	marcarCuenta,
+} from '#lib/server/usuarios';
 import { deshacerRelleno, leerEstadoAgua, registrarRelleno } from '#lib/server/rellenos';
 import {
 	contarConsumos,
@@ -244,7 +251,11 @@ export const actions: Actions = {
 			try {
 				fraseId = entregarFrase(locals.ambiente, actor.usuarioId, 'registro').fraseId;
 			} catch (causa) {
-				registrar('frase.fallo', { usuarioId: actor.usuarioId, lista: 'registro', tipo: causa instanceof Error ? causa.name : 'desconocido' });
+				registrar('frase.fallo', {
+					usuarioId: actor.usuarioId,
+					lista: 'registro',
+					tipo: causa instanceof Error ? causa.name : 'desconocido',
+				});
 			}
 		}
 		return {

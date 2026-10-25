@@ -197,7 +197,9 @@ describe('acciones de /compras', () => {
 			const { estado, datos } = desenvolverFallo(resultado);
 			expect(estado).toBe(400);
 			expect(datos).not.toHaveProperty('confirmacion');
-			expect(datos.errores).toEqual({ [`importe-${tipoA}`]: { codigo: 'IMPORTE_OBLIGATORIO', mensaje: textos.economia.importeObligatorio } });
+			expect(datos.errores).toEqual({
+				[`importe-${tipoA}`]: { codigo: 'IMPORTE_OBLIGATORIO', mensaje: textos.economia.importeObligatorio },
+			});
 		}
 		expect(leerComprasRecientes(entorno.ambiente.db, marta, 10)).toHaveLength(0);
 	});

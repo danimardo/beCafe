@@ -1,0 +1,213 @@
+{
+	"version": 1,
+	"audio": "ayuda_avisos.mp3",
+	"texto": "Lista tus avisos: stock bajo, deuda, cafés de visitantes y otros.",
+	"duration": 4.4,
+	"cues": [
+		{
+			"start": 0.3,
+			"end": 0.36,
+			"value": 6
+		},
+		{
+			"start": 0.36,
+			"end": 0.42,
+			"value": 4
+		},
+		{
+			"start": 0.42,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.528,
+			"end": 0.576,
+			"value": 2
+		},
+		{
+			"start": 0.576,
+			"end": 0.624,
+			"value": 5
+		},
+		{
+			"start": 0.624,
+			"end": 0.672,
+			"value": 1
+		},
+		{
+			"start": 0.672,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.84,
+			"value": 3
+		},
+		{
+			"start": 0.84,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 1.173,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.333,
+			"value": 3
+		},
+		{
+			"start": 1.333,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.6,
+			"value": 7
+		},
+		{
+			"start": 1.6,
+			"end": 1.68,
+			"value": 2
+		},
+		{
+			"start": 1.68,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 3
+		},
+		{
+			"start": 2.053,
+			"end": 2.107,
+			"value": 6
+		},
+		{
+			"start": 2.107,
+			"end": 2.16,
+			"value": 1
+		},
+		{
+			"start": 2.16,
+			"end": 2.267,
+			"value": 4
+		},
+		{
+			"start": 2.267,
+			"end": 2.373,
+			"value": 6
+		},
+		{
+			"start": 2.373,
+			"end": 2.48,
+			"value": 2
+		},
+		{
+			"start": 2.62,
+			"end": 2.68,
+			"value": 6
+		},
+		{
+			"start": 2.68,
+			"end": 2.74,
+			"value": 2
+		},
+		{
+			"start": 2.74,
+			"end": 2.8,
+			"value": 5
+		},
+		{
+			"start": 2.8,
+			"end": 2.84,
+			"value": 1
+		},
+		{
+			"start": 2.84,
+			"end": 2.933,
+			"value": 6
+		},
+		{
+			"start": 2.933,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 3.013,
+			"end": 3.067,
+			"value": 5
+		},
+		{
+			"start": 3.067,
+			"end": 3.12,
+			"value": 1
+		},
+		{
+			"start": 3.12,
+			"end": 3.173,
+			"value": 6
+		},
+		{
+			"start": 3.173,
+			"end": 3.227,
+			"value": 1
+		},
+		{
+			"start": 3.227,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 2
+		},
+		{
+			"start": 3.36,
+			"end": 3.52,
+			"value": 6
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 1
+		},
+		{
+			"start": 3.6,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.8,
+			"end": 3.92,
+			"value": 1
+		},
+		{
+			"start": 3.987,
+			"end": 4.053,
+			"value": 3
+		},
+		{
+			"start": 4.053,
+			"end": 4.187,
+			"value": 6
+		},
+		{
+			"start": 4.187,
+			"end": 4.253,
+			"value": 3
+		},
+		{
+			"start": 4.253,
+			"end": 4.32,
+			"value": 6
+		}
+	]
+}

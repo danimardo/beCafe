@@ -1,0 +1,298 @@
+{
+	"version": 1,
+	"audio": "registro_14.mp3",
+	"texto": "Este café ha sido aprobado por el Ministerio de Cosas que Nos Importan una Mierda.",
+	"duration": 5.04,
+	"cues": [
+		{
+			"start": 0.282,
+			"end": 0.307,
+			"value": 6
+		},
+		{
+			"start": 0.384,
+			"end": 0.448,
+			"value": 6
+		},
+		{
+			"start": 0.448,
+			"end": 0.512,
+			"value": 2
+		},
+		{
+			"start": 0.512,
+			"end": 0.576,
+			"value": 5
+		},
+		{
+			"start": 0.576,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.693,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 0.768,
+			"end": 0.816,
+			"value": 6
+		},
+		{
+			"start": 0.816,
+			"end": 0.864,
+			"value": 1
+		},
+		{
+			"start": 0.864,
+			"end": 0.912,
+			"value": 6
+		},
+		{
+			"start": 0.912,
+			"end": 0.96,
+			"value": 3
+		},
+		{
+			"start": 1,
+			"end": 1.04,
+			"value": 2
+		},
+		{
+			"start": 1.04,
+			"end": 1.1,
+			"value": 7
+		},
+		{
+			"start": 1.1,
+			"end": 1.16,
+			"value": 6
+		},
+		{
+			"start": 1.16,
+			"end": 1.22,
+			"value": 3
+		},
+		{
+			"start": 1.22,
+			"end": 1.28,
+			"value": 7
+		},
+		{
+			"start": 1.28,
+			"end": 1.333,
+			"value": 2
+		},
+		{
+			"start": 1.333,
+			"end": 1.387,
+			"value": 6
+		},
+		{
+			"start": 1.387,
+			"end": 1.44,
+			"value": 3
+		},
+		{
+			"start": 1.48,
+			"end": 1.52,
+			"value": 7
+		},
+		{
+			"start": 1.52,
+			"end": 1.56,
+			"value": 3
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.627,
+			"end": 1.653,
+			"value": 1
+		},
+		{
+			"start": 1.653,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.733,
+			"end": 1.787,
+			"value": 7
+		},
+		{
+			"start": 1.787,
+			"end": 1.84,
+			"value": 1
+		},
+		{
+			"start": 1.84,
+			"end": 1.893,
+			"value": 6
+		},
+		{
+			"start": 1.893,
+			"end": 1.947,
+			"value": 1
+		},
+		{
+			"start": 1.947,
+			"end": 2.053,
+			"value": 6
+		},
+		{
+			"start": 2.053,
+			"end": 2.107,
+			"value": 1
+		},
+		{
+			"start": 2.107,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.2,
+			"value": 1
+		},
+		{
+			"start": 2.2,
+			"end": 2.24,
+			"value": 3
+		},
+		{
+			"start": 2.267,
+			"end": 2.293,
+			"value": 6
+		},
+		{
+			"start": 2.293,
+			"end": 2.32,
+			"value": 1
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 3
+		},
+		{
+			"start": 2.56,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.64,
+			"end": 2.68,
+			"value": 2
+		},
+		{
+			"start": 2.68,
+			"end": 2.76,
+			"value": 6
+		},
+		{
+			"start": 2.76,
+			"end": 2.78,
+			"value": 4
+		},
+		{
+			"start": 2.78,
+			"end": 2.8,
+			"value": 1
+		},
+		{
+			"start": 2.86,
+			"end": 2.92,
+			"value": 6
+		},
+		{
+			"start": 2.92,
+			"end": 2.98,
+			"value": 3
+		},
+		{
+			"start": 2.98,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.097,
+			"end": 3.154,
+			"value": 1
+		},
+		{
+			"start": 3.154,
+			"end": 3.269,
+			"value": 7
+		},
+		{
+			"start": 3.269,
+			"end": 3.326,
+			"value": 3
+		},
+		{
+			"start": 3.326,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.48,
+			"value": 2
+		},
+		{
+			"start": 3.48,
+			"end": 3.52,
+			"value": 6
+		},
+		{
+			"start": 3.56,
+			"end": 3.6,
+			"value": 4
+		},
+		{
+			"start": 3.6,
+			"end": 3.64,
+			"value": 6
+		},
+		{
+			"start": 3.64,
+			"end": 3.68,
+			"value": 2
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 7
+		},
+		{
+			"start": 3.84,
+			"end": 3.947,
+			"value": 1
+		},
+		{
+			"start": 3.947,
+			"end": 4.08,
+			"value": 6
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 2
+		},
+		{
+			"start": 4.4,
+			"end": 5.04,
+			"value": 2
+		}
+	]
+}

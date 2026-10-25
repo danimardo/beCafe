@@ -1,0 +1,298 @@
+{
+	"version": 1,
+	"audio": "saludo_60.mp3",
+	"texto": "¡Buenos días! ¡Recuerda que la sonrisa es gratis, aunque te la exijan en el trabajo!",
+	"duration": 5.52,
+	"cues": [
+		{
+			"start": 0.32,
+			"end": 0.36,
+			"value": 7
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 3
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.576,
+			"end": 0.672,
+			"value": 6
+		},
+		{
+			"start": 0.672,
+			"end": 0.768,
+			"value": 1
+		},
+		{
+			"start": 0.768,
+			"end": 0.864,
+			"value": 2
+		},
+		{
+			"start": 0.864,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.413,
+			"value": 6
+		},
+		{
+			"start": 1.413,
+			"end": 1.467,
+			"value": 1
+		},
+		{
+			"start": 1.467,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.547,
+			"value": 4
+		},
+		{
+			"start": 1.547,
+			"end": 1.573,
+			"value": 1
+		},
+		{
+			"start": 1.573,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 1.76,
+			"value": 2
+		},
+		{
+			"start": 1.78,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.82,
+			"value": 4
+		},
+		{
+			"start": 1.82,
+			"end": 1.84,
+			"value": 1
+		},
+		{
+			"start": 1.867,
+			"end": 1.893,
+			"value": 6
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 1.98,
+			"end": 2.04,
+			"value": 6
+		},
+		{
+			"start": 2.04,
+			"end": 2.1,
+			"value": 3
+		},
+		{
+			"start": 2.1,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.32,
+			"value": 1
+		},
+		{
+			"start": 2.32,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 2
+		},
+		{
+			"start": 2.533,
+			"end": 2.587,
+			"value": 1
+		},
+		{
+			"start": 2.587,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.709,
+			"end": 2.846,
+			"value": 6
+		},
+		{
+			"start": 2.846,
+			"end": 2.914,
+			"value": 2
+		},
+		{
+			"start": 2.914,
+			"end": 2.983,
+			"value": 6
+		},
+		{
+			"start": 2.983,
+			"end": 3.051,
+			"value": 1
+		},
+		{
+			"start": 3.051,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.326,
+			"end": 3.371,
+			"value": 2
+		},
+		{
+			"start": 3.371,
+			"end": 3.417,
+			"value": 4
+		},
+		{
+			"start": 3.417,
+			"end": 3.509,
+			"value": 6
+		},
+		{
+			"start": 3.509,
+			"end": 3.554,
+			"value": 4
+		},
+		{
+			"start": 3.554,
+			"end": 3.6,
+			"value": 1
+		},
+		{
+			"start": 3.627,
+			"end": 3.653,
+			"value": 6
+		},
+		{
+			"start": 3.653,
+			"end": 3.68,
+			"value": 1
+		},
+		{
+			"start": 3.707,
+			"end": 3.733,
+			"value": 6
+		},
+		{
+			"start": 3.733,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 1
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 1
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 2
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.347,
+			"end": 4.373,
+			"value": 1
+		},
+		{
+			"start": 4.373,
+			"end": 4.4,
+			"value": 6
+		},
+		{
+			"start": 4.427,
+			"end": 4.453,
+			"value": 1
+		},
+		{
+			"start": 4.453,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.55,
+			"end": 4.69,
+			"value": 6
+		},
+		{
+			"start": 4.69,
+			"end": 4.76,
+			"value": 2
+		},
+		{
+			"start": 4.76,
+			"end": 4.83,
+			"value": 7
+		},
+		{
+			"start": 4.83,
+			"end": 4.9,
+			"value": 2
+		},
+		{
+			"start": 4.9,
+			"end": 4.97,
+			"value": 6
+		},
+		{
+			"start": 4.97,
+			"end": 5.04,
+			"value": 3
+		},
+		{
+			"start": 5.16,
+			"end": 5.52,
+			"value": 2
+		}
+	]
+}

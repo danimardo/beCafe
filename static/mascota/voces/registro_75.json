@@ -1,0 +1,288 @@
+{
+	"version": 1,
+	"audio": "registro_75.mp3",
+	"texto": "Otro café. Otro intento desesperado de compilar una personalidad funcional.",
+	"duration": 6.24,
+	"cues": [
+		{
+			"start": 0.277,
+			"end": 0.299,
+			"value": 3
+		},
+		{
+			"start": 0.299,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 3
+		},
+		{
+			"start": 0.576,
+			"end": 0.672,
+			"value": 6
+		},
+		{
+			"start": 0.672,
+			"end": 0.768,
+			"value": 2
+		},
+		{
+			"start": 0.768,
+			"end": 0.864,
+			"value": 5
+		},
+		{
+			"start": 0.864,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 1.333,
+			"end": 1.427,
+			"value": 3
+		},
+		{
+			"start": 1.427,
+			"end": 1.56,
+			"value": 6
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 3
+		},
+		{
+			"start": 1.669,
+			"end": 1.737,
+			"value": 1
+		},
+		{
+			"start": 1.737,
+			"end": 1.874,
+			"value": 6
+		},
+		{
+			"start": 1.874,
+			"end": 1.943,
+			"value": 1
+		},
+		{
+			"start": 1.943,
+			"end": 2.079,
+			"value": 6
+		},
+		{
+			"start": 2.14,
+			"end": 2.2,
+			"value": 6
+		},
+		{
+			"start": 2.2,
+			"end": 2.26,
+			"value": 1
+		},
+		{
+			"start": 2.26,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.384,
+			"value": 1
+		},
+		{
+			"start": 2.384,
+			"end": 2.448,
+			"value": 6
+		},
+		{
+			"start": 2.448,
+			"end": 2.512,
+			"value": 7
+		},
+		{
+			"start": 2.512,
+			"end": 2.576,
+			"value": 1
+		},
+		{
+			"start": 2.576,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.64,
+			"end": 2.693,
+			"value": 2
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 6
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 3
+		},
+		{
+			"start": 2.853,
+			"end": 2.907,
+			"value": 6
+		},
+		{
+			"start": 2.907,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 3.008,
+			"end": 3.056,
+			"value": 6
+		},
+		{
+			"start": 3.056,
+			"end": 3.104,
+			"value": 3
+		},
+		{
+			"start": 3.104,
+			"end": 3.2,
+			"value": 7
+		},
+		{
+			"start": 3.2,
+			"end": 3.26,
+			"value": 1
+		},
+		{
+			"start": 3.26,
+			"end": 3.32,
+			"value": 6
+		},
+		{
+			"start": 3.32,
+			"end": 3.38,
+			"value": 2
+		},
+		{
+			"start": 3.38,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.48,
+			"end": 3.52,
+			"value": 4
+		},
+		{
+			"start": 3.52,
+			"end": 3.56,
+			"value": 6
+		},
+		{
+			"start": 3.56,
+			"end": 3.6,
+			"value": 2
+		},
+		{
+			"start": 3.662,
+			"end": 3.724,
+			"value": 7
+		},
+		{
+			"start": 3.724,
+			"end": 3.787,
+			"value": 1
+		},
+		{
+			"start": 3.787,
+			"end": 3.911,
+			"value": 6
+		},
+		{
+			"start": 3.911,
+			"end": 3.973,
+			"value": 3
+		},
+		{
+			"start": 3.973,
+			"end": 4.036,
+			"value": 6
+		},
+		{
+			"start": 4.036,
+			"end": 4.098,
+			"value": 2
+		},
+		{
+			"start": 4.098,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.2,
+			"value": 1
+		},
+		{
+			"start": 4.2,
+			"end": 4.24,
+			"value": 6
+		},
+		{
+			"start": 4.24,
+			"end": 4.28,
+			"value": 2
+		},
+		{
+			"start": 4.28,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.384,
+			"end": 4.448,
+			"value": 5
+		},
+		{
+			"start": 4.448,
+			"end": 4.512,
+			"value": 4
+		},
+		{
+			"start": 4.512,
+			"end": 4.64,
+			"value": 6
+		},
+		{
+			"start": 4.64,
+			"end": 4.704,
+			"value": 1
+		},
+		{
+			"start": 4.704,
+			"end": 4.768,
+			"value": 3
+		},
+		{
+			"start": 4.768,
+			"end": 4.832,
+			"value": 6
+		},
+		{
+			"start": 4.832,
+			"end": 4.896,
+			"value": 2
+		},
+		{
+			"start": 4.896,
+			"end": 4.96,
+			"value": 6
+		}
+	]
+}

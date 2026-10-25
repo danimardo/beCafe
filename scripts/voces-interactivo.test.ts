@@ -1,10 +1,14 @@
-import { spawn } from 'node:child_process';
+import { execFileSync, spawn } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { createServer, type Server } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
+import { z } from 'zod';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { esquemaPistaLipSync } from '../src/lib/shared/contratos/apariencia';
+import { CATALOGO_AYUDA } from '../src/lib/shared/ayuda/pantallas';
+import { PASOS_TOUR } from '../src/lib/shared/ayuda/tour';
+import { FRASES_REGISTRO, FRASES_SALUDO } from '../src/lib/shared/mascota/frases';
 
 // Menú de `voces.sh` / `voces.ps1` (scripts/voces-interactivo.mjs) contra un servidor ElevenLabs falso: sin red, sin clave real y sin coste.
 const SCRIPT = resolve(process.cwd(), 'scripts/voces-interactivo.mjs');
@@ -76,7 +80,7 @@ describe('menú interactivo de voces', () => {
 	it('muestra el estado del catálogo y nunca la clave', async () => {
 		const salida = await ejecutar(['1', '0']);
 
-		expect(salida).toContain('0 de 24 generadas');
+		expect(salida).toContain('0 de 217 generadas');
 		expect(salida).toContain('✘ intro_01');
 		expect(salida).toContain('Clave de ElevenLabs: encontrada');
 		expect(salida).not.toContain('clave-falsa');
@@ -150,9 +154,42 @@ describe('menú interactivo de voces', () => {
 	});
 
 	it('una selección no válida no genera nada', async () => {
-		const salida = await ejecutar(['2', '3', '99', '0']);
+		const salida = await ejecutar(['2', '3', '9999', '0']);
 
 		expect(salida).toContain('Selección no válida');
 		expect(peticiones).toHaveLength(0);
+	});
+});
+
+const esquemaCatalogo = z.strictObject({ ids: z.array(z.string()), grupos: z.array(z.string()) });
+
+describe('catálogo de locuciones de F11 (RF-237)', () => {
+	// Los .mjs no llevan tipos: se leen en un proceso de Node, como hace el menú.
+	const programa = `const { LOCUCIONES } = await import('./scripts/generar-voces.mjs');
+const { grupoDe } = await import('./scripts/voces-interactivo.mjs');
+console.log(JSON.stringify({ ids: LOCUCIONES.map((i) => i.id), grupos: [...new Set(LOCUCIONES.map((i) => grupoDe(i.id)))] }));`;
+	const { ids, grupos } = esquemaCatalogo.parse(
+		JSON.parse(execFileSync(process.execPath, ['--input-type=module', '-e', programa], { cwd: process.cwd(), encoding: 'utf8' })),
+	);
+
+	it('CA-237: los identificadores son únicos y entran 196 locuciones nuevas', () => {
+		expect(new Set(ids).size).toBe(ids.length);
+		const nuevas = ids.filter((id) => /^(registro|saludo|tour|ayuda)_/.test(id));
+		expect(nuevas).toHaveLength(FRASES_REGISTRO.length + FRASES_SALUDO.length + PASOS_TOUR.length + Object.keys(CATALOGO_AYUDA).length);
+		expect(nuevas).toHaveLength(196);
+	});
+
+	it('CA-237: cada frase, paso del tour y pantalla de ayuda tiene su locución', () => {
+		for (const frase of [...FRASES_REGISTRO, ...FRASES_SALUDO]) expect(ids).toContain(frase.id);
+		for (const paso of PASOS_TOUR) expect(ids).toContain(paso.id);
+		for (const pantalla of Object.keys(CATALOGO_AYUDA)) expect(ids).toContain(`ayuda_${pantalla}`);
+	});
+
+	it('CA-237: se retiran las locuciones de café apuntado y de invitado anteriores', () => {
+		expect(ids.filter((id) => /^consumo_(confirmado|invitado)_/.test(id))).toEqual([]);
+	});
+
+	it('CA-237: el menú ofrece los grupos registro, saludo, tour y ayuda', () => {
+		for (const grupo of ['registro', 'saludo', 'tour', 'ayuda']) expect(grupos).toContain(grupo);
 	});
 });

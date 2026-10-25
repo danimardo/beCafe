@@ -1,0 +1,323 @@
+{
+	"version": 1,
+	"audio": "saludo_80.mp3",
+	"texto": "¡Bienvenido, mi pequeño caos andante! ¡El mundo es un lugar peor sin ti! Bueno… depende.",
+	"duration": 7.28,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.22,
+			"value": 7
+		},
+		{
+			"start": 0.22,
+			"end": 0.34,
+			"value": 1
+		},
+		{
+			"start": 0.34,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.427,
+			"value": 5
+		},
+		{
+			"start": 0.427,
+			"end": 0.453,
+			"value": 1
+		},
+		{
+			"start": 0.453,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 3
+		},
+		{
+			"start": 0.827,
+			"end": 0.853,
+			"value": 7
+		},
+		{
+			"start": 0.853,
+			"end": 0.88,
+			"value": 1
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 7
+		},
+		{
+			"start": 0.96,
+			"end": 1,
+			"value": 1
+		},
+		{
+			"start": 1,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.08,
+			"value": 4
+		},
+		{
+			"start": 1.08,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 3
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 2
+		},
+		{
+			"start": 1.52,
+			"end": 1.56,
+			"value": 3
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.64,
+			"end": 1.68,
+			"value": 2
+		},
+		{
+			"start": 1.68,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.86,
+			"value": 2
+		},
+		{
+			"start": 1.86,
+			"end": 2.06,
+			"value": 6
+		},
+		{
+			"start": 2.06,
+			"end": 2.16,
+			"value": 1
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 1
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 7
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 4
+		},
+		{
+			"start": 2.8,
+			"end": 2.907,
+			"value": 6
+		},
+		{
+			"start": 2.907,
+			"end": 2.96,
+			"value": 3
+		},
+		{
+			"start": 3.013,
+			"end": 3.067,
+			"value": 1
+		},
+		{
+			"start": 3.067,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.173,
+			"end": 3.227,
+			"value": 4
+		},
+		{
+			"start": 3.227,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.333,
+			"end": 3.387,
+			"value": 6
+		},
+		{
+			"start": 3.387,
+			"end": 3.44,
+			"value": 4
+		},
+		{
+			"start": 3.44,
+			"end": 3.493,
+			"value": 6
+		},
+		{
+			"start": 3.493,
+			"end": 3.547,
+			"value": 2
+		},
+		{
+			"start": 3.547,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.653,
+			"end": 3.707,
+			"value": 7
+		},
+		{
+			"start": 3.707,
+			"end": 3.76,
+			"value": 1
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 3
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.96,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.04,
+			"value": 1
+		},
+		{
+			"start": 4.04,
+			"end": 4.08,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 6
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 1
+		},
+		{
+			"start": 4.8,
+			"end": 4.88,
+			"value": 7
+		},
+		{
+			"start": 4.88,
+			"end": 4.96,
+			"value": 4
+		},
+		{
+			"start": 4.96,
+			"end": 5.04,
+			"value": 1
+		},
+		{
+			"start": 5.04,
+			"end": 5.12,
+			"value": 6
+		},
+		{
+			"start": 5.12,
+			"end": 5.2,
+			"value": 3
+		},
+		{
+			"start": 5.669,
+			"end": 5.737,
+			"value": 6
+		},
+		{
+			"start": 5.737,
+			"end": 5.806,
+			"value": 1
+		},
+		{
+			"start": 5.806,
+			"end": 5.874,
+			"value": 7
+		},
+		{
+			"start": 5.874,
+			"end": 5.943,
+			"value": 1
+		},
+		{
+			"start": 5.943,
+			"end": 6.08,
+			"value": 6
+		},
+		{
+			"start": 6.08,
+			"end": 6.16,
+			"value": 1
+		},
+		{
+			"start": 6.68,
+			"end": 7.28,
+			"value": 2
+		}
+	]
+}

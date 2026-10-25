@@ -1,0 +1,258 @@
+{
+	"version": 1,
+	"audio": "saludo_53.mp3",
+	"texto": "¡Qué alegría verte! ¡La cafetera ha empezado a vibrar de emoción! O de miedo.",
+	"duration": 6.8,
+	"cues": [
+		{
+			"start": 0.14,
+			"end": 0.2,
+			"value": 2
+		},
+		{
+			"start": 0.2,
+			"end": 0.26,
+			"value": 6
+		},
+		{
+			"start": 0.26,
+			"end": 0.32,
+			"value": 1
+		},
+		{
+			"start": 0.32,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 1
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 2
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 5
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.8,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 1
+		},
+		{
+			"start": 1.28,
+			"end": 1.32,
+			"value": 6
+		},
+		{
+			"start": 1.32,
+			"end": 1.36,
+			"value": 2
+		},
+		{
+			"start": 1.42,
+			"end": 1.48,
+			"value": 6
+		},
+		{
+			"start": 1.48,
+			"end": 1.54,
+			"value": 2
+		},
+		{
+			"start": 1.54,
+			"end": 1.6,
+			"value": 5
+		},
+		{
+			"start": 1.6,
+			"end": 1.64,
+			"value": 1
+		},
+		{
+			"start": 1.64,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 1.72,
+			"value": 1
+		},
+		{
+			"start": 1.72,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 2
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 1.987,
+			"end": 2.053,
+			"value": 1
+		},
+		{
+			"start": 2.053,
+			"end": 2.187,
+			"value": 7
+		},
+		{
+			"start": 2.187,
+			"end": 2.253,
+			"value": 1
+		},
+		{
+			"start": 2.253,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.347,
+			"value": 2
+		},
+		{
+			"start": 2.347,
+			"end": 2.373,
+			"value": 6
+		},
+		{
+			"start": 2.373,
+			"end": 2.4,
+			"value": 3
+		},
+		{
+			"start": 2.44,
+			"end": 2.48,
+			"value": 2
+		},
+		{
+			"start": 2.544,
+			"end": 2.608,
+			"value": 5
+		},
+		{
+			"start": 2.608,
+			"end": 2.672,
+			"value": 1
+		},
+		{
+			"start": 2.672,
+			"end": 2.736,
+			"value": 7
+		},
+		{
+			"start": 2.736,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.84,
+			"value": 2
+		},
+		{
+			"start": 2.84,
+			"end": 2.933,
+			"value": 6
+		},
+		{
+			"start": 2.933,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 3.013,
+			"end": 3.067,
+			"value": 1
+		},
+		{
+			"start": 3.067,
+			"end": 3.12,
+			"value": 7
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 3
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 1
+		},
+		{
+			"start": 3.36,
+			"end": 3.48,
+			"value": 3
+		},
+		{
+			"start": 3.48,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 4.44,
+			"end": 4.72,
+			"value": 3
+		},
+		{
+			"start": 4.8,
+			"end": 4.88,
+			"value": 6
+		},
+		{
+			"start": 4.88,
+			"end": 4.96,
+			"value": 1
+		},
+		{
+			"start": 5,
+			"end": 5.04,
+			"value": 7
+		},
+		{
+			"start": 5.04,
+			"end": 5.24,
+			"value": 1
+		},
+		{
+			"start": 5.24,
+			"end": 5.34,
+			"value": 6
+		},
+		{
+			"start": 5.34,
+			"end": 5.44,
+			"value": 3
+		}
+	]
+}

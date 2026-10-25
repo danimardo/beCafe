@@ -1,0 +1,238 @@
+{
+	"version": 1,
+	"audio": "registro_06.mp3",
+	"texto": "Tú sigue, que las palpitaciones son señal de que estás vivo.",
+	"duration": 3.68,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.36,
+			"value": 4
+		},
+		{
+			"start": 0.393,
+			"end": 0.427,
+			"value": 6
+		},
+		{
+			"start": 0.427,
+			"end": 0.46,
+			"value": 1
+		},
+		{
+			"start": 0.46,
+			"end": 0.493,
+			"value": 6
+		},
+		{
+			"start": 0.493,
+			"end": 0.527,
+			"value": 4
+		},
+		{
+			"start": 0.527,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.71,
+			"end": 0.74,
+			"value": 6
+		},
+		{
+			"start": 0.74,
+			"end": 0.77,
+			"value": 4
+		},
+		{
+			"start": 0.77,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.84,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.92,
+			"value": 2
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 1,
+			"end": 1.04,
+			"value": 7
+		},
+		{
+			"start": 1.04,
+			"end": 1.08,
+			"value": 2
+		},
+		{
+			"start": 1.08,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.12,
+			"end": 1.173,
+			"value": 7
+		},
+		{
+			"start": 1.173,
+			"end": 1.227,
+			"value": 1
+		},
+		{
+			"start": 1.227,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.337,
+			"value": 2
+		},
+		{
+			"start": 1.337,
+			"end": 1.394,
+			"value": 6
+		},
+		{
+			"start": 1.394,
+			"end": 1.451,
+			"value": 1
+		},
+		{
+			"start": 1.451,
+			"end": 1.509,
+			"value": 3
+		},
+		{
+			"start": 1.509,
+			"end": 1.566,
+			"value": 6
+		},
+		{
+			"start": 1.566,
+			"end": 1.623,
+			"value": 1
+		},
+		{
+			"start": 1.623,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.74,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.86,
+			"value": 3
+		},
+		{
+			"start": 1.86,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.98,
+			"end": 2.04,
+			"value": 6
+		},
+		{
+			"start": 2.04,
+			"end": 2.1,
+			"value": 1
+		},
+		{
+			"start": 2.1,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.2,
+			"value": 2
+		},
+		{
+			"start": 2.2,
+			"end": 2.293,
+			"value": 6
+		},
+		{
+			"start": 2.293,
+			"end": 2.32,
+			"value": 1
+		},
+		{
+			"start": 2.34,
+			"end": 2.36,
+			"value": 6
+		},
+		{
+			"start": 2.36,
+			"end": 2.38,
+			"value": 4
+		},
+		{
+			"start": 2.38,
+			"end": 2.4,
+			"value": 1
+		},
+		{
+			"start": 2.46,
+			"end": 2.52,
+			"value": 1
+		},
+		{
+			"start": 2.52,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.64,
+			"end": 2.68,
+			"value": 2
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.88,
+			"value": 5
+		},
+		{
+			"start": 2.88,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 2.96,
+			"end": 3.04,
+			"value": 5
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 3
+		},
+		{
+			"start": 3.24,
+			"end": 3.68,
+			"value": 2
+		}
+	]
+}

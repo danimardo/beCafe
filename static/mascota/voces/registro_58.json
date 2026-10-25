@@ -1,0 +1,283 @@
+{
+	"version": 1,
+	"audio": "registro_58.mp3",
+	"texto": "Otra cápsula contabilizada. Recursos Humanos sospecha que aquí pasa algo.",
+	"duration": 4.72,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.267,
+			"value": 6
+		},
+		{
+			"start": 0.267,
+			"end": 0.32,
+			"value": 2
+		},
+		{
+			"start": 0.373,
+			"end": 0.427,
+			"value": 6
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 2
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 7
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.693,
+			"value": 4
+		},
+		{
+			"start": 0.693,
+			"end": 0.747,
+			"value": 6
+		},
+		{
+			"start": 0.747,
+			"end": 0.8,
+			"value": 2
+		},
+		{
+			"start": 0.848,
+			"end": 0.896,
+			"value": 6
+		},
+		{
+			"start": 0.896,
+			"end": 0.944,
+			"value": 3
+		},
+		{
+			"start": 0.944,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.1,
+			"value": 2
+		},
+		{
+			"start": 1.1,
+			"end": 1.16,
+			"value": 7
+		},
+		{
+			"start": 1.16,
+			"end": 1.22,
+			"value": 1
+		},
+		{
+			"start": 1.22,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.344,
+			"value": 1
+		},
+		{
+			"start": 1.344,
+			"end": 1.408,
+			"value": 6
+		},
+		{
+			"start": 1.408,
+			"end": 1.472,
+			"value": 2
+		},
+		{
+			"start": 1.472,
+			"end": 1.536,
+			"value": 6
+		},
+		{
+			"start": 1.536,
+			"end": 1.6,
+			"value": 2
+		},
+		{
+			"start": 2,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.16,
+			"value": 1
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.288,
+			"value": 4
+		},
+		{
+			"start": 2.288,
+			"end": 2.384,
+			"value": 6
+		},
+		{
+			"start": 2.384,
+			"end": 2.432,
+			"value": 3
+		},
+		{
+			"start": 2.432,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.587,
+			"end": 2.64,
+			"value": 4
+		},
+		{
+			"start": 2.64,
+			"end": 2.693,
+			"value": 7
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 2
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.84,
+			"value": 3
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3,
+			"value": 3
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.08,
+			"value": 7
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 1
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 2
+		},
+		{
+			"start": 3.38,
+			"end": 3.4,
+			"value": 6
+		},
+		{
+			"start": 3.4,
+			"end": 3.42,
+			"value": 4
+		},
+		{
+			"start": 3.42,
+			"end": 3.44,
+			"value": 1
+		},
+		{
+			"start": 3.488,
+			"end": 3.536,
+			"value": 2
+		},
+		{
+			"start": 3.536,
+			"end": 3.584,
+			"value": 6
+		},
+		{
+			"start": 3.584,
+			"end": 3.632,
+			"value": 4
+		},
+		{
+			"start": 3.632,
+			"end": 3.68,
+			"value": 1
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 7
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 2
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 2
+		},
+		{
+			"start": 4.144,
+			"end": 4.208,
+			"value": 2
+		},
+		{
+			"start": 4.208,
+			"end": 4.336,
+			"value": 6
+		},
+		{
+			"start": 4.336,
+			"end": 4.4,
+			"value": 3
+		}
+	]
+}

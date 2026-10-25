@@ -66,6 +66,15 @@ describe('erroresDeImporte (RF-211)', () => {
 	});
 
 	it('ignora las incidencias que no son de un importe de línea', () => {
-		expect(erroresDeImporte([{ path: ['lineas'], message: 'x' }, { path: ['clienteId'], message: 'y' }], lineas, 'z')).toEqual({});
+		expect(
+			erroresDeImporte(
+				[
+					{ path: ['lineas'], message: 'x' },
+					{ path: ['clienteId'], message: 'y' },
+				],
+				lineas,
+				'z',
+			),
+		).toEqual({});
 	});
 });

@@ -1,0 +1,263 @@
+{
+	"version": 1,
+	"audio": "registro_23.mp3",
+	"texto": "Venga, vuelve al trabajo. O al Excel que tienes abierto para disimular.",
+	"duration": 4.4,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.22,
+			"value": 1
+		},
+		{
+			"start": 0.22,
+			"end": 0.34,
+			"value": 6
+		},
+		{
+			"start": 0.34,
+			"end": 0.4,
+			"value": 2
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 5
+		},
+		{
+			"start": 0.56,
+			"end": 0.608,
+			"value": 4
+		},
+		{
+			"start": 0.608,
+			"end": 0.656,
+			"value": 1
+		},
+		{
+			"start": 0.656,
+			"end": 0.704,
+			"value": 6
+		},
+		{
+			"start": 0.704,
+			"end": 0.752,
+			"value": 5
+		},
+		{
+			"start": 0.752,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.827,
+			"end": 0.853,
+			"value": 2
+		},
+		{
+			"start": 0.853,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.94,
+			"end": 1.06,
+			"value": 6
+		},
+		{
+			"start": 1.06,
+			"end": 1.12,
+			"value": 2
+		},
+		{
+			"start": 1.12,
+			"end": 1.18,
+			"value": 7
+		},
+		{
+			"start": 1.18,
+			"end": 1.24,
+			"value": 2
+		},
+		{
+			"start": 1.24,
+			"end": 1.3,
+			"value": 6
+		},
+		{
+			"start": 1.3,
+			"end": 1.36,
+			"value": 3
+		},
+		{
+			"start": 1.84,
+			"end": 2.24,
+			"value": 3
+		},
+		{
+			"start": 2.293,
+			"end": 2.347,
+			"value": 2
+		},
+		{
+			"start": 2.347,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.44,
+			"end": 2.48,
+			"value": 1
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 1
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.72,
+			"end": 2.76,
+			"value": 4
+		},
+		{
+			"start": 2.76,
+			"end": 2.8,
+			"value": 1
+		},
+		{
+			"start": 2.834,
+			"end": 2.869,
+			"value": 6
+		},
+		{
+			"start": 2.869,
+			"end": 2.937,
+			"value": 1
+		},
+		{
+			"start": 2.937,
+			"end": 2.971,
+			"value": 6
+		},
+		{
+			"start": 2.971,
+			"end": 3.006,
+			"value": 1
+		},
+		{
+			"start": 3.006,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 2
+		},
+		{
+			"start": 3.12,
+			"end": 3.16,
+			"value": 7
+		},
+		{
+			"start": 3.16,
+			"end": 3.26,
+			"value": 1
+		},
+		{
+			"start": 3.26,
+			"end": 3.38,
+			"value": 6
+		},
+		{
+			"start": 3.38,
+			"end": 3.44,
+			"value": 3
+		},
+		{
+			"start": 3.472,
+			"end": 3.504,
+			"value": 7
+		},
+		{
+			"start": 3.504,
+			"end": 3.536,
+			"value": 2
+		},
+		{
+			"start": 3.536,
+			"end": 3.568,
+			"value": 6
+		},
+		{
+			"start": 3.568,
+			"end": 3.6,
+			"value": 2
+		},
+		{
+			"start": 3.64,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.68,
+			"end": 3.72,
+			"value": 1
+		},
+		{
+			"start": 3.72,
+			"end": 3.76,
+			"value": 6
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 1
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 7
+		},
+		{
+			"start": 3.92,
+			"end": 3.98,
+			"value": 4
+		},
+		{
+			"start": 3.98,
+			"end": 4.04,
+			"value": 6
+		},
+		{
+			"start": 4.04,
+			"end": 4.1,
+			"value": 2
+		},
+		{
+			"start": 4.1,
+			"end": 4.159,
+			"value": 6
+		},
+		{
+			"start": 4.2,
+			"end": 4.4,
+			"value": 2
+		}
+	]
+}

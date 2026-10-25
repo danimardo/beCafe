@@ -1,0 +1,283 @@
+{
+	"version": 1,
+	"audio": "saludo_23.mp3",
+	"texto": "¡Eh, campeón! ¿Vienes con ganas de comerte el mundo o con ganas de mandarlo a la mierda?",
+	"duration": 6.32,
+	"cues": [
+		{
+			"start": 0.208,
+			"end": 0.24,
+			"value": 1
+		},
+		{
+			"start": 0.36,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.44,
+			"value": 2
+		},
+		{
+			"start": 0.44,
+			"end": 0.56,
+			"value": 7
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.64,
+			"end": 0.76,
+			"value": 3
+		},
+		{
+			"start": 0.76,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.296,
+			"value": 1
+		},
+		{
+			"start": 1.296,
+			"end": 1.344,
+			"value": 6
+		},
+		{
+			"start": 1.344,
+			"end": 1.392,
+			"value": 1
+		},
+		{
+			"start": 1.392,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.48,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.56,
+			"value": 3
+		},
+		{
+			"start": 1.56,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 1.72,
+			"value": 2
+		},
+		{
+			"start": 1.72,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 2
+		},
+		{
+			"start": 1.84,
+			"end": 1.973,
+			"value": 6
+		},
+		{
+			"start": 1.973,
+			"end": 2,
+			"value": 1
+		},
+		{
+			"start": 2.04,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.12,
+			"value": 3
+		},
+		{
+			"start": 2.12,
+			"end": 2.16,
+			"value": 7
+		},
+		{
+			"start": 2.16,
+			"end": 2.22,
+			"value": 1
+		},
+		{
+			"start": 2.22,
+			"end": 2.34,
+			"value": 6
+		},
+		{
+			"start": 2.34,
+			"end": 2.4,
+			"value": 1
+		},
+		{
+			"start": 2.467,
+			"end": 2.533,
+			"value": 1
+		},
+		{
+			"start": 2.533,
+			"end": 2.6,
+			"value": 6
+		},
+		{
+			"start": 2.633,
+			"end": 2.667,
+			"value": 7
+		},
+		{
+			"start": 2.667,
+			"end": 2.7,
+			"value": 4
+		},
+		{
+			"start": 2.7,
+			"end": 2.767,
+			"value": 6
+		},
+		{
+			"start": 2.767,
+			"end": 2.8,
+			"value": 3
+		},
+		{
+			"start": 2.92,
+			"end": 3.04,
+			"value": 3
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.16,
+			"value": 3
+		},
+		{
+			"start": 3.16,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.24,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.32,
+			"value": 2
+		},
+		{
+			"start": 3.32,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 2
+		},
+		{
+			"start": 3.44,
+			"end": 3.573,
+			"value": 6
+		},
+		{
+			"start": 3.573,
+			"end": 3.6,
+			"value": 1
+		},
+		{
+			"start": 3.632,
+			"end": 3.664,
+			"value": 7
+		},
+		{
+			"start": 3.664,
+			"end": 3.696,
+			"value": 2
+		},
+		{
+			"start": 3.696,
+			"end": 3.76,
+			"value": 6
+		},
+		{
+			"start": 3.76,
+			"end": 3.82,
+			"value": 2
+		},
+		{
+			"start": 3.82,
+			"end": 3.94,
+			"value": 6
+		},
+		{
+			"start": 3.94,
+			"end": 4,
+			"value": 3
+		},
+		{
+			"start": 4.04,
+			"end": 4.08,
+			"value": 2
+		},
+		{
+			"start": 4.107,
+			"end": 4.133,
+			"value": 6
+		},
+		{
+			"start": 4.133,
+			"end": 4.16,
+			"value": 2
+		},
+		{
+			"start": 4.2,
+			"end": 4.24,
+			"value": 7
+		},
+		{
+			"start": 4.24,
+			"end": 4.347,
+			"value": 1
+		},
+		{
+			"start": 4.347,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.48,
+			"end": 4.56,
+			"value": 2
+		},
+		{
+			"start": 4.68,
+			"end": 6.32,
+			"value": 2
+		}
+	]
+}

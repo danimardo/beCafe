@@ -1,0 +1,273 @@
+{
+	"version": 1,
+	"audio": "ayuda_adminCopias.mp3",
+	"texto": "Lista las copias diarias y permite anotar las pruebas de restauración.",
+	"duration": 4.16,
+	"cues": [
+		{
+			"start": 0.368,
+			"end": 0.389,
+			"value": 6
+		},
+		{
+			"start": 0.44,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 2
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 3
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 7
+		},
+		{
+			"start": 0.88,
+			"end": 0.907,
+			"value": 1
+		},
+		{
+			"start": 0.907,
+			"end": 0.933,
+			"value": 2
+		},
+		{
+			"start": 0.933,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 1
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 2
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 2
+		},
+		{
+			"start": 1.52,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 1.76,
+			"value": 1
+		},
+		{
+			"start": 1.82,
+			"end": 1.88,
+			"value": 7
+		},
+		{
+			"start": 1.88,
+			"end": 1.94,
+			"value": 1
+		},
+		{
+			"start": 1.94,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2,
+			"end": 2.06,
+			"value": 7
+		},
+		{
+			"start": 2.06,
+			"end": 2.12,
+			"value": 1
+		},
+		{
+			"start": 2.12,
+			"end": 2.18,
+			"value": 6
+		},
+		{
+			"start": 2.18,
+			"end": 2.24,
+			"value": 1
+		},
+		{
+			"start": 2.293,
+			"end": 2.347,
+			"value": 2
+		},
+		{
+			"start": 2.347,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.44,
+			"value": 3
+		},
+		{
+			"start": 2.44,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.52,
+			"value": 2
+		},
+		{
+			"start": 2.52,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.62,
+			"end": 2.68,
+			"value": 6
+		},
+		{
+			"start": 2.68,
+			"end": 2.74,
+			"value": 2
+		},
+		{
+			"start": 2.74,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.853,
+			"end": 2.907,
+			"value": 7
+		},
+		{
+			"start": 2.907,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3.008,
+			"value": 4
+		},
+		{
+			"start": 3.008,
+			"end": 3.056,
+			"value": 1
+		},
+		{
+			"start": 3.056,
+			"end": 3.104,
+			"value": 7
+		},
+		{
+			"start": 3.104,
+			"end": 3.152,
+			"value": 2
+		},
+		{
+			"start": 3.152,
+			"end": 3.253,
+			"value": 6
+		},
+		{
+			"start": 3.253,
+			"end": 3.28,
+			"value": 1
+		},
+		{
+			"start": 3.33,
+			"end": 3.38,
+			"value": 6
+		},
+		{
+			"start": 3.38,
+			"end": 3.43,
+			"value": 1
+		},
+		{
+			"start": 3.43,
+			"end": 3.53,
+			"value": 6
+		},
+		{
+			"start": 3.53,
+			"end": 3.58,
+			"value": 2
+		},
+		{
+			"start": 3.58,
+			"end": 3.63,
+			"value": 4
+		},
+		{
+			"start": 3.63,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 1
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 3
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 6
+		}
+	]
+}

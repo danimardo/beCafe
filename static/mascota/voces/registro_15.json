@@ -1,0 +1,233 @@
+{
+	"version": 1,
+	"audio": "registro_15.mp3",
+	"texto": "No quiero alarmarte, pero una tostadora acaba de preguntar por ti.",
+	"duration": 5.44,
+	"cues": [
+		{
+			"start": 0.3,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.34,
+			"value": 3
+		},
+		{
+			"start": 0.453,
+			"end": 0.507,
+			"value": 2
+		},
+		{
+			"start": 0.507,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.613,
+			"value": 2
+		},
+		{
+			"start": 0.613,
+			"end": 0.667,
+			"value": 6
+		},
+		{
+			"start": 0.667,
+			"end": 0.72,
+			"value": 7
+		},
+		{
+			"start": 0.72,
+			"end": 0.84,
+			"value": 2
+		},
+		{
+			"start": 0.84,
+			"end": 1.08,
+			"value": 6
+		},
+		{
+			"start": 1.08,
+			"end": 1.2,
+			"value": 1
+		},
+		{
+			"start": 1.344,
+			"end": 1.368,
+			"value": 7
+		},
+		{
+			"start": 1.368,
+			"end": 1.392,
+			"value": 1
+		},
+		{
+			"start": 1.392,
+			"end": 1.416,
+			"value": 6
+		},
+		{
+			"start": 1.416,
+			"end": 1.44,
+			"value": 3
+		},
+		{
+			"start": 1.5,
+			"end": 1.56,
+			"value": 4
+		},
+		{
+			"start": 1.56,
+			"end": 1.62,
+			"value": 6
+		},
+		{
+			"start": 1.62,
+			"end": 1.68,
+			"value": 2
+		},
+		{
+			"start": 1.733,
+			"end": 1.787,
+			"value": 6
+		},
+		{
+			"start": 1.787,
+			"end": 1.84,
+			"value": 3
+		},
+		{
+			"start": 1.84,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2,
+			"end": 2.064,
+			"value": 2
+		},
+		{
+			"start": 2.064,
+			"end": 2.128,
+			"value": 6
+		},
+		{
+			"start": 2.128,
+			"end": 2.192,
+			"value": 3
+		},
+		{
+			"start": 2.192,
+			"end": 2.256,
+			"value": 6
+		},
+		{
+			"start": 2.256,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.373,
+			"end": 2.427,
+			"value": 2
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.533,
+			"value": 2
+		},
+		{
+			"start": 2.533,
+			"end": 2.587,
+			"value": 7
+		},
+		{
+			"start": 2.587,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 6
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 1
+		},
+		{
+			"start": 2.848,
+			"end": 2.896,
+			"value": 7
+		},
+		{
+			"start": 2.896,
+			"end": 2.944,
+			"value": 6
+		},
+		{
+			"start": 2.944,
+			"end": 2.992,
+			"value": 1
+		},
+		{
+			"start": 2.992,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.093,
+			"value": 4
+		},
+		{
+			"start": 3.093,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 2
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.4,
+			"end": 3.44,
+			"value": 7
+		},
+		{
+			"start": 3.44,
+			"end": 3.48,
+			"value": 3
+		},
+		{
+			"start": 3.48,
+			"end": 3.52,
+			"value": 6
+		},
+		{
+			"start": 3.627,
+			"end": 3.733,
+			"value": 6
+		},
+		{
+			"start": 3.733,
+			"end": 3.84,
+			"value": 1
+		}
+	]
+}

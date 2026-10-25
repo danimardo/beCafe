@@ -1,0 +1,163 @@
+{
+	"version": 1,
+	"audio": "registro_57.mp3",
+	"texto": "El café es gratis. La salud mental ya veremos.",
+	"duration": 3.36,
+	"cues": [
+		{
+			"start": 0.224,
+			"end": 0.288,
+			"value": 6
+		},
+		{
+			"start": 0.288,
+			"end": 0.352,
+			"value": 2
+		},
+		{
+			"start": 0.352,
+			"end": 0.416,
+			"value": 5
+		},
+		{
+			"start": 0.416,
+			"end": 0.533,
+			"value": 1
+		},
+		{
+			"start": 0.533,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.651,
+			"end": 0.834,
+			"value": 6
+		},
+		{
+			"start": 0.834,
+			"end": 0.926,
+			"value": 2
+		},
+		{
+			"start": 0.926,
+			"end": 1.017,
+			"value": 6
+		},
+		{
+			"start": 1.017,
+			"end": 1.109,
+			"value": 1
+		},
+		{
+			"start": 1.109,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.4,
+			"value": 6
+		},
+		{
+			"start": 1.4,
+			"end": 1.44,
+			"value": 2
+		},
+		{
+			"start": 1.493,
+			"end": 1.547,
+			"value": 6
+		},
+		{
+			"start": 1.547,
+			"end": 1.6,
+			"value": 2
+		},
+		{
+			"start": 1.6,
+			"end": 1.653,
+			"value": 6
+		},
+		{
+			"start": 1.653,
+			"end": 1.707,
+			"value": 4
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.817,
+			"end": 1.874,
+			"value": 7
+		},
+		{
+			"start": 1.874,
+			"end": 1.931,
+			"value": 1
+		},
+		{
+			"start": 1.931,
+			"end": 2.046,
+			"value": 6
+		},
+		{
+			"start": 2.046,
+			"end": 2.103,
+			"value": 2
+		},
+		{
+			"start": 2.103,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.213,
+			"end": 2.267,
+			"value": 1
+		},
+		{
+			"start": 2.267,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.36,
+			"end": 2.4,
+			"value": 5
+		},
+		{
+			"start": 2.4,
+			"end": 2.44,
+			"value": 1
+		},
+		{
+			"start": 2.44,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.6,
+			"value": 1
+		},
+		{
+			"start": 2.6,
+			"end": 2.72,
+			"value": 7
+		},
+		{
+			"start": 2.72,
+			"end": 2.84,
+			"value": 3
+		},
+		{
+			"start": 2.84,
+			"end": 2.96,
+			"value": 6
+		}
+	]
+}

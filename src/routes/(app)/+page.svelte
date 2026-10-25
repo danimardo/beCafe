@@ -79,7 +79,9 @@
 		instalacionOculta = true;
 		formularioInstalacion?.requestSubmit();
 	}
-	const mostrarTour = $derived(montado && (data.tourPendiente || tourForzado) && !tourCerrado && mascota.bienvenidaVista && !mascota.bienvenidaManual);
+	const mostrarTour = $derived(
+		montado && (data.tourPendiente || tourForzado) && !tourCerrado && mascota.bienvenidaVista && !mascota.bienvenidaManual,
+	);
 	function terminarTour() {
 		tourCerrado = true;
 		formularioTour?.requestSubmit();
@@ -289,7 +291,8 @@
 				if (consumo) {
 					// El descuadre es un aviso y manda; si no, la frase de registro del servidor (RF-213) y, sin ella, el mensaje base.
 					if (consumo.descuadre) decir('stock.negativo');
-					else if (!consumo.fraseId || !decirFrase(consumo.fraseId)) decir(consumo.invitado ? 'consumo.invitado_confirmado' : 'consumo.confirmado');
+					else if (!consumo.fraseId || !decirFrase(consumo.fraseId))
+						decir(consumo.invitado ? 'consumo.invitado_confirmado' : 'consumo.confirmado');
 					avisos.mostrarDeshacer({
 						title: textos.consumos.registrado(nombreDe(consumo.tipoCapsulaId)),
 						warning: consumo.descuadre ? textos.consumos.descuadre : undefined,

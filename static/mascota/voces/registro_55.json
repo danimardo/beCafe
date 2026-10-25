@@ -1,0 +1,213 @@
+{
+	"version": 1,
+	"audio": "registro_55.mp3",
+	"texto": "A veces la solución es sencilla: café y que le den al mundo.",
+	"duration": 4.4,
+	"cues": [
+		{
+			"start": 0.147,
+			"end": 0.213,
+			"value": 5
+		},
+		{
+			"start": 0.213,
+			"end": 0.28,
+			"value": 1
+		},
+		{
+			"start": 0.28,
+			"end": 0.347,
+			"value": 6
+		},
+		{
+			"start": 0.347,
+			"end": 0.413,
+			"value": 1
+		},
+		{
+			"start": 0.413,
+			"end": 0.533,
+			"value": 6
+		},
+		{
+			"start": 0.533,
+			"end": 0.56,
+			"value": 2
+		},
+		{
+			"start": 0.62,
+			"end": 0.68,
+			"value": 6
+		},
+		{
+			"start": 0.68,
+			"end": 0.74,
+			"value": 3
+		},
+		{
+			"start": 0.74,
+			"end": 0.8,
+			"value": 6
+		},
+		{
+			"start": 0.8,
+			"end": 0.848,
+			"value": 4
+		},
+		{
+			"start": 0.848,
+			"end": 0.896,
+			"value": 6
+		},
+		{
+			"start": 0.896,
+			"end": 0.944,
+			"value": 1
+		},
+		{
+			"start": 0.944,
+			"end": 0.992,
+			"value": 3
+		},
+		{
+			"start": 0.992,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.067,
+			"end": 1.093,
+			"value": 1
+		},
+		{
+			"start": 1.093,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 1
+		},
+		{
+			"start": 1.28,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.64,
+			"value": 1
+		},
+		{
+			"start": 1.64,
+			"end": 2.04,
+			"value": 6
+		},
+		{
+			"start": 2.04,
+			"end": 2.24,
+			"value": 2
+		},
+		{
+			"start": 2.48,
+			"end": 2.52,
+			"value": 6
+		},
+		{
+			"start": 2.52,
+			"end": 2.56,
+			"value": 2
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 5
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 1
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.76,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.8,
+			"end": 2.84,
+			"value": 4
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 1
+		},
+		{
+			"start": 2.907,
+			"end": 2.933,
+			"value": 6
+		},
+		{
+			"start": 2.933,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.08,
+			"value": 1
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.173,
+			"end": 3.227,
+			"value": 2
+		},
+		{
+			"start": 3.227,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.387,
+			"end": 3.493,
+			"value": 7
+		},
+		{
+			"start": 3.493,
+			"end": 3.6,
+			"value": 4
+		},
+		{
+			"start": 3.6,
+			"end": 3.813,
+			"value": 6
+		},
+		{
+			"start": 3.813,
+			"end": 3.92,
+			"value": 3
+		},
+		{
+			"start": 3.98,
+			"end": 4.4,
+			"value": 2
+		}
+	]
+}

@@ -1,0 +1,218 @@
+{
+	"version": 1,
+	"audio": "registro_79.mp3",
+	"texto": "Café registrado. El firewall ha bloqueado tus ganas de currar.",
+	"duration": 4.64,
+	"cues": [
+		{
+			"start": 0.415,
+			"end": 0.509,
+			"value": 6
+		},
+		{
+			"start": 0.509,
+			"end": 0.604,
+			"value": 1
+		},
+		{
+			"start": 0.604,
+			"end": 0.698,
+			"value": 6
+		},
+		{
+			"start": 0.698,
+			"end": 0.793,
+			"value": 1
+		},
+		{
+			"start": 0.793,
+			"end": 1.076,
+			"value": 6
+		},
+		{
+			"start": 1.076,
+			"end": 1.171,
+			"value": 2
+		},
+		{
+			"start": 1.171,
+			"end": 1.265,
+			"value": 6
+		},
+		{
+			"start": 1.265,
+			"end": 1.36,
+			"value": 3
+		},
+		{
+			"start": 1.467,
+			"end": 1.493,
+			"value": 1
+		},
+		{
+			"start": 1.493,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.591,
+			"end": 1.662,
+			"value": 5
+		},
+		{
+			"start": 1.662,
+			"end": 1.733,
+			"value": 1
+		},
+		{
+			"start": 1.733,
+			"end": 1.804,
+			"value": 6
+		},
+		{
+			"start": 1.804,
+			"end": 1.876,
+			"value": 1
+		},
+		{
+			"start": 1.876,
+			"end": 1.947,
+			"value": 4
+		},
+		{
+			"start": 1.947,
+			"end": 2.018,
+			"value": 2
+		},
+		{
+			"start": 2.018,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.267,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.377,
+			"end": 2.434,
+			"value": 7
+		},
+		{
+			"start": 2.434,
+			"end": 2.491,
+			"value": 6
+		},
+		{
+			"start": 2.491,
+			"end": 2.549,
+			"value": 3
+		},
+		{
+			"start": 2.549,
+			"end": 2.606,
+			"value": 6
+		},
+		{
+			"start": 2.606,
+			"end": 2.663,
+			"value": 4
+		},
+		{
+			"start": 2.663,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.72,
+			"end": 2.747,
+			"value": 2
+		},
+		{
+			"start": 2.747,
+			"end": 2.773,
+			"value": 6
+		},
+		{
+			"start": 2.773,
+			"end": 2.8,
+			"value": 3
+		},
+		{
+			"start": 2.86,
+			"end": 2.92,
+			"value": 6
+		},
+		{
+			"start": 2.92,
+			"end": 2.98,
+			"value": 4
+		},
+		{
+			"start": 2.98,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.1,
+			"end": 3.16,
+			"value": 6
+		},
+		{
+			"start": 3.16,
+			"end": 3.22,
+			"value": 2
+		},
+		{
+			"start": 3.22,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.32,
+			"value": 2
+		},
+		{
+			"start": 3.32,
+			"end": 3.413,
+			"value": 6
+		},
+		{
+			"start": 3.413,
+			"end": 3.44,
+			"value": 1
+		},
+		{
+			"start": 3.504,
+			"end": 3.568,
+			"value": 6
+		},
+		{
+			"start": 3.568,
+			"end": 3.632,
+			"value": 4
+		},
+		{
+			"start": 3.632,
+			"end": 3.76,
+			"value": 6
+		},
+		{
+			"start": 3.76,
+			"end": 3.88,
+			"value": 2
+		},
+		{
+			"start": 3.88,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4.18,
+			"end": 4.64,
+			"value": 2
+		}
+	]
+}

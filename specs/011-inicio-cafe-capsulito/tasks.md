@@ -126,15 +126,15 @@
 
 ## Fase 11: Voces (RF-237)
 
-- [ ] T043 Catálogo de locuciones: `scripts/generar-voces.mjs` construye `LOCUCIONES` con las entradas actuales que siguen vigentes, las 160 de `src/lib/shared/mascota/frases.ts`, los 4 pasos del tour (`tour_01..04`) y el propósito de las 32 pantallas de ayuda (`ayuda_<pantalla>`, desde `src/lib/shared/ayuda/pantallas.ts`). Retirar `consumo_confirmado_*` y `consumo_invitado_*`. Ampliar `scripts/voces-interactivo.test.ts` (`CA-237`: ids únicos, 196 nuevas, grupos `registro`, `saludo`, `tour`, `ayuda` en el menú). No generar audios.
+- [X] T043 Catálogo de locuciones: `scripts/generar-voces.mjs` construye `LOCUCIONES` con las entradas actuales que siguen vigentes, las 160 de `src/lib/shared/mascota/frases.ts`, los 4 pasos del tour (`tour_01..04`) y el propósito de las 32 pantallas de ayuda (`ayuda_<pantalla>`, desde `src/lib/shared/ayuda/pantallas.ts`). Retirar `consumo_confirmado_*` y `consumo_invitado_*`. Ampliar `scripts/voces-interactivo.test.ts` (`CA-237`: ids únicos, 196 nuevas, grupos `registro`, `saludo`, `tour`, `ayuda` en el menú). No generar audios.
 
 ---
 
 ## Fase 12: Cierre
 
-- [ ] T044 `ARCHITECTURE.md` (§2, §3: `frase_entregada`, `usuarios/dominio/`, `lib/ui/avatares/`, `lib/ui/movimiento/`, `/ajustes`, fuente RML), `docs/pruebas.md` (rutas en `acceso` y `a11y`, tiempo de Inicio en WebKit), `docs/diseno/` (tokens y uso del brillo y el indicador).
-- [ ] T045 `a11y` completo de las pantallas tocadas en claro y oscuro (`EV-109`): Inicio con los tres estados, Ajustes, Perfil, alta de usuario, entrada y errores.
-- [ ] T046 Pedir autorización y registrar en `historias.md` un CAMBIO (con respaldo en `.respaldos/`) para §10.4 (`frase_entregada`) y §10.5 (`/ajustes`, `?/saludo`).
+- [X] T044 `ARCHITECTURE.md` (§2, §3: `frase_entregada`, `usuarios/dominio/`, `lib/ui/avatares/`, `lib/ui/movimiento/`, `/ajustes`, fuente RML), `docs/pruebas.md` (rutas en `acceso` y `a11y`, tiempo de Inicio en WebKit), `docs/diseno/` (tokens y uso del brillo y el indicador).
+- [X] T045 `a11y` completo de las pantallas tocadas en claro y oscuro (`EV-109`): Inicio con los tres estados, Ajustes, Perfil, alta de usuario, entrada y errores.
+- [X] T046 Pedir autorización y registrar en `historias.md` un CAMBIO (con respaldo en `.respaldos/`) para §10.4 (`frase_entregada`) y §10.5 (`/ajustes`, `?/saludo`).
 - [ ] T047 Benchmark completo en serie (`scripts/benchmark.sh`) y Definition of Done de `docs/pruebas.md` §20.2. Revisión manual con TalkBack (Android) de Inicio, Ajustes, la entrada y una página de error; VoiceOver pendiente por falta de iPhone.
 
 ---

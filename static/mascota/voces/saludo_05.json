@@ -1,0 +1,243 @@
+{
+	"version": 1,
+	"audio": "saludo_05.mp3",
+	"texto": "¡Bienvenido, desastre con piernas! ¿Te preparo un café o una coartada?",
+	"duration": 4.64,
+	"cues": [
+		{
+			"start": 0.32,
+			"end": 0.373,
+			"value": 5
+		},
+		{
+			"start": 0.373,
+			"end": 0.427,
+			"value": 1
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 3
+		},
+		{
+			"start": 0.84,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.88,
+			"end": 0.92,
+			"value": 1
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.013,
+			"value": 2
+		},
+		{
+			"start": 1.013,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 1
+		},
+		{
+			"start": 1.32,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.4,
+			"value": 3
+		},
+		{
+			"start": 1.4,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.493,
+			"end": 1.547,
+			"value": 7
+		},
+		{
+			"start": 1.547,
+			"end": 1.653,
+			"value": 1
+		},
+		{
+			"start": 1.653,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 2
+		},
+		{
+			"start": 1.84,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.2,
+			"value": 6
+		},
+		{
+			"start": 2.2,
+			"end": 2.24,
+			"value": 1
+		},
+		{
+			"start": 2.286,
+			"end": 2.331,
+			"value": 7
+		},
+		{
+			"start": 2.331,
+			"end": 2.377,
+			"value": 6
+		},
+		{
+			"start": 2.377,
+			"end": 2.423,
+			"value": 1
+		},
+		{
+			"start": 2.423,
+			"end": 2.469,
+			"value": 7
+		},
+		{
+			"start": 2.469,
+			"end": 2.514,
+			"value": 2
+		},
+		{
+			"start": 2.514,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.64,
+			"value": 3
+		},
+		{
+			"start": 2.667,
+			"end": 2.693,
+			"value": 4
+		},
+		{
+			"start": 2.693,
+			"end": 2.72,
+			"value": 6
+		},
+		{
+			"start": 2.784,
+			"end": 2.848,
+			"value": 6
+		},
+		{
+			"start": 2.848,
+			"end": 2.912,
+			"value": 2
+		},
+		{
+			"start": 2.912,
+			"end": 2.976,
+			"value": 5
+		},
+		{
+			"start": 2.976,
+			"end": 3.04,
+			"value": 1
+		},
+		{
+			"start": 3.16,
+			"end": 3.28,
+			"value": 3
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 4
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 6
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 2
+		},
+		{
+			"start": 3.653,
+			"end": 3.707,
+			"value": 6
+		},
+		{
+			"start": 3.707,
+			"end": 3.76,
+			"value": 3
+		},
+		{
+			"start": 3.76,
+			"end": 3.813,
+			"value": 2
+		},
+		{
+			"start": 3.813,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 2
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 6
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 2
+		},
+		{
+			"start": 4.36,
+			"end": 4.64,
+			"value": 2
+		}
+	]
+}

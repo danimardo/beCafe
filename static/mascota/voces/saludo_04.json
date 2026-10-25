@@ -1,0 +1,278 @@
+{
+	"version": 1,
+	"audio": "saludo_04.mp3",
+	"texto": "¡Hostia, has vuelto! Yo que pensaba que te habías hecho una persona responsable.",
+	"duration": 5.28,
+	"cues": [
+		{
+			"start": 0.373,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 2
+		},
+		{
+			"start": 0.84,
+			"end": 0.9,
+			"value": 2
+		},
+		{
+			"start": 0.9,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 1.008,
+			"end": 1.056,
+			"value": 5
+		},
+		{
+			"start": 1.056,
+			"end": 1.104,
+			"value": 4
+		},
+		{
+			"start": 1.104,
+			"end": 1.152,
+			"value": 1
+		},
+		{
+			"start": 1.152,
+			"end": 1.32,
+			"value": 6
+		},
+		{
+			"start": 1.32,
+			"end": 1.44,
+			"value": 3
+		},
+		{
+			"start": 1.867,
+			"end": 1.973,
+			"value": 1
+		},
+		{
+			"start": 1.973,
+			"end": 2.08,
+			"value": 3
+		},
+		{
+			"start": 2.1,
+			"end": 2.12,
+			"value": 6
+		},
+		{
+			"start": 2.12,
+			"end": 2.14,
+			"value": 4
+		},
+		{
+			"start": 2.14,
+			"end": 2.16,
+			"value": 1
+		},
+		{
+			"start": 2.208,
+			"end": 2.256,
+			"value": 7
+		},
+		{
+			"start": 2.256,
+			"end": 2.304,
+			"value": 1
+		},
+		{
+			"start": 2.304,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 2
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 7
+		},
+		{
+			"start": 2.56,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.66,
+			"end": 2.68,
+			"value": 6
+		},
+		{
+			"start": 2.68,
+			"end": 2.7,
+			"value": 4
+		},
+		{
+			"start": 2.7,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.747,
+			"end": 2.773,
+			"value": 6
+		},
+		{
+			"start": 2.773,
+			"end": 2.8,
+			"value": 1
+		},
+		{
+			"start": 2.88,
+			"end": 2.92,
+			"value": 2
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 7
+		},
+		{
+			"start": 2.96,
+			"end": 3.013,
+			"value": 1
+		},
+		{
+			"start": 3.013,
+			"end": 3.067,
+			"value": 2
+		},
+		{
+			"start": 3.067,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.24,
+			"value": 1
+		},
+		{
+			"start": 3.24,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.32,
+			"end": 3.36,
+			"value": 3
+		},
+		{
+			"start": 3.4,
+			"end": 3.44,
+			"value": 4
+		},
+		{
+			"start": 3.44,
+			"end": 3.48,
+			"value": 6
+		},
+		{
+			"start": 3.48,
+			"end": 3.52,
+			"value": 2
+		},
+		{
+			"start": 3.58,
+			"end": 3.64,
+			"value": 7
+		},
+		{
+			"start": 3.64,
+			"end": 3.7,
+			"value": 1
+		},
+		{
+			"start": 3.7,
+			"end": 3.82,
+			"value": 6
+		},
+		{
+			"start": 3.82,
+			"end": 3.88,
+			"value": 3
+		},
+		{
+			"start": 3.88,
+			"end": 3.94,
+			"value": 6
+		},
+		{
+			"start": 3.94,
+			"end": 4,
+			"value": 2
+		},
+		{
+			"start": 4.067,
+			"end": 4.133,
+			"value": 6
+		},
+		{
+			"start": 4.133,
+			"end": 4.2,
+			"value": 1
+		},
+		{
+			"start": 4.2,
+			"end": 4.267,
+			"value": 6
+		},
+		{
+			"start": 4.267,
+			"end": 4.333,
+			"value": 7
+		},
+		{
+			"start": 4.333,
+			"end": 4.4,
+			"value": 3
+		},
+		{
+			"start": 4.4,
+			"end": 4.533,
+			"value": 6
+		},
+		{
+			"start": 4.533,
+			"end": 4.6,
+			"value": 2
+		},
+		{
+			"start": 4.6,
+			"end": 4.667,
+			"value": 7
+		},
+		{
+			"start": 4.667,
+			"end": 4.733,
+			"value": 6
+		},
+		{
+			"start": 4.733,
+			"end": 4.8,
+			"value": 1
+		},
+		{
+			"start": 4.92,
+			"end": 5.28,
+			"value": 2
+		}
+	]
+}

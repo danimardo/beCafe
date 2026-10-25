@@ -1,0 +1,303 @@
+{
+	"version": 1,
+	"audio": "saludo_78.mp3",
+	"texto": "¡Buenos días, alma de cántaro! ¡Hoy vamos a hacer cosas grandes! O café, que es más fácil.",
+	"duration": 6.56,
+	"cues": [
+		{
+			"start": 0.194,
+			"end": 0.217,
+			"value": 7
+		},
+		{
+			"start": 0.24,
+			"end": 0.28,
+			"value": 3
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.848,
+			"end": 0.896,
+			"value": 2
+		},
+		{
+			"start": 0.896,
+			"end": 0.944,
+			"value": 6
+		},
+		{
+			"start": 0.944,
+			"end": 0.992,
+			"value": 7
+		},
+		{
+			"start": 0.992,
+			"end": 1.04,
+			"value": 2
+		},
+		{
+			"start": 1.067,
+			"end": 1.093,
+			"value": 6
+		},
+		{
+			"start": 1.093,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.147,
+			"end": 1.173,
+			"value": 6
+		},
+		{
+			"start": 1.173,
+			"end": 1.2,
+			"value": 2
+		},
+		{
+			"start": 1.2,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 2
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.6,
+			"value": 3
+		},
+		{
+			"start": 2.08,
+			"end": 2.12,
+			"value": 3
+		},
+		{
+			"start": 2.12,
+			"end": 2.16,
+			"value": 1
+		},
+		{
+			"start": 2.213,
+			"end": 2.267,
+			"value": 5
+		},
+		{
+			"start": 2.267,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.32,
+			"end": 2.373,
+			"value": 7
+		},
+		{
+			"start": 2.373,
+			"end": 2.427,
+			"value": 3
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.64,
+			"value": 2
+		},
+		{
+			"start": 2.693,
+			"end": 2.72,
+			"value": 2
+		},
+		{
+			"start": 2.72,
+			"end": 2.747,
+			"value": 6
+		},
+		{
+			"start": 2.747,
+			"end": 2.773,
+			"value": 1
+		},
+		{
+			"start": 2.773,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.867,
+			"end": 2.933,
+			"value": 6
+		},
+		{
+			"start": 2.933,
+			"end": 3,
+			"value": 3
+		},
+		{
+			"start": 3,
+			"end": 3.067,
+			"value": 6
+		},
+		{
+			"start": 3.067,
+			"end": 3.133,
+			"value": 2
+		},
+		{
+			"start": 3.133,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.26,
+			"end": 3.38,
+			"value": 6
+		},
+		{
+			"start": 3.38,
+			"end": 3.44,
+			"value": 2
+		},
+		{
+			"start": 3.44,
+			"end": 3.56,
+			"value": 6
+		},
+		{
+			"start": 3.56,
+			"end": 3.62,
+			"value": 1
+		},
+		{
+			"start": 3.62,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 4.2,
+			"end": 4.64,
+			"value": 3
+		},
+		{
+			"start": 4.736,
+			"end": 4.832,
+			"value": 6
+		},
+		{
+			"start": 4.832,
+			"end": 4.928,
+			"value": 2
+		},
+		{
+			"start": 4.928,
+			"end": 5.024,
+			"value": 5
+		},
+		{
+			"start": 5.024,
+			"end": 5.12,
+			"value": 1
+		},
+		{
+			"start": 5.3,
+			"end": 5.32,
+			"value": 6
+		},
+		{
+			"start": 5.34,
+			"end": 5.36,
+			"value": 1
+		},
+		{
+			"start": 5.413,
+			"end": 5.467,
+			"value": 1
+		},
+		{
+			"start": 5.467,
+			"end": 5.52,
+			"value": 6
+		},
+		{
+			"start": 5.56,
+			"end": 5.6,
+			"value": 7
+		},
+		{
+			"start": 5.6,
+			"end": 5.64,
+			"value": 2
+		},
+		{
+			"start": 5.64,
+			"end": 5.68,
+			"value": 6
+		},
+		{
+			"start": 5.747,
+			"end": 5.813,
+			"value": 5
+		},
+		{
+			"start": 5.813,
+			"end": 5.88,
+			"value": 2
+		},
+		{
+			"start": 5.88,
+			"end": 5.947,
+			"value": 6
+		},
+		{
+			"start": 5.947,
+			"end": 6.013,
+			"value": 1
+		},
+		{
+			"start": 6.013,
+			"end": 6.08,
+			"value": 6
+		},
+		{
+			"start": 6.26,
+			"end": 6.56,
+			"value": 2
+		}
+	]
+}

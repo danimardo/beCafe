@@ -1,0 +1,188 @@
+{
+	"version": 1,
+	"audio": "registro_24.mp3",
+	"texto": "La empresa pone el café. Tú pones las ganas de irte a casa.",
+	"duration": 5.6,
+	"cues": [
+		{
+			"start": 0.4,
+			"end": 0.432,
+			"value": 6
+		},
+		{
+			"start": 0.432,
+			"end": 0.464,
+			"value": 2
+		},
+		{
+			"start": 0.488,
+			"end": 0.512,
+			"value": 7
+		},
+		{
+			"start": 0.6,
+			"end": 0.64,
+			"value": 7
+		},
+		{
+			"start": 0.64,
+			"end": 0.693,
+			"value": 3
+		},
+		{
+			"start": 0.693,
+			"end": 0.747,
+			"value": 6
+		},
+		{
+			"start": 0.747,
+			"end": 0.853,
+			"value": 1
+		},
+		{
+			"start": 0.853,
+			"end": 0.88,
+			"value": 6
+		},
+		{
+			"start": 0.976,
+			"end": 1.072,
+			"value": 6
+		},
+		{
+			"start": 1.072,
+			"end": 1.168,
+			"value": 2
+		},
+		{
+			"start": 1.168,
+			"end": 1.264,
+			"value": 5
+		},
+		{
+			"start": 1.264,
+			"end": 1.36,
+			"value": 1
+		},
+		{
+			"start": 1.66,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.76,
+			"end": 1.84,
+			"value": 4
+		},
+		{
+			"start": 1.92,
+			"end": 2,
+			"value": 7
+		},
+		{
+			"start": 2,
+			"end": 2.04,
+			"value": 3
+		},
+		{
+			"start": 2.04,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.12,
+			"value": 1
+		},
+		{
+			"start": 2.12,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.2,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.28,
+			"value": 2
+		},
+		{
+			"start": 2.28,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.36,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.44,
+			"value": 2
+		},
+		{
+			"start": 2.44,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.56,
+			"value": 2
+		},
+		{
+			"start": 2.56,
+			"end": 2.693,
+			"value": 6
+		},
+		{
+			"start": 2.693,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.773,
+			"end": 2.827,
+			"value": 1
+		},
+		{
+			"start": 2.827,
+			"end": 2.92,
+			"value": 6
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 2
+		},
+		{
+			"start": 3.136,
+			"end": 3.232,
+			"value": 6
+		},
+		{
+			"start": 3.232,
+			"end": 3.328,
+			"value": 2
+		},
+		{
+			"start": 3.328,
+			"end": 3.424,
+			"value": 6
+		},
+		{
+			"start": 3.424,
+			"end": 3.52,
+			"value": 2
+		}
+	]
+}

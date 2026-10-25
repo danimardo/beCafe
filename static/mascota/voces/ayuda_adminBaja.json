@@ -1,0 +1,158 @@
+{
+	"version": 1,
+	"audio": "ayuda_adminBaja.mp3",
+	"texto": "Liquida el saldo de la persona y la da de baja.",
+	"duration": 2.48,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.293,
+			"value": 1
+		},
+		{
+			"start": 0.293,
+			"end": 0.347,
+			"value": 6
+		},
+		{
+			"start": 0.347,
+			"end": 0.4,
+			"value": 2
+		},
+		{
+			"start": 0.427,
+			"end": 0.453,
+			"value": 1
+		},
+		{
+			"start": 0.453,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.533,
+			"end": 0.587,
+			"value": 6
+		},
+		{
+			"start": 0.587,
+			"end": 0.64,
+			"value": 2
+		},
+		{
+			"start": 0.64,
+			"end": 0.747,
+			"value": 6
+		},
+		{
+			"start": 0.747,
+			"end": 0.8,
+			"value": 3
+		},
+		{
+			"start": 0.827,
+			"end": 0.853,
+			"value": 6
+		},
+		{
+			"start": 0.853,
+			"end": 0.88,
+			"value": 1
+		},
+		{
+			"start": 0.907,
+			"end": 0.933,
+			"value": 6
+		},
+		{
+			"start": 0.933,
+			"end": 0.96,
+			"value": 2
+		},
+		{
+			"start": 1.02,
+			"end": 1.08,
+			"value": 7
+		},
+		{
+			"start": 1.08,
+			"end": 1.14,
+			"value": 1
+		},
+		{
+			"start": 1.14,
+			"end": 1.26,
+			"value": 6
+		},
+		{
+			"start": 1.26,
+			"end": 1.32,
+			"value": 3
+		},
+		{
+			"start": 1.32,
+			"end": 1.38,
+			"value": 6
+		},
+		{
+			"start": 1.38,
+			"end": 1.44,
+			"value": 2
+		},
+		{
+			"start": 1.56,
+			"end": 1.68,
+			"value": 1
+		},
+		{
+			"start": 1.733,
+			"end": 1.787,
+			"value": 6
+		},
+		{
+			"start": 1.787,
+			"end": 1.84,
+			"value": 2
+		},
+		{
+			"start": 1.867,
+			"end": 1.893,
+			"value": 6
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 1.973,
+			"end": 2.027,
+			"value": 6
+		},
+		{
+			"start": 2.027,
+			"end": 2.08,
+			"value": 1
+		},
+		{
+			"start": 2.144,
+			"end": 2.208,
+			"value": 7
+		},
+		{
+			"start": 2.208,
+			"end": 2.272,
+			"value": 2
+		},
+		{
+			"start": 2.272,
+			"end": 2.336,
+			"value": 6
+		},
+		{
+			"start": 2.336,
+			"end": 2.4,
+			"value": 2
+		}
+	]
+}

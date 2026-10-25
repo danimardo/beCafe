@@ -12,8 +12,9 @@ const DIR_VOCES = 'static/mascota/voces';
 // `.local/` está fuera de Git (AGENTS.md §8): ahí se guarda la copia de lo que se regenera.
 const DIR_COPIAS = '.local/voces-copia';
 
-/** Grupo de una locución: su identificador sin el número final (`intro_03` → `intro`). */
+/** Grupo de una locución: su identificador sin el número final (`intro_03` → `intro`); toda la ayuda es un grupo. */
 export function grupoDe(id) {
+	if (id.startsWith('ayuda_')) return 'ayuda';
 	return id.replace(/_\d+$/, '');
 }
 

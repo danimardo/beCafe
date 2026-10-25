@@ -1,0 +1,303 @@
+{
+	"version": 1,
+	"audio": "saludo_33.mp3",
+	"texto": "¡Usuario detectado! Inteligencia cuestionable, necesidad de cafeína crítica.",
+	"duration": 5.2,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.133,
+			"value": 4
+		},
+		{
+			"start": 0.133,
+			"end": 0.187,
+			"value": 6
+		},
+		{
+			"start": 0.187,
+			"end": 0.24,
+			"value": 4
+		},
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 2
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 1
+		},
+		{
+			"start": 0.48,
+			"end": 0.52,
+			"value": 3
+		},
+		{
+			"start": 0.54,
+			"end": 0.56,
+			"value": 6
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.64,
+			"end": 0.686,
+			"value": 6
+		},
+		{
+			"start": 0.686,
+			"end": 0.731,
+			"value": 1
+		},
+		{
+			"start": 0.731,
+			"end": 0.823,
+			"value": 6
+		},
+		{
+			"start": 0.823,
+			"end": 0.869,
+			"value": 2
+		},
+		{
+			"start": 0.869,
+			"end": 0.914,
+			"value": 6
+		},
+		{
+			"start": 0.914,
+			"end": 0.96,
+			"value": 3
+		},
+		{
+			"start": 1.067,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.12,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.56,
+			"value": 1
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.6,
+			"end": 1.64,
+			"value": 1
+		},
+		{
+			"start": 1.64,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 1.728,
+			"value": 1
+		},
+		{
+			"start": 1.728,
+			"end": 1.824,
+			"value": 6
+		},
+		{
+			"start": 1.824,
+			"end": 1.872,
+			"value": 1
+		},
+		{
+			"start": 1.872,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 2,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.126,
+			"value": 4
+		},
+		{
+			"start": 2.126,
+			"end": 2.171,
+			"value": 1
+		},
+		{
+			"start": 2.171,
+			"end": 2.263,
+			"value": 6
+		},
+		{
+			"start": 2.263,
+			"end": 2.309,
+			"value": 1
+		},
+		{
+			"start": 2.309,
+			"end": 2.354,
+			"value": 3
+		},
+		{
+			"start": 2.354,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.46,
+			"value": 2
+		},
+		{
+			"start": 2.46,
+			"end": 2.52,
+			"value": 7
+		},
+		{
+			"start": 2.52,
+			"end": 2.58,
+			"value": 6
+		},
+		{
+			"start": 2.58,
+			"end": 2.64,
+			"value": 1
+		},
+		{
+			"start": 2.853,
+			"end": 2.907,
+			"value": 6
+		},
+		{
+			"start": 2.907,
+			"end": 2.96,
+			"value": 1
+		},
+		{
+			"start": 2.96,
+			"end": 3.013,
+			"value": 6
+		},
+		{
+			"start": 3.013,
+			"end": 3.067,
+			"value": 1
+		},
+		{
+			"start": 3.067,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.16,
+			"value": 1
+		},
+		{
+			"start": 3.16,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.24,
+			"value": 2
+		},
+		{
+			"start": 3.24,
+			"end": 3.333,
+			"value": 6
+		},
+		{
+			"start": 3.333,
+			"end": 3.36,
+			"value": 1
+		},
+		{
+			"start": 3.424,
+			"end": 3.488,
+			"value": 6
+		},
+		{
+			"start": 3.488,
+			"end": 3.552,
+			"value": 2
+		},
+		{
+			"start": 3.552,
+			"end": 3.616,
+			"value": 5
+		},
+		{
+			"start": 3.616,
+			"end": 3.76,
+			"value": 1
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 2
+		},
+		{
+			"start": 4,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.24,
+			"value": 1
+		},
+		{
+			"start": 4.24,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.32,
+			"end": 4.4,
+			"value": 1
+		},
+		{
+			"start": 4.4,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.48,
+			"end": 4.56,
+			"value": 2
+		},
+		{
+			"start": 4.74,
+			"end": 5.2,
+			"value": 2
+		}
+	]
+}

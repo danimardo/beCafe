@@ -1,0 +1,208 @@
+{
+	"version": 1,
+	"audio": "registro_66.mp3",
+	"texto": "Ese café contiene un 0 % de magia y un 100 % de falsas esperanzas.",
+	"duration": 4.963,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.2,
+			"value": 6
+		},
+		{
+			"start": 0.2,
+			"end": 0.24,
+			"value": 1
+		},
+		{
+			"start": 0.304,
+			"end": 0.368,
+			"value": 6
+		},
+		{
+			"start": 0.368,
+			"end": 0.432,
+			"value": 2
+		},
+		{
+			"start": 0.432,
+			"end": 0.496,
+			"value": 5
+		},
+		{
+			"start": 0.496,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.604,
+			"end": 0.649,
+			"value": 6
+		},
+		{
+			"start": 0.649,
+			"end": 0.693,
+			"value": 3
+		},
+		{
+			"start": 0.693,
+			"end": 0.782,
+			"value": 6
+		},
+		{
+			"start": 0.782,
+			"end": 0.871,
+			"value": 1
+		},
+		{
+			"start": 0.871,
+			"end": 0.916,
+			"value": 6
+		},
+		{
+			"start": 0.916,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 1.013,
+			"end": 1.067,
+			"value": 4
+		},
+		{
+			"start": 1.067,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.867,
+			"end": 1.893,
+			"value": 6
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 1
+		},
+		{
+			"start": 2,
+			"end": 2.08,
+			"value": 7
+		},
+		{
+			"start": 2.08,
+			"end": 2.16,
+			"value": 2
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 6
+		},
+		{
+			"start": 2.24,
+			"end": 2.28,
+			"value": 1
+		},
+		{
+			"start": 2.28,
+			"end": 2.32,
+			"value": 2
+		},
+		{
+			"start": 2.48,
+			"end": 2.64,
+			"value": 1
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 4
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 3.547,
+			"end": 3.573,
+			"value": 6
+		},
+		{
+			"start": 3.573,
+			"end": 3.6,
+			"value": 1
+		},
+		{
+			"start": 3.664,
+			"end": 3.728,
+			"value": 5
+		},
+		{
+			"start": 3.728,
+			"end": 3.792,
+			"value": 2
+		},
+		{
+			"start": 3.792,
+			"end": 3.92,
+			"value": 6
+		},
+		{
+			"start": 3.92,
+			"end": 3.96,
+			"value": 2
+		},
+		{
+			"start": 3.96,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4.053,
+			"end": 4.107,
+			"value": 1
+		},
+		{
+			"start": 4.107,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.16,
+			"end": 4.213,
+			"value": 7
+		},
+		{
+			"start": 4.213,
+			"end": 4.267,
+			"value": 1
+		},
+		{
+			"start": 4.267,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.32,
+			"end": 4.373,
+			"value": 2
+		},
+		{
+			"start": 4.373,
+			"end": 4.48,
+			"value": 6
+		},
+		{
+			"start": 4.48,
+			"end": 4.6,
+			"value": 2
+		},
+		{
+			"start": 4.6,
+			"end": 4.72,
+			"value": 6
+		}
+	]
+}

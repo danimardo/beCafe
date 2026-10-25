@@ -1,0 +1,223 @@
+{
+	"version": 1,
+	"audio": "registro_54.mp3",
+	"texto": "El universo es infinito. Tu paciencia con los compañeros, no.",
+	"duration": 6.001,
+	"cues": [
+		{
+			"start": 0.22,
+			"end": 0.28,
+			"value": 4
+		},
+		{
+			"start": 0.28,
+			"end": 0.34,
+			"value": 6
+		},
+		{
+			"start": 0.34,
+			"end": 0.4,
+			"value": 1
+		},
+		{
+			"start": 0.4,
+			"end": 0.46,
+			"value": 5
+		},
+		{
+			"start": 0.46,
+			"end": 0.52,
+			"value": 1
+		},
+		{
+			"start": 0.52,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.72,
+			"value": 3
+		},
+		{
+			"start": 0.8,
+			"end": 0.88,
+			"value": 1
+		},
+		{
+			"start": 0.88,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 5
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 1
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 6
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 1
+		},
+		{
+			"start": 1.52,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.6,
+			"end": 1.68,
+			"value": 3
+		},
+		{
+			"start": 1.867,
+			"end": 2.053,
+			"value": 6
+		},
+		{
+			"start": 2.053,
+			"end": 2.24,
+			"value": 4
+		},
+		{
+			"start": 2.288,
+			"end": 2.336,
+			"value": 7
+		},
+		{
+			"start": 2.336,
+			"end": 2.384,
+			"value": 2
+		},
+		{
+			"start": 2.384,
+			"end": 2.432,
+			"value": 6
+		},
+		{
+			"start": 2.432,
+			"end": 2.544,
+			"value": 1
+		},
+		{
+			"start": 2.544,
+			"end": 2.672,
+			"value": 6
+		},
+		{
+			"start": 2.672,
+			"end": 2.736,
+			"value": 1
+		},
+		{
+			"start": 2.736,
+			"end": 2.8,
+			"value": 2
+		},
+		{
+			"start": 2.82,
+			"end": 2.84,
+			"value": 6
+		},
+		{
+			"start": 2.84,
+			"end": 2.86,
+			"value": 3
+		},
+		{
+			"start": 2.86,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3,
+			"value": 3
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.097,
+			"end": 3.154,
+			"value": 6
+		},
+		{
+			"start": 3.154,
+			"end": 3.211,
+			"value": 3
+		},
+		{
+			"start": 3.211,
+			"end": 3.326,
+			"value": 7
+		},
+		{
+			"start": 3.326,
+			"end": 3.383,
+			"value": 2
+		},
+		{
+			"start": 3.383,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.54,
+			"value": 1
+		},
+		{
+			"start": 3.54,
+			"end": 3.64,
+			"value": 6
+		},
+		{
+			"start": 3.64,
+			"end": 3.74,
+			"value": 3
+		},
+		{
+			"start": 3.74,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 4.213,
+			"end": 4.307,
+			"value": 6
+		},
+		{
+			"start": 4.307,
+			"end": 4.4,
+			"value": 3
+		}
+	]
+}

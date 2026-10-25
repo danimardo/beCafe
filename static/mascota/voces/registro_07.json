@@ -1,0 +1,288 @@
+{
+	"version": 1,
+	"audio": "registro_07.mp3",
+	"texto": "Otro café registrado. Tu médico acaba de notar una perturbación en la Fuerza.",
+	"duration": 4.24,
+	"cues": [
+		{
+			"start": 0.224,
+			"end": 0.28,
+			"value": 6
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 3
+		},
+		{
+			"start": 0.384,
+			"end": 0.448,
+			"value": 6
+		},
+		{
+			"start": 0.448,
+			"end": 0.512,
+			"value": 2
+		},
+		{
+			"start": 0.512,
+			"end": 0.576,
+			"value": 5
+		},
+		{
+			"start": 0.576,
+			"end": 0.64,
+			"value": 1
+		},
+		{
+			"start": 0.698,
+			"end": 0.756,
+			"value": 6
+		},
+		{
+			"start": 0.756,
+			"end": 0.815,
+			"value": 1
+		},
+		{
+			"start": 0.815,
+			"end": 0.873,
+			"value": 6
+		},
+		{
+			"start": 0.873,
+			"end": 0.931,
+			"value": 1
+		},
+		{
+			"start": 0.931,
+			"end": 1.105,
+			"value": 6
+		},
+		{
+			"start": 1.105,
+			"end": 1.164,
+			"value": 2
+		},
+		{
+			"start": 1.164,
+			"end": 1.222,
+			"value": 6
+		},
+		{
+			"start": 1.222,
+			"end": 1.28,
+			"value": 3
+		},
+		{
+			"start": 1.467,
+			"end": 1.573,
+			"value": 6
+		},
+		{
+			"start": 1.573,
+			"end": 1.68,
+			"value": 4
+		},
+		{
+			"start": 1.72,
+			"end": 1.76,
+			"value": 7
+		},
+		{
+			"start": 1.76,
+			"end": 1.8,
+			"value": 1
+		},
+		{
+			"start": 1.8,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.84,
+			"end": 1.893,
+			"value": 1
+		},
+		{
+			"start": 1.893,
+			"end": 1.947,
+			"value": 6
+		},
+		{
+			"start": 1.947,
+			"end": 2,
+			"value": 3
+		},
+		{
+			"start": 2.053,
+			"end": 2.107,
+			"value": 2
+		},
+		{
+			"start": 2.107,
+			"end": 2.16,
+			"value": 6
+		},
+		{
+			"start": 2.16,
+			"end": 2.187,
+			"value": 2
+		},
+		{
+			"start": 2.187,
+			"end": 2.213,
+			"value": 7
+		},
+		{
+			"start": 2.213,
+			"end": 2.24,
+			"value": 2
+		},
+		{
+			"start": 2.293,
+			"end": 2.347,
+			"value": 6
+		},
+		{
+			"start": 2.347,
+			"end": 2.4,
+			"value": 1
+		},
+		{
+			"start": 2.44,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.52,
+			"value": 3
+		},
+		{
+			"start": 2.52,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.6,
+			"value": 2
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 4
+		},
+		{
+			"start": 2.72,
+			"end": 2.76,
+			"value": 6
+		},
+		{
+			"start": 2.76,
+			"end": 2.8,
+			"value": 2
+		},
+		{
+			"start": 2.864,
+			"end": 2.928,
+			"value": 7
+		},
+		{
+			"start": 2.928,
+			"end": 2.992,
+			"value": 1
+		},
+		{
+			"start": 2.992,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.147,
+			"value": 4
+		},
+		{
+			"start": 3.147,
+			"end": 3.173,
+			"value": 6
+		},
+		{
+			"start": 3.173,
+			"end": 3.2,
+			"value": 7
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 2
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 1
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 3
+		},
+		{
+			"start": 3.52,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.627,
+			"end": 3.653,
+			"value": 1
+		},
+		{
+			"start": 3.653,
+			"end": 3.733,
+			"value": 6
+		},
+		{
+			"start": 3.733,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 5
+		},
+		{
+			"start": 3.92,
+			"end": 3.947,
+			"value": 4
+		},
+		{
+			"start": 3.947,
+			"end": 3.973,
+			"value": 1
+		},
+		{
+			"start": 3.973,
+			"end": 4.08,
+			"value": 6
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 2
+		}
+	]
+}

@@ -1,0 +1,233 @@
+{
+	"version": 1,
+	"audio": "registro_53.mp3",
+	"texto": "Si la vida te da limones, pide café. Que esto no es una frutería.",
+	"duration": 4.56,
+	"cues": [
+		{
+			"start": 0.368,
+			"end": 0.416,
+			"value": 5
+		},
+		{
+			"start": 0.416,
+			"end": 0.464,
+			"value": 1
+		},
+		{
+			"start": 0.464,
+			"end": 0.512,
+			"value": 6
+		},
+		{
+			"start": 0.512,
+			"end": 0.56,
+			"value": 2
+		},
+		{
+			"start": 0.613,
+			"end": 0.667,
+			"value": 6
+		},
+		{
+			"start": 0.667,
+			"end": 0.72,
+			"value": 1
+		},
+		{
+			"start": 0.747,
+			"end": 0.773,
+			"value": 6
+		},
+		{
+			"start": 0.773,
+			"end": 0.8,
+			"value": 2
+		},
+		{
+			"start": 0.86,
+			"end": 0.92,
+			"value": 6
+		},
+		{
+			"start": 0.92,
+			"end": 0.98,
+			"value": 1
+		},
+		{
+			"start": 0.98,
+			"end": 1.04,
+			"value": 7
+		},
+		{
+			"start": 1.04,
+			"end": 1.12,
+			"value": 3
+		},
+		{
+			"start": 1.12,
+			"end": 1.2,
+			"value": 6
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 1
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 6
+		},
+		{
+			"start": 1.56,
+			"end": 1.6,
+			"value": 7
+		},
+		{
+			"start": 1.6,
+			"end": 1.653,
+			"value": 1
+		},
+		{
+			"start": 1.653,
+			"end": 1.707,
+			"value": 6
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 1
+		},
+		{
+			"start": 1.824,
+			"end": 1.888,
+			"value": 6
+		},
+		{
+			"start": 1.888,
+			"end": 1.952,
+			"value": 2
+		},
+		{
+			"start": 1.952,
+			"end": 2.016,
+			"value": 5
+		},
+		{
+			"start": 2.016,
+			"end": 2.08,
+			"value": 1
+		},
+		{
+			"start": 2.28,
+			"end": 2.4,
+			"value": 6
+		},
+		{
+			"start": 2.4,
+			"end": 2.52,
+			"value": 4
+		},
+		{
+			"start": 2.52,
+			"end": 2.64,
+			"value": 1
+		},
+		{
+			"start": 2.688,
+			"end": 2.736,
+			"value": 1
+		},
+		{
+			"start": 2.736,
+			"end": 2.832,
+			"value": 6
+		},
+		{
+			"start": 2.832,
+			"end": 2.88,
+			"value": 3
+		},
+		{
+			"start": 2.907,
+			"end": 2.933,
+			"value": 6
+		},
+		{
+			"start": 2.933,
+			"end": 2.96,
+			"value": 3
+		},
+		{
+			"start": 2.987,
+			"end": 3.013,
+			"value": 1
+		},
+		{
+			"start": 3.013,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 4
+		},
+		{
+			"start": 3.12,
+			"end": 3.16,
+			"value": 6
+		},
+		{
+			"start": 3.16,
+			"end": 3.2,
+			"value": 2
+		},
+		{
+			"start": 3.253,
+			"end": 3.307,
+			"value": 5
+		},
+		{
+			"start": 3.307,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.42,
+			"value": 4
+		},
+		{
+			"start": 3.42,
+			"end": 3.48,
+			"value": 6
+		},
+		{
+			"start": 3.48,
+			"end": 3.54,
+			"value": 1
+		},
+		{
+			"start": 3.54,
+			"end": 3.6,
+			"value": 6
+		},
+		{
+			"start": 3.6,
+			"end": 3.72,
+			"value": 1
+		},
+		{
+			"start": 3.72,
+			"end": 3.84,
+			"value": 2
+		},
+		{
+			"start": 3.96,
+			"end": 4.56,
+			"value": 2
+		}
+	]
+}

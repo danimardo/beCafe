@@ -85,7 +85,9 @@
 	});
 	const hayErroresImporte = $derived(Object.keys(erroresImporte).length > 0);
 	const errorGeneral = $derived(
-		hayErroresImporte ? textos.economia.revisaImportes : Object.entries(errores).find(([campo]) => !campo.startsWith('importe-'))?.[1]?.mensaje,
+		hayErroresImporte
+			? textos.economia.revisaImportes
+			: Object.entries(errores).find(([campo]) => !campo.startsWith('importe-'))?.[1]?.mensaje,
 	);
 	let resumenErrores: HTMLElement | undefined = $state();
 

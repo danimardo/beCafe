@@ -1,0 +1,248 @@
+{
+	"version": 1,
+	"audio": "registro_74.mp3",
+	"texto": "Tu cerebro lleva tanto tiempo en beta que ya es una característica.",
+	"duration": 4.24,
+	"cues": [
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.4,
+			"value": 1
+		},
+		{
+			"start": 0.4,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.56,
+			"end": 0.613,
+			"value": 7
+		},
+		{
+			"start": 0.613,
+			"end": 0.667,
+			"value": 6
+		},
+		{
+			"start": 0.667,
+			"end": 0.72,
+			"value": 3
+		},
+		{
+			"start": 0.768,
+			"end": 0.864,
+			"value": 6
+		},
+		{
+			"start": 0.864,
+			"end": 0.912,
+			"value": 1
+		},
+		{
+			"start": 0.912,
+			"end": 0.96,
+			"value": 5
+		},
+		{
+			"start": 0.96,
+			"end": 1.12,
+			"value": 2
+		},
+		{
+			"start": 1.147,
+			"end": 1.173,
+			"value": 6
+		},
+		{
+			"start": 1.173,
+			"end": 1.2,
+			"value": 2
+		},
+		{
+			"start": 1.2,
+			"end": 1.253,
+			"value": 6
+		},
+		{
+			"start": 1.253,
+			"end": 1.28,
+			"value": 3
+		},
+		{
+			"start": 1.326,
+			"end": 1.371,
+			"value": 6
+		},
+		{
+			"start": 1.371,
+			"end": 1.463,
+			"value": 1
+		},
+		{
+			"start": 1.463,
+			"end": 1.554,
+			"value": 7
+		},
+		{
+			"start": 1.554,
+			"end": 1.6,
+			"value": 3
+		},
+		{
+			"start": 1.653,
+			"end": 1.707,
+			"value": 1
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 6
+		},
+		{
+			"start": 1.824,
+			"end": 1.888,
+			"value": 7
+		},
+		{
+			"start": 1.888,
+			"end": 1.952,
+			"value": 1
+		},
+		{
+			"start": 1.952,
+			"end": 2.016,
+			"value": 6
+		},
+		{
+			"start": 2.016,
+			"end": 2.08,
+			"value": 2
+		},
+		{
+			"start": 2.14,
+			"end": 2.2,
+			"value": 6
+		},
+		{
+			"start": 2.2,
+			"end": 2.26,
+			"value": 4
+		},
+		{
+			"start": 2.26,
+			"end": 2.32,
+			"value": 1
+		},
+		{
+			"start": 2.373,
+			"end": 2.427,
+			"value": 1
+		},
+		{
+			"start": 2.427,
+			"end": 2.48,
+			"value": 2
+		},
+		{
+			"start": 2.507,
+			"end": 2.533,
+			"value": 1
+		},
+		{
+			"start": 2.533,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.62,
+			"end": 2.68,
+			"value": 4
+		},
+		{
+			"start": 2.68,
+			"end": 2.74,
+			"value": 6
+		},
+		{
+			"start": 2.74,
+			"end": 2.8,
+			"value": 2
+		},
+		{
+			"start": 2.844,
+			"end": 2.889,
+			"value": 6
+		},
+		{
+			"start": 2.889,
+			"end": 2.933,
+			"value": 2
+		},
+		{
+			"start": 2.933,
+			"end": 2.978,
+			"value": 6
+		},
+		{
+			"start": 2.978,
+			"end": 3.022,
+			"value": 2
+		},
+		{
+			"start": 3.022,
+			"end": 3.111,
+			"value": 6
+		},
+		{
+			"start": 3.111,
+			"end": 3.156,
+			"value": 1
+		},
+		{
+			"start": 3.156,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.293,
+			"value": 1
+		},
+		{
+			"start": 3.293,
+			"end": 3.48,
+			"value": 6
+		},
+		{
+			"start": 3.48,
+			"end": 3.573,
+			"value": 1
+		},
+		{
+			"start": 3.573,
+			"end": 3.667,
+			"value": 6
+		},
+		{
+			"start": 3.667,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.82,
+			"end": 4.24,
+			"value": 2
+		}
+	]
+}

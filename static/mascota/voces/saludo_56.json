@@ -1,0 +1,283 @@
+{
+	"version": 1,
+	"audio": "saludo_56.mp3",
+	"texto": "¡Eh, figura! ¡El café es mi religión y tú eres uno de sus peores feligreses!",
+	"duration": 5.6,
+	"cues": [
+		{
+			"start": 0.514,
+			"end": 0.549,
+			"value": 5
+		},
+		{
+			"start": 0.549,
+			"end": 0.583,
+			"value": 1
+		},
+		{
+			"start": 0.583,
+			"end": 0.617,
+			"value": 6
+		},
+		{
+			"start": 0.617,
+			"end": 0.651,
+			"value": 4
+		},
+		{
+			"start": 0.651,
+			"end": 0.686,
+			"value": 6
+		},
+		{
+			"start": 0.686,
+			"end": 0.72,
+			"value": 2
+		},
+		{
+			"start": 1.04,
+			"end": 1.08,
+			"value": 1
+		},
+		{
+			"start": 1.08,
+			"end": 1.12,
+			"value": 6
+		},
+		{
+			"start": 1.184,
+			"end": 1.248,
+			"value": 6
+		},
+		{
+			"start": 1.248,
+			"end": 1.312,
+			"value": 2
+		},
+		{
+			"start": 1.312,
+			"end": 1.376,
+			"value": 5
+		},
+		{
+			"start": 1.376,
+			"end": 1.44,
+			"value": 1
+		},
+		{
+			"start": 1.493,
+			"end": 1.547,
+			"value": 1
+		},
+		{
+			"start": 1.547,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.653,
+			"end": 1.707,
+			"value": 7
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 1
+		},
+		{
+			"start": 1.813,
+			"end": 1.867,
+			"value": 6
+		},
+		{
+			"start": 1.867,
+			"end": 1.92,
+			"value": 1
+		},
+		{
+			"start": 1.92,
+			"end": 1.973,
+			"value": 6
+		},
+		{
+			"start": 1.973,
+			"end": 2.027,
+			"value": 1
+		},
+		{
+			"start": 2.027,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.08,
+			"end": 2.16,
+			"value": 1
+		},
+		{
+			"start": 2.16,
+			"end": 2.24,
+			"value": 3
+		},
+		{
+			"start": 2.24,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.64,
+			"value": 1
+		},
+		{
+			"start": 2.693,
+			"end": 2.747,
+			"value": 6
+		},
+		{
+			"start": 2.747,
+			"end": 2.8,
+			"value": 4
+		},
+		{
+			"start": 2.853,
+			"end": 2.907,
+			"value": 1
+		},
+		{
+			"start": 2.907,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3,
+			"value": 1
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.1,
+			"end": 3.16,
+			"value": 4
+		},
+		{
+			"start": 3.16,
+			"end": 3.22,
+			"value": 6
+		},
+		{
+			"start": 3.22,
+			"end": 3.28,
+			"value": 3
+		},
+		{
+			"start": 3.333,
+			"end": 3.387,
+			"value": 6
+		},
+		{
+			"start": 3.387,
+			"end": 3.44,
+			"value": 1
+		},
+		{
+			"start": 3.5,
+			"end": 3.56,
+			"value": 6
+		},
+		{
+			"start": 3.56,
+			"end": 3.62,
+			"value": 4
+		},
+		{
+			"start": 3.62,
+			"end": 3.68,
+			"value": 6
+		},
+		{
+			"start": 3.733,
+			"end": 3.787,
+			"value": 7
+		},
+		{
+			"start": 3.787,
+			"end": 3.84,
+			"value": 1
+		},
+		{
+			"start": 3.84,
+			"end": 3.92,
+			"value": 3
+		},
+		{
+			"start": 3.92,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.08,
+			"value": 1
+		},
+		{
+			"start": 4.08,
+			"end": 4.16,
+			"value": 6
+		},
+		{
+			"start": 4.2,
+			"end": 4.24,
+			"value": 5
+		},
+		{
+			"start": 4.24,
+			"end": 4.28,
+			"value": 1
+		},
+		{
+			"start": 4.28,
+			"end": 4.32,
+			"value": 6
+		},
+		{
+			"start": 4.32,
+			"end": 4.4,
+			"value": 1
+		},
+		{
+			"start": 4.4,
+			"end": 4.56,
+			"value": 6
+		},
+		{
+			"start": 4.56,
+			"end": 4.64,
+			"value": 1
+		},
+		{
+			"start": 4.64,
+			"end": 4.72,
+			"value": 6
+		},
+		{
+			"start": 4.72,
+			"end": 4.8,
+			"value": 1
+		},
+		{
+			"start": 4.8,
+			"end": 4.88,
+			"value": 6
+		},
+		{
+			"start": 4.94,
+			"end": 5.6,
+			"value": 2
+		}
+	]
+}

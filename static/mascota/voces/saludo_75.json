@@ -1,0 +1,288 @@
+{
+	"version": 1,
+	"audio": "saludo_75.mp3",
+	"texto": "¡Bienvenido! ¡He preparado un discurso motivacional, pero me ha dado pereza!",
+	"duration": 6.56,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.22,
+			"value": 7
+		},
+		{
+			"start": 0.22,
+			"end": 0.34,
+			"value": 1
+		},
+		{
+			"start": 0.34,
+			"end": 0.4,
+			"value": 6
+		},
+		{
+			"start": 0.4,
+			"end": 0.427,
+			"value": 5
+		},
+		{
+			"start": 0.427,
+			"end": 0.453,
+			"value": 1
+		},
+		{
+			"start": 0.453,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.587,
+			"value": 1
+		},
+		{
+			"start": 0.587,
+			"end": 0.693,
+			"value": 6
+		},
+		{
+			"start": 0.693,
+			"end": 0.8,
+			"value": 3
+		},
+		{
+			"start": 1.24,
+			"end": 1.28,
+			"value": 1
+		},
+		{
+			"start": 1.326,
+			"end": 1.371,
+			"value": 7
+		},
+		{
+			"start": 1.371,
+			"end": 1.417,
+			"value": 6
+		},
+		{
+			"start": 1.417,
+			"end": 1.463,
+			"value": 1
+		},
+		{
+			"start": 1.463,
+			"end": 1.509,
+			"value": 7
+		},
+		{
+			"start": 1.509,
+			"end": 1.554,
+			"value": 2
+		},
+		{
+			"start": 1.554,
+			"end": 1.6,
+			"value": 6
+		},
+		{
+			"start": 1.6,
+			"end": 1.653,
+			"value": 2
+		},
+		{
+			"start": 1.653,
+			"end": 1.707,
+			"value": 6
+		},
+		{
+			"start": 1.707,
+			"end": 1.76,
+			"value": 3
+		},
+		{
+			"start": 1.787,
+			"end": 1.813,
+			"value": 4
+		},
+		{
+			"start": 1.813,
+			"end": 1.84,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2,
+			"end": 2.08,
+			"value": 1
+		},
+		{
+			"start": 2.08,
+			"end": 2.208,
+			"value": 6
+		},
+		{
+			"start": 2.208,
+			"end": 2.256,
+			"value": 4
+		},
+		{
+			"start": 2.256,
+			"end": 2.352,
+			"value": 6
+		},
+		{
+			"start": 2.352,
+			"end": 2.4,
+			"value": 3
+		},
+		{
+			"start": 2.467,
+			"end": 2.533,
+			"value": 7
+		},
+		{
+			"start": 2.533,
+			"end": 2.6,
+			"value": 3
+		},
+		{
+			"start": 2.6,
+			"end": 2.667,
+			"value": 6
+		},
+		{
+			"start": 2.667,
+			"end": 2.733,
+			"value": 1
+		},
+		{
+			"start": 2.733,
+			"end": 2.8,
+			"value": 5
+		},
+		{
+			"start": 2.8,
+			"end": 2.88,
+			"value": 2
+		},
+		{
+			"start": 2.88,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3.04,
+			"value": 1
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 3
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 2
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.488,
+			"end": 3.536,
+			"value": 7
+		},
+		{
+			"start": 3.536,
+			"end": 3.584,
+			"value": 1
+		},
+		{
+			"start": 3.584,
+			"end": 3.632,
+			"value": 6
+		},
+		{
+			"start": 3.632,
+			"end": 3.68,
+			"value": 3
+		},
+		{
+			"start": 3.733,
+			"end": 3.787,
+			"value": 7
+		},
+		{
+			"start": 3.787,
+			"end": 3.84,
+			"value": 1
+		},
+		{
+			"start": 3.893,
+			"end": 3.92,
+			"value": 2
+		},
+		{
+			"start": 3.968,
+			"end": 4.016,
+			"value": 6
+		},
+		{
+			"start": 4.016,
+			"end": 4.064,
+			"value": 2
+		},
+		{
+			"start": 4.064,
+			"end": 4.112,
+			"value": 6
+		},
+		{
+			"start": 4.112,
+			"end": 4.16,
+			"value": 3
+		},
+		{
+			"start": 4.2,
+			"end": 4.24,
+			"value": 7
+		},
+		{
+			"start": 4.24,
+			"end": 4.293,
+			"value": 1
+		},
+		{
+			"start": 4.293,
+			"end": 4.347,
+			"value": 6
+		},
+		{
+			"start": 4.347,
+			"end": 4.4,
+			"value": 1
+		},
+		{
+			"start": 4.4,
+			"end": 4.52,
+			"value": 6
+		},
+		{
+			"start": 4.52,
+			"end": 4.64,
+			"value": 2
+		}
+	]
+}

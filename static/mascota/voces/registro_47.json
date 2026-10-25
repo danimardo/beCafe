@@ -1,0 +1,218 @@
+{
+	"version": 1,
+	"audio": "registro_47.mp3",
+	"texto": "¿Te has planteado beber agua? Dicen que es legal y todo.",
+	"duration": 4.161,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.12,
+			"value": 6
+		},
+		{
+			"start": 0.12,
+			"end": 0.16,
+			"value": 1
+		},
+		{
+			"start": 0.24,
+			"end": 0.28,
+			"value": 2
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.373,
+			"end": 0.427,
+			"value": 7
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.48,
+			"end": 0.56,
+			"value": 2
+		},
+		{
+			"start": 0.56,
+			"end": 0.72,
+			"value": 6
+		},
+		{
+			"start": 0.72,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.8,
+			"end": 0.853,
+			"value": 2
+		},
+		{
+			"start": 0.853,
+			"end": 0.907,
+			"value": 6
+		},
+		{
+			"start": 0.907,
+			"end": 0.96,
+			"value": 3
+		},
+		{
+			"start": 1.013,
+			"end": 1.067,
+			"value": 7
+		},
+		{
+			"start": 1.067,
+			"end": 1.12,
+			"value": 1
+		},
+		{
+			"start": 1.12,
+			"end": 1.173,
+			"value": 7
+		},
+		{
+			"start": 1.173,
+			"end": 1.227,
+			"value": 1
+		},
+		{
+			"start": 1.227,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.36,
+			"end": 1.44,
+			"value": 2
+		},
+		{
+			"start": 1.44,
+			"end": 1.52,
+			"value": 6
+		},
+		{
+			"start": 1.52,
+			"end": 1.6,
+			"value": 4
+		},
+		{
+			"start": 1.6,
+			"end": 1.68,
+			"value": 2
+		},
+		{
+			"start": 2.16,
+			"end": 2.32,
+			"value": 6
+		},
+		{
+			"start": 2.32,
+			"end": 2.4,
+			"value": 1
+		},
+		{
+			"start": 2.4,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.52,
+			"value": 1
+		},
+		{
+			"start": 2.52,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.6,
+			"end": 2.64,
+			"value": 6
+		},
+		{
+			"start": 2.64,
+			"end": 2.68,
+			"value": 4
+		},
+		{
+			"start": 2.68,
+			"end": 2.72,
+			"value": 1
+		},
+		{
+			"start": 2.773,
+			"end": 2.827,
+			"value": 1
+		},
+		{
+			"start": 2.827,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.933,
+			"end": 2.987,
+			"value": 6
+		},
+		{
+			"start": 2.987,
+			"end": 3.04,
+			"value": 1
+		},
+		{
+			"start": 3.04,
+			"end": 3.093,
+			"value": 6
+		},
+		{
+			"start": 3.093,
+			"end": 3.147,
+			"value": 2
+		},
+		{
+			"start": 3.147,
+			"end": 3.2,
+			"value": 6
+		},
+		{
+			"start": 3.24,
+			"end": 3.28,
+			"value": 1
+		},
+		{
+			"start": 3.392,
+			"end": 3.504,
+			"value": 6
+		},
+		{
+			"start": 3.504,
+			"end": 3.616,
+			"value": 3
+		},
+		{
+			"start": 3.616,
+			"end": 3.728,
+			"value": 6
+		},
+		{
+			"start": 3.728,
+			"end": 3.84,
+			"value": 3
+		},
+		{
+			"start": 3.9,
+			"end": 4.161,
+			"value": 2
+		}
+	]
+}

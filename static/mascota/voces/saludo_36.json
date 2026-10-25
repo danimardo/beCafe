@@ -1,0 +1,258 @@
+{
+	"version": 1,
+	"audio": "saludo_36.mp3",
+	"texto": "¡Conexión establecida! Tu cerebro sigue respondiendo con un bonito 503.",
+	"duration": 5.28,
+	"cues": [
+		{
+			"start": 0.16,
+			"end": 0.24,
+			"value": 1
+		},
+		{
+			"start": 0.24,
+			"end": 0.32,
+			"value": 6
+		},
+		{
+			"start": 0.32,
+			"end": 0.373,
+			"value": 1
+		},
+		{
+			"start": 0.373,
+			"end": 0.427,
+			"value": 3
+		},
+		{
+			"start": 0.427,
+			"end": 0.48,
+			"value": 6
+		},
+		{
+			"start": 0.52,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.56,
+			"end": 0.64,
+			"value": 6
+		},
+		{
+			"start": 0.64,
+			"end": 0.68,
+			"value": 2
+		},
+		{
+			"start": 0.68,
+			"end": 0.72,
+			"value": 7
+		},
+		{
+			"start": 0.72,
+			"end": 0.76,
+			"value": 6
+		},
+		{
+			"start": 0.76,
+			"end": 0.8,
+			"value": 1
+		},
+		{
+			"start": 0.8,
+			"end": 0.92,
+			"value": 6
+		},
+		{
+			"start": 0.92,
+			"end": 0.96,
+			"value": 1
+		},
+		{
+			"start": 0.96,
+			"end": 1,
+			"value": 6
+		},
+		{
+			"start": 1,
+			"end": 1.04,
+			"value": 2
+		},
+		{
+			"start": 1.173,
+			"end": 1.307,
+			"value": 6
+		},
+		{
+			"start": 1.307,
+			"end": 1.44,
+			"value": 4
+		},
+		{
+			"start": 1.488,
+			"end": 1.536,
+			"value": 6
+		},
+		{
+			"start": 1.536,
+			"end": 1.584,
+			"value": 1
+		},
+		{
+			"start": 1.584,
+			"end": 1.632,
+			"value": 6
+		},
+		{
+			"start": 1.632,
+			"end": 1.68,
+			"value": 1
+		},
+		{
+			"start": 1.68,
+			"end": 1.733,
+			"value": 7
+		},
+		{
+			"start": 1.733,
+			"end": 1.787,
+			"value": 6
+		},
+		{
+			"start": 1.787,
+			"end": 1.84,
+			"value": 3
+		},
+		{
+			"start": 1.88,
+			"end": 1.92,
+			"value": 6
+		},
+		{
+			"start": 1.92,
+			"end": 1.96,
+			"value": 1
+		},
+		{
+			"start": 1.96,
+			"end": 2,
+			"value": 6
+		},
+		{
+			"start": 2,
+			"end": 2.04,
+			"value": 4
+		},
+		{
+			"start": 2.04,
+			"end": 2.08,
+			"value": 1
+		},
+		{
+			"start": 2.13,
+			"end": 2.18,
+			"value": 6
+		},
+		{
+			"start": 2.18,
+			"end": 2.23,
+			"value": 1
+		},
+		{
+			"start": 2.23,
+			"end": 2.28,
+			"value": 6
+		},
+		{
+			"start": 2.28,
+			"end": 2.33,
+			"value": 7
+		},
+		{
+			"start": 2.33,
+			"end": 2.38,
+			"value": 3
+		},
+		{
+			"start": 2.38,
+			"end": 2.48,
+			"value": 6
+		},
+		{
+			"start": 2.48,
+			"end": 2.576,
+			"value": 1
+		},
+		{
+			"start": 2.576,
+			"end": 2.672,
+			"value": 6
+		},
+		{
+			"start": 2.672,
+			"end": 2.72,
+			"value": 3
+		},
+		{
+			"start": 2.78,
+			"end": 2.84,
+			"value": 6
+		},
+		{
+			"start": 2.84,
+			"end": 2.9,
+			"value": 3
+		},
+		{
+			"start": 2.9,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.987,
+			"end": 3.013,
+			"value": 4
+		},
+		{
+			"start": 3.013,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.1,
+			"end": 3.16,
+			"value": 7
+		},
+		{
+			"start": 3.16,
+			"end": 3.22,
+			"value": 3
+		},
+		{
+			"start": 3.22,
+			"end": 3.28,
+			"value": 6
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 1
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 6
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 3
+		},
+		{
+			"start": 4.66,
+			"end": 5.28,
+			"value": 2
+		}
+	]
+}

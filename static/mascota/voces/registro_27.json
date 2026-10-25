@@ -1,0 +1,243 @@
+{
+	"version": 1,
+	"audio": "registro_27.mp3",
+	"texto": "Otro café instalado. Reinicia el humano para aplicar los cambios.",
+	"duration": 3.68,
+	"cues": [
+		{
+			"start": 0.224,
+			"end": 0.28,
+			"value": 6
+		},
+		{
+			"start": 0.28,
+			"end": 0.32,
+			"value": 3
+		},
+		{
+			"start": 0.368,
+			"end": 0.416,
+			"value": 6
+		},
+		{
+			"start": 0.416,
+			"end": 0.464,
+			"value": 2
+		},
+		{
+			"start": 0.464,
+			"end": 0.512,
+			"value": 5
+		},
+		{
+			"start": 0.512,
+			"end": 0.56,
+			"value": 1
+		},
+		{
+			"start": 0.629,
+			"end": 0.697,
+			"value": 1
+		},
+		{
+			"start": 0.697,
+			"end": 0.903,
+			"value": 6
+		},
+		{
+			"start": 0.903,
+			"end": 0.971,
+			"value": 2
+		},
+		{
+			"start": 0.971,
+			"end": 1.04,
+			"value": 6
+		},
+		{
+			"start": 1.04,
+			"end": 1.093,
+			"value": 2
+		},
+		{
+			"start": 1.093,
+			"end": 1.147,
+			"value": 6
+		},
+		{
+			"start": 1.147,
+			"end": 1.2,
+			"value": 3
+		},
+		{
+			"start": 1.488,
+			"end": 1.536,
+			"value": 6
+		},
+		{
+			"start": 1.536,
+			"end": 1.632,
+			"value": 1
+		},
+		{
+			"start": 1.632,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.68,
+			"end": 1.74,
+			"value": 1
+		},
+		{
+			"start": 1.74,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.86,
+			"value": 1
+		},
+		{
+			"start": 1.86,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 1.973,
+			"end": 2.027,
+			"value": 1
+		},
+		{
+			"start": 2.027,
+			"end": 2.08,
+			"value": 6
+		},
+		{
+			"start": 2.171,
+			"end": 2.217,
+			"value": 4
+		},
+		{
+			"start": 2.217,
+			"end": 2.263,
+			"value": 7
+		},
+		{
+			"start": 2.263,
+			"end": 2.309,
+			"value": 2
+		},
+		{
+			"start": 2.309,
+			"end": 2.354,
+			"value": 6
+		},
+		{
+			"start": 2.354,
+			"end": 2.4,
+			"value": 3
+		},
+		{
+			"start": 2.432,
+			"end": 2.464,
+			"value": 7
+		},
+		{
+			"start": 2.464,
+			"end": 2.496,
+			"value": 2
+		},
+		{
+			"start": 2.496,
+			"end": 2.528,
+			"value": 6
+		},
+		{
+			"start": 2.528,
+			"end": 2.56,
+			"value": 2
+		},
+		{
+			"start": 2.613,
+			"end": 2.667,
+			"value": 2
+		},
+		{
+			"start": 2.667,
+			"end": 2.72,
+			"value": 7
+		},
+		{
+			"start": 2.72,
+			"end": 2.773,
+			"value": 6
+		},
+		{
+			"start": 2.773,
+			"end": 2.827,
+			"value": 1
+		},
+		{
+			"start": 2.827,
+			"end": 2.88,
+			"value": 6
+		},
+		{
+			"start": 2.88,
+			"end": 2.92,
+			"value": 2
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 3,
+			"end": 3.04,
+			"value": 6
+		},
+		{
+			"start": 3.04,
+			"end": 3.08,
+			"value": 3
+		},
+		{
+			"start": 3.08,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.18,
+			"end": 3.24,
+			"value": 6
+		},
+		{
+			"start": 3.24,
+			"end": 3.3,
+			"value": 2
+		},
+		{
+			"start": 3.3,
+			"end": 3.42,
+			"value": 7
+		},
+		{
+			"start": 3.42,
+			"end": 3.48,
+			"value": 1
+		},
+		{
+			"start": 3.48,
+			"end": 3.54,
+			"value": 3
+		},
+		{
+			"start": 3.54,
+			"end": 3.6,
+			"value": 6
+		}
+	]
+}

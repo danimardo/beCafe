@@ -1,0 +1,238 @@
+{
+	"version": 1,
+	"audio": "saludo_07.mp3",
+	"texto": "¡Eh, tú! Sí, tú, el de la cara de necesitar vacaciones. ¡Acércate!",
+	"duration": 4.88,
+	"cues": [
+		{
+			"start": 0.08,
+			"end": 0.16,
+			"value": 1
+		},
+		{
+			"start": 0.453,
+			"end": 0.507,
+			"value": 6
+		},
+		{
+			"start": 0.507,
+			"end": 0.56,
+			"value": 4
+		},
+		{
+			"start": 0.8,
+			"end": 0.96,
+			"value": 6
+		},
+		{
+			"start": 0.96,
+			"end": 1.04,
+			"value": 1
+		},
+		{
+			"start": 1.2,
+			"end": 1.28,
+			"value": 6
+		},
+		{
+			"start": 1.28,
+			"end": 1.36,
+			"value": 4
+		},
+		{
+			"start": 1.627,
+			"end": 1.653,
+			"value": 1
+		},
+		{
+			"start": 1.653,
+			"end": 1.68,
+			"value": 6
+		},
+		{
+			"start": 1.733,
+			"end": 1.787,
+			"value": 6
+		},
+		{
+			"start": 1.787,
+			"end": 1.84,
+			"value": 1
+		},
+		{
+			"start": 1.867,
+			"end": 1.893,
+			"value": 6
+		},
+		{
+			"start": 1.893,
+			"end": 1.92,
+			"value": 2
+		},
+		{
+			"start": 1.968,
+			"end": 2.016,
+			"value": 6
+		},
+		{
+			"start": 2.016,
+			"end": 2.064,
+			"value": 2
+		},
+		{
+			"start": 2.064,
+			"end": 2.112,
+			"value": 6
+		},
+		{
+			"start": 2.112,
+			"end": 2.16,
+			"value": 2
+		},
+		{
+			"start": 2.187,
+			"end": 2.213,
+			"value": 6
+		},
+		{
+			"start": 2.213,
+			"end": 2.24,
+			"value": 1
+		},
+		{
+			"start": 2.293,
+			"end": 2.347,
+			"value": 6
+		},
+		{
+			"start": 2.347,
+			"end": 2.4,
+			"value": 1
+		},
+		{
+			"start": 2.4,
+			"end": 2.453,
+			"value": 6
+		},
+		{
+			"start": 2.453,
+			"end": 2.507,
+			"value": 1
+		},
+		{
+			"start": 2.507,
+			"end": 2.56,
+			"value": 6
+		},
+		{
+			"start": 2.56,
+			"end": 2.62,
+			"value": 1
+		},
+		{
+			"start": 2.62,
+			"end": 2.68,
+			"value": 6
+		},
+		{
+			"start": 2.68,
+			"end": 2.74,
+			"value": 2
+		},
+		{
+			"start": 2.74,
+			"end": 2.8,
+			"value": 6
+		},
+		{
+			"start": 2.84,
+			"end": 2.88,
+			"value": 5
+		},
+		{
+			"start": 2.88,
+			"end": 2.92,
+			"value": 2
+		},
+		{
+			"start": 2.92,
+			"end": 2.96,
+			"value": 6
+		},
+		{
+			"start": 2.96,
+			"end": 3.04,
+			"value": 2
+		},
+		{
+			"start": 3.04,
+			"end": 3.12,
+			"value": 6
+		},
+		{
+			"start": 3.12,
+			"end": 3.2,
+			"value": 1
+		},
+		{
+			"start": 3.2,
+			"end": 3.28,
+			"value": 3
+		},
+		{
+			"start": 3.28,
+			"end": 3.36,
+			"value": 6
+		},
+		{
+			"start": 3.36,
+			"end": 3.44,
+			"value": 1
+		},
+		{
+			"start": 3.44,
+			"end": 3.52,
+			"value": 6
+		},
+		{
+			"start": 3.68,
+			"end": 3.76,
+			"value": 2
+		},
+		{
+			"start": 3.76,
+			"end": 3.84,
+			"value": 6
+		},
+		{
+			"start": 3.84,
+			"end": 3.893,
+			"value": 1
+		},
+		{
+			"start": 3.893,
+			"end": 4,
+			"value": 6
+		},
+		{
+			"start": 4,
+			"end": 4.107,
+			"value": 2
+		},
+		{
+			"start": 4.107,
+			"end": 4.213,
+			"value": 6
+		},
+		{
+			"start": 4.213,
+			"end": 4.319,
+			"value": 1
+		},
+		{
+			"start": 4.4,
+			"end": 4.88,
+			"value": 2
+		}
+	]
+}

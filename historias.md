@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ubicación | `historias.md` en la raíz del repositorio `github.com/danimardo/beCafe` (en el servidor de desarrollo, `/Apps/beCafe/historias.md`) |
-| Versión | 0.22.0 — CAMBIO-022 |
+| Versión | 0.23.0 — CAMBIO-023 |
 | Fecha | 25-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), versión 2.0.0-candidata |
@@ -901,7 +901,8 @@ Convenciones: claves primarias de texto con ULID; fechas en UTC (ISO 8601); impo
 | `visita` | id, enlace_id, token_hash, nombre (nulo tras RF-210), nombre_eliminado_en (nulo), creada_en | Dueño `auth`. `token_hash` único |
 | `cafe_visitante` | id, cliente_id, visita_id, tipo_capsula_id, hora_gesto, hora_registro, estado (`pendiente`/`aprobado`/`rechazado`/`anulado`), revisado_por, revisado_en, coste_medio_aplicado (nulo), anulado_por, anulado_en, motivo_anulacion | Dueño `economia`. `cliente_id` único; índice por (estado, hora_registro); CHECK en estado |
 | `preferencia_cuenta` | usuario_id, clave (`tour_inicio_visto`/`instalacion_descartada`/`oferta_avisos_vista`), valor_en | Dueño `usuarios`. PK (usuario_id, clave); CHECK en clave |
-| `usuario` (campo nuevo, CAMBIO-020) | foto_ruta (nulo) | Archivo plano en `/data/fotos`; sin foto, iniciales (RF-209) |
+| `usuario` (campo nuevo, CAMBIO-020) | foto_ruta (nulo) | Archivo plano en `/data/fotos`; sin foto, ilustración estable (RF-222; CAMBIO-023) |
+| `frase_entregada` (CAMBIO-023) | usuario_id, lista (`registro`/`saludo`), ciclo (≥ 1), frase_id, entregada_en | Dueño `usuarios`. PK (usuario_id, lista, ciclo, frase_id); índice por (usuario_id, lista, entregada_en); CHECK en lista y ciclo. Guarda el ciclo de frases sin repetir de cada persona (RN-088, RN-089). Migración `0008_f11-frases` |
 
 **Tipos de movimiento**: `cargo_consumo`, `abono_aportacion`, `hucha_aportacion`, `hucha_compra`, `hucha_ajuste_arqueo`, `reparto_arqueo`, `reparto_recuento`, `regularizacion`, `devolucion_baja`, `hucha_devolucion_baja`, `abono_incobrable`, `reparto_incobrable`.
 
@@ -914,6 +915,7 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 | Método y ruta | Finalidad | Autorización | Notas |
 | --- | --- | --- | --- |
 | GET `/` | Pantalla principal y panel de avisos | Miembro | — |
+| POST `/?/saludo` | Entregar el saludo de Capsulito al abrir Inicio, si han pasado 2 horas desde el último (RF-214, RN-089; CAMBIO-023) | Miembro | Solo con JavaScript; una segunda llamada dentro de las 2 horas no entrega otro |
 | POST `/api/consumos` | Registrar consumo `{clienteId, tipoCapsulaId, invitado, horaGesto}` | Miembro | Idempotente por `clienteId`; 201 nuevo, 200 duplicado |
 | POST `/api/consumos/{id}/anular` | Anular consumo `{motivo}` | Autor en plazo o admin | 403 fuera de plazo; 409 ya anulado |
 | POST `/api/rellenos` | Registrar relleno de agua `{clienteId}` | Miembro | Idempotente por `clienteId`; 409 `RELLENO_RECIENTE` dentro del intervalo, con autor y hora del último |
@@ -922,7 +924,8 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 | GET/POST `/saldos` | Saldo teórico de la hucha, saldos de todos, últimos 5 movimientos y registro de aportaciones | Miembro | Acción `aportar`. Sustituye a la antigua ruta `/aportaciones` (DEC-043) |
 | GET/POST `/historial` | Historial económico con filtros Todo/Míos, tipo y «Mostrar anulados»; con «Míos», detalle de los movimientos propios (RF-112) | Miembro | Paginado; acción `anular` |
 | GET `/estadisticas`, `/estadisticas/{usuarioId}` | Globales y personales | Miembro / propio o admin | 403 si ajeno y no admin |
-| GET/POST `/perfil` | Preferencias, contraseña, cerrar sesiones | Usuario | — |
+| GET/POST `/perfil` | Datos, foto, contraseña, cerrar sesiones. `?/preferencia` redirige (308) a `/ajustes?/preferencia` | Usuario | — |
+| GET/POST `/ajustes` | Apariencia, Capsulito y voz, avisos e instalación de la app (RF-220; CAMBIO-023) | Usuario | — |
 | POST/DELETE `/api/push/suscripcion` | Alta y baja de suscripción push | Usuario | — |
 | POST `/api/registro-cliente` | Recibir eventos `warn` y `error` del registro técnico del cliente | Usuario | Cuerpo validado con Zod; límites de tamaño y frecuencia (PEND-034) |
 | GET/POST `/login`, POST `/logout` | Acceso | Público / usuario | Bloqueo RN-048 |
@@ -1351,6 +1354,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.20.0 | 25-10-2026 | CAMBIO-020: §10.3 (`uqr`), §10.4 (tablas de visitantes, marcas de cuenta y foto) y §10.5 (rutas y acciones de F10), tal como quedaron implementadas. Sin cambios de requisitos ni de reglas | Autorizado en la sesión del 25-10-2026; respaldo de 0.19.0 en `.respaldos/historias-v0.19.0-20261025.md` |
 | 0.21.0 | 25-10-2026 | CAMBIO-021: RF-190 pasa de 40 a 60 caracteres para el nombre del visitante, como implementa F10 y recoge su `data-model` | Autorizado en la sesión del 25-10-2026; respaldo de 0.20.0 en `.respaldos/historias-v0.20.0-20261025.md` |
 | 0.22.0 | 25-10-2026 | CAMBIO-022: Inicio centrado en el café, Capsulito gamberro y pulido de la interfaz (F11), traspasados desde `specs/011-inicio-cafe-capsulito/spec.md` (aprobada el 25-10-2026). Nuevos: RF-211 a RF-237, RN-088, RN-089, CA-211 a CA-237, EV-107 a EV-111, DEC-119 a DEC-123 y glosario («Saludo», «Frase de registro», «Ajustes»). Modificados: RF-011, RF-187, RF-204, RF-208, RF-209, CA-209 y anexo A (versión 3: responsable, gestor y frases de Capsulito ya dichas). Constitución 1.8.0 (principios X y XVIII) | Autorizado en la sesión del 25-10-2026 («Tienes mi autorización»); respaldo de 0.21.0 (SHA-256 5f872f6d…0722f5d5fe) en `.respaldos/historias-v0.21.0-20261025.md` |
+| 0.23.0 | 25-10-2026 | CAMBIO-023: §10.4 (tabla `frase_entregada`; `usuario.foto_ruta` con ilustración en vez de iniciales) y §10.5 (`/ajustes`, `/?/saludo`, `/perfil?/preferencia`) alineados con lo implementado en F11; anexo A: las preferencias de avisos están en Ajustes, no en el perfil. Sin cambios de requisitos, reglas, criterios ni decisiones | Autorizado en la sesión del 25-10-2026 (T046); respaldo de 0.22.0 en `.respaldos/historias-v0.22.0-20261025.md` |
 
 ---
 
@@ -1381,6 +1385,6 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 >
 > **Visitantes.** Si entras con un enlace de visitante, guardamos el nombre que escribes y cada café que registras, con su tipo, su fecha y su hora, y quién te dio el enlace. Los administradores ven esos datos para aprobar o rechazar tus cafés. Tu nombre se conserva sin límite de tiempo, salvo que pidas a un administrador que lo borre: entonces se sustituye por «Visitante». No guardamos tu correo ni ningún otro dato.
 >
-> **Notificaciones.** Solo recibes notificaciones si las aceptas en tu dispositivo. Vienen todas activadas y puedes desactivar cada tipo en tu perfil, salvo el aviso de deuda.
+> **Notificaciones.** Solo recibes notificaciones si las aceptas en tu dispositivo. Vienen todas activadas y puedes desactivar cada tipo en Ajustes, salvo el aviso de deuda.
 >
 > **Tus derechos.** Puedes pedir acceso a tus datos, su rectificación y el resto de derechos que reconoce la normativa de protección de datos escribiendo a [contacto]. [Añadir, si procede, el contacto del delegado de protección de datos de la empresa y la referencia a la autoridad de control.]
