@@ -147,6 +147,115 @@ export function montarCapsulitoRive(canvas: HTMLCanvasElement, opciones: Opcione
 	};
 }
 
+export interface ControladorRiveEntrada {
+	/** Hacia dónde mira Capsulito: 0 izquierda, 50 centro, 100 derecha. */
+	mirar(x: number): void;
+	taparOjos(tapados: boolean): void;
+	fallo(): void;
+	exito(): void;
+	fijarReducedMotion(reducido: boolean): void;
+	destruir(): void;
+}
+
+export interface OpcionesMontajeEntrada {
+	reducedMotion: boolean;
+	onListo?: (controlador: ControladorRiveEntrada) => void;
+	onError?: () => void;
+}
+
+/** Ruta del archivo de la pantalla de entrada (F11, RF-225); su fuente está en `docs/diseno/f11/rive/entrada/`. */
+export const SRC_RIV_ENTRADA = '/mascota/riv/capsulito-entrada.riv';
+
+/**
+ * Monta la animación de la entrada sobre el `<canvas>` dado. Máquina de estados `Entrada`
+ * y propiedades del ViewModel `Entrada` (instancia `Default`): `mirarX` (número 0–100), `taparOjos` (booleano),
+ * `fallo` y `exito` (disparadores) y `reducedMotion` (booleano).
+ * Devuelve una función de limpieza. Si algo falla, llama a `onError` y la pantalla se queda con la imagen estática.
+ */
+export function montarRiveEntrada(canvas: HTMLCanvasElement, opciones: OpcionesMontajeEntrada): () => void {
+	if (!browser) return () => undefined;
+
+	const ciclo = { cancelado: false };
+	const estaCancelado = (): boolean => ciclo.cancelado;
+	let instancia: InstanciaRive | null = null;
+
+	void (async () => {
+		try {
+			if (!navigator.onLine) {
+				opciones.onError?.();
+				return;
+			}
+			const modulo = await import('@rive-app/canvas');
+			if (estaCancelado()) return;
+			modulo.RuntimeLoader.setWasmUrl('/mascota/riv/rive.wasm');
+			modulo.RuntimeLoader.setWasmFallbackUrl(null);
+
+			const respuesta = await fetch(SRC_RIV_ENTRADA);
+			if (!respuesta.ok || estaCancelado()) {
+				if (!estaCancelado()) opciones.onError?.();
+				return;
+			}
+			const buffer = await respuesta.arrayBuffer();
+			if (estaCancelado()) return;
+
+			const rive = new modulo.Rive({
+				buffer,
+				canvas,
+				stateMachine: 'Entrada',
+				autoBind: true,
+				autoplay: true,
+				onLoad: () => {
+					if (estaCancelado()) {
+						rive.cleanup();
+						return;
+					}
+					rive.resizeDrawingSurfaceToCanvas();
+					const vmi = rive.viewModelInstance;
+					const mirarX = vmi?.number('mirarX') ?? null;
+					const taparOjos = vmi?.boolean('taparOjos') ?? null;
+					const fallo = vmi?.trigger('fallo') ?? null;
+					const exito = vmi?.trigger('exito') ?? null;
+					const reducido = vmi?.boolean('reducedMotion') ?? null;
+					if (reducido) reducido.value = opciones.reducedMotion;
+
+					opciones.onListo?.({
+						mirar(x) {
+							if (mirarX) mirarX.value = Math.min(100, Math.max(0, x));
+						},
+						taparOjos(tapados) {
+							if (taparOjos) taparOjos.value = tapados;
+						},
+						fallo() {
+							fallo?.trigger();
+						},
+						exito() {
+							exito?.trigger();
+						},
+						fijarReducedMotion(valor) {
+							if (reducido) reducido.value = valor;
+						},
+						destruir() {
+							rive.cleanup();
+						},
+					});
+				},
+				onLoadError: () => {
+					if (!estaCancelado()) opciones.onError?.();
+				},
+			});
+			instancia = rive;
+		} catch {
+			if (!estaCancelado()) opciones.onError?.();
+		}
+	})();
+
+	return () => {
+		ciclo.cancelado = true;
+		instancia?.cleanup();
+		instancia = null;
+	};
+}
+
 export interface ReproductorVozActiva {
 	detener(): void;
 }

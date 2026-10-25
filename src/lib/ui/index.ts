@@ -60,6 +60,7 @@ export { default as SplitBar } from './SplitBar.svelte';
 
 // Mascota (Capsulito: Rive + respaldo SVG + sincronización labial, RF-185 a RF-188)
 export { default as Capsulito } from './Capsulito.svelte';
+export { default as CapsulitoEntrada } from './CapsulitoEntrada.svelte';
 export { default as Bienvenida } from './Bienvenida.svelte';
 
 // Legal
