@@ -6,7 +6,7 @@ import { NIVEL_EVENTO } from '../registro';
 export type EventoRegistrado = { codigo: CodigoEvento; nivel: string; origen: 'servidor' | 'cliente'; campos: Record<string, unknown> };
 
 const CLAVES_PROHIBIDAS =
-	/^(nombre|email|correo|contrasena|contrasenaActual|contrasenaNueva|repeticion|token|cookie|enlace|importe|endpoint|keys)$/;
+	/^(nombre|email|correo|contrasena|contrasenaActual|contrasenaNueva|repeticion|token|cookie|enlace|importe|endpoint|keys|texto)$/;
 const FORMA_DE_CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function comprobarCampos(codigo: CodigoEvento, campos: Record<string, unknown>): void {

@@ -75,3 +75,19 @@ test('CA-200: sin JavaScript, un administrador registra una aportación para otr
 	await page.getByRole('button', { name: 'Aportar', exact: true }).click();
 	await expect(page.getByRole('status').filter({ hasText: 'Aportación registrada a nombre de Marta' }).first()).toBeVisible();
 });
+
+test('CA-211, EV-107: sin JavaScript, una línea con cantidad y sin importe marca ese campo y no pide confirmar la hucha', async ({
+	page,
+	servidor,
+}) => {
+	const [primero] = await tiposDeCompra(page, servidor);
+	await entrarComo(page, servidor, 'miembro');
+	await page.goto(`${servidor.url}/compras`);
+
+	await rellenarLineaDeCompra(page, primero, '16', '');
+	await page.getByRole('button', { name: 'Registrar compra', exact: true }).click();
+
+	await expect(page.getByRole('textbox', { name: `Importe de ${primero}`, exact: true })).toHaveAttribute('aria-invalid', 'true');
+	await expect(page.getByText('Escribe lo que costó esta línea en el ticket.')).toBeVisible();
+	await expect(page.getByRole('button', { name: 'Registrar igualmente', exact: true })).toHaveCount(0);
+});

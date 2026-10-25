@@ -57,6 +57,13 @@
       "when": 1792875064003,
       "tag": "0007_f10-visitantes",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1792940310180,
+      "tag": "0008_f11-frases",
+      "breakpoints": true
     }
   ]
 }

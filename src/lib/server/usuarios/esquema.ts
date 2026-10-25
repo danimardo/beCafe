@@ -56,3 +56,26 @@ export const preferenciaCuenta = sqliteTable(
 		check('preferencia_cuenta_clave_valida', sql`${tabla.clave} IN ('tour_inicio_visto', 'instalacion_descartada', 'oferta_avisos_vista')`),
 	],
 );
+
+// Frases de Capsulito ya entregadas a cada persona (F11, RN-088, RN-089). El ciclo vive en la cuenta, no en el navegador
+// (constitución V). La clave primaria impide entregar dos veces la misma frase en un ciclo.
+export const LISTAS_FRASE = ['registro', 'saludo'] as const;
+
+export const fraseEntregada = sqliteTable(
+	'frase_entregada',
+	{
+		usuarioId: text('usuario_id')
+			.notNull()
+			.references(() => usuario.id),
+		lista: text('lista', { enum: LISTAS_FRASE }).notNull(),
+		ciclo: integer('ciclo').notNull(),
+		fraseId: text('frase_id').notNull(),
+		entregadaEn: text('entregada_en').notNull(),
+	},
+	(tabla) => [
+		primaryKey({ columns: [tabla.usuarioId, tabla.lista, tabla.ciclo, tabla.fraseId] }),
+		index('frase_entregada_ultima').on(tabla.usuarioId, tabla.lista, tabla.entregadaEn),
+		check('frase_entregada_lista_valida', sql`${tabla.lista} IN ('registro', 'saludo')`),
+		check('frase_entregada_ciclo_valido', sql`${tabla.ciclo} >= 1`),
+	],
+);

@@ -36,3 +36,11 @@ test('CA-203: sin JavaScript, «?» lleva a /ayuda con la ayuda de la pantalla p
 	await expect(page.getByRole('heading', { name: 'Ayuda de la pantalla' })).toBeVisible();
 	await expect(page.getByText('Registra las cápsulas que has comprado con dinero de la hucha.')).toBeVisible();
 });
+
+test('CA-228: sin JavaScript, `/?tour=si` carga Inicio sin error (el tour necesita JavaScript)', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'miembro');
+	const respuesta = await page.goto(`${servidor.url}/?tour=si`);
+
+	expect(respuesta?.status()).toBe(200);
+	await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+});

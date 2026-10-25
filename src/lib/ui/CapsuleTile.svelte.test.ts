@@ -28,7 +28,7 @@ describe('CapsuleTile (RF-183, CA-183)', () => {
 
 		await expect.element(botonPropio).toBeVisible();
 		await expect.element(botonInvitado).toBeVisible();
-		await expect.element(page.getByText('Stock bajo')).toBeVisible();
+		await expect.element(page.getByText('Quedan pocas')).toBeVisible();
 
 		// Comprueba que ambos botones son type="submit" dentro del mismo formulario POST ?/consumir (constitución XVII).
 		const form = container.querySelector('form[method="post"][action="?/consumir"]');
@@ -80,5 +80,54 @@ describe('CapsuleTile (RF-183, CA-183)', () => {
 		expect(container.querySelector('button[name="invitado"]')).toBeNull();
 		expect(container.querySelector('[title="Tus consumos"]')).toBeNull();
 		expect(container.textContent).not.toContain('0,38');
+	});
+
+	it('CA-217: con stock 0 muestra «Sin stock» con icono, marca el formulario con sinStock=1 y sigue siendo pulsable', async () => {
+		const { container } = await render(CapsuleTile, {
+			tipoId: TIPO_ID,
+			clienteId: CLIENTE_ID,
+			name: 'Lungo',
+			stock: 0,
+			threshold: 3,
+			priceCents: 40,
+			color: '#2f6b3b',
+		});
+
+		await expect.element(page.getByText('Sin stock')).toBeVisible();
+		expect(container.querySelector('li svg')).not.toBeNull();
+		expect(container.querySelector('form input[type="hidden"][name="sinStock"][value="1"]')).not.toBeNull();
+		await expect.element(page.getByRole('button', { name: 'Registrar Lungo', exact: true })).toBeEnabled();
+		await expect.element(page.getByRole('button', { name: 'Registrar Lungo para un invitado', exact: true })).toBeEnabled();
+	});
+
+	it('CA-218: con stock bajo y mayor que 0 muestra «Quedan pocas» y no marca sinStock', async () => {
+		const { container } = await render(CapsuleTile, {
+			tipoId: TIPO_ID,
+			clienteId: CLIENTE_ID,
+			name: 'Lungo',
+			stock: 2,
+			threshold: 3,
+			priceCents: 40,
+			color: '#2f6b3b',
+		});
+
+		await expect.element(page.getByText('Quedan pocas')).toBeVisible();
+		expect(container.querySelector('input[name="sinStock"]')).toBeNull();
+	});
+
+	it('CA-217: con stock suficiente no muestra marca de stock ni sinStock', async () => {
+		const { container } = await render(CapsuleTile, {
+			tipoId: TIPO_ID,
+			clienteId: CLIENTE_ID,
+			name: 'Lungo',
+			stock: 20,
+			threshold: 3,
+			priceCents: 40,
+			color: '#2f6b3b',
+		});
+
+		expect(container.textContent).not.toContain('Sin stock');
+		expect(container.textContent).not.toContain('Quedan pocas');
+		expect(container.querySelector('input[name="sinStock"]')).toBeNull();
 	});
 });

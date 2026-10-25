@@ -166,6 +166,58 @@ describe('consumos de cápsulas (CA-010 a CA-017, CA-060 a CA-063, EV-010, EV-01
 		expect(avisos).toMatchObject([{ tipo: 'stock_negativo', origenTipo: 'consumo' }]);
 	});
 
+	it('CA-217: con stock 0, si la tarjeta lo mostraba sin stock y no hay confirmación, se rechaza sin escribir nada', async () => {
+		dotarHucha(5000);
+		const tipo = await prepararTipo(entorno.ambiente);
+		await comprar(tipo, 1, 40);
+		registrarConsumo(entorno.ambiente, miembro(), datosConsumo(tipo));
+		const luis = miembro();
+
+		expect(() => registrarConsumo(entorno.ambiente, luis, { ...datosConsumo(tipo), sinStockVisto: true })).toThrow(
+			expect.objectContaining({ codigo: 'CONFIRMAR_SIN_STOCK' }),
+		);
+
+		expect(stockDe(tipo)).toBe(0);
+		expect(leerSaldoPropio(entorno.ambiente.db, luis)).toBe(0);
+		expect(entorno.ambiente.db.select().from(avisoEconomia).all()).toEqual([]);
+	});
+
+	it('CA-217: con stock 0 y confirmación, se registra como en CA-017 (stock −1 y aviso de descuadre)', async () => {
+		dotarHucha(5000);
+		const tipo = await prepararTipo(entorno.ambiente);
+		await comprar(tipo, 1, 40);
+		registrarConsumo(entorno.ambiente, miembro(), datosConsumo(tipo));
+
+		const resultado = registrarConsumo(entorno.ambiente, miembro(), { ...datosConsumo(tipo), sinStockVisto: true, confirmado: true });
+
+		expect(resultado).toMatchObject({ precio: 40, descuadre: true });
+		expect(stockDe(tipo)).toBe(-1);
+	});
+
+	it('CA-217: una tarjeta cargada con stock cuyo stock real ya es 0 se registra con un solo toque', async () => {
+		dotarHucha(5000);
+		const tipo = await prepararTipo(entorno.ambiente);
+		await comprar(tipo, 1, 40);
+		registrarConsumo(entorno.ambiente, miembro(), datosConsumo(tipo));
+
+		// Sin `sinStockVisto`: la persona vio la tarjeta con stock y no se le pide confirmar (RF-011).
+		const resultado = registrarConsumo(entorno.ambiente, miembro(), datosConsumo(tipo));
+
+		expect(resultado).toMatchObject({ descuadre: true });
+		expect(stockDe(tipo)).toBe(-1);
+	});
+
+	it('CA-217: una tarjeta con la marca de sin stock y stock real positivo se registra sin pedir confirmación', async () => {
+		dotarHucha(5000);
+		const tipo = await prepararTipo(entorno.ambiente);
+		await comprar(tipo, 3, 120);
+
+		const resultado = registrarConsumo(entorno.ambiente, miembro(), { ...datosConsumo(tipo), sinStockVisto: true });
+
+		expect(resultado).toMatchObject({ descuadre: false });
+		expect(stockDe(tipo)).toBe(2);
+	});
+
 	it('CA-013: un consumo se deshace dentro de los 5 segundos y el stock vuelve a su valor', async () => {
 		dotarHucha(5000);
 		const tipo = await prepararTipo(entorno.ambiente);

@@ -1,12 +1,15 @@
 <script lang="ts">
 	import CalendarClock from '@lucide/svelte/icons/calendar-clock';
 	import Package from '@lucide/svelte/icons/package';
+	import PackageX from '@lucide/svelte/icons/package-x';
+	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
 	import User from '@lucide/svelte/icons/user';
 	import UserPlus from '@lucide/svelte/icons/user-plus';
 	import Users from '@lucide/svelte/icons/users';
 	import { formatMoney } from '#lib/shared/dinero';
+	import { textos } from '#lib/shared/textos';
+	import Badge from './Badge.svelte';
 	import CapsuleImage from './CapsuleImage.svelte';
-	import StockBadge from './StockBadge.svelte';
 	import { cn } from './utils';
 
 	type Props = {
@@ -73,6 +76,8 @@
 	<form method="post" action={visitante ? '?/registrar' : '?/consumir'} class="relative h-full" use:enhancer>
 		<input type="hidden" name="tipoCapsulaId" value={tipoId} />
 		<input type="hidden" name="clienteId" value={clienteId} />
+		<!-- RF-217: el servidor pide confirmación si el stock real es ≤ 0 y la tarjeta se mostró «Sin stock». -->
+		{#if level === 'out' && !visitante}<input type="hidden" name="sinStock" value="1" />{/if}
 		<button
 			type="submit"
 			data-tour={visitante ? undefined : 'capsula'}
@@ -89,7 +94,7 @@
 				{color}
 				{photoUrl}
 				size="xl"
-				class={cn('motion-safe:transition-transform group-hover:-translate-y-0.5', pulse && 'capsule-pop')}
+				class={cn('motion-safe:transition-transform group-hover:-translate-y-0.5', pulse && 'capsule-pop', level === 'out' && !visitante && 'opacity-50 grayscale')}
 			/>
 			<span class="sr-only">Registrar</span>
 			<span class="line-clamp-2 text-[17px] font-semibold leading-[22px]">{name}</span>
@@ -121,7 +126,22 @@
 					{/if}
 				</span>
 			{/if}
-			{#if level && !visitante}<span aria-hidden="true"><StockBadge {level} /></span>{/if}
+			<!-- RF-217, RF-218: icono y texto; el color nunca es la única señal. Atenuamos la imagen, no el texto (contraste). -->
+			{#if level === 'out' && !visitante}
+				<span aria-hidden="true">
+					<Badge tone="negative">
+						{#snippet icon()}<PackageX class="size-3.5" />{/snippet}
+						{textos.inicio.sinStock}
+					</Badge>
+				</span>
+			{:else if level === 'low' && !visitante}
+				<span aria-hidden="true">
+					<Badge tone="warning">
+						{#snippet icon()}<TriangleAlert class="size-3.5" />{/snippet}
+						{textos.inicio.quedanPocas}
+					</Badge>
+				</span>
+			{/if}
 			<span
 				aria-hidden="true"
 				class="mt-auto inline-flex h-11 w-full items-center justify-center rounded-full bg-accent text-[17px] font-semibold text-on-accent shadow-sm group-hover:brightness-110"
@@ -132,7 +152,7 @@
 		<span id="{uid}-meta" class="sr-only">
 			{#if visitante}{meta}{:else}{meta}{meta ? '. ' : ''}{formatMoney(priceCents)} por cápsula. Quedan {stock} unidades, {daysLeft == null
 					? 'sin datos de duración'
-					: `unos ${daysLeft} días`}.{level === 'out' ? ' Agotado.' : level === 'low' ? ' Stock bajo.' : ''}{/if}
+					: `unos ${daysLeft} días`}.{level === 'out' ? ` ${textos.inicio.sinStock}.` : level === 'low' ? ` ${textos.inicio.quedanPocas}.` : ''}{/if}
 		</span>
 		{#if !visitante}
 			<button

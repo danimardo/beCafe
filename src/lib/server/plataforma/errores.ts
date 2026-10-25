@@ -27,6 +27,7 @@ export const CODIGOS_NEGOCIO = [
 	'TIPO_SIN_COSTE',
 	'USUARIO_DE_BAJA',
 	'NO_ANULABLE',
+	'CONFIRMAR_SIN_STOCK',
 ] as const;
 
 export type CodigoNegocio = (typeof CODIGOS_NEGOCIO)[number];

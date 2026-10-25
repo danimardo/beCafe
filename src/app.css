@@ -111,6 +111,18 @@
 	}
 }
 
+/* Microinteracciones (F11, RF-233 a RF-236; guía de microinteracciones). Medidas de movimiento, no de diseño:
+   cada componente las lee y las anula con prefers-reduced-motion. */
+:root {
+	--motion-icon-pop-scale: 1.08;
+	--motion-check-length: 32;
+	--motion-shake-distance: 0.25rem;
+	--motion-switch-squish: 0.88;
+	--motion-spotlight-size: 15rem;
+	--motion-spotlight-border: 2px;
+	--motion-spotlight-strength: 45%;
+}
+
 /* Animaciones de entrada (se desactivan con prefers-reduced-motion). */
 @keyframes sheet-in {
 	from {

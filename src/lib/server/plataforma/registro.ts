@@ -85,6 +85,10 @@ export const NIVEL_EVENTO = {
 	'aportacion.en_nombre_de': 'info',
 	'usuario.foto_cambiada': 'info',
 	'cuenta.marcada': 'debug',
+	'frase.entregada': 'debug',
+	'frase.ciclo_reiniciado': 'info',
+	'frase.fallo': 'error',
+	'consumo.confirmacion_sin_stock': 'info',
 } as const;
 
 export type CodigoEvento = keyof typeof NIVEL_EVENTO;
@@ -169,6 +173,11 @@ export type CamposEvento = {
 	'aportacion.en_nombre_de': { aportacionId: string };
 	'usuario.foto_cambiada': { usuarioId: string; quitada: boolean };
 	'cuenta.marcada': { usuarioId: string; clave: string };
+	// F11: solo identificadores de frase; nunca su texto (constitución XVI).
+	'frase.entregada': { usuarioId: string; lista: 'registro' | 'saludo'; fraseId: string; ciclo: number };
+	'frase.ciclo_reiniciado': { usuarioId: string; lista: 'registro' | 'saludo'; ciclo: number };
+	'frase.fallo': { usuarioId: string; lista: 'registro' | 'saludo'; tipo: string };
+	'consumo.confirmacion_sin_stock': { tipoCapsulaId: string };
 };
 
 /** Un registrador recibe eventos ya tipados. El enlace de RF-139 tiene su propio método (solo salida estándar). */
@@ -229,6 +238,7 @@ export const RUTAS_REDACTADAS = [
 	'*.correo',
 	'*.importe',
 	'*.nombre',
+	'*.texto',
 	'*.enlace',
 	'*.secreto',
 	'*.endpoint',

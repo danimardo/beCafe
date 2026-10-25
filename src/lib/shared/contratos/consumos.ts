@@ -38,6 +38,12 @@ export const esquemaConsumirForm = z.strictObject({
 	tipoCapsulaId: esquemaUlid,
 	invitado: z.enum(['0', '1'], { error: 'Elige si el consumo es para un invitado' }),
 	horaGesto: esquemaInstanteUtc.optional(),
+	/** La tarjeta se mostró «Sin stock» (RF-217). */
+	sinStock: z.literal('1').optional(),
+	/** La persona confirmó que cogió una cápsula con el sistema en 0 (RF-217). */
+	confirmarSinStock: z.literal('si').optional(),
+	/** El formulario viene de Inicio con Capsulito visible: pide una frase de registro (RF-213). */
+	mascota: z.literal('si').optional(),
 });
 
 export const esquemaDeshacerForm = z.strictObject({

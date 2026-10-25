@@ -2,9 +2,9 @@ import { fail, redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, falloDeNegocio, fallo } from './fallo';
-import { ErrorDeNegocio, nuevoId } from '#lib/server/plataforma';
+import { ErrorDeNegocio, esErrorDeNegocio, nuevoId, registrar } from '#lib/server/plataforma';
 import { leerConfiguracion } from '#lib/server/configuracion';
-import { buscarUsuarioPorId, leerMarcasCuenta, marcarCuenta } from '#lib/server/usuarios';
+import { buscarUsuarioPorId, entregarFrase, entregarSaludo, leerMarcasCuenta, leerSaludoDisponible, marcarCuenta } from '#lib/server/usuarios';
 import { deshacerRelleno, leerEstadoAgua, registrarRelleno } from '#lib/server/rellenos';
 import {
 	contarConsumos,
@@ -103,6 +103,8 @@ export const load: PageServerLoad = ({ locals, url }) => {
 		hucha: hucha.saldo,
 		deudores: leerPersonasBajoLimite(db, actor).map((persona) => ({ nombre: persona.nombre, saldo: persona.saldo })),
 		privacidadAceptada: aviso.success && aviso.data.aviso === 'privacidad-aceptada',
+		// RF-214: solo se lee; el saludo se entrega con `?/saludo` tras montar la página, para que una precarga no lo gaste.
+		saludoDisponible: leerSaludoDisponible(db, actor.usuarioId, ahora),
 		// RF-204: el tour se ofrece una vez por cuenta, o cuando la persona lo pide desde la ayuda.
 		tourPendiente: !marcas.tourInicioVisto || (aviso.success && aviso.data.tour === 'si'),
 		// RF-206: descartar la tarjeta de instalación se guarda en la cuenta.
@@ -136,6 +138,18 @@ export const actions: Actions = {
 		if (!actor) return falloDeNegocio('SIN_SESION', {});
 		marcarCuenta(locals.ambiente, actor.usuarioId, 'oferta_avisos_vista');
 		return { ofertaAvisosVista: true };
+	},
+
+	// RF-214: el saludo se entrega al abrir Inicio, con JavaScript, si han pasado 2 horas desde el último. Una segunda llamada seguida devuelve `null`.
+	saludo: ({ locals }) => {
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		try {
+			return { saludo: { fraseId: entregarSaludo(locals.ambiente, actor.usuarioId)?.fraseId ?? null } };
+		} catch (causa) {
+			registrar('frase.fallo', { usuarioId: actor.usuarioId, lista: 'saludo', tipo: causa instanceof Error ? causa.name : 'desconocido' });
+			return { saludo: { fraseId: null } };
+		}
 	},
 
 	// RF-204: terminar o saltar el tour lo marca como visto en la cuenta. Repetirlo no cambia nada.
@@ -193,18 +207,49 @@ export const actions: Actions = {
 		const entrada = esquemaConsumirForm.safeParse(Object.fromEntries(await request.formData()));
 		if (!entrada.success) return fallo(400, entrada.error, {});
 
-		const resultado = await ejecutarAccion({}, () =>
-			registrarConsumo(locals.ambiente, actor, {
-				clienteId: entrada.data.clienteId,
-				tipoCapsulaId: entrada.data.tipoCapsulaId,
-				invitado: entrada.data.invitado === '1',
-				horaGesto: entrada.data.horaGesto ?? locals.ambiente.reloj.ahora(),
-				via: 'directo',
-			}),
-		);
+		const resultado = await ejecutarAccion({}, () => {
+			try {
+				return registrarConsumo(locals.ambiente, actor, {
+					clienteId: entrada.data.clienteId,
+					tipoCapsulaId: entrada.data.tipoCapsulaId,
+					invitado: entrada.data.invitado === '1',
+					horaGesto: entrada.data.horaGesto ?? locals.ambiente.reloj.ahora(),
+					via: 'directo',
+					sinStockVisto: entrada.data.sinStock === '1',
+					confirmado: entrada.data.confirmarSinStock === 'si',
+				});
+			} catch (causa) {
+				// RF-217: la pregunta de confirmación no es un error; vuelve con lo necesario para el paso intermedio sin JavaScript.
+				if (esErrorDeNegocio(causa) && causa.codigo === 'CONFIRMAR_SIN_STOCK') return { confirmar: true as const };
+				throw causa;
+			}
+		});
+		if ('confirmar' in resultado) {
+			const tipo = leerTiposRegistrables(locals.ambiente.db, actor, locals.ambiente.reloj.ahora()).find(
+				(candidato) => candidato.id === entrada.data.tipoCapsulaId,
+			);
+			return fail(409, {
+				confirmarSinStock: {
+					tipoCapsulaId: entrada.data.tipoCapsulaId,
+					nombre: tipo?.nombre ?? '',
+					clienteId: entrada.data.clienteId,
+					invitado: entrada.data.invitado,
+				},
+			});
+		}
 		if (!('id' in resultado)) return resultado;
+		// RF-213: la frase se entrega después del consumo y fuera de su transacción; un fallo no lo afecta (principio XIII).
+		let fraseId: string | null = null;
+		if (entrada.data.mascota === 'si' && !resultado.duplicado) {
+			try {
+				fraseId = entregarFrase(locals.ambiente, actor.usuarioId, 'registro').fraseId;
+			} catch (causa) {
+				registrar('frase.fallo', { usuarioId: actor.usuarioId, lista: 'registro', tipo: causa instanceof Error ? causa.name : 'desconocido' });
+			}
+		}
 		return {
 			consumo: {
+				fraseId,
 				id: resultado.id,
 				tipoCapsulaId: entrada.data.tipoCapsulaId,
 				invitado: entrada.data.invitado === '1',

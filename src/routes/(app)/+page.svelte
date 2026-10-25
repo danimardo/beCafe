@@ -11,6 +11,7 @@
 		Button,
 		CapsuleTile,
 		Capsulito,
+		ConfirmDialog,
 		EmptyState,
 		Glass,
 		ListRow,
@@ -25,7 +26,7 @@
 		usarAvisos,
 		usarMascota,
 	} from '#lib/ui';
-	import { MOMENTOS, momentoInicio } from '#lib/shared/mascota/momentos';
+	import { MOMENTOS, momentoInicio, srcPose, type MomentoId, type Pose } from '#lib/shared/mascota/momentos';
 	import { textos } from '#lib/shared/textos';
 	import { instanteDesdeFecha } from '#lib/shared/fechas/tipos';
 	import { activarPush } from '#lib/client/push';
@@ -47,7 +48,13 @@
 	// RF-204: el tour aparece tras la bienvenida, con JavaScript, si la cuenta no lo ha visto o se pidió repetirlo.
 	let formularioTour: HTMLFormElement | undefined = $state();
 	let tourCerrado = $state(false);
-	// «Repetir el tour» navega a la misma página con `tour=si`: el componente se conserva y el tour vuelve a abrirse.
+	// RF-228: con JavaScript, «Repetir el tour» de la ayuda reabre el tour sin navegar. Sin JavaScript, el formulario GET
+	// lleva a `/?tour=si` y el servidor marca el tour como pendiente.
+	let tourForzado = $state(false);
+	function repetirTour() {
+		tourForzado = true;
+		tourCerrado = false;
+	}
 	afterNavigate(() => {
 		tourCerrado = false;
 	});
@@ -59,14 +66,20 @@
 	let instalacionOculta = $state(false);
 	onMount(() => {
 		montado = true;
+		if (data.saludoDisponible && mascota.visible && mascota.bienvenidaVista && !mascota.bienvenidaManual) {
+			void tick().then(() => formularioSaludo?.requestSubmit());
+		}
 		instalacion = crearInstalacion(window, (estado) => (estadoInstalacion = estado));
-		return () => instalacion?.destruir();
+		return () => {
+			instalacion?.destruir();
+			clearTimeout(temporizadorSaludo);
+		};
 	});
 	function descartarInstalacion() {
 		instalacionOculta = true;
 		formularioInstalacion?.requestSubmit();
 	}
-	const mostrarTour = $derived(montado && data.tourPendiente && !tourCerrado && mascota.bienvenidaVista && !mascota.bienvenidaManual);
+	const mostrarTour = $derived(montado && (data.tourPendiente || tourForzado) && !tourCerrado && mascota.bienvenidaVista && !mascota.bienvenidaManual);
 	function terminarTour() {
 		tourCerrado = true;
 		formularioTour?.requestSubmit();
@@ -80,7 +93,7 @@
 			!data.ofertaAvisosVista &&
 			!ofertaCerrada &&
 			!mostrarTour &&
-			(!data.tourPendiente || tourCerrado) &&
+			(!(data.tourPendiente || tourForzado) || tourCerrado) &&
 			mascota.bienvenidaVista &&
 			!mascota.bienvenidaManual &&
 			typeof Notification !== 'undefined' &&
@@ -111,6 +124,51 @@
 	// Sin conexión al enviar el relleno: el botón se desactiva y nunca se encola (RN-081).
 	let rellenoFallido = $state(false);
 
+	// RF-219: lo que dice Capsulito se ve también en pantalla. Un evento (café, agua, red) sustituye al mensaje base.
+	let eventoMascota = $state<{ momento?: MomentoId; pose?: Pose; texto: string } | null>(null);
+	let temporizadorSaludo: ReturnType<typeof setTimeout> | undefined;
+	function decir(momento: MomentoId, vars: { nombre?: string } = {}) {
+		const frase = mascota.elegirFrase(momento, vars);
+		eventoMascota = { momento, texto: frase.texto };
+		if (frase.conAudio) mascota.hablar(frase.id);
+	}
+	// RF-213, RF-214: una frase del anexo que entregó el servidor. `false` si no se puede mostrar (mascota oculta o frase desconocida).
+	function decirFrase(fraseId: string): boolean {
+		const frase = mascota.mostrarFrase(fraseId);
+		if (!frase) return false;
+		eventoMascota = { pose: frase.pose, texto: frase.texto };
+		return true;
+	}
+
+	// RF-214: el saludo se pide tras montar (JavaScript), no en el `load`, para que una precarga no lo gaste. Después de unos
+	// segundos vuelve el mensaje base, que es el aviso de stock bajo si lo hay.
+	let formularioSaludo: HTMLFormElement | undefined = $state();
+	const SEGUNDOS_SALUDO = 6;
+	function enviarSaludo(formulario: HTMLFormElement) {
+		return enhance(formulario, () => async ({ update }) => {
+			await update({ reset: false, invalidateAll: false });
+			const fraseId = form && 'saludo' in form && form.saludo ? form.saludo.fraseId : null;
+			if (fraseId && decirFrase(fraseId)) {
+				clearTimeout(temporizadorSaludo);
+				temporizadorSaludo = setTimeout(() => (eventoMascota = null), SEGUNDOS_SALUDO * 1000);
+			}
+		});
+	}
+
+	// RF-217: con la tarjeta «Sin stock», el toque pregunta antes de enviar. Se vuelve a enviar con `confirmarSinStock=si`.
+	let dialogoSinStock = $state(false);
+	let pendienteSinStock = $state<{ formulario: HTMLFormElement; submitter: HTMLElement | null; nombre: string } | null>(null);
+	let sinStockConfirmado = false;
+	const confirmarSinStock = $derived(form && 'confirmarSinStock' in form ? form.confirmarSinStock : undefined);
+	function confirmarSinStockEnCliente() {
+		const pendiente = pendienteSinStock;
+		if (!pendiente) return;
+		pendienteSinStock = null;
+		sinStockConfirmado = true;
+		if (pendiente.submitter) pendiente.formulario.requestSubmit(pendiente.submitter);
+		else pendiente.formulario.requestSubmit();
+	}
+
 	const primerNombre = $derived(data.nombre.trim().split(/\s+/)[0] ?? '');
 	const momentoSaludoBase = $derived(
 		momentoInicio({
@@ -133,6 +191,10 @@
 		}),
 	);
 	const poseSaludo = $derived(!enLinea ? MOMENTOS[momentoSaludoBase].pose : undefined);
+
+	const srcsetOffline = ([128, 256, 512, 1024] as const)
+		.map((tamano) => `${srcPose(MOMENTOS['conexion.perdida'].pose, tamano)} ${tamano}w`)
+		.join(', ');
 
 	function nombreDe(tipoCapsulaId: string): string {
 		return data.tipos.find((tipo) => tipo.id === tipoCapsulaId)?.nombre ?? '';
@@ -157,8 +219,7 @@
 		await cargarPendientes();
 		const actuales = pendientes.filter((e) => e.estado === 'pendiente').length;
 		if (previos > 0 && actuales < previos) {
-			const frase = mascota.elegirFrase('consumo.sincronizado');
-			if (frase.conAudio) mascota.hablar(frase.id);
+			decir('consumo.sincronizado');
 		}
 		if (resultado.reintentoEnMs !== null) temporizador = setTimeout(() => void sincronizar(), resultado.reintentoEnMs);
 	}
@@ -177,18 +238,27 @@
 	async function encolar(elemento: ElementoCola): Promise<void> {
 		await anadirElemento(elemento);
 		await cargarPendientes();
-		const frase = mascota.elegirFrase('consumo.pendiente');
-		if (frase.conAudio) mascota.hablar(frase.id);
+		decir('consumo.pendiente');
 		void sincronizar();
 	}
 
 	function enviarToque(formulario: HTMLFormElement) {
-		return enhance(formulario, ({ formData, cancel }) => {
+		return enhance(formulario, ({ formData, cancel, formElement, submitter }) => {
 			conJs = true;
 			// Cada toque tiene su propio identificador: dos toques seguidos registran dos consumos (RF-016).
 			const clienteId = ulid();
 			const campoTipo = formData.get('tipoCapsulaId');
 			const tipoCapsulaId = typeof campoTipo === 'string' ? campoTipo : '';
+			if (formData.get('sinStock') === '1') {
+				if (!sinStockConfirmado) {
+					cancel();
+					pendienteSinStock = { formulario: formElement, submitter, nombre: nombreDe(tipoCapsulaId) };
+					dialogoSinStock = true;
+					return;
+				}
+				sinStockConfirmado = false;
+				formData.set('confirmarSinStock', 'si');
+			}
 			const invitado = formData.get('invitado') === '1';
 			const horaGesto = instanteDesdeFecha(new Date());
 			const elemento: ElementoCola = {
@@ -207,6 +277,8 @@
 				return;
 			}
 			formData.set('horaGesto', horaGesto);
+			// RF-213: con Capsulito visible y red, el servidor entrega una frase de registro.
+			if (mascota.visible) formData.set('mascota', 'si');
 			return async ({ result, update }) => {
 				if (result.type === 'error') {
 					await encolar(elemento);
@@ -215,13 +287,9 @@
 				await update();
 				const consumo = form && 'consumo' in form ? form.consumo : undefined;
 				if (consumo) {
-					const momentoEvento = consumo.descuadre
-						? 'stock.negativo'
-						: consumo.invitado
-							? 'consumo.invitado_confirmado'
-							: 'consumo.confirmado';
-					const frase = mascota.elegirFrase(momentoEvento);
-					if (frase.conAudio) mascota.hablar(frase.id);
+					// El descuadre es un aviso y manda; si no, la frase de registro del servidor (RF-213) y, sin ella, el mensaje base.
+					if (consumo.descuadre) decir('stock.negativo');
+					else if (!consumo.fraseId || !decirFrase(consumo.fraseId)) decir(consumo.invitado ? 'consumo.invitado_confirmado' : 'consumo.confirmado');
 					avisos.mostrarDeshacer({
 						title: textos.consumos.registrado(nombreDe(consumo.tipoCapsulaId)),
 						warning: consumo.descuadre ? textos.consumos.descuadre : undefined,
@@ -244,8 +312,7 @@
 		return enhance(formulario, () => async ({ update }) => {
 			await update({ reset: false });
 			if (form && 'deshecho' in form) {
-				const frase = mascota.elegirFrase('consumo.anulado');
-				if (frase.conAudio) mascota.hablar(frase.id);
+				decir('consumo.anulado');
 				avisos.informar({ title: textos.consumos.deshecho });
 			} else if (form && 'errores' in form && form.errores)
 				avisos.informar({
@@ -270,16 +337,14 @@
 				await update({ reset: false });
 				const id = form && 'rellenoId' in form ? form.rellenoId : undefined;
 				if (id) {
-					const frase = mascota.elegirFrase('agua.confirmada');
-					if (frase.conAudio) mascota.hablar(frase.id);
+					decir('agua.confirmada');
 					avisos.mostrarDeshacer({
 						title: textos.rellenos.registrado,
 						momento: 'relleno-registrado',
 						onundo: () => void deshacerRelleno(id),
 					});
 				} else if (form && 'codigo' in form && form.codigo === 'RELLENO_RECIENTE') {
-					const frase = mascota.elegirFrase('agua.rechazada_reciente', { nombre: form.autor });
-					if (frase.conAudio) mascota.hablar(frase.id);
+					decir('agua.rechazada_reciente', { nombre: form.autor });
 				}
 			};
 		});
@@ -312,6 +377,10 @@
 
 <svelte:head>
 	<title>beCafé</title>
+	<!-- Sin red, Capsulito pasa a la pose de «pendiente» o «sin conexión»: se descarga con la página, con el mismo `srcset` y `sizes` que `Capsulito` (lg). -->
+	{#if mascota.visible}
+		<link rel="preload" as="image" imagesrcset={srcsetOffline} imagesizes="160px" />
+	{/if}
 </svelte:head>
 
 <svelte:window
@@ -321,13 +390,12 @@
 	}}
 	onoffline={() => {
 		enLinea = false;
-		const frase = mascota.elegirFrase('conexion.perdida');
-		if (frase.conAudio) mascota.hablar(frase.id);
+		decir('conexion.perdida');
 	}}
 />
 
 <div class="flex flex-col gap-6">
-	<PageHeader title={textos.inicio.saludo(data.nombre)} />
+	<PageHeader title={textos.inicio.saludo(data.nombre)} onrepetirtour={repetirTour} />
 	{#if data.privacidadAceptada}
 		<p role="status" class="text-[15px] text-ink">{textos.confirmaciones.privacidadAceptada}</p>
 	{/if}
@@ -347,6 +415,8 @@
 			</form>
 		</Banner>
 	{/if}
+
+	<form method="post" action="?/saludo" class="hidden" bind:this={formularioSaludo} use:enviarSaludo></form>
 
 	<form method="post" action="?/deshacerRelleno" class="hidden" bind:this={formularioDeshacerRelleno} use:enviarDeshacerRelleno>
 		<input type="hidden" name="rellenoId" value={rellenoADeshacer} />
@@ -393,23 +463,41 @@
 		<TourInicio onterminar={terminarTour} />
 	{/if}
 
-	<PanelGrid>
-		{#snippet resumen()}
-			<div class="flex flex-col gap-4">
-				{#if mascota.visible}
-					<Glass class="flex items-center gap-3 p-4">
-						<Capsulito momento={momentoSaludo} pose={poseSaludo} nombre={primerNombre} size="sm" bocadillo="derecha" />
-					</Glass>
-				{/if}
-				<AlertsPanel
-					huchaCents={data.hucha}
-					myBalanceCents={data.saldoPropio}
-					lowStock={data.avisos.map((aviso) => aviso.nombre)}
-					debtors={data.deudores.map((deudor) => ({ name: deudor.nombre, cents: deudor.saldo }))}
+	<!-- RF-216: Capsulito grande con su mensaje arriba; el bocadillo se anuncia sin mover el foco (RF-219). -->
+	{#if mascota.visible}
+		<div role="group" aria-label={textos.inicio.capsulito} aria-live="polite">
+			<Glass class="flex items-center gap-4 p-4 lg:p-6">
+				<Capsulito
+					momento={eventoMascota?.momento ?? momentoSaludo}
+					mensaje={eventoMascota?.texto}
+					pose={eventoMascota ? eventoMascota.pose : poseSaludo}
+					nombre={primerNombre}
+					size="lg"
+					bocadillo="derecha"
 				/>
-			</div>
-		{/snippet}
+			</Glass>
+		</div>
+	{/if}
 
+	<!-- RF-217, sin JavaScript: el servidor devuelve la pregunta como paso intermedio. -->
+	{#if confirmarSinStock}
+		<Banner tone="warning" title={textos.inicio.confirmarSinStockTitulo}>
+			<p class="text-[15px]">{textos.inicio.confirmarSinStockPregunta(confirmarSinStock.nombre)}</p>
+			<form method="post" action="?/consumir" class="mt-3 flex flex-wrap items-center gap-3">
+				<input type="hidden" name="tipoCapsulaId" value={confirmarSinStock.tipoCapsulaId} />
+				<input type="hidden" name="clienteId" value={confirmarSinStock.clienteId} />
+				<input type="hidden" name="invitado" value={confirmarSinStock.invitado} />
+				<input type="hidden" name="sinStock" value="1" />
+				<input type="hidden" name="confirmarSinStock" value="si" />
+				<Button type="submit">{textos.inicio.confirmarSinStockSi}</Button>
+				<a href={resolve('/(app)')} class="inline-flex min-h-11 items-center px-2 font-semibold text-accent underline">
+					{textos.inicio.confirmarSinStockCancelar}
+				</a>
+			</form>
+		</Banner>
+	{/if}
+
+	<PanelGrid>
 		{#snippet principal()}
 			<Section title={textos.consumos.titulo}>
 				{#if !enLinea}
@@ -472,6 +560,12 @@
 
 		{#snippet secundario()}
 			<div class="flex flex-col gap-6">
+				<AlertsPanel
+					huchaCents={data.hucha}
+					myBalanceCents={data.saldoPropio}
+					lowStock={data.avisos.map((aviso) => aviso.nombre)}
+					debtors={data.deudores.map((deudor) => ({ name: deudor.nombre, cents: deudor.saldo }))}
+				/>
 				<WaterRefillCard
 					ultimo={data.agua.ultimo}
 					aguador={data.agua.aguador}
@@ -526,3 +620,13 @@
 		{/snippet}
 	</PanelGrid>
 </div>
+
+<!-- RF-217: con JavaScript, la tarjeta «Sin stock» pregunta antes de registrar. Sin conexión, la pregunta va antes de encolar. -->
+<ConfirmDialog
+	bind:open={dialogoSinStock}
+	title={textos.inicio.confirmarSinStockTitulo}
+	description={textos.inicio.confirmarSinStockPregunta(pendienteSinStock?.nombre ?? '')}
+	confirmLabel={textos.inicio.confirmarSinStockSi}
+	cancelLabel={textos.inicio.confirmarSinStockCancelar}
+	onconfirm={confirmarSinStockEnCliente}
+/>

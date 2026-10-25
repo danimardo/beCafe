@@ -39,6 +39,10 @@ export type DatosConsumo = {
 	/** Hora del toque (RF-018). Si es posterior a la recepción se usa la recepción (Clarifications 9). */
 	horaGesto: string;
 	via: 'directo' | 'cola';
+	/** La tarjeta se mostró «Sin stock» (RF-217). Solo la acción de Inicio lo envía; `/api/consumos` no. */
+	sinStockVisto?: boolean;
+	/** La persona confirmó que cogió una cápsula con el sistema en 0 (RF-217). */
+	confirmado?: boolean;
 };
 
 export type ResultadoConsumo = { id: string; precio: number; descuadre: boolean; duplicado: boolean };
@@ -81,6 +85,11 @@ export function registrarConsumo(ambiente: Ambiente, actor: Actor, datos: DatosC
 
 		const previa = leerExistenciaTx(tx, datos.tipoCapsulaId);
 		if (previa.costeMedio === null) throw new ErrorDeNegocio('TIPO_SIN_COSTE');
+		// RF-217: con el sistema en 0, una tarjeta que se mostró «Sin stock» pide confirmación antes de escribir nada.
+		if (previa.stock <= 0 && datos.sinStockVisto && !datos.confirmado) {
+			registrar('consumo.confirmacion_sin_stock', { tipoCapsulaId: datos.tipoCapsulaId });
+			throw new ErrorDeNegocio('CONFIRMAR_SIN_STOCK');
+		}
 		const precio = precioDeConsumo(previa.costeMedio);
 		const id = nuevoId();
 

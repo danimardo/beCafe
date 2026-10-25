@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, untrack } from 'svelte';
+	import { onMount, tick, untrack } from 'svelte';
 	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import {
@@ -19,6 +19,7 @@
 	} from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 	import { parseMoney } from '#lib/shared/dinero';
+	import { campoImporteDe, IMPORTE_OBLIGATORIO } from '#lib/shared/contratos/economia';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -75,7 +76,33 @@
 	const errores: Partial<Record<string, { codigo: string; mensaje: string }>> = $derived(
 		(form && 'errores' in form ? form.errores : undefined) ?? {},
 	);
-	const errorGeneral = $derived(Object.values(errores)[0]?.mensaje);
+	// RF-211: los importes que faltan se marcan en su campo. El cliente los detecta antes de enviar; el servidor, sin JavaScript.
+	let erroresCliente = $state<Record<string, { codigo: string; mensaje: string }>>({});
+	// Un error del cliente desaparece en cuanto la línea tiene importe.
+	const erroresImporte = $derived({
+		...Object.fromEntries(Object.entries(errores).filter(([campo]) => campo.startsWith('importe-'))),
+		...Object.fromEntries(Object.entries(erroresCliente).filter(([campo]) => campo in importesQueFaltan())),
+	});
+	const hayErroresImporte = $derived(Object.keys(erroresImporte).length > 0);
+	const errorGeneral = $derived(
+		hayErroresImporte ? textos.economia.revisaImportes : Object.entries(errores).find(([campo]) => !campo.startsWith('importe-'))?.[1]?.mensaje,
+	);
+	let resumenErrores: HTMLElement | undefined = $state();
+
+	/** Líneas con cantidad y sin un importe mayor que 0 (RF-211). */
+	function importesQueFaltan(): Record<string, { codigo: string; mensaje: string }> {
+		return Object.fromEntries(
+			lineas
+				.filter((tipo) => (importes[tipo.id] ?? 0) <= 0)
+				.map((tipo) => [campoImporteDe(tipo.id), { codigo: IMPORTE_OBLIGATORIO, mensaje: textos.economia.importeObligatorio }]),
+		);
+	}
+
+	// RF-212: ningún error queda detrás de un diálogo; el foco va al resumen para que se lea y se vea.
+	async function mostrarErrores() {
+		await tick();
+		resumenErrores?.focus();
+	}
 	// RF-198: la confirmación que pide el servidor (sin JavaScript o si el saldo cambió desde que se mostró).
 	const confirmacionServidor = $derived(form && 'confirmacion' in form ? form.confirmacion : undefined);
 	const confirmacionRegistrada = $derived(form && 'id' in form ? textos.economia.compraRegistrada : undefined);
@@ -85,6 +112,7 @@
 	let confirmadaEnCliente = false;
 
 	function confirmarEnCliente() {
+		dialogoAbierto = false;
 		confirmadaEnCliente = true;
 		formulario?.requestSubmit();
 	}
@@ -118,7 +146,7 @@
 		<div role="status"><Banner tone="info">{confirmacionRegistrada}</Banner></div>
 	{/if}
 	{#if errorGeneral}
-		<div role="alert"><Banner tone="negative">{errorGeneral}</Banner></div>
+		<div role="alert" tabindex="-1" bind:this={resumenErrores} class="outline-none"><Banner tone="negative">{errorGeneral}</Banner></div>
 	{/if}
 
 	{#if data.tipos.length === 0}
@@ -131,6 +159,13 @@
 			enctype="multipart/form-data"
 			use:enhance={({ cancel, formData, submitter }) => {
 				const confirmadaEnPanel = submitter?.getAttribute('name') === 'confirmarHuchaNegativa';
+				erroresCliente = importesQueFaltan();
+				if (Object.keys(erroresCliente).length > 0) {
+					cancel();
+					confirmadaEnCliente = false;
+					void mostrarErrores();
+					return;
+				}
 				if (resultadoPrevisto < 0 && !confirmadaEnCliente && !confirmadaEnPanel) {
 					cancel();
 					dialogoAbierto = true;
@@ -142,7 +177,9 @@
 				}
 				confirmadaEnCliente = false;
 				return async ({ update }) => {
+					dialogoAbierto = false;
 					await update({ reset: false });
+					if (form && 'errores' in form) await mostrarErrores();
 					if (form && 'id' in form) {
 						const frase = mascota.elegirFrase('compra.confirmada');
 						if (frase.conAudio) mascota.hablar(frase.id);
@@ -176,6 +213,7 @@
 								name="importe"
 								hint={conJavaScript ? textos.economia.ayudaImporte : textos.economia.ayudaImporteSinJs}
 								bind:cents={() => importes[tipo.id] ?? null, (valor: number | null) => (importes[tipo.id] = valor)}
+								error={erroresImporte[campoImporteDe(tipo.id)]?.mensaje}
 							/>
 						{:else}
 							<input type="hidden" name="importe" value="" />

@@ -41,6 +41,9 @@ export const esquemaAportacion = z.strictObject({
 	),
 });
 
+/** Código del importe que falta en una línea con cantidad (RF-211). Su mensaje está en `textos.economia.importeObligatorio`. */
+export const IMPORTE_OBLIGATORIO = 'IMPORTE_OBLIGATORIO';
+
 export const esquemaLineaCompra = z.strictObject({
 	tipoCapsulaId: esquemaUlid,
 	cantidad: z.coerce
@@ -48,8 +51,40 @@ export const esquemaLineaCompra = z.strictObject({
 		.int()
 		.positive({ error: 'La cantidad debe ser al menos 1' })
 		.max(MAXIMO_CANTIDAD, { error: 'La cantidad no puede superar 999' }),
-	importe: esquemaImporte,
+	// RF-211: una línea con cantidad necesita un importe mayor que 0; vacío o 0 se marca en ese campo.
+	importe: z
+		.string()
+		.trim()
+		.min(1, { error: IMPORTE_OBLIGATORIO })
+		.pipe(esquemaImporte)
+		.pipe(z.number().int().min(1, { error: IMPORTE_OBLIGATORIO })),
 });
+
+/** Campo del importe de un tipo en la cuadrícula de compra (RF-211). Lo usan la acción y la página. */
+export const campoImporteDe = (tipoCapsulaId: string) => `importe-${tipoCapsulaId}`;
+
+/**
+ * Errores de importe por tipo a partir de las incidencias de `esquemaCompra` (RF-211). Una línea `lineas.N.importe`
+ * se traduce al campo de su tipo, para que la página marque ese campo y no muestre solo un aviso general.
+ */
+export function erroresDeImporte(
+	incidencias: readonly { path: readonly PropertyKey[]; message: string }[],
+	lineas: readonly { tipoCapsulaId: string }[],
+	mensajeObligatorio: string,
+): Record<string, { codigo: string; mensaje: string }> {
+	const errores: Record<string, { codigo: string; mensaje: string }> = {};
+	for (const incidencia of incidencias) {
+		const [lista, indice, campo] = incidencia.path;
+		if (lista !== 'lineas' || typeof indice !== 'number' || campo !== 'importe') continue;
+		const linea = lineas.at(indice);
+		if (!linea) continue;
+		errores[campoImporteDe(linea.tipoCapsulaId)] ??=
+			incidencia.message === IMPORTE_OBLIGATORIO
+				? { codigo: IMPORTE_OBLIGATORIO, mensaje: mensajeObligatorio }
+				: { codigo: 'VALIDACION', mensaje: incidencia.message };
+	}
+	return errores;
+}
 
 /**
  * Las líneas llegan como tres listas paralelas (`tipo[]`, `cantidad[]`, `importe[]`) y se normalizan por posición.

@@ -11,8 +11,9 @@ import {
 	interpretarMascota,
 	interpretarVoz,
 } from '#lib/shared/contratos/apariencia';
+import { buscarFrase } from '#lib/shared/mascota/frases';
 import type { FormaBoca } from '#lib/shared/mascota/lip-sync';
-import { elegirVariante, formatearTextoMascota, type MomentoId, type VarianteFrase } from '#lib/shared/mascota/momentos';
+import { elegirVariante, formatearTextoMascota, type MomentoId, type Pose, type VarianteFrase } from '#lib/shared/mascota/momentos';
 
 const CLAVE_CONTEXTO = Symbol('mascota');
 
@@ -105,6 +106,17 @@ export class EstadoMascota {
 			texto: formatearTextoMascota(variante.texto, vars),
 			conAudio: Boolean(variante.conAudio),
 		};
+	}
+
+	/**
+	 * Muestra una frase del anexo del servidor (RF-213, RF-214): devuelve su texto y su pose y la dice si la voz está activa.
+	 * `null` si el identificador no está en el catálogo o la mascota está oculta (no se dice nada sin mascota).
+	 */
+	mostrarFrase(fraseId: string): { texto: string; pose: Pose } | null {
+		const frase = buscarFrase(fraseId);
+		if (!frase || !this.visible) return null;
+		this.hablar(frase.id);
+		return { texto: frase.texto, pose: frase.pose };
 	}
 
 	/**

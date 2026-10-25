@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { esquemaAportacion, esquemaImporte, lineasDesdeFormulario, esquemaCompra } from './economia';
+import { campoImporteDe, erroresDeImporte, esquemaAportacion, esquemaImporte, lineasDesdeFormulario, esquemaCompra } from './economia';
 
 const CLIENTE = '01ARZ3NDEKTSV4RRFFQ69G5FAV';
 const TIPO = '01BX5ZZKBKACTAV9WEVGEMMVRY';
@@ -44,5 +44,28 @@ describe('contratos de economía', () => {
 		expect(esquemaCompra.safeParse({ clienteId: CLIENTE, lineas, confirmarHuchaNegativa: 'si' }).success).toBe(false);
 		const confirmada = esquemaCompra.safeParse({ clienteId: CLIENTE, lineas, confirmarHuchaNegativa: 'si', saldoConfirmado: '-150' });
 		expect(confirmada.success && confirmada.data.saldoConfirmado).toBe(-150);
+	});
+});
+
+describe('erroresDeImporte (RF-211)', () => {
+	const tipoA = CLIENTE;
+	const tipoB = TIPO;
+	const lineas = [
+		{ tipoCapsulaId: tipoA, cantidad: '16', importe: '' },
+		{ tipoCapsulaId: tipoB, cantidad: '2', importe: 'abc' },
+	];
+
+	it('CA-211: traduce cada importe que falta o no vale al campo de su tipo', () => {
+		const resultado = esquemaCompra.safeParse({ clienteId: tipoA, lineas });
+		expect(resultado.success).toBe(false);
+		const errores = erroresDeImporte(resultado.error?.issues ?? [], lineas, 'Falta el importe');
+		expect(errores).toEqual({
+			[campoImporteDe(tipoA)]: { codigo: 'IMPORTE_OBLIGATORIO', mensaje: 'Falta el importe' },
+			[campoImporteDe(tipoB)]: { codigo: 'VALIDACION', mensaje: 'Escribe un importe en euros, como 17,50' },
+		});
+	});
+
+	it('ignora las incidencias que no son de un importe de línea', () => {
+		expect(erroresDeImporte([{ path: ['lineas'], message: 'x' }, { path: ['clienteId'], message: 'y' }], lineas, 'z')).toEqual({});
 	});
 });

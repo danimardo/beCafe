@@ -66,7 +66,9 @@ test('CA-183, CA-184, EV-102: la tarjeta muestra ilustración cuando no hay foto
 	// El botón «Deshacer» sigue visible y pulsable sin quedar tapado por Capsulito (CA-186, EV-101).
 	await expect(page.getByRole('button', { name: 'Deshacer', exact: true })).toBeVisible();
 
+	// El primer toque dejó el tipo en 0: el de invitado pide confirmación antes de registrar (RF-217).
 	await btnInvitado.click();
+	await page.getByRole('alertdialog', { name: 'El sistema dice que no quedan' }).getByRole('button', { name: 'Sí, registrar', exact: true }).click();
 	await expect(page.getByRole('link', { name: new RegExp(`${tipo} · Invitado`) }).first()).toBeVisible();
 });
 

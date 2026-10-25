@@ -18,8 +18,10 @@
 		actions?: Snippet;
 		/** Campana de avisos (RF-107). Visible en todas las pantallas de la app; desactívala solo en catálogos o pantallas sin sesión. */
 		bell?: boolean;
+		/** Solo Inicio: reabre su tour desde la ayuda sin navegar (RF-228). */
+		onrepetirtour?: () => void;
 	};
-	let { eyebrow, title, actions, bell = true }: Props = $props();
+	let { eyebrow, title, actions, bell = true, onrepetirtour }: Props = $props();
 
 	// RF-203: «?» en cada pantalla. Sin JavaScript lleva a `/ayuda?pantalla=<id>`; con JavaScript abre el panel.
 	// Las pantallas de visitante no tienen sesión: sin JavaScript no muestran el enlace, porque `/ayuda` la exige.
@@ -70,5 +72,5 @@
 </header>
 
 {#if pantalla && conJavaScript}
-	<AyudaPanel bind:open={ayudaAbierta} {pantalla} />
+	<AyudaPanel bind:open={ayudaAbierta} {pantalla} {onrepetirtour} />
 {/if}

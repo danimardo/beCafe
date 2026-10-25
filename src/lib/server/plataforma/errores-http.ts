@@ -33,6 +33,7 @@ const ESTADO_POR_CODIGO: Record<CodigoNegocio, number> = {
 	TIPO_SIN_COSTE: 409,
 	USUARIO_DE_BAJA: 403,
 	NO_ANULABLE: 409,
+	CONFIRMAR_SIN_STOCK: 409,
 };
 
 export function estadoDeNegocio(codigo: CodigoNegocio): number {

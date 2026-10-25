@@ -7,8 +7,17 @@
 	type Props = {
 		open?: boolean;
 		pantalla: IdPantalla;
+		/** Con JavaScript, reabre el tour de Inicio sin navegar (RF-228). Sin esta función, el formulario GET lleva a `/?tour=si`. */
+		onrepetirtour?: () => void;
 	};
-	let { open = $bindable(false), pantalla }: Props = $props();
+	let { open = $bindable(false), pantalla, onrepetirtour }: Props = $props();
+
+	function repetirTour(evento: SubmitEvent) {
+		if (!onrepetirtour) return;
+		evento.preventDefault();
+		open = false;
+		onrepetirtour();
+	}
 	const entrada = $derived(CATALOGO_AYUDA[pantalla]);
 </script>
 
@@ -46,8 +55,8 @@
 			</section>
 		{/if}
 		{#if pantalla === 'inicio'}
-			<!-- RF-204: el tour se repite desde aquí. Es una navegación a Inicio con `tour=si`, con un formulario GET. -->
-			<form method="get" action={resolve('/(app)')}>
+			<!-- RF-204, RF-228: el tour se repite desde aquí. Con JavaScript cierra el panel y reabre el tour; sin él, un formulario GET a Inicio con `tour=si`. -->
+			<form method="get" action={resolve('/(app)')} onsubmit={repetirTour}>
 				<input type="hidden" name="tour" value="si" />
 				<button type="submit" class="min-h-6 font-semibold text-accent underline">Repetir el tour</button>
 			</form>

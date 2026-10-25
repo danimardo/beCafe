@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { page, userEvent } from 'vitest/browser';
 import AyudaPanel from './AyudaPanel.svelte';
@@ -23,5 +23,15 @@ describe('AyudaPanel (RF-203)', () => {
 		await render(AyudaPanel, { open: true, pantalla: 'inicio' });
 
 		await expect.element(page.getByRole('button', { name: 'Repetir el tour', exact: true })).toBeVisible();
+	});
+
+	it('CA-228: con JavaScript, «Repetir el tour» llama a la función recibida y cierra el panel', async () => {
+		const onrepetirtour = vi.fn();
+		await render(AyudaPanel, { open: true, pantalla: 'inicio', onrepetirtour });
+
+		await page.getByRole('button', { name: 'Repetir el tour', exact: true }).click();
+
+		expect(onrepetirtour).toHaveBeenCalledTimes(1);
+		await expect.element(page.getByRole('dialog', { name: 'Ayuda: Inicio' })).not.toBeInTheDocument();
 	});
 });

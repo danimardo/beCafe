@@ -10,6 +10,12 @@ describe('registro de pruebas (constitución XVI)', () => {
 		expect(() => registro.registrar('dato.invalido', campos)).toThrow('campo prohibido');
 	});
 
+	it('falla si un evento de frase lleva el texto de la frase (F11, constitución XVI)', () => {
+		const registro = crearRegistroFalso();
+		const campos = { usuarioId: 'u', lista: 'registro' as const, fraseId: 'registro_01', ciclo: 1, texto: '¿Otro café?' };
+		expect(() => registro.registrar('frase.entregada', campos)).toThrow('campo prohibido');
+	});
+
 	it('falla si un valor tiene forma de correo, aunque la clave sea inocente', () => {
 		const registro = crearRegistroFalso();
 		expect(() => registro.registrar('dato.invalido', { origen: 'x', campo: 'ana@ejemplo.es', incidencia: 'x' })).toThrow('forma de correo');

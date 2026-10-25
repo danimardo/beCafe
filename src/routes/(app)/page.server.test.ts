@@ -1,13 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { actions } from './+page.server';
+import { buscarFrase } from '#lib/shared/mascota/frases';
 import { crearEventoAccion, desenvolverFallo } from '#lib/shared/pruebas/acciones';
 import { crearActor, crearSesion, resolverSesion, type Actor } from '#lib/server/auth';
-import { crearEntornoPrueba, enTransaccion, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
+import { crearAzarFijo, crearEntornoPrueba, enTransaccion, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
 import { crearUsuario } from '#lib/server/usuarios';
 import { darDeAltaCapsula, registrarAportacion, registrarCompra } from '#lib/server/economia';
 import { z } from 'zod';
 
-const esquemaConsumoRegistrado = z.object({ consumo: z.object({ id: z.string() }) });
+const esquemaConsumoRegistrado = z.object({ consumo: z.object({ id: z.string(), fraseId: z.string().nullable().optional() }) });
+const esquemaSaludo = z.object({ saludo: z.object({ fraseId: z.string().nullable() }) });
 const esquemaRellenoRegistrado = z.object({ rellenoId: z.string() });
 
 /** Extrae el identificador del relleno que devuelve la acción `rellenar`; otro resultado falla la prueba. */
@@ -30,7 +32,8 @@ describe('acciones de la pantalla principal', () => {
 	let entorno: EntornoPrueba;
 
 	beforeEach(() => {
-		entorno = crearEntornoPrueba(INSTANTE);
+		// Azar fijo: siempre la primera frase disponible del ciclo, así no hay dos iguales seguidas.
+		entorno = crearEntornoPrueba(INSTANTE, crearAzarFijo(Array.from({ length: 20 }, () => 0)));
 	});
 
 	afterEach(() => entorno.cerrar());
@@ -46,7 +49,7 @@ describe('acciones de la pantalla principal', () => {
 		return crearActor(sesion);
 	}
 
-	async function tipoConCoste(): Promise<string> {
+	async function tipoConCoste(cantidad = 100): Promise<string> {
 		const admin = sesionDe('administrador', 'Admin');
 		const miembro = sesionDe('miembro', 'Ana');
 		registrarAportacion(entorno.ambiente, miembro, { clienteId: nuevoId(), importe: 5000 });
@@ -59,7 +62,7 @@ describe('acciones de la pantalla principal', () => {
 		});
 		await registrarCompra(entorno.ambiente, admin, {
 			clienteId: nuevoId(),
-			lineas: [{ tipoCapsulaId: id, cantidad: 100, importe: 3483 }],
+			lineas: [{ tipoCapsulaId: id, cantidad, importe: 3483 }],
 			confirmoHuchaNegativa: true,
 		});
 		return id;
@@ -125,6 +128,85 @@ describe('acciones de la pantalla principal', () => {
 		expect(estado).toBe(409);
 		expect(datos).toHaveProperty('errores.general.codigo', 'TIPO_SIN_COSTE');
 		expect(JSON.stringify(datos)).not.toContain(sinCoste);
+	});
+
+	it('CA-217: con stock 0 y la tarjeta «Sin stock», la acción devuelve 409 con lo necesario para el paso de confirmación', async () => {
+		const tipoCapsulaId = await tipoConCoste(1);
+		const ana = sesionDe('miembro', 'Marta');
+		await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '0' });
+		const clienteId = nuevoId();
+
+		const { estado, datos } = desenvolverFallo(await consumir(ana, { tipoCapsulaId, clienteId, invitado: '1', sinStock: '1' }));
+
+		expect(estado).toBe(409);
+		expect(datos).toEqual({ confirmarSinStock: { tipoCapsulaId, nombre: 'Ristretto', clienteId, invitado: '1' } });
+	});
+
+	it('CA-217: con «confirmarSinStock=si» el consumo se registra con stock −1', async () => {
+		const tipoCapsulaId = await tipoConCoste(1);
+		const ana = sesionDe('miembro', 'Marta');
+		await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '0' });
+
+		const resultado = await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '0', sinStock: '1', confirmarSinStock: 'si' });
+
+		expect(esquemaConsumoRegistrado.safeParse(resultado).success).toBe(true);
+		expect(resultado).toMatchObject({ consumo: { descuadre: true } });
+	});
+
+	function saludo(actor: Actor | undefined) {
+		return actions.saludo(
+			crearEventoAccion({
+				locals: { ambiente: entorno.ambiente, actor },
+				ruta: '/(app)',
+				params: {},
+				cuerpo: new URLSearchParams({}),
+				cabeceras: { 'content-type': 'application/x-www-form-urlencoded' },
+			}),
+		);
+	}
+
+	it('CA-213: con «mascota=si», un consumo propio y uno de invitado devuelven una frase de registro del anexo', async () => {
+		const tipoCapsulaId = await tipoConCoste();
+		const ana = sesionDe('miembro', 'Marta');
+
+		const propio = esquemaConsumoRegistrado.parse(await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '0', mascota: 'si' }));
+		const invitado = esquemaConsumoRegistrado.parse(await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '1', mascota: 'si' }));
+
+		for (const { consumo } of [propio, invitado]) {
+			expect(consumo.fraseId).toMatch(/^registro_\d{2}$/);
+			expect(buscarFrase(consumo.fraseId ?? '')).toBeDefined();
+		}
+		expect(propio.consumo.fraseId).not.toBe(invitado.consumo.fraseId);
+	});
+
+	it('CA-213: sin «mascota=si» no se entrega ninguna frase ni se gasta una del ciclo', async () => {
+		const tipoCapsulaId = await tipoConCoste();
+		const ana = sesionDe('miembro', 'Marta');
+
+		const resultado = esquemaConsumoRegistrado.parse(await consumir(ana, { tipoCapsulaId, clienteId: nuevoId(), invitado: '0' }));
+
+		expect(resultado.consumo.fraseId ?? null).toBeNull();
+	});
+
+	it('CA-213: un reenvío del mismo consumo (duplicado) no entrega otra frase', async () => {
+		const tipoCapsulaId = await tipoConCoste();
+		const ana = sesionDe('miembro', 'Marta');
+		const clienteId = nuevoId();
+
+		await consumir(ana, { tipoCapsulaId, clienteId, invitado: '0', mascota: 'si' });
+		const reenvio = esquemaConsumoRegistrado.parse(await consumir(ana, { tipoCapsulaId, clienteId, invitado: '0', mascota: 'si' }));
+
+		expect(reenvio.consumo.fraseId ?? null).toBeNull();
+	});
+
+	it('CA-214: «?/saludo» entrega un saludo del anexo y una segunda llamada seguida devuelve null', async () => {
+		const ana = sesionDe('miembro', 'Marta');
+
+		const primero = esquemaSaludo.parse(await saludo(ana));
+		const segundo = esquemaSaludo.parse(await saludo(ana));
+
+		expect(primero.saludo.fraseId).toMatch(/^saludo_\d{2}$/);
+		expect(segundo.saludo.fraseId).toBeNull();
 	});
 
 	it('CA-013: deshacer el propio consumo dentro del plazo devuelve la confirmación', async () => {

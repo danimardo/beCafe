@@ -69,3 +69,50 @@ test('CA-204: una cuenta nueva ve el tour de Inicio una sola vez y lo puede repe
 	await expect(persona.getByRole('dialog', { name: 'Un toque, un café' })).toBeVisible();
 	await contexto.close();
 });
+
+test('CA-228: «Repetir el tour» desde Inicio cierra la ayuda y abre el paso 1 de 4, que se puede avanzar', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'miembro');
+	await page.goto(`${servidor.url}/`);
+	await page.waitForLoadState('load');
+	const paso1 = page.getByRole('dialog', { name: 'Un toque, un café' });
+	const paso2 = page.getByRole('dialog', { name: 'Si invitas a alguien' });
+	// La cuenta sembrada puede tener el tour pendiente: se salta para partir de «ya visto».
+	if (await paso1.isVisible()) await page.getByRole('button', { name: 'Saltar', exact: true }).click();
+	await expect(paso1).toBeHidden();
+
+	await page.getByRole('button', { name: 'Ayuda de esta pantalla', exact: true }).click();
+	const ayuda = page.getByRole('dialog', { name: 'Ayuda: Inicio' });
+	await expect(ayuda).toBeVisible();
+	await page.getByRole('button', { name: 'Repetir el tour', exact: true }).click();
+
+	await expect(ayuda).toBeHidden();
+	await expect(paso1).toBeVisible();
+	await expect(paso1.getByText('1 de 4')).toBeVisible();
+	await page.getByRole('button', { name: 'Siguiente', exact: true }).click();
+	await expect(paso2).toBeVisible();
+});
+
+test('CA-228: tras terminar el tour hasta el último paso, «Repetir el tour» lo vuelve a abrir en el paso 1', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'miembro');
+	await page.goto(`${servidor.url}/`);
+	await page.waitForLoadState('load');
+	const paso1 = page.getByRole('dialog', { name: 'Un toque, un café' });
+	if (await paso1.isVisible()) {
+		for (let i = 0; i < 3; i++) await page.getByRole('button', { name: 'Siguiente', exact: true }).click();
+		await page.getByRole('button', { name: 'Terminar', exact: true }).click();
+	}
+	await expect(paso1).toBeHidden();
+
+	await page.getByRole('button', { name: 'Ayuda de esta pantalla', exact: true }).click();
+	await page.getByRole('button', { name: 'Repetir el tour', exact: true }).click();
+	await expect(page.getByRole('dialog', { name: 'Ayuda: Inicio' })).toBeHidden();
+	await expect(paso1).toBeVisible();
+	await expect(paso1.getByText('1 de 4')).toBeVisible();
+
+	// Y una segunda vez, sin recargar: terminar y repetir otra vez.
+	await page.getByRole('button', { name: 'Saltar', exact: true }).click();
+	await expect(paso1).toBeHidden();
+	await page.getByRole('button', { name: 'Ayuda de esta pantalla', exact: true }).click();
+	await page.getByRole('button', { name: 'Repetir el tour', exact: true }).click();
+	await expect(paso1).toBeVisible();
+});

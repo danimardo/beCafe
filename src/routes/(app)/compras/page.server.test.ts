@@ -6,6 +6,7 @@ import { crearActor, crearSesion, resolverSesion, type Actor } from '#lib/server
 import { crearEntornoPrueba, enTransaccion, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
 import { crearUsuario } from '#lib/server/usuarios';
 import { darDeAltaCapsula, leerComprasRecientes, registrarAportacion } from '#lib/server/economia';
+import { textos } from '#lib/shared/textos';
 
 // Acciones de compras (CA-040, CA-043, RF-046) con evento falso. La hucha se dota antes con una aportación.
 const INSTANTE = '2026-10-21T09:00:00.000Z';
@@ -171,5 +172,33 @@ describe('acciones de /compras', () => {
 		await expect(enviar('registrar', marta, cuerpo('500'))).resolves.toMatchObject({ status: 409, data: { confirmacion: { saldo: 0 } } });
 		expect(isRedirect(await capturar(() => enviar('registrar', marta, cuerpo('0'))))).toBe(true);
 		expect(leerComprasRecientes(entorno.ambiente.db, marta, 10)).toHaveLength(1);
+	});
+
+	it('CA-211: una línea con cantidad y sin importe o con importe 0 marca ese importe y no pide confirmar la hucha', async () => {
+		const marta = sesionDe('miembro', 'Marta');
+		const admin = sesionDe('administrador', 'Admin');
+		const tipoA = await tipoActivo(admin);
+		const tipoB = await tipoActivo(admin);
+
+		for (const importe of ['', '0', '0,00']) {
+			const resultado = await enviar(
+				'registrar',
+				marta,
+				new URLSearchParams([
+					['clienteId', nuevoId()],
+					['tipo', tipoA],
+					['cantidad', '16'],
+					['importe', importe],
+					['tipo', tipoB],
+					['cantidad', '2'],
+					['importe', '1,00'],
+				]),
+			);
+			const { estado, datos } = desenvolverFallo(resultado);
+			expect(estado).toBe(400);
+			expect(datos).not.toHaveProperty('confirmacion');
+			expect(datos.errores).toEqual({ [`importe-${tipoA}`]: { codigo: 'IMPORTE_OBLIGATORIO', mensaje: textos.economia.importeObligatorio } });
+		}
+		expect(leerComprasRecientes(entorno.ambiente.db, marta, 10)).toHaveLength(0);
 	});
 });

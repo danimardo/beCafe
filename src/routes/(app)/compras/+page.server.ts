@@ -7,7 +7,8 @@ import { bytesDeFoto } from '../admin/capsulas/formulario';
 import { leerComprasRecientes, leerSaldoHucha, leerTiposComprables, registrarCompra } from '#lib/server/economia';
 import { buscarUsuarioPorId } from '#lib/server/usuarios';
 import { esErrorDeNegocio, nuevoId, registrarRechazo } from '#lib/server/plataforma';
-import { esquemaCompra, lineasDesdeFormulario } from '#lib/shared/contratos/economia';
+import { erroresDeImporte, esquemaCompra, lineasDesdeFormulario } from '#lib/shared/contratos/economia';
+import { textos } from '#lib/shared/textos';
 import { urlFotoCapsula } from '#lib/shared/contratos/capsulas';
 
 const LIMITE_COMPRAS = 20;
@@ -62,7 +63,12 @@ export const actions: Actions = {
 			confirmarHuchaNegativa: datos.confirmarHuchaNegativa,
 			saldoConfirmado: datos.saldoConfirmado,
 		});
-		if (!entrada.success) return fallo(400, entrada.error, valores);
+		if (!entrada.success) {
+			// RF-211: un importe que falta o no vale se marca en el campo de su tipo, antes de mirar la hucha.
+			const porImporte = erroresDeImporte(entrada.error.issues, lineas, textos.economia.importeObligatorio);
+			if (Object.keys(porImporte).length > 0) return fail(400, { errores: porImporte, valores });
+			return fallo(400, entrada.error, valores);
+		}
 		const actor = locals.actor;
 		if (!actor) return falloDeNegocio('SIN_SESION', {});
 

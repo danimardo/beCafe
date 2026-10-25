@@ -82,7 +82,7 @@
 					{
 						href: resolve('/(app)/admin/configuracion'),
 						label: 'Configuración',
-						short: 'Ajustes',
+						short: 'Config.',
 						icon: Settings,
 						active: ruta.startsWith('/admin/configuracion'),
 					},
