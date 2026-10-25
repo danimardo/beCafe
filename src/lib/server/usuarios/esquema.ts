@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { check, index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { check, index, integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 // Tablas de `usuarios` (data-model.md). Solo las escribe este módulo.
 export const usuario = sqliteTable(
@@ -14,6 +14,8 @@ export const usuario = sqliteTable(
 		privacidadLeidaEn: text('privacidad_leida_en'),
 		creadoEn: text('creado_en').notNull(),
 		bajaEn: text('baja_en'),
+		/** Nombre del archivo de la foto en `/data/fotos/usuarios/` (RF-208). Sin foto, iniciales (RF-209). */
+		fotoRuta: text('foto_ruta'),
 	},
 	(tabla) => [
 		index('usuario_rol_estado').on(tabla.rol, tabla.estado),
@@ -35,4 +37,22 @@ export const registroAuditoria = sqliteTable(
 		creadoEn: text('creado_en').notNull(),
 	},
 	(tabla) => [index('registro_auditoria_objeto').on(tabla.objetoTipo, tabla.objetoId)],
+);
+
+// Marcas de la cuenta (plan F10 D8 y D9, RF-204, RF-206, RF-207). Se guardan en el servidor y no en el navegador (constitución V).
+export const CLAVES_CUENTA = ['tour_inicio_visto', 'instalacion_descartada', 'oferta_avisos_vista'] as const;
+
+export const preferenciaCuenta = sqliteTable(
+	'preferencia_cuenta',
+	{
+		usuarioId: text('usuario_id')
+			.notNull()
+			.references(() => usuario.id),
+		clave: text('clave', { enum: CLAVES_CUENTA }).notNull(),
+		valorEn: text('valor_en').notNull(),
+	},
+	(tabla) => [
+		primaryKey({ columns: [tabla.usuarioId, tabla.clave] }),
+		check('preferencia_cuenta_clave_valida', sql`${tabla.clave} IN ('tour_inicio_visto', 'instalacion_descartada', 'oferta_avisos_vista')`),
+	],
 );

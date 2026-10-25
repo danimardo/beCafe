@@ -12,6 +12,8 @@ export type Ambiente = {
 	directorioFotos: string;
 	limitadorRegistro: Limitador;
 	limitadorAvisos: Limitador;
+	/** Cafés de visitante por visita (plan F10 D3, research R11): protección ante un enlace filtrado, no un máximo de cafés. */
+	limitadorVisitantes: Limitador;
 	/** Azar del reparto de céntimos (RN-014). Las pruebas lo sustituyen por uno fijo. */
 	azar: Azar;
 	/** Hay bucket S3 configurado: la copia diaria está registrada (plan F8 D8). */

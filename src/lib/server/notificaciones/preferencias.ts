@@ -7,7 +7,7 @@ import { preferenciaNotificacion, TIPOS_NOTIFICACION, type TipoNotificacion } fr
 // La persona llega como parámetro: este módulo no importa `auth` (ARCHITECTURE.md §4).
 
 /** Tipos que solo ve y cambia un administrador. */
-const TIPOS_ADMINISTRACION: readonly TipoNotificacion[] = ['stock_negativo', 'hucha_negativa', 'fallo_copia'];
+const TIPOS_ADMINISTRACION: readonly TipoNotificacion[] = ['stock_negativo', 'hucha_negativa', 'fallo_copia', 'cafe_visitante_pendiente'];
 
 export type PersonaPreferencias = { usuarioId: string; rol: 'miembro' | 'administrador' };
 

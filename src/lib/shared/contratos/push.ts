@@ -3,10 +3,27 @@ import { z } from 'zod';
 // Contrato v1 de la suscripción push (contracts/api-push.md, RF-105). Compartido: el cliente y el servidor lo validan.
 
 /** Tipos de aviso que el servidor puede enviar. Es la lista del catálogo de `notificaciones`. */
-export const TIPOS_NOTIFICACION = ['stock_bajo', 'stock_negativo', 'hucha_negativa', 'deuda', 'resumen_mensual', 'fallo_copia'] as const;
+export const TIPOS_NOTIFICACION = [
+	'stock_bajo',
+	'stock_negativo',
+	'hucha_negativa',
+	'deuda',
+	'resumen_mensual',
+	'fallo_copia',
+	'cafe_visitante_pendiente',
+	'aportacion_en_tu_nombre',
+] as const;
 
 /** Tipos que la persona puede desactivar. `deuda` siempre llega (RF-102). */
-export const TIPOS_DESACTIVABLES = ['stock_bajo', 'stock_negativo', 'hucha_negativa', 'resumen_mensual', 'fallo_copia'] as const;
+export const TIPOS_DESACTIVABLES = [
+	'stock_bajo',
+	'stock_negativo',
+	'hucha_negativa',
+	'resumen_mensual',
+	'fallo_copia',
+	'cafe_visitante_pendiente',
+	'aportacion_en_tu_nombre',
+] as const;
 
 const esquemaEndpoint = z.url({ protocol: /^https$/ }).max(1000);
 

@@ -64,3 +64,42 @@ export const sesionCerradaPorBaja = sqliteTable(
 	},
 	(tabla) => [index('sesion_cerrada_por_baja_usuario').on(tabla.usuarioId)],
 );
+
+// Enlaces de visitante (plan F10 D1, RF-189, RF-190). El token viaja en la URL y en el QR; la base guarda su SHA-256.
+export const enlaceVisitante = sqliteTable(
+	'enlace_visitante',
+	{
+		id: text('id').primaryKey(),
+		tokenHash: text('token_hash').notNull().unique(),
+		creadoPor: text('creado_por')
+			.notNull()
+			.references(() => usuario.id),
+		creadoEn: text('creado_en').notNull(),
+		expiraEn: text('expira_en').notNull(),
+		revocadoEn: text('revocado_en'),
+		revocadoPor: text('revocado_por').references(() => usuario.id),
+	},
+	(tabla) => [index('enlace_visitante_creador').on(tabla.creadoPor)],
+);
+
+// Visitas abiertas con un enlace (RF-190, RF-210). La cookie `becafe_visita` lleva el token; aquí solo su SHA-256.
+export const visita = sqliteTable(
+	'visita',
+	{
+		id: text('id').primaryKey(),
+		enlaceId: text('enlace_id')
+			.notNull()
+			.references(() => enlaceVisitante.id),
+		tokenHash: text('token_hash').notNull().unique(),
+		nombre: text('nombre'),
+		nombreEliminadoEn: text('nombre_eliminado_en'),
+		creadaEn: text('creada_en').notNull(),
+	},
+	(tabla) => [
+		index('visita_enlace').on(tabla.enlaceId),
+		check(
+			'visita_nombre_valido',
+			sql`${tabla.nombre} IS NULL OR (length(${tabla.nombre}) BETWEEN 1 AND 60 AND ${tabla.nombre} = trim(${tabla.nombre}))`,
+		),
+	],
+);

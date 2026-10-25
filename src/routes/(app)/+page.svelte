@@ -400,6 +400,17 @@
 					</Banner>
 				{/if}
 
+				<!-- Visitantes (plan F10 D4): acceso secundario; la acción primaria de Inicio sigue siendo el toque. -->
+				<Section>
+					<ul class="flex flex-col">
+						<ListRow
+							title={textos.visitantes.tarjetaInicio}
+							subtitle={textos.visitantes.tarjetaInicioAyuda}
+							href={resolve('/(app)/visitantes')}
+						/>
+					</ul>
+				</Section>
+
 				<Section title={textos.consumos.ultimos}>
 					{#if data.recientes.length === 0}
 						<p class="text-sm text-ink-muted">{textos.consumos.sinUltimos}</p>

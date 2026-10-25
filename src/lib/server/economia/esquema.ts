@@ -288,3 +288,36 @@ export const avisoEconomia = sqliteTable(
 	},
 	(tabla) => [index('aviso_economia_tipo').on(tabla.tipo)],
 );
+
+// Cafés de visitante (plan F10 D2, RF-191, RF-193, RN-086). Nunca generan movimientos: aprobar resta stock y la hucha
+// asume el coste; `coste_medio_aplicado` es solo informativo. `visita_id` no tiene clave externa (la tabla es de `auth`).
+export const ESTADOS_CAFE_VISITANTE = ['pendiente', 'aprobado', 'rechazado', 'anulado'] as const;
+
+export const cafeVisitante = sqliteTable(
+	'cafe_visitante',
+	{
+		id: text('id').primaryKey(),
+		clienteId: text('cliente_id').notNull().unique(),
+		visitaId: text('visita_id').notNull(),
+		tipoCapsulaId: text('tipo_capsula_id').notNull(),
+		horaGesto: text('hora_gesto').notNull(),
+		horaRegistro: text('hora_registro').notNull(),
+		estado: text('estado', { enum: ESTADOS_CAFE_VISITANTE }).notNull(),
+		revisadoPor: text('revisado_por').references(() => usuario.id),
+		revisadoEn: text('revisado_en'),
+		costeMedioAplicado: integer('coste_medio_aplicado'),
+		anuladoPor: text('anulado_por').references(() => usuario.id),
+		anuladoEn: text('anulado_en'),
+		motivoAnulacion: text('motivo_anulacion'),
+	},
+	(tabla) => [
+		index('cafe_visitante_estado').on(tabla.estado, tabla.horaRegistro),
+		index('cafe_visitante_visita').on(tabla.visitaId),
+		check('cafe_visitante_estado_valido', sql`${tabla.estado} IN ('pendiente', 'aprobado', 'rechazado', 'anulado')`),
+		check('cafe_visitante_revision', sql`(${tabla.estado} = 'pendiente') = (${tabla.revisadoPor} IS NULL AND ${tabla.revisadoEn} IS NULL)`),
+		check(
+			'cafe_visitante_anulacion',
+			sql`(${tabla.estado} = 'anulado') = (${tabla.anuladoPor} IS NOT NULL AND ${tabla.anuladoEn} IS NOT NULL AND ${tabla.motivoAnulacion} IS NOT NULL)`,
+		),
+	],
+);

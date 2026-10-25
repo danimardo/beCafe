@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatDate, formatearHace } from './formato';
+import { formatDate, formatearFechaHoraMadrid, formatearHace, formatearHoraMadrid } from './formato';
 
 describe('fechas en español', () => {
 	it('muestra día y mes abreviado sin punto', () => {
@@ -30,5 +30,13 @@ describe('formatearHace (RF-170)', () => {
 	it('a partir de un día cuenta días, en singular y en plural', () => {
 		expect(formatearHace('2026-10-22T12:00:00.000Z', AHORA)).toBe('hace 1 día');
 		expect(formatearHace('2026-10-20T12:00:00.000Z', AHORA)).toBe('hace 3 días');
+	});
+});
+
+describe('formatearFechaHoraMadrid', () => {
+	it('CA-189: muestra la caducidad del enlace en hora de Madrid', () => {
+		expect(formatearHoraMadrid('2026-10-24T12:05:00.000Z')).toBe('14:05');
+		expect(formatearFechaHoraMadrid('2026-10-24T12:05:00.000Z')).toBe('24 oct, 14:05');
+		expect(formatearHoraMadrid('2026-12-24T12:05:00.000Z')).toBe('13:05');
 	});
 });

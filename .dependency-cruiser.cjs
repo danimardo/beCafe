@@ -109,6 +109,13 @@ module.exports = {
 			to: { dependencyTypes: ['npm'], path: '^@rive-app/canvas$' },
 		},
 		{
+			name: 'uqr-solo-en-adaptador',
+			comment: 'Plan F10 (dependencias nuevas): uqr solo en plataforma/qr.ts.',
+			severity: 'error',
+			from: { pathNot: '^src/lib/server/plataforma/qr\\.ts$' },
+			to: { dependencyTypes: ['npm'], path: '^uqr$' },
+		},
+		{
 			name: 'argon2-solo-en-contrasenas',
 			severity: 'error',
 			from: { pathNot: '^src/lib/server/auth/contrasenas\\.ts$' },

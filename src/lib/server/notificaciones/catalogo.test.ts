@@ -6,7 +6,7 @@ import { TIPOS_NOTIFICACION } from './esquema';
 const ULID = '01ARZ3NDEKTSV4RRFFQ69G5FAV';
 
 describe('catálogo de avisos (RF-101, plan D1)', () => {
-	it('tiene los seis tipos y solo deuda no es desactivable', () => {
+	it('tiene todos los tipos y solo deuda no es desactivable', () => {
 		expect(Object.keys(CATALOGO).sort()).toEqual([...TIPOS_NOTIFICACION].sort());
 		const noDesactivables = TIPOS_NOTIFICACION.filter((tipo) => !CATALOGO[tipo].desactivable);
 		expect(noDesactivables).toEqual(['deuda']);
@@ -19,6 +19,8 @@ describe('catálogo de avisos (RF-101, plan D1)', () => {
 		expect(CATALOGO.fallo_copia.destinatarios).toBe('administradores');
 		expect(CATALOGO.deuda.destinatarios).toBe('persona');
 		expect(CATALOGO.resumen_mensual.destinatarios).toBe('persona');
+		expect(CATALOGO.cafe_visitante_pendiente.destinatarios).toBe('administradores');
+		expect(CATALOGO.aportacion_en_tu_nombre.destinatarios).toBe('persona');
 	});
 
 	it('está congelado', () => {
@@ -27,6 +29,24 @@ describe('catálogo de avisos (RF-101, plan D1)', () => {
 });
 
 describe('construirMensaje', () => {
+	it('CA-192: cafe_visitante_pendiente cuenta los pendientes y enlaza a la revisión, sin nombres', () => {
+		const mensaje = construirMensaje('cafe_visitante_pendiente', { cafeId: ULID, pendientes: 3 });
+		expect(mensaje).toEqual({
+			titulo: 'Café de visitante pendiente',
+			texto: 'Hay 3 cafés de visitante por revisar.',
+			enlace: '/admin/visitantes',
+		});
+		expect(construirMensaje('cafe_visitante_pendiente', { cafeId: ULID, pendientes: 1 }).texto).toBe(
+			'Hay 1 café de visitante por revisar.',
+		);
+	});
+
+	it('CA-200: aportacion_en_tu_nombre formatea el importe y enlaza a saldos', () => {
+		const mensaje = construirMensaje('aportacion_en_tu_nombre', { aportacionId: ULID, importe: 1000 });
+		expect(mensaje.texto).toContain('10,00');
+		expect(mensaje.enlace).toBe('/saldos');
+	});
+
 	it('stock_bajo: título con el nombre del tipo y enlace a la pantalla de inicio', () => {
 		const mensaje = construirMensaje('stock_bajo', { tipoCapsulaId: ULID, nombreTipo: 'Lungo', stock: 2 });
 		expect(mensaje).toEqual({ titulo: 'Stock bajo: Lungo', texto: 'Quedan 2 cápsulas.', enlace: '/' });

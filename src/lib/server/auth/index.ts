@@ -25,3 +25,19 @@ export { listarPersonas, obtenerPersona, type PersonaAdmin, type ListadoPersonas
 export { darDeAltaConInvitacion, generarEnlaceParaPersona, reactivarPersona, cambiarRolPersona } from './invitar';
 export { crearPrimerAdministrador, hayUsuarios, recuperarAcceso, type ResultadoRecuperacion } from './admin-inicial';
 export { contrasenaAceptable } from './contrasenas';
+export {
+	NOMBRE_COOKIE_VISITA,
+	VIGENCIA_ENLACE_VISITANTE_MS,
+	crearEnlaceVisitante,
+	revocarEnlaceVisitante,
+	listarEnlacesVisitante,
+	validarEnlaceVisitante,
+	abrirVisita,
+	resolverVisita,
+	eliminarNombreVisita,
+	leerVisitas,
+	opcionesCookieVisita,
+	type EnlaceVisitante,
+	type EstadoEnlaceVisitante,
+	type VisitaResuelta,
+} from './visitantes';

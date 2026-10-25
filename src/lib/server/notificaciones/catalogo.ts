@@ -27,6 +27,9 @@ export const ESQUEMAS_DATOS = Object.freeze({
 		aguadores: z.array(z.string().max(200)).max(50).optional(),
 	}),
 	fallo_copia: z.strictObject({ copiaId: esquemaUlid }),
+	/** Sin el nombre del visitante: la pantalla de revisión lo lee al mostrarse (plan F10, data-model). */
+	cafe_visitante_pendiente: z.strictObject({ cafeId: esquemaUlid, pendientes: z.int().positive() }),
+	aportacion_en_tu_nombre: z.strictObject({ aportacionId: esquemaUlid, importe: z.int().positive() }),
 } satisfies Record<TipoNotificacion, z.ZodType>);
 
 export const CATALOGO: Readonly<Record<TipoNotificacion, { destinatarios: Destinatarios; desactivable: boolean }>> = Object.freeze({
@@ -36,6 +39,8 @@ export const CATALOGO: Readonly<Record<TipoNotificacion, { destinatarios: Destin
 	deuda: { destinatarios: 'persona', desactivable: false },
 	resumen_mensual: { destinatarios: 'persona', desactivable: true },
 	fallo_copia: { destinatarios: 'administradores', desactivable: true },
+	cafe_visitante_pendiente: { destinatarios: 'administradores', desactivable: true },
+	aportacion_en_tu_nombre: { destinatarios: 'persona', desactivable: true },
 });
 
 /** Estrecha el tipo a los desactivables: `deuda` no lo es (RF-102). */
@@ -102,6 +107,22 @@ export function construirMensaje(tipo: TipoNotificacion, datos: unknown): Mensaj
 				titulo: textos.notificaciones.falloCopia.titulo,
 				texto: textos.notificaciones.falloCopia.texto,
 				enlace: '/admin',
+			};
+		}
+		case 'cafe_visitante_pendiente': {
+			const d = ESQUEMAS_DATOS.cafe_visitante_pendiente.parse(datos);
+			return {
+				titulo: textos.notificaciones.cafeVisitantePendiente.titulo,
+				texto: textos.notificaciones.cafeVisitantePendiente.texto(d.pendientes),
+				enlace: '/admin/visitantes',
+			};
+		}
+		case 'aportacion_en_tu_nombre': {
+			const d = ESQUEMAS_DATOS.aportacion_en_tu_nombre.parse(datos);
+			return {
+				titulo: textos.notificaciones.aportacionEnTuNombre.titulo,
+				texto: textos.notificaciones.aportacionEnTuNombre.texto(formatMoney(d.importe)),
+				enlace: '/saldos',
 			};
 		}
 	}

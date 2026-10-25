@@ -30,6 +30,7 @@ export function crearEntornoPrueba(inicio: string = INSTANTE_INICIAL, azar: Azar
 		directorioFotos: join(base.directorio, 'fotos'),
 		limitadorRegistro: crearLimiteFalso(),
 		limitadorAvisos: crearLimiteFalso(),
+		limitadorVisitantes: crearLimiteFalso(),
 		azar,
 		s3Activa: false,
 	};

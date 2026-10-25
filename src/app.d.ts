@@ -1,6 +1,6 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
-import type { Actor, SesionResuelta } from '#lib/server/auth';
+import type { Actor, SesionResuelta, VisitaResuelta } from '#lib/server/auth';
 import type { Ambiente } from '#lib/server/plataforma';
 
 declare global {
@@ -20,6 +20,8 @@ declare global {
 			actor?: Actor;
 			/** Token de una cookie que ya no da sesión. Solo en memoria: la ruta de consumos lo usa para distinguir una baja (D9). */
 			tokenNoValido?: string;
+			/** Visita de un visitante sin cuenta (plan F10 D3). No es una sesión: no crea `actor`. */
+			visita?: VisitaResuelta;
 		}
 	}
 

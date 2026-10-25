@@ -39,7 +39,9 @@ export type HechoTipo =
 	| { tipo: 'consumo'; instante: string; consumoId: string }
 	| { tipo: 'anulacionConsumo'; instante: string }
 	| { tipo: 'recuento'; instante: string; diferencia: number }
-	| { tipo: 'anulacionRecuento'; instante: string; diferencia: number };
+	| { tipo: 'anulacionRecuento'; instante: string; diferencia: number }
+	/** Café de visitante aprobado (RN-086): resta stock y no cambia el coste medio ni se regulariza. */
+	| { tipo: 'cafeVisitante'; instante: string };
 
 export type EstadoTipo = {
 	stock: number;
@@ -70,6 +72,8 @@ export function aplicarHecho(estado: EstadoTipo, hecho: HechoTipo): EstadoTipo {
 			return { ...estado, stock: estado.stock + hecho.diferencia };
 		case 'anulacionRecuento':
 			return { ...estado, stock: estado.stock - hecho.diferencia };
+		case 'cafeVisitante':
+			return { ...estado, stock: estado.stock - 1 };
 	}
 }
 

@@ -73,6 +73,18 @@ export const NIVEL_EVENTO = {
 	'relleno.anulado': 'info',
 	'relleno.rechazado_intervalo': 'info',
 	'aguador.determinado': 'info',
+	'visitante.enlace_creado': 'info',
+	'visitante.enlace_revocado': 'info',
+	'visitante.visita_abierta': 'info',
+	'visitante.enlace_no_valido': 'warn',
+	'visitante.limite_superado': 'warn',
+	'visitante.nombre_eliminado': 'info',
+	'cafe_visitante.registrado': 'info',
+	'cafe_visitante.revisado': 'info',
+	'cafe_visitante.anulado': 'info',
+	'aportacion.en_nombre_de': 'info',
+	'usuario.foto_cambiada': 'info',
+	'cuenta.marcada': 'debug',
 } as const;
 
 export type CodigoEvento = keyof typeof NIVEL_EVENTO;
@@ -145,6 +157,18 @@ export type CamposEvento = {
 	'relleno.anulado': { rellenoId: string; usuarioId: string };
 	'relleno.rechazado_intervalo': { usuarioId: string };
 	'aguador.determinado': { mes: string; personas: number };
+	'visitante.enlace_creado': { enlaceId: string };
+	'visitante.enlace_revocado': { enlaceId: string };
+	'visitante.visita_abierta': { visitaId: string; enlaceId: string };
+	'visitante.enlace_no_valido': { motivo: 'caducado' | 'revocado' | 'desconocido' };
+	'visitante.limite_superado': { visitaId: string };
+	'visitante.nombre_eliminado': { visitaId: string };
+	'cafe_visitante.registrado': { cafeId: string; visitaId: string };
+	'cafe_visitante.revisado': { decision: 'aprobar' | 'rechazar'; cantidad: number; yaRevisados: number };
+	'cafe_visitante.anulado': { cafeId: string };
+	'aportacion.en_nombre_de': { aportacionId: string };
+	'usuario.foto_cambiada': { usuarioId: string; quitada: boolean };
+	'cuenta.marcada': { usuarioId: string; clave: string };
 };
 
 /** Un registrador recibe eventos ya tipados. El enlace de RF-139 tiene su propio método (solo salida estándar). */

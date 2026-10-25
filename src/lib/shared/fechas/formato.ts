@@ -16,3 +16,15 @@ export function formatearHace(desde: string, ahora: string): string {
 	const dias = Math.floor(horas / 24);
 	return dias === 1 ? 'hace 1 día' : `hace ${dias} días`;
 }
+
+/** Día y hora de un instante en la zona `Europe/Madrid`: «25 oct, 14:05» (constitución V). */
+export function formatearFechaHoraMadrid(instante: string): string {
+	const fecha = new Date(instante);
+	const dia = fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', timeZone: 'Europe/Madrid' }).replace('.', '');
+	return `${dia}, ${formatearHoraMadrid(instante)}`;
+}
+
+/** Hora de un instante en la zona `Europe/Madrid`: «14:05». */
+export function formatearHoraMadrid(instante: string): string {
+	return new Date(instante).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' });
+}

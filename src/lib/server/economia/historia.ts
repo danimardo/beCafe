@@ -1,6 +1,6 @@
-import { and, eq } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 import type { Ejecutor } from '#lib/server/plataforma';
-import { compra, consumo, lineaCompra, lineaRecuento, recuento } from './esquema';
+import { cafeVisitante, compra, consumo, lineaCompra, lineaRecuento, recuento } from './esquema';
 import { aplicarHecho, ESTADO_INICIAL, type EstadoTipo, type HechoTipo } from './dominio/coste-medio';
 
 // Historia de un tipo de cápsula a partir de los registros vigentes (RN-012, INV-02). Interno de `economia`.
@@ -45,7 +45,16 @@ export function leerHistoria(db: Ejecutor, tipoCapsulaId: string): EventoHistori
 			hecho: { tipo: 'recuento' as const, instante: fila.instante, diferencia: fila.diferencia },
 		}));
 
-	return [...compras, ...consumos, ...recuentos].sort((a, b) =>
+	// Cafés de visitante aprobados (RN-086), en el instante de la aprobación: es cuando restan stock. El CHECK
+	// `cafe_visitante_revision` garantiza que un café aprobado tiene `revisado_en`.
+	const cafesVisitante = db
+		.select({ id: cafeVisitante.id, instante: sql<string>`${cafeVisitante.revisadoEn}` })
+		.from(cafeVisitante)
+		.where(and(eq(cafeVisitante.tipoCapsulaId, tipoCapsulaId), eq(cafeVisitante.estado, 'aprobado')))
+		.all()
+		.map((fila) => ({ id: fila.id, instante: fila.instante, hecho: { tipo: 'cafeVisitante' as const, instante: fila.instante } }));
+
+	return [...compras, ...consumos, ...recuentos, ...cafesVisitante].sort((a, b) =>
 		a.instante === b.instante ? a.id.localeCompare(b.id) : a.instante.localeCompare(b.instante),
 	);
 }

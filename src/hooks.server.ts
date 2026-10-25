@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import type { Handle, HandleServerError } from '@sveltejs/kit/hooks';
 import { arrancar } from './lib/server/arranque';
 import { entorno } from './lib/server/plataforma/entorno';
-import { NOMBRE_COOKIE, crearActor, opcionesCookie, resolverSesion } from '#lib/server/auth';
+import { NOMBRE_COOKIE, NOMBRE_COOKIE_VISITA, crearActor, opcionesCookie, resolverSesion, resolverVisita } from '#lib/server/auth';
 import { cerrarRegistro, conOperacion, operacionActual, registrar, respuestaError, type Ambiente } from '#lib/server/plataforma';
 import { privacidadPendiente } from '#lib/server/usuarios';
 import { VERSION_PRIVACIDAD } from '#lib/shared/privacidad';
@@ -68,6 +68,15 @@ export const handle: Handle = ({ event, resolve }) =>
 				event.cookies.delete(NOMBRE_COOKIE, { path: '/' });
 			}
 		}
+
+		// Visita de un visitante (plan F10 D3). No da sesión ni actor: las rutas de miembro siguen cerradas (EV-103).
+		const tokenVisita = event.cookies.get(NOMBRE_COOKIE_VISITA);
+		if (tokenVisita) {
+			const visita = resolverVisita(ambiente.db, tokenVisita, ambiente.reloj.ahora());
+			if (visita) event.locals.visita = visita;
+			else event.cookies.delete(NOMBRE_COOKIE_VISITA, { path: '/' });
+		}
+		if (event.locals.visita && !event.locals.sesion && event.url.pathname === '/') redirect(303, '/visita');
 
 		const pendiente = event.locals.sesion !== undefined && privacidadPendiente(event.locals.sesion.usuario, VERSION_PRIVACIDAD);
 		const decision = decidirPuertaPrivacidad(event.url.pathname, event.request.method, pendiente);

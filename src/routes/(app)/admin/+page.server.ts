@@ -4,6 +4,7 @@ import type { PageServerLoad } from './$types';
 import { errorDeCarga } from '../fallo';
 import { exigirAdministrador } from '#lib/server/auth';
 import { leerEstadoRestauracion } from '#lib/server/copias';
+import { contarCafesVisitantePendientes } from '#lib/server/economia';
 import { fechaDeMadrid } from '#lib/shared/fechas/meses';
 
 // Secciones de administración (RF-130). El permiso lo decide el caso de uso, no el layout (ARCHITECTURE.md §7).
@@ -14,7 +15,7 @@ export const load: PageServerLoad = ({ locals }) => {
 		exigirAdministrador(actor, '/admin');
 		// Aviso de restauración (RF-144, CA-144): solo para administradores.
 		const restauracion = leerEstadoRestauracion(locals.ambiente.db, actor, fechaDeMadrid(locals.ambiente.reloj.ahora()));
-		return { avisoRestauracion: restauracion.aviso };
+		return { avisoRestauracion: restauracion.aviso, cafesVisitantePendientes: contarCafesVisitantePendientes(locals.ambiente.db) };
 	} catch (causa) {
 		errorDeCarga(causa);
 	}

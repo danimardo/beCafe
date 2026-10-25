@@ -26,6 +26,7 @@ export const textos = {
 		TIPO_NO_DISPONIBLE: 'Este tipo de cápsula no está disponible. Elige otro.',
 		TIPO_SIN_COSTE: 'Esta cápsula todavía no tiene precio. Pide a un administrador que registre una compra.',
 		USUARIO_DE_BAJA: 'Tu cuenta está dada de baja. Este consumo no se ha registrado.',
+		NO_ANULABLE: 'Solo se puede anular un café de visitante aprobado.',
 	},
 	errorPagina: {
 		titulo: 'Algo ha fallado',
@@ -463,6 +464,73 @@ export const textos = {
 		rankingBaja: 'baja',
 		kpi: 'rellenos de agua',
 	},
+	visitantes: {
+		// Pantallas del visitante (plan F10 D3; RF-190, RF-191, RF-194).
+		tituloEntrada: 'Te han invitado a un café',
+		ayudaEntrada: 'Escribe tu nombre para que el departamento sepa quién ha tomado el café. No necesitas cuenta.',
+		nombre: 'Tu nombre',
+		ayudaNombre: 'Solo lo verán los administradores, para aprobar tus cafés.',
+		privacidadTitulo: 'Privacidad de los visitantes',
+		privacidadCasilla: 'He leído el texto de privacidad',
+		entrar: 'Entrar',
+		enlaceNoValidoTitulo: 'Este enlace ya no sirve',
+		enlaceCaducado: 'El enlace ha caducado: solo dura 24 horas. Pide uno nuevo a quien te invitó.',
+		enlaceRevocado: 'Quien te invitó ha retirado este enlace. Pídele uno nuevo si lo necesitas.',
+		enlaceDesconocido: 'No reconocemos este enlace. Revisa que esté completo o pide uno nuevo a quien te invitó.',
+		tituloVisita: (nombre: string) => `Hola, ${nombre}`,
+		tituloVisitaSinNombre: 'Hola',
+		ayudaVisita: 'Toca la cápsula que vas a tomar. Un administrador revisará tu café; tú no pagas nada.',
+		cafes: 'Tus cafés',
+		sinCafes: 'Todavía no has registrado ningún café.',
+		sinTipos: 'Ahora mismo no hay cápsulas disponibles.',
+		pendiente: 'Pendiente de aprobación',
+		registrado: 'Café anotado. Queda pendiente de aprobación.',
+		estado: { pendiente: 'Pendiente de aprobación', aprobado: 'Aprobado', rechazado: 'Rechazado', anulado: 'Anulado' },
+		caducaA: (hora: string) => `Tu acceso caduca a las ${hora}.`,
+		sinConexion: 'Sin conexión. Para registrar un café de visitante hace falta red.',
+		// Pantalla del miembro (RF-189).
+		tituloMiembro: 'Visitantes',
+		ayudaMiembro:
+			'Crea un enlace para que alguien de fuera registre su café sin cuenta. El enlace dura 24 horas. Cada café queda pendiente hasta que un administrador lo aprueba y lo paga la hucha.',
+		crear: 'Crear enlace de visitante',
+		creado: 'Enlace creado. Compártelo o enseña el código QR.',
+		enlace: 'Enlace del visitante',
+		ayudaEnlace: 'Solo se muestra ahora. Si lo pierdes, revoca este y crea otro.',
+		qr: 'Código QR del enlace de visitante',
+		vigentes: 'Enlaces vigentes',
+		sinVigentes: 'No tienes enlaces vigentes.',
+		caduca: (fecha: string) => `Caduca el ${fecha}`,
+		revocar: 'Revocar',
+		revocado: 'Enlace revocado.',
+		tarjetaInicio: '¿Viene alguien de fuera?',
+		tarjetaInicioAyuda: 'Crea un enlace de visitante para que registre su café.',
+		// Pantalla de administración (RF-193, RF-210).
+		tituloAdmin: 'Cafés de visitantes',
+		ayudaAdmin:
+			'Aprueba los cafés que reconoces: restan una cápsula del stock y la hucha asume su coste. Rechaza los que no reconoces: no tienen ningún efecto.',
+		pendientes: 'Pendientes',
+		revisados: 'Revisados',
+		sinPendientes: 'No hay cafés de visitante por revisar.',
+		sinRevisados: 'Todavía no se ha revisado ningún café de visitante.',
+		visitante: 'Visitante',
+		seleccionar: (nombre: string, tipo: string) => `Seleccionar el café de ${nombre} (${tipo})`,
+		aprobar: 'Aprobar',
+		rechazar: 'Rechazar',
+		revisados_ok: (aprobados: number, rechazados: number, yaRevisados: number) =>
+			[
+				aprobados ? `${aprobados} aprobado${aprobados === 1 ? '' : 's'}` : '',
+				rechazados ? `${rechazados} rechazado${rechazados === 1 ? '' : 's'}` : '',
+				yaRevisados ? `${yaRevisados} ya revisado${yaRevisados === 1 ? '' : 's'} por otra persona` : '',
+			]
+				.filter(Boolean)
+				.join(', ') + '.',
+		anular: 'Anular',
+		anulado: 'Café de visitante anulado. La cápsula vuelve al stock.',
+		eliminarNombre: 'Eliminar nombre',
+		eliminarNombreTitulo: '¿Eliminar el nombre de este visitante?',
+		eliminarNombreTexto: 'Se sustituirá por «Visitante» en todos sus cafés. No se puede deshacer.',
+		nombreEliminado: 'Nombre eliminado.',
+	},
 	notificaciones: {
 		stockBajo: {
 			titulo: (nombre: string) => `Stock bajo: ${nombre}`,
@@ -488,6 +556,15 @@ export const textos = {
 		falloCopia: {
 			titulo: 'Falló una copia de seguridad',
 			texto: 'La copia no se pudo completar. Revisa el estado de las copias.',
+		},
+		cafeVisitantePendiente: {
+			titulo: 'Café de visitante pendiente',
+			texto: (pendientes: number) =>
+				pendientes === 1 ? 'Hay 1 café de visitante por revisar.' : `Hay ${pendientes} cafés de visitante por revisar.`,
+		},
+		aportacionEnTuNombre: {
+			titulo: 'Aportación registrada a tu nombre',
+			texto: (importe: string) => `Un administrador ha registrado una aportación de ${importe} a tu nombre.`,
 		},
 		seccion: 'Notificaciones',
 		panel: {
@@ -521,6 +598,8 @@ export const textos = {
 			stock_negativo: { titulo: 'Stock negativo', ayuda: 'Un consumo deja una cápsula en negativo.' },
 			hucha_negativa: { titulo: 'Hucha en negativo', ayuda: 'La hucha común baja de cero.' },
 			fallo_copia: { titulo: 'Fallo de copia de seguridad', ayuda: 'Una copia no se pudo completar.' },
+			cafe_visitante_pendiente: { titulo: 'Cafés de visitante', ayuda: 'Un visitante registra un café que debes revisar.' },
+			aportacion_en_tu_nombre: { titulo: 'Aportaciones a tu nombre', ayuda: 'Un administrador registra una aportación por ti.' },
 		},
 		ayuda: {
 			titulo: 'Ayuda de avisos',

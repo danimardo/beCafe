@@ -132,7 +132,7 @@
 		>
 			<div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
 				{#each data.tipos as tipo, indice (tipo.id)}
-					<fieldset class="flex flex-col gap-2 rounded-lg border border-line p-3">
+					<fieldset class="flex flex-col gap-2 rounded-lg border border-hairline p-3">
 						<legend class="px-1 text-[15px] font-medium">{tipo.nombre}</legend>
 						<input type="hidden" name="tipoCapsulaId" value={tipo.id} />
 						<input type="hidden" name="registradoPrevisto" value={tipo.stock} />

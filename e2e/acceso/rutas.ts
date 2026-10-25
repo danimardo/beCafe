@@ -28,6 +28,10 @@ export const RUTAS_PROTEGIDAS = [
 	'/admin/copias',
 	'/admin/configuracion',
 	`/admin/usuarios/${CAPSULA_DE_PRUEBA}/baja`,
+	'/visitantes',
+	'/admin/visitantes',
+	// Sin visita ni sesión, la pantalla del visitante también lleva a la entrada (F10, CA-194).
+	'/visita',
 ] as const;
 export const RUTAS_DE_ADMINISTRACION = [
 	'/admin',
@@ -39,6 +43,7 @@ export const RUTAS_DE_ADMINISTRACION = [
 	'/admin/copias',
 	'/admin/configuracion',
 	`/admin/usuarios/${CAPSULA_DE_PRUEBA}/baja`,
+	'/admin/visitantes',
 ] as const;
 // Rutas de API que exigen sesión (F3). Un POST sin sesión responde 401 y no registra nada.
 export const RUTAS_API_PROTEGIDAS = ['/api/consumos', '/api/push/suscripcion'] as const;

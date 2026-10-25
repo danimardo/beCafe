@@ -60,4 +60,25 @@ describe('CapsuleTile (RF-183, CA-183)', () => {
 		expect(container.querySelector('[title="Tus consumos"]')).toBeNull();
 		expect(container.querySelector('[title="Invitados"]')).toBeNull();
 	});
+
+	it('CA-191: en modo visitante envía a ?/registrar, sin botón de invitado, sin campo invitado y sin precio', async () => {
+		const { container } = await render(CapsuleTile, {
+			tipoId: TIPO_ID,
+			clienteId: CLIENTE_ID,
+			name: 'Ristretto',
+			brand: 'Nespresso',
+			stock: 8,
+			threshold: 10,
+			priceCents: 38,
+			color: 'cap-ristretto',
+			ownCount: 3,
+			modo: 'visitante',
+		});
+
+		await expect.element(page.getByRole('button', { name: 'Registrar Ristretto', exact: true })).toBeVisible();
+		expect(container.querySelector('form[method="post"][action="?/registrar"]')).not.toBeNull();
+		expect(container.querySelector('button[name="invitado"]')).toBeNull();
+		expect(container.querySelector('[title="Tus consumos"]')).toBeNull();
+		expect(container.textContent).not.toContain('0,38');
+	});
 });

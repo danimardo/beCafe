@@ -91,7 +91,21 @@ const hechoArbitrario: fc.Arbitrary<HechoTipo> = fc.oneof(
 		instante: fc.constant('2026-10-01T00:00:00Z'),
 		diferencia: fc.integer({ min: -5, max: 5 }),
 	}),
+	fc.record({ tipo: fc.constant('cafeVisitante' as const), instante: fc.constant('2026-10-01T00:00:00Z') }),
 );
+
+describe('café de visitante (RN-086)', () => {
+	it('CA-193: un café de visitante aprobado resta stock sin cambiar el coste medio ni anotar coste de consumo', () => {
+		const tras = reconstruir([
+			{ tipo: 'compra', instante: '2026-10-01T09:00:00Z', cantidad: 10, importeCentimos: 400 },
+			{ tipo: 'cafeVisitante', instante: '2026-10-01T10:00:00Z' },
+		]);
+		const antes = reconstruir([{ tipo: 'compra', instante: '2026-10-01T09:00:00Z', cantidad: 10, importeCentimos: 400 }]);
+		expect(tras.stock).toBe(9);
+		expect(tras.costeMedio).toBe(antes.costeMedio);
+		expect(tras.costePorConsumo.size).toBe(0);
+	});
+});
 
 describe('propiedades de INV-02 (EV-030)', () => {
 	it('EV-030: aplicar los hechos uno a uno da el mismo estado que reconstruir', () => {
@@ -118,6 +132,8 @@ describe('propiedades de INV-02 (EV-030)', () => {
 							return stock + hecho.diferencia;
 						case 'anulacionRecuento':
 							return stock - hecho.diferencia;
+						case 'cafeVisitante':
+							return stock - 1;
 					}
 				}, 0);
 				expect(reconstruir(historia).stock).toBe(esperado);

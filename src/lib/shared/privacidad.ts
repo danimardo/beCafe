@@ -1,8 +1,12 @@
-// Texto informativo de privacidad, anexo A de historias.md, versión 1 (RF-160, PEND-014).
+// Texto informativo de privacidad, anexo A de historias.md, versión 2 (RF-160, PEND-014; CAMBIO-019).
 // Los marcadores entre corchetes se completan antes de usar datos reales; hasta entonces el texto no es definitivo.
 
 /** Versión vigente. Subirla obliga a todas las personas a releer el texto (RF-160). */
-export const VERSION_PRIVACIDAD = 1;
+export const VERSION_PRIVACIDAD = 2;
+
+/** Párrafo «Visitantes» del anexo A v2. La pantalla de entrada de un visitante lo muestra antes del nombre (plan F10 D11). */
+export const TEXTO_VISITANTES =
+	'Si entras con un enlace de visitante, guardamos el nombre que escribes y cada café que registras, con su tipo, su fecha y su hora, y quién te dio el enlace. Los administradores ven esos datos para aprobar o rechazar tus cafés. Tu nombre se conserva sin límite de tiempo, salvo que pidas a un administrador que lo borre: entonces se sustituye por «Visitante». No guardamos tu correo ni ningún otro dato.';
 
 export type BloquePrivacidad =
 	| { tipo: 'titulo'; texto: string }
@@ -28,10 +32,10 @@ export const TEXTO_PRIVACIDAD: readonly BloquePrivacidad[] = [
 		tipo: 'lista',
 		entrada: 'Qué datos guardamos.',
 		elementos: [
-			'Tu nombre, tu correo y tu contraseña cifrada de forma irreversible.',
+			'Tu nombre, tu correo, tu contraseña cifrada de forma irreversible y, si la subes tú o un administrador, tu foto.',
 			'Cada café que registras, con su fecha, su hora y si era para un invitado.',
 			'Cada vez que registras que has rellenado el agua de la cafetera, con su fecha y su hora.',
-			'Tus aportaciones a la hucha, las compras que registras, las fotos de tickets que adjuntes y tu saldo.',
+			'Tus aportaciones a la hucha (también las que un administrador registre en tu nombre, con quién las registró), las compras que registras, las fotos de tickets que adjuntes y tu saldo.',
 			'Tus preferencias de notificaciones y los datos técnicos de tus dispositivos suscritos a las notificaciones.',
 			'Las sesiones abiertas (fecha y tipo de navegador) y las acciones de administración.',
 		],
@@ -41,7 +45,7 @@ export const TEXTO_PRIVACIDAD: readonly BloquePrivacidad[] = [
 		entrada: 'Quién los ve.',
 		elementos: [
 			'Todos los miembros ven tu saldo, tus aportaciones, las compras que registres y tus rellenos de agua, incluidos el ranking de rellenos y el título de aguador del mes.',
-			'Tus estadísticas de consumo solo las ves tú y los administradores.',
+			'Todos los miembros ven tu foto y tus estadísticas de consumo (cuántos cafés tomas, de qué tipo y cuándo).',
 		],
 	},
 	{
@@ -52,9 +56,14 @@ export const TEXTO_PRIVACIDAD: readonly BloquePrivacidad[] = [
 	},
 	{
 		tipo: 'parrafo',
+		entrada: 'Visitantes.',
+		texto: TEXTO_VISITANTES,
+	},
+	{
+		tipo: 'parrafo',
 		entrada: 'Notificaciones.',
 		texto:
-			'Solo recibes notificaciones si las aceptas en tu dispositivo. Puedes desactivar cada tipo en tu perfil, salvo el aviso de deuda.',
+			'Solo recibes notificaciones si las aceptas en tu dispositivo. Vienen todas activadas y puedes desactivar cada tipo en tu perfil, salvo el aviso de deuda.',
 	},
 	{
 		tipo: 'parrafo',

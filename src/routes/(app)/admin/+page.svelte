@@ -23,6 +23,13 @@
 			<ListRow title={textos.capsulas.titulo} subtitle={textos.capsulas.ayuda} href={resolve('/(app)/admin/capsulas')} />
 			<ListRow title={textos.admin.titulo} subtitle={textos.admin.ayuda} href={resolve('/(app)/admin/usuarios')} />
 			<ListRow title={textos.economia.enlaceControl} href={resolve('/(app)/admin/control')} />
+			<ListRow
+				title={textos.visitantes.tituloAdmin}
+				subtitle={data.cafesVisitantePendientes > 0
+					? textos.notificaciones.cafeVisitantePendiente.texto(data.cafesVisitantePendientes)
+					: textos.visitantes.sinPendientes}
+				href={resolve('/(app)/admin/visitantes')}
+			/>
 			<ListRow title={textos.copias.titulo} subtitle={textos.copias.ayuda} href={resolve('/(app)/admin/copias')} />
 			<ListRow title={textos.configuracion.titulo} subtitle={textos.configuracion.ayuda} href={resolve('/(app)/admin/configuracion')} />
 		</ul>

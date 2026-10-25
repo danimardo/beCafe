@@ -52,7 +52,7 @@
 		<form method="post" action="?/anotarPrueba" use:enhance class="flex max-w-xl flex-col gap-4">
 			<label class="flex flex-col gap-1 text-[15px]">
 				{textos.copias.fechaPrueba}
-				<input type="date" name="realizadaEl" required max={data.hoy} class="rounded-md border border-line bg-surface px-3 py-2" />
+				<input type="date" name="realizadaEl" required max={data.hoy} class="rounded-md border border-hairline bg-wall-base px-3 py-2" />
 				{#if errores.realizadaEl}<span role="alert" class="text-[14px] text-warning">{errores.realizadaEl.mensaje}</span>{/if}
 			</label>
 			<fieldset class="flex flex-col gap-2 text-[15px]">
@@ -66,7 +66,7 @@
 			</fieldset>
 			<label class="flex flex-col gap-1 text-[15px]">
 				{textos.copias.notas}
-				<textarea name="notas" maxlength="500" class="rounded-md border border-line bg-surface px-3 py-2"></textarea>
+				<textarea name="notas" maxlength="500" class="rounded-md border border-hairline bg-wall-base px-3 py-2"></textarea>
 			</label>
 			{#if errores.general}<p role="alert" class="text-[14px] text-warning">{errores.general.mensaje}</p>{/if}
 			<div><Button type="submit" variant="soft">{textos.copias.anotar}</Button></div>

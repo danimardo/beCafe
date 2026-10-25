@@ -76,6 +76,7 @@ export function prepararAmbiente(configuracion: ConfiguracionArranque): Ambiente
 		directorioFotos: join(configuracion.directorioDatos, 'fotos'),
 		limitadorRegistro: crearLimitador({ maximo: 30, ventanaMs: 60_000 }),
 		limitadorAvisos: crearLimitador({ maximo: 1, ventanaMs: 60_000 }),
+		limitadorVisitantes: crearLimitador({ maximo: 10, ventanaMs: 60_000 }),
 		azar: azarReal,
 		s3Activa: configuracion.s3 !== undefined,
 	};

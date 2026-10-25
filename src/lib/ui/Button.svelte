@@ -18,6 +18,8 @@
 		/** Atributos que usa la interfaz. Se amplían aquí cuando una pantalla necesite otro. */
 		id?: string;
 		name?: string;
+		/** Valor enviado con `name` (p. ej. aprobar o rechazar en el mismo formulario). */
+		value?: string;
 		form?: string;
 		/** Otra acción del mismo formulario (p. ej. «Añadir línea» sin JavaScript). */
 		formaction?: string;
@@ -26,6 +28,7 @@
 		title?: string;
 		'aria-label'?: string;
 		'aria-describedby'?: string;
+		'aria-pressed'?: boolean;
 		onclick?: (event: MouseEvent) => void;
 	};
 

@@ -35,6 +35,8 @@
 		/** Mejora progresiva del formulario (`use:enhance` de la página). Sin JavaScript envía a `?/consumir`. */
 		enhancer?: (formulario: HTMLFormElement) => void;
 		disabled?: boolean;
+		/** `visitante` (plan F10 D3): sin botón de invitado, sin precio ni contadores y con la acción `?/registrar`. */
+		modo?: 'miembro' | 'visitante';
 		class?: string;
 	};
 	let {
@@ -53,6 +55,7 @@
 		guestCount = 0,
 		enhancer = () => {},
 		disabled = false,
+		modo = 'miembro',
 		class: className,
 	}: Props = $props();
 
@@ -60,19 +63,20 @@
 	const level = $derived(stock <= 0 ? 'out' : stock <= threshold ? 'low' : null);
 	const meta = $derived([brand, intensity ? `Int. ${intensity}` : null].filter(Boolean).join(' · '));
 	let pulse = $state(false);
+	const visitante = $derived(modo === 'visitante');
 </script>
 
 <!-- Tarjeta gráfica de cápsula para Inicio (RF-183, CA-183, excepción cerrada de cristal en constitución XVIII).
      Un único formulario `<form method="post" action="?/consumir">` con dos botones submit hermanos (`invitado="0"` y `invitado="1"`):
      funciona con y sin JavaScript (constitución XVII) y mantiene objetivos táctiles ≥ 44 px (RNF-001). -->
 <li class={cn('glass relative rounded-panel', className)}>
-	<form method="post" action="?/consumir" class="relative h-full" use:enhancer>
+	<form method="post" action={visitante ? '?/registrar' : '?/consumir'} class="relative h-full" use:enhancer>
 		<input type="hidden" name="tipoCapsulaId" value={tipoId} />
 		<input type="hidden" name="clienteId" value={clienteId} />
 		<button
 			type="submit"
-			name="invitado"
-			value="0"
+			name={visitante ? undefined : 'invitado'}
+			value={visitante ? undefined : '0'}
 			{disabled}
 			onclick={() => (pulse = true)}
 			onanimationend={() => (pulse = false)}
@@ -88,17 +92,21 @@
 			/>
 			<span class="sr-only">Registrar</span>
 			<span class="line-clamp-2 text-[17px] font-semibold leading-[22px]">{name}</span>
-			<span
-				aria-hidden="true"
-				class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-[13px] font-medium leading-[18px] text-ink-muted"
-			>
-				<span class="inline-flex items-center gap-1 tabular-nums"><Package class="size-3.5" />{stock}</span>
-				<span class="inline-flex items-center gap-1 tabular-nums">
-					<CalendarClock class="size-3.5" />{daysLeft == null ? '—' : `${daysLeft} d`}
+			{#if visitante}
+				{#if meta}<span aria-hidden="true" class="text-[13px] font-medium leading-[18px] text-ink-muted">{meta}</span>{/if}
+			{:else}
+				<span
+					aria-hidden="true"
+					class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-[13px] font-medium leading-[18px] text-ink-muted"
+				>
+					<span class="inline-flex items-center gap-1 tabular-nums"><Package class="size-3.5" />{stock}</span>
+					<span class="inline-flex items-center gap-1 tabular-nums">
+						<CalendarClock class="size-3.5" />{daysLeft == null ? '—' : `${daysLeft} d`}
+					</span>
+					<span class="tabular-nums">{formatMoney(priceCents)}</span>
 				</span>
-				<span class="tabular-nums">{formatMoney(priceCents)}</span>
-			</span>
-			{#if ownCount > 0 || guestCount > 0}
+			{/if}
+			{#if !visitante && (ownCount > 0 || guestCount > 0)}
 				<span aria-hidden="true" class="flex items-center justify-center gap-2.5 text-[12px] font-medium leading-4 text-ink-muted">
 					{#if ownCount > 0}
 						<span class="inline-flex items-center gap-1 tabular-nums" title="Tus consumos">
@@ -112,7 +120,7 @@
 					{/if}
 				</span>
 			{/if}
-			{#if level}<span aria-hidden="true"><StockBadge {level} /></span>{/if}
+			{#if level && !visitante}<span aria-hidden="true"><StockBadge {level} /></span>{/if}
 			<span
 				aria-hidden="true"
 				class="mt-auto inline-flex h-11 w-full items-center justify-center rounded-full bg-accent text-[17px] font-semibold text-on-accent shadow-sm group-hover:brightness-110"
@@ -121,22 +129,24 @@
 			</span>
 		</button>
 		<span id="{uid}-meta" class="sr-only">
-			{meta}{meta ? '. ' : ''}{formatMoney(priceCents)} por cápsula. Quedan {stock} unidades, {daysLeft == null
-				? 'sin datos de duración'
-				: `unos ${daysLeft} días`}.{level === 'out' ? ' Agotado.' : level === 'low' ? ' Stock bajo.' : ''}
+			{#if visitante}{meta}{:else}{meta}{meta ? '. ' : ''}{formatMoney(priceCents)} por cápsula. Quedan {stock} unidades, {daysLeft == null
+					? 'sin datos de duración'
+					: `unos ${daysLeft} días`}.{level === 'out' ? ' Agotado.' : level === 'low' ? ' Stock bajo.' : ''}{/if}
 		</span>
-		<button
-			type="submit"
-			name="invitado"
-			value="1"
-			{disabled}
-			aria-label="Registrar {name} para un invitado"
-			title="Para un invitado"
-			style="min-width:44px;min-height:44px"
-			class="absolute right-2 top-2 inline-flex size-11 items-center justify-center rounded-full bg-accent-soft text-ink active:scale-95 motion-safe:transition disabled:opacity-50"
-		>
-			<UserPlus class="size-5" aria-hidden="true" />
-		</button>
+		{#if !visitante}
+			<button
+				type="submit"
+				name="invitado"
+				value="1"
+				{disabled}
+				aria-label="Registrar {name} para un invitado"
+				title="Para un invitado"
+				style="min-width:44px;min-height:44px"
+				class="absolute right-2 top-2 inline-flex size-11 items-center justify-center rounded-full bg-accent-soft text-ink active:scale-95 motion-safe:transition disabled:opacity-50"
+			>
+				<UserPlus class="size-5" aria-hidden="true" />
+			</button>
+		{/if}
 	</form>
 </li>
 
