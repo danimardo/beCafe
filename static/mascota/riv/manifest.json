@@ -160,6 +160,25 @@
       "sha256": "54d79b2a480529435fd1c6362b7267d1e66114357ddf0a2e06f5a5e4950d8e61",
       "validation": "validacion.json",
       "license": "Arte aportado por el usuario; verificar derechos antes de distribución pública."
+    },
+    {
+      "id": "animation.reposo",
+      "kind": "animation",
+      "version": "0.1.0",
+      "status": "validated-local-review-pending",
+      "format": "rive",
+      "distribution_path": "riv/capsulito-reposo.riv",
+      "source_path": "docs/diseno/f12/rive/reposo/scene.rml",
+      "static_fallback": "fuentes/capsulito-saludando.svg",
+      "artboard": "Reposo",
+      "state_machine": "Reposo",
+      "view_model": "Reposo",
+      "instance": "Default",
+      "duration_seconds": 3.0,
+      "bytes": 13184,
+      "sha256": "bdd724d022d565bfe5e9957965a5f1a8409c0eb4fe503a19a21e8f9bcd80af89",
+      "validation": "verify y inspect --summary sin problemas (CLI 1.7.0)",
+      "license": "Arte aportado por el usuario; verificar derechos antes de distribución pública."
     }
   ]
 }

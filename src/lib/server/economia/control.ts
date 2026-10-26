@@ -10,7 +10,11 @@ import {
 	type Ejecutor,
 	type Tx,
 } from '#lib/server/plataforma';
+import { leerTipo } from '#lib/server/catalogo';
+import { registrarAviso } from '#lib/server/notificaciones';
 import { listarUsuarios } from '#lib/server/usuarios';
+import { fechaDeMadrid } from '#lib/shared/fechas/meses';
+import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import { arqueo, lineaRecuento, recuento, reparto } from './esquema';
 import { anotarMovimientos, anularMovimientosDe, saldoHucha } from './libro';
 import { fijarStock, leerExistenciaTx } from './existencias';
@@ -145,6 +149,9 @@ export async function confirmarRecuento(
 	const id = enTransaccion(ambiente.db, (tx) => {
 		const recuentoId = nuevoId();
 		tx.insert(recuento).values({ id: recuentoId, adminId: actor.usuarioId, realizadoEn: instante }).run();
+		// RF-246: lo que verá toda la plantilla. Los cargos por persona se acumulan entre los tipos del mismo recuento.
+		const diferencias: { nombreTipo: string; diferencia: number }[] = [];
+		const cargos = new Map<string, number>();
 		for (const linea of entrada.lineas) {
 			const existencia0 = leerExistenciaTx(tx, linea.tipoCapsulaId);
 			if (existencia0.stock !== linea.registradoPrevisto) throw new ErrorDeNegocio('CAMBIO_CONCURRENTE');
@@ -163,10 +170,15 @@ export async function confirmarRecuento(
 				})
 				.run();
 			fijarStock(tx, linea.tipoCapsulaId, linea.contado, instante);
+			if (diferencia !== 0) {
+				const tipo = leerTipo(tx, linea.tipoCapsulaId);
+				if (!tipo) throw new RecursoNoEncontrado();
+				diferencias.push({ nombreTipo: tipo.nombre, diferencia });
+			}
 			if (diferencia < 0) {
 				const valor = valorFaltante(-diferencia, existencia0.costeMedio);
-				if (valor > 0)
-					repartirEnPersonas(tx, {
+				if (valor > 0) {
+					const partes = repartirEnPersonas(tx, {
 						importe: -valor,
 						origenTipo: 'linea_recuento',
 						origenId: lineaId,
@@ -174,7 +186,28 @@ export async function confirmarRecuento(
 						instante,
 						azar: ambiente.azar,
 					});
+					for (const parte of partes) cargos.set(parte.usuarioId, (cargos.get(parte.usuarioId) ?? 0) - parte.importe);
+				}
 			}
+		}
+		if (diferencias.length > 0) {
+			const totales = [...cargos.values()];
+			const instanteUtc = esquemaInstanteUtc.parse(instante);
+			registrarAviso(tx, {
+				tipo: 'recuento',
+				origenId: recuentoId,
+				instante: instanteUtc,
+				datos: {
+					recuentoId,
+					accion: 'registrado',
+					fecha: fechaDeMadrid(instanteUtc),
+					lineas: diferencias,
+					importe: totales.reduce((suma, cargo) => suma + cargo, 0),
+					personas: totales.length,
+					minimo: totales.length > 0 ? Math.min(...totales) : 0,
+					maximo: totales.length > 0 ? Math.max(...totales) : 0,
+				},
+			});
 		}
 		return recuentoId;
 	});
@@ -230,6 +263,8 @@ export async function anularLineaRecuento(
 		fijarStock(tx, fila.tipoCapsulaId, actual.stock - fila.diferencia, instante);
 		anularMovimientosDe(tx, 'linea_recuento', entrada.id, instante);
 		anularRepartos(tx, 'linea_recuento', entrada.id, instante);
+		// RF-246: una línea sin diferencia no avisó al registrarse y no avisa al anularse.
+		if (fila.diferencia !== 0) avisarAnulacionDeLinea(tx, fila, instante);
 	});
 	registrar('anulacion.registrada', { tipo: 'linea_recuento', id: entrada.id });
 }
@@ -261,9 +296,9 @@ export function repartirEnPersonas(
 		instante: string;
 		azar: Ambiente['azar'];
 	},
-): void {
+): Parte[] {
 	const miembros = personasActivas(tx).map((persona) => persona.id);
-	if (miembros.length === 0) return;
+	if (miembros.length === 0) return [];
 	const partes: Parte[] = repartir(entrada.importe, miembros, entrada.azar);
 	const repartoId = nuevoId();
 	tx.insert(reparto)
@@ -291,6 +326,37 @@ export function repartirEnPersonas(
 			})),
 	);
 	registrar('reparto.aplicado', { origenTipo: entrada.origenTipo, miembros: miembros.length });
+	return partes;
+}
+
+/** Avisa a todas las personas de que se anuló una línea de recuento con diferencia (RF-246). */
+function avisarAnulacionDeLinea(tx: Tx, fila: typeof lineaRecuento.$inferSelect, instante: string): void {
+	const tipo = leerTipo(tx, fila.tipoCapsulaId);
+	const origen = tx.select().from(recuento).where(eq(recuento.id, fila.recuentoId)).get();
+	if (!tipo || !origen) throw new RecursoNoEncontrado();
+	const repartido = tx
+		.select()
+		.from(reparto)
+		.where(and(eq(reparto.origenTipo, 'linea_recuento'), eq(reparto.origenId, fila.id)))
+		.get();
+	const personas = repartido?.miembros ?? 0;
+	const { parteMinima, parteMaxima } = rangoPartes(repartido?.importe ?? 0, personas);
+	const instanteUtc = esquemaInstanteUtc.parse(instante);
+	registrarAviso(tx, {
+		tipo: 'recuento',
+		origenId: fila.recuentoId,
+		instante: instanteUtc,
+		datos: {
+			recuentoId: fila.recuentoId,
+			accion: 'anulado',
+			fecha: fechaDeMadrid(esquemaInstanteUtc.parse(origen.realizadoEn)),
+			lineas: [{ nombreTipo: tipo.nombre, diferencia: fila.diferencia }],
+			importe: Math.abs(repartido?.importe ?? 0),
+			personas,
+			minimo: Math.abs(parteMinima),
+			maximo: Math.abs(parteMaxima),
+		},
+	});
 }
 
 function anularRepartos(tx: Tx, origenTipo: 'arqueo' | 'linea_recuento', origenId: string, instante: string): void {

@@ -2,15 +2,25 @@ import { copyFileSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createInterface } from 'node:readline/promises';
 import { fileURLToPath } from 'node:url';
-import { cargarDotEnv, escribirLocucion, generarLocucion, LOCUCIONES, VOZ_POR_DEFECTO } from './generar-voces.mjs';
+import {
+	agruparEnTandas,
+	cargarDotEnv,
+	construirTanda,
+	generarLocuciones,
+	herramientasFfmpeg,
+	LOCUCIONES,
+	VOZ_POR_DEFECTO,
+} from './generar-voces.mjs';
 
 // Menú interactivo para generar las locuciones de Capsulito con ElevenLabs (RF-187, DEC-115, ADR-0006).
-// Lo lanzan `voces.sh` y `voces.ps1`, o `npm run voces`. Usa el mismo catálogo y la misma generación que
-// `scripts/generar-voces.mjs`. Nunca muestra la clave de la API.
+// Lo lanzan `voces.sh` y `voces.ps1`, o `npm run voces`. Usa el mismo catálogo y la misma generación en tandas que
+// `scripts/generar-voces.mjs` (necesita `ffmpeg`). Nunca muestra la clave de la API.
 
 const DIR_VOCES = 'static/mascota/voces';
 // `.local/` está fuera de Git (AGENTS.md §8): ahí se guarda la copia de lo que se regenera.
 const DIR_COPIAS = '.local/voces-copia';
+// También fuera de Git: el audio de cada tanda sin cortar y sus marcas de tiempo, para recortar de nuevo sin volver a pagar.
+const DIR_TANDAS = '.local/voces-tandas';
 
 /** Grupo de una locución: su identificador sin el número final (`intro_03` → `intro`); toda la ayuda es un grupo. */
 export function grupoDe(id) {
@@ -37,14 +47,16 @@ export function resumirGrupos(locuciones, generada) {
 
 /**
  * Qué se enviaría a la API: sin `regenerar`, solo las que faltan; con `regenerar`, todas las elegidas.
- * Los caracteres son los del texto con etiquetas de voz, que es lo que ElevenLabs cobra.
+ * Los caracteres son los de lo que se envía de verdad (frases con sus etiquetas, el envoltorio de cada una y el relleno de
+ * cada tanda), que es lo que ElevenLabs cobra. `tandas` es cuántas llamadas se harán, como mínimo.
  */
 export function planificar(elegidas, generada, regenerar) {
 	const aGenerar = elegidas.filter((item) => regenerar || !generada(item.id));
 	return {
 		aGenerar,
 		aRegenerar: aGenerar.filter((item) => generada(item.id)),
-		caracteres: aGenerar.reduce((suma, item) => suma + item.textoVoz.length, 0),
+		tandas: agruparEnTandas(aGenerar).length,
+		caracteres: agruparEnTandas(aGenerar).reduce((suma, tanda) => suma + construirTanda(tanda).texto.length, 0),
 	};
 }
 
@@ -127,32 +139,36 @@ async function elegir(lector, dirSalida) {
 async function generar(lector, entorno, dirSalida) {
 	const seleccion = await elegir(lector, dirSalida);
 	if (!seleccion) return;
-	const { aGenerar, aRegenerar, caracteres } = planificar(seleccion.elegidas, (id) => estaGenerada(dirSalida, id), seleccion.regenerar);
+	const { aGenerar, aRegenerar, tandas, caracteres } = planificar(
+		seleccion.elegidas,
+		(id) => estaGenerada(dirSalida, id),
+		seleccion.regenerar,
+	);
 	if (aGenerar.length === 0) return escribir('\nNo hay nada que generar: todo lo elegido ya existe.');
 
-	escribir(`\nSe enviarán ${aGenerar.length} locuciones a ElevenLabs (${caracteres} caracteres, que son los que se cobran):`);
+	escribir(
+		`\nSe enviarán ${aGenerar.length} locuciones a ElevenLabs en ${tandas} tandas (${caracteres} caracteres, que son los que se cobran; una frase cuyo corte no sale limpio se vuelve a pedir y cuenta otra vez):`,
+	);
 	for (const item of aGenerar)
 		escribir(`  - ${item.id}${aRegenerar.includes(item) ? '  (ya existe: se guarda una copia y se sustituye)' : ''}`);
 	if (!entorno.apiKey) return escribir('\nFalta ELEVENLABS_API_KEY en .env o en el entorno. No se genera nada.');
+	if (!herramientasFfmpeg.disponible())
+		return escribir('\nFalta ffmpeg en el PATH: se necesita para cortar cada frase de su tanda. No se genera nada.');
 	if (!/^s/i.test((await lector.question('\n¿Generar ahora? (s/N): ')).trim())) return escribir('Cancelado: no se ha llamado a la API.');
 
 	const copia = guardarCopia(dirSalida, aRegenerar);
 	if (copia) escribir(`Copia de lo que se sustituye en ${copia}`);
 	mkdirSync(dirSalida, { recursive: true });
-	let hechas = 0;
-	for (const item of aGenerar) {
-		try {
-			const resultado = await generarLocucion(item, entorno);
-			escribirLocucion(dirSalida, item, resultado);
-			hechas += 1;
-			escribir(`  ✔ ${item.id} (${resultado.audio.length} B, ${resultado.cues.length} cues, ${resultado.duration}s)`);
-		} catch (causa) {
-			escribir(`  ✘ ${causa instanceof Error ? causa.message : String(causa)}`);
-			escribir(`Me detengo: ${hechas} de ${aGenerar.length} generadas. Lo que no se llegó a sustituir sigue como estaba.`);
-			return;
-		}
+	const dirCrudos = resolve(process.cwd(), DIR_TANDAS, sello());
+	const { hechas, falladas, error } = await generarLocuciones(aGenerar, entorno, { dirSalida, dirCrudos, avisar: escribir });
+	if (error) {
+		escribir(`  ✘ ${error}`);
+		return escribir(`Me detengo: ${hechas.length} de ${aGenerar.length} generadas. Lo que no se llegó a sustituir sigue como estaba.`);
 	}
-	escribir(`\nCompletado: ${hechas} generadas en ${DIR_VOCES}/.`);
+	for (const [id, motivo] of falladas) escribir(`  ✘ ${id}: ${motivo}. Sigue como estaba.`);
+	escribir(`\nCompletado: ${hechas.length} generadas en ${DIR_VOCES}/.`);
+	if (falladas.size > 0) escribir(`${falladas.size} no se pudieron cortar bien tras varios intentos: vuelve a lanzarlas.`);
+	escribir(`El audio sin cortar de cada tanda queda en ${DIR_TANDAS}/ por si hay que recortarlo de nuevo.`);
 }
 
 async function principal() {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { esquemaInstanteUtc, esquemaMes } from './tipos';
-import { limitesDeAnio, limitesDeMes, mesDeInstante, mesesEntre } from './meses';
+import { inicioDeVentanaDias, limitesDeAnio, limitesDeMes, mesDeInstante, mesesEntre } from './meses';
 
 // Plan F6 D8 y tareas T001-T002: meses y años de Madrid, con los cambios de horario de marzo y octubre.
 const mes = (texto: string) => esquemaMes.parse(texto);
@@ -43,5 +43,28 @@ describe('meses de Madrid (constitución V)', () => {
 	it('mesesEntre incluye los extremos y cruza el cambio de año', () => {
 		expect(mesesEntre(mes('2026-11'), mes('2027-02'))).toEqual(['2026-11', '2026-12', '2027-01', '2027-02']);
 		expect(mesesEntre(mes('2026-05'), mes('2026-05'))).toEqual(['2026-05']);
+	});
+});
+
+describe('ventana de días de Madrid (RN-090)', () => {
+	it('30 días desde el 26 de octubre empiezan a las 00:00 de Madrid del 27 de septiembre (horario de verano)', () => {
+		expect(inicioDeVentanaDias(instante('2026-10-26T10:00:00.000Z'), 30)).toBe('2026-09-26T22:00:00.000Z');
+	});
+
+	it('un día es el día de Madrid de ahora: las 23:30 UTC del 26 ya son el 27 en Madrid', () => {
+		expect(inicioDeVentanaDias(instante('2026-10-26T10:00:00.000Z'), 1)).toBe('2026-10-25T23:00:00.000Z');
+		expect(inicioDeVentanaDias(instante('2026-10-26T23:30:00.000Z'), 1)).toBe('2026-10-26T23:00:00.000Z');
+	});
+
+	it('cruza el cambio de horario de marzo sin desplazar la medianoche', () => {
+		expect(inicioDeVentanaDias(instante('2026-03-30T10:00:00.000Z'), 3)).toBe('2026-03-27T23:00:00.000Z');
+	});
+
+	it('cruza el cambio de año', () => {
+		expect(inicioDeVentanaDias(instante('2026-01-05T10:00:00.000Z'), 30)).toBe('2025-12-06T23:00:00.000Z');
+	});
+
+	it('rechaza una ventana sin días', () => {
+		expect(() => inicioDeVentanaDias(instante('2026-10-26T10:00:00.000Z'), 0)).toThrow(RangeError);
 	});
 });

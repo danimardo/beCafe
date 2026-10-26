@@ -43,6 +43,7 @@ export {
 	registrarConsumo,
 	deshacerConsumo,
 	anularConsumo,
+	leerTiposInicio,
 	leerTiposRegistrables,
 	leerConsumosRecientesPropios,
 	leerConsumo,

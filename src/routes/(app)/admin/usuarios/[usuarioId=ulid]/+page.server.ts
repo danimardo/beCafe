@@ -77,6 +77,7 @@ export const actions: Actions = {
 				instante: locals.ambiente.reloj.ahora(),
 			});
 			return {
+				origen: 'generarEnlace' as const,
 				enlace: `${locals.ambiente.origen}/acceso/${enlace.token}`,
 				expiraEn: enlace.expiraEn,
 				tipo: enlace.tipo,
@@ -107,6 +108,7 @@ export const actions: Actions = {
 				instante,
 			});
 			return {
+				origen: 'reactivar' as const,
 				enlace: `${locals.ambiente.origen}/acceso/${enlace.token}`,
 				expiraEn: enlace.expiraEn,
 				tipo: enlace.tipo,

@@ -143,6 +143,8 @@ Ejemplo: `F4-L2 → CA-041, CA-045, EV-031 → coste medio con stock negativo; r
 | `a11y` | axe en cada pantalla, en tema claro y oscuro (XI, EV-060), recorrido con teclado de los flujos críticos y preferencias de apariencia (EV-061, §13) | `chromium-movil` |
 | `visual` | Capturas de §12.5 | `chromium-movil` |
 
+**F12:** los E2E de reposo y celebración usan `page.clock` y `reducedMotion`, no esperas reales. El enlace generado y el aviso de recuento tienen su variante en `sin-js` (el administrador monta el escenario con JavaScript y la persona que mira abre un contexto sin JavaScript). Las pantallas tocadas pasan axe en claro y oscuro: Inicio con aviso de recuento (`a11y/consumos`), `/admin/usuarios` y su ficha (`a11y/admin`), `acceso/[token]` (`a11y/acceso`), la bienvenida con la escena nueva (`a11y/acceso`) y Ajustes (`a11y/apariencia`).
+
 **F11:** la suite `a11y` cubre además Ajustes, Perfil, la entrada (`/login` con Capsulito reactivo), las páginas de error 400, 403 y 404 (`flujos/errores`) y los tres estados de Inicio. `flujos/movimiento` comprueba con `reducedMotion: 'reduce'` que no queda ninguna animación en curso (EV-110). La 500 se prueba como componente porque no hay forma de provocarla desde E2E. No hay pruebas de regresión visual de las pantallas de escritorio de F11 (se comprueban por geometría en `flujos/maquetacion-f11`).
 
 **Errores de navegador:** una fixture automática recoge `pageerror`, `console.error` y las respuestas ≥ 500 de la propia aplicación, y hace fallar el test. La lista de excepciones es mínima, está documentada en la fixture y empieza vacía.
@@ -227,6 +229,15 @@ Cada `spec.md`, al recibir el traspaso, copia la fila de sus CA y la concreta en
 | CA-203 a CA-205 (ayuda contextual y tour) | Unidad (catálogo: una entrada por cada `+page.svelte`) + componente (`AyudaPanel`, `TourInicio`) | «?» en cada pantalla, tour una vez por cuenta y repetirlo (`flujos/ayuda`); sin JavaScript lleva a `/ayuda?pantalla=` |
 | CA-206, CA-207 (instalación y oferta de avisos) | Unidad (`client/instalacion` con una ventana falsa) + componente (`TarjetaInstalacion`, `OfertaAvisos`) | `beforeinstallprompt` simulado y oferta de avisos una vez por cuenta (`flujos/experiencia-capsulito`) |
 | CA-208, CA-209 (fotos y avatar de persona) | Integración (`usuarios/fotos`: contenido, 5 MB y permisos) + unidad (color estable y contraste de los tokens `avatar-N`) + componente (`Avatar`) | Subir y quitar la foto en Perfil y en la ficha de Usuarios (también `sin-js`); mismo color en Saldos y Estadísticas |
+| CA-238, CA-239 (copiar el enlace y verlo bajo su botón) | Componente (`CopyField` con y sin `navigator.clipboard`) + acción (`page.server.test`) | Copiar y anuncio del enlace (`flujos/enlace-f12`); sin JavaScript, el enlace con `autofocus` y a la vista (`sin-js/enlace-f12`) |
+| CA-240 (tour: habla la tarjeta del paso) | Componente (`Capsulito` con `callado`) | `flujos/tour-f12` |
+| CA-241 (Capsulito en el enlace de acceso) | — | Ojos tapados, estado `fallo` y movimiento reducido (`flujos/acceso-enlace-f12`); imagen estática sin JavaScript (`sin-js/acceso-enlace-f12`) |
+| CA-242 (foto o ilustración en el listado de personas) | Integración (`auth/personas`: `fotoUrl`) | `flujos/usuarios`; axe en `a11y/admin` |
+| CA-243, CA-244 (confeti y sonido al registrar) | Componente (`Confeti`, `CapsuleTile`) + unidad (`mascota.celebrar`) + acción (`duplicado`) | `flujos/celebracion-f12`: capa de confeti y petición del sonido antes que la locución |
+| CA-245 (orden de las cápsulas en Inicio) | Propiedades (`dominio/orden-inicio`) + integración (`leerTiposInicio`) | `flujos/orden-inicio-f12` |
+| CA-246 (aviso de recuento) | Unidad (catálogo) + integración (`control`, `panel`) + acción (`?/verAviso`) | `flujos/recuento-aviso-f12`; sin JavaScript, «Entendido» quita el aviso (`sin-js/recuento-aviso-f12`) |
+| CA-247 (escena «el dinero») | Unidad (`mascota/momentos`: 9 escenas, la quinta es `intro_09`) + componente (`Bienvenida`) | `flujos/experiencia-capsulito`; las 9 escenas estáticas en `/ayuda` (`sin-js/experiencia-capsulito`) |
+| CA-248 (Capsulito en reposo) | Unidad (`mascota/reposo`) + componente (`Capsulito` con reloj falso) | `flujos/reposo-f12` con `page.clock`; con `reducedMotion: 'reduce'`, quieta 60 s simulados |
 | EV-050 | Suite `acceso` | — |
 | EV-060 | Suite `a11y` + revisión manual | — |
 | CA-180, CA-181, EV-061 (apariencia) | Unidad (lectura validada de la preferencia guardada) | Suite `a11y` con emulación (§13); la transparencia del sistema, revisión manual |

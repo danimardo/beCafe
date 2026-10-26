@@ -13,6 +13,7 @@ import {
 	leerConsumo,
 	leerConsumosRecientesPropios,
 	leerHistorialConsumos,
+	leerTiposInicio,
 	leerTiposRegistrables,
 	registrarConsumo,
 } from './consumos';
@@ -424,5 +425,74 @@ describe('consumos de cápsulas (CA-010 a CA-017, CA-060 a CA-063, EV-010, EV-01
 
 		// 297 cápsulas, 3 consumos en 30 días: floor(297 × 30 ÷ 3) = 2970 días.
 		expect(fila?.estimacion).toEqual({ tipo: 'dias', dias: 2970 });
+	});
+
+	describe('orden de las cápsulas en Inicio (RN-090, CA-245)', () => {
+		/** Dos tipos comprados y listos para consumir. */
+		async function dosTipos(): Promise<[string, string]> {
+			dotarHucha(50000);
+			const a = await prepararTipo(entorno.ambiente);
+			const b = await prepararTipo(entorno.ambiente);
+			await comprar(a, 100, 3483);
+			await comprar(b, 100, 3483);
+			return [a, b];
+		}
+
+		const primero = (actor: Actor) => leerTiposInicio(entorno.ambiente.db, actor, INSTANTE)[0]?.id;
+		const haceDias = (dias: number) => new Date(Date.parse(INSTANTE) - dias * 86_400_000).toISOString();
+
+		it('CA-245: los consumos propios mandan sobre los del departamento', async () => {
+			const [a, b] = await dosTipos();
+			const ana = miembro();
+			const otra = miembro();
+			for (let i = 0; i < 5; i += 1) registrarConsumo(entorno.ambiente, otra, datosConsumo(a));
+			for (let i = 0; i < 2; i += 1) registrarConsumo(entorno.ambiente, ana, datosConsumo(b, { invitado: i === 0 }));
+
+			expect(primero(ana)).toBe(b);
+			expect(primero(otra)).toBe(a);
+		});
+
+		it('CA-245: sin consumos propios en 30 días, manda el departamento', async () => {
+			const [a, b] = await dosTipos();
+			const nueva = miembro();
+			const otra = miembro();
+			registrarConsumo(entorno.ambiente, otra, datosConsumo(b));
+			registrarConsumo(entorno.ambiente, otra, datosConsumo(b));
+			registrarConsumo(entorno.ambiente, otra, datosConsumo(a));
+
+			expect(primero(nueva)).toBe(b);
+		});
+
+		it('CA-245: un consumo de hace 31 días no cuenta; uno de hace 29 sí', async () => {
+			const [a, b] = await dosTipos();
+			const ana = miembro();
+			for (let i = 0; i < 3; i += 1) registrarConsumo(entorno.ambiente, ana, datosConsumo(b, { horaGesto: haceDias(31) }));
+			registrarConsumo(entorno.ambiente, ana, datosConsumo(a));
+			expect(primero(ana)).toBe(a);
+
+			for (let i = 0; i < 2; i += 1) registrarConsumo(entorno.ambiente, ana, datosConsumo(b, { horaGesto: haceDias(29) }));
+			expect(primero(ana)).toBe(b);
+		});
+
+		it('CA-245: un consumo anulado no cuenta', async () => {
+			const [a, b] = await dosTipos();
+			const ana = miembro();
+			const administrador = actorDe(crearAdministrador(entorno.ambiente.db), 'administrador');
+			registrarConsumo(entorno.ambiente, ana, datosConsumo(a));
+			const anulables = [0, 1].map(() => registrarConsumo(entorno.ambiente, ana, datosConsumo(b)));
+			for (const resultado of anulables) anularConsumo(entorno.ambiente, administrador, resultado.id, 'Prueba');
+
+			expect(primero(ana)).toBe(a);
+		});
+
+		it('CA-245: con la misma cuenta, el orden es el alfabético de siempre y mantiene todos los tipos', async () => {
+			const [a, b] = await dosTipos();
+			const ana = miembro();
+
+			const ids = leerTiposInicio(entorno.ambiente.db, ana, INSTANTE).map((tipo) => tipo.id);
+
+			expect([...ids].sort()).toEqual([a, b].sort());
+			expect(ids).toEqual(leerTiposRegistrables(entorno.ambiente.db, ana, INSTANTE).map((tipo) => tipo.id));
+		});
 	});
 });

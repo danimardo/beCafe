@@ -4,6 +4,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, falloDeNegocio, fallo } from './fallo';
 import { ErrorDeNegocio, esErrorDeNegocio, nuevoId, registrar } from '#lib/server/plataforma';
 import { leerConfiguracion } from '#lib/server/configuracion';
+import { leerAvisoRecuentoPendiente, marcarVisto } from '#lib/server/notificaciones';
 import {
 	buscarUsuarioPorId,
 	entregarFrase,
@@ -21,13 +22,16 @@ import {
 	leerPersonasBajoLimite,
 	leerSaldoHucha,
 	leerSaldoPropio,
+	leerTiposInicio,
 	leerTiposRegistrables,
 	registrarConsumo,
 } from '#lib/server/economia';
 import { esquemaAvisoInicio } from '#lib/shared/contratos/privacidad';
+import { esquemaVerAviso } from '#lib/shared/contratos/avisos';
 import { esquemaConsumirForm, esquemaDeshacerForm } from '#lib/shared/contratos/consumos';
 import { esquemaDeshacerRelleno, esquemaRellenar } from '#lib/shared/contratos/rellenos';
 import { formatearHace } from '#lib/shared/fechas/formato';
+import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import { nombreDeMes } from '#lib/shared/fechas/meses';
 import { urlFotoCapsula } from '#lib/shared/contratos/capsulas';
 
@@ -63,7 +67,8 @@ export const load: PageServerLoad = ({ locals, url }) => {
 			propiosPorTipo.set(item.tipoCapsulaId, (propiosPorTipo.get(item.tipoCapsulaId) ?? 0) + 1);
 		}
 	}
-	const tipos = leerTiposRegistrables(db, actor, ahora).map((tipo) => ({
+	// RN-090: el orden de Inicio. La comprobación de `consumir` sigue con `leerTiposRegistrables`.
+	const tipos = leerTiposInicio(db, actor, ahora).map((tipo) => ({
 		id: tipo.id,
 		nombre: tipo.nombre,
 		marca: tipo.marca,
@@ -119,6 +124,8 @@ export const load: PageServerLoad = ({ locals, url }) => {
 		// RF-207: la oferta de avisos se hace una sola vez por cuenta.
 		ofertaAvisosVista: marcas.ofertaAvisosVista,
 		avisos,
+		// RF-246: el último recuento sin ver. Se muestra hasta pulsar «Entendido» y sigue en el panel de avisos.
+		avisoRecuento: leerAvisoRecuentoPendiente(db, { usuarioId: actor.usuarioId }, esquemaInstanteUtc.parse(ahora)),
 		tipos,
 		recientes: leerConsumosRecientesPropios(db, actor, ahora).map((consumo) => ({
 			id: consumo.id,
@@ -157,6 +164,16 @@ export const actions: Actions = {
 			registrar('frase.fallo', { usuarioId: actor.usuarioId, lista: 'saludo', tipo: causa instanceof Error ? causa.name : 'desconocido' });
 			return { saludo: { fraseId: null } };
 		}
+	},
+
+	// RF-246: «Entendido» en el aviso de recuento. Solo marca un aviso de esta persona; repetirlo no cambia nada.
+	verAviso: async ({ request, locals }) => {
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		const entrada = esquemaVerAviso.safeParse(Object.fromEntries(await request.formData()));
+		if (!entrada.success) return fallo(400, entrada.error, {});
+		marcarVisto(locals.ambiente, { usuarioId: actor.usuarioId }, entrada.data.avisoId);
+		return { avisoVisto: true as const };
 	},
 
 	// RF-204: terminar o saltar el tour lo marca como visto en la cuenta. Repetirlo no cambia nada.
@@ -266,6 +283,8 @@ export const actions: Actions = {
 				invitado: entrada.data.invitado === '1',
 				precio: resultado.precio,
 				descuadre: resultado.descuadre,
+				// RF-243: un reenvío del mismo toque no vuelve a celebrar.
+				duplicado: resultado.duplicado,
 			},
 		};
 	},

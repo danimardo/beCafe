@@ -69,9 +69,11 @@ describe('acción de alta de personas', () => {
 
 		const resultado = await alta(admin, DATOS);
 
-		const { enlace, expiraEn, confirmacion } = z
-			.object({ enlace: z.string(), expiraEn: z.string(), confirmacion: z.string() })
+		const { enlace, expiraEn, confirmacion, origen } = z
+			.object({ enlace: z.string(), expiraEn: z.string(), confirmacion: z.string(), origen: z.string() })
 			.parse(resultado);
+		// CA-239: la página pinta el enlace bajo el botón del formulario que lo generó.
+		expect(origen).toBe('alta');
 		expect(enlace.startsWith(`${ORIGEN}/acceso/`)).toBe(true);
 		expect(expiraEn).toBe('2026-10-22T09:00:00.000Z');
 		expect(confirmacion).toBe('Persona dada de alta. Copia el enlace y envíaselo.');

@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { formatMoney } from '#lib/shared/dinero';
+import { formatMoney, formatMoneyPlain } from '#lib/shared/dinero';
 import { esquemaUlid } from '#lib/shared/contratos/comunes';
+import { esquemaFechaMadrid } from '#lib/shared/fechas/tipos';
 import { textos } from '#lib/shared/textos';
 import type { TipoDesactivable, TipoNotificacion } from './esquema';
 
@@ -30,6 +31,20 @@ export const ESQUEMAS_DATOS = Object.freeze({
 	/** Sin el nombre del visitante: la pantalla de revisión lo lee al mostrarse (plan F10, data-model). */
 	cafe_visitante_pendiente: z.strictObject({ cafeId: esquemaUlid, pendientes: z.int().positive() }),
 	aportacion_en_tu_nombre: z.strictObject({ aportacionId: esquemaUlid, importe: z.int().positive() }),
+	/** Sin nombres de personas (constitución XVI): solo tipos, cantidades e importes del reparto (plan F12, data-model). */
+	recuento: z.strictObject({
+		recuentoId: esquemaUlid,
+		accion: z.enum(['registrado', 'anulado']),
+		fecha: esquemaFechaMadrid,
+		lineas: z
+			.array(z.strictObject({ nombreTipo: esquemaNombre, diferencia: z.int().refine((n) => n !== 0) }))
+			.min(1)
+			.max(50),
+		importe: z.int().nonnegative(),
+		personas: z.int().nonnegative(),
+		minimo: z.int().nonnegative(),
+		maximo: z.int().nonnegative(),
+	}),
 } satisfies Record<TipoNotificacion, z.ZodType>);
 
 export const CATALOGO: Readonly<Record<TipoNotificacion, { destinatarios: Destinatarios; desactivable: boolean }>> = Object.freeze({
@@ -41,6 +56,7 @@ export const CATALOGO: Readonly<Record<TipoNotificacion, { destinatarios: Destin
 	fallo_copia: { destinatarios: 'administradores', desactivable: true },
 	cafe_visitante_pendiente: { destinatarios: 'administradores', desactivable: true },
 	aportacion_en_tu_nombre: { destinatarios: 'persona', desactivable: true },
+	recuento: { destinatarios: 'todos', desactivable: true },
 });
 
 /** Estrecha el tipo a los desactivables: `deuda` no lo es (RF-102). */
@@ -125,5 +141,35 @@ export function construirMensaje(tipo: TipoNotificacion, datos: unknown): Mensaj
 				enlace: '/saldos',
 			};
 		}
+		case 'recuento': {
+			const d = ESQUEMAS_DATOS.recuento.parse(datos);
+			return { titulo: textos.notificaciones.recuento.titulo(diaYMes(d.fecha)), texto: textoRecuento(d), enlace: '/saldos' };
+		}
 	}
+}
+
+/** `2026-10-26` → `26/10`. */
+function diaYMes(fecha: string): string {
+	const [, mes, dia] = fecha.split('-');
+	return `${dia}/${mes}`;
+}
+
+function textoRecuento(d: z.infer<typeof ESQUEMAS_DATOS.recuento>): string {
+	const t = textos.notificaciones.recuento;
+	const cantidades = (lineas: typeof d.lineas) => lineas.map((linea) => `${Math.abs(linea.diferencia)} ${linea.nombreTipo}`).join(', ');
+	if (d.accion === 'anulado') return t.anulado(d.lineas.map((linea) => linea.nombreTipo).join(', '), diaYMes(d.fecha));
+	const faltan = d.lineas.filter((linea) => linea.diferencia < 0);
+	const sobran = d.lineas.filter((linea) => linea.diferencia > 0);
+	const hayCargos = d.importe > 0 && d.personas > 0;
+	const reparto = hayCargos
+		? d.minimo === d.maximo
+			? t.reparto(formatMoney(d.importe), d.personas, formatMoney(d.minimo))
+			: t.repartoVariable(formatMoney(d.importe), d.personas, formatMoneyPlain(d.minimo), formatMoney(d.maximo))
+		: t.sinCargos;
+	const partes: string[] = [];
+	if (faltan.length > 0) partes.push(`${t.faltaban(cantidades(faltan))}; ${reparto}`);
+	// «sin cargos» solo se dice una vez: si ya se dijo en los faltantes, o si hay cargos de otro tipo, no se repite.
+	if (sobran.length > 0)
+		partes.push(faltan.length > 0 ? t.sobraban(cantidades(sobran)) : `${t.sobraban(cantidades(sobran))}; ${t.sinCargos}`);
+	return partes.join('. ');
 }

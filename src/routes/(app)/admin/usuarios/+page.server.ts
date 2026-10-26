@@ -43,6 +43,7 @@ export const actions: Actions = {
 				instante: locals.ambiente.reloj.ahora(),
 			});
 			return {
+				origen: 'alta' as const,
 				enlace: `${locals.ambiente.origen}/acceso/${alta.token}`,
 				expiraEn: alta.expiraEn,
 				confirmacion: textos.confirmaciones.personaDadaDeAlta,

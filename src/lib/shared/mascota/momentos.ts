@@ -5,6 +5,21 @@
 export const POSES_RIV = ['saludo', 'celebrando', 'pensando', 'dormido', 'alerta', 'triste', 'cafetera', 'hucha'] as const;
 export type PoseRiv = (typeof POSES_RIV)[number];
 
+/**
+ * Duración en segundos de la animación de cada pose Rive, copiada de `static/mascota/riv/manifest.json` (`duration_seconds`).
+ * Capsulito no entra en reposo hasta que ha pasado (RF-248). Sin `.riv` propio (`triste`), usa el de su pose equivalente.
+ */
+export const DURACION_POSE_RIV: Record<PoseRiv, number> = {
+	saludo: 2.4,
+	celebrando: 2.5,
+	pensando: 3,
+	dormido: 3.2,
+	alerta: 2.5,
+	triste: 3,
+	cafetera: 2.5,
+	hucha: 2.5,
+};
+
 /** Las 8 poses del sistema de diseño WebP (`/static/mascota/capsulito-{pose}-{px}.webp`). */
 export const POSES = [
 	'saludando',
@@ -92,7 +107,7 @@ export interface Momento {
 }
 
 export const MOMENTOS = {
-	// --- Historia de bienvenida (8 escenas, RF-185) ---
+	// --- Historia de bienvenida (9 escenas, RF-185, RF-247) ---
 	'bienvenida-hola': {
 		pose: 'saludando',
 		poseRiv: 'saludo',
@@ -156,6 +171,24 @@ export const MOMENTOS = {
 				id: 'intro_04',
 				texto: 'Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
 				textoVoz: '[cheerful] Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
+				conAudio: true,
+			},
+		],
+	},
+	'bienvenida-dinero': {
+		pose: 'senalando',
+		poseRiv: 'hucha',
+		expresion: 'feliz',
+		tono: 'neutro',
+		texto:
+			'La hucha común paga las cápsulas. Tú pones dinero con una aportación y cada café descuenta de tu saldo lo que cuesta. De vez en cuando, los administradores cuentan la caja para que todo cuadre.',
+		variantes: [
+			{
+				id: 'intro_09',
+				texto:
+					'La hucha común paga las cápsulas. Tú pones dinero con una aportación y cada café descuenta de tu saldo lo que cuesta. De vez en cuando, los administradores cuentan la caja para que todo cuadre.',
+				textoVoz:
+					'[cheerful] La hucha común paga las cápsulas. [excited] Tú pones dinero con una aportación y cada café descuenta de tu saldo lo que cuesta. [cheerful] De vez en cuando, los administradores cuentan la caja para que todo cuadre.',
 				conAudio: true,
 			},
 		],

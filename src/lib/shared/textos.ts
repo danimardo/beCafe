@@ -96,6 +96,7 @@ export const textos = {
 		contrasenaActual: 'Contraseña actual',
 		ayudaReautenticacion: 'Confirma tu contraseña: pedimos confirmación cuando han pasado 15 minutos desde tu último inicio de sesión.',
 		enlaceDeAcceso: 'Enlace de acceso',
+		enlaceListo: 'Enlace listo para copiar',
 		sinContrasena: 'Sin contraseña',
 		conContrasena: 'Con contraseña',
 		personaNoEncontrada: 'No encontramos a esa persona.',
@@ -473,6 +474,7 @@ export const textos = {
 		confirmarSinStockCancelar: 'Cancelar',
 		saludo: (nombre: string) => (nombre ? `Hola, ${nombre}` : 'Hola'),
 		cerrarSesion: 'Cerrar sesión',
+		entendido: 'Entendido',
 	},
 	inicioSesion: {
 		titulo: 'Entrar en beCafé',
@@ -667,6 +669,17 @@ export const textos = {
 			titulo: 'Aportación registrada a tu nombre',
 			texto: (importe: string) => `Un administrador ha registrado una aportación de ${importe} a tu nombre.`,
 		},
+		recuento: {
+			titulo: (fecha: string) => `Recuento del ${fecha}`,
+			faltaban: (lineas: string) => `Faltaban ${lineas}`,
+			sobraban: (lineas: string) => `Sobraban ${lineas}`,
+			reparto: (importe: string, personas: number, cada: string) =>
+				`${importe} repartidos entre ${personas} ${personas === 1 ? 'persona' : 'personas'} (${cada} cada una)`,
+			repartoVariable: (importe: string, personas: number, minimo: string, maximo: string) =>
+				`${importe} repartidos entre ${personas} personas (entre ${minimo} y ${maximo} cada una)`,
+			sinCargos: 'sin cargos',
+			anulado: (tipos: string, fecha: string) => `Se anuló el recuento de ${tipos} del ${fecha}; sus cargos ya no cuentan`,
+		},
 		seccion: 'Notificaciones',
 		panel: {
 			titulo: 'Avisos',
@@ -701,6 +714,7 @@ export const textos = {
 			fallo_copia: { titulo: 'Fallo de copia de seguridad', ayuda: 'Una copia no se pudo completar.' },
 			cafe_visitante_pendiente: { titulo: 'Cafés de visitante', ayuda: 'Un visitante registra un café que debes revisar.' },
 			aportacion_en_tu_nombre: { titulo: 'Aportaciones a tu nombre', ayuda: 'Un administrador registra una aportación por ti.' },
+			recuento: { titulo: 'Recuentos de stock', ayuda: 'Un administrador cuenta las cápsulas y reparte lo que falta.' },
 		},
 		ayuda: {
 			titulo: 'Ayuda de avisos',

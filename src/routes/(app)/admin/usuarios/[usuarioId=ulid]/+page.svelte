@@ -10,6 +10,7 @@
 	type Formulario = {
 		errores?: Partial<Record<string, { mensaje: string }>>;
 		valores?: Record<string, unknown>;
+		origen?: 'generarEnlace' | 'reactivar';
 		enlace?: string;
 		expiraEn?: string;
 		confirmacion?: string;
@@ -46,13 +47,6 @@
 	{/if}
 	{#if formulario?.confirmacion}
 		<p role="status">{formulario.confirmacion}</p>
-	{/if}
-	{#if formulario?.enlace}
-		<CopyField
-			label={textos.admin.enlaceDeAcceso}
-			value={formulario.enlace}
-			hint={formulario.expiraEn ? `Caduca el ${formatDate(formulario.expiraEn, true)}.` : undefined}
-		/>
 	{/if}
 
 	{#if persona.estado !== 'baja'}
@@ -104,6 +98,14 @@
 					{/if}
 					<Button type="submit" variant="soft" block>{textos.admin.generarEnlace}</Button>
 				</form>
+				{#if formulario?.enlace && (formulario.origen === 'generarEnlace' || formulario.origen === 'reactivar')}
+					<CopyField
+						anunciar
+						label={textos.admin.enlaceDeAcceso}
+						value={formulario.enlace}
+						hint={formulario.expiraEn ? `Caduca el ${formatDate(formulario.expiraEn, true)}.` : undefined}
+					/>
+				{/if}
 			</div>
 		</Section>
 	{:else}

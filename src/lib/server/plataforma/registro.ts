@@ -88,6 +88,7 @@ export const NIVEL_EVENTO = {
 	'frase.entregada': 'debug',
 	'frase.ciclo_reiniciado': 'info',
 	'frase.fallo': 'error',
+	'aviso.visto': 'info',
 	'consumo.confirmacion_sin_stock': 'info',
 } as const;
 
@@ -177,6 +178,8 @@ export type CamposEvento = {
 	'frase.entregada': { usuarioId: string; lista: 'registro' | 'saludo'; fraseId: string; ciclo: number };
 	'frase.ciclo_reiniciado': { usuarioId: string; lista: 'registro' | 'saludo'; ciclo: number };
 	'frase.fallo': { usuarioId: string; lista: 'registro' | 'saludo'; tipo: string };
+	// F12: solo el identificador del aviso; nunca su texto (constitución XVI).
+	'aviso.visto': { avisoId: string };
 	'consumo.confirmacion_sin_stock': { tipoCapsulaId: string };
 };
 

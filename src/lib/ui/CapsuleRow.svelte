@@ -2,6 +2,7 @@
 	import UserPlus from '@lucide/svelte/icons/user-plus';
 	import CapsuleImage from './CapsuleImage.svelte';
 	import StockBadge from './StockBadge.svelte';
+	import Confeti from './movimiento/Confeti.svelte';
 	import { cn } from './utils';
 	import { formatMoney } from '#lib/shared/dinero';
 
@@ -28,6 +29,8 @@
 		 * Mejora progresiva del formulario (`use:enhance` de la página, sin importar el servidor aquí). Sin JavaScript,
 		 * el formulario se envía igual a la *action* `consumir`.
 		 */
+		/** Contador: cada incremento lanza el confeti de la celebración (RF-243). Lo sube la página cuando el servidor confirma el registro. */
+		celebrar?: number;
 		enhancer?: (formulario: HTMLFormElement) => void;
 		class?: string;
 	};
@@ -44,6 +47,7 @@
 		photoUrl = null,
 		daysLeft = null,
 		enhancer = () => {},
+		celebrar = 0,
 		class: className,
 	}: Props = $props();
 
@@ -54,7 +58,7 @@
 
 <!-- Fila de cristal con un formulario y DOS botones: toda la fila registra (invitado = 0); el de la derecha, para un invitado
      (invitado = 1, RF-014). Objetivo táctil ≥ 44 px (RNF-001). -->
-<li class={cn('glass rounded-panel', className)}>
+<li class={cn('glass relative rounded-panel', className)}>
 	<form method="post" action="?/consumir" class="flex items-center pr-2" use:enhancer>
 		<input type="hidden" name="tipoCapsulaId" value={tipoId} />
 		<input type="hidden" name="clienteId" value={clienteId} />
@@ -76,7 +80,8 @@
 			</span>
 			<span
 				aria-hidden="true"
-				class="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent text-[18px] font-semibold text-on-accent">+1</span
+				class="flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-full bg-accent px-4 text-[15px] font-semibold text-on-accent"
+				>Me pongo esta</span
 			>
 		</button>
 		<button
@@ -90,4 +95,5 @@
 			<UserPlus class="size-5" aria-hidden="true" />
 		</button>
 	</form>
+	<Confeti disparo={celebrar} />
 </li>

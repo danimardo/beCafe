@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures/errores-navegador';
 import { botonDeInvitado, tipoConCoste } from '../fixtures/consumos';
 import { entrarComo } from '../fixtures/sesiones';
 
-// Sin JavaScript (constitución XVII, CA-182, CA-183, CA-187): el botón de invitado de CapsuleTile, las 8 escenas fijas en /ayuda y Cerrar sesión en /perfil funcionan sin JS.
+// Sin JavaScript (constitución XVII, CA-182, CA-183, CA-187): el botón de invitado de CapsuleTile, las 9 escenas fijas en /ayuda y Cerrar sesión en /perfil funcionan sin JS.
 
 test('CA-183: sin JavaScript, el botón de invitado de la tarjeta registra el consumo como invitado', async ({ page, servidor }) => {
 	const tipo = await tipoConCoste(page, servidor);
@@ -14,13 +14,16 @@ test('CA-183: sin JavaScript, el botón de invitado de la tarjeta registra el co
 	await expect(page.getByRole('link', { name: new RegExp(`${tipo} · Invitado`) }).first()).toBeVisible();
 });
 
-test('CA-182, CA-187: sin JavaScript, /ayuda muestra las 8 escenas estáticas y /perfil cierra la sesión', async ({ page, servidor }) => {
+test('CA-182, CA-187: sin JavaScript, /ayuda muestra las 9 escenas estáticas y /perfil cierra la sesión', async ({ page, servidor }) => {
 	await entrarComo(page, servidor, 'miembro');
 	await page.goto(`${servidor.url}/ayuda`);
 
 	await expect(page.getByRole('heading', { name: 'Cómo funciona beCafé', exact: true })).toBeVisible();
-	await expect(page.getByText('Paso 1 de 8')).toBeVisible();
-	await expect(page.getByText('Paso 8 de 8')).toBeVisible();
+	await expect(page.getByText('Paso 1 de 9')).toBeVisible();
+	await expect(page.getByText('Paso 9 de 9')).toBeVisible();
+	// CA-247: la escena del dinero ocupa el quinto lugar, entre las compras y la hucha común.
+	await expect(page.getByText('Paso 5 de 9')).toBeVisible();
+	await expect(page.getByText('La hucha común paga las cápsulas.', { exact: false })).toBeVisible();
 
 	await page.goto(`${servidor.url}/perfil`);
 	await page.getByRole('button', { name: 'Cerrar sesión', exact: true }).click();

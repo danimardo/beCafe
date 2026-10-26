@@ -125,18 +125,24 @@
 	let formularioDeshacerRelleno: HTMLFormElement | undefined = $state();
 	// Sin conexión al enviar el relleno: el botón se desactiva y nunca se encola (RN-081).
 	let rellenoFallido = $state(false);
+	// RF-243: cada incremento lanza el confeti de esa tarjeta cuando el servidor confirma el registro.
+	let celebraciones = $state<Record<string, number>>({});
+	let celebracionAgua = $state(0);
 
 	// RF-219: lo que dice Capsulito se ve también en pantalla. Un evento (café, agua, red) sustituye al mensaje base.
 	let eventoMascota = $state<{ momento?: MomentoId; pose?: Pose; texto: string } | null>(null);
 	let temporizadorSaludo: ReturnType<typeof setTimeout> | undefined;
-	function decir(momento: MomentoId, vars: { nombre?: string } = {}) {
+	// RF-243: `celebrando` es un registro confirmado por el servidor; la locución espera al sonido de celebración. Un café pendiente de
+	// enviar, un rechazo o un «Deshacer» nunca celebran.
+	function decir(momento: MomentoId, vars: { nombre?: string } = {}, celebrando = false) {
 		const frase = mascota.elegirFrase(momento, vars);
 		eventoMascota = { momento, texto: frase.texto };
-		if (frase.conAudio) mascota.hablar(frase.id);
+		if (celebrando) mascota.celebrar(frase.conAudio ? frase.id : null);
+		else if (frase.conAudio) mascota.hablar(frase.id);
 	}
 	// RF-213, RF-214: una frase del anexo que entregó el servidor. `false` si no se puede mostrar (mascota oculta o frase desconocida).
-	function decirFrase(fraseId: string): boolean {
-		const frase = mascota.mostrarFrase(fraseId);
+	function decirFrase(fraseId: string, celebrando = false): boolean {
+		const frase = mascota.mostrarFrase(fraseId, celebrando);
 		if (!frase) return false;
 		eventoMascota = { pose: frase.pose, texto: frase.texto };
 		return true;
@@ -166,6 +172,8 @@
 		const pendiente = pendienteSinStock;
 		if (!pendiente) return;
 		pendienteSinStock = null;
+		// La acción del diálogo no lo cierra sola: sin esto quedaba abierto sobre el café ya registrado.
+		dialogoSinStock = false;
 		sinStockConfirmado = true;
 		if (pendiente.submitter) pendiente.formulario.requestSubmit(pendiente.submitter);
 		else pendiente.formulario.requestSubmit();
@@ -290,9 +298,11 @@
 				const consumo = form && 'consumo' in form ? form.consumo : undefined;
 				if (consumo) {
 					// El descuadre es un aviso y manda; si no, la frase de registro del servidor (RF-213) y, sin ella, el mensaje base.
-					if (consumo.descuadre) decir('stock.negativo');
-					else if (!consumo.fraseId || !decirFrase(consumo.fraseId))
-						decir(consumo.invitado ? 'consumo.invitado_confirmado' : 'consumo.confirmado');
+					const celebrando = !consumo.duplicado;
+					if (celebrando) celebraciones[consumo.tipoCapsulaId] = (celebraciones[consumo.tipoCapsulaId] ?? 0) + 1;
+					if (consumo.descuadre) decir('stock.negativo', {}, celebrando);
+					else if (!consumo.fraseId || !decirFrase(consumo.fraseId, celebrando))
+						decir(consumo.invitado ? 'consumo.invitado_confirmado' : 'consumo.confirmado', {}, celebrando);
 					avisos.mostrarDeshacer({
 						title: textos.consumos.registrado(nombreDe(consumo.tipoCapsulaId)),
 						warning: consumo.descuadre ? textos.consumos.descuadre : undefined,
@@ -340,7 +350,8 @@
 				await update({ reset: false });
 				const id = form && 'rellenoId' in form ? form.rellenoId : undefined;
 				if (id) {
-					decir('agua.confirmada');
+					celebracionAgua += 1;
+					decir('agua.confirmada', {}, true);
 					avisos.mostrarDeshacer({
 						title: textos.rellenos.registrado,
 						momento: 'relleno-registrado',
@@ -477,9 +488,22 @@
 					nombre={primerNombre}
 					size="lg"
 					bocadillo="derecha"
+					callado={mostrarTour}
+					animar={!mostrarTour}
 				/>
 			</Glass>
 		</div>
+	{/if}
+
+	<!-- RF-246: un recuento de stock lo ve toda la plantilla una vez; sigue en el panel de avisos. -->
+	{#if data.avisoRecuento}
+		<Banner tone="info" title={data.avisoRecuento.titulo}>
+			<p class="text-[15px]">{data.avisoRecuento.texto}</p>
+			<form method="post" action="?/verAviso" class="mt-3" use:enhance>
+				<input type="hidden" name="avisoId" value={data.avisoRecuento.id} />
+				<Button type="submit" variant="soft">{textos.inicio.entendido}</Button>
+			</form>
+		</Banner>
 	{/if}
 
 	<!-- RF-217, sin JavaScript: el servidor devuelve la pregunta como paso intermedio. -->
@@ -524,7 +548,12 @@
 				{/if}
 
 				{#if data.tipos.length === 0}
-					<EmptyState momento="vacio-capsulas" title={textos.capsulas.vacio} description={textos.consumos.sinCapsulas} />
+					<EmptyState
+						momento="vacio-capsulas"
+						title={textos.capsulas.vacio}
+						description={textos.consumos.sinCapsulas}
+						callado={mostrarTour}
+					/>
 				{:else}
 					<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
 						{#each data.tipos as tipo (tipo.id)}
@@ -543,6 +572,7 @@
 								ownCount={tipo.propios}
 								guestCount={tipo.invitados}
 								enhancer={enviarToque}
+								celebrar={celebraciones[tipo.id] ?? 0}
 							/>
 						{/each}
 					</ul>
@@ -576,6 +606,7 @@
 					enConexion={enLinea && !rellenoFallido}
 					rechazo={rechazoRelleno ? { nombre: rechazoRelleno.autor, hace: rechazoRelleno.hace, esPropio: rechazoRelleno.esPropio } : null}
 					enhancer={enviarRelleno}
+					celebrar={celebracionAgua}
 					historialHref={resolve('/(app)/historial')}
 				/>
 				{#if form && 'deshechoRelleno' in form && !conJs}

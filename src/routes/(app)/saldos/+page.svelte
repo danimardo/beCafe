@@ -96,20 +96,20 @@
 								if (frase.conAudio) mascota.hablar(frase.id);
 							}
 						}}
-					class="flex flex-col gap-3 sm:flex-row sm:items-end"
+					class="flex flex-col gap-3"
 				>
 					<input type="hidden" name="clienteId" value={data.clienteId} />
+					<!-- Las cajas y el botón comparten línea y alto; el botón baja lo que mide la etiqueta (18 px + 6 px). -->
+					<div class="flex flex-col gap-3 sm:flex-row sm:items-start">
+						{#if data.esAdministrador}
+							<SelectField class="sm:w-56" label={textos.economia.para} name="beneficiarioId" options={opcionesPara} />
+						{/if}
+						<MoneyField class="sm:w-56" label={textos.economia.importe} name="importe" bind:cents={importe} error={errorImporte} required />
+						<Button type="submit" class="sm:mt-6 sm:min-h-12 sm:min-w-40">{textos.economia.aportar}</Button>
+					</div>
 					{#if data.esAdministrador}
-						<SelectField
-							class="sm:w-56"
-							label={textos.economia.para}
-							name="beneficiarioId"
-							options={opcionesPara}
-							hint={textos.economia.ayudaPara}
-						/>
+						<p class="text-[13px] leading-[18px] text-ink-muted">{textos.economia.ayudaPara}</p>
 					{/if}
-					<MoneyField class="sm:w-56" label={textos.economia.importe} name="importe" bind:cents={importe} error={errorImporte} required />
-					<Button type="submit" class="sm:min-w-40">{textos.economia.aportar}</Button>
 				</form>
 			</Section>
 

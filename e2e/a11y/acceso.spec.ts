@@ -1,5 +1,8 @@
 import { test } from '../fixtures/errores-navegador';
 import { entrarComo } from '../fixtures/sesiones';
+import { cerrarSesion } from '../fixtures/economia';
+import { nombreUnico } from '../fixtures/capsulas';
+import { darDeAltaYLeerEnlace } from '../fixtures/usuarios';
 import { expectSinInfracciones } from './axe';
 
 // Constitución XI y XVIII: las pantallas de acceso y el perfil, en tema claro y oscuro, sin infracciones de axe.
@@ -62,9 +65,31 @@ for (const esquema of ['light', 'dark'] as const) {
 			await pagina.getByRole('dialog').getByRole('button', { name: 'Empezar', exact: true }).waitFor();
 			await expectSinInfracciones(pagina);
 			await pagina.getByRole('button', { name: 'Empezar', exact: true }).click();
-			await pagina.getByText('Escena 1 de 8').waitFor();
+			await pagina.getByText('Escena 1 de 9').waitFor();
 			await expectSinInfracciones(pagina);
 			await contexto.close();
+		});
+	});
+}
+
+// F12: el enlace de acceso válido, con Capsulito reactivo, en reposo y con los ojos tapados, en los dos temas.
+for (const esquema of ['light', 'dark'] as const) {
+	test.describe(`enlace de acceso válido, tema ${esquema === 'light' ? 'claro' : 'oscuro'}`, () => {
+		test.use({ colorScheme: esquema });
+
+		test('la pantalla del enlace no tiene infracciones de axe, ni en reposo ni con el foco en la contraseña', async ({
+			page,
+			servidor,
+		}) => {
+			await entrarComo(page, servidor, 'administrador');
+			const enlace = await darDeAltaYLeerEnlace(page, servidor, nombreUnico('AxeEnlace'));
+			await cerrarSesion(page, servidor);
+
+			await page.goto(enlace);
+			await page.getByRole('textbox', { name: 'Contraseña nueva', exact: true }).waitFor();
+			await expectSinInfracciones(page);
+			await page.getByRole('textbox', { name: 'Contraseña nueva', exact: true }).click();
+			await expectSinInfracciones(page);
 		});
 	});
 }

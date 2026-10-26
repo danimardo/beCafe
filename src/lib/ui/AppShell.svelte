@@ -13,9 +13,9 @@
 		perfilHref?: ResolvedPathname;
 		/**
 		 * Ancho del contenido:
-		 * - «normal» 672 px: formularios y lectura (Perfil, Ayuda, Privacidad).
+		 * - «normal» 672 px: formularios y lectura (Ayuda, Privacidad).
 		 * - «panel» 1200 px: pantallas con resumen + contenido (Inicio, Saldos, Historial, Compras, Estadísticas). Usa <PanelGrid>.
-		 * - «wide» 1024 px: administración y tablas.
+		 * - «wide» 1024 px: administración, tablas y Perfil (dos columnas).
 		 */
 		width?: 'normal' | 'panel' | 'wide';
 		/** Campana y panel de avisos (RF-107). */

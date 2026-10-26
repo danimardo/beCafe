@@ -82,3 +82,19 @@ export async function arquear(page: Page, servidor: ServidorDePrueba, contado: s
 	await page.getByRole('button', { name: 'Confirmar arqueo', exact: true }).click();
 	await expect(page.getByRole('status').filter({ hasText: 'Arqueo registrado' }).first()).toBeVisible();
 }
+
+/**
+ * Hace un recuento de un tipo como administrador: escribe lo contado, mira el efecto, confirma con la contraseña (RF-090 a RF-092).
+ * Las demás cápsulas conservan su cifra registrada, así que no generan diferencia.
+ */
+export async function recontar(page: Page, servidor: ServidorDePrueba, tipo: string, contado: string): Promise<void> {
+	await page.goto(`${servidor.url}/admin/control`);
+	await page.waitForLoadState('load');
+	const grupo = page.getByRole('group', { name: tipo, exact: true });
+	const formulario = page.locator('form').filter({ has: grupo });
+	await grupo.getByRole('textbox', { name: 'Cápsulas contadas', exact: true }).fill(contado);
+	await formulario.getByRole('button', { name: 'Ver efecto', exact: true }).click();
+	await formulario.getByLabel('Contraseña para confirmar', { exact: true }).fill(servidor.siembra.contrasena);
+	await formulario.getByRole('button', { name: 'Confirmar recuento', exact: true }).click();
+	await expect(page.getByRole('status').filter({ hasText: 'Recuento registrado' }).first()).toBeVisible();
+}

@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import type { Snippet } from 'svelte';
-	import { montarCapsulitoRive, type ControladorRiveCapsulito } from '#lib/client/rive';
+	import { montarCapsulitoRive, montarRiveReposo, type ControladorRiveCapsulito, type ControladorRiveReposo } from '#lib/client/rive';
 	import type { FormaBoca } from '#lib/shared/mascota/lip-sync';
 	import {
+		DURACION_POSE_RIV,
 		MOMENTOS,
 		POSE_A_RIV,
 		RIV_A_POSE,
@@ -15,6 +16,7 @@
 		type Pose,
 		type PoseRiv,
 	} from '#lib/shared/mascota/momentos';
+	import { gestoEn, gestoVigente } from '#lib/shared/mascota/reposo';
 	import { usarMascota } from './contextos/mascota.svelte';
 	import { cn } from './utils';
 
@@ -43,6 +45,8 @@
 		boca?: FormaBoca;
 		/** Demostración de habla sin audio en el laboratorio (`speechDemo` del ViewModel). */
 		speechDemo?: boolean;
+		/** Se queda callado: la boca no sigue la voz de la mascota (RF-240). El tour lo usa en el Capsulito de Inicio. */
+		callado?: boolean;
 		/** Qué pintar si la persona ha desactivado la mascota en Perfil. */
 		fallback?: Snippet;
 		class?: string;
@@ -60,6 +64,7 @@
 		modo = 'auto',
 		boca,
 		speechDemo = false,
+		callado = false,
 		fallback,
 		class: className,
 	}: Props = $props();
@@ -74,7 +79,7 @@
 	const texto = $derived(mensaje === null ? null : (mensaje ?? (momento ? textoDe(momento, { nombre }) : null)));
 	const tono = $derived(entradaMomento?.tono ?? 'neutro');
 	const w = $derived(px[size]);
-	const bocaEfectiva = $derived<FormaBoca>(boca ?? mascota.bocaActual);
+	const bocaEfectiva = $derived<FormaBoca>(callado ? 0 : (boca ?? mascota.bocaActual));
 	const usarRive = $derived(
 		browser && animar && mascota.animar && (modo === 'rive' || (modo === 'auto' && (size === 'lg' || size === 'xl'))),
 	);
@@ -126,6 +131,81 @@
 		};
 	});
 
+	// Reposo (RF-248): sin hablar ni hacer una pose, a partir de 112 px, parpadea y hace un gesto según el tiempo que lleva quieta.
+	const SEGUNDOS_PARA_MONTAR = 3;
+	const reposoPosible = $derived(
+		browser &&
+			animar &&
+			mascota.animar &&
+			mascota.visible &&
+			!callado &&
+			modo !== 'svg' &&
+			(size === 'md' || size === 'lg' || size === 'xl') &&
+			mascota.audioEnCurso === null,
+	);
+	// Segundos desde la última interrupción (hablar, cambiar de pose, callado o movimiento reducido).
+	let segundosQuieta = $state(0);
+	// El reposo empieza cuando termina la animación de la pose (`duration_seconds` del manifiesto).
+	const tReposo = $derived(segundosQuieta - Math.ceil(DURACION_POSE_RIV[poseRivResuelta]));
+	const gestoActual = $derived(reposoPosible && tReposo >= 0 ? gestoVigente(tReposo) : null);
+	const montarReposo = $derived(reposoPosible && tReposo >= SEGUNDOS_PARA_MONTAR);
+
+	let canvasReposo: HTMLCanvasElement | undefined = $state();
+	let controladorReposo = $state<ControladorRiveReposo | null>(null);
+	let reposoListo = $state(false);
+
+	// Sincroniza con el reloj del navegador: cuenta los segundos en reposo y se para con la pestaña oculta (research R11).
+	const claveReposo = $derived(reposoPosible ? poseRivResuelta : null);
+	$effect(() => {
+		const clave = claveReposo;
+		segundosQuieta = 0;
+		if (clave === null) return;
+		let temporizador: ReturnType<typeof setInterval> | null = null;
+		const parar = () => {
+			if (temporizador !== null) clearInterval(temporizador);
+			temporizador = null;
+		};
+		const arrancar = () => {
+			if (temporizador === null && !document.hidden) temporizador = setInterval(() => (segundosQuieta += 1), 1000);
+		};
+		const alCambiarVisibilidad = () => (document.hidden ? parar() : arrancar());
+		arrancar();
+		document.addEventListener('visibilitychange', alCambiarVisibilidad);
+		return () => {
+			parar();
+			document.removeEventListener('visibilitychange', alCambiarVisibilidad);
+		};
+	});
+
+	$effect(() => {
+		const elemento = canvasReposo;
+		reposoListo = false;
+		controladorReposo = null;
+		if (!elemento || !montarReposo) return;
+		const limpiar = montarRiveReposo(elemento, {
+			reducedMotion: false,
+			onListo(ctrl) {
+				controladorReposo = ctrl;
+				reposoListo = true;
+			},
+			onError() {
+				controladorReposo = null;
+				reposoListo = false;
+			},
+		});
+		return () => {
+			reposoListo = false;
+			controladorReposo = null;
+			limpiar();
+		};
+	});
+
+	// Lanza el gesto que toca en este segundo.
+	$effect(() => {
+		const gesto = reposoPosible ? gestoEn(tReposo) : null;
+		if (gesto) controladorReposo?.gesto(gesto);
+	});
+
 	$effect(() => {
 		controladorRive?.fijarBoca(bocaEfectiva);
 	});
@@ -151,6 +231,7 @@
 		data-pose-riv={poseRivResuelta}
 		data-expresion={expresionResuelta}
 		data-boca={bocaEfectiva}
+		data-reposo={gestoActual ?? 'quieto'}
 	>
 		<span class="capsulito-halo relative shrink-0" style="width:{w}px;height:{w}px">
 			<img
@@ -163,7 +244,11 @@
 				aria-hidden="true"
 				decoding="async"
 				loading="eager"
-				class={cn('relative select-none object-contain', animClase, riveListo && usarRive && 'opacity-0')}
+				class={cn(
+					'relative select-none object-contain transition-opacity duration-200',
+					animClase,
+					((riveListo && usarRive) || reposoListo) && 'opacity-0',
+				)}
 				style="width:{w}px;height:{w}px"
 				draggable="false"
 			/>
@@ -173,7 +258,24 @@
 					width={w * 2}
 					height={w * 2}
 					aria-hidden="true"
-					class={cn('pointer-events-none absolute inset-0 select-none object-contain', !riveListo && 'opacity-0')}
+					class={cn(
+						'pointer-events-none absolute inset-0 select-none object-contain transition-opacity duration-200',
+						(!riveListo || reposoListo) && 'opacity-0',
+					)}
+					style="width:{w}px;height:{w}px"
+				></canvas>
+			{/if}
+			{#if montarReposo}
+				<canvas
+					bind:this={canvasReposo}
+					width={w * 2}
+					height={w * 2}
+					aria-hidden="true"
+					data-testid="capsulito-reposo"
+					class={cn(
+						'pointer-events-none absolute inset-0 select-none object-contain transition-opacity duration-200',
+						!reposoListo && 'opacity-0',
+					)}
 					style="width:{w}px;height:{w}px"
 				></canvas>
 			{/if}

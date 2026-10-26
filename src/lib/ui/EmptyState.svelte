@@ -11,8 +11,10 @@
 		/** Capsulito en lugar del icono (vacíos de Inicio, Saldos, Compras, Historial, Estadísticas y Avisos). */
 		momento?: MomentoId;
 		action?: Snippet;
+		/** Capsulito callado (RF-240): durante el tour de Inicio solo habla el de la tarjeta del paso. */
+		callado?: boolean;
 	};
-	let { title, description, icon, momento, action }: Props = $props();
+	let { title, description, icon, momento, action, callado = false }: Props = $props();
 </script>
 
 {#snippet iconCircle()}
@@ -25,7 +27,7 @@
 
 <div class="flex flex-col items-center gap-3 px-6 py-10 text-center">
 	{#if momento}
-		<Capsulito {momento} mensaje={null} size="md" fallback={iconCircle} />
+		<Capsulito {momento} mensaje={null} size="md" {callado} fallback={iconCircle} />
 	{:else}
 		{@render iconCircle()}
 	{/if}

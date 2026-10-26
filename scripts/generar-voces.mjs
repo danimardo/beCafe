@@ -1,5 +1,7 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { spawnSync, execFileSync } from 'node:child_process';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CATALOGO_AYUDA } from '../src/lib/shared/ayuda/pantallas.ts';
 import { PASOS_TOUR } from '../src/lib/shared/ayuda/tour.ts';
@@ -8,6 +10,9 @@ import { FRASES_REGISTRO, FRASES_SALUDO } from '../src/lib/shared/mascota/frases
 // Generador local de locuciones MP3 y pistas de sincronización labial JSON con ElevenLabs v3 (RF-187, DEC-115, ADR-0006).
 // Uso: `npm run voces:generar` (o `node scripts/generar-voces.mjs [--force]`).
 // Lee ELEVENLABS_API_KEY y ELEVENLABS_VOICE_ID desde `.env` o variables de entorno, sin exponer nunca la clave.
+// Necesita `ffmpeg` en el PATH. ElevenLabs v3 recorta a veces el principio y el final de cada audio, así que no se pide
+// una locución por llamada: se piden en tandas de 3 con una frase de relleno a cada extremo (que absorbe el recorte) y
+// cada frase se corta después por un silencio real (docs/adr/0006, apartado «Generación en tandas»).
 
 const ETIQUETAS_RISA = new Set(['laughs', 'laughing', 'chuckles', 'giggles', 'risas', 'risa']);
 
@@ -36,6 +41,13 @@ const LOCUCIONES_BASE = [
 		id: 'intro_04',
 		texto: 'Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
 		textoVoz: '[cheerful] Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
+	},
+	{
+		id: 'intro_09',
+		texto:
+			'La hucha común paga las cápsulas. Tú pones dinero con una aportación y cada café descuenta de tu saldo lo que cuesta. De vez en cuando, los administradores cuentan la caja para que todo cuadre.',
+		textoVoz:
+			'[cheerful] La hucha común paga las cápsulas. [excited] Tú pones dinero con una aportación y cada café descuenta de tu saldo lo que cuesta. [cheerful] De vez en cuando, los administradores cuentan la caja para que todo cuadre.',
 	},
 	{
 		id: 'intro_05',
@@ -239,43 +251,251 @@ function construirCuesLipSync(alineacion) {
 
 export const VOZ_POR_DEFECTO = 'TfkjFyM0u8G2kDTCi1Qi';
 
+/** Perfil «natural» elegido tras comparar seis perfiles de expresividad (en v3, `stability` solo distingue 0, 0,5 y 1). */
+export const AJUSTES_VOZ = Object.freeze({ stability: 0.5, similarity_boost: 0.8, style: 0.35, use_speaker_boost: true });
+export const TAMANO_TANDA = 3;
+/** Cuántas veces se vuelve a pedir una frase cuyo corte no es limpio, antes de darla por fallida. */
+export const INTENTOS_POR_FRASE = 3;
+
+// La respiración y el suspiro envuelven cada frase para que el recorte de ElevenLabs se los coma a ellos y no a la frase.
+const ANTES = '[inhales] ... ';
+const DESPUES = ' ... [sighs]';
+const SEPARADOR = ' [short pause] ';
+const RELLENO_INICIO = '[cheerful] Vamos con la tanda de frases. ...';
+const ANTES_RELLENO_FINAL = '... [cheerful] ';
+const RELLENO_FINAL = `${ANTES_RELLENO_FINAL}Y esto es todo por ahora.`;
+const NIVEL_SILENCIO = '-45dB';
+
+/** Longitud de las etiquetas `[...]` con que empieza un texto, con sus espacios. */
+const etiquetasIniciales = (texto) => texto.match(/^(\[[^\]]+\]\s*)*/)[0].length;
+
+/** Agrupa las locuciones, en orden, en tandas de `tamano`. */
+export function agruparEnTandas(items, tamano = TAMANO_TANDA) {
+	const tandas = [];
+	for (let i = 0; i < items.length; i += tamano) tandas.push(items.slice(i, i + tamano));
+	return tandas;
+}
+
 /**
- * Pide a ElevenLabs la locución y devuelve el audio y su pista JSON de sincronización labial, sin escribir nada.
- * `urlApi` solo cambia en las pruebas.
+ * Texto que se envía por una tanda y dónde está cada frase dentro de él.
+ * `inicio` es la posición del `textoVoz` y `hablado` la de su primera palabra (tras sus etiquetas).
  */
-export async function generarLocucion(item, { apiKey, voiceId, urlApi = 'https://api.elevenlabs.io' }) {
+export function construirTanda(items) {
+	let texto = RELLENO_INICIO + SEPARADOR;
+	const partes = items.map((item) => {
+		const inicio = texto.length + ANTES.length;
+		texto += ANTES + item.textoVoz + DESPUES + SEPARADOR;
+		return { item, inicio, hablado: inicio + etiquetasIniciales(item.textoVoz) };
+	});
+	const hablado = texto.length + ANTES_RELLENO_FINAL.length;
+	texto += RELLENO_FINAL;
+	return { texto, partes, habladoFinal: hablado };
+}
+
+/**
+ * Dónde cortar cada frase de una tanda, a partir de las marcas de tiempo de sus palabras y de los silencios del audio.
+ * Las marcas de las etiquetas (`[inhales]`, `[sighs]`…) no son fiables, así que no se usan. El principio va en el último
+ * silencio anterior a la primera palabra; el final, en el silencio más largo antes de la frase siguiente (la pausa del
+ * separador). Una frase sin silencio en alguno de los dos lados no se corta: se devuelve con `ok: false`.
+ */
+export function planificarCortes(tanda, alineacion, silencios) {
+	if (alineacion.characters.join('') !== tanda.texto) throw new Error('La alineación de ElevenLabs no coincide con el texto enviado.');
+	const inicio = (c) => alineacion.character_start_times_seconds[c];
+	const fin = (c) => alineacion.character_end_times_seconds[c];
+	return tanda.partes.map(({ item, inicio: posicion, hablado }, i) => {
+		const palabraIni = inicio(hablado);
+		const palabraFin = fin(posicion + item.textoVoz.length - 1);
+		const siguiente = inicio(i < tanda.partes.length - 1 ? tanda.partes[i + 1].hablado : tanda.habladoFinal);
+		const antes = silencios.filter(([, e]) => e <= palabraIni + 0.2 && e >= palabraIni - 0.8).at(-1);
+		const despues = silencios
+			.filter(([s, e]) => s >= Math.max(palabraIni + 0.5, palabraFin - 1.8) && e <= siguiente + 0.1)
+			.sort((a, b) => b[1] - b[0] - (a[1] - a[0]))[0];
+		if (!antes) return { item, ok: false, motivo: 'no hay silencio antes de la primera palabra' };
+		if (!despues) return { item, ok: false, motivo: 'no hay silencio después de la última palabra' };
+		return {
+			item,
+			ok: true,
+			posicion,
+			desde: Math.max(antes[0], antes[1] - 0.3),
+			hasta: despues[0] + Math.min(0.35, (despues[1] - despues[0]) / 2),
+		};
+	});
+}
+
+/**
+ * La pista de sincronización labial de una frase, con los tiempos medidos desde el principio de su corte.
+ * ElevenLabs puede dar a las etiquetas del final (`[laughs]`…) tiempos que caen más allá del corte: esos cues se
+ * descartan o se recortan para que ninguno pase de la duración del audio.
+ */
+export function pistaDeFrase(alineacion, posicion, longitud, desde, hasta) {
+	const trozo = (lista) => lista.slice(posicion, posicion + longitud);
+	const desplazar = (lista) => trozo(lista).map((t) => Math.max(0, t - desde));
+	const duration = redondearTiempo(hasta - desde);
+	const cues = construirCuesLipSync({
+		characters: trozo(alineacion.characters),
+		character_start_times_seconds: desplazar(alineacion.character_start_times_seconds),
+		character_end_times_seconds: desplazar(alineacion.character_end_times_seconds),
+	})
+		.filter((cue) => cue.start < duration)
+		.map((cue) => ({ ...cue, end: Math.min(cue.end, duration) }));
+	return { cues, duration };
+}
+
+/** `ffmpeg` real. Se pasa como parámetro para poder probar el resto sin él. */
+export const herramientasFfmpeg = {
+	disponible: () => spawnSync('ffmpeg', ['-version'], { stdio: 'ignore' }).status === 0,
+	abrir(audio) {
+		const dir = mkdtempSync(join(tmpdir(), 'voces-'));
+		const ruta = join(dir, 'tanda.audio');
+		writeFileSync(ruta, audio);
+		return {
+			silencios() {
+				const r = spawnSync(
+					'ffmpeg',
+					['-hide_banner', '-i', ruta, '-af', `silencedetect=noise=${NIVEL_SILENCIO}:d=0.05`, '-f', 'null', '-'],
+					{
+						encoding: 'utf8',
+						maxBuffer: 1 << 26,
+					},
+				);
+				const lista = [];
+				let desde = null;
+				for (const linea of r.stderr.split('\n')) {
+					const a = /silence_start: ([\d.]+)/.exec(linea);
+					if (a) desde = Number(a[1]);
+					const b = /silence_end: ([\d.]+)/.exec(linea);
+					if (b && desde !== null) {
+						lista.push([desde, Number(b[1])]);
+						desde = null;
+					}
+				}
+				return lista;
+			},
+			cortar(desde, hasta) {
+				const destino = join(dir, 'corte.mp3');
+				execFileSync('ffmpeg', [
+					'-y',
+					'-loglevel',
+					'error',
+					'-i',
+					ruta,
+					'-ss',
+					String(desde),
+					'-to',
+					String(hasta),
+					'-c:a',
+					'libmp3lame',
+					'-q:a',
+					'2',
+					destino,
+				]);
+				return readFileSync(destino);
+			},
+			cerrar: () => rmSync(dir, { recursive: true, force: true }),
+		};
+	},
+};
+
+/**
+ * Pide a ElevenLabs una tanda de locuciones en una sola llamada y corta cada una por un silencio real.
+ * Devuelve un resultado por frase (`ok` con su `audio` y su `json` de sincronización labial, o `ok: false` con el `motivo`)
+ * y el audio y las marcas de tiempo sin cortar (`crudo`), para poder recortar de nuevo sin volver a pagar.
+ * `urlApi` solo cambia en las pruebas. Lanza si la API responde con un error.
+ */
+export async function generarTanda(items, { apiKey, voiceId, urlApi = 'https://api.elevenlabs.io', herramientas = herramientasFfmpeg }) {
+	const tanda = construirTanda(items);
 	const respuesta = await fetch(`${urlApi}/v1/text-to-speech/${voiceId}/with-timestamps`, {
 		method: 'POST',
-		headers: {
-			'xi-api-key': apiKey,
-			'content-type': 'application/json',
-		},
-		body: JSON.stringify({
-			text: item.textoVoz,
-			model_id: 'eleven_v3',
-			voice_settings: {
-				stability: 0.45,
-				similarity_boost: 0.8,
-				style: 0.35,
-				use_speaker_boost: true,
-			},
-		}),
+		headers: { 'xi-api-key': apiKey, 'content-type': 'application/json' },
+		body: JSON.stringify({ text: tanda.texto, model_id: 'eleven_v3', voice_settings: AJUSTES_VOZ }),
 	});
-	if (!respuesta.ok) throw new Error(`Error HTTP ${respuesta.status} al generar ${item.id}`);
+	if (!respuesta.ok) throw new Error(`Error HTTP ${respuesta.status} al generar ${items.map((item) => item.id).join(', ')}`);
 
 	const datos = await respuesta.json();
 	const audio = Buffer.from(datos.audio_base64, 'base64');
-	const alineacion = datos.normalized_alignment ?? datos.alignment;
-	const cues = alineacion ? construirCuesLipSync(alineacion) : [];
-	const ends = alineacion?.character_end_times_seconds ?? [];
-	const duration = ends.length > 0 ? redondearTiempo(ends[ends.length - 1]) : 0;
-	return { audio, cues, duration, json: { version: 1, audio: `${item.id}.mp3`, texto: item.texto, duration, cues } };
+	const alineacion = datos.alignment ?? datos.normalized_alignment;
+	const crudo = { texto: tanda.texto, audio, alineacion };
+	if (!alineacion)
+		return { crudo, resultados: items.map((item) => ({ item, ok: false, motivo: 'ElevenLabs no devolvió marcas de tiempo' })) };
+
+	const trabajo = herramientas.abrir(audio);
+	try {
+		let cortes;
+		try {
+			cortes = planificarCortes(tanda, alineacion, trabajo.silencios());
+		} catch (causa) {
+			const motivo = causa instanceof Error ? causa.message : String(causa);
+			return { crudo, resultados: items.map((item) => ({ item, ok: false, motivo })) };
+		}
+		const resultados = cortes.map((corte) => {
+			if (!corte.ok) return corte;
+			const { item, posicion, desde, hasta } = corte;
+			const { cues, duration } = pistaDeFrase(alineacion, posicion, item.textoVoz.length, desde, hasta);
+			return {
+				item,
+				ok: true,
+				audio: trabajo.cortar(desde, hasta),
+				cues,
+				duration,
+				json: { version: 1, audio: `${item.id}.mp3`, texto: item.texto, duration, cues },
+			};
+		});
+		return { crudo, resultados };
+	} finally {
+		trabajo.cerrar();
+	}
 }
 
 /** Escribe el MP3 y su pista JSON de una locución ya generada. */
 export function escribirLocucion(dirSalida, item, resultado) {
 	writeFileSync(resolve(dirSalida, `${item.id}.mp3`), resultado.audio);
 	writeFileSync(resolve(dirSalida, `${item.id}.json`), `${JSON.stringify(resultado.json, null, '\t')}\n`);
+}
+
+/** Guarda el audio de una tanda sin cortar y sus marcas de tiempo, fuera de Git, para recortar de nuevo sin volver a pagar. */
+function guardarCrudo(dirCrudos, numero, crudo) {
+	mkdirSync(dirCrudos, { recursive: true });
+	const nombre = `tanda_${String(numero).padStart(3, '0')}`;
+	writeFileSync(resolve(dirCrudos, `${nombre}.mp3`), crudo.audio);
+	writeFileSync(resolve(dirCrudos, `${nombre}.json`), JSON.stringify({ texto: crudo.texto, alineacion: crudo.alineacion }));
+}
+
+/**
+ * Genera las locuciones en tandas y escribe cada una en `dirSalida`. Una frase cuyo corte no es limpio se vuelve a pedir
+ * (hasta `INTENTOS_POR_FRASE` veces) y, si sigue sin serlo, no se escribe: lo que había sigue como estaba.
+ * Si la API falla, se detiene. Devuelve `{ hechas, falladas, error }`.
+ */
+export async function generarLocuciones(items, entorno, { dirSalida, dirCrudos, avisar = () => {} }) {
+	const hechas = [];
+	const falladas = new Map();
+	let numero = 0;
+	for (const grupo of agruparEnTandas(items)) {
+		let restantes = grupo;
+		for (let intento = 1; intento <= INTENTOS_POR_FRASE && restantes.length > 0; intento += 1) {
+			let tanda;
+			try {
+				tanda = await generarTanda(restantes, entorno);
+			} catch (causa) {
+				return { hechas, falladas, error: causa instanceof Error ? causa.message : String(causa) };
+			}
+			numero += 1;
+			if (dirCrudos) guardarCrudo(dirCrudos, numero, tanda.crudo);
+			restantes = [];
+			for (const resultado of tanda.resultados) {
+				if (resultado.ok) {
+					escribirLocucion(dirSalida, resultado.item, resultado);
+					hechas.push(resultado.item.id);
+					falladas.delete(resultado.item.id);
+					avisar(`  ✔ ${resultado.item.id} (${resultado.audio.length} B, ${resultado.cues.length} cues, ${resultado.duration}s)`);
+				} else {
+					restantes.push(resultado.item);
+					falladas.set(resultado.item.id, resultado.motivo);
+					avisar(`  … ${resultado.item.id}: ${resultado.motivo}${intento < INTENTOS_POR_FRASE ? '; se vuelve a pedir' : ''}`);
+				}
+			}
+		}
+	}
+	return { hechas, falladas, error: undefined };
 }
 
 async function principal() {
@@ -290,34 +510,30 @@ async function principal() {
 		process.stderr.write('Falta ELEVENLABS_API_KEY en .env o en el entorno.\n');
 		process.exit(1);
 	}
+	if (!herramientasFfmpeg.disponible()) {
+		process.stderr.write('Falta ffmpeg en el PATH: se necesita para cortar cada frase de su tanda. No se ha llamado a la API.\n');
+		process.exit(1);
+	}
 
 	const dirSalida = resolve(process.cwd(), 'static/mascota/voces');
 	mkdirSync(dirSalida, { recursive: true });
+	const yaGenerada = (id) => existsSync(resolve(dirSalida, `${id}.mp3`)) && existsSync(resolve(dirSalida, `${id}.json`));
+	const pendientes = LOCUCIONES.filter((item) => item.id.startsWith(prefijo) && (forzar || !yaGenerada(item.id)));
+	const omitidas = LOCUCIONES.filter((item) => item.id.startsWith(prefijo)).length - pendientes.length;
 
-	let generadas = 0;
-	let omitidas = 0;
-
-	for (const item of LOCUCIONES) {
-		if (!item.id.startsWith(prefijo)) continue;
-		if (!forzar && existsSync(resolve(dirSalida, `${item.id}.mp3`)) && existsSync(resolve(dirSalida, `${item.id}.json`))) {
-			omitidas += 1;
-			continue;
-		}
-		let resultado;
-		try {
-			resultado = await generarLocucion(item, { apiKey, voiceId });
-		} catch (causa) {
-			process.stderr.write(`${causa instanceof Error ? causa.message : String(causa)}\n`);
-			process.exit(1);
-		}
-		escribirLocucion(dirSalida, item, resultado);
-		generadas += 1;
-		process.stdout.write(
-			`Generada locución ${item.id} (${resultado.audio.length} B, ${resultado.cues.length} cues, ${resultado.duration}s)\n`,
-		);
+	const dirCrudos = resolve(process.cwd(), '.local/voces-tandas', new Date().toISOString().replace(/[:.]/g, '-'));
+	const { hechas, falladas, error } = await generarLocuciones(
+		pendientes,
+		{ apiKey, voiceId },
+		{ dirSalida, dirCrudos, avisar: (linea) => process.stdout.write(`${linea}\n`) },
+	);
+	if (error) {
+		process.stderr.write(`${error}\n`);
+		process.exit(1);
 	}
-
-	process.stdout.write(`Completado: ${generadas} generadas, ${omitidas} ya existentes en static/mascota/voces/.\n`);
+	for (const [id, motivo] of falladas) process.stderr.write(`No se pudo cortar bien ${id}: ${motivo}.\n`);
+	process.stdout.write(`Completado: ${hechas.length} generadas, ${omitidas} ya existentes en static/mascota/voces/.\n`);
+	if (falladas.size > 0) process.exit(1);
 }
 
 // Solo se ejecuta al lanzarlo directamente: `scripts/voces-interactivo.mjs` importa el catálogo y la generación.

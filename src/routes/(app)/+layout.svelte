@@ -107,7 +107,7 @@
 	);
 
 	const ancho = $derived.by((): 'normal' | 'panel' | 'wide' => {
-		if (ruta.startsWith('/admin')) return 'wide';
+		if (ruta.startsWith('/admin') || ruta.startsWith('/perfil')) return 'wide';
 		if (
 			ruta === '/' ||
 			ruta.startsWith('/saldos') ||

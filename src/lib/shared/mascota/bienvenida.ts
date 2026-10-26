@@ -1,6 +1,6 @@
 import type { Expresion, MomentoId, PoseRiv } from './momentos';
 
-export type IconoBienvenida = 'hand' | 'package' | 'coffee' | 'shopping-bag' | 'piggy-bank' | 'droplets' | 'award' | 'sparkles';
+export type IconoBienvenida = 'hand' | 'package' | 'coffee' | 'shopping-bag' | 'piggy-bank' | 'droplets' | 'award' | 'sparkles' | 'wallet';
 
 export interface EscenaBienvenida {
 	readonly id: string;
@@ -14,7 +14,8 @@ export interface EscenaBienvenida {
 }
 
 /**
- * Las 8 escenas de la historia animada de bienvenida de Capsulito (`intro_01` a `intro_08`, RF-185, CA-185).
+ * Las 9 escenas de la historia animada de bienvenida de Capsulito (`intro_01` a `intro_09`, RF-185, RF-247, CA-185).
+ * La escena `intro_09` («el dinero») va en quinto lugar: conserva su identificador porque la locución ya publicada de cada escena no cambia.
  * Fuente única para el diálogo interactivo `<Bienvenida>`, para la guía estática sin JavaScript de `/ayuda`
  * y para el laboratorio `/ayuda/capsulito`.
  */
@@ -62,6 +63,18 @@ export const ESCENAS_BIENVENIDA: readonly EscenaBienvenida[] = [
 		texto: 'Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
 		textoVoz: '[cheerful] Cuando alguien trae cajas nuevas, registra la compra para sumar las existencias y actualizar el coste medio.',
 		icono: 'shopping-bag',
+	},
+	{
+		id: 'intro_09',
+		momento: 'bienvenida-dinero',
+		poseRiv: 'hucha',
+		expresion: 'feliz',
+		titulo: 'Así va el dinero',
+		texto:
+			'La hucha común paga las cápsulas. Tú pones dinero con una aportación y cada café descuenta de tu saldo lo que cuesta. De vez en cuando, los administradores cuentan la caja para que todo cuadre.',
+		textoVoz:
+			'[cheerful] La hucha común paga las cápsulas. [excited] Tú pones dinero con una aportación y cada café descuenta de tu saldo lo que cuesta. [cheerful] De vez en cuando, los administradores cuentan la caja para que todo cuadre.',
+		icono: 'wallet',
 	},
 	{
 		id: 'intro_05',

@@ -10,6 +10,7 @@
 	import { textos } from '#lib/shared/textos';
 	import Badge from './Badge.svelte';
 	import CapsuleImage from './CapsuleImage.svelte';
+	import Confeti from './movimiento/Confeti.svelte';
 	import { cn } from './utils';
 
 	type Props = {
@@ -39,6 +40,8 @@
 		enhancer?: (formulario: HTMLFormElement) => void;
 		disabled?: boolean;
 		/** `visitante` (plan F10 D3): sin botón de invitado, sin precio ni contadores y con la acción `?/registrar`. */
+		/** Contador: cada incremento lanza el confeti de la celebración (RF-243). Lo sube la página cuando el servidor confirma el registro. */
+		celebrar?: number;
 		modo?: 'miembro' | 'visitante';
 		class?: string;
 	};
@@ -59,6 +62,7 @@
 		enhancer = () => {},
 		disabled = false,
 		modo = 'miembro',
+		celebrar = 0,
 		class: className,
 	}: Props = $props();
 
@@ -150,7 +154,7 @@
 				aria-hidden="true"
 				class="mt-auto inline-flex h-11 w-full items-center justify-center rounded-full bg-accent text-[17px] font-semibold text-on-accent shadow-sm group-hover:brightness-110"
 			>
-				+1
+				Me pongo esta
 			</span>
 		</button>
 		<span id="{uid}-meta" class="sr-only">
@@ -178,6 +182,7 @@
 			</button>
 		{/if}
 	</form>
+	<Confeti disparo={celebrar} />
 </li>
 
 <style>

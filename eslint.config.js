@@ -54,6 +54,9 @@ export default ts.config(
 			'@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
 			'@typescript-eslint/no-explicit-any': 'error',
 			'@typescript-eslint/no-non-null-assertion': 'error',
+			// `execCommand('copy')` es el único respaldo para copiar un enlace cuando la app se abre por http y `navigator.clipboard` no existe
+			// (RF-238, `CopyField.svelte`). Se permite solo ese método; el resto de APIs obsoletas siguen prohibidas.
+			'@typescript-eslint/no-deprecated': ['error', { allow: [{ from: 'lib', name: 'execCommand' }] }],
 			'@typescript-eslint/ban-ts-comment': ['error', { 'ts-expect-error': true, 'ts-ignore': true, 'ts-nocheck': true, 'ts-check': false }],
 			// Los números son texto seguro en una plantilla; el resto de la regla sigue activa.
 			'@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],

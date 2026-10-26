@@ -23,6 +23,10 @@ describe('catálogo de avisos (RF-101, plan D1)', () => {
 		expect(CATALOGO.aportacion_en_tu_nombre.destinatarios).toBe('persona');
 	});
 
+	it('CA-246: recuento va a todas las personas y es desactivable', () => {
+		expect(CATALOGO.recuento).toEqual({ destinatarios: 'todos', desactivable: true });
+	});
+
 	it('está congelado', () => {
 		expect(Object.isFrozen(CATALOGO)).toBe(true);
 	});
@@ -97,5 +101,75 @@ describe('construirMensaje', () => {
 			expect(causa).toBeInstanceOf(ZodError);
 			expect(JSON.stringify(causa)).not.toContain('secreto-123');
 		}
+	});
+});
+
+describe('construirMensaje de recuento (RF-246, CA-246)', () => {
+	const base = { recuentoId: ULID, accion: 'registrado', fecha: '2026-10-26', importe: 0, personas: 0, minimo: 0, maximo: 0 };
+
+	it('CA-246: un faltante da el reparto con la cantidad por persona y enlaza a Saldos', () => {
+		const mensaje = construirMensaje('recuento', {
+			...base,
+			lineas: [{ nombreTipo: 'Ristretto', diferencia: -3 }],
+			importe: 105,
+			personas: 8,
+			minimo: 13,
+			maximo: 13,
+		});
+
+		expect(mensaje).toEqual({
+			titulo: 'Recuento del 26/10',
+			texto: 'Faltaban 3 Ristretto; 1,05 € repartidos entre 8 personas (0,13 € cada una)',
+			enlace: '/saldos',
+		});
+	});
+
+	it('CA-246: con céntimos distintos por persona da el rango', () => {
+		const { texto } = construirMensaje('recuento', {
+			...base,
+			lineas: [{ nombreTipo: 'Ristretto', diferencia: -3 }],
+			importe: 105,
+			personas: 8,
+			minimo: 13,
+			maximo: 14,
+		});
+
+		expect(texto).toBe('Faltaban 3 Ristretto; 1,05 € repartidos entre 8 personas (entre 0,13 y 0,14 € cada una)');
+	});
+
+	it('CA-246: un sobrante no tiene cargos', () => {
+		const { texto } = construirMensaje('recuento', { ...base, lineas: [{ nombreTipo: 'Lungo', diferencia: 2 }] });
+
+		expect(texto).toBe('Sobraban 2 Lungo; sin cargos');
+	});
+
+	it('CA-246: faltantes y sobrantes dan las dos partes separadas por «. »', () => {
+		const { texto } = construirMensaje('recuento', {
+			...base,
+			lineas: [
+				{ nombreTipo: 'Ristretto', diferencia: -3 },
+				{ nombreTipo: 'Lungo', diferencia: 2 },
+			],
+			importe: 105,
+			personas: 8,
+			minimo: 13,
+			maximo: 13,
+		});
+
+		expect(texto).toBe('Faltaban 3 Ristretto; 1,05 € repartidos entre 8 personas (0,13 € cada una). Sobraban 2 Lungo');
+	});
+
+	it('CA-246: la anulación dice que los cargos ya no cuentan', () => {
+		const { texto } = construirMensaje('recuento', { ...base, accion: 'anulado', lineas: [{ nombreTipo: 'Ristretto', diferencia: -3 }] });
+
+		expect(texto).toBe('Se anuló el recuento de Ristretto del 26/10; sus cargos ya no cuentan');
+	});
+
+	it('CA-246: rechaza campos de más, líneas vacías y diferencias nulas', () => {
+		const lineas = [{ nombreTipo: 'Ristretto', diferencia: -3 }];
+
+		expect(() => validarDatos('recuento', { ...base, lineas, correo: 'a@b.c' })).toThrow(ZodError);
+		expect(() => validarDatos('recuento', { ...base, lineas: [] })).toThrow(ZodError);
+		expect(() => validarDatos('recuento', { ...base, lineas: [{ nombreTipo: 'Ristretto', diferencia: 0 }] })).toThrow(ZodError);
 	});
 });

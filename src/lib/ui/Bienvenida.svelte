@@ -9,6 +9,7 @@
 	import Sparkles from '@lucide/svelte/icons/sparkles';
 	import Volume2 from '@lucide/svelte/icons/volume-2';
 	import VolumeX from '@lucide/svelte/icons/volume-x';
+	import Wallet from '@lucide/svelte/icons/wallet';
 	import type { ResolvedPathname } from '$app/types';
 	import { Dialog } from 'bits-ui';
 	import { ESCENAS_BIENVENIDA, type IconoBienvenida } from '#lib/shared/mascota/bienvenida';
@@ -42,6 +43,7 @@
 		droplets: Droplets,
 		award: Award,
 		sparkles: Sparkles,
+		wallet: Wallet,
 	};
 	const escenas = ESCENAS_BIENVENIDA.map((escena) => ({ ...escena, icon: iconos[escena.icono] }));
 	let paso = $state(0);
@@ -94,7 +96,7 @@
 	<Dialog.Portal>
 		<Dialog.Overlay class="animate-fade-in fixed inset-0 z-50 bg-scrim" />
 		<Dialog.Content
-			class="animate-sheet-in glass-strong fixed inset-x-0 bottom-0 z-50 flex max-h-[92dvh] flex-col overflow-y-auto items-center rounded-t-sheet px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 text-center text-ink md:inset-x-auto md:bottom-auto md:left-1/2 md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-sheet md:pb-6"
+			class="animate-sheet-in glass-strong fixed inset-0 z-50 flex flex-col overflow-y-auto items-center rounded-none px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-[max(1.25rem,env(safe-area-inset-top))] md:inset-auto md:max-h-[90dvh] md:rounded-sheet md:pt-5 text-center text-ink md:inset-x-auto md:bottom-auto md:left-1/2 md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-sheet md:pb-6"
 		>
 			<div class="mb-2 flex w-full items-center justify-between gap-2">
 				<span class="text-[13px] font-medium text-ink-muted">
@@ -120,60 +122,63 @@
 				</div>
 			</div>
 
-			{#if antes && !empezada}
-				<Capsulito momento="acceso-hola" size="xl" mensaje={null} />
-				<Dialog.Title class="type-title-lg mt-4">Conoce a Capsulito</Dialog.Title>
-				<Dialog.Description class="mt-2 max-w-xs text-[15px] leading-5 text-ink-muted">
-					Te cuento en un minuto cómo funciona beCafé. Si activas la voz, Capsulito te lo cuenta en alto.
-				</Dialog.Description>
-				<div class="mt-5 grid w-full grid-cols-1 gap-3">
-					<Button size="lg" onclick={empezar}>Empezar</Button>
-					<Button variant="ghost" onclick={cerrar}>Saltar</Button>
-				</div>
-			{:else}
-				{#if actual}
-					{#key paso}
-						<Capsulito
-							momento={actual.momento}
-							poseRiv={actual.poseRiv}
-							expresion={actual.expresion}
-							{nombre}
-							size="xl"
-							bocadillo="arriba"
-							fallback={iconoGrande}
-						/>
-					{/key}
-					<Dialog.Title class="type-title-lg mt-4">{actual.titulo}</Dialog.Title>
+			<!-- En móvil la hoja ocupa toda la pantalla y su contenido queda centrado en vertical. -->
+			<div class="flex w-full flex-1 flex-col items-center justify-center">
+				{#if antes && !empezada}
+					<Capsulito momento="acceso-hola" size="xl" mensaje={null} />
+					<Dialog.Title class="type-title-lg mt-4">Conoce a Capsulito</Dialog.Title>
 					<Dialog.Description class="mt-2 max-w-xs text-[15px] leading-5 text-ink-muted">
-						{actual.texto}
+						Te cuento en un minuto cómo funciona beCafé. Si activas la voz, Capsulito te lo cuenta en alto.
 					</Dialog.Description>
-				{/if}
-
-				<div class="mt-4 flex gap-1.5" role="img" aria-label="Paso {paso + 1} de {escenas.length}">
-					{#each escenas as escena, i (escena.id)}
-						<span class={['h-2 rounded-full motion-safe:transition-all', i === paso ? 'w-6 bg-accent' : 'w-2 bg-ink-muted/40'].join(' ')}
-						></span>
-					{/each}
-				</div>
-
-				<div class={['mt-5 grid w-full gap-3', paso > 0 && !(antes && ultimo && visitante) ? 'grid-cols-2' : 'grid-cols-1'].join(' ')}>
-					{#if paso > 0}
-						<Button variant="soft" size="lg" onclick={() => (paso = Math.max(0, paso - 1))}>Anterior</Button>
+					<div class="mt-5 grid w-full grid-cols-1 gap-3">
+						<Button size="lg" onclick={empezar}>Empezar</Button>
+						<Button variant="ghost" onclick={cerrar}>Saltar</Button>
+					</div>
+				{:else}
+					{#if actual}
+						{#key paso}
+							<Capsulito
+								momento={actual.momento}
+								poseRiv={actual.poseRiv}
+								expresion={actual.expresion}
+								{nombre}
+								size="xl"
+								bocadillo="arriba"
+								fallback={iconoGrande}
+							/>
+						{/key}
+						<Dialog.Title class="type-title-lg mt-4">{actual.titulo}</Dialog.Title>
+						<Dialog.Description class="mt-2 max-w-xs text-[15px] leading-5 text-ink-muted">
+							{actual.texto}
+						</Dialog.Description>
 					{/if}
-					{#if ultimo && antes}
-						{#if visitante}
-							<Button size="lg" onclick={cerrar}>Soy visitante</Button>
-							{#if hrefEntrar}<a href={hrefEntrar} class={buttonClasses('soft', 'lg')}>Entrar</a>{/if}
-						{:else}
-							<Button size="lg" onclick={cerrar}>Entrar</Button>
+
+					<div class="mt-4 flex gap-1.5" role="img" aria-label="Paso {paso + 1} de {escenas.length}">
+						{#each escenas as escena, i (escena.id)}
+							<span class={['h-2 rounded-full motion-safe:transition-all', i === paso ? 'w-6 bg-accent' : 'w-2 bg-ink-muted/40'].join(' ')}
+							></span>
+						{/each}
+					</div>
+
+					<div class={['mt-5 grid w-full gap-3', paso > 0 && !(antes && ultimo && visitante) ? 'grid-cols-2' : 'grid-cols-1'].join(' ')}>
+						{#if paso > 0}
+							<Button variant="soft" size="lg" onclick={() => (paso = Math.max(0, paso - 1))}>Anterior</Button>
 						{/if}
-					{:else if ultimo}
-						<Button size="lg" onclick={cerrar}>¡A por el café!</Button>
-					{:else}
-						<Button size="lg" onclick={() => (paso = paso + 1)}>Siguiente</Button>
-					{/if}
-				</div>
-			{/if}
+						{#if ultimo && antes}
+							{#if visitante}
+								<Button size="lg" onclick={cerrar}>Soy visitante</Button>
+								{#if hrefEntrar}<a href={hrefEntrar} class={buttonClasses('soft', 'lg')}>Entrar</a>{/if}
+							{:else}
+								<Button size="lg" onclick={cerrar}>Entrar</Button>
+							{/if}
+						{:else if ultimo}
+							<Button size="lg" onclick={cerrar}>¡A por el café!</Button>
+						{:else}
+							<Button size="lg" onclick={() => (paso = paso + 1)}>Siguiente</Button>
+						{/if}
+					</div>
+				{/if}
+			</div>
 		</Dialog.Content>
 	</Dialog.Portal>
 </Dialog.Root>

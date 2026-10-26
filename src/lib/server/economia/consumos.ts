@@ -4,6 +4,7 @@ import { leerConfiguracion } from '#lib/server/configuracion';
 import { leerTipo, listarTipos } from '#lib/server/catalogo';
 import { buscarUsuarioPorId } from '#lib/server/usuarios';
 import { registrarAviso } from '#lib/server/notificaciones';
+import { inicioDeVentanaDias } from '#lib/shared/fechas/meses';
 import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import {
 	enTransaccion,
@@ -19,7 +20,9 @@ import {
 import { textos } from '#lib/shared/textos';
 import { avisoEconomia, consumo, existencia } from './esquema';
 import { anotarMovimientos, anularMovimientosDe } from './libro';
+import { contarConsumos } from './consultas-estadisticas';
 import { precioDeConsumo } from './dominio/coste-medio';
+import { ordenarTiposInicio } from './dominio/orden-inicio';
 import { estimarDias, inicioVentanaEstimacion, type EstimacionDias } from './dominio/stock';
 import { fijarStock, leerExistenciaTx } from './existencias';
 import { comprobarPermisoAnulacion, datosAnulacion, exigirAnulacionAplicada } from './anulaciones';
@@ -50,6 +53,8 @@ export type ResultadoConsumo = { id: string; precio: number; descuadre: boolean;
 export type TipoRegistrable = {
 	id: string;
 	nombre: string;
+	/** Nombre sin mayúsculas ni tildes: el desempate alfabético del orden de Inicio (RN-090). */
+	nombreNormalizado: string;
 	marca: string;
 	intensidad: number | null;
 	color: string;
@@ -194,6 +199,7 @@ export function leerTiposRegistrables(db: Ejecutor, actor: Actor | undefined, ah
 				{
 					id: tipo.id,
 					nombre: tipo.nombre,
+					nombreNormalizado: tipo.nombreNormalizado,
 					marca: tipo.marca,
 					intensidad: tipo.intensidad,
 					color: tipo.color,
@@ -207,6 +213,26 @@ export function leerTiposRegistrables(db: Ejecutor, actor: Actor | undefined, ah
 				},
 			];
 		});
+}
+
+/** Días de la ventana que ordena las cápsulas de Inicio (RN-090). */
+const DIAS_ORDEN_INICIO = 30;
+
+/** Tipos registrables en el orden de Inicio: más consumidos por la persona en 30 días, o por el departamento si no tiene ninguno (RN-090). */
+export function leerTiposInicio(db: Ejecutor, actor: Actor | undefined, ahora: string): TipoRegistrable[] {
+	const autor = exigirSesion(actor);
+	const tipos = leerTiposRegistrables(db, actor, ahora);
+	const desde = inicioDeVentanaDias(esquemaInstanteUtc.parse(ahora), DIAS_ORDEN_INICIO);
+	// El límite superior es el máximo posible: un toque nunca queda en el futuro (RF-018), así que no hace falta recortarlo a `ahora`.
+	const hasta = '9999-12-31T23:59:59.999Z';
+	const contar = (usuarioId?: string) => {
+		const cuentas = new Map<string, number>();
+		for (const item of contarConsumos(db, { desde, hasta, usuarioId })) {
+			cuentas.set(item.tipoCapsulaId, (cuentas.get(item.tipoCapsulaId) ?? 0) + 1);
+		}
+		return cuentas;
+	};
+	return ordenarTiposInicio(tipos, contar(autor.usuarioId), contar());
 }
 
 /** Consumos vigentes de la persona dentro del plazo de autoanulación: «Tus últimos consumos» (plan D4). */

@@ -130,4 +130,46 @@ describe('CapsuleTile (RF-183, CA-183)', () => {
 		expect(container.textContent).not.toContain('Quedan pocas');
 		expect(container.querySelector('input[name="sinStock"]')).toBeNull();
 	});
+
+	it('CA-243: con el confeti a la vista, el botón propio, el de invitado y otro elemento siguen recibiendo los toques', async () => {
+		const envios: string[] = [];
+		const enhancer = (formulario: HTMLFormElement) => {
+			formulario.addEventListener('submit', (evento) => {
+				evento.preventDefault();
+				const emisor = evento instanceof SubmitEvent ? evento.submitter : null;
+				envios.push(emisor instanceof HTMLButtonElement ? emisor.value : '?');
+			});
+		};
+		const { container } = await render(CapsuleTile, {
+			tipoId: TIPO_ID,
+			clienteId: CLIENTE_ID,
+			name: 'Lungo',
+			stock: 20,
+			threshold: 5,
+			priceCents: 35,
+			color: '#3b2a6b',
+			celebrar: 1,
+			enhancer,
+		});
+		expect(container.querySelector('[data-confeti]')).not.toBeNull();
+
+		await page.getByRole('button', { name: 'Registrar Lungo', exact: true }).click();
+		await page.getByRole('button', { name: 'Registrar Lungo para un invitado', exact: true }).click();
+
+		expect(envios).toEqual(['0', '1']);
+	});
+
+	it('CA-243: sin celebración no hay capa de confeti', async () => {
+		const { container } = await render(CapsuleTile, {
+			tipoId: TIPO_ID,
+			clienteId: CLIENTE_ID,
+			name: 'Lungo',
+			stock: 20,
+			threshold: 5,
+			priceCents: 35,
+			color: '#3b2a6b',
+		});
+
+		expect(container.querySelector('[data-confeti]')).toBeNull();
+	});
 });

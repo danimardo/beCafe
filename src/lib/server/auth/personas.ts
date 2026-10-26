@@ -13,8 +13,8 @@ export type PersonaAdmin = {
 	rol: Rol;
 	estado: Estado;
 	tieneContrasena: boolean;
-	/** Solo en la ficha de una persona (RF-208). */
-	fotoUrl?: string | null;
+	/** Dirección de su foto (RF-208); `null` si no tiene. El listado y la ficha la incluyen. */
+	fotoUrl: string | null;
 };
 export type ListadoPersonas = { personas: PersonaAdmin[]; administradoresActivos: number };
 
@@ -39,6 +39,7 @@ export function listarPersonas(db: Ejecutor, actor: Actor): ListadoPersonas {
 			rol: persona.rol,
 			estado: persona.estado,
 			tieneContrasena: tienenContrasena.has(persona.id),
+			fotoUrl: persona.fotoRuta ? urlFotoUsuario(persona.id, persona.fotoRuta) : null,
 		})),
 		administradoresActivos: contarAdministradoresActivos(db),
 	};

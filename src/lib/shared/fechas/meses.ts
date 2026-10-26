@@ -81,6 +81,18 @@ export function fechaDeMadrid(instante: InstanteUtc): FechaMadrid {
 	return esquemaFechaMadrid.parse(`${anio}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`);
 }
 
+/**
+ * Inicio de una ventana de `dias` días naturales de Madrid que termina en el día de `ahora` (incluido): las 00:00 de Madrid
+ * del día `hoy − (dias − 1)`. Con `dias = 30`, hoy y los 29 días anteriores (RN-090).
+ */
+export function inicioDeVentanaDias(ahora: InstanteUtc, dias: number): InstanteUtc {
+	if (!Number.isInteger(dias) || dias < 1) throw new RangeError('La ventana necesita al menos un día');
+	const { anio, mes, dia } = partesMadrid(Date.parse(ahora));
+	// `Date.UTC` normaliza un día ≤ 0 al mes anterior, así que restar días es seguro.
+	const objetivo = new Date(Date.UTC(anio, mes - 1, dia - (dias - 1)));
+	return aInstante(medianocheMadrid(objetivo.getUTCFullYear(), objetivo.getUTCMonth() + 1, objetivo.getUTCDate()));
+}
+
 /** Meses de Madrid desde `desde` hasta `hasta`, ambos incluidos, en orden. */
 /** Mes natural anterior a `mes`. */
 export function mesAnterior(mes: Mes): Mes {

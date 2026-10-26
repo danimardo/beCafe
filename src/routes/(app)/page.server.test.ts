@@ -4,11 +4,15 @@ import { buscarFrase } from '#lib/shared/mascota/frases';
 import { crearEventoAccion, desenvolverFallo } from '#lib/shared/pruebas/acciones';
 import { crearActor, crearSesion, resolverSesion, type Actor } from '#lib/server/auth';
 import { crearAzarFijo, crearEntornoPrueba, enTransaccion, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
+import { leerAvisoRecuentoPendiente, registrarAviso } from '#lib/server/notificaciones';
 import { crearUsuario } from '#lib/server/usuarios';
+import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import { darDeAltaCapsula, registrarAportacion, registrarCompra } from '#lib/server/economia';
 import { z } from 'zod';
 
-const esquemaConsumoRegistrado = z.object({ consumo: z.object({ id: z.string(), fraseId: z.string().nullable().optional() }) });
+const esquemaConsumoRegistrado = z.object({
+	consumo: z.object({ id: z.string(), fraseId: z.string().nullable().optional(), duplicado: z.boolean().optional() }),
+});
 const esquemaSaludo = z.object({ saludo: z.object({ fraseId: z.string().nullable() }) });
 const esquemaRellenoRegistrado = z.object({ rellenoId: z.string() });
 
@@ -197,10 +201,13 @@ describe('acciones de la pantalla principal', () => {
 		const ana = sesionDe('miembro', 'Marta');
 		const clienteId = nuevoId();
 
-		await consumir(ana, { tipoCapsulaId, clienteId, invitado: '0', mascota: 'si' });
+		const primera = esquemaConsumoRegistrado.parse(await consumir(ana, { tipoCapsulaId, clienteId, invitado: '0', mascota: 'si' }));
 		const reenvio = esquemaConsumoRegistrado.parse(await consumir(ana, { tipoCapsulaId, clienteId, invitado: '0', mascota: 'si' }));
 
 		expect(reenvio.consumo.fraseId ?? null).toBeNull();
+		// CA-243: solo el primer envío celebra; el reenvío llega marcado como duplicado.
+		expect(primera.consumo.duplicado).toBe(false);
+		expect(reenvio.consumo.duplicado).toBe(true);
 	});
 
 	it('CA-214: «?/saludo» entrega un saludo del anexo y una segunda llamada seguida devuelve null', async () => {
@@ -299,5 +306,74 @@ describe('acciones de la pantalla principal', () => {
 				}),
 			),
 		).resolves.toMatchObject({ deshechoRelleno: true });
+	});
+
+	describe('«Entendido» en el aviso de recuento (RF-246, CA-246)', () => {
+		function avisarRecuento(): void {
+			enTransaccion(entorno.ambiente.db, (tx) =>
+				registrarAviso(tx, {
+					tipo: 'recuento',
+					instante: esquemaInstanteUtc.parse(INSTANTE),
+					datos: {
+						recuentoId: nuevoId(),
+						accion: 'registrado',
+						fecha: '2026-10-22',
+						lineas: [{ nombreTipo: 'Ristretto', diferencia: -3 }],
+						importe: 105,
+						personas: 2,
+						minimo: 52,
+						maximo: 53,
+					},
+				}),
+			);
+		}
+
+		function verAviso(actor: Actor | undefined, datos: Record<string, string>) {
+			return actions.verAviso(
+				crearEventoAccion({
+					locals: { ambiente: entorno.ambiente, actor },
+					ruta: '/(app)',
+					params: {},
+					cuerpo: new URLSearchParams(datos),
+					cabeceras: { 'content-type': 'application/x-www-form-urlencoded' },
+				}),
+			);
+		}
+
+		const pendiente = (actor: Actor) =>
+			leerAvisoRecuentoPendiente(entorno.ambiente.db, { usuarioId: actor.usuarioId }, esquemaInstanteUtc.parse(INSTANTE));
+
+		it('CA-246: marca el aviso de la persona y deja el de otra', async () => {
+			const ana = sesionDe('miembro', 'Ana');
+			const bea = sesionDe('miembro', 'Bea');
+			avisarRecuento();
+			const aviso = pendiente(ana);
+			if (!aviso) throw new Error('Ana debía recibir el aviso');
+
+			expect(await verAviso(ana, { avisoId: aviso.id })).toEqual({ avisoVisto: true });
+
+			expect(pendiente(ana)).toBeNull();
+			expect(pendiente(bea)).not.toBeNull();
+		});
+
+		it('CA-246: el aviso de otra persona no se marca', async () => {
+			const ana = sesionDe('miembro', 'Ana');
+			const bea = sesionDe('miembro', 'Bea');
+			avisarRecuento();
+			const deBea = pendiente(bea);
+			if (!deBea) throw new Error('Bea debía recibir el aviso');
+
+			await verAviso(ana, { avisoId: deBea.id });
+
+			expect(pendiente(bea)).not.toBeNull();
+		});
+
+		it('CA-246: sin sesión se rechaza y un campo de más o un identificador inválido dan 400', async () => {
+			const ana = sesionDe('miembro', 'Ana');
+
+			expect(desenvolverFallo(await verAviso(undefined, { avisoId: nuevoId() })).estado).toBe(401);
+			expect(desenvolverFallo(await verAviso(ana, { avisoId: 'no-es-un-ulid' })).estado).toBe(400);
+			expect(desenvolverFallo(await verAviso(ana, { avisoId: nuevoId(), otro: 'x' })).estado).toBe(400);
+		});
 	});
 });

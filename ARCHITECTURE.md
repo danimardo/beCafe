@@ -49,10 +49,10 @@ Decisiones que fijan esta forma: DEC-027, DEC-028, DT-050 y RT-010 en `historias
 ├─ specs/NNN-funcionalidad/  spec.md, plan.md, tasks.md y contratos de SpecKit
 ├─ drizzle/                  Migraciones SQL generadas (solo se añaden)
 ├─ tokens/tokens.json        Fuente única de los tokens de diseño
-├─ scripts/                  Scripts Node portables (tokens, comprobaciones, benchmark, build de verificación)
+├─ scripts/                  Scripts Node portables (tokens, comprobaciones, benchmark, build de verificación, voces y `generar-sonido.mjs` del sonido de celebración)
 ├─ scripts/servidor/         Comandos de servidor: recuperación de administrador (RF-139b) y siembra de datos E2E (T057)
 ├─ build-scripts/            Comandos de servidor empaquetados por `npm run build:comandos`; generado, fuera de Git
-├─ static/                   Iconos, manifiesto, pantallas de arranque de la PWA y activos de Capsulito (`mascota/riv/capsulito-entrada.riv` de la entrada, compilado desde la fuente RML de `docs/diseno/f11/rive/entrada/`)
+├─ static/                   Iconos, manifiesto, pantallas de arranque de la PWA y activos de Capsulito (`mascota/riv/capsulito-entrada.riv` de la entrada y `capsulito-reposo.riv` de los gestos de reposo, compilados desde las fuentes RML de `docs/diseno/f11/rive/entrada/` y `docs/diseno/f12/rive/reposo/`; `mascota/sonidos/celebracion.mp3`, generado una vez con `scripts/generar-sonido.mjs`)
 ├─ e2e/                      Pruebas de extremo a extremo (Playwright)
 └─ src/
    ├─ app.html · app.css · app.d.ts
@@ -62,7 +62,7 @@ Decisiones que fijan esta forma: DEC-027, DEC-028, DT-050 y RT-010 en `historias
    ├─ service-worker.ts      Caché de la aplicación y pantalla sin conexión; no envía la cola (la página la envía)
    ├─ routes/                Páginas y endpoints. Sin reglas de negocio ni SQL. `(gate)/` es la pantalla que bloquea hasta aceptar la privacidad; `(visita)/` son las pantallas de quien entra con un enlace de visitante, sin cuenta (F10)
    └─ lib/
-      ├─ ui/                 Componentes del sistema de diseño Latte y su estado visual. `avatares/` (ilustraciones SVG del avatar sin foto, F11) y `movimiento/` (acciones y estado de las microinteracciones: `sacudida`, `indicador`, `spotlight`, `cifra.svelte`, `exito.svelte`, solo CSS y JavaScript sin dependencias)
+      ├─ ui/                 Componentes del sistema de diseño Latte y su estado visual. `avatares/` (ilustraciones SVG del avatar sin foto, F11) y `movimiento/` (acciones y estado de las microinteracciones: `sacudida`, `indicador`, `spotlight`, `cifra.svelte`, `exito.svelte` y `Confeti.svelte` de la celebración al registrar, F12; solo CSS y JavaScript sin dependencias)
       ├─ client/             Código solo de navegador: cola de consumos, suscripción push, conexión
       ├─ shared/             Funciones puras y contratos compartidos por cliente y servidor
       └─ server/
@@ -73,21 +73,21 @@ Decisiones que fijan esta forma: DEC-027, DEC-028, DT-050 y RT-010 en `historias
 
 **Dónde coloco…**
 
-| Código nuevo                                                   | Ubicación                                                                                                                     |
-| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Una regla de negocio (cálculo, validación de estado, permiso)  | `src/lib/server/<modulo>/`, en el módulo dueño de la regla                                                                    |
-| Un cálculo puro con dinero o fechas del dominio                | `src/lib/server/<modulo>/dominio/`                                                                                            |
-| Una tabla nueva                                                | `src/lib/server/<modulo>/esquema.ts` del módulo dueño, y una migración en `drizzle/`                                          |
-| Una pantalla o acción de formulario                            | `src/routes/…/+page.svelte` y `+page.server.ts`                                                                               |
-| Un endpoint JSON                                               | `src/routes/api/…/+server.ts`, solo para clientes sin formulario (cola sin conexión, suscripción push, registro del cliente)  |
-| Una pantalla para quien entra sin cuenta (enlace de visitante) | `src/routes/(visita)/…`; su sesión de visita la resuelve `hooks.server.ts` con `auth`, no con una cuenta                      |
-| Un componente visual reutilizable                              | `src/lib/ui/`, exportado en `src/lib/ui/index.ts`                                                                             |
-| Catálogo de poses, frases y lip-sync puro de Capsulito         | `src/lib/shared/mascota/` (`frases.ts`: las 160 frases de registro y saludo, F11)                                             |
-| Una microinteracción visual (sacudida, indicador, brillo)      | `src/lib/ui/movimiento/`; sus clases y tokens `--motion-*` en `src/app.css`. Siempre desactivada con `prefers-reduced-motion` |
-| Una preferencia que vale para todas las personas, en Ajustes   | `src/routes/(app)/ajustes/`; Perfil conserva datos, foto, contraseña y sesiones                                               |
-| Un esquema de entrada usado por cliente y servidor             | `src/lib/shared/contratos/`                                                                                                   |
-| Formato de importes o fechas para mostrar                      | `src/lib/shared/`                                                                                                             |
-| Una tarea programada                                           | Una función en el módulo dueño; su registro en `src/lib/server/arranque.ts`                                                   |
+| Código nuevo                                                   | Ubicación                                                                                                                                        |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Una regla de negocio (cálculo, validación de estado, permiso)  | `src/lib/server/<modulo>/`, en el módulo dueño de la regla                                                                                       |
+| Un cálculo puro con dinero o fechas del dominio                | `src/lib/server/<modulo>/dominio/`                                                                                                               |
+| Una tabla nueva                                                | `src/lib/server/<modulo>/esquema.ts` del módulo dueño, y una migración en `drizzle/`                                                             |
+| Una pantalla o acción de formulario                            | `src/routes/…/+page.svelte` y `+page.server.ts`                                                                                                  |
+| Un endpoint JSON                                               | `src/routes/api/…/+server.ts`, solo para clientes sin formulario (cola sin conexión, suscripción push, registro del cliente)                     |
+| Una pantalla para quien entra sin cuenta (enlace de visitante) | `src/routes/(visita)/…`; su sesión de visita la resuelve `hooks.server.ts` con `auth`, no con una cuenta                                         |
+| Un componente visual reutilizable                              | `src/lib/ui/`, exportado en `src/lib/ui/index.ts`                                                                                                |
+| Catálogo de poses, frases y lip-sync puro de Capsulito         | `src/lib/shared/mascota/` (`frases.ts`: las 160 frases de registro y saludo, F11; `reposo.ts`: los gestos de reposo según el tiempo quieta, F12) |
+| Una microinteracción visual (sacudida, indicador, brillo)      | `src/lib/ui/movimiento/`; sus clases y tokens `--motion-*` en `src/app.css`. Siempre desactivada con `prefers-reduced-motion`                    |
+| Una preferencia que vale para todas las personas, en Ajustes   | `src/routes/(app)/ajustes/`; Perfil conserva datos, foto, contraseña y sesiones                                                                  |
+| Un esquema de entrada usado por cliente y servidor             | `src/lib/shared/contratos/`                                                                                                                      |
+| Formato de importes o fechas para mostrar                      | `src/lib/shared/`                                                                                                                                |
+| Una tarea programada                                           | Una función en el módulo dueño; su registro en `src/lib/server/arranque.ts`                                                                      |
 
 ## 3. Módulos de servidor
 
@@ -106,7 +106,7 @@ Cada módulo agrupa un lenguaje y sus reglas. Un módulo **no** es una funcional
 | `estadisticas`   | Estadísticas de consumo personales y del departamento por periodo (mes, últimos 3 o 12 meses, año o desde el principio), con visitantes aparte y evolución de la hucha (F10)                                                                                                                                                                                              | —                                                                                                                                                                                                                  | Apoyo      |
 | `copias`         | `VACUUM INTO`, empaquetado, subida a S3, pruebas de restauración                                                                                                                                                                                                                                                                                                          | `copia_seguridad`, `prueba_restauracion`                                                                                                                                                                           | Genérico   |
 
-`economia` es el núcleo porque sus invariantes están entrelazadas: coste medio, stock, cargos y repartos cambian juntos y con dinero. Solo `economia` tiene un subdirectorio `dominio/` obligatorio con funciones puras (`coste-medio`, `repartos`). Los demás módulos usan operaciones directas y crean `dominio/` solo cuando una regla pura lo justifica (por ejemplo, los tramos de RN-074 en `notificaciones`).
+`economia` es el núcleo porque sus invariantes están entrelazadas: coste medio, stock, cargos y repartos cambian juntos y con dinero. Solo `economia` tiene un subdirectorio `dominio/` obligatorio con funciones puras (`coste-medio`, `repartos`, `orden-inicio`). Los demás módulos usan operaciones directas y crean `dominio/` solo cuando una regla pura lo justifica (por ejemplo, los tramos de RN-074 en `notificaciones`).
 
 **Separación de `tipo_capsula` (plan F2, D1):** las columnas de stock y de umbral están en `existencia`, con dueño `economia`. `catalogo` escribe solo `tipo_capsula`. `economia` orquesta las altas, las ediciones de umbral, las retiradas y los borrados, y llama a `catalogo` con `tx` (plan F2, D2). Así `catalogo` no importa `economia` y el grafo no tiene ciclos. Recogido en `historias.md` §10.4 con el CAMBIO-015 (0.15.0).
 

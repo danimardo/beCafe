@@ -13,6 +13,7 @@
 		"vite.comandos.config.ts",
 		"scripts/servidor",
 		"scripts/copias",
-		"scripts/voces-interactivo.test.ts"
+		"scripts/voces-interactivo.test.ts",
+		"scripts/generar-sonido.test.ts"
 	]
 }

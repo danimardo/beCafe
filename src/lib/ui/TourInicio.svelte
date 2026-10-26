@@ -95,8 +95,8 @@
 	>
 		<p class="text-[12px] font-semibold uppercase tracking-wide text-ink-muted">Paso {indice + 1} de {pasos.length}</p>
 		<div class="mt-1 flex items-start gap-3">
-			<!-- Imagen decorativa: el texto del paso contiene siempre el mensaje completo (constitución XVIII). -->
-			<Capsulito pose={paso.pose} size="sm" modo="svg" mensaje={null} />
+			<!-- Imagen decorativa: el texto del paso contiene siempre el mensaje completo (constitución XVIII). Es el Capsulito que habla en el tour (RF-240): con Rive mueve la boca; sin él, queda la imagen. -->
+			<Capsulito pose={paso.pose} size="sm" modo="rive" mensaje={null} />
 			<div class="min-w-0 flex-1">
 				<h2 id="{uid}-titulo" class="text-[17px] font-semibold">{paso.titulo}</h2>
 				<p id="{uid}-texto" class="mt-1 text-[15px] leading-6 text-ink-muted">{paso.texto}</p>

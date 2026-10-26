@@ -1,5 +1,5 @@
 import { and, desc, eq, gte, isNull } from 'drizzle-orm';
-import { enTransaccion, type Ambiente, type Ejecutor } from '#lib/server/plataforma';
+import { enTransaccion, registrar, type Ambiente, type Ejecutor } from '#lib/server/plataforma';
 import { esquemaInstanteUtc, instanteDesdeFecha, type InstanteUtc } from '#lib/shared/fechas/tipos';
 import { construirMensaje, type MensajeAviso } from './catalogo';
 import { notificacion, type TipoNotificacion } from './esquema';
@@ -63,6 +63,32 @@ export function leerPanel(db: Ejecutor, persona: PersonaPanel, ahora: InstanteUt
 	};
 }
 
+/** Último aviso de recuento sin ver de la persona en la ventana de 30 días: el que Inicio muestra una vez (RF-246). */
+export function leerAvisoRecuentoPendiente(
+	db: Ejecutor,
+	persona: PersonaPanel,
+	ahora: InstanteUtc,
+): { id: string; titulo: string; texto: string } | null {
+	const fila = db
+		.select({ id: notificacion.id, datos: notificacion.datos })
+		.from(notificacion)
+		.where(
+			and(
+				eq(notificacion.usuarioId, persona.usuarioId),
+				eq(notificacion.tipo, 'recuento'),
+				isNull(notificacion.vistaEn),
+				gte(notificacion.creadaEn, inicioDeVentana(ahora)),
+			),
+		)
+		.orderBy(desc(notificacion.creadaEn))
+		.limit(1)
+		.get();
+	if (!fila) return null;
+	const datos: unknown = JSON.parse(fila.datos);
+	const { titulo, texto } = construirMensaje('recuento', datos);
+	return { id: fila.id, titulo, texto };
+}
+
 /** Número de avisos de los últimos 30 días que la persona no ha abierto. */
 export function contarNuevos(db: Ejecutor, persona: PersonaPanel, ahora: InstanteUtc): number {
 	return db
@@ -86,4 +112,20 @@ export function marcarVistos(ambiente: Ambiente, persona: PersonaPanel): number 
 				.where(and(eq(notificacion.usuarioId, persona.usuarioId), isNull(notificacion.vistaEn)))
 				.run().changes,
 	);
+}
+
+/** Marca como visto un aviso concreto de la persona («Entendido» de Inicio). Un aviso ajeno o ya visto no cambia nada. */
+export function marcarVisto(ambiente: Ambiente, persona: PersonaPanel, avisoId: string): boolean {
+	const ahora = ambiente.reloj.ahora();
+	const cambiados = enTransaccion(
+		ambiente.db,
+		(tx) =>
+			tx
+				.update(notificacion)
+				.set({ vistaEn: ahora })
+				.where(and(eq(notificacion.id, avisoId), eq(notificacion.usuarioId, persona.usuarioId), isNull(notificacion.vistaEn)))
+				.run().changes,
+	);
+	if (cambiados > 0) registrar('aviso.visto', { avisoId });
+	return cambiados > 0;
 }

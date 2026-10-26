@@ -6,7 +6,7 @@ import { nombreUnico } from '../fixtures/capsulas';
 import { crearEnlaceVisitante } from '../fixtures/visitantes';
 import { activarPersona, darDeAltaYLeerEnlace } from '../fixtures/usuarios';
 
-// F9/F10: navegación adaptable, tarjetas de cápsula con ilustración, mascota Capsulito, bienvenida de 8 escenas y laboratorio (CA-182 a CA-188, EV-101, EV-102).
+// F9/F10: navegación adaptable, tarjetas de cápsula con ilustración, mascota Capsulito, bienvenida de 9 escenas y laboratorio (CA-182 a CA-188, EV-101, EV-102).
 
 test('CA-182: la navegación adapta su disposición en móvil (<768 px), intermedio (768–1023 px) y escritorio (≥1024 px), y Cerrar sesión vive en Perfil', async ({
 	page,
@@ -101,7 +101,7 @@ test('CA-185, CA-186, EV-101: ocultar a Capsulito y activar su voz persisten en 
 	await expect(page.getByRole('switch', { name: 'Voz de Capsulito', exact: true })).toHaveAttribute('aria-checked', 'true');
 });
 
-test('CA-187: la bienvenida de 8 escenas se abre en la primera visita a Inicio, guarda becafe-bienvenida=vista al saltar y puede repetirse desde Perfil o Ayuda', async ({
+test('CA-187: la bienvenida de 9 escenas se abre en la primera visita a Inicio, guarda becafe-bienvenida=vista al saltar y puede repetirse desde Perfil o Ayuda', async ({
 	page,
 	servidor,
 }) => {
@@ -111,10 +111,10 @@ test('CA-187: la bienvenida de 8 escenas se abre en la primera visita a Inicio, 
 
 	const dialogo = page.getByRole('dialog');
 	await expect(dialogo).toBeVisible();
-	await expect(dialogo.getByText('Escena 1 de 8')).toBeVisible();
+	await expect(dialogo.getByText('Escena 1 de 9')).toBeVisible();
 
 	await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
-	await expect(dialogo.getByText('Escena 2 de 8')).toBeVisible();
+	await expect(dialogo.getByText('Escena 2 de 9')).toBeVisible();
 
 	await dialogo.getByRole('button', { name: 'Saltar', exact: true }).click();
 	await expect(dialogo).toHaveCount(0);
@@ -132,6 +132,26 @@ test('CA-187: la bienvenida de 8 escenas se abre en la primera visita a Inicio, 
 	await expect(page.getByRole('dialog')).toBeVisible();
 });
 
+test('CA-247: la quinta escena de la bienvenida explica cómo va el dinero, entre las compras y la hucha común', async ({
+	page,
+	servidor,
+}) => {
+	await entrarComo(page, servidor, 'miembro');
+	await page.evaluate(() => localStorage.removeItem('becafe-bienvenida'));
+	await page.goto(`${servidor.url}/`);
+
+	const dialogo = page.getByRole('dialog');
+	for (let escena = 2; escena <= 4; escena++) await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
+	await expect(dialogo.getByRole('heading', { name: 'Compras que suman' })).toBeVisible();
+
+	await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
+	await expect(dialogo.getByText('Escena 5 de 9')).toBeVisible();
+	await expect(dialogo.getByText('La hucha común paga las cápsulas.', { exact: false }).first()).toBeVisible();
+
+	await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
+	await expect(dialogo.getByRole('heading', { name: 'La hucha común' })).toBeVisible();
+});
+
 test('CA-188: el laboratorio /ayuda/capsulito permite inspeccionar poses, expresiones, escenas y formas de boca', async ({
 	page,
 	servidor,
@@ -142,7 +162,7 @@ test('CA-188: el laboratorio /ayuda/capsulito permite inspeccionar poses, expres
 	await expect(page.getByRole('heading', { name: 'Laboratorio de Capsulito', exact: true })).toBeVisible();
 	await expect(page.getByRole('heading', { name: '8 poses de Capsulito', exact: true })).toBeVisible();
 	await expect(page.getByRole('heading', { name: '6 expresiones faciales', exact: true })).toBeVisible();
-	await expect(page.getByRole('heading', { name: '8 escenas de bienvenida', exact: true })).toBeVisible();
+	await expect(page.getByRole('heading', { name: '9 escenas de bienvenida', exact: true })).toBeVisible();
 
 	await page.getByRole('button', { name: 'Modo SVG / WebP', exact: true }).click();
 	await page.getByRole('button', { name: '4 · Abierta (A)', exact: true }).click();
@@ -160,8 +180,8 @@ test('CA-195: en un dispositivo limpio, /login muestra primero la bienvenida con
 	const dialogo = pagina.getByRole('dialog');
 	await expect(dialogo.getByRole('heading', { name: 'Conoce a Capsulito' })).toBeVisible();
 	await dialogo.getByRole('button', { name: 'Empezar', exact: true }).click();
-	await expect(dialogo.getByText('Escena 1 de 8')).toBeVisible();
-	for (let escena = 2; escena <= 8; escena++) await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
+	await expect(dialogo.getByText('Escena 1 de 9')).toBeVisible();
+	for (let escena = 2; escena <= 9; escena++) await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
 	await expect(dialogo.getByRole('link', { name: 'Entrar', exact: true })).toHaveCount(0);
 	await dialogo.getByRole('button', { name: 'Entrar', exact: true }).click();
 	await expect(dialogo).toHaveCount(0);
@@ -185,7 +205,7 @@ test('CA-195: con un enlace de visitante la bienvenida termina con «Soy visitan
 	await visitante.goto(enlace);
 	const dialogo = visitante.getByRole('dialog');
 	await dialogo.getByRole('button', { name: 'Empezar', exact: true }).click();
-	for (let escena = 2; escena <= 8; escena++) await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
+	for (let escena = 2; escena <= 9; escena++) await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();
 	await expect(dialogo.getByRole('link', { name: 'Entrar', exact: true })).toHaveAttribute('href', '/login');
 	await dialogo.getByRole('button', { name: 'Soy visitante', exact: true }).click();
 	await expect(visitante.getByRole('textbox', { name: 'Tu nombre', exact: true })).toBeVisible();

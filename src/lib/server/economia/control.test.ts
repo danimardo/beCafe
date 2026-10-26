@@ -1,8 +1,10 @@
-import { asc } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type { Actor } from '#lib/server/auth';
 import { crearAzarFijo, crearEntornoPrueba, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
-import { crearUsuario } from '#lib/server/usuarios';
+import { z } from 'zod';
+import { notificacion } from '#lib/server/notificaciones';
+import { crearUsuario, usuario } from '#lib/server/usuarios';
 import { registrarAportacion } from './aportaciones';
 import { registrarCompra } from './compras';
 import {
@@ -274,5 +276,134 @@ describe('control de la hucha y del stock (CA-080 a CA-093, CA-064, CA-138)', ()
 		const [ana] = prepararMiembros(entorno.ambiente.db, 1);
 		expect(() => leerControl(entorno.ambiente.db, actorDe(ana))).toThrow('SIN_PERMISO');
 		expect(leerSaldoPropio(entorno.ambiente.db, actorDe(ana))).toBe(0);
+	});
+
+	describe('aviso de recuento (RF-246, CA-246)', () => {
+		const esquemaDatos = z.object({
+			accion: z.string(),
+			importe: z.number(),
+			personas: z.number(),
+			minimo: z.number(),
+			maximo: z.number(),
+			lineas: z.array(z.object({ diferencia: z.number() })),
+		});
+
+		function avisos() {
+			return entorno.ambiente.db
+				.select()
+				.from(notificacion)
+				.all()
+				.filter((fila) => fila.tipo === 'recuento')
+				.map((fila) => ({ usuarioId: fila.usuarioId, origenId: fila.origenId, datos: esquemaDatos.parse(JSON.parse(fila.datos)) }));
+		}
+
+		/** Hucha con saldo y un tipo con 30 cápsulas a 0,4000 € cada una. */
+		async function tipoConStock(): Promise<string> {
+			const [ana] = prepararMiembros(entorno.ambiente.db, 1);
+			dotarHucha(5000);
+			const tipo = await prepararTipo(entorno.ambiente);
+			await registrarCompra(entorno.ambiente, actorDe(ana), {
+				clienteId: nuevoId(),
+				lineas: [{ tipoCapsulaId: tipo, cantidad: 30, importe: 1200 }],
+				confirmoHuchaNegativa: false,
+			});
+			return tipo;
+		}
+
+		const recontar = (admin: Actor, tipoCapsulaId: string, contado: number, registradoPrevisto: number) =>
+			confirmarRecuento(entorno.ambiente, admin, { lineas: [{ tipoCapsulaId, contado, registradoPrevisto }], contrasenaActual: undefined });
+
+		it('CA-246: un faltante avisa a cada persona activa con el importe y el rango que coinciden con los cargos', async () => {
+			const admin = crearAdmin(entorno);
+			prepararMiembros(entorno.ambiente.db, 2);
+			const tipo = await tipoConStock();
+
+			const id = await recontar(admin, tipo, 24, 30);
+
+			const filas = avisos();
+			const activas = entorno.ambiente.db
+				.select()
+				.from(usuario)
+				.all()
+				.filter((persona) => persona.estado === 'activo');
+			expect(filas.map((fila) => fila.usuarioId).sort()).toEqual(activas.map((persona) => persona.id).sort());
+			const cargos = entorno.ambiente.db
+				.select()
+				.from(movimiento)
+				.all()
+				.filter((m) => m.tipo === 'reparto_recuento')
+				.map((m) => -m.importe);
+			const [{ datos, origenId }] = filas;
+			expect(origenId).toBe(id);
+			expect(datos).toMatchObject({ accion: 'registrado', lineas: [{ diferencia: -6 }], importe: 240, personas: activas.length });
+			expect(datos.importe).toBe(cargos.reduce((suma, cargo) => suma + cargo, 0));
+			expect(datos.maximo).toBe(Math.max(...cargos, 0));
+			expect(datos.minimo).toBe(datos.personas === cargos.length ? Math.min(...cargos) : 0);
+		});
+
+		it('CA-246: un sobrante avisa sin cargos', async () => {
+			const admin = crearAdmin(entorno);
+			const tipo = await tipoConStock();
+
+			await recontar(admin, tipo, 33, 30);
+
+			expect(avisos()[0]?.datos).toMatchObject({ lineas: [{ diferencia: 3 }], importe: 0, personas: 0, minimo: 0, maximo: 0 });
+		});
+
+		it('CA-246: un recuento sin diferencias no avisa', async () => {
+			const admin = crearAdmin(entorno);
+			const tipo = await tipoConStock();
+
+			await recontar(admin, tipo, 30, 30);
+
+			expect(avisos()).toHaveLength(0);
+		});
+
+		it('CA-246: un cambio concurrente no deja aviso', async () => {
+			const admin = crearAdmin(entorno);
+			const tipo = await tipoConStock();
+
+			await expect(recontar(admin, tipo, 24, 29)).rejects.toThrow('CAMBIO_CONCURRENTE');
+
+			expect(avisos()).toHaveLength(0);
+		});
+
+		it('CA-246: una persona de baja no recibe el aviso', async () => {
+			const admin = crearAdmin(entorno);
+			const [baja] = prepararMiembros(entorno.ambiente.db, 1);
+			const tipo = await tipoConStock();
+			entorno.ambiente.db.update(usuario).set({ estado: 'baja' }).where(eq(usuario.id, baja)).run();
+
+			await recontar(admin, tipo, 24, 30);
+
+			expect(avisos().map((fila) => fila.usuarioId)).not.toContain(baja);
+			expect(avisos().length).toBeGreaterThan(0);
+		});
+
+		it('CA-246: anular la línea avisa de nuevo con la acción «anulado»; una línea sin diferencia no avisa', async () => {
+			const admin = crearAdmin(entorno);
+			const tipo = await tipoConStock();
+			await recontar(admin, tipo, 24, 30);
+			const [linea] = entorno.ambiente.db.select().from(lineaRecuento).all();
+			const antes = avisos().length;
+
+			await anularLineaRecuento(entorno.ambiente, admin, { id: linea.id, motivo: 'Error', contrasenaActual: undefined });
+
+			const nuevos = avisos().filter((fila) => fila.datos.accion === 'anulado');
+			expect(nuevos).toHaveLength(antes);
+			expect(nuevos[0]?.datos).toMatchObject({ importe: 240, lineas: [{ diferencia: -6 }] });
+
+			// La línea sin diferencia no avisó al registrarse y tampoco avisa al anularse.
+			await recontar(admin, tipo, 30, 30);
+			const avisosAntes = avisos().length;
+			const [sinDiferencia] = entorno.ambiente.db
+				.select()
+				.from(lineaRecuento)
+				.all()
+				.filter((fila) => fila.diferencia === 0);
+			await anularLineaRecuento(entorno.ambiente, admin, { id: sinDiferencia.id, motivo: 'Error', contrasenaActual: undefined });
+			expect(sinDiferencia.diferencia).toBe(0);
+			expect(avisos()).toHaveLength(avisosAntes);
+		});
 	});
 });

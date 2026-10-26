@@ -21,6 +21,15 @@
 	const Ilustracion = $derived(usuarioId === undefined ? undefined : ILUSTRACIONES[ilustracionAvatar(usuarioId)]);
 	let fotoFallida = $state(false);
 	const mostrarFoto = $derived(fotoUrl !== null && !fotoFallida);
+
+	// Un `onerror` en la etiqueta se pintaría en el HTML del servidor como manejador en línea y la CSP lo bloquea.
+	// Se escucha al montar; si la imagen ya falló antes de hidratar, se detecta por su estado.
+	function vigilarFoto(imagen: HTMLImageElement) {
+		const fallar = () => (fotoFallida = true);
+		if (imagen.complete && imagen.naturalWidth === 0) fallar();
+		imagen.addEventListener('error', fallar);
+		return () => imagen.removeEventListener('error', fallar);
+	}
 </script>
 
 <!-- Decorativo: el nombre completo siempre aparece como texto al lado. La foto es `alt=""`; sin foto, una ilustración de un trazo; las iniciales, de respaldo. -->
@@ -34,7 +43,7 @@
 	)}
 >
 	{#if mostrarFoto}
-		<img src={fotoUrl} alt="" class="size-full object-cover" onerror={() => (fotoFallida = true)} />
+		<img src={fotoUrl} alt="" class="size-full object-cover" {@attach vigilarFoto} />
 	{:else if Ilustracion}
 		<Ilustracion />
 	{:else}

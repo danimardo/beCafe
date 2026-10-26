@@ -135,6 +135,7 @@
 - [X] T044 `ARCHITECTURE.md` (§2, §3: `frase_entregada`, `usuarios/dominio/`, `lib/ui/avatares/`, `lib/ui/movimiento/`, `/ajustes`, fuente RML), `docs/pruebas.md` (rutas en `acceso` y `a11y`, tiempo de Inicio en WebKit), `docs/diseno/` (tokens y uso del brillo y el indicador).
 - [X] T045 `a11y` completo de las pantallas tocadas en claro y oscuro (`EV-109`): Inicio con los tres estados, Ajustes, Perfil, alta de usuario, entrada y errores.
 - [X] T046 Pedir autorización y registrar en `historias.md` un CAMBIO (con respaldo en `.respaldos/`) para §10.4 (`frase_entregada`) y §10.5 (`/ajustes`, `?/saludo`).
+- [X] T048 Generación de voces en tandas (decisión de la persona usuaria del 26-10-2026, ADR-0006 «Generación en tandas»): `scripts/generar-voces.mjs` pide 3 locuciones por llamada con relleno y envoltorio, corta cada una por un silencio real con `ffmpeg`, usa el perfil «natural» de v3 y calcula la pista de labios desde las marcas de tiempo; `scripts/voces-interactivo.mjs` muestra tandas y caracteres reales y avisa si falta `ffmpeg`. Pruebas en `scripts/voces-interactivo.test.ts`.
 - [ ] T047 Benchmark completo en serie (`scripts/benchmark.sh`) y Definition of Done de `docs/pruebas.md` §20.2. Revisión manual con TalkBack (Android) de Inicio, Ajustes, la entrada y una página de error; VoiceOver pendiente por falta de iPhone.
 
 ---

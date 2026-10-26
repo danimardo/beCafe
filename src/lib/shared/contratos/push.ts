@@ -12,6 +12,7 @@ export const TIPOS_NOTIFICACION = [
 	'fallo_copia',
 	'cafe_visitante_pendiente',
 	'aportacion_en_tu_nombre',
+	'recuento',
 ] as const;
 
 /** Tipos que la persona puede desactivar. `deuda` siempre llega (RF-102). */
@@ -23,6 +24,7 @@ export const TIPOS_DESACTIVABLES = [
 	'fallo_copia',
 	'cafe_visitante_pendiente',
 	'aportacion_en_tu_nombre',
+	'recuento',
 ] as const;
 
 const esquemaEndpoint = z.url({ protocol: /^https$/ }).max(1000);

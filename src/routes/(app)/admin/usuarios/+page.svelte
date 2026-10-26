@@ -2,7 +2,19 @@
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
-	import { Banner, Button, CopyField, ListRow, PageHeader, PasswordField, PhotoField, Section, SelectField, TextField } from '#lib/ui';
+	import {
+		Avatar,
+		Banner,
+		Button,
+		CopyField,
+		ListRow,
+		PageHeader,
+		PasswordField,
+		PhotoField,
+		Section,
+		SelectField,
+		TextField,
+	} from '#lib/ui';
 	import { formatDate } from '#lib/shared/fechas/formato';
 	import { TAMANO_MAXIMO_FOTO } from '#lib/shared/contratos/capsulas';
 	import { textos } from '#lib/shared/textos';
@@ -10,6 +22,7 @@
 	type Formulario = {
 		errores?: Partial<Record<string, { mensaje: string }>>;
 		valores?: Record<string, unknown>;
+		origen?: 'alta';
 		enlace?: string;
 		expiraEn?: string;
 		confirmacion?: string;
@@ -84,16 +97,18 @@
 				{/if}
 				<div class="md:col-span-2"><Button type="submit">{textos.admin.darDeAlta}</Button></div>
 			</form>
+			{#if formulario?.enlace && formulario.origen === 'alta'}
+				<div class="mt-4 flex flex-col gap-3">
+					<p role="status">{formulario.confirmacion}</p>
+					<CopyField
+						anunciar
+						label={textos.admin.enlaceDeAcceso}
+						value={formulario.enlace}
+						hint={formulario.expiraEn ? `Caduca el ${formatDate(formulario.expiraEn, true)}.` : undefined}
+					/>
+				</div>
+			{/if}
 		</div>
-
-		{#if formulario?.enlace}
-			<p role="status">{formulario.confirmacion}</p>
-			<CopyField
-				label={textos.admin.enlaceDeAcceso}
-				value={formulario.enlace}
-				hint={formulario.expiraEn ? `Caduca el ${formatDate(formulario.expiraEn, true)}.` : undefined}
-			/>
-		{/if}
 	</Section>
 
 	<Section title={textos.admin.titulo}>
@@ -103,7 +118,9 @@
 					title={persona.nombre}
 					subtitle={`${persona.email} · ${etiquetaRol(persona.rol)} · ${persona.estado === 'baja' ? 'De baja' : 'Activa'}`}
 					href={resolve('/(app)/admin/usuarios/[usuarioId=ulid]', { usuarioId: persona.id })}
-				/>
+				>
+					{#snippet leading()}<Avatar name={persona.nombre} usuarioId={persona.id} fotoUrl={persona.fotoUrl} />{/snippet}
+				</ListRow>
 			{/each}
 		</ul>
 	</Section>

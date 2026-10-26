@@ -7,6 +7,7 @@
 	import { textos } from '#lib/shared/textos';
 	import Glass from './Glass.svelte';
 	import Button from './Button.svelte';
+	import Confeti from './movimiento/Confeti.svelte';
 
 	type Persona = { nombre: string; hace: string; esPropio: boolean };
 
@@ -24,6 +25,8 @@
 		/** Enlace de la acción de envío con JavaScript (`use:enhance`). */
 		enhancer?: (formulario: HTMLFormElement) => void;
 		/** Destino de «Ver rellenos recientes». Sin destino, el enlace no aparece. */
+		/** Contador: cada incremento lanza el confeti de la celebración (RF-243). Lo sube la página cuando el servidor confirma el registro. */
+		celebrar?: number;
 		historialHref?: ResolvedPathname;
 		class?: string;
 	};
@@ -35,6 +38,7 @@
 		clienteId,
 		enhancer = () => {},
 		historialHref,
+		celebrar = 0,
 		class: className,
 	}: Props = $props();
 
@@ -59,7 +63,7 @@
 		</div>
 	</div>
 
-	<form method="post" action="?/rellenar" use:enhancer>
+	<form method="post" action="?/rellenar" class="relative" use:enhancer>
 		<input type="hidden" name="clienteId" value={clienteId} />
 		<Button
 			type="submit"
@@ -72,6 +76,7 @@
 			<Droplets class="size-5" aria-hidden="true" />
 			{textos.rellenos.heRellenado}
 		</Button>
+		<Confeti disparo={celebrar} />
 	</form>
 
 	{#if !enConexion}

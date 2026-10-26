@@ -27,6 +27,7 @@ test('CA-208: un administrador sube y quita la foto de otra persona desde su fic
 	await page.waitForLoadState('load');
 
 	await page.getByLabel('Hacer o elegir foto').setInputFiles({ name: 'foto.jpg', mimeType: 'image/jpeg', buffer: await fotoDePrueba() });
+	await expect(page.getByRole('img', { name: 'Vista previa de la foto elegida' })).toBeVisible();
 	await page.getByRole('button', { name: 'Guardar foto', exact: true }).click();
 	await expect(page.getByText('Foto guardada.')).toBeVisible();
 	await expect(page.locator('img[src^="/fotos/usuarios/"]').last()).toBeVisible();
@@ -34,4 +35,27 @@ test('CA-208: un administrador sube y quita la foto de otra persona desde su fic
 	await page.getByRole('button', { name: 'Quitar foto', exact: true }).click();
 	await expect(page.getByText('Foto quitada.')).toBeVisible();
 	await expect(page.locator('img[src^="/fotos/usuarios/"]')).toHaveCount(0);
+});
+
+// F12 US6 (RF-242, CA-242): el listado muestra la foto de cada persona a la izquierda de su nombre; sin foto, su ilustración.
+test('CA-242: el listado de personas muestra la foto o, sin ella, la ilustración', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'administrador');
+	const conFoto = nombreUnico('ConFoto');
+	const sinFoto = nombreUnico('SinFoto');
+	await darDeAltaPersona(page, servidor, conFoto);
+	await darDeAltaPersona(page, servidor, sinFoto);
+	await page.getByRole('link', { name: conFoto }).first().click();
+	await page.waitForLoadState('load');
+	await page.getByLabel('Hacer o elegir foto').setInputFiles({ name: 'foto.jpg', mimeType: 'image/jpeg', buffer: await fotoDePrueba() });
+	await expect(page.getByRole('img', { name: 'Vista previa de la foto elegida' })).toBeVisible();
+	await page.getByRole('button', { name: 'Guardar foto', exact: true }).click();
+	await expect(page.getByText('Foto guardada.')).toBeVisible();
+
+	await page.goto(`${servidor.url}/admin/usuarios`);
+	const filaConFoto = page.getByRole('link', { name: conFoto }).first();
+	await expect(filaConFoto.locator('img[src^="/fotos/usuarios/"]')).toBeVisible();
+
+	const filaSinFoto = page.getByRole('link', { name: sinFoto }).first();
+	await expect(filaSinFoto.locator('svg').first()).toBeVisible();
+	await expect(filaSinFoto.locator('img')).toHaveCount(0);
 });

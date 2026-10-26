@@ -101,7 +101,11 @@ describe('acciones sobre una persona', () => {
 
 		const resultado = await ejecutar('generarEnlace', admin, otra, {});
 
-		const { enlace, confirmacion } = z.object({ enlace: z.string(), confirmacion: z.string() }).parse(resultado);
+		const { enlace, confirmacion, origen } = z
+			.object({ enlace: z.string(), confirmacion: z.string(), origen: z.string() })
+			.parse(resultado);
+		// CA-239: la página pinta el enlace bajo el botón del formulario que lo generó.
+		expect(origen).toBe('generarEnlace');
 		expect(enlace.startsWith(`${ORIGEN}/acceso/`)).toBe(true);
 		expect(confirmacion).toBe('Enlace generado. Cópialo y envíaselo; no se volverá a mostrar.');
 	});

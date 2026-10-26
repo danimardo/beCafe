@@ -35,6 +35,13 @@ describe('listado de personas para administración (RF-130)', () => {
 		expect(porCorreo.get('pedro@ejemplo.es')).toBe(false);
 	});
 
+	it('CA-242: el listado lleva la dirección de la foto de cada persona, o null si no tiene', () => {
+		const listado = listarPersonas(entorno.ambiente.db, admin);
+
+		expect(listado.personas.length).toBeGreaterThan(0);
+		for (const persona of listado.personas) expect(persona.fotoUrl).toBeNull();
+	});
+
 	it('RN-042: con dos administradores activos el recuento llega a dos, para no mostrar el aviso de un solo administrador', () => {
 		crearPersona(entorno.ambiente, { correo: 'marta@ejemplo.es', rol: 'administrador' });
 

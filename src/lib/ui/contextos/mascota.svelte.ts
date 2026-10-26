@@ -2,7 +2,7 @@ import { browser } from '$app/env';
 import { getContext, setContext, untrack } from 'svelte';
 import { SvelteMap } from 'svelte/reactivity';
 import { registrarDatoInvalido } from '#lib/client/registro';
-import { reproducirVozSincronizada, type ReproductorVozActiva } from '#lib/client/rive';
+import { reproducirSonido, reproducirVozSincronizada, type ReproductorVozActiva } from '#lib/client/rive';
 import {
 	CLAVE_BIENVENIDA,
 	CLAVE_MASCOTA,
@@ -16,6 +16,8 @@ import type { FormaBoca } from '#lib/shared/mascota/lip-sync';
 import { elegirVariante, formatearTextoMascota, type MomentoId, type Pose, type VarianteFrase } from '#lib/shared/mascota/momentos';
 
 const CLAVE_CONTEXTO = Symbol('mascota');
+/** Sonido corto que acompaña a cada registro confirmado por el servidor (RF-243). */
+export const RUTA_SONIDO_CELEBRACION = '/mascota/sonidos/celebracion.mp3';
 
 /**
  * Estado y preferencias de Capsulito por petición/sesión de navegador (RF-185, RF-186, RF-187; DEC-110).
@@ -38,6 +40,7 @@ export class EstadoMascota {
 	};
 	#ultimasVariantes = new SvelteMap<MomentoId, string>();
 	#reproductorActivo: ReproductorVozActiva | null = null;
+	#sonidoActivo: ReproductorVozActiva | null = null;
 
 	/** Lee `localStorage` validado con Zod y se suscribe a `prefers-reduced-motion`. Llamar en `onMount` del layout raíz. */
 	iniciar() {
@@ -111,11 +114,13 @@ export class EstadoMascota {
 	/**
 	 * Muestra una frase del anexo del servidor (RF-213, RF-214): devuelve su texto y su pose y la dice si la voz está activa.
 	 * `null` si el identificador no está en el catálogo o la mascota está oculta (no se dice nada sin mascota).
+	 * Con `celebrando`, la locución espera al sonido de celebración (RF-243).
 	 */
-	mostrarFrase(fraseId: string): { texto: string; pose: Pose } | null {
+	mostrarFrase(fraseId: string, celebrando = false): { texto: string; pose: Pose } | null {
 		const frase = buscarFrase(fraseId);
 		if (!frase || !this.visible) return null;
-		this.hablar(frase.id);
+		if (celebrando) this.celebrar(frase.id);
+		else this.hablar(frase.id);
 		return { texto: frase.texto, pose: frase.pose };
 	}
 
@@ -143,7 +148,25 @@ export class EstadoMascota {
 		});
 	}
 
+	/**
+	 * Celebra un registro confirmado por el servidor (RF-243, RF-244): suena el sonido corto y, al terminar, la locución `fraseId`.
+	 * Solo suena con Capsulito visible y la voz activa; sin ellas no hace nada (el mensaje de pantalla ya lo da la página).
+	 * Una celebración nueva corta el sonido y la locución de la anterior.
+	 */
+	celebrar(fraseId: string | null) {
+		untrack(() => {
+			if (!browser || !this.visible || !this.vozActiva) return;
+			this.detenerVoz();
+			this.#sonidoActivo = reproducirSonido(RUTA_SONIDO_CELEBRACION, () => {
+				this.#sonidoActivo = null;
+				if (fraseId) this.hablar(fraseId);
+			});
+		});
+	}
+
 	detenerVoz() {
+		this.#sonidoActivo?.detener();
+		this.#sonidoActivo = null;
 		this.#reproductorActivo?.detener();
 		this.#reproductorActivo = null;
 		this.audioEnCurso = null;

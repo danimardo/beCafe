@@ -160,7 +160,7 @@
 		</div>
 	</Section>
 
-	<Section title="8 escenas de bienvenida">
+	<Section title="9 escenas de bienvenida">
 		<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
 			{#each ESCENAS_BIENVENIDA as escena, idx (escena.id)}
 				<div class="flex flex-col justify-between gap-3 rounded-panel border border-hairline bg-wall-base p-4">
