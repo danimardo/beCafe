@@ -2,262 +2,232 @@
 	"version": 1,
 	"audio": "registro_51.mp3",
 	"texto": "Dicen que somos lo que comemos. Tú debes de ser un cafetal entero.",
-	"duration": 6.56,
+	"duration": 4.414,
 	"cues": [
 		{
-			"start": 0.2,
-			"end": 0.24,
-			"value": 6
-		},
-		{
-			"start": 0.24,
-			"end": 0.32,
+			"start": 0.399,
+			"end": 0.479,
 			"value": 1
 		},
 		{
-			"start": 0.32,
-			"end": 0.4,
+			"start": 0.479,
+			"end": 0.559,
 			"value": 6
 		},
 		{
-			"start": 0.4,
-			"end": 0.44,
+			"start": 0.559,
+			"end": 0.599,
 			"value": 1
 		},
 		{
-			"start": 0.44,
-			"end": 0.48,
+			"start": 0.599,
+			"end": 0.679,
 			"value": 6
 		},
 		{
-			"start": 0.52,
-			"end": 0.56,
+			"start": 0.799,
+			"end": 0.879,
 			"value": 6
 		},
 		{
-			"start": 0.56,
-			"end": 0.6,
-			"value": 4
-		},
-		{
-			"start": 0.6,
-			"end": 0.64,
-			"value": 1
-		},
-		{
-			"start": 0.7,
-			"end": 0.76,
-			"value": 6
-		},
-		{
-			"start": 0.76,
-			"end": 0.82,
+			"start": 0.879,
+			"end": 0.959,
 			"value": 3
 		},
 		{
-			"start": 0.82,
-			"end": 0.88,
+			"start": 0.959,
+			"end": 1.039,
 			"value": 7
 		},
 		{
-			"start": 0.88,
-			"end": 0.92,
+			"start": 1.039,
+			"end": 1.079,
 			"value": 3
 		},
 		{
-			"start": 0.92,
-			"end": 0.96,
+			"start": 1.079,
+			"end": 1.119,
 			"value": 6
 		},
 		{
-			"start": 1.013,
-			"end": 1.067,
+			"start": 1.172,
+			"end": 1.226,
 			"value": 6
 		},
 		{
-			"start": 1.067,
-			"end": 1.12,
+			"start": 1.226,
+			"end": 1.279,
 			"value": 3
 		},
 		{
-			"start": 1.14,
-			"end": 1.16,
+			"start": 1.299,
+			"end": 1.319,
 			"value": 6
 		},
 		{
-			"start": 1.16,
-			"end": 1.18,
-			"value": 4
-		},
-		{
-			"start": 1.18,
-			"end": 1.2,
-			"value": 1
-		},
-		{
-			"start": 1.26,
-			"end": 1.32,
+			"start": 1.419,
+			"end": 1.479,
 			"value": 6
 		},
 		{
-			"start": 1.32,
-			"end": 1.38,
+			"start": 1.479,
+			"end": 1.539,
 			"value": 3
 		},
 		{
-			"start": 1.38,
-			"end": 1.44,
+			"start": 1.539,
+			"end": 1.599,
 			"value": 7
 		},
 		{
-			"start": 1.44,
-			"end": 1.52,
+			"start": 1.599,
+			"end": 1.679,
 			"value": 1
 		},
 		{
-			"start": 1.52,
-			"end": 1.6,
+			"start": 1.679,
+			"end": 1.759,
 			"value": 7
 		},
 		{
-			"start": 1.6,
-			"end": 1.68,
+			"start": 1.759,
+			"end": 1.839,
 			"value": 3
 		},
 		{
-			"start": 1.68,
-			"end": 1.76,
+			"start": 1.839,
+			"end": 1.919,
 			"value": 6
 		},
 		{
-			"start": 2.24,
-			"end": 2.4,
+			"start": 2.159,
+			"end": 2.319,
 			"value": 6
 		},
 		{
-			"start": 2.4,
-			"end": 2.48,
+			"start": 2.319,
+			"end": 2.399,
 			"value": 4
 		},
 		{
-			"start": 2.52,
-			"end": 2.56,
+			"start": 2.439,
+			"end": 2.479,
 			"value": 6
 		},
 		{
-			"start": 2.56,
-			"end": 2.6,
+			"start": 2.479,
+			"end": 2.519,
 			"value": 1
 		},
 		{
-			"start": 2.6,
-			"end": 2.64,
+			"start": 2.519,
+			"end": 2.559,
 			"value": 7
 		},
 		{
-			"start": 2.64,
-			"end": 2.68,
+			"start": 2.559,
+			"end": 2.599,
 			"value": 1
 		},
 		{
-			"start": 2.68,
-			"end": 2.773,
+			"start": 2.599,
+			"end": 2.639,
 			"value": 6
 		},
 		{
-			"start": 2.773,
-			"end": 2.8,
+			"start": 2.692,
+			"end": 2.746,
+			"value": 6
+		},
+		{
+			"start": 2.746,
+			"end": 2.799,
 			"value": 1
 		},
 		{
-			"start": 2.86,
-			"end": 2.92,
+			"start": 2.839,
+			"end": 2.879,
 			"value": 6
 		},
 		{
-			"start": 2.92,
-			"end": 2.98,
+			"start": 2.879,
+			"end": 2.919,
 			"value": 1
 		},
 		{
-			"start": 2.98,
-			"end": 3.04,
+			"start": 2.919,
+			"end": 2.959,
 			"value": 6
 		},
 		{
-			"start": 3.067,
-			"end": 3.093,
+			"start": 2.986,
+			"end": 3.012,
 			"value": 4
 		},
 		{
-			"start": 3.093,
-			"end": 3.12,
+			"start": 3.012,
+			"end": 3.039,
 			"value": 6
 		},
 		{
-			"start": 3.18,
-			"end": 3.24,
+			"start": 3.099,
+			"end": 3.159,
 			"value": 6
 		},
 		{
-			"start": 3.24,
-			"end": 3.3,
+			"start": 3.159,
+			"end": 3.219,
 			"value": 2
 		},
 		{
-			"start": 3.3,
-			"end": 3.36,
+			"start": 3.219,
+			"end": 3.279,
 			"value": 5
 		},
 		{
-			"start": 3.36,
-			"end": 3.42,
+			"start": 3.279,
+			"end": 3.339,
 			"value": 1
 		},
 		{
-			"start": 3.42,
-			"end": 3.48,
+			"start": 3.339,
+			"end": 3.399,
 			"value": 6
 		},
 		{
-			"start": 3.48,
-			"end": 3.54,
+			"start": 3.399,
+			"end": 3.459,
 			"value": 2
 		},
 		{
-			"start": 3.54,
-			"end": 3.6,
+			"start": 3.459,
+			"end": 3.519,
 			"value": 6
 		},
 		{
-			"start": 3.64,
-			"end": 3.68,
+			"start": 3.579,
+			"end": 3.639,
 			"value": 1
 		},
 		{
-			"start": 3.68,
-			"end": 3.76,
+			"start": 3.639,
+			"end": 3.759,
 			"value": 6
 		},
 		{
-			"start": 3.76,
-			"end": 3.867,
+			"start": 3.759,
+			"end": 3.839,
 			"value": 1
 		},
 		{
-			"start": 3.867,
-			"end": 3.973,
+			"start": 3.839,
+			"end": 3.919,
 			"value": 6
 		},
 		{
-			"start": 3.973,
-			"end": 4.08,
+			"start": 3.919,
+			"end": 3.999,
 			"value": 3
-		},
-		{
-			"start": 4.26,
-			"end": 6.56,
-			"value": 2
 		}
 	]
 }

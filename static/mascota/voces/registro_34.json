@@ -2,222 +2,202 @@
 	"version": 1,
 	"audio": "registro_34.mp3",
 	"texto": "No te juzgo. Bueno, sí. Pero me pagan por contar cápsulas.",
-	"duration": 5.36,
+	"duration": 5.599,
 	"cues": [
 		{
-			"start": 0.213,
-			"end": 0.267,
+			"start": 0.462,
+			"end": 0.488,
 			"value": 6
 		},
 		{
-			"start": 0.267,
-			"end": 0.32,
-			"value": 3
-		},
-		{
-			"start": 0.373,
-			"end": 0.427,
-			"value": 6
-		},
-		{
-			"start": 0.427,
-			"end": 0.48,
+			"start": 0.488,
+			"end": 0.515,
 			"value": 1
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.595,
+			"end": 0.675,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.68,
+			"start": 0.675,
+			"end": 0.755,
 			"value": 4
 		},
 		{
-			"start": 0.68,
-			"end": 0.84,
+			"start": 0.755,
+			"end": 0.915,
 			"value": 6
 		},
 		{
-			"start": 0.84,
-			"end": 0.96,
+			"start": 0.915,
+			"end": 0.995,
 			"value": 3
 		},
 		{
-			"start": 1.68,
-			"end": 1.8,
+			"start": 1.811,
+			"end": 1.947,
 			"value": 7
 		},
 		{
-			"start": 1.8,
-			"end": 1.92,
+			"start": 1.947,
+			"end": 2.083,
 			"value": 4
 		},
 		{
-			"start": 1.92,
-			"end": 2.04,
+			"start": 2.083,
+			"end": 2.219,
 			"value": 1
 		},
 		{
-			"start": 2.04,
-			"end": 2.16,
+			"start": 2.219,
+			"end": 2.355,
 			"value": 6
 		},
 		{
-			"start": 2.16,
-			"end": 2.24,
+			"start": 2.355,
+			"end": 2.435,
 			"value": 3
 		},
 		{
-			"start": 2.507,
-			"end": 2.573,
+			"start": 2.755,
+			"end": 2.835,
 			"value": 6
 		},
 		{
-			"start": 2.573,
-			"end": 2.64,
+			"start": 2.835,
+			"end": 2.915,
 			"value": 1
 		},
 		{
-			"start": 2.88,
-			"end": 3.04,
+			"start": 3.347,
+			"end": 3.419,
 			"value": 7
 		},
 		{
-			"start": 3.04,
-			"end": 3.2,
+			"start": 3.419,
+			"end": 3.491,
 			"value": 1
 		},
 		{
-			"start": 3.2,
-			"end": 3.36,
+			"start": 3.491,
+			"end": 3.563,
 			"value": 6
 		},
 		{
-			"start": 3.36,
-			"end": 3.52,
+			"start": 3.563,
+			"end": 3.635,
 			"value": 3
 		},
 		{
-			"start": 3.573,
-			"end": 3.627,
+			"start": 3.662,
+			"end": 3.688,
 			"value": 7
 		},
 		{
-			"start": 3.627,
-			"end": 3.68,
+			"start": 3.688,
+			"end": 3.715,
 			"value": 1
 		},
 		{
-			"start": 3.733,
-			"end": 3.787,
+			"start": 3.768,
+			"end": 3.822,
 			"value": 7
 		},
 		{
-			"start": 3.787,
-			"end": 3.84,
+			"start": 3.822,
+			"end": 3.875,
 			"value": 2
 		},
 		{
-			"start": 3.84,
-			"end": 3.893,
+			"start": 3.875,
+			"end": 3.928,
 			"value": 6
 		},
 		{
-			"start": 3.893,
-			"end": 3.947,
+			"start": 3.928,
+			"end": 3.982,
 			"value": 2
 		},
 		{
-			"start": 3.947,
-			"end": 4,
+			"start": 3.982,
+			"end": 4.035,
 			"value": 6
 		},
 		{
-			"start": 4.04,
-			"end": 4.08,
+			"start": 4.075,
+			"end": 4.115,
 			"value": 7
 		},
 		{
-			"start": 4.08,
-			"end": 4.12,
+			"start": 4.115,
+			"end": 4.155,
 			"value": 3
 		},
 		{
-			"start": 4.12,
-			"end": 4.16,
+			"start": 4.155,
+			"end": 4.195,
 			"value": 6
 		},
 		{
-			"start": 4.206,
-			"end": 4.251,
+			"start": 4.252,
+			"end": 4.309,
 			"value": 6
 		},
 		{
-			"start": 4.251,
-			"end": 4.297,
+			"start": 4.309,
+			"end": 4.366,
 			"value": 3
 		},
 		{
-			"start": 4.297,
-			"end": 4.389,
+			"start": 4.366,
+			"end": 4.481,
 			"value": 6
 		},
 		{
-			"start": 4.389,
-			"end": 4.434,
+			"start": 4.481,
+			"end": 4.538,
 			"value": 2
 		},
 		{
-			"start": 4.434,
-			"end": 4.48,
+			"start": 4.538,
+			"end": 4.648,
 			"value": 6
 		},
 		{
-			"start": 4.533,
-			"end": 4.587,
-			"value": 6
-		},
-		{
-			"start": 4.587,
-			"end": 4.64,
+			"start": 4.648,
+			"end": 4.675,
 			"value": 2
 		},
 		{
-			"start": 4.64,
-			"end": 4.72,
+			"start": 4.675,
+			"end": 4.755,
 			"value": 7
 		},
 		{
-			"start": 4.72,
-			"end": 4.8,
+			"start": 4.755,
+			"end": 4.835,
 			"value": 6
 		},
 		{
-			"start": 4.8,
-			"end": 4.86,
+			"start": 4.835,
+			"end": 4.915,
 			"value": 4
 		},
 		{
-			"start": 4.86,
-			"end": 4.92,
+			"start": 4.915,
+			"end": 4.995,
 			"value": 6
 		},
 		{
-			"start": 4.92,
-			"end": 4.98,
+			"start": 4.995,
+			"end": 5.075,
 			"value": 2
 		},
 		{
-			"start": 4.98,
-			"end": 5.04,
+			"start": 5.075,
+			"end": 5.155,
 			"value": 6
-		},
-		{
-			"start": 5.16,
-			"end": 5.36,
-			"value": 2
 		}
 	]
 }

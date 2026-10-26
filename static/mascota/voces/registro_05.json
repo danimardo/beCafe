@@ -2,282 +2,292 @@
 	"version": 1,
 	"audio": "registro_05.mp3",
 	"texto": "El café no soluciona tus problemas, pero te pone nervioso para afrontarlos.",
-	"duration": 4.96,
+	"duration": 4.508,
 	"cues": [
 		{
-			"start": 0.224,
-			"end": 0.288,
+			"start": 0.446,
+			"end": 0.51,
 			"value": 6
 		},
 		{
-			"start": 0.288,
-			"end": 0.352,
+			"start": 0.51,
+			"end": 0.574,
 			"value": 2
 		},
 		{
-			"start": 0.352,
-			"end": 0.416,
+			"start": 0.574,
+			"end": 0.638,
 			"value": 5
 		},
 		{
-			"start": 0.416,
-			"end": 0.48,
+			"start": 0.638,
+			"end": 0.702,
 			"value": 1
 		},
 		{
-			"start": 0.507,
-			"end": 0.533,
+			"start": 0.729,
+			"end": 0.755,
 			"value": 6
 		},
 		{
-			"start": 0.533,
-			"end": 0.56,
+			"start": 0.755,
+			"end": 0.782,
 			"value": 3
 		},
 		{
-			"start": 0.62,
-			"end": 0.68,
+			"start": 0.842,
+			"end": 0.902,
 			"value": 6
 		},
 		{
-			"start": 0.68,
-			"end": 0.74,
+			"start": 0.902,
+			"end": 0.962,
 			"value": 3
 		},
 		{
-			"start": 0.74,
-			"end": 0.8,
+			"start": 0.962,
+			"end": 1.022,
 			"value": 6
 		},
 		{
-			"start": 0.8,
-			"end": 0.88,
+			"start": 1.022,
+			"end": 1.062,
 			"value": 4
 		},
 		{
-			"start": 0.88,
-			"end": 0.96,
+			"start": 1.062,
+			"end": 1.102,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1,
+			"start": 1.102,
+			"end": 1.162,
 			"value": 1
 		},
 		{
-			"start": 1,
-			"end": 1.04,
+			"start": 1.162,
+			"end": 1.222,
 			"value": 3
 		},
 		{
-			"start": 1.04,
-			"end": 1.08,
+			"start": 1.222,
+			"end": 1.282,
 			"value": 6
 		},
 		{
-			"start": 1.08,
-			"end": 1.12,
+			"start": 1.282,
+			"end": 1.342,
 			"value": 2
 		},
 		{
-			"start": 1.16,
-			"end": 1.2,
+			"start": 1.382,
+			"end": 1.422,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.24,
+			"start": 1.422,
+			"end": 1.462,
 			"value": 4
 		},
 		{
-			"start": 1.24,
-			"end": 1.28,
+			"start": 1.462,
+			"end": 1.502,
 			"value": 6
 		},
 		{
-			"start": 1.344,
-			"end": 1.408,
+			"start": 1.558,
+			"end": 1.614,
 			"value": 7
 		},
 		{
-			"start": 1.408,
-			"end": 1.472,
+			"start": 1.614,
+			"end": 1.67,
 			"value": 6
 		},
 		{
-			"start": 1.472,
-			"end": 1.536,
+			"start": 1.67,
+			"end": 1.726,
 			"value": 3
 		},
 		{
-			"start": 1.536,
-			"end": 1.6,
+			"start": 1.726,
+			"end": 1.782,
 			"value": 7
 		},
 		{
-			"start": 1.6,
-			"end": 1.664,
+			"start": 1.782,
+			"end": 1.838,
 			"value": 6
 		},
 		{
-			"start": 1.664,
-			"end": 1.728,
+			"start": 1.838,
+			"end": 1.894,
 			"value": 1
 		},
 		{
-			"start": 1.728,
-			"end": 1.792,
+			"start": 1.894,
+			"end": 1.95,
 			"value": 7
 		},
 		{
-			"start": 1.792,
-			"end": 1.856,
+			"start": 1.95,
+			"end": 2.006,
 			"value": 2
 		},
 		{
-			"start": 1.856,
-			"end": 1.92,
+			"start": 2.006,
+			"end": 2.062,
 			"value": 6
 		},
 		{
-			"start": 2.304,
-			"end": 2.368,
+			"start": 2.254,
+			"end": 2.286,
 			"value": 7
 		},
 		{
-			"start": 2.368,
-			"end": 2.432,
+			"start": 2.286,
+			"end": 2.318,
 			"value": 1
 		},
 		{
-			"start": 2.432,
-			"end": 2.496,
+			"start": 2.318,
+			"end": 2.35,
 			"value": 6
 		},
 		{
-			"start": 2.496,
-			"end": 2.56,
+			"start": 2.35,
+			"end": 2.382,
 			"value": 3
 		},
 		{
-			"start": 2.613,
-			"end": 2.667,
+			"start": 2.409,
+			"end": 2.435,
 			"value": 6
 		},
 		{
-			"start": 2.667,
-			"end": 2.72,
+			"start": 2.435,
+			"end": 2.462,
 			"value": 1
 		},
 		{
-			"start": 2.76,
-			"end": 2.8,
+			"start": 2.542,
+			"end": 2.622,
 			"value": 7
 		},
 		{
-			"start": 2.8,
-			"end": 2.853,
+			"start": 2.622,
+			"end": 2.649,
 			"value": 3
 		},
 		{
-			"start": 2.853,
-			"end": 2.907,
+			"start": 2.649,
+			"end": 2.675,
 			"value": 6
 		},
 		{
-			"start": 2.907,
-			"end": 2.96,
+			"start": 2.675,
+			"end": 2.702,
 			"value": 1
 		},
 		{
-			"start": 3.008,
-			"end": 3.056,
+			"start": 2.75,
+			"end": 2.798,
 			"value": 6
 		},
 		{
-			"start": 3.056,
-			"end": 3.104,
+			"start": 2.798,
+			"end": 2.846,
 			"value": 1
 		},
 		{
-			"start": 3.104,
-			"end": 3.152,
+			"start": 2.846,
+			"end": 2.894,
 			"value": 6
 		},
 		{
-			"start": 3.152,
-			"end": 3.2,
+			"start": 2.894,
+			"end": 2.942,
 			"value": 5
 		},
 		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 2.942,
+			"end": 3.022,
 			"value": 1
 		},
 		{
-			"start": 3.28,
-			"end": 3.36,
+			"start": 3.022,
+			"end": 3.102,
 			"value": 3
 		},
 		{
-			"start": 3.36,
-			"end": 3.44,
+			"start": 3.102,
+			"end": 3.182,
 			"value": 6
 		},
 		{
-			"start": 3.44,
-			"end": 3.52,
+			"start": 3.182,
+			"end": 3.262,
 			"value": 3
 		},
 		{
-			"start": 3.68,
-			"end": 3.76,
+			"start": 3.294,
+			"end": 3.326,
+			"value": 7
+		},
+		{
+			"start": 3.326,
+			"end": 3.358,
 			"value": 2
 		},
 		{
-			"start": 3.76,
-			"end": 3.808,
+			"start": 3.358,
+			"end": 3.39,
+			"value": 6
+		},
+		{
+			"start": 3.39,
+			"end": 3.502,
+			"value": 2
+		},
+		{
+			"start": 3.502,
+			"end": 3.55,
 			"value": 5
 		},
 		{
-			"start": 3.808,
-			"end": 3.856,
+			"start": 3.55,
+			"end": 3.598,
 			"value": 6
 		},
 		{
-			"start": 3.856,
-			"end": 3.904,
+			"start": 3.598,
+			"end": 3.646,
 			"value": 3
 		},
 		{
-			"start": 3.904,
-			"end": 4,
+			"start": 3.646,
+			"end": 3.742,
 			"value": 6
 		},
 		{
-			"start": 4,
-			"end": 4.08,
+			"start": 3.742,
+			"end": 3.782,
 			"value": 2
 		},
 		{
-			"start": 4.08,
-			"end": 4.267,
+			"start": 3.782,
+			"end": 3.902,
 			"value": 6
 		},
 		{
-			"start": 4.267,
-			"end": 4.373,
+			"start": 3.902,
+			"end": 3.982,
 			"value": 3
 		},
 		{
-			"start": 4.373,
-			"end": 4.48,
+			"start": 3.982,
+			"end": 4.062,
 			"value": 6
-		},
-		{
-			"start": 4.66,
-			"end": 4.96,
-			"value": 2
 		}
 	]
 }

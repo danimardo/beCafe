@@ -2,206 +2,206 @@
 	"version": 1,
 	"audio": "registro_49.mp3",
 	"texto": "La vida es corta. Las reuniones, inexplicablemente, no.",
-	"duration": 6.325,
+	"duration": 4.471,
 	"cues": [
 		{
-			"start": 0.208,
-			"end": 0.256,
+			"start": 0.404,
+			"end": 0.452,
 			"value": 5
 		},
 		{
-			"start": 0.256,
-			"end": 0.304,
+			"start": 0.452,
+			"end": 0.5,
 			"value": 1
 		},
 		{
-			"start": 0.304,
-			"end": 0.352,
+			"start": 0.5,
+			"end": 0.548,
 			"value": 6
 		},
 		{
-			"start": 0.352,
-			"end": 0.4,
+			"start": 0.548,
+			"end": 0.596,
 			"value": 2
 		},
 		{
-			"start": 0.453,
-			"end": 0.507,
+			"start": 0.623,
+			"end": 0.649,
 			"value": 1
 		},
 		{
-			"start": 0.507,
-			"end": 0.56,
+			"start": 0.649,
+			"end": 0.676,
 			"value": 6
 		},
 		{
-			"start": 0.608,
-			"end": 0.656,
+			"start": 0.756,
+			"end": 0.836,
 			"value": 6
 		},
 		{
-			"start": 0.656,
-			"end": 0.704,
+			"start": 0.836,
+			"end": 0.916,
 			"value": 3
 		},
 		{
-			"start": 0.704,
-			"end": 0.8,
+			"start": 0.916,
+			"end": 1.076,
 			"value": 6
 		},
 		{
-			"start": 0.8,
-			"end": 1.04,
+			"start": 1.076,
+			"end": 1.316,
 			"value": 2
 		},
 		{
-			"start": 1.44,
-			"end": 1.52,
+			"start": 1.616,
+			"end": 1.676,
 			"value": 6
 		},
 		{
-			"start": 1.52,
-			"end": 1.6,
+			"start": 1.676,
+			"end": 1.736,
 			"value": 2
 		},
 		{
-			"start": 1.6,
-			"end": 1.68,
+			"start": 1.736,
+			"end": 1.796,
 			"value": 6
 		},
 		{
-			"start": 1.76,
-			"end": 1.84,
+			"start": 1.86,
+			"end": 1.924,
 			"value": 6
 		},
 		{
-			"start": 1.84,
-			"end": 1.92,
+			"start": 1.924,
+			"end": 1.988,
 			"value": 1
 		},
 		{
-			"start": 1.92,
-			"end": 2,
+			"start": 1.988,
+			"end": 2.052,
 			"value": 4
 		},
 		{
-			"start": 2,
-			"end": 2.08,
+			"start": 2.052,
+			"end": 2.116,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.16,
+			"start": 2.116,
+			"end": 2.18,
 			"value": 1
 		},
 		{
-			"start": 2.16,
-			"end": 2.24,
+			"start": 2.18,
+			"end": 2.244,
 			"value": 3
 		},
 		{
-			"start": 2.24,
-			"end": 2.32,
+			"start": 2.244,
+			"end": 2.308,
 			"value": 6
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.308,
+			"end": 2.372,
 			"value": 1
 		},
 		{
-			"start": 2.4,
-			"end": 2.48,
+			"start": 2.372,
+			"end": 2.436,
 			"value": 6
 		},
 		{
-			"start": 2.807,
-			"end": 2.853,
+			"start": 2.743,
+			"end": 2.809,
 			"value": 1
 		},
 		{
-			"start": 2.853,
-			"end": 2.9,
+			"start": 2.809,
+			"end": 2.876,
 			"value": 6
 		},
 		{
-			"start": 2.9,
-			"end": 2.947,
+			"start": 2.876,
+			"end": 2.943,
 			"value": 1
 		},
 		{
-			"start": 2.947,
-			"end": 2.993,
+			"start": 2.943,
+			"end": 3.009,
 			"value": 6
 		},
 		{
-			"start": 2.993,
-			"end": 3.04,
+			"start": 3.009,
+			"end": 3.076,
 			"value": 7
 		},
 		{
-			"start": 3.04,
-			"end": 3.109,
+			"start": 3.076,
+			"end": 3.145,
 			"value": 6
 		},
 		{
-			"start": 3.109,
-			"end": 3.177,
+			"start": 3.145,
+			"end": 3.213,
 			"value": 1
 		},
 		{
-			"start": 3.177,
-			"end": 3.246,
+			"start": 3.213,
+			"end": 3.282,
 			"value": 6
 		},
 		{
-			"start": 3.246,
-			"end": 3.314,
+			"start": 3.282,
+			"end": 3.35,
 			"value": 2
 		},
 		{
-			"start": 3.314,
-			"end": 3.383,
+			"start": 3.35,
+			"end": 3.419,
 			"value": 7
 		},
 		{
-			"start": 3.383,
-			"end": 3.451,
+			"start": 3.419,
+			"end": 3.487,
 			"value": 6
 		},
 		{
-			"start": 3.451,
-			"end": 3.52,
+			"start": 3.487,
+			"end": 3.556,
 			"value": 1
 		},
 		{
-			"start": 3.52,
-			"end": 3.584,
+			"start": 3.556,
+			"end": 3.604,
 			"value": 7
 		},
 		{
-			"start": 3.584,
-			"end": 3.648,
+			"start": 3.604,
+			"end": 3.652,
 			"value": 1
 		},
 		{
-			"start": 3.648,
-			"end": 3.776,
+			"start": 3.652,
+			"end": 3.748,
 			"value": 6
 		},
 		{
-			"start": 3.776,
-			"end": 3.84,
+			"start": 3.748,
+			"end": 3.796,
 			"value": 1
 		},
 		{
-			"start": 4.213,
-			"end": 4.307,
+			"start": 3.929,
+			"end": 3.983,
 			"value": 6
 		},
 		{
-			"start": 4.307,
-			"end": 4.4,
+			"start": 3.983,
+			"end": 4.036,
 			"value": 3
 		}
 	]

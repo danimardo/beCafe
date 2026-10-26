@@ -2,262 +2,242 @@
 	"version": 1,
 	"audio": "registro_60.mp3",
 	"texto": "Venga, sonríe. Que las cámaras no distinguen la felicidad del sarcasmo.",
-	"duration": 6.16,
+	"duration": 4.763,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.22,
+			"start": 0.436,
+			"end": 0.516,
 			"value": 1
 		},
 		{
-			"start": 0.22,
-			"end": 0.34,
+			"start": 0.516,
+			"end": 0.676,
 			"value": 6
 		},
 		{
-			"start": 0.34,
-			"end": 0.4,
+			"start": 0.676,
+			"end": 0.756,
 			"value": 2
 		},
 		{
-			"start": 0.6,
-			"end": 0.64,
+			"start": 0.956,
+			"end": 0.996,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.68,
+			"start": 0.996,
+			"end": 1.036,
 			"value": 3
 		},
 		{
-			"start": 0.68,
-			"end": 0.8,
+			"start": 1.036,
+			"end": 1.156,
 			"value": 6
 		},
 		{
-			"start": 0.8,
-			"end": 1.12,
+			"start": 1.156,
+			"end": 1.476,
 			"value": 1
 		},
 		{
-			"start": 1.32,
-			"end": 1.36,
+			"start": 1.726,
+			"end": 1.776,
 			"value": 6
 		},
 		{
-			"start": 1.36,
-			"end": 1.4,
+			"start": 1.776,
+			"end": 1.826,
 			"value": 4
 		},
 		{
-			"start": 1.4,
-			"end": 1.44,
+			"start": 1.826,
+			"end": 1.876,
 			"value": 1
 		},
 		{
-			"start": 1.48,
-			"end": 1.52,
+			"start": 2.036,
+			"end": 2.116,
 			"value": 6
 		},
 		{
-			"start": 1.52,
-			"end": 1.56,
+			"start": 2.116,
+			"end": 2.196,
 			"value": 2
 		},
 		{
-			"start": 1.56,
-			"end": 1.6,
-			"value": 6
-		},
-		{
-			"start": 1.653,
-			"end": 1.707,
-			"value": 6
-		},
-		{
-			"start": 1.707,
-			"end": 1.76,
-			"value": 2
-		},
-		{
-			"start": 1.76,
-			"end": 1.813,
+			"start": 2.196,
+			"end": 2.223,
 			"value": 7
 		},
 		{
-			"start": 1.813,
-			"end": 1.867,
+			"start": 2.223,
+			"end": 2.249,
 			"value": 2
 		},
 		{
-			"start": 1.867,
-			"end": 1.92,
+			"start": 2.249,
+			"end": 2.276,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 1.96,
+			"start": 2.276,
+			"end": 2.356,
 			"value": 2
 		},
 		{
-			"start": 1.96,
-			"end": 2,
+			"start": 2.356,
+			"end": 2.489,
 			"value": 6
 		},
 		{
-			"start": 2.053,
-			"end": 2.107,
-			"value": 6
-		},
-		{
-			"start": 2.107,
-			"end": 2.16,
+			"start": 2.489,
+			"end": 2.516,
 			"value": 3
 		},
 		{
-			"start": 2.208,
-			"end": 2.256,
+			"start": 2.564,
+			"end": 2.612,
 			"value": 6
 		},
 		{
-			"start": 2.256,
-			"end": 2.304,
+			"start": 2.612,
+			"end": 2.66,
 			"value": 1
 		},
 		{
-			"start": 2.304,
-			"end": 2.4,
+			"start": 2.66,
+			"end": 2.756,
 			"value": 6
 		},
 		{
-			"start": 2.4,
-			"end": 2.427,
+			"start": 2.756,
+			"end": 2.809,
 			"value": 1
 		},
 		{
-			"start": 2.427,
-			"end": 2.48,
+			"start": 2.809,
+			"end": 2.916,
 			"value": 6
 		},
 		{
-			"start": 2.48,
-			"end": 2.533,
+			"start": 2.916,
+			"end": 2.943,
 			"value": 4
 		},
 		{
-			"start": 2.533,
-			"end": 2.587,
+			"start": 2.943,
+			"end": 2.969,
 			"value": 1
 		},
 		{
-			"start": 2.587,
-			"end": 2.64,
+			"start": 2.969,
+			"end": 2.996,
 			"value": 6
 		},
 		{
-			"start": 2.693,
-			"end": 2.747,
+			"start": 3.049,
+			"end": 3.103,
 			"value": 6
 		},
 		{
-			"start": 2.747,
-			"end": 2.8,
+			"start": 3.103,
+			"end": 3.156,
 			"value": 2
 		},
 		{
-			"start": 2.84,
-			"end": 2.88,
+			"start": 3.196,
+			"end": 3.236,
 			"value": 5
 		},
 		{
-			"start": 2.88,
-			"end": 2.92,
+			"start": 3.236,
+			"end": 3.276,
 			"value": 1
 		},
 		{
-			"start": 2.92,
-			"end": 2.96,
+			"start": 3.276,
+			"end": 3.316,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3,
+			"start": 3.316,
+			"end": 3.396,
 			"value": 1
 		},
 		{
-			"start": 3,
-			"end": 3.04,
+			"start": 3.396,
+			"end": 3.476,
 			"value": 6
 		},
 		{
-			"start": 3.04,
-			"end": 3.1,
+			"start": 3.476,
+			"end": 3.516,
 			"value": 1
 		},
 		{
-			"start": 3.1,
-			"end": 3.16,
+			"start": 3.516,
+			"end": 3.556,
 			"value": 6
 		},
 		{
-			"start": 3.16,
-			"end": 3.22,
+			"start": 3.556,
+			"end": 3.596,
 			"value": 2
 		},
 		{
-			"start": 3.22,
-			"end": 3.32,
+			"start": 3.596,
+			"end": 3.636,
 			"value": 6
 		},
 		{
-			"start": 3.32,
-			"end": 3.34,
+			"start": 3.676,
+			"end": 3.716,
+			"value": 6
+		},
+		{
+			"start": 3.716,
+			"end": 3.756,
 			"value": 1
 		},
 		{
-			"start": 3.34,
-			"end": 3.36,
+			"start": 3.756,
+			"end": 3.796,
 			"value": 6
 		},
 		{
-			"start": 3.424,
-			"end": 3.488,
+			"start": 3.844,
+			"end": 3.892,
 			"value": 6
 		},
 		{
-			"start": 3.488,
-			"end": 3.552,
+			"start": 3.892,
+			"end": 3.94,
 			"value": 2
 		},
 		{
-			"start": 3.552,
-			"end": 3.68,
+			"start": 3.94,
+			"end": 4.036,
 			"value": 6
 		},
 		{
-			"start": 3.68,
-			"end": 3.76,
+			"start": 4.036,
+			"end": 4.116,
 			"value": 2
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 4.116,
+			"end": 4.196,
 			"value": 6
 		},
 		{
-			"start": 3.84,
-			"end": 3.96,
+			"start": 4.196,
+			"end": 4.316,
 			"value": 7
 		},
 		{
-			"start": 3.96,
-			"end": 4.08,
+			"start": 4.316,
+			"end": 4.436,
 			"value": 3
-		},
-		{
-			"start": 4.14,
-			"end": 6.16,
-			"value": 2
 		}
 	]
 }

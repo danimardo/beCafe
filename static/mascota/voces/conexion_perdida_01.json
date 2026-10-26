@@ -2,246 +2,236 @@
 	"version": 1,
 	"audio": "conexion_perdida_01.mp3",
 	"texto": "Estamos sin conexión. Tus cafés se guardan en la cola local.",
-	"duration": 4.72,
+	"duration": 4.169,
 	"cues": [
 		{
-			"start": 0.47,
-			"end": 0.5,
-			"value": 1
-		},
-		{
-			"start": 0.5,
-			"end": 0.56,
-			"value": 6
-		},
-		{
-			"start": 0.56,
-			"end": 0.62,
+			"start": 0.57,
+			"end": 0.61,
 			"value": 2
 		},
 		{
-			"start": 0.62,
-			"end": 0.68,
+			"start": 0.61,
+			"end": 0.65,
 			"value": 7
 		},
 		{
-			"start": 0.68,
-			"end": 0.74,
+			"start": 0.65,
+			"end": 0.69,
 			"value": 3
 		},
 		{
-			"start": 0.74,
-			"end": 0.88,
+			"start": 0.69,
+			"end": 0.73,
 			"value": 6
 		},
 		{
-			"start": 0.88,
-			"end": 0.92,
+			"start": 0.77,
+			"end": 0.81,
+			"value": 6
+		},
+		{
+			"start": 0.81,
+			"end": 0.85,
 			"value": 1
 		},
 		{
-			"start": 0.92,
-			"end": 0.96,
+			"start": 0.85,
+			"end": 0.89,
 			"value": 6
 		},
 		{
-			"start": 1.022,
-			"end": 1.084,
+			"start": 0.952,
+			"end": 1.014,
 			"value": 6
 		},
 		{
-			"start": 1.084,
-			"end": 1.147,
+			"start": 1.014,
+			"end": 1.077,
 			"value": 3
 		},
 		{
-			"start": 1.147,
-			"end": 1.209,
+			"start": 1.077,
+			"end": 1.139,
 			"value": 6
 		},
 		{
-			"start": 1.209,
-			"end": 1.271,
+			"start": 1.139,
+			"end": 1.201,
 			"value": 1
 		},
 		{
-			"start": 1.271,
-			"end": 1.333,
+			"start": 1.201,
+			"end": 1.263,
 			"value": 6
 		},
 		{
-			"start": 1.333,
-			"end": 1.396,
+			"start": 1.263,
+			"end": 1.326,
 			"value": 1
 		},
 		{
-			"start": 1.396,
-			"end": 1.458,
+			"start": 1.326,
+			"end": 1.388,
 			"value": 3
 		},
 		{
-			"start": 1.458,
-			"end": 1.52,
+			"start": 1.388,
+			"end": 1.45,
+			"value": 6
+		},
+		{
+			"start": 1.765,
+			"end": 1.8,
+			"value": 6
+		},
+		{
+			"start": 1.8,
+			"end": 1.835,
+			"value": 3
+		},
+		{
+			"start": 1.835,
+			"end": 1.905,
+			"value": 6
+		},
+		{
+			"start": 1.905,
+			"end": 1.94,
+			"value": 4
+		},
+		{
+			"start": 1.94,
+			"end": 2.01,
+			"value": 6
+		},
+		{
+			"start": 2.01,
+			"end": 2.09,
+			"value": 2
+		},
+		{
+			"start": 2.11,
+			"end": 2.13,
 			"value": 6
 		},
 		{
 			"start": 2.15,
-			"end": 2.22,
-			"value": 6
-		},
-		{
-			"start": 2.22,
-			"end": 2.29,
-			"value": 3
-		},
-		{
-			"start": 2.29,
-			"end": 2.43,
-			"value": 6
-		},
-		{
-			"start": 2.43,
-			"end": 2.5,
-			"value": 4
-		},
-		{
-			"start": 2.5,
-			"end": 2.64,
-			"value": 6
-		},
-		{
-			"start": 2.64,
-			"end": 2.72,
-			"value": 2
-		},
-		{
-			"start": 2.76,
-			"end": 2.8,
-			"value": 6
-		},
-		{
-			"start": 2.8,
-			"end": 2.84,
-			"value": 4
-		},
-		{
-			"start": 2.84,
-			"end": 2.88,
+			"end": 2.17,
 			"value": 1
 		},
 		{
-			"start": 2.944,
-			"end": 3.008,
+			"start": 2.234,
+			"end": 2.298,
 			"value": 3
 		},
 		{
-			"start": 3.008,
-			"end": 3.072,
+			"start": 2.298,
+			"end": 2.362,
 			"value": 7
 		},
 		{
-			"start": 3.072,
-			"end": 3.136,
+			"start": 2.362,
+			"end": 2.426,
 			"value": 1
 		},
 		{
-			"start": 3.136,
-			"end": 3.2,
+			"start": 2.426,
+			"end": 2.49,
 			"value": 6
 		},
 		{
-			"start": 3.2,
-			"end": 3.257,
+			"start": 2.49,
+			"end": 2.536,
 			"value": 2
 		},
 		{
-			"start": 3.257,
-			"end": 3.314,
+			"start": 2.536,
+			"end": 2.581,
 			"value": 6
 		},
 		{
-			"start": 3.314,
-			"end": 3.371,
+			"start": 2.581,
+			"end": 2.627,
 			"value": 1
 		},
 		{
-			"start": 3.371,
-			"end": 3.429,
+			"start": 2.627,
+			"end": 2.673,
 			"value": 3
 		},
 		{
-			"start": 3.429,
-			"end": 3.486,
+			"start": 2.673,
+			"end": 2.719,
 			"value": 6
 		},
 		{
-			"start": 3.486,
-			"end": 3.543,
+			"start": 2.719,
+			"end": 2.764,
 			"value": 1
 		},
 		{
-			"start": 3.543,
-			"end": 3.664,
+			"start": 2.764,
+			"end": 2.874,
 			"value": 6
 		},
 		{
-			"start": 3.664,
-			"end": 3.696,
+			"start": 2.874,
+			"end": 2.906,
 			"value": 4
 		},
 		{
-			"start": 3.696,
-			"end": 3.728,
+			"start": 2.906,
+			"end": 2.938,
 			"value": 1
 		},
 		{
-			"start": 3.728,
-			"end": 3.76,
+			"start": 2.938,
+			"end": 2.97,
 			"value": 6
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 2.97,
+			"end": 3.05,
 			"value": 2
 		},
 		{
-			"start": 3.84,
-			"end": 3.92,
+			"start": 3.05,
+			"end": 3.13,
 			"value": 6
 		},
 		{
-			"start": 3.968,
-			"end": 4.016,
+			"start": 3.162,
+			"end": 3.194,
 			"value": 7
 		},
 		{
-			"start": 4.016,
-			"end": 4.064,
+			"start": 3.194,
+			"end": 3.226,
 			"value": 1
 		},
 		{
-			"start": 4.064,
-			"end": 4.16,
+			"start": 3.226,
+			"end": 3.29,
 			"value": 6
 		},
 		{
-			"start": 4.16,
-			"end": 4.32,
+			"start": 3.29,
+			"end": 3.45,
 			"value": 1
 		},
 		{
-			"start": 4.32,
-			"end": 4.48,
+			"start": 3.45,
+			"end": 3.61,
 			"value": 6
 		},
 		{
-			"start": 4.48,
-			"end": 4.56,
+			"start": 3.61,
+			"end": 3.69,
 			"value": 1
 		},
 		{
-			"start": 4.56,
-			"end": 4.64,
+			"start": 3.69,
+			"end": 3.77,
 			"value": 6
 		}
 	]

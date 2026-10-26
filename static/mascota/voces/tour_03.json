@@ -2,401 +2,406 @@
 	"version": 1,
 	"audio": "tour_03.mp3",
 	"texto": "¿Te has equivocado?. Después de cada toque aparece «Deshacer» durante 5 segundos. Púlsalo y el café desaparece.",
-	"duration": 8.48,
+	"duration": 9.402,
 	"cues": [
 		{
-			"start": 0.2,
-			"end": 0.26,
+			"start": 0.404,
+			"end": 0.444,
 			"value": 2
 		},
 		{
-			"start": 0.26,
-			"end": 0.32,
+			"start": 0.444,
+			"end": 0.484,
 			"value": 6
 		},
 		{
-			"start": 0.36,
-			"end": 0.4,
+			"start": 0.537,
+			"end": 0.591,
 			"value": 1
 		},
 		{
-			"start": 0.4,
-			"end": 0.44,
+			"start": 0.591,
+			"end": 0.644,
 			"value": 6
 		},
 		{
-			"start": 0.44,
-			"end": 0.48,
+			"start": 0.644,
+			"end": 0.697,
 			"value": 4
 		},
 		{
-			"start": 0.48,
-			"end": 0.52,
+			"start": 0.697,
+			"end": 0.751,
 			"value": 1
 		},
 		{
-			"start": 0.52,
-			"end": 0.56,
+			"start": 0.751,
+			"end": 0.804,
 			"value": 5
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.804,
+			"end": 0.868,
 			"value": 3
 		},
 		{
-			"start": 0.64,
-			"end": 0.72,
+			"start": 0.868,
+			"end": 0.932,
 			"value": 6
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 0.932,
+			"end": 0.996,
 			"value": 2
 		},
 		{
-			"start": 0.8,
-			"end": 0.88,
+			"start": 0.996,
+			"end": 1.06,
 			"value": 6
 		},
 		{
-			"start": 0.88,
-			"end": 0.96,
+			"start": 1.06,
+			"end": 1.124,
 			"value": 3
 		},
 		{
-			"start": 1.81,
-			"end": 1.98,
+			"start": 1.974,
+			"end": 2.144,
 			"value": 6
 		},
 		{
-			"start": 1.98,
-			"end": 2.15,
+			"start": 2.144,
+			"end": 2.314,
 			"value": 1
 		},
 		{
-			"start": 2.15,
-			"end": 2.32,
+			"start": 2.314,
+			"end": 2.484,
 			"value": 6
 		},
 		{
-			"start": 2.32,
-			"end": 2.36,
+			"start": 2.484,
+			"end": 2.524,
 			"value": 7
 		},
 		{
-			"start": 2.36,
-			"end": 2.4,
+			"start": 2.524,
+			"end": 2.564,
 			"value": 4
 		},
 		{
-			"start": 2.4,
-			"end": 2.44,
+			"start": 2.564,
+			"end": 2.604,
 			"value": 1
 		},
 		{
-			"start": 2.44,
-			"end": 2.48,
+			"start": 2.604,
+			"end": 2.644,
 			"value": 6
 		},
 		{
-			"start": 2.533,
-			"end": 2.587,
+			"start": 2.697,
+			"end": 2.751,
 			"value": 6
 		},
 		{
-			"start": 2.587,
-			"end": 2.64,
+			"start": 2.751,
+			"end": 2.804,
 			"value": 1
 		},
 		{
-			"start": 2.688,
-			"end": 2.736,
+			"start": 2.852,
+			"end": 2.9,
 			"value": 6
 		},
 		{
-			"start": 2.736,
-			"end": 2.784,
+			"start": 2.9,
+			"end": 2.948,
 			"value": 2
 		},
 		{
-			"start": 2.784,
-			"end": 2.832,
+			"start": 2.948,
+			"end": 2.996,
 			"value": 6
 		},
 		{
-			"start": 2.832,
-			"end": 2.88,
+			"start": 2.996,
+			"end": 3.044,
 			"value": 2
 		},
 		{
-			"start": 2.933,
-			"end": 2.987,
+			"start": 3.097,
+			"end": 3.151,
 			"value": 6
 		},
 		{
-			"start": 2.987,
-			"end": 3.04,
+			"start": 3.151,
+			"end": 3.204,
 			"value": 3
 		},
 		{
-			"start": 3.04,
-			"end": 3.093,
+			"start": 3.204,
+			"end": 3.257,
 			"value": 6
 		},
 		{
-			"start": 3.093,
-			"end": 3.147,
+			"start": 3.257,
+			"end": 3.311,
 			"value": 4
 		},
 		{
-			"start": 3.147,
-			"end": 3.2,
+			"start": 3.311,
+			"end": 3.364,
 			"value": 1
 		},
 		{
-			"start": 3.267,
-			"end": 3.333,
+			"start": 3.417,
+			"end": 3.471,
 			"value": 2
 		},
 		{
-			"start": 3.333,
-			"end": 3.4,
+			"start": 3.471,
+			"end": 3.524,
 			"value": 7
 		},
 		{
-			"start": 3.4,
-			"end": 3.467,
+			"start": 3.524,
+			"end": 3.577,
 			"value": 2
 		},
 		{
-			"start": 3.467,
-			"end": 3.533,
+			"start": 3.577,
+			"end": 3.631,
 			"value": 6
 		},
 		{
-			"start": 3.533,
-			"end": 3.6,
+			"start": 3.631,
+			"end": 3.684,
 			"value": 1
 		},
 		{
-			"start": 3.6,
-			"end": 3.68,
+			"start": 3.684,
+			"end": 3.764,
 			"value": 6
 		},
 		{
-			"start": 3.68,
-			"end": 3.76,
+			"start": 3.764,
+			"end": 3.844,
 			"value": 1
 		},
 		{
-			"start": 3.84,
-			"end": 3.92,
+			"start": 4.244,
+			"end": 4.364,
 			"value": 6
 		},
 		{
-			"start": 3.92,
-			"end": 3.947,
+			"start": 4.364,
+			"end": 4.404,
 			"value": 1
 		},
 		{
-			"start": 3.947,
-			"end": 3.973,
+			"start": 4.404,
+			"end": 4.444,
 			"value": 6
 		},
 		{
-			"start": 4,
-			"end": 4.06,
+			"start": 4.484,
+			"end": 4.544,
 			"value": 2
 		},
 		{
-			"start": 4.06,
-			"end": 4.12,
+			"start": 4.544,
+			"end": 4.604,
 			"value": 6
 		},
 		{
-			"start": 4.12,
-			"end": 4.18,
+			"start": 4.604,
+			"end": 4.664,
 			"value": 1
 		},
 		{
-			"start": 4.18,
-			"end": 4.24,
+			"start": 4.664,
+			"end": 4.724,
 			"value": 6
 		},
 		{
-			"start": 4.51,
-			"end": 4.54,
+			"start": 5.129,
+			"end": 5.174,
 			"value": 6
 		},
 		{
-			"start": 4.54,
-			"end": 4.57,
+			"start": 5.174,
+			"end": 5.219,
 			"value": 4
 		},
 		{
-			"start": 4.57,
-			"end": 4.6,
+			"start": 5.219,
+			"end": 5.264,
 			"value": 6
 		},
 		{
-			"start": 4.6,
-			"end": 4.63,
+			"start": 5.264,
+			"end": 5.309,
 			"value": 2
 		},
 		{
-			"start": 4.63,
-			"end": 4.69,
+			"start": 5.309,
+			"end": 5.399,
 			"value": 6
 		},
 		{
-			"start": 4.69,
-			"end": 4.72,
+			"start": 5.399,
+			"end": 5.444,
 			"value": 1
 		},
 		{
-			"start": 5.316,
-			"end": 5.351,
+			"start": 5.755,
+			"end": 5.826,
 			"value": 6
 		},
 		{
-			"start": 5.351,
-			"end": 5.387,
+			"start": 5.826,
+			"end": 5.897,
 			"value": 1
 		},
 		{
-			"start": 5.387,
-			"end": 5.422,
+			"start": 5.897,
+			"end": 5.968,
 			"value": 6
 		},
 		{
-			"start": 5.422,
-			"end": 5.458,
+			"start": 5.968,
+			"end": 6.04,
 			"value": 4
 		},
 		{
-			"start": 5.458,
-			"end": 5.529,
+			"start": 6.04,
+			"end": 6.182,
 			"value": 6
 		},
 		{
-			"start": 5.529,
-			"end": 5.564,
+			"start": 6.182,
+			"end": 6.253,
 			"value": 3
 		},
 		{
-			"start": 5.564,
-			"end": 5.6,
+			"start": 6.253,
+			"end": 6.324,
 			"value": 6
 		},
 		{
-			"start": 6.38,
-			"end": 6.64,
+			"start": 6.844,
+			"end": 7.204,
 			"value": 7
 		},
 		{
-			"start": 6.64,
-			"end": 6.72,
+			"start": 7.204,
+			"end": 7.284,
 			"value": 4
 		},
 		{
-			"start": 6.72,
-			"end": 6.88,
+			"start": 7.284,
+			"end": 7.364,
 			"value": 6
 		},
 		{
-			"start": 6.88,
-			"end": 6.987,
+			"start": 7.364,
+			"end": 7.444,
 			"value": 2
 		},
 		{
-			"start": 6.987,
-			"end": 7.093,
+			"start": 7.444,
+			"end": 7.524,
 			"value": 6
 		},
 		{
-			"start": 7.093,
-			"end": 7.2,
+			"start": 7.524,
+			"end": 7.604,
 			"value": 3
 		},
 		{
-			"start": 7.28,
-			"end": 7.413,
+			"start": 7.724,
+			"end": 7.844,
 			"value": 1
 		},
 		{
-			"start": 7.413,
-			"end": 7.44,
+			"start": 7.897,
+			"end": 7.951,
+			"value": 1
+		},
+		{
+			"start": 7.951,
+			"end": 8.004,
 			"value": 6
 		},
 		{
-			"start": 7.504,
-			"end": 7.568,
+			"start": 8.052,
+			"end": 8.1,
 			"value": 6
 		},
 		{
-			"start": 7.568,
-			"end": 7.632,
+			"start": 8.1,
+			"end": 8.148,
 			"value": 2
 		},
 		{
-			"start": 7.632,
-			"end": 7.696,
+			"start": 8.148,
+			"end": 8.196,
 			"value": 5
 		},
 		{
-			"start": 7.696,
-			"end": 7.76,
+			"start": 8.196,
+			"end": 8.244,
 			"value": 1
 		},
 		{
-			"start": 7.8,
-			"end": 7.84,
+			"start": 8.304,
+			"end": 8.364,
 			"value": 6
 		},
 		{
-			"start": 7.84,
-			"end": 7.88,
+			"start": 8.364,
+			"end": 8.424,
 			"value": 1
 		},
 		{
-			"start": 7.88,
-			"end": 7.92,
+			"start": 8.424,
+			"end": 8.484,
 			"value": 6
 		},
 		{
-			"start": 7.92,
-			"end": 7.96,
+			"start": 8.484,
+			"end": 8.524,
 			"value": 2
 		},
 		{
-			"start": 7.96,
-			"end": 8,
+			"start": 8.524,
+			"end": 8.564,
 			"value": 7
 		},
 		{
-			"start": 8,
-			"end": 8.08,
+			"start": 8.564,
+			"end": 8.644,
 			"value": 2
 		},
 		{
-			"start": 8.08,
-			"end": 8.16,
+			"start": 8.644,
+			"end": 8.724,
 			"value": 6
 		},
 		{
-			"start": 8.16,
-			"end": 8.24,
+			"start": 8.724,
+			"end": 8.804,
 			"value": 1
 		},
 		{
-			"start": 8.24,
-			"end": 8.36,
+			"start": 8.804,
+			"end": 8.924,
 			"value": 6
 		},
 		{
-			"start": 8.36,
-			"end": 8.48,
+			"start": 8.924,
+			"end": 9.044,
 			"value": 1
 		}
 	]

@@ -2,272 +2,272 @@
 	"version": 1,
 	"audio": "registro_68.mp3",
 	"texto": "Un estudio inventado por mí confirma que eres un espécimen fascinante.",
-	"duration": 5.04,
+	"duration": 4.606,
 	"cues": [
 		{
-			"start": 0.22,
-			"end": 0.28,
+			"start": 0.422,
+			"end": 0.472,
 			"value": 1
 		},
 		{
-			"start": 0.28,
-			"end": 0.4,
+			"start": 0.472,
+			"end": 0.572,
 			"value": 6
 		},
 		{
-			"start": 0.4,
-			"end": 0.46,
+			"start": 0.572,
+			"end": 0.622,
 			"value": 4
 		},
 		{
-			"start": 0.46,
-			"end": 0.52,
+			"start": 0.622,
+			"end": 0.672,
 			"value": 6
 		},
 		{
-			"start": 0.52,
-			"end": 0.58,
+			"start": 0.672,
+			"end": 0.722,
 			"value": 1
 		},
 		{
-			"start": 0.58,
-			"end": 0.64,
+			"start": 0.722,
+			"end": 0.772,
 			"value": 3
 		},
 		{
-			"start": 0.709,
-			"end": 0.777,
+			"start": 0.829,
+			"end": 0.886,
 			"value": 1
 		},
 		{
-			"start": 0.777,
-			"end": 0.846,
+			"start": 0.886,
+			"end": 0.943,
 			"value": 6
 		},
 		{
-			"start": 0.846,
-			"end": 0.914,
+			"start": 0.943,
+			"end": 1.001,
 			"value": 5
 		},
 		{
-			"start": 0.914,
-			"end": 0.983,
+			"start": 1.001,
+			"end": 1.058,
 			"value": 1
 		},
 		{
-			"start": 0.983,
-			"end": 1.12,
+			"start": 1.058,
+			"end": 1.172,
 			"value": 6
 		},
 		{
-			"start": 1.12,
-			"end": 1.173,
+			"start": 1.172,
+			"end": 1.225,
 			"value": 2
 		},
 		{
-			"start": 1.173,
-			"end": 1.227,
+			"start": 1.225,
+			"end": 1.279,
 			"value": 6
 		},
 		{
-			"start": 1.227,
-			"end": 1.28,
+			"start": 1.279,
+			"end": 1.332,
 			"value": 3
 		},
 		{
-			"start": 1.3,
-			"end": 1.32,
+			"start": 1.372,
+			"end": 1.412,
 			"value": 7
 		},
 		{
-			"start": 1.32,
-			"end": 1.34,
+			"start": 1.412,
+			"end": 1.452,
 			"value": 3
 		},
 		{
-			"start": 1.34,
-			"end": 1.36,
+			"start": 1.452,
+			"end": 1.492,
 			"value": 6
 		},
 		{
-			"start": 1.44,
-			"end": 1.52,
+			"start": 1.545,
+			"end": 1.599,
 			"value": 7
 		},
 		{
-			"start": 1.52,
-			"end": 1.6,
+			"start": 1.599,
+			"end": 1.652,
 			"value": 1
 		},
 		{
-			"start": 1.68,
-			"end": 1.76,
+			"start": 1.732,
+			"end": 1.812,
 			"value": 6
 		},
 		{
-			"start": 1.76,
-			"end": 1.84,
+			"start": 1.812,
+			"end": 1.892,
 			"value": 3
 		},
 		{
-			"start": 1.84,
-			"end": 1.92,
+			"start": 1.892,
+			"end": 1.972,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 2,
+			"start": 1.972,
+			"end": 2.052,
 			"value": 5
 		},
 		{
-			"start": 2,
-			"end": 2.06,
+			"start": 2.052,
+			"end": 2.112,
 			"value": 1
 		},
 		{
-			"start": 2.06,
-			"end": 2.12,
+			"start": 2.112,
+			"end": 2.172,
 			"value": 6
 		},
 		{
-			"start": 2.12,
-			"end": 2.18,
+			"start": 2.172,
+			"end": 2.232,
 			"value": 7
 		},
 		{
-			"start": 2.18,
-			"end": 2.24,
+			"start": 2.232,
+			"end": 2.292,
 			"value": 2
 		},
 		{
-			"start": 2.28,
-			"end": 2.32,
+			"start": 2.332,
+			"end": 2.372,
 			"value": 6
 		},
 		{
-			"start": 2.32,
-			"end": 2.36,
+			"start": 2.372,
+			"end": 2.412,
 			"value": 4
 		},
 		{
-			"start": 2.36,
-			"end": 2.453,
+			"start": 2.412,
+			"end": 2.452,
 			"value": 1
 		},
 		{
-			"start": 2.453,
-			"end": 2.48,
-			"value": 6
-		},
-		{
-			"start": 2.48,
-			"end": 2.56,
+			"start": 2.505,
+			"end": 2.559,
 			"value": 1
 		},
 		{
-			"start": 2.56,
-			"end": 2.64,
+			"start": 2.559,
+			"end": 2.612,
 			"value": 6
 		},
 		{
-			"start": 2.693,
-			"end": 2.747,
+			"start": 2.612,
+			"end": 2.652,
+			"value": 1
+		},
+		{
+			"start": 2.652,
+			"end": 2.692,
+			"value": 6
+		},
+		{
+			"start": 2.745,
+			"end": 2.799,
 			"value": 4
 		},
 		{
-			"start": 2.747,
-			"end": 2.8,
+			"start": 2.799,
+			"end": 2.852,
 			"value": 6
 		},
 		{
-			"start": 2.86,
-			"end": 2.92,
+			"start": 2.892,
+			"end": 2.932,
 			"value": 1
 		},
 		{
-			"start": 2.92,
-			"end": 2.98,
+			"start": 2.932,
+			"end": 2.972,
 			"value": 6
 		},
 		{
-			"start": 2.98,
-			"end": 3.04,
+			"start": 2.972,
+			"end": 3.012,
 			"value": 7
 		},
 		{
-			"start": 3.04,
-			"end": 3.08,
+			"start": 3.012,
+			"end": 3.092,
 			"value": 1
 		},
 		{
-			"start": 3.08,
-			"end": 3.12,
+			"start": 3.092,
+			"end": 3.172,
 			"value": 6
 		},
 		{
-			"start": 3.12,
-			"end": 3.18,
+			"start": 3.172,
+			"end": 3.232,
 			"value": 1
 		},
 		{
-			"start": 3.18,
-			"end": 3.24,
+			"start": 3.232,
+			"end": 3.292,
 			"value": 7
 		},
 		{
-			"start": 3.24,
-			"end": 3.3,
+			"start": 3.292,
+			"end": 3.352,
 			"value": 1
 		},
 		{
-			"start": 3.3,
-			"end": 3.36,
+			"start": 3.352,
+			"end": 3.412,
 			"value": 6
 		},
 		{
-			"start": 3.44,
-			"end": 3.52,
+			"start": 3.476,
+			"end": 3.54,
 			"value": 5
 		},
 		{
-			"start": 3.52,
-			"end": 3.6,
+			"start": 3.54,
+			"end": 3.604,
 			"value": 2
 		},
 		{
-			"start": 3.6,
-			"end": 3.76,
+			"start": 3.604,
+			"end": 3.732,
 			"value": 6
 		},
 		{
-			"start": 3.76,
-			"end": 3.8,
+			"start": 3.732,
+			"end": 3.772,
 			"value": 1
 		},
 		{
-			"start": 3.8,
-			"end": 3.84,
+			"start": 3.772,
+			"end": 3.812,
 			"value": 6
 		},
 		{
-			"start": 3.84,
-			"end": 3.92,
+			"start": 3.812,
+			"end": 3.892,
 			"value": 2
 		},
 		{
-			"start": 3.92,
-			"end": 4.08,
+			"start": 3.892,
+			"end": 4.052,
 			"value": 6
 		},
 		{
-			"start": 4.08,
-			"end": 4.16,
+			"start": 4.052,
+			"end": 4.132,
 			"value": 1
-		},
-		{
-			"start": 4.52,
-			"end": 5.04,
-			"value": 2
 		}
 	]
 }

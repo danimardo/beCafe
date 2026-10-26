@@ -2,191 +2,191 @@
 	"version": 1,
 	"audio": "ayuda_adminCapsula.mp3",
 	"texto": "Edita los datos de un tipo, ajusta su stock o lo retira.",
-	"duration": 3.28,
+	"duration": 4.118,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.213,
+			"start": 0.433,
+			"end": 0.486,
 			"value": 1
 		},
 		{
-			"start": 0.213,
-			"end": 0.267,
+			"start": 0.486,
+			"end": 0.54,
 			"value": 6
 		},
 		{
-			"start": 0.267,
-			"end": 0.32,
+			"start": 0.54,
+			"end": 0.593,
 			"value": 2
 		},
 		{
-			"start": 0.36,
-			"end": 0.4,
+			"start": 0.633,
+			"end": 0.673,
 			"value": 6
 		},
 		{
-			"start": 0.4,
-			"end": 0.44,
+			"start": 0.673,
+			"end": 0.713,
 			"value": 3
 		},
 		{
-			"start": 0.44,
-			"end": 0.48,
+			"start": 0.713,
+			"end": 0.753,
 			"value": 6
 		},
 		{
-			"start": 0.533,
-			"end": 0.587,
+			"start": 0.806,
+			"end": 0.86,
 			"value": 6
 		},
 		{
-			"start": 0.587,
-			"end": 0.64,
+			"start": 0.86,
+			"end": 0.913,
 			"value": 2
 		},
 		{
-			"start": 0.64,
-			"end": 0.693,
+			"start": 0.913,
+			"end": 0.966,
 			"value": 6
 		},
 		{
-			"start": 0.693,
-			"end": 0.747,
+			"start": 0.966,
+			"end": 1.02,
 			"value": 3
 		},
 		{
-			"start": 0.747,
-			"end": 0.853,
+			"start": 1.02,
+			"end": 1.126,
 			"value": 6
 		},
 		{
-			"start": 0.853,
-			"end": 0.88,
+			"start": 1.126,
+			"end": 1.153,
 			"value": 1
 		},
 		{
-			"start": 0.933,
-			"end": 0.987,
+			"start": 1.18,
+			"end": 1.206,
 			"value": 4
 		},
 		{
-			"start": 0.987,
-			"end": 1.04,
+			"start": 1.206,
+			"end": 1.233,
 			"value": 6
 		},
 		{
-			"start": 1.104,
-			"end": 1.168,
+			"start": 1.313,
+			"end": 1.393,
 			"value": 6
 		},
 		{
-			"start": 1.168,
-			"end": 1.232,
+			"start": 1.393,
+			"end": 1.473,
 			"value": 1
 		},
 		{
-			"start": 1.232,
-			"end": 1.296,
+			"start": 1.473,
+			"end": 1.553,
 			"value": 7
 		},
 		{
-			"start": 1.296,
-			"end": 1.36,
+			"start": 1.553,
+			"end": 1.633,
 			"value": 3
 		},
 		{
-			"start": 1.587,
-			"end": 1.653,
+			"start": 2.006,
+			"end": 2.06,
 			"value": 2
 		},
 		{
-			"start": 1.653,
-			"end": 1.72,
+			"start": 2.06,
+			"end": 2.113,
 			"value": 6
 		},
 		{
-			"start": 1.72,
-			"end": 1.787,
+			"start": 2.113,
+			"end": 2.166,
 			"value": 4
 		},
 		{
-			"start": 1.787,
-			"end": 1.92,
+			"start": 2.166,
+			"end": 2.273,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 2,
+			"start": 2.273,
+			"end": 2.353,
 			"value": 2
 		},
 		{
-			"start": 2.027,
-			"end": 2.053,
+			"start": 2.38,
+			"end": 2.406,
 			"value": 6
 		},
 		{
-			"start": 2.053,
-			"end": 2.08,
+			"start": 2.406,
+			"end": 2.433,
 			"value": 4
 		},
 		{
-			"start": 2.16,
-			"end": 2.32,
+			"start": 2.5,
+			"end": 2.633,
 			"value": 6
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.633,
+			"end": 2.7,
 			"value": 3
 		},
 		{
-			"start": 2.4,
-			"end": 2.56,
+			"start": 2.7,
+			"end": 2.833,
 			"value": 6
 		},
 		{
-			"start": 2.6,
-			"end": 2.64,
+			"start": 2.953,
+			"end": 3.073,
 			"value": 3
 		},
 		{
-			"start": 2.667,
-			"end": 2.693,
+			"start": 3.126,
+			"end": 3.18,
 			"value": 6
 		},
 		{
-			"start": 2.693,
-			"end": 2.72,
+			"start": 3.18,
+			"end": 3.233,
 			"value": 3
 		},
 		{
-			"start": 2.78,
-			"end": 2.84,
+			"start": 3.293,
+			"end": 3.353,
 			"value": 6
 		},
 		{
-			"start": 2.84,
-			"end": 2.9,
+			"start": 3.353,
+			"end": 3.413,
 			"value": 1
 		},
 		{
-			"start": 2.9,
-			"end": 2.96,
+			"start": 3.413,
+			"end": 3.473,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3.04,
+			"start": 3.473,
+			"end": 3.553,
 			"value": 1
 		},
 		{
-			"start": 3.04,
-			"end": 3.12,
+			"start": 3.553,
+			"end": 3.633,
 			"value": 6
 		},
 		{
-			"start": 3.12,
-			"end": 3.2,
+			"start": 3.633,
+			"end": 3.713,
 			"value": 2
 		}
 	]

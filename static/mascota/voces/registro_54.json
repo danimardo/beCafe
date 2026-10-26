@@ -2,221 +2,216 @@
 	"version": 1,
 	"audio": "registro_54.mp3",
 	"texto": "El universo es infinito. Tu paciencia con los compañeros, no.",
-	"duration": 6.001,
+	"duration": 4.717,
 	"cues": [
 		{
-			"start": 0.22,
-			"end": 0.28,
+			"start": 0.556,
+			"end": 0.607,
 			"value": 4
 		},
 		{
-			"start": 0.28,
-			"end": 0.34,
+			"start": 0.607,
+			"end": 0.656,
 			"value": 6
 		},
 		{
-			"start": 0.34,
-			"end": 0.4,
+			"start": 0.656,
+			"end": 0.707,
 			"value": 1
 		},
 		{
-			"start": 0.4,
-			"end": 0.46,
+			"start": 0.707,
+			"end": 0.757,
 			"value": 5
 		},
 		{
-			"start": 0.46,
-			"end": 0.52,
+			"start": 0.757,
+			"end": 0.806,
 			"value": 1
 		},
 		{
-			"start": 0.52,
-			"end": 0.64,
+			"start": 0.806,
+			"end": 0.906,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.72,
+			"start": 0.906,
+			"end": 0.986,
 			"value": 3
-		},
-		{
-			"start": 0.8,
-			"end": 0.88,
-			"value": 1
-		},
-		{
-			"start": 0.88,
-			"end": 0.96,
-			"value": 6
 		},
 		{
 			"start": 1.04,
-			"end": 1.12,
+			"end": 1.093,
 			"value": 1
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.093,
+			"end": 1.146,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.217,
+			"end": 1.287,
+			"value": 1
+		},
+		{
+			"start": 1.287,
+			"end": 1.357,
+			"value": 6
+		},
+		{
+			"start": 1.357,
+			"end": 1.427,
 			"value": 5
 		},
 		{
-			"start": 1.28,
-			"end": 1.36,
+			"start": 1.427,
+			"end": 1.497,
 			"value": 1
 		},
 		{
-			"start": 1.36,
-			"end": 1.44,
+			"start": 1.497,
+			"end": 1.567,
 			"value": 6
 		},
 		{
-			"start": 1.44,
-			"end": 1.52,
+			"start": 1.567,
+			"end": 1.637,
 			"value": 1
 		},
 		{
-			"start": 1.52,
-			"end": 1.6,
+			"start": 1.637,
+			"end": 1.707,
 			"value": 6
 		},
 		{
-			"start": 1.6,
-			"end": 1.68,
+			"start": 1.707,
+			"end": 1.787,
 			"value": 3
 		},
 		{
-			"start": 1.867,
-			"end": 2.053,
+			"start": 2.107,
+			"end": 2.186,
 			"value": 6
 		},
 		{
-			"start": 2.053,
-			"end": 2.24,
+			"start": 2.186,
+			"end": 2.267,
 			"value": 4
 		},
 		{
-			"start": 2.288,
-			"end": 2.336,
+			"start": 2.331,
+			"end": 2.395,
 			"value": 7
 		},
 		{
-			"start": 2.336,
-			"end": 2.384,
+			"start": 2.395,
+			"end": 2.459,
 			"value": 2
 		},
 		{
-			"start": 2.384,
-			"end": 2.432,
+			"start": 2.459,
+			"end": 2.523,
 			"value": 6
 		},
 		{
-			"start": 2.432,
-			"end": 2.544,
+			"start": 2.523,
+			"end": 2.634,
 			"value": 1
 		},
 		{
-			"start": 2.544,
-			"end": 2.672,
+			"start": 2.634,
+			"end": 2.73,
 			"value": 6
 		},
 		{
-			"start": 2.672,
-			"end": 2.736,
+			"start": 2.73,
+			"end": 2.779,
 			"value": 1
 		},
 		{
-			"start": 2.736,
-			"end": 2.8,
+			"start": 2.779,
+			"end": 2.826,
 			"value": 2
 		},
 		{
-			"start": 2.82,
-			"end": 2.84,
+			"start": 2.866,
+			"end": 2.907,
 			"value": 6
 		},
 		{
-			"start": 2.84,
-			"end": 2.86,
+			"start": 2.907,
+			"end": 2.947,
 			"value": 3
 		},
 		{
-			"start": 2.86,
-			"end": 2.88,
+			"start": 2.947,
+			"end": 3.067,
 			"value": 6
 		},
 		{
-			"start": 2.92,
-			"end": 2.96,
-			"value": 6
-		},
-		{
-			"start": 2.96,
-			"end": 3,
+			"start": 3.067,
+			"end": 3.107,
 			"value": 3
 		},
 		{
-			"start": 3,
-			"end": 3.04,
+			"start": 3.107,
+			"end": 3.146,
 			"value": 6
 		},
 		{
-			"start": 3.097,
-			"end": 3.154,
+			"start": 3.204,
+			"end": 3.261,
 			"value": 6
 		},
 		{
-			"start": 3.154,
-			"end": 3.211,
+			"start": 3.261,
+			"end": 3.317,
 			"value": 3
 		},
 		{
-			"start": 3.211,
-			"end": 3.326,
+			"start": 3.317,
+			"end": 3.433,
 			"value": 7
 		},
 		{
-			"start": 3.326,
-			"end": 3.383,
+			"start": 3.433,
+			"end": 3.489,
 			"value": 2
 		},
 		{
-			"start": 3.383,
-			"end": 3.44,
+			"start": 3.489,
+			"end": 3.547,
 			"value": 6
 		},
 		{
-			"start": 3.44,
-			"end": 3.54,
+			"start": 3.547,
+			"end": 3.607,
 			"value": 1
 		},
 		{
-			"start": 3.54,
-			"end": 3.64,
+			"start": 3.607,
+			"end": 3.666,
 			"value": 6
 		},
 		{
-			"start": 3.64,
-			"end": 3.74,
+			"start": 3.666,
+			"end": 3.727,
 			"value": 3
 		},
 		{
-			"start": 3.74,
-			"end": 3.84,
+			"start": 3.727,
+			"end": 3.787,
 			"value": 6
 		},
 		{
-			"start": 4.213,
-			"end": 4.307,
+			"start": 4.214,
+			"end": 4.32,
 			"value": 6
 		},
 		{
-			"start": 4.307,
-			"end": 4.4,
+			"start": 4.32,
+			"end": 4.427,
 			"value": 3
 		}
 	]

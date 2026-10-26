@@ -2,196 +2,211 @@
 	"version": 1,
 	"audio": "saludo_71.mp3",
 	"texto": "¡Hostia, qué susto! ¡Pensaba que eras el inspector de cápsulas!",
-	"duration": 5.04,
+	"duration": 3.94,
 	"cues": [
 		{
-			"start": 0.216,
-			"end": 0.24,
-			"value": 6
-		},
-		{
-			"start": 0.24,
-			"end": 0.28,
-			"value": 1
-		},
-		{
-			"start": 0.28,
-			"end": 0.32,
-			"value": 2
-		},
-		{
-			"start": 0.42,
-			"end": 0.44,
-			"value": 6
-		},
-		{
-			"start": 0.44,
-			"end": 0.46,
-			"value": 4
-		},
-		{
-			"start": 0.56,
-			"end": 0.64,
-			"value": 6
-		},
-		{
-			"start": 0.64,
-			"end": 0.72,
-			"value": 4
-		},
-		{
-			"start": 0.72,
-			"end": 0.88,
-			"value": 6
-		},
-		{
-			"start": 0.88,
-			"end": 1.28,
+			"start": 0.455,
+			"end": 0.475,
 			"value": 3
 		},
 		{
-			"start": 1.361,
-			"end": 1.44,
+			"start": 0.475,
+			"end": 0.515,
+			"value": 6
+		},
+		{
+			"start": 0.515,
+			"end": 0.555,
 			"value": 1
 		},
 		{
-			"start": 1.44,
-			"end": 1.6,
-			"value": 6
-		},
-		{
-			"start": 1.6,
-			"end": 1.653,
+			"start": 0.555,
+			"end": 0.595,
 			"value": 2
 		},
 		{
-			"start": 1.653,
-			"end": 1.707,
-			"value": 7
-		},
-		{
-			"start": 1.707,
-			"end": 1.76,
-			"value": 2
-		},
-		{
-			"start": 1.78,
-			"end": 1.8,
+			"start": 0.715,
+			"end": 0.755,
 			"value": 6
 		},
 		{
-			"start": 1.8,
-			"end": 1.82,
+			"start": 0.755,
+			"end": 0.795,
 			"value": 4
 		},
 		{
-			"start": 1.82,
-			"end": 1.893,
+			"start": 0.795,
+			"end": 0.835,
 			"value": 1
 		},
 		{
-			"start": 1.893,
-			"end": 1.92,
+			"start": 0.899,
+			"end": 0.963,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 1.96,
-			"value": 2
+			"start": 0.963,
+			"end": 1.027,
+			"value": 4
 		},
 		{
-			"start": 1.96,
-			"end": 2,
+			"start": 1.027,
+			"end": 1.155,
 			"value": 6
 		},
 		{
-			"start": 2.027,
-			"end": 2.053,
-			"value": 1
-		},
-		{
-			"start": 2.053,
-			"end": 2.08,
-			"value": 6
-		},
-		{
-			"start": 2.128,
-			"end": 2.176,
-			"value": 1
-		},
-		{
-			"start": 2.176,
-			"end": 2.272,
-			"value": 6
-		},
-		{
-			"start": 2.272,
-			"end": 2.32,
-			"value": 7
-		},
-		{
-			"start": 2.32,
-			"end": 2.368,
-			"value": 1
-		},
-		{
-			"start": 2.368,
-			"end": 2.464,
-			"value": 6
-		},
-		{
-			"start": 2.464,
-			"end": 2.512,
+			"start": 1.155,
+			"end": 1.235,
 			"value": 3
 		},
 		{
-			"start": 2.512,
-			"end": 2.613,
-			"value": 6
-		},
-		{
-			"start": 2.613,
-			"end": 2.64,
-			"value": 1
-		},
-		{
-			"start": 2.693,
-			"end": 2.747,
-			"value": 6
-		},
-		{
-			"start": 2.747,
-			"end": 2.8,
-			"value": 2
-		},
-		{
-			"start": 2.8,
-			"end": 2.88,
+			"start": 1.635,
+			"end": 1.715,
 			"value": 7
 		},
 		{
-			"start": 2.88,
-			"end": 2.96,
+			"start": 1.715,
+			"end": 1.742,
+			"value": 1
+		},
+		{
+			"start": 1.742,
+			"end": 1.795,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3.38,
-			"value": 4
-		},
-		{
-			"start": 3.38,
-			"end": 3.8,
-			"value": 6
-		},
-		{
-			"start": 3.8,
-			"end": 4.22,
+			"start": 1.795,
+			"end": 1.848,
 			"value": 2
 		},
 		{
-			"start": 4.22,
-			"end": 4.64,
+			"start": 1.848,
+			"end": 1.902,
+			"value": 7
+		},
+		{
+			"start": 1.902,
+			"end": 1.955,
+			"value": 2
+		},
+		{
+			"start": 1.995,
+			"end": 2.035,
+			"value": 6
+		},
+		{
+			"start": 2.035,
+			"end": 2.075,
+			"value": 4
+		},
+		{
+			"start": 2.075,
+			"end": 2.168,
+			"value": 1
+		},
+		{
+			"start": 2.168,
+			"end": 2.195,
+			"value": 6
+		},
+		{
+			"start": 2.195,
+			"end": 2.235,
+			"value": 2
+		},
+		{
+			"start": 2.235,
+			"end": 2.275,
+			"value": 6
+		},
+		{
+			"start": 2.302,
+			"end": 2.328,
+			"value": 1
+		},
+		{
+			"start": 2.328,
+			"end": 2.355,
+			"value": 6
+		},
+		{
+			"start": 2.403,
+			"end": 2.451,
+			"value": 1
+		},
+		{
+			"start": 2.451,
+			"end": 2.547,
+			"value": 6
+		},
+		{
+			"start": 2.547,
+			"end": 2.595,
+			"value": 7
+		},
+		{
+			"start": 2.595,
+			"end": 2.643,
+			"value": 1
+		},
+		{
+			"start": 2.643,
+			"end": 2.739,
+			"value": 6
+		},
+		{
+			"start": 2.739,
+			"end": 2.787,
+			"value": 3
+		},
+		{
+			"start": 2.787,
+			"end": 2.888,
+			"value": 6
+		},
+		{
+			"start": 2.888,
+			"end": 2.915,
+			"value": 1
+		},
+		{
+			"start": 2.968,
+			"end": 3.022,
+			"value": 6
+		},
+		{
+			"start": 3.022,
+			"end": 3.075,
+			"value": 2
+		},
+		{
+			"start": 3.075,
+			"end": 3.155,
+			"value": 7
+		},
+		{
+			"start": 3.155,
+			"end": 3.235,
+			"value": 6
+		},
+		{
+			"start": 3.235,
+			"end": 3.295,
+			"value": 4
+		},
+		{
+			"start": 3.295,
+			"end": 3.355,
+			"value": 6
+		},
+		{
+			"start": 3.355,
+			"end": 3.415,
+			"value": 2
+		},
+		{
+			"start": 3.415,
+			"end": 3.475,
 			"value": 6
 		}
 	]

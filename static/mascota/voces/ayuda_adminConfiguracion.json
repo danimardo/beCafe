@@ -2,251 +2,251 @@
 	"version": 1,
 	"audio": "ayuda_adminConfiguracion.mp3",
 	"texto": "Ajusta los límites del departamento: deuda máxima, plazos y avisos.",
-	"duration": 4.32,
+	"duration": 5.442,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.14,
+			"start": 0.482,
+			"end": 0.542,
 			"value": 6
 		},
 		{
-			"start": 0.14,
-			"end": 0.2,
+			"start": 0.542,
+			"end": 0.602,
 			"value": 4
 		},
 		{
-			"start": 0.2,
-			"end": 0.32,
+			"start": 0.602,
+			"end": 0.722,
 			"value": 6
 		},
 		{
-			"start": 0.32,
-			"end": 0.4,
+			"start": 0.722,
+			"end": 0.802,
 			"value": 2
 		},
 		{
-			"start": 0.42,
-			"end": 0.44,
+			"start": 0.842,
+			"end": 0.882,
 			"value": 6
 		},
 		{
-			"start": 0.44,
-			"end": 0.46,
+			"start": 0.882,
+			"end": 0.922,
 			"value": 3
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.922,
+			"end": 0.962,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.72,
+			"start": 1.015,
+			"end": 1.069,
+			"value": 6
+		},
+		{
+			"start": 1.069,
+			"end": 1.122,
 			"value": 1
 		},
 		{
-			"start": 0.72,
-			"end": 0.768,
+			"start": 1.122,
+			"end": 1.17,
 			"value": 7
 		},
 		{
-			"start": 0.768,
-			"end": 0.816,
+			"start": 1.17,
+			"end": 1.218,
 			"value": 1
 		},
 		{
-			"start": 0.816,
-			"end": 0.864,
+			"start": 1.218,
+			"end": 1.266,
 			"value": 6
 		},
 		{
-			"start": 0.864,
-			"end": 0.912,
+			"start": 1.266,
+			"end": 1.314,
 			"value": 1
 		},
 		{
-			"start": 0.912,
-			"end": 1,
+			"start": 1.314,
+			"end": 1.402,
 			"value": 6
 		},
 		{
-			"start": 1,
-			"end": 1.02,
+			"start": 1.422,
+			"end": 1.442,
+			"value": 6
+		},
+		{
+			"start": 1.504,
+			"end": 1.565,
+			"value": 6
+		},
+		{
+			"start": 1.565,
+			"end": 1.627,
 			"value": 1
 		},
 		{
-			"start": 1.02,
-			"end": 1.04,
-			"value": 6
-		},
-		{
-			"start": 1.095,
-			"end": 1.151,
-			"value": 6
-		},
-		{
-			"start": 1.151,
-			"end": 1.206,
-			"value": 1
-		},
-		{
-			"start": 1.206,
-			"end": 1.262,
+			"start": 1.627,
+			"end": 1.688,
 			"value": 7
 		},
 		{
-			"start": 1.262,
-			"end": 1.317,
+			"start": 1.688,
+			"end": 1.75,
 			"value": 2
 		},
 		{
-			"start": 1.317,
-			"end": 1.428,
+			"start": 1.75,
+			"end": 1.873,
 			"value": 6
 		},
 		{
-			"start": 1.428,
-			"end": 1.483,
+			"start": 1.873,
+			"end": 1.934,
 			"value": 2
 		},
 		{
-			"start": 1.483,
-			"end": 1.538,
+			"start": 1.934,
+			"end": 1.996,
 			"value": 7
 		},
 		{
-			"start": 1.538,
-			"end": 1.594,
+			"start": 1.996,
+			"end": 2.057,
 			"value": 1
 		},
 		{
-			"start": 1.594,
-			"end": 1.705,
+			"start": 2.057,
+			"end": 2.18,
 			"value": 6
 		},
 		{
-			"start": 1.705,
-			"end": 1.76,
+			"start": 2.18,
+			"end": 2.242,
 			"value": 3
 		},
 		{
-			"start": 2.133,
-			"end": 2.187,
+			"start": 2.615,
+			"end": 2.669,
 			"value": 6
 		},
 		{
-			"start": 2.187,
-			"end": 2.24,
+			"start": 2.669,
+			"end": 2.722,
 			"value": 1
 		},
 		{
-			"start": 2.24,
-			"end": 2.293,
+			"start": 2.722,
+			"end": 2.775,
 			"value": 4
 		},
 		{
-			"start": 2.293,
-			"end": 2.347,
+			"start": 2.775,
+			"end": 2.829,
 			"value": 6
 		},
 		{
-			"start": 2.347,
-			"end": 2.4,
+			"start": 2.829,
+			"end": 2.882,
 			"value": 2
 		},
 		{
-			"start": 2.453,
-			"end": 2.507,
+			"start": 2.962,
+			"end": 3.042,
 			"value": 7
 		},
 		{
-			"start": 2.507,
-			"end": 2.56,
+			"start": 3.042,
+			"end": 3.122,
 			"value": 2
 		},
 		{
-			"start": 2.56,
-			"end": 2.62,
+			"start": 3.122,
+			"end": 3.202,
 			"value": 6
 		},
 		{
-			"start": 2.62,
-			"end": 2.68,
+			"start": 3.202,
+			"end": 3.282,
 			"value": 1
 		},
 		{
-			"start": 2.68,
-			"end": 2.74,
+			"start": 3.282,
+			"end": 3.362,
 			"value": 7
 		},
 		{
-			"start": 2.74,
-			"end": 2.8,
+			"start": 3.362,
+			"end": 3.442,
 			"value": 2
 		},
 		{
-			"start": 2.96,
-			"end": 3.04,
+			"start": 3.735,
+			"end": 3.789,
 			"value": 7
 		},
 		{
-			"start": 3.04,
-			"end": 3.12,
+			"start": 3.789,
+			"end": 3.842,
 			"value": 6
 		},
 		{
-			"start": 3.12,
-			"end": 3.2,
+			"start": 3.842,
+			"end": 3.922,
 			"value": 2
 		},
 		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 3.922,
+			"end": 4.002,
 			"value": 6
 		},
 		{
-			"start": 3.28,
-			"end": 3.4,
+			"start": 4.002,
+			"end": 4.122,
 			"value": 3
 		},
 		{
-			"start": 3.4,
-			"end": 3.52,
+			"start": 4.122,
+			"end": 4.242,
 			"value": 6
 		},
 		{
-			"start": 3.6,
-			"end": 3.68,
+			"start": 4.362,
+			"end": 4.482,
 			"value": 1
 		},
 		{
-			"start": 3.744,
-			"end": 3.808,
+			"start": 4.546,
+			"end": 4.61,
 			"value": 2
 		},
 		{
-			"start": 3.808,
-			"end": 3.872,
+			"start": 4.61,
+			"end": 4.674,
 			"value": 5
 		},
 		{
-			"start": 3.872,
-			"end": 3.936,
+			"start": 4.674,
+			"end": 4.738,
 			"value": 1
 		},
 		{
-			"start": 3.936,
-			"end": 4,
+			"start": 4.738,
+			"end": 4.802,
 			"value": 6
 		},
 		{
-			"start": 4,
-			"end": 4.08,
+			"start": 4.802,
+			"end": 4.962,
 			"value": 3
 		},
 		{
-			"start": 4.08,
-			"end": 4.16,
+			"start": 4.962,
+			"end": 5.122,
 			"value": 6
 		}
 	]

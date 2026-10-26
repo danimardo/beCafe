@@ -2,252 +2,237 @@
 	"version": 1,
 	"audio": "registro_52.mp3",
 	"texto": "La paciencia es una virtud. Yo soy una cápsula y me importa un carajo.",
-	"duration": 5.92,
+	"duration": 5.872,
 	"cues": [
 		{
-			"start": 0.24,
-			"end": 0.32,
+			"start": 0.466,
+			"end": 0.53,
 			"value": 7
 		},
 		{
-			"start": 0.32,
-			"end": 0.4,
+			"start": 0.53,
+			"end": 0.594,
 			"value": 2
 		},
 		{
-			"start": 0.4,
-			"end": 0.48,
+			"start": 0.594,
+			"end": 0.658,
 			"value": 6
 		},
 		{
-			"start": 0.48,
-			"end": 0.624,
+			"start": 0.658,
+			"end": 0.786,
 			"value": 1
 		},
 		{
-			"start": 0.624,
-			"end": 0.752,
+			"start": 0.786,
+			"end": 0.914,
 			"value": 6
 		},
 		{
-			"start": 0.752,
-			"end": 0.816,
+			"start": 0.914,
+			"end": 0.978,
 			"value": 1
 		},
 		{
-			"start": 0.816,
-			"end": 0.88,
+			"start": 0.978,
+			"end": 1.042,
 			"value": 2
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 1.095,
+			"end": 1.149,
 			"value": 1
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.149,
+			"end": 1.202,
 			"value": 6
 		},
 		{
-			"start": 1.16,
-			"end": 1.2,
+			"start": 1.242,
+			"end": 1.282,
 			"value": 4
 		},
 		{
-			"start": 1.2,
-			"end": 1.24,
+			"start": 1.282,
+			"end": 1.322,
 			"value": 6
 		},
 		{
-			"start": 1.24,
-			"end": 1.28,
+			"start": 1.322,
+			"end": 1.362,
 			"value": 2
 		},
 		{
-			"start": 1.344,
-			"end": 1.408,
+			"start": 1.426,
+			"end": 1.49,
 			"value": 5
 		},
 		{
-			"start": 1.408,
-			"end": 1.472,
+			"start": 1.49,
+			"end": 1.554,
 			"value": 1
 		},
 		{
-			"start": 1.472,
-			"end": 1.6,
+			"start": 1.554,
+			"end": 1.682,
 			"value": 6
 		},
 		{
-			"start": 1.6,
-			"end": 1.68,
+			"start": 1.682,
+			"end": 1.762,
 			"value": 4
 		},
 		{
-			"start": 1.68,
-			"end": 1.759,
+			"start": 1.762,
+			"end": 1.842,
 			"value": 6
 		},
 		{
-			"start": 2.027,
-			"end": 2.293,
+			"start": 2.802,
+			"end": 3.042,
 			"value": 1
 		},
 		{
-			"start": 2.293,
-			"end": 2.56,
+			"start": 3.042,
+			"end": 3.282,
 			"value": 3
 		},
 		{
-			"start": 2.62,
-			"end": 2.68,
+			"start": 3.342,
+			"end": 3.402,
 			"value": 6
 		},
 		{
-			"start": 2.68,
-			"end": 2.74,
+			"start": 3.402,
+			"end": 3.462,
 			"value": 3
 		},
 		{
-			"start": 2.74,
-			"end": 2.8,
+			"start": 3.462,
+			"end": 3.522,
 			"value": 1
 		},
 		{
-			"start": 2.84,
-			"end": 2.88,
+			"start": 3.562,
+			"end": 3.602,
 			"value": 4
 		},
 		{
-			"start": 2.88,
-			"end": 2.92,
+			"start": 3.602,
+			"end": 3.642,
 			"value": 6
 		},
 		{
-			"start": 2.92,
-			"end": 2.96,
+			"start": 3.642,
+			"end": 3.682,
 			"value": 2
 		},
 		{
-			"start": 3.013,
-			"end": 3.067,
+			"start": 3.762,
+			"end": 3.842,
 			"value": 6
 		},
 		{
-			"start": 3.067,
-			"end": 3.12,
+			"start": 3.842,
+			"end": 3.922,
 			"value": 2
 		},
 		{
-			"start": 3.12,
-			"end": 3.16,
+			"start": 3.922,
+			"end": 3.962,
 			"value": 7
 		},
 		{
-			"start": 3.16,
-			"end": 3.2,
+			"start": 3.962,
+			"end": 4.002,
 			"value": 6
 		},
 		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 4.002,
+			"end": 4.055,
 			"value": 4
 		},
 		{
-			"start": 3.28,
-			"end": 3.36,
+			"start": 4.055,
+			"end": 4.109,
 			"value": 6
 		},
 		{
-			"start": 3.36,
-			"end": 3.44,
+			"start": 4.109,
+			"end": 4.162,
 			"value": 2
 		},
 		{
-			"start": 3.56,
-			"end": 3.68,
+			"start": 4.202,
+			"end": 4.242,
 			"value": 1
 		},
 		{
-			"start": 3.707,
-			"end": 3.733,
+			"start": 4.269,
+			"end": 4.295,
 			"value": 7
 		},
 		{
-			"start": 3.733,
-			"end": 3.76,
+			"start": 4.295,
+			"end": 4.322,
 			"value": 1
 		},
 		{
-			"start": 3.817,
-			"end": 3.874,
+			"start": 4.391,
+			"end": 4.459,
 			"value": 1
 		},
 		{
-			"start": 3.874,
-			"end": 3.989,
+			"start": 4.459,
+			"end": 4.596,
 			"value": 7
 		},
 		{
-			"start": 3.989,
-			"end": 4.046,
+			"start": 4.596,
+			"end": 4.665,
 			"value": 3
 		},
 		{
-			"start": 4.046,
-			"end": 4.16,
+			"start": 4.665,
+			"end": 4.802,
 			"value": 6
 		},
 		{
-			"start": 4.16,
-			"end": 4.24,
+			"start": 4.802,
+			"end": 4.842,
 			"value": 2
 		},
 		{
-			"start": 4.267,
-			"end": 4.293,
-			"value": 4
-		},
-		{
-			"start": 4.293,
-			"end": 4.32,
+			"start": 4.942,
+			"end": 5.002,
 			"value": 6
 		},
 		{
-			"start": 4.36,
-			"end": 4.4,
-			"value": 6
-		},
-		{
-			"start": 4.4,
-			"end": 4.44,
+			"start": 5.002,
+			"end": 5.062,
 			"value": 2
 		},
 		{
-			"start": 4.44,
-			"end": 4.48,
+			"start": 5.062,
+			"end": 5.122,
 			"value": 6
 		},
 		{
-			"start": 4.48,
-			"end": 4.587,
+			"start": 5.122,
+			"end": 5.229,
 			"value": 2
 		},
 		{
-			"start": 4.587,
-			"end": 4.693,
+			"start": 5.229,
+			"end": 5.335,
 			"value": 6
 		},
 		{
-			"start": 4.693,
-			"end": 4.8,
+			"start": 5.335,
+			"end": 5.442,
 			"value": 3
-		},
-		{
-			"start": 5.04,
-			"end": 5.92,
-			"value": 2
 		}
 	]
 }

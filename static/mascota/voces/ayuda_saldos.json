@@ -2,261 +2,246 @@
 	"version": 1,
 	"audio": "ayuda_saldos.mp3",
 	"texto": "Muestra tu saldo, el de la hucha común y el de cada persona del departamento.",
-	"duration": 4,
+	"duration": 5.18,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.12,
-			"value": 4
-		},
-		{
-			"start": 0.12,
-			"end": 0.16,
-			"value": 1
-		},
-		{
-			"start": 0.16,
-			"end": 0.28,
-			"value": 6
-		},
-		{
-			"start": 0.28,
-			"end": 0.32,
-			"value": 2
-		},
-		{
-			"start": 0.4,
-			"end": 0.48,
-			"value": 6
-		},
-		{
-			"start": 0.48,
-			"end": 0.56,
-			"value": 4
-		},
-		{
-			"start": 0.613,
-			"end": 0.667,
-			"value": 6
-		},
-		{
-			"start": 0.667,
-			"end": 0.72,
-			"value": 2
-		},
-		{
-			"start": 0.72,
-			"end": 0.827,
-			"value": 6
-		},
-		{
-			"start": 0.827,
-			"end": 0.88,
-			"value": 3
-		},
-		{
-			"start": 1.067,
-			"end": 1.093,
-			"value": 1
-		},
-		{
-			"start": 1.093,
-			"end": 1.12,
-			"value": 6
-		},
-		{
-			"start": 1.173,
-			"end": 1.227,
-			"value": 6
-		},
-		{
-			"start": 1.227,
-			"end": 1.28,
-			"value": 1
-		},
-		{
-			"start": 1.307,
-			"end": 1.333,
-			"value": 6
-		},
-		{
-			"start": 1.333,
-			"end": 1.36,
-			"value": 2
-		},
-		{
-			"start": 1.44,
-			"end": 1.48,
-			"value": 4
-		},
-		{
-			"start": 1.48,
-			"end": 1.52,
-			"value": 6
-		},
-		{
-			"start": 1.56,
-			"end": 1.6,
-			"value": 2
-		},
-		{
-			"start": 1.66,
-			"end": 1.72,
-			"value": 6
-		},
-		{
-			"start": 1.72,
-			"end": 1.78,
-			"value": 3
-		},
-		{
-			"start": 1.78,
-			"end": 1.84,
+			"start": 0.62,
+			"end": 0.647,
 			"value": 7
 		},
 		{
-			"start": 1.84,
-			"end": 1.92,
+			"start": 0.664,
+			"end": 0.691,
+			"value": 6
+		},
+		{
+			"start": 0.727,
+			"end": 0.753,
+			"value": 6
+		},
+		{
+			"start": 0.753,
+			"end": 0.78,
 			"value": 4
 		},
 		{
-			"start": 1.92,
-			"end": 2,
+			"start": 0.847,
+			"end": 0.913,
 			"value": 6
+		},
+		{
+			"start": 0.913,
+			"end": 0.98,
+			"value": 2
+		},
+		{
+			"start": 0.98,
+			"end": 1.113,
+			"value": 6
+		},
+		{
+			"start": 1.113,
+			"end": 1.18,
+			"value": 3
+		},
+		{
+			"start": 1.5,
+			"end": 1.58,
+			"value": 1
+		},
+		{
+			"start": 1.58,
+			"end": 1.713,
+			"value": 6
+		},
+		{
+			"start": 1.713,
+			"end": 1.74,
+			"value": 1
+		},
+		{
+			"start": 1.793,
+			"end": 1.847,
+			"value": 6
+		},
+		{
+			"start": 1.847,
+			"end": 1.9,
+			"value": 2
+		},
+		{
+			"start": 1.98,
+			"end": 2.04,
+			"value": 4
 		},
 		{
 			"start": 2.04,
-			"end": 2.08,
-			"value": 1
-		},
-		{
-			"start": 2.133,
-			"end": 2.187,
-			"value": 1
-		},
-		{
-			"start": 2.187,
-			"end": 2.293,
+			"end": 2.1,
 			"value": 6
 		},
 		{
-			"start": 2.293,
-			"end": 2.32,
-			"value": 1
-		},
-		{
-			"start": 2.368,
-			"end": 2.416,
-			"value": 6
-		},
-		{
-			"start": 2.416,
-			"end": 2.464,
+			"start": 2.16,
+			"end": 2.22,
 			"value": 2
 		},
 		{
-			"start": 2.464,
-			"end": 2.512,
+			"start": 2.26,
+			"end": 2.3,
 			"value": 6
 		},
 		{
-			"start": 2.512,
-			"end": 2.56,
-			"value": 2
-		},
-		{
-			"start": 2.61,
-			"end": 2.66,
-			"value": 7
-		},
-		{
-			"start": 2.66,
-			"end": 2.71,
-			"value": 1
-		},
-		{
-			"start": 2.71,
-			"end": 2.81,
-			"value": 6
-		},
-		{
-			"start": 2.81,
-			"end": 2.86,
+			"start": 2.3,
+			"end": 2.34,
 			"value": 3
 		},
 		{
-			"start": 2.86,
-			"end": 2.91,
-			"value": 6
-		},
-		{
-			"start": 2.91,
-			"end": 2.96,
-			"value": 2
-		},
-		{
-			"start": 3,
-			"end": 3.04,
-			"value": 6
-		},
-		{
-			"start": 3.04,
-			"end": 3.08,
-			"value": 1
-		},
-		{
-			"start": 3.08,
-			"end": 3.12,
-			"value": 6
-		},
-		{
-			"start": 3.175,
-			"end": 3.231,
-			"value": 6
-		},
-		{
-			"start": 3.231,
-			"end": 3.286,
-			"value": 1
-		},
-		{
-			"start": 3.286,
-			"end": 3.342,
+			"start": 2.34,
+			"end": 2.38,
 			"value": 7
 		},
 		{
-			"start": 3.342,
-			"end": 3.397,
-			"value": 2
+			"start": 2.38,
+			"end": 2.46,
+			"value": 4
 		},
 		{
-			"start": 3.397,
-			"end": 3.508,
+			"start": 2.46,
+			"end": 2.54,
 			"value": 6
 		},
 		{
-			"start": 3.508,
-			"end": 3.563,
-			"value": 2
-		},
-		{
-			"start": 3.563,
-			"end": 3.618,
-			"value": 7
-		},
-		{
-			"start": 3.618,
-			"end": 3.674,
+			"start": 2.74,
+			"end": 2.993,
 			"value": 1
 		},
 		{
-			"start": 3.674,
-			"end": 3.785,
+			"start": 2.993,
+			"end": 3.02,
 			"value": 6
 		},
 		{
-			"start": 3.785,
-			"end": 3.84,
+			"start": 3.073,
+			"end": 3.127,
+			"value": 6
+		},
+		{
+			"start": 3.127,
+			"end": 3.18,
+			"value": 1
+		},
+		{
+			"start": 3.228,
+			"end": 3.276,
+			"value": 6
+		},
+		{
+			"start": 3.276,
+			"end": 3.324,
+			"value": 2
+		},
+		{
+			"start": 3.324,
+			"end": 3.372,
+			"value": 6
+		},
+		{
+			"start": 3.372,
+			"end": 3.42,
+			"value": 2
+		},
+		{
+			"start": 3.47,
+			"end": 3.52,
+			"value": 7
+		},
+		{
+			"start": 3.52,
+			"end": 3.57,
+			"value": 1
+		},
+		{
+			"start": 3.57,
+			"end": 3.67,
+			"value": 6
+		},
+		{
+			"start": 3.67,
+			"end": 3.72,
+			"value": 3
+		},
+		{
+			"start": 3.72,
+			"end": 3.77,
+			"value": 6
+		},
+		{
+			"start": 3.77,
+			"end": 3.82,
+			"value": 2
+		},
+		{
+			"start": 3.86,
+			"end": 3.9,
+			"value": 6
+		},
+		{
+			"start": 3.9,
+			"end": 3.94,
+			"value": 1
+		},
+		{
+			"start": 3.94,
+			"end": 3.98,
+			"value": 6
+		},
+		{
+			"start": 4.035,
+			"end": 4.091,
+			"value": 6
+		},
+		{
+			"start": 4.091,
+			"end": 4.146,
+			"value": 1
+		},
+		{
+			"start": 4.146,
+			"end": 4.202,
+			"value": 7
+		},
+		{
+			"start": 4.202,
+			"end": 4.257,
+			"value": 2
+		},
+		{
+			"start": 4.257,
+			"end": 4.368,
+			"value": 6
+		},
+		{
+			"start": 4.368,
+			"end": 4.423,
+			"value": 2
+		},
+		{
+			"start": 4.423,
+			"end": 4.478,
+			"value": 7
+		},
+		{
+			"start": 4.478,
+			"end": 4.534,
+			"value": 1
+		},
+		{
+			"start": 4.534,
+			"end": 4.645,
+			"value": 6
+		},
+		{
+			"start": 4.645,
+			"end": 4.7,
 			"value": 3
 		}
 	]

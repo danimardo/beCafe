@@ -2,156 +2,156 @@
 	"version": 1,
 	"audio": "ayuda_adminBaja.mp3",
 	"texto": "Liquida el saldo de la persona y la da de baja.",
-	"duration": 2.48,
+	"duration": 3.129,
 	"cues": [
 		{
-			"start": 0.24,
-			"end": 0.293,
+			"start": 0.451,
+			"end": 0.504,
 			"value": 1
 		},
 		{
-			"start": 0.293,
-			"end": 0.347,
+			"start": 0.504,
+			"end": 0.558,
 			"value": 6
 		},
 		{
-			"start": 0.347,
-			"end": 0.4,
+			"start": 0.558,
+			"end": 0.611,
 			"value": 2
 		},
 		{
-			"start": 0.427,
-			"end": 0.453,
+			"start": 0.638,
+			"end": 0.664,
 			"value": 1
 		},
 		{
-			"start": 0.453,
-			"end": 0.48,
+			"start": 0.664,
+			"end": 0.691,
 			"value": 6
 		},
 		{
-			"start": 0.533,
-			"end": 0.587,
+			"start": 0.744,
+			"end": 0.798,
 			"value": 6
 		},
 		{
-			"start": 0.587,
-			"end": 0.64,
+			"start": 0.798,
+			"end": 0.851,
 			"value": 2
 		},
 		{
-			"start": 0.64,
-			"end": 0.747,
+			"start": 0.851,
+			"end": 0.958,
 			"value": 6
 		},
 		{
-			"start": 0.747,
-			"end": 0.8,
+			"start": 0.958,
+			"end": 1.011,
 			"value": 3
 		},
 		{
-			"start": 0.827,
-			"end": 0.853,
+			"start": 1.038,
+			"end": 1.064,
 			"value": 6
 		},
 		{
-			"start": 0.853,
-			"end": 0.88,
+			"start": 1.064,
+			"end": 1.091,
 			"value": 1
 		},
 		{
-			"start": 0.907,
-			"end": 0.933,
+			"start": 1.144,
+			"end": 1.198,
 			"value": 6
 		},
 		{
-			"start": 0.933,
-			"end": 0.96,
+			"start": 1.198,
+			"end": 1.251,
 			"value": 2
 		},
 		{
-			"start": 1.02,
-			"end": 1.08,
+			"start": 1.311,
+			"end": 1.371,
 			"value": 7
 		},
 		{
-			"start": 1.08,
-			"end": 1.14,
+			"start": 1.371,
+			"end": 1.431,
 			"value": 1
 		},
 		{
-			"start": 1.14,
-			"end": 1.26,
+			"start": 1.431,
+			"end": 1.551,
 			"value": 6
 		},
 		{
-			"start": 1.26,
-			"end": 1.32,
+			"start": 1.551,
+			"end": 1.611,
 			"value": 3
 		},
 		{
-			"start": 1.32,
-			"end": 1.38,
+			"start": 1.611,
+			"end": 1.671,
 			"value": 6
 		},
 		{
-			"start": 1.38,
-			"end": 1.44,
+			"start": 1.671,
+			"end": 1.731,
 			"value": 2
 		},
 		{
-			"start": 1.56,
-			"end": 1.68,
+			"start": 1.851,
+			"end": 1.971,
 			"value": 1
 		},
 		{
-			"start": 1.733,
-			"end": 1.787,
+			"start": 2.024,
+			"end": 2.078,
 			"value": 6
 		},
 		{
-			"start": 1.787,
-			"end": 1.84,
+			"start": 2.078,
+			"end": 2.131,
 			"value": 2
 		},
 		{
-			"start": 1.867,
-			"end": 1.893,
+			"start": 2.158,
+			"end": 2.184,
 			"value": 6
 		},
 		{
-			"start": 1.893,
-			"end": 1.92,
+			"start": 2.184,
+			"end": 2.211,
 			"value": 2
 		},
 		{
-			"start": 1.973,
-			"end": 2.027,
+			"start": 2.238,
+			"end": 2.264,
 			"value": 6
 		},
 		{
-			"start": 2.027,
-			"end": 2.08,
+			"start": 2.264,
+			"end": 2.291,
 			"value": 1
 		},
 		{
-			"start": 2.144,
-			"end": 2.208,
+			"start": 2.371,
+			"end": 2.451,
 			"value": 7
 		},
 		{
-			"start": 2.208,
-			"end": 2.272,
+			"start": 2.451,
+			"end": 2.531,
 			"value": 2
 		},
 		{
-			"start": 2.272,
-			"end": 2.336,
+			"start": 2.531,
+			"end": 2.611,
 			"value": 6
 		},
 		{
-			"start": 2.336,
-			"end": 2.4,
+			"start": 2.611,
+			"end": 2.691,
 			"value": 2
 		}
 	]

@@ -2,201 +2,196 @@
 	"version": 1,
 	"audio": "registro_39.mp3",
 	"texto": "Toma tu café, criatura. Que bastante tienes con lo tuyo.",
-	"duration": 6.16,
+	"duration": 3.856,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.213,
+			"start": 0.402,
+			"end": 0.455,
 			"value": 3
 		},
 		{
-			"start": 0.213,
-			"end": 0.267,
+			"start": 0.455,
+			"end": 0.509,
 			"value": 7
 		},
 		{
-			"start": 0.267,
-			"end": 0.32,
+			"start": 0.509,
+			"end": 0.562,
 			"value": 2
 		},
 		{
-			"start": 0.373,
-			"end": 0.427,
+			"start": 0.589,
+			"end": 0.615,
 			"value": 6
 		},
 		{
-			"start": 0.427,
-			"end": 0.48,
+			"start": 0.615,
+			"end": 0.642,
 			"value": 4
 		},
 		{
-			"start": 0.544,
-			"end": 0.608,
+			"start": 0.722,
+			"end": 0.802,
 			"value": 6
 		},
 		{
-			"start": 0.608,
-			"end": 0.672,
+			"start": 0.802,
+			"end": 0.882,
 			"value": 2
 		},
 		{
-			"start": 0.672,
-			"end": 0.736,
+			"start": 0.882,
+			"end": 0.962,
 			"value": 5
 		},
 		{
-			"start": 0.736,
-			"end": 0.8,
+			"start": 0.962,
+			"end": 1.041,
 			"value": 1
 		},
 		{
-			"start": 0.94,
-			"end": 1.06,
+			"start": 1.082,
+			"end": 1.162,
 			"value": 6
 		},
 		{
-			"start": 1.06,
-			"end": 1.12,
+			"start": 1.162,
+			"end": 1.202,
 			"value": 1
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.202,
+			"end": 1.298,
 			"value": 2
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.298,
+			"end": 1.394,
 			"value": 6
 		},
 		{
-			"start": 1.28,
-			"end": 1.36,
+			"start": 1.394,
+			"end": 1.49,
 			"value": 4
 		},
 		{
-			"start": 1.36,
-			"end": 1.44,
+			"start": 1.49,
+			"end": 1.586,
 			"value": 6
 		},
 		{
-			"start": 1.44,
-			"end": 1.52,
+			"start": 1.586,
+			"end": 1.682,
 			"value": 2
 		},
 		{
-			"start": 1.87,
-			"end": 1.94,
+			"start": 1.882,
+			"end": 1.922,
 			"value": 6
 		},
 		{
-			"start": 1.94,
-			"end": 2.01,
+			"start": 1.922,
+			"end": 1.962,
 			"value": 4
 		},
 		{
-			"start": 2.01,
-			"end": 2.08,
+			"start": 1.962,
+			"end": 2.002,
 			"value": 1
 		},
 		{
-			"start": 2.133,
-			"end": 2.187,
+			"start": 2.046,
+			"end": 2.091,
 			"value": 7
 		},
 		{
-			"start": 2.187,
-			"end": 2.24,
+			"start": 2.091,
+			"end": 2.135,
 			"value": 2
 		},
 		{
-			"start": 2.24,
-			"end": 2.347,
+			"start": 2.135,
+			"end": 2.224,
 			"value": 6
 		},
 		{
-			"start": 2.347,
-			"end": 2.4,
+			"start": 2.224,
+			"end": 2.269,
 			"value": 2
 		},
 		{
-			"start": 2.4,
-			"end": 2.507,
+			"start": 2.269,
+			"end": 2.358,
 			"value": 6
 		},
 		{
-			"start": 2.507,
-			"end": 2.56,
+			"start": 2.358,
+			"end": 2.402,
 			"value": 1
 		},
 		{
-			"start": 2.617,
-			"end": 2.674,
+			"start": 2.459,
+			"end": 2.516,
 			"value": 6
 		},
 		{
-			"start": 2.674,
-			"end": 2.789,
+			"start": 2.516,
+			"end": 2.631,
 			"value": 1
 		},
 		{
-			"start": 2.789,
-			"end": 2.846,
+			"start": 2.631,
+			"end": 2.688,
 			"value": 6
 		},
 		{
-			"start": 2.846,
-			"end": 2.903,
+			"start": 2.688,
+			"end": 2.745,
 			"value": 1
 		},
 		{
-			"start": 2.903,
-			"end": 2.96,
+			"start": 2.745,
+			"end": 2.802,
 			"value": 6
 		},
 		{
-			"start": 3,
-			"end": 3.04,
+			"start": 2.842,
+			"end": 2.882,
 			"value": 6
 		},
 		{
-			"start": 3.04,
-			"end": 3.08,
+			"start": 2.882,
+			"end": 2.922,
 			"value": 3
 		},
 		{
-			"start": 3.08,
-			"end": 3.12,
+			"start": 2.922,
+			"end": 3.015,
 			"value": 6
 		},
 		{
-			"start": 3.173,
-			"end": 3.227,
-			"value": 6
-		},
-		{
-			"start": 3.227,
-			"end": 3.28,
+			"start": 3.015,
+			"end": 3.042,
 			"value": 3
 		},
 		{
-			"start": 3.36,
-			"end": 3.44,
+			"start": 3.122,
+			"end": 3.202,
 			"value": 6
 		},
 		{
-			"start": 3.44,
-			"end": 3.493,
+			"start": 3.202,
+			"end": 3.282,
 			"value": 4
 		},
 		{
-			"start": 3.493,
-			"end": 3.547,
+			"start": 3.282,
+			"end": 3.362,
 			"value": 1
 		},
 		{
-			"start": 3.547,
-			"end": 3.6,
+			"start": 3.362,
+			"end": 3.442,
 			"value": 3
 		}
 	]

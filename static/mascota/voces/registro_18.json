@@ -2,192 +2,182 @@
 	"version": 1,
 	"audio": "registro_18.mp3",
 	"texto": "Tu jefe cree que estás trabajando. Yo guardaré el secreto.",
-	"duration": 4.96,
+	"duration": 4.193,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.24,
+			"start": 0.472,
+			"end": 0.512,
 			"value": 6
 		},
 		{
-			"start": 0.24,
-			"end": 0.32,
+			"start": 0.512,
+			"end": 0.565,
 			"value": 1
 		},
 		{
-			"start": 0.32,
-			"end": 0.4,
+			"start": 0.565,
+			"end": 0.619,
 			"value": 5
 		},
 		{
-			"start": 0.4,
-			"end": 0.48,
+			"start": 0.619,
+			"end": 0.672,
 			"value": 1
 		},
 		{
-			"start": 0.528,
-			"end": 0.624,
+			"start": 0.736,
+			"end": 0.864,
 			"value": 6
 		},
 		{
-			"start": 0.624,
-			"end": 0.72,
+			"start": 0.864,
+			"end": 0.992,
 			"value": 1
 		},
 		{
-			"start": 0.76,
-			"end": 0.8,
-			"value": 6
-		},
-		{
-			"start": 0.8,
-			"end": 0.84,
+			"start": 1.032,
+			"end": 1.052,
 			"value": 4
 		},
 		{
-			"start": 0.84,
-			"end": 0.88,
+			"start": 1.132,
+			"end": 1.192,
 			"value": 1
 		},
 		{
-			"start": 0.94,
-			"end": 1,
-			"value": 1
-		},
-		{
-			"start": 1,
-			"end": 1.12,
+			"start": 1.192,
+			"end": 1.312,
 			"value": 6
 		},
 		{
-			"start": 1.12,
-			"end": 1.16,
+			"start": 1.312,
+			"end": 1.352,
 			"value": 2
 		},
 		{
-			"start": 1.16,
-			"end": 1.2,
+			"start": 1.352,
+			"end": 1.392,
 			"value": 6
 		},
 		{
-			"start": 1.257,
-			"end": 1.371,
+			"start": 1.449,
+			"end": 1.563,
 			"value": 6
 		},
 		{
-			"start": 1.371,
-			"end": 1.429,
+			"start": 1.563,
+			"end": 1.621,
 			"value": 2
 		},
 		{
-			"start": 1.429,
-			"end": 1.486,
+			"start": 1.621,
+			"end": 1.678,
 			"value": 7
 		},
 		{
-			"start": 1.486,
-			"end": 1.543,
+			"start": 1.678,
+			"end": 1.735,
 			"value": 2
 		},
 		{
-			"start": 1.543,
-			"end": 1.6,
+			"start": 1.735,
+			"end": 1.792,
 			"value": 6
 		},
 		{
-			"start": 1.6,
-			"end": 1.68,
+			"start": 1.792,
+			"end": 1.872,
 			"value": 2
 		},
 		{
-			"start": 1.68,
-			"end": 1.84,
+			"start": 1.872,
+			"end": 2.032,
 			"value": 6
 		},
 		{
-			"start": 1.84,
-			"end": 1.92,
+			"start": 2.032,
+			"end": 2.112,
 			"value": 3
 		},
 		{
-			"start": 2.4,
-			"end": 2.52,
+			"start": 2.592,
+			"end": 2.712,
 			"value": 1
 		},
 		{
-			"start": 2.52,
-			"end": 2.64,
+			"start": 2.712,
+			"end": 2.832,
 			"value": 3
 		},
 		{
-			"start": 2.69,
-			"end": 2.74,
+			"start": 2.872,
+			"end": 2.912,
 			"value": 6
 		},
 		{
-			"start": 2.74,
-			"end": 2.79,
+			"start": 2.912,
+			"end": 2.952,
 			"value": 4
 		},
 		{
-			"start": 2.79,
-			"end": 2.84,
+			"start": 2.952,
+			"end": 2.992,
 			"value": 2
 		},
 		{
-			"start": 2.84,
-			"end": 2.94,
+			"start": 2.992,
+			"end": 3.072,
 			"value": 6
 		},
 		{
-			"start": 2.94,
-			"end": 2.99,
+			"start": 3.072,
+			"end": 3.112,
 			"value": 2
 		},
 		{
-			"start": 2.99,
-			"end": 3.04,
+			"start": 3.112,
+			"end": 3.152,
 			"value": 6
 		},
 		{
-			"start": 3.04,
-			"end": 3.107,
+			"start": 3.152,
+			"end": 3.285,
 			"value": 1
 		},
 		{
-			"start": 3.187,
-			"end": 3.253,
+			"start": 3.285,
+			"end": 3.312,
 			"value": 6
 		},
 		{
-			"start": 3.253,
-			"end": 3.32,
+			"start": 3.365,
+			"end": 3.419,
+			"value": 6
+		},
+		{
+			"start": 3.419,
+			"end": 3.472,
 			"value": 1
 		},
 		{
-			"start": 3.32,
-			"end": 3.453,
+			"start": 3.472,
+			"end": 3.579,
 			"value": 6
 		},
 		{
-			"start": 3.453,
-			"end": 3.52,
+			"start": 3.579,
+			"end": 3.632,
 			"value": 1
 		},
 		{
-			"start": 3.52,
-			"end": 3.64,
+			"start": 3.632,
+			"end": 3.752,
 			"value": 6
 		},
 		{
-			"start": 3.64,
-			"end": 3.76,
+			"start": 3.752,
+			"end": 3.872,
 			"value": 3
-		},
-		{
-			"start": 4.06,
-			"end": 4.96,
-			"value": 2
 		}
 	]
 }

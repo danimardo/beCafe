@@ -2,236 +2,251 @@
 	"version": 1,
 	"audio": "saludo_24.mp3",
 	"texto": "¡Hola, superviviente! Otra jornada esquivando marrones. ¡Qué emoción!",
-	"duration": 4.88,
+	"duration": 5.335,
 	"cues": [
 		{
-			"start": 0.377,
-			"end": 0.434,
+			"start": 0.484,
+			"end": 0.514,
+			"value": 3
+		},
+		{
+			"start": 0.514,
+			"end": 0.544,
 			"value": 6
 		},
 		{
-			"start": 0.434,
-			"end": 0.491,
+			"start": 0.544,
+			"end": 0.574,
+			"value": 2
+		},
+		{
+			"start": 0.803,
+			"end": 0.831,
+			"value": 6
+		},
+		{
+			"start": 0.831,
+			"end": 0.86,
 			"value": 4
 		},
 		{
-			"start": 0.491,
-			"end": 0.549,
+			"start": 0.86,
+			"end": 0.888,
 			"value": 7
 		},
 		{
-			"start": 0.549,
-			"end": 0.606,
+			"start": 0.888,
+			"end": 0.917,
 			"value": 1
 		},
 		{
-			"start": 0.606,
-			"end": 0.663,
+			"start": 0.917,
+			"end": 0.945,
 			"value": 6
 		},
 		{
-			"start": 0.663,
-			"end": 0.72,
+			"start": 0.945,
+			"end": 0.974,
 			"value": 5
 		},
 		{
-			"start": 0.72,
-			"end": 0.76,
+			"start": 0.974,
+			"end": 1.014,
 			"value": 1
 		},
 		{
-			"start": 0.76,
-			"end": 0.8,
+			"start": 1.014,
+			"end": 1.054,
 			"value": 5
 		},
 		{
-			"start": 0.8,
-			"end": 0.928,
+			"start": 1.054,
+			"end": 1.182,
 			"value": 1
 		},
 		{
-			"start": 0.928,
-			"end": 1.056,
+			"start": 1.182,
+			"end": 1.31,
 			"value": 6
 		},
 		{
-			"start": 1.056,
-			"end": 1.12,
+			"start": 1.31,
+			"end": 1.374,
 			"value": 1
 		},
 		{
-			"start": 1.44,
-			"end": 1.68,
+			"start": 1.694,
+			"end": 1.934,
 			"value": 3
 		},
 		{
-			"start": 1.68,
-			"end": 1.787,
+			"start": 1.934,
+			"end": 1.987,
 			"value": 6
 		},
 		{
-			"start": 1.787,
-			"end": 1.84,
+			"start": 1.987,
+			"end": 2.014,
 			"value": 2
 		},
 		{
-			"start": 1.888,
-			"end": 1.936,
+			"start": 2.078,
+			"end": 2.142,
 			"value": 6
 		},
 		{
-			"start": 1.936,
-			"end": 1.984,
+			"start": 2.142,
+			"end": 2.206,
 			"value": 3
 		},
 		{
-			"start": 1.984,
-			"end": 2.08,
+			"start": 2.206,
+			"end": 2.334,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.133,
+			"start": 2.334,
+			"end": 2.361,
 			"value": 2
 		},
 		{
-			"start": 2.133,
-			"end": 2.187,
+			"start": 2.361,
+			"end": 2.387,
 			"value": 6
 		},
 		{
-			"start": 2.187,
-			"end": 2.24,
+			"start": 2.387,
+			"end": 2.414,
 			"value": 2
 		},
 		{
-			"start": 2.293,
-			"end": 2.347,
+			"start": 2.467,
+			"end": 2.521,
 			"value": 1
 		},
 		{
-			"start": 2.347,
-			"end": 2.42,
+			"start": 2.521,
+			"end": 2.614,
 			"value": 6
 		},
 		{
-			"start": 2.42,
-			"end": 2.44,
+			"start": 2.614,
+			"end": 2.654,
 			"value": 4
 		},
 		{
-			"start": 2.44,
-			"end": 2.46,
+			"start": 2.654,
+			"end": 2.694,
 			"value": 1
 		},
 		{
-			"start": 2.46,
-			"end": 2.48,
+			"start": 2.694,
+			"end": 2.734,
 			"value": 5
 		},
 		{
-			"start": 2.48,
-			"end": 2.54,
+			"start": 2.734,
+			"end": 2.794,
 			"value": 2
 		},
 		{
-			"start": 2.54,
-			"end": 2.66,
+			"start": 2.794,
+			"end": 2.914,
 			"value": 6
 		},
 		{
-			"start": 2.66,
-			"end": 2.72,
+			"start": 2.914,
+			"end": 2.974,
 			"value": 3
 		},
 		{
-			"start": 2.76,
-			"end": 2.8,
+			"start": 3.014,
+			"end": 3.054,
 			"value": 7
 		},
 		{
-			"start": 2.8,
-			"end": 2.853,
+			"start": 3.054,
+			"end": 3.107,
 			"value": 2
 		},
 		{
-			"start": 2.853,
-			"end": 2.96,
+			"start": 3.107,
+			"end": 3.214,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3.04,
+			"start": 3.214,
+			"end": 3.294,
 			"value": 3
 		},
 		{
-			"start": 3.04,
-			"end": 3.12,
+			"start": 3.294,
+			"end": 3.374,
 			"value": 6
 		},
 		{
-			"start": 3.12,
-			"end": 3.2,
+			"start": 3.374,
+			"end": 3.454,
 			"value": 1
 		},
 		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 3.454,
+			"end": 3.534,
 			"value": 6
 		},
 		{
-			"start": 3.44,
-			"end": 3.467,
+			"start": 3.774,
+			"end": 3.801,
 			"value": 6
 		},
 		{
-			"start": 3.467,
-			"end": 3.493,
+			"start": 3.801,
+			"end": 3.827,
 			"value": 4
 		},
 		{
-			"start": 3.493,
-			"end": 3.52,
+			"start": 3.827,
+			"end": 3.854,
 			"value": 1
 		},
 		{
-			"start": 3.573,
-			"end": 3.627,
+			"start": 3.934,
+			"end": 4.014,
 			"value": 1
 		},
 		{
-			"start": 3.627,
-			"end": 3.68,
+			"start": 4.014,
+			"end": 4.094,
 			"value": 7
 		},
 		{
-			"start": 3.68,
-			"end": 3.76,
+			"start": 4.094,
+			"end": 4.174,
 			"value": 3
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 4.174,
+			"end": 4.254,
 			"value": 6
 		},
 		{
-			"start": 3.84,
-			"end": 3.92,
+			"start": 4.254,
+			"end": 4.334,
 			"value": 1
 		},
 		{
-			"start": 3.92,
-			"end": 4.04,
+			"start": 4.334,
+			"end": 4.414,
 			"value": 3
 		},
 		{
-			"start": 4.04,
-			"end": 4.16,
+			"start": 4.414,
+			"end": 4.494,
 			"value": 6
 		},
 		{
-			"start": 4.4,
-			"end": 4.88,
+			"start": 4.714,
+			"end": 4.974,
 			"value": 2
 		}
 	]

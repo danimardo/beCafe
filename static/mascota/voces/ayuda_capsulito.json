@@ -2,146 +2,146 @@
 	"version": 1,
 	"audio": "ayuda_capsulito.mp3",
 	"texto": "Muestra las poses y frases de la mascota.",
-	"duration": 2.08,
+	"duration": 2.813,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.12,
+			"start": 0.434,
+			"end": 0.487,
 			"value": 4
 		},
 		{
-			"start": 0.12,
-			"end": 0.16,
+			"start": 0.487,
+			"end": 0.541,
 			"value": 1
 		},
 		{
-			"start": 0.16,
-			"end": 0.28,
+			"start": 0.541,
+			"end": 0.701,
 			"value": 6
 		},
 		{
-			"start": 0.28,
-			"end": 0.32,
+			"start": 0.701,
+			"end": 0.754,
 			"value": 2
 		},
 		{
-			"start": 0.36,
-			"end": 0.4,
+			"start": 0.794,
+			"end": 0.834,
 			"value": 6
 		},
 		{
-			"start": 0.4,
-			"end": 0.44,
+			"start": 0.834,
+			"end": 0.874,
 			"value": 2
 		},
 		{
-			"start": 0.44,
-			"end": 0.48,
+			"start": 0.874,
+			"end": 0.914,
 			"value": 6
 		},
 		{
-			"start": 0.547,
-			"end": 0.613,
+			"start": 0.967,
+			"end": 1.021,
 			"value": 7
 		},
 		{
-			"start": 0.613,
-			"end": 0.68,
+			"start": 1.021,
+			"end": 1.074,
 			"value": 3
 		},
 		{
-			"start": 0.68,
-			"end": 0.747,
+			"start": 1.074,
+			"end": 1.127,
 			"value": 6
 		},
 		{
-			"start": 0.747,
-			"end": 0.813,
+			"start": 1.127,
+			"end": 1.181,
 			"value": 1
 		},
 		{
-			"start": 0.813,
-			"end": 0.88,
+			"start": 1.181,
+			"end": 1.234,
 			"value": 6
 		},
 		{
-			"start": 0.92,
-			"end": 0.96,
+			"start": 1.274,
+			"end": 1.314,
 			"value": 1
 		},
 		{
-			"start": 0.987,
-			"end": 1.013,
+			"start": 1.367,
+			"end": 1.421,
 			"value": 5
 		},
 		{
-			"start": 1.013,
-			"end": 1.04,
+			"start": 1.421,
+			"end": 1.474,
 			"value": 6
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.474,
+			"end": 1.534,
 			"value": 2
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.534,
+			"end": 1.594,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.594,
+			"end": 1.654,
 			"value": 1
 		},
 		{
-			"start": 1.28,
-			"end": 1.413,
+			"start": 1.654,
+			"end": 1.767,
 			"value": 6
 		},
 		{
-			"start": 1.413,
-			"end": 1.44,
+			"start": 1.767,
+			"end": 1.794,
 			"value": 1
 		},
 		{
-			"start": 1.467,
-			"end": 1.493,
+			"start": 1.821,
+			"end": 1.847,
 			"value": 6
 		},
 		{
-			"start": 1.493,
-			"end": 1.52,
+			"start": 1.847,
+			"end": 1.874,
 			"value": 2
 		},
 		{
-			"start": 1.584,
-			"end": 1.648,
+			"start": 1.922,
+			"end": 1.97,
 			"value": 7
 		},
 		{
-			"start": 1.648,
-			"end": 1.712,
+			"start": 1.97,
+			"end": 2.018,
 			"value": 2
 		},
 		{
-			"start": 1.712,
-			"end": 1.84,
+			"start": 2.018,
+			"end": 2.114,
 			"value": 6
 		},
 		{
-			"start": 1.84,
-			"end": 1.92,
+			"start": 2.114,
+			"end": 2.194,
 			"value": 3
 		},
 		{
-			"start": 1.92,
-			"end": 2,
+			"start": 2.194,
+			"end": 2.274,
 			"value": 6
 		},
 		{
-			"start": 2,
-			"end": 2.08,
+			"start": 2.274,
+			"end": 2.354,
 			"value": 2
 		}
 	]

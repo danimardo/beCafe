@@ -2,267 +2,262 @@
 	"version": 1,
 	"audio": "registro_62.mp3",
 	"texto": "El secreto del éxito es parecer muy ocupado mientras se enfría el café.",
-	"duration": 6.88,
+	"duration": 4.886,
 	"cues": [
 		{
-			"start": 0.227,
-			"end": 0.293,
+			"start": 0.505,
+			"end": 0.571,
 			"value": 6
 		},
 		{
-			"start": 0.293,
-			"end": 0.36,
+			"start": 0.571,
+			"end": 0.638,
 			"value": 1
 		},
 		{
-			"start": 0.36,
-			"end": 0.493,
+			"start": 0.638,
+			"end": 0.771,
 			"value": 6
 		},
 		{
-			"start": 0.493,
-			"end": 0.56,
+			"start": 0.771,
+			"end": 0.838,
 			"value": 1
 		},
 		{
-			"start": 0.56,
-			"end": 0.6,
+			"start": 0.838,
+			"end": 0.878,
 			"value": 6
 		},
 		{
-			"start": 0.6,
-			"end": 0.64,
+			"start": 0.878,
+			"end": 0.918,
 			"value": 3
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
+			"start": 0.958,
+			"end": 0.998,
 			"value": 6
 		},
 		{
-			"start": 0.72,
-			"end": 0.76,
+			"start": 0.998,
+			"end": 1.038,
 			"value": 1
 		},
 		{
-			"start": 0.76,
-			"end": 0.8,
+			"start": 1.038,
+			"end": 1.078,
 			"value": 6
 		},
 		{
-			"start": 0.88,
-			"end": 0.96,
+			"start": 1.145,
+			"end": 1.211,
 			"value": 1
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 1.211,
+			"end": 1.278,
 			"value": 6
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.278,
+			"end": 1.345,
 			"value": 1
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.345,
+			"end": 1.411,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.411,
+			"end": 1.478,
 			"value": 3
 		},
 		{
-			"start": 1.44,
-			"end": 1.6,
+			"start": 1.638,
+			"end": 1.798,
 			"value": 1
 		},
 		{
-			"start": 1.6,
-			"end": 1.76,
+			"start": 1.798,
+			"end": 1.958,
 			"value": 6
 		},
 		{
-			"start": 1.792,
-			"end": 1.824,
+			"start": 2.006,
+			"end": 2.054,
 			"value": 7
 		},
 		{
-			"start": 1.824,
-			"end": 1.856,
+			"start": 2.054,
+			"end": 2.102,
 			"value": 2
 		},
 		{
-			"start": 1.856,
-			"end": 1.888,
+			"start": 2.102,
+			"end": 2.15,
 			"value": 6
 		},
 		{
-			"start": 1.888,
-			"end": 1.92,
+			"start": 2.15,
+			"end": 2.198,
 			"value": 1
 		},
 		{
-			"start": 1.92,
-			"end": 2,
+			"start": 2.198,
+			"end": 2.278,
 			"value": 6
 		},
 		{
-			"start": 2,
-			"end": 2.08,
+			"start": 2.278,
+			"end": 2.358,
 			"value": 1
 		},
 		{
-			"start": 2.08,
-			"end": 2.16,
+			"start": 2.358,
+			"end": 2.438,
 			"value": 6
 		},
 		{
-			"start": 2.24,
-			"end": 2.32,
+			"start": 2.478,
+			"end": 2.518,
 			"value": 7
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.518,
+			"end": 2.558,
 			"value": 4
 		},
 		{
-			"start": 2.4,
-			"end": 2.48,
+			"start": 2.558,
+			"end": 2.598,
 			"value": 1
 		},
 		{
-			"start": 2.56,
-			"end": 2.64,
+			"start": 2.678,
+			"end": 2.758,
 			"value": 3
 		},
 		{
-			"start": 2.64,
-			"end": 2.72,
+			"start": 2.758,
+			"end": 2.838,
 			"value": 6
 		},
 		{
-			"start": 2.72,
-			"end": 2.8,
+			"start": 2.838,
+			"end": 2.918,
 			"value": 4
 		},
 		{
-			"start": 2.8,
-			"end": 2.88,
+			"start": 2.918,
+			"end": 2.998,
 			"value": 7
 		},
 		{
-			"start": 2.88,
-			"end": 2.933,
+			"start": 2.998,
+			"end": 3.025,
 			"value": 2
 		},
 		{
-			"start": 2.933,
-			"end": 2.987,
+			"start": 3.025,
+			"end": 3.051,
 			"value": 6
 		},
 		{
-			"start": 2.987,
-			"end": 3.04,
+			"start": 3.051,
+			"end": 3.078,
 			"value": 3
 		},
 		{
-			"start": 3.093,
-			"end": 3.147,
+			"start": 3.122,
+			"end": 3.167,
 			"value": 7
 		},
 		{
-			"start": 3.147,
-			"end": 3.253,
+			"start": 3.167,
+			"end": 3.256,
 			"value": 1
 		},
 		{
-			"start": 3.253,
-			"end": 3.413,
+			"start": 3.256,
+			"end": 3.389,
 			"value": 6
 		},
 		{
-			"start": 3.413,
-			"end": 3.467,
+			"start": 3.389,
+			"end": 3.434,
 			"value": 2
 		},
 		{
-			"start": 3.467,
-			"end": 3.573,
+			"start": 3.434,
+			"end": 3.531,
 			"value": 6
 		},
 		{
-			"start": 3.573,
-			"end": 3.6,
+			"start": 3.531,
+			"end": 3.558,
 			"value": 1
 		},
 		{
-			"start": 3.653,
-			"end": 3.707,
+			"start": 3.611,
+			"end": 3.665,
 			"value": 1
 		},
 		{
-			"start": 3.707,
-			"end": 3.76,
+			"start": 3.665,
+			"end": 3.718,
 			"value": 6
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 3.718,
+			"end": 3.798,
 			"value": 5
 		},
 		{
-			"start": 3.84,
-			"end": 3.92,
+			"start": 3.798,
+			"end": 3.878,
 			"value": 6
 		},
 		{
-			"start": 3.92,
-			"end": 3.96,
+			"start": 3.878,
+			"end": 3.918,
 			"value": 1
 		},
 		{
-			"start": 3.96,
-			"end": 4,
+			"start": 3.918,
+			"end": 3.958,
 			"value": 2
 		},
 		{
-			"start": 4.027,
-			"end": 4.053,
+			"start": 3.985,
+			"end": 4.011,
 			"value": 1
 		},
 		{
-			"start": 4.053,
-			"end": 4.08,
+			"start": 4.011,
+			"end": 4.038,
 			"value": 6
 		},
 		{
-			"start": 4.16,
-			"end": 4.24,
+			"start": 4.134,
+			"end": 4.23,
 			"value": 6
 		},
 		{
-			"start": 4.24,
-			"end": 4.32,
+			"start": 4.23,
+			"end": 4.326,
 			"value": 2
 		},
 		{
-			"start": 4.32,
-			"end": 4.4,
+			"start": 4.326,
+			"end": 4.422,
 			"value": 5
 		},
 		{
-			"start": 4.4,
-			"end": 4.48,
+			"start": 4.422,
+			"end": 4.518,
 			"value": 1
-		},
-		{
-			"start": 4.96,
-			"end": 6.88,
-			"value": 2
 		}
 	]
 }

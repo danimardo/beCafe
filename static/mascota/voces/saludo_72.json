@@ -2,317 +2,297 @@
 	"version": 1,
 	"audio": "saludo_72.mp3",
 	"texto": "¡Hola, criatura! ¡Anoche soñé que era una cafetera y tú me dabas órdenes! ¡Qué turbio!",
-	"duration": 6.24,
+	"duration": 6.179,
 	"cues": [
 		{
-			"start": 0.22,
-			"end": 0.28,
-			"value": 3
-		},
-		{
-			"start": 0.28,
-			"end": 0.34,
+			"start": 0.758,
+			"end": 0.818,
 			"value": 6
 		},
 		{
-			"start": 0.34,
-			"end": 0.4,
-			"value": 2
-		},
-		{
-			"start": 0.55,
-			"end": 0.61,
-			"value": 6
-		},
-		{
-			"start": 0.61,
-			"end": 0.64,
+			"start": 0.818,
+			"end": 0.848,
 			"value": 1
 		},
 		{
-			"start": 0.64,
-			"end": 0.72,
+			"start": 0.848,
+			"end": 0.928,
 			"value": 2
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 0.928,
+			"end": 1.008,
 			"value": 6
 		},
 		{
-			"start": 0.8,
-			"end": 0.88,
+			"start": 1.008,
+			"end": 1.088,
 			"value": 4
 		},
 		{
-			"start": 0.88,
-			"end": 0.96,
+			"start": 1.088,
+			"end": 1.168,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 1.168,
+			"end": 1.248,
 			"value": 2
 		},
 		{
-			"start": 1.44,
-			"end": 1.48,
+			"start": 1.808,
+			"end": 1.888,
 			"value": 2
 		},
 		{
-			"start": 1.48,
-			"end": 1.52,
+			"start": 1.888,
+			"end": 1.968,
 			"value": 6
 		},
 		{
-			"start": 1.52,
-			"end": 1.68,
+			"start": 1.968,
+			"end": 2.048,
 			"value": 3
 		},
 		{
-			"start": 1.68,
-			"end": 1.707,
+			"start": 2.048,
+			"end": 2.075,
 			"value": 6
 		},
 		{
-			"start": 1.733,
-			"end": 1.76,
+			"start": 2.101,
+			"end": 2.128,
 			"value": 1
 		},
 		{
-			"start": 1.84,
-			"end": 1.92,
+			"start": 2.208,
+			"end": 2.288,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 2,
+			"start": 2.288,
+			"end": 2.368,
 			"value": 3
 		},
 		{
-			"start": 2,
-			"end": 2.08,
+			"start": 2.368,
+			"end": 2.448,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.16,
+			"start": 2.448,
+			"end": 2.528,
 			"value": 1
 		},
 		{
-			"start": 2.18,
-			"end": 2.2,
+			"start": 2.568,
+			"end": 2.608,
 			"value": 6
 		},
 		{
-			"start": 2.2,
-			"end": 2.22,
+			"start": 2.608,
+			"end": 2.648,
 			"value": 4
 		},
 		{
-			"start": 2.22,
-			"end": 2.24,
+			"start": 2.648,
+			"end": 2.688,
 			"value": 1
 		},
 		{
-			"start": 2.3,
-			"end": 2.36,
+			"start": 2.728,
+			"end": 2.768,
 			"value": 1
 		},
 		{
-			"start": 2.36,
-			"end": 2.42,
+			"start": 2.768,
+			"end": 2.808,
 			"value": 6
 		},
 		{
-			"start": 2.42,
-			"end": 2.48,
+			"start": 2.808,
+			"end": 2.848,
 			"value": 2
 		},
 		{
-			"start": 2.52,
-			"end": 2.56,
+			"start": 2.888,
+			"end": 2.928,
 			"value": 4
 		},
 		{
-			"start": 2.56,
-			"end": 2.6,
+			"start": 2.928,
+			"end": 2.968,
 			"value": 6
 		},
 		{
-			"start": 2.6,
-			"end": 2.64,
+			"start": 2.968,
+			"end": 3.008,
 			"value": 2
 		},
 		{
-			"start": 2.7,
-			"end": 2.76,
+			"start": 3.068,
+			"end": 3.128,
 			"value": 6
 		},
 		{
-			"start": 2.76,
-			"end": 2.82,
+			"start": 3.128,
+			"end": 3.188,
 			"value": 2
 		},
 		{
-			"start": 2.82,
-			"end": 2.88,
+			"start": 3.188,
+			"end": 3.248,
 			"value": 5
 		},
 		{
-			"start": 2.88,
-			"end": 2.92,
+			"start": 3.248,
+			"end": 3.308,
 			"value": 1
 		},
 		{
-			"start": 2.92,
-			"end": 2.96,
+			"start": 3.308,
+			"end": 3.368,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3,
+			"start": 3.368,
+			"end": 3.428,
 			"value": 1
 		},
 		{
-			"start": 3,
-			"end": 3.04,
+			"start": 3.428,
+			"end": 3.488,
 			"value": 6
 		},
 		{
-			"start": 3.04,
-			"end": 3.12,
+			"start": 3.488,
+			"end": 3.568,
 			"value": 2
 		},
 		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 3.608,
+			"end": 3.648,
 			"value": 1
 		},
 		{
-			"start": 3.333,
-			"end": 3.387,
+			"start": 3.701,
+			"end": 3.755,
 			"value": 6
 		},
 		{
-			"start": 3.387,
-			"end": 3.44,
+			"start": 3.755,
+			"end": 3.808,
 			"value": 4
 		},
 		{
-			"start": 3.493,
-			"end": 3.547,
+			"start": 3.861,
+			"end": 3.915,
 			"value": 7
 		},
 		{
-			"start": 3.547,
-			"end": 3.6,
+			"start": 3.915,
+			"end": 3.968,
 			"value": 1
 		},
 		{
-			"start": 3.64,
-			"end": 3.68,
+			"start": 4.028,
+			"end": 4.088,
 			"value": 6
 		},
 		{
-			"start": 3.68,
-			"end": 3.72,
+			"start": 4.088,
+			"end": 4.148,
 			"value": 2
 		},
 		{
-			"start": 3.72,
-			"end": 3.76,
+			"start": 4.148,
+			"end": 4.208,
 			"value": 7
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 4.208,
+			"end": 4.248,
 			"value": 2
 		},
 		{
-			"start": 3.84,
-			"end": 3.92,
+			"start": 4.248,
+			"end": 4.288,
 			"value": 6
 		},
 		{
-			"start": 3.96,
-			"end": 4,
+			"start": 4.328,
+			"end": 4.368,
 			"value": 3
 		},
 		{
-			"start": 4,
-			"end": 4.133,
+			"start": 4.368,
+			"end": 4.501,
 			"value": 6
 		},
 		{
-			"start": 4.133,
-			"end": 4.187,
+			"start": 4.501,
+			"end": 4.555,
 			"value": 1
 		},
 		{
-			"start": 4.187,
-			"end": 4.24,
+			"start": 4.555,
+			"end": 4.608,
 			"value": 6
 		},
 		{
-			"start": 4.24,
-			"end": 4.32,
+			"start": 4.608,
+			"end": 4.688,
 			"value": 1
 		},
 		{
-			"start": 4.32,
-			"end": 4.4,
+			"start": 4.688,
+			"end": 4.768,
 			"value": 6
 		},
 		{
-			"start": 4.8,
-			"end": 4.853,
+			"start": 5.088,
+			"end": 5.115,
 			"value": 6
 		},
 		{
-			"start": 4.853,
-			"end": 4.907,
+			"start": 5.115,
+			"end": 5.141,
 			"value": 4
 		},
 		{
-			"start": 4.907,
-			"end": 4.96,
+			"start": 5.141,
+			"end": 5.168,
 			"value": 1
 		},
 		{
-			"start": 5.04,
-			"end": 5.12,
+			"start": 5.248,
+			"end": 5.328,
 			"value": 6
 		},
 		{
-			"start": 5.12,
-			"end": 5.2,
+			"start": 5.328,
+			"end": 5.408,
 			"value": 4
 		},
 		{
-			"start": 5.2,
-			"end": 5.28,
+			"start": 5.408,
+			"end": 5.488,
 			"value": 6
 		},
 		{
-			"start": 5.28,
-			"end": 5.36,
+			"start": 5.488,
+			"end": 5.568,
 			"value": 7
 		},
 		{
-			"start": 5.36,
-			"end": 5.44,
+			"start": 5.568,
+			"end": 5.688,
 			"value": 1
 		},
 		{
-			"start": 5.44,
-			"end": 5.52,
+			"start": 5.688,
+			"end": 5.808,
 			"value": 3
-		},
-		{
-			"start": 5.76,
-			"end": 6.24,
-			"value": 2
 		}
 	]
 }

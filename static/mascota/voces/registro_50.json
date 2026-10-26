@@ -2,241 +2,241 @@
 	"version": 1,
 	"audio": "registro_50.mp3",
 	"texto": "El dinero no da la felicidad, pero paga el café y eso ya es algo.",
-	"duration": 4.08,
+	"duration": 4.685,
 	"cues": [
 		{
-			"start": 0.137,
-			"end": 0.194,
-			"value": 6
-		},
-		{
-			"start": 0.194,
-			"end": 0.251,
-			"value": 1
-		},
-		{
-			"start": 0.251,
-			"end": 0.309,
-			"value": 6
-		},
-		{
-			"start": 0.309,
-			"end": 0.366,
-			"value": 1
-		},
-		{
-			"start": 0.366,
-			"end": 0.423,
-			"value": 6
-		},
-		{
-			"start": 0.423,
-			"end": 0.48,
-			"value": 3
-		},
-		{
 			"start": 0.533,
-			"end": 0.587,
+			"end": 0.578,
 			"value": 6
 		},
 		{
-			"start": 0.587,
-			"end": 0.64,
+			"start": 0.578,
+			"end": 0.624,
+			"value": 1
+		},
+		{
+			"start": 0.624,
+			"end": 0.67,
+			"value": 6
+		},
+		{
+			"start": 0.67,
+			"end": 0.716,
+			"value": 1
+		},
+		{
+			"start": 0.716,
+			"end": 0.761,
+			"value": 6
+		},
+		{
+			"start": 0.761,
+			"end": 0.807,
 			"value": 3
 		},
 		{
-			"start": 0.693,
-			"end": 0.747,
+			"start": 0.86,
+			"end": 0.914,
 			"value": 6
 		},
 		{
-			"start": 0.747,
-			"end": 0.8,
-			"value": 2
+			"start": 0.914,
+			"end": 0.967,
+			"value": 3
 		},
 		{
-			"start": 0.827,
-			"end": 0.853,
+			"start": 1.02,
+			"end": 1.074,
 			"value": 6
 		},
 		{
-			"start": 0.853,
-			"end": 0.88,
+			"start": 1.074,
+			"end": 1.127,
 			"value": 2
 		},
 		{
-			"start": 0.94,
-			"end": 1,
+			"start": 1.154,
+			"end": 1.18,
+			"value": 6
+		},
+		{
+			"start": 1.18,
+			"end": 1.207,
+			"value": 2
+		},
+		{
+			"start": 1.267,
+			"end": 1.327,
 			"value": 5
 		},
 		{
-			"start": 1,
-			"end": 1.06,
+			"start": 1.327,
+			"end": 1.387,
 			"value": 1
 		},
 		{
-			"start": 1.06,
-			"end": 1.12,
+			"start": 1.387,
+			"end": 1.447,
 			"value": 6
 		},
 		{
-			"start": 1.12,
-			"end": 1.16,
+			"start": 1.447,
+			"end": 1.527,
 			"value": 1
 		},
 		{
-			"start": 1.16,
-			"end": 1.2,
+			"start": 1.527,
+			"end": 1.607,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.26,
+			"start": 1.607,
+			"end": 1.667,
 			"value": 1
 		},
 		{
-			"start": 1.26,
-			"end": 1.32,
+			"start": 1.667,
+			"end": 1.727,
 			"value": 6
 		},
 		{
-			"start": 1.32,
-			"end": 1.38,
+			"start": 1.727,
+			"end": 1.787,
 			"value": 2
 		},
 		{
-			"start": 1.38,
-			"end": 1.44,
+			"start": 1.787,
+			"end": 1.847,
 			"value": 6
 		},
 		{
-			"start": 1.68,
-			"end": 1.72,
+			"start": 2.135,
+			"end": 2.183,
 			"value": 7
 		},
 		{
-			"start": 1.72,
-			"end": 1.76,
+			"start": 2.183,
+			"end": 2.231,
 			"value": 1
 		},
 		{
-			"start": 1.76,
-			"end": 1.8,
+			"start": 2.231,
+			"end": 2.279,
 			"value": 6
 		},
 		{
-			"start": 1.8,
-			"end": 1.84,
+			"start": 2.279,
+			"end": 2.327,
 			"value": 3
 		},
 		{
-			"start": 1.88,
-			"end": 1.92,
+			"start": 2.367,
+			"end": 2.407,
 			"value": 7
 		},
 		{
-			"start": 1.92,
-			"end": 1.947,
+			"start": 2.407,
+			"end": 2.46,
 			"value": 2
 		},
 		{
-			"start": 1.947,
-			"end": 1.973,
+			"start": 2.46,
+			"end": 2.514,
 			"value": 6
 		},
 		{
-			"start": 1.973,
-			"end": 2,
+			"start": 2.514,
+			"end": 2.567,
 			"value": 2
 		},
 		{
-			"start": 2.027,
-			"end": 2.053,
+			"start": 2.594,
+			"end": 2.62,
 			"value": 1
 		},
 		{
-			"start": 2.053,
-			"end": 2.08,
+			"start": 2.62,
+			"end": 2.647,
 			"value": 6
 		},
 		{
-			"start": 2.144,
-			"end": 2.208,
+			"start": 2.727,
+			"end": 2.807,
 			"value": 6
 		},
 		{
-			"start": 2.208,
-			"end": 2.272,
+			"start": 2.807,
+			"end": 2.887,
 			"value": 2
 		},
 		{
-			"start": 2.272,
-			"end": 2.336,
+			"start": 2.887,
+			"end": 2.967,
 			"value": 5
 		},
 		{
-			"start": 2.336,
-			"end": 2.4,
+			"start": 2.967,
+			"end": 3.047,
 			"value": 1
 		},
 		{
-			"start": 2.56,
-			"end": 2.72,
+			"start": 3.207,
+			"end": 3.367,
 			"value": 1
 		},
 		{
-			"start": 2.78,
-			"end": 2.84,
+			"start": 3.447,
+			"end": 3.527,
 			"value": 1
 		},
 		{
-			"start": 2.84,
-			"end": 2.9,
+			"start": 3.527,
+			"end": 3.607,
 			"value": 6
 		},
 		{
-			"start": 2.9,
-			"end": 2.96,
+			"start": 3.607,
+			"end": 3.687,
 			"value": 3
 		},
 		{
-			"start": 3.013,
-			"end": 3.067,
+			"start": 3.714,
+			"end": 3.74,
 			"value": 1
 		},
 		{
-			"start": 3.067,
-			"end": 3.12,
+			"start": 3.74,
+			"end": 3.767,
 			"value": 2
 		},
 		{
-			"start": 3.173,
-			"end": 3.227,
+			"start": 3.82,
+			"end": 3.874,
 			"value": 1
 		},
 		{
-			"start": 3.227,
-			"end": 3.28,
+			"start": 3.874,
+			"end": 3.927,
 			"value": 6
 		},
 		{
-			"start": 3.344,
-			"end": 3.408,
+			"start": 3.991,
+			"end": 4.055,
 			"value": 2
 		},
 		{
-			"start": 3.408,
-			"end": 3.536,
+			"start": 4.055,
+			"end": 4.183,
 			"value": 6
 		},
 		{
-			"start": 3.536,
-			"end": 3.6,
+			"start": 4.183,
+			"end": 4.247,
 			"value": 3
 		},
 		{
-			"start": 3.72,
-			"end": 4.08,
+			"start": 4.367,
+			"end": 4.685,
 			"value": 2
 		}
 	]

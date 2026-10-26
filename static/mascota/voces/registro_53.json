@@ -2,231 +2,236 @@
 	"version": 1,
 	"audio": "registro_53.mp3",
 	"texto": "Si la vida te da limones, pide café. Que esto no es una frutería.",
-	"duration": 4.56,
+	"duration": 5.369,
 	"cues": [
 		{
-			"start": 0.368,
-			"end": 0.416,
+			"start": 0.525,
+			"end": 0.551,
+			"value": 6
+		},
+		{
+			"start": 0.551,
+			"end": 0.578,
+			"value": 2
+		},
+		{
+			"start": 0.626,
+			"end": 0.674,
 			"value": 5
 		},
 		{
-			"start": 0.416,
-			"end": 0.464,
+			"start": 0.674,
+			"end": 0.722,
 			"value": 1
 		},
 		{
-			"start": 0.464,
-			"end": 0.512,
+			"start": 0.722,
+			"end": 0.77,
 			"value": 6
 		},
 		{
-			"start": 0.512,
-			"end": 0.56,
+			"start": 0.77,
+			"end": 0.818,
 			"value": 2
 		},
 		{
-			"start": 0.613,
-			"end": 0.667,
+			"start": 0.871,
+			"end": 0.925,
 			"value": 6
 		},
 		{
-			"start": 0.667,
-			"end": 0.72,
+			"start": 0.925,
+			"end": 0.978,
 			"value": 1
 		},
 		{
-			"start": 0.747,
-			"end": 0.773,
+			"start": 1.031,
+			"end": 1.085,
 			"value": 6
 		},
 		{
-			"start": 0.773,
-			"end": 0.8,
+			"start": 1.085,
+			"end": 1.138,
 			"value": 2
 		},
 		{
-			"start": 0.86,
-			"end": 0.92,
+			"start": 1.178,
+			"end": 1.218,
 			"value": 6
 		},
 		{
-			"start": 0.92,
-			"end": 0.98,
+			"start": 1.218,
+			"end": 1.258,
 			"value": 1
 		},
 		{
-			"start": 0.98,
-			"end": 1.04,
+			"start": 1.258,
+			"end": 1.298,
 			"value": 7
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.298,
+			"end": 1.398,
 			"value": 3
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.398,
+			"end": 1.498,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.498,
+			"end": 1.598,
 			"value": 1
 		},
 		{
-			"start": 1.28,
-			"end": 1.36,
+			"start": 1.598,
+			"end": 1.698,
 			"value": 6
 		},
 		{
-			"start": 1.56,
-			"end": 1.6,
+			"start": 1.878,
+			"end": 1.938,
 			"value": 7
 		},
 		{
-			"start": 1.6,
-			"end": 1.653,
+			"start": 1.938,
+			"end": 1.965,
 			"value": 1
 		},
 		{
-			"start": 1.653,
-			"end": 1.707,
+			"start": 1.965,
+			"end": 1.991,
 			"value": 6
 		},
 		{
-			"start": 1.707,
-			"end": 1.76,
+			"start": 1.991,
+			"end": 2.018,
 			"value": 1
 		},
 		{
-			"start": 1.824,
-			"end": 1.888,
+			"start": 2.114,
+			"end": 2.21,
 			"value": 6
 		},
 		{
-			"start": 1.888,
-			"end": 1.952,
+			"start": 2.21,
+			"end": 2.306,
 			"value": 2
 		},
 		{
-			"start": 1.952,
-			"end": 2.016,
+			"start": 2.306,
+			"end": 2.402,
 			"value": 5
 		},
 		{
-			"start": 2.016,
-			"end": 2.08,
+			"start": 2.402,
+			"end": 2.498,
 			"value": 1
 		},
 		{
-			"start": 2.28,
-			"end": 2.4,
+			"start": 3.198,
+			"end": 3.338,
 			"value": 6
 		},
 		{
-			"start": 2.4,
-			"end": 2.52,
+			"start": 3.338,
+			"end": 3.478,
 			"value": 4
 		},
 		{
-			"start": 2.52,
-			"end": 2.64,
+			"start": 3.478,
+			"end": 3.618,
 			"value": 1
 		},
 		{
-			"start": 2.688,
-			"end": 2.736,
+			"start": 3.666,
+			"end": 3.714,
 			"value": 1
 		},
 		{
-			"start": 2.736,
-			"end": 2.832,
+			"start": 3.714,
+			"end": 3.81,
 			"value": 6
 		},
 		{
-			"start": 2.832,
-			"end": 2.88,
+			"start": 3.81,
+			"end": 3.858,
 			"value": 3
 		},
 		{
-			"start": 2.907,
-			"end": 2.933,
+			"start": 3.911,
+			"end": 3.965,
 			"value": 6
 		},
 		{
-			"start": 2.933,
-			"end": 2.96,
+			"start": 3.965,
+			"end": 4.018,
 			"value": 3
 		},
 		{
-			"start": 2.987,
-			"end": 3.013,
+			"start": 4.045,
+			"end": 4.071,
 			"value": 1
 		},
 		{
-			"start": 3.013,
-			"end": 3.04,
+			"start": 4.071,
+			"end": 4.098,
 			"value": 6
 		},
 		{
-			"start": 3.08,
-			"end": 3.12,
+			"start": 4.138,
+			"end": 4.178,
 			"value": 4
 		},
 		{
-			"start": 3.12,
-			"end": 3.16,
+			"start": 4.178,
+			"end": 4.218,
 			"value": 6
 		},
 		{
-			"start": 3.16,
-			"end": 3.2,
+			"start": 4.218,
+			"end": 4.258,
 			"value": 2
 		},
 		{
-			"start": 3.253,
-			"end": 3.307,
+			"start": 4.311,
+			"end": 4.365,
 			"value": 5
 		},
 		{
-			"start": 3.307,
-			"end": 3.36,
+			"start": 4.365,
+			"end": 4.418,
 			"value": 6
 		},
 		{
-			"start": 3.36,
-			"end": 3.42,
+			"start": 4.418,
+			"end": 4.478,
 			"value": 4
 		},
 		{
-			"start": 3.42,
-			"end": 3.48,
+			"start": 4.478,
+			"end": 4.538,
 			"value": 6
 		},
 		{
-			"start": 3.48,
-			"end": 3.54,
+			"start": 4.538,
+			"end": 4.598,
 			"value": 1
 		},
 		{
-			"start": 3.54,
-			"end": 3.6,
+			"start": 4.598,
+			"end": 4.658,
 			"value": 6
 		},
 		{
-			"start": 3.6,
-			"end": 3.72,
+			"start": 4.658,
+			"end": 4.858,
 			"value": 1
 		},
 		{
-			"start": 3.72,
-			"end": 3.84,
-			"value": 2
-		},
-		{
-			"start": 3.96,
-			"end": 4.56,
+			"start": 4.858,
+			"end": 5.058,
 			"value": 2
 		}
 	]

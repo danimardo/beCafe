@@ -2,171 +2,176 @@
 	"version": 1,
 	"audio": "agua_confirmada_01.mp3",
 	"texto": "¡Un héroe sin capa! Gracias por rellenar el agua.",
-	"duration": 4.48,
+	"duration": 3.73,
 	"cues": [
 		{
-			"start": 0.347,
-			"end": 0.4,
-			"value": 1
-		},
-		{
-			"start": 0.4,
-			"end": 0.48,
-			"value": 6
-		},
-		{
-			"start": 0.48,
-			"end": 0.56,
-			"value": 3
-		},
-		{
-			"start": 0.56,
-			"end": 0.64,
-			"value": 1
-		},
-		{
-			"start": 0.72,
-			"end": 0.8,
-			"value": 6
-		},
-		{
-			"start": 0.8,
-			"end": 0.88,
-			"value": 1
-		},
-		{
-			"start": 0.88,
-			"end": 0.96,
-			"value": 6
-		},
-		{
-			"start": 1.04,
-			"end": 1.12,
-			"value": 6
-		},
-		{
-			"start": 1.12,
-			"end": 1.2,
-			"value": 2
-		},
-		{
-			"start": 1.2,
-			"end": 1.28,
-			"value": 7
-		},
-		{
-			"start": 1.28,
-			"end": 1.44,
-			"value": 2
-		},
-		{
-			"start": 1.84,
-			"end": 2.213,
-			"value": 2
-		},
-		{
-			"start": 2.24,
-			"end": 2.288,
-			"value": 2
-		},
-		{
-			"start": 2.288,
-			"end": 2.336,
-			"value": 6
-		},
-		{
-			"start": 2.336,
-			"end": 2.384,
-			"value": 1
-		},
-		{
-			"start": 2.384,
-			"end": 2.432,
-			"value": 2
-		},
-		{
-			"start": 2.432,
-			"end": 2.48,
-			"value": 6
-		},
-		{
-			"start": 2.52,
-			"end": 2.56,
-			"value": 7
-		},
-		{
-			"start": 2.56,
-			"end": 2.6,
-			"value": 3
-		},
-		{
-			"start": 2.6,
-			"end": 2.64,
-			"value": 6
-		},
-		{
-			"start": 2.693,
-			"end": 2.747,
-			"value": 6
-		},
-		{
-			"start": 2.747,
-			"end": 2.8,
-			"value": 1
-		},
-		{
-			"start": 2.8,
-			"end": 2.88,
-			"value": 6
-		},
-		{
-			"start": 2.88,
-			"end": 2.92,
-			"value": 1
-		},
-		{
-			"start": 2.92,
-			"end": 2.96,
-			"value": 6
-		},
-		{
-			"start": 2.96,
-			"end": 3,
-			"value": 2
-		},
-		{
-			"start": 3,
-			"end": 3.04,
-			"value": 6
-		},
-		{
-			"start": 3.067,
-			"end": 3.093,
-			"value": 1
-		},
-		{
-			"start": 3.093,
-			"end": 3.12,
-			"value": 6
-		},
-		{
-			"start": 3.184,
-			"end": 3.248,
-			"value": 2
-		},
-		{
-			"start": 3.248,
-			"end": 3.312,
-			"value": 6
-		},
-		{
-			"start": 3.312,
-			"end": 3.376,
+			"start": 0.42,
+			"end": 0.446,
 			"value": 4
 		},
 		{
-			"start": 3.376,
-			"end": 3.44,
+			"start": 0.446,
+			"end": 0.473,
+			"value": 6
+		},
+		{
+			"start": 0.526,
+			"end": 0.553,
+			"value": 1
+		},
+		{
+			"start": 0.553,
+			"end": 0.633,
+			"value": 6
+		},
+		{
+			"start": 0.633,
+			"end": 0.713,
+			"value": 3
+		},
+		{
+			"start": 0.713,
+			"end": 0.793,
+			"value": 1
+		},
+		{
+			"start": 0.853,
+			"end": 0.913,
+			"value": 6
+		},
+		{
+			"start": 0.913,
+			"end": 0.973,
+			"value": 1
+		},
+		{
+			"start": 0.973,
+			"end": 1.033,
+			"value": 6
+		},
+		{
+			"start": 1.133,
+			"end": 1.233,
+			"value": 6
+		},
+		{
+			"start": 1.233,
+			"end": 1.333,
+			"value": 2
+		},
+		{
+			"start": 1.333,
+			"end": 1.433,
+			"value": 7
+		},
+		{
+			"start": 1.433,
+			"end": 1.62,
+			"value": 2
+		},
+		{
+			"start": 1.9,
+			"end": 2.053,
+			"value": 2
+		},
+		{
+			"start": 2.073,
+			"end": 2.137,
+			"value": 2
+		},
+		{
+			"start": 2.137,
+			"end": 2.201,
+			"value": 6
+		},
+		{
+			"start": 2.201,
+			"end": 2.265,
+			"value": 1
+		},
+		{
+			"start": 2.265,
+			"end": 2.329,
+			"value": 2
+		},
+		{
+			"start": 2.329,
+			"end": 2.393,
+			"value": 6
+		},
+		{
+			"start": 2.413,
+			"end": 2.433,
+			"value": 7
+		},
+		{
+			"start": 2.453,
+			"end": 2.473,
+			"value": 6
+		},
+		{
+			"start": 2.526,
+			"end": 2.58,
+			"value": 6
+		},
+		{
+			"start": 2.58,
+			"end": 2.633,
+			"value": 1
+		},
+		{
+			"start": 2.633,
+			"end": 2.713,
+			"value": 6
+		},
+		{
+			"start": 2.713,
+			"end": 2.753,
+			"value": 1
+		},
+		{
+			"start": 2.753,
+			"end": 2.793,
+			"value": 6
+		},
+		{
+			"start": 2.793,
+			"end": 2.833,
+			"value": 2
+		},
+		{
+			"start": 2.833,
+			"end": 2.873,
+			"value": 6
+		},
+		{
+			"start": 2.9,
+			"end": 2.926,
+			"value": 1
+		},
+		{
+			"start": 2.926,
+			"end": 2.953,
+			"value": 6
+		},
+		{
+			"start": 3.017,
+			"end": 3.081,
+			"value": 2
+		},
+		{
+			"start": 3.081,
+			"end": 3.145,
+			"value": 6
+		},
+		{
+			"start": 3.145,
+			"end": 3.209,
+			"value": 4
+		},
+		{
+			"start": 3.209,
+			"end": 3.273,
 			"value": 2
 		}
 	]

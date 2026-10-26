@@ -2,211 +2,181 @@
 	"version": 1,
 	"audio": "ayuda_compras.mp3",
 	"texto": "Registra las cápsulas que has comprado con dinero de la hucha.",
-	"duration": 3.04,
+	"duration": 3.693,
 	"cues": [
 		{
-			"start": 0.24,
-			"end": 0.304,
+			"start": 0.522,
+			"end": 0.586,
 			"value": 1
 		},
 		{
-			"start": 0.304,
-			"end": 0.496,
+			"start": 0.586,
+			"end": 0.778,
 			"value": 6
 		},
 		{
-			"start": 0.496,
-			"end": 0.56,
+			"start": 0.778,
+			"end": 0.842,
 			"value": 2
 		},
 		{
-			"start": 0.6,
-			"end": 0.64,
+			"start": 0.975,
+			"end": 1.029,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.68,
+			"start": 1.029,
+			"end": 1.082,
 			"value": 2
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
-			"value": 6
-		},
-		{
-			"start": 0.773,
-			"end": 0.827,
-			"value": 6
-		},
-		{
-			"start": 0.827,
-			"end": 0.88,
-			"value": 2
-		},
-		{
-			"start": 0.88,
-			"end": 0.92,
+			"start": 1.082,
+			"end": 1.162,
 			"value": 7
 		},
 		{
-			"start": 0.92,
-			"end": 0.96,
+			"start": 1.162,
+			"end": 1.242,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1.02,
+			"start": 1.242,
+			"end": 1.302,
 			"value": 4
 		},
 		{
-			"start": 1.02,
-			"end": 1.08,
+			"start": 1.302,
+			"end": 1.362,
 			"value": 6
 		},
 		{
-			"start": 1.08,
-			"end": 1.14,
+			"start": 1.362,
+			"end": 1.422,
 			"value": 2
 		},
 		{
-			"start": 1.14,
-			"end": 1.24,
+			"start": 1.422,
+			"end": 1.522,
 			"value": 6
 		},
 		{
-			"start": 1.24,
-			"end": 1.26,
-			"value": 4
-		},
-		{
-			"start": 1.26,
-			"end": 1.28,
-			"value": 1
-		},
-		{
-			"start": 1.32,
-			"end": 1.34,
+			"start": 1.642,
+			"end": 1.682,
 			"value": 2
 		},
 		{
-			"start": 1.34,
-			"end": 1.36,
+			"start": 1.682,
+			"end": 1.802,
 			"value": 6
 		},
 		{
-			"start": 1.413,
-			"end": 1.467,
-			"value": 6
-		},
-		{
-			"start": 1.467,
-			"end": 1.52,
+			"start": 1.802,
+			"end": 1.842,
 			"value": 3
 		},
 		{
-			"start": 1.52,
-			"end": 1.627,
+			"start": 1.842,
+			"end": 1.922,
 			"value": 7
 		},
 		{
-			"start": 1.627,
-			"end": 1.68,
+			"start": 1.922,
+			"end": 1.962,
 			"value": 6
 		},
 		{
-			"start": 1.68,
-			"end": 1.76,
+			"start": 1.962,
+			"end": 2.015,
 			"value": 2
 		},
 		{
-			"start": 1.76,
-			"end": 1.84,
+			"start": 2.015,
+			"end": 2.069,
 			"value": 6
 		},
 		{
-			"start": 1.84,
-			"end": 1.92,
+			"start": 2.069,
+			"end": 2.122,
 			"value": 3
 		},
 		{
-			"start": 1.96,
-			"end": 2,
+			"start": 2.182,
+			"end": 2.242,
 			"value": 6
 		},
 		{
-			"start": 2,
-			"end": 2.04,
+			"start": 2.242,
+			"end": 2.302,
 			"value": 3
 		},
 		{
-			"start": 2.04,
-			"end": 2.08,
+			"start": 2.302,
+			"end": 2.362,
 			"value": 6
 		},
 		{
-			"start": 2.137,
-			"end": 2.194,
+			"start": 2.408,
+			"end": 2.453,
 			"value": 6
 		},
 		{
-			"start": 2.194,
-			"end": 2.251,
+			"start": 2.453,
+			"end": 2.499,
 			"value": 1
 		},
 		{
-			"start": 2.251,
-			"end": 2.309,
+			"start": 2.499,
+			"end": 2.545,
 			"value": 6
 		},
 		{
-			"start": 2.309,
-			"end": 2.366,
+			"start": 2.545,
+			"end": 2.591,
 			"value": 1
 		},
 		{
-			"start": 2.366,
-			"end": 2.423,
+			"start": 2.591,
+			"end": 2.636,
 			"value": 6
 		},
 		{
-			"start": 2.423,
-			"end": 2.48,
+			"start": 2.636,
+			"end": 2.682,
 			"value": 3
 		},
 		{
-			"start": 2.507,
-			"end": 2.533,
+			"start": 2.709,
+			"end": 2.735,
 			"value": 6
 		},
 		{
-			"start": 2.533,
-			"end": 2.56,
+			"start": 2.735,
+			"end": 2.762,
 			"value": 1
 		},
 		{
-			"start": 2.587,
-			"end": 2.613,
+			"start": 2.789,
+			"end": 2.815,
 			"value": 6
 		},
 		{
-			"start": 2.613,
-			"end": 2.64,
+			"start": 2.815,
+			"end": 2.842,
 			"value": 2
 		},
 		{
-			"start": 2.72,
-			"end": 2.8,
+			"start": 3.002,
+			"end": 3.082,
 			"value": 4
 		},
 		{
-			"start": 2.8,
-			"end": 2.88,
+			"start": 3.082,
+			"end": 3.162,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3.04,
+			"start": 3.242,
+			"end": 3.322,
 			"value": 2
 		}
 	]

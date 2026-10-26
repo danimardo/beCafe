@@ -2,201 +2,186 @@
 	"version": 1,
 	"audio": "compra_confirmada_01.mp3",
 	"texto": "¡Llegaron refuerzos! Cápsulas nuevas en la despensa.",
-	"duration": 3.04,
+	"duration": 3.678,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.24,
-			"value": 6
-		},
-		{
-			"start": 0.24,
-			"end": 0.28,
-			"value": 1
-		},
-		{
-			"start": 0.28,
-			"end": 0.32,
-			"value": 6
-		},
-		{
-			"start": 0.32,
-			"end": 0.38,
+			"start": 0.444,
+			"end": 0.504,
 			"value": 2
 		},
 		{
-			"start": 0.38,
-			"end": 0.44,
+			"start": 0.504,
+			"end": 0.564,
 			"value": 6
 		},
 		{
-			"start": 0.44,
-			"end": 0.5,
+			"start": 0.564,
+			"end": 0.624,
 			"value": 3
 		},
 		{
-			"start": 0.5,
-			"end": 0.56,
+			"start": 0.624,
+			"end": 0.684,
 			"value": 6
 		},
 		{
-			"start": 0.62,
-			"end": 0.68,
+			"start": 0.744,
+			"end": 0.804,
 			"value": 6
 		},
 		{
-			"start": 0.68,
-			"end": 0.74,
+			"start": 0.804,
+			"end": 0.864,
 			"value": 1
 		},
 		{
-			"start": 0.74,
-			"end": 0.8,
+			"start": 0.864,
+			"end": 0.924,
 			"value": 5
 		},
 		{
-			"start": 0.8,
-			"end": 0.827,
+			"start": 0.924,
+			"end": 0.977,
 			"value": 4
 		},
 		{
-			"start": 0.827,
-			"end": 0.853,
+			"start": 0.977,
+			"end": 1.031,
 			"value": 1
 		},
 		{
-			"start": 0.853,
-			"end": 0.987,
+			"start": 1.031,
+			"end": 1.164,
 			"value": 6
 		},
 		{
-			"start": 0.987,
-			"end": 1.093,
+			"start": 1.164,
+			"end": 1.244,
 			"value": 3
 		},
 		{
-			"start": 1.093,
-			"end": 1.2,
+			"start": 1.244,
+			"end": 1.324,
 			"value": 6
 		},
 		{
-			"start": 1.44,
-			"end": 1.52,
+			"start": 1.624,
+			"end": 1.724,
 			"value": 6
 		},
 		{
-			"start": 1.52,
-			"end": 1.6,
+			"start": 1.724,
+			"end": 1.804,
 			"value": 2
 		},
 		{
-			"start": 1.6,
-			"end": 1.64,
+			"start": 1.804,
+			"end": 1.844,
 			"value": 7
 		},
 		{
-			"start": 1.64,
-			"end": 1.68,
+			"start": 1.844,
+			"end": 1.884,
 			"value": 6
 		},
 		{
-			"start": 1.68,
-			"end": 1.74,
+			"start": 1.884,
+			"end": 1.924,
 			"value": 4
 		},
 		{
-			"start": 1.74,
-			"end": 1.8,
+			"start": 1.924,
+			"end": 1.964,
 			"value": 6
 		},
 		{
-			"start": 1.8,
-			"end": 1.86,
+			"start": 1.964,
+			"end": 2.004,
 			"value": 2
 		},
 		{
-			"start": 1.86,
-			"end": 1.92,
+			"start": 2.004,
+			"end": 2.044,
 			"value": 6
 		},
 		{
-			"start": 1.966,
-			"end": 2.011,
+			"start": 2.101,
+			"end": 2.158,
 			"value": 6
 		},
 		{
-			"start": 2.011,
-			"end": 2.057,
+			"start": 2.158,
+			"end": 2.215,
 			"value": 4
 		},
 		{
-			"start": 2.057,
-			"end": 2.103,
+			"start": 2.215,
+			"end": 2.273,
 			"value": 1
 		},
 		{
-			"start": 2.103,
-			"end": 2.149,
+			"start": 2.273,
+			"end": 2.33,
 			"value": 5
 		},
 		{
-			"start": 2.149,
-			"end": 2.194,
+			"start": 2.33,
+			"end": 2.387,
 			"value": 2
 		},
 		{
-			"start": 2.194,
-			"end": 2.24,
+			"start": 2.387,
+			"end": 2.444,
 			"value": 6
 		},
 		{
-			"start": 2.267,
-			"end": 2.293,
+			"start": 2.471,
+			"end": 2.497,
 			"value": 1
 		},
 		{
-			"start": 2.293,
-			"end": 2.373,
+			"start": 2.497,
+			"end": 2.577,
 			"value": 6
 		},
 		{
-			"start": 2.373,
-			"end": 2.4,
+			"start": 2.577,
+			"end": 2.604,
 			"value": 2
 		},
 		{
-			"start": 2.448,
-			"end": 2.496,
+			"start": 2.668,
+			"end": 2.732,
 			"value": 6
 		},
 		{
-			"start": 2.496,
-			"end": 2.544,
+			"start": 2.732,
+			"end": 2.796,
 			"value": 1
 		},
 		{
-			"start": 2.544,
-			"end": 2.592,
+			"start": 2.796,
+			"end": 2.86,
 			"value": 6
 		},
 		{
-			"start": 2.592,
-			"end": 2.64,
+			"start": 2.86,
+			"end": 2.924,
 			"value": 7
 		},
 		{
-			"start": 2.64,
-			"end": 2.72,
+			"start": 2.924,
+			"end": 3.024,
 			"value": 1
 		},
 		{
-			"start": 2.72,
-			"end": 2.88,
+			"start": 3.024,
+			"end": 3.224,
 			"value": 6
 		},
 		{
-			"start": 2.88,
-			"end": 2.96,
+			"start": 3.224,
+			"end": 3.323,
 			"value": 2
 		}
 	]

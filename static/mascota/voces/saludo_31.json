@@ -2,311 +2,286 @@
 	"version": 1,
 	"audio": "saludo_31.mp3",
 	"texto": "¡Qué bien que estás aquí! Tenía un chiste buenísimo, pero me lo ha robado una croqueta.",
-	"duration": 6.08,
+	"duration": 5.364,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.107,
-			"value": 6
-		},
-		{
-			"start": 0.107,
-			"end": 0.133,
-			"value": 4
-		},
-		{
-			"start": 0.133,
-			"end": 0.16,
-			"value": 1
-		},
-		{
-			"start": 0.208,
-			"end": 0.256,
+			"start": 0.511,
+			"end": 0.559,
 			"value": 7
 		},
 		{
-			"start": 0.256,
-			"end": 0.352,
+			"start": 0.559,
+			"end": 0.655,
 			"value": 1
 		},
 		{
-			"start": 0.352,
-			"end": 0.48,
+			"start": 0.655,
+			"end": 0.743,
 			"value": 6
 		},
 		{
-			"start": 0.48,
-			"end": 0.52,
-			"value": 4
-		},
-		{
-			"start": 0.52,
-			"end": 0.56,
+			"start": 0.763,
+			"end": 0.863,
 			"value": 1
 		},
 		{
-			"start": 0.62,
-			"end": 0.68,
-			"value": 1
-		},
-		{
-			"start": 0.68,
-			"end": 0.8,
+			"start": 0.863,
+			"end": 0.943,
 			"value": 6
 		},
 		{
-			"start": 0.8,
-			"end": 0.84,
+			"start": 0.943,
+			"end": 1.023,
 			"value": 2
 		},
 		{
-			"start": 0.84,
-			"end": 0.88,
+			"start": 1.023,
+			"end": 1.103,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 1.167,
+			"end": 1.231,
 			"value": 2
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.231,
+			"end": 1.295,
 			"value": 6
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.295,
+			"end": 1.359,
 			"value": 4
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.359,
+			"end": 1.423,
 			"value": 1
 		},
 		{
-			"start": 1.58,
-			"end": 1.64,
+			"start": 1.823,
+			"end": 1.903,
 			"value": 6
 		},
 		{
-			"start": 1.64,
-			"end": 1.7,
+			"start": 1.903,
+			"end": 1.983,
 			"value": 1
 		},
 		{
-			"start": 1.7,
-			"end": 1.76,
+			"start": 1.983,
+			"end": 2.063,
 			"value": 6
 		},
 		{
-			"start": 1.76,
-			"end": 1.8,
+			"start": 2.063,
+			"end": 2.103,
 			"value": 1
 		},
 		{
-			"start": 1.8,
-			"end": 1.84,
+			"start": 2.103,
+			"end": 2.143,
 			"value": 2
 		},
 		{
-			"start": 1.867,
-			"end": 1.893,
+			"start": 2.17,
+			"end": 2.196,
 			"value": 4
 		},
 		{
-			"start": 1.893,
-			"end": 1.92,
+			"start": 2.196,
+			"end": 2.223,
 			"value": 6
 		},
 		{
-			"start": 1.973,
-			"end": 2.027,
+			"start": 2.303,
+			"end": 2.383,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.16,
+			"start": 2.463,
+			"end": 2.523,
 			"value": 1
 		},
 		{
-			"start": 2.16,
-			"end": 2.32,
+			"start": 2.523,
+			"end": 2.643,
 			"value": 6
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.643,
+			"end": 2.703,
 			"value": 1
 		},
 		{
-			"start": 2.448,
-			"end": 2.496,
+			"start": 2.751,
+			"end": 2.799,
 			"value": 7
 		},
 		{
-			"start": 2.496,
-			"end": 2.544,
+			"start": 2.799,
+			"end": 2.847,
 			"value": 4
 		},
 		{
-			"start": 2.544,
-			"end": 2.592,
+			"start": 2.847,
+			"end": 2.895,
 			"value": 1
 		},
 		{
-			"start": 2.592,
-			"end": 2.64,
+			"start": 2.895,
+			"end": 2.943,
 			"value": 6
 		},
 		{
-			"start": 2.64,
-			"end": 2.72,
+			"start": 2.943,
+			"end": 3.023,
 			"value": 1
 		},
 		{
-			"start": 2.72,
-			"end": 2.8,
+			"start": 3.023,
+			"end": 3.103,
 			"value": 6
 		},
 		{
-			"start": 2.8,
-			"end": 2.853,
+			"start": 3.103,
+			"end": 3.156,
 			"value": 1
 		},
 		{
-			"start": 2.853,
-			"end": 2.907,
+			"start": 3.156,
+			"end": 3.21,
 			"value": 7
 		},
 		{
-			"start": 2.907,
-			"end": 2.96,
+			"start": 3.21,
+			"end": 3.263,
 			"value": 3
 		},
 		{
-			"start": 3.152,
-			"end": 3.184,
+			"start": 3.535,
+			"end": 3.567,
 			"value": 7
 		},
 		{
-			"start": 3.184,
-			"end": 3.216,
+			"start": 3.567,
+			"end": 3.599,
 			"value": 1
 		},
 		{
-			"start": 3.216,
-			"end": 3.248,
+			"start": 3.599,
+			"end": 3.631,
 			"value": 6
 		},
 		{
-			"start": 3.248,
-			"end": 3.28,
+			"start": 3.631,
+			"end": 3.663,
 			"value": 3
 		},
 		{
-			"start": 3.307,
-			"end": 3.333,
+			"start": 3.69,
+			"end": 3.716,
 			"value": 7
 		},
 		{
-			"start": 3.333,
-			"end": 3.36,
+			"start": 3.716,
+			"end": 3.743,
 			"value": 1
 		},
 		{
-			"start": 3.413,
-			"end": 3.467,
+			"start": 3.77,
+			"end": 3.796,
 			"value": 6
 		},
 		{
-			"start": 3.467,
-			"end": 3.52,
+			"start": 3.796,
+			"end": 3.823,
 			"value": 3
 		},
 		{
-			"start": 3.573,
-			"end": 3.6,
+			"start": 3.876,
+			"end": 3.903,
 			"value": 2
 		},
 		{
-			"start": 3.64,
-			"end": 3.68,
+			"start": 3.963,
+			"end": 4.023,
 			"value": 6
 		},
 		{
-			"start": 3.68,
-			"end": 3.72,
+			"start": 4.023,
+			"end": 4.083,
 			"value": 3
 		},
 		{
-			"start": 3.72,
-			"end": 3.76,
+			"start": 4.083,
+			"end": 4.143,
 			"value": 7
 		},
 		{
-			"start": 3.76,
-			"end": 3.813,
+			"start": 4.143,
+			"end": 4.196,
 			"value": 2
 		},
 		{
-			"start": 3.813,
-			"end": 3.867,
+			"start": 4.196,
+			"end": 4.25,
 			"value": 6
 		},
 		{
-			"start": 3.867,
-			"end": 3.92,
+			"start": 4.25,
+			"end": 4.303,
 			"value": 3
 		},
 		{
-			"start": 3.96,
-			"end": 4,
+			"start": 4.343,
+			"end": 4.383,
 			"value": 4
 		},
 		{
-			"start": 4,
-			"end": 4.04,
+			"start": 4.383,
+			"end": 4.423,
 			"value": 6
 		},
 		{
-			"start": 4.04,
-			"end": 4.08,
+			"start": 4.423,
+			"end": 4.463,
 			"value": 2
 		},
 		{
-			"start": 4.12,
-			"end": 4.2,
+			"start": 4.503,
+			"end": 4.583,
 			"value": 6
 		},
 		{
-			"start": 4.2,
-			"end": 4.24,
+			"start": 4.583,
+			"end": 4.623,
 			"value": 3
 		},
 		{
-			"start": 4.24,
-			"end": 4.28,
+			"start": 4.623,
+			"end": 4.663,
 			"value": 6
 		},
 		{
-			"start": 4.28,
-			"end": 4.32,
+			"start": 4.663,
+			"end": 4.703,
 			"value": 4
 		},
 		{
-			"start": 4.32,
-			"end": 4.427,
+			"start": 4.703,
+			"end": 4.783,
 			"value": 1
 		},
 		{
-			"start": 4.427,
-			"end": 4.533,
+			"start": 4.783,
+			"end": 4.863,
 			"value": 6
 		},
 		{
-			"start": 4.533,
-			"end": 4.64,
+			"start": 4.863,
+			"end": 4.943,
 			"value": 2
 		}
 	]

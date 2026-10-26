@@ -2,231 +2,236 @@
 	"version": 1,
 	"audio": "ayuda_privacidad.mp3",
 	"texto": "Explica qué datos guarda beCafé, para qué y durante cuánto tiempo.",
-	"duration": 3.68,
+	"duration": 4.176,
 	"cues": [
 		{
-			"start": 0.24,
-			"end": 0.3,
+			"start": 0.134,
+			"end": 0.174,
 			"value": 6
 		},
 		{
-			"start": 0.3,
-			"end": 0.36,
+			"start": 0.174,
+			"end": 0.214,
 			"value": 1
 		},
 		{
-			"start": 0.36,
-			"end": 0.42,
+			"start": 0.214,
+			"end": 0.254,
 			"value": 6
 		},
 		{
-			"start": 0.42,
-			"end": 0.48,
+			"start": 0.254,
+			"end": 0.294,
 			"value": 2
 		},
 		{
-			"start": 0.52,
-			"end": 0.56,
+			"start": 0.334,
+			"end": 0.374,
 			"value": 6
 		},
 		{
-			"start": 0.56,
-			"end": 0.6,
+			"start": 0.374,
+			"end": 0.414,
 			"value": 4
 		},
 		{
-			"start": 0.6,
-			"end": 0.64,
+			"start": 0.414,
+			"end": 0.454,
 			"value": 1
 		},
 		{
-			"start": 0.693,
-			"end": 0.747,
+			"start": 0.521,
+			"end": 0.587,
 			"value": 6
 		},
 		{
-			"start": 0.747,
-			"end": 0.8,
+			"start": 0.587,
+			"end": 0.654,
 			"value": 2
 		},
 		{
-			"start": 0.8,
-			"end": 0.853,
+			"start": 0.654,
+			"end": 0.721,
 			"value": 6
 		},
 		{
-			"start": 0.853,
-			"end": 0.907,
+			"start": 0.721,
+			"end": 0.787,
 			"value": 3
 		},
 		{
-			"start": 0.907,
-			"end": 0.96,
+			"start": 0.787,
+			"end": 0.854,
 			"value": 6
 		},
 		{
-			"start": 1.006,
-			"end": 1.051,
+			"start": 0.9,
+			"end": 0.945,
 			"value": 6
 		},
 		{
-			"start": 1.051,
-			"end": 1.097,
+			"start": 0.945,
+			"end": 0.991,
 			"value": 4
 		},
 		{
-			"start": 1.097,
-			"end": 1.143,
+			"start": 0.991,
+			"end": 1.037,
 			"value": 2
 		},
 		{
-			"start": 1.143,
-			"end": 1.234,
+			"start": 1.037,
+			"end": 1.128,
 			"value": 6
 		},
 		{
-			"start": 1.234,
-			"end": 1.28,
+			"start": 1.128,
+			"end": 1.174,
 			"value": 2
 		},
 		{
-			"start": 1.333,
-			"end": 1.387,
+			"start": 1.201,
+			"end": 1.227,
 			"value": 7
 		},
 		{
-			"start": 1.387,
-			"end": 1.44,
+			"start": 1.227,
+			"end": 1.254,
 			"value": 1
 		},
 		{
-			"start": 1.441,
-			"end": 1.52,
+			"start": 1.254,
+			"end": 1.334,
+			"value": 6
+		},
+		{
+			"start": 1.334,
+			"end": 1.414,
 			"value": 2
 		},
 		{
-			"start": 1.52,
-			"end": 1.6,
+			"start": 1.414,
+			"end": 1.494,
 			"value": 5
 		},
 		{
-			"start": 1.6,
-			"end": 1.68,
+			"start": 1.494,
+			"end": 1.574,
 			"value": 1
 		},
 		{
-			"start": 1.872,
-			"end": 1.904,
+			"start": 1.862,
+			"end": 1.91,
 			"value": 7
 		},
 		{
-			"start": 1.904,
-			"end": 1.936,
+			"start": 1.91,
+			"end": 1.958,
 			"value": 2
 		},
 		{
-			"start": 1.936,
-			"end": 1.968,
+			"start": 1.958,
+			"end": 2.006,
 			"value": 6
 		},
 		{
-			"start": 1.968,
-			"end": 2,
+			"start": 2.006,
+			"end": 2.054,
 			"value": 2
 		},
 		{
-			"start": 2.06,
-			"end": 2.12,
+			"start": 2.114,
+			"end": 2.174,
 			"value": 6
 		},
 		{
-			"start": 2.12,
-			"end": 2.18,
+			"start": 2.174,
+			"end": 2.234,
 			"value": 4
 		},
 		{
-			"start": 2.18,
-			"end": 2.24,
+			"start": 2.234,
+			"end": 2.294,
 			"value": 1
 		},
 		{
-			"start": 2.36,
-			"end": 2.48,
+			"start": 2.454,
+			"end": 2.614,
 			"value": 1
 		},
 		{
-			"start": 2.53,
-			"end": 2.58,
+			"start": 2.664,
+			"end": 2.714,
 			"value": 6
 		},
 		{
-			"start": 2.58,
-			"end": 2.63,
+			"start": 2.714,
+			"end": 2.764,
 			"value": 4
 		},
 		{
-			"start": 2.63,
-			"end": 2.68,
+			"start": 2.764,
+			"end": 2.814,
 			"value": 6
 		},
 		{
-			"start": 2.68,
-			"end": 2.73,
+			"start": 2.814,
+			"end": 2.864,
 			"value": 2
 		},
 		{
-			"start": 2.73,
-			"end": 2.83,
+			"start": 2.864,
+			"end": 2.964,
 			"value": 6
 		},
 		{
-			"start": 2.83,
-			"end": 2.88,
+			"start": 2.964,
+			"end": 3.014,
 			"value": 1
-		},
-		{
-			"start": 2.933,
-			"end": 2.987,
-			"value": 6
-		},
-		{
-			"start": 2.987,
-			"end": 3.04,
-			"value": 4
-		},
-		{
-			"start": 3.04,
-			"end": 3.067,
-			"value": 2
 		},
 		{
 			"start": 3.067,
-			"end": 3.12,
+			"end": 3.121,
 			"value": 6
 		},
 		{
-			"start": 3.12,
-			"end": 3.2,
+			"start": 3.121,
+			"end": 3.174,
+			"value": 4
+		},
+		{
+			"start": 3.174,
+			"end": 3.227,
+			"value": 2
+		},
+		{
+			"start": 3.227,
+			"end": 3.334,
+			"value": 6
+		},
+		{
+			"start": 3.334,
+			"end": 3.534,
 			"value": 3
 		},
 		{
-			"start": 3.257,
-			"end": 3.314,
+			"start": 3.563,
+			"end": 3.591,
 			"value": 6
 		},
 		{
-			"start": 3.314,
-			"end": 3.429,
+			"start": 3.591,
+			"end": 3.648,
 			"value": 1
 		},
 		{
-			"start": 3.429,
-			"end": 3.543,
+			"start": 3.648,
+			"end": 3.705,
 			"value": 7
 		},
 		{
-			"start": 3.543,
-			"end": 3.6,
+			"start": 3.705,
+			"end": 3.734,
 			"value": 3
 		}
 	]

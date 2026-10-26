@@ -2,221 +2,231 @@
 	"version": 1,
 	"audio": "registro_13.mp3",
 	"texto": "Acabo de hablar con tu café. Dice que se arrepiente de conocerte.",
-	"duration": 5.283,
+	"duration": 4.737,
 	"cues": [
 		{
-			"start": 0.24,
-			"end": 0.293,
+			"start": 0.425,
+			"end": 0.505,
 			"value": 2
 		},
 		{
-			"start": 0.293,
-			"end": 0.347,
+			"start": 0.505,
+			"end": 0.585,
 			"value": 7
 		},
 		{
-			"start": 0.347,
-			"end": 0.4,
+			"start": 0.585,
+			"end": 0.665,
 			"value": 3
 		},
 		{
-			"start": 0.427,
-			"end": 0.453,
+			"start": 0.692,
+			"end": 0.718,
 			"value": 6
 		},
 		{
-			"start": 0.453,
-			"end": 0.48,
+			"start": 0.718,
+			"end": 0.745,
 			"value": 1
 		},
 		{
-			"start": 0.571,
-			"end": 0.617,
+			"start": 0.814,
+			"end": 0.848,
 			"value": 2
 		},
 		{
-			"start": 0.617,
-			"end": 0.663,
+			"start": 0.848,
+			"end": 0.882,
 			"value": 7
 		},
 		{
-			"start": 0.663,
-			"end": 0.709,
+			"start": 0.882,
+			"end": 0.916,
 			"value": 6
 		},
 		{
-			"start": 0.709,
-			"end": 0.754,
+			"start": 0.916,
+			"end": 0.951,
 			"value": 2
 		},
 		{
-			"start": 0.754,
-			"end": 0.88,
+			"start": 0.951,
+			"end": 0.985,
 			"value": 6
 		},
 		{
-			"start": 0.88,
-			"end": 0.92,
+			"start": 1.025,
+			"end": 1.065,
+			"value": 6
+		},
+		{
+			"start": 1.065,
+			"end": 1.105,
 			"value": 3
 		},
 		{
-			"start": 0.92,
-			"end": 1.013,
+			"start": 1.105,
+			"end": 1.145,
 			"value": 6
 		},
 		{
-			"start": 1.013,
-			"end": 1.04,
+			"start": 1.198,
+			"end": 1.252,
+			"value": 6
+		},
+		{
+			"start": 1.252,
+			"end": 1.305,
 			"value": 4
 		},
 		{
-			"start": 1.136,
-			"end": 1.232,
+			"start": 1.385,
+			"end": 1.465,
 			"value": 6
 		},
 		{
-			"start": 1.232,
-			"end": 1.328,
+			"start": 1.465,
+			"end": 1.545,
 			"value": 2
 		},
 		{
-			"start": 1.328,
-			"end": 1.424,
+			"start": 1.545,
+			"end": 1.625,
 			"value": 5
 		},
 		{
-			"start": 1.424,
-			"end": 1.52,
+			"start": 1.625,
+			"end": 1.705,
 			"value": 1
 		},
 		{
-			"start": 2.048,
-			"end": 2.136,
+			"start": 2.281,
+			"end": 2.377,
 			"value": 6
 		},
 		{
-			"start": 2.136,
-			"end": 2.224,
+			"start": 2.377,
+			"end": 2.473,
 			"value": 1
 		},
 		{
-			"start": 2.224,
-			"end": 2.312,
+			"start": 2.473,
+			"end": 2.569,
 			"value": 6
 		},
 		{
-			"start": 2.312,
-			"end": 2.4,
+			"start": 2.569,
+			"end": 2.665,
 			"value": 1
 		},
 		{
-			"start": 2.44,
-			"end": 2.48,
+			"start": 2.705,
+			"end": 2.745,
 			"value": 6
 		},
 		{
-			"start": 2.48,
-			"end": 2.52,
+			"start": 2.745,
+			"end": 2.785,
 			"value": 4
 		},
 		{
-			"start": 2.52,
-			"end": 2.56,
+			"start": 2.785,
+			"end": 2.825,
 			"value": 1
 		},
 		{
-			"start": 2.587,
-			"end": 2.613,
+			"start": 2.852,
+			"end": 2.878,
 			"value": 6
 		},
 		{
-			"start": 2.613,
-			"end": 2.64,
+			"start": 2.878,
+			"end": 2.905,
 			"value": 1
 		},
 		{
-			"start": 2.693,
-			"end": 2.747,
+			"start": 2.958,
+			"end": 3.012,
 			"value": 2
 		},
 		{
-			"start": 2.747,
-			"end": 2.853,
+			"start": 3.012,
+			"end": 3.118,
 			"value": 6
 		},
 		{
-			"start": 2.853,
-			"end": 2.907,
+			"start": 3.118,
+			"end": 3.172,
 			"value": 1
 		},
 		{
-			"start": 2.907,
-			"end": 2.96,
+			"start": 3.172,
+			"end": 3.225,
 			"value": 7
 		},
 		{
-			"start": 2.96,
-			"end": 3.088,
+			"start": 3.225,
+			"end": 3.321,
 			"value": 1
 		},
 		{
-			"start": 3.088,
-			"end": 3.216,
+			"start": 3.321,
+			"end": 3.417,
 			"value": 6
 		},
 		{
-			"start": 3.216,
-			"end": 3.28,
+			"start": 3.417,
+			"end": 3.465,
 			"value": 1
 		},
 		{
-			"start": 3.307,
-			"end": 3.333,
+			"start": 3.518,
+			"end": 3.572,
 			"value": 6
 		},
 		{
-			"start": 3.333,
-			"end": 3.36,
+			"start": 3.572,
+			"end": 3.625,
 			"value": 1
 		},
 		{
-			"start": 3.413,
-			"end": 3.467,
+			"start": 3.678,
+			"end": 3.732,
 			"value": 6
 		},
 		{
-			"start": 3.467,
-			"end": 3.52,
+			"start": 3.732,
+			"end": 3.785,
 			"value": 3
 		},
 		{
-			"start": 3.52,
-			"end": 3.573,
+			"start": 3.785,
+			"end": 3.838,
 			"value": 6
 		},
 		{
-			"start": 3.573,
-			"end": 3.627,
+			"start": 3.838,
+			"end": 3.892,
 			"value": 3
 		},
 		{
-			"start": 3.627,
-			"end": 3.68,
+			"start": 3.892,
+			"end": 3.945,
 			"value": 6
 		},
 		{
-			"start": 3.68,
-			"end": 3.78,
+			"start": 3.945,
+			"end": 4.025,
 			"value": 1
 		},
 		{
-			"start": 3.78,
-			"end": 3.98,
+			"start": 4.025,
+			"end": 4.185,
 			"value": 6
 		},
 		{
-			"start": 3.98,
-			"end": 4.08,
+			"start": 4.185,
+			"end": 4.265,
 			"value": 1
 		}
 	]

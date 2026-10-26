@@ -2,287 +2,282 @@
 	"version": 1,
 	"audio": "registro_70.mp3",
 	"texto": "El consejo de sabios se ha reunido. Eran tres croquetas y han pedido otro café.",
-	"duration": 7.36,
+	"duration": 5.997,
 	"cues": [
 		{
-			"start": 0.24,
-			"end": 0.32,
+			"start": 0.425,
+			"end": 0.505,
 			"value": 6
 		},
 		{
-			"start": 0.32,
-			"end": 0.4,
+			"start": 0.505,
+			"end": 0.585,
 			"value": 3
 		},
 		{
-			"start": 0.4,
-			"end": 0.56,
+			"start": 0.585,
+			"end": 0.745,
 			"value": 6
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.745,
+			"end": 0.825,
 			"value": 1
 		},
 		{
-			"start": 0.64,
-			"end": 0.72,
+			"start": 0.825,
+			"end": 0.865,
 			"value": 6
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 0.865,
+			"end": 0.905,
 			"value": 3
 		},
 		{
-			"start": 0.853,
-			"end": 0.907,
+			"start": 0.958,
+			"end": 1.012,
 			"value": 6
 		},
 		{
-			"start": 0.907,
-			"end": 0.96,
+			"start": 1.012,
+			"end": 1.065,
 			"value": 1
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.125,
+			"end": 1.185,
 			"value": 6
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.185,
+			"end": 1.245,
 			"value": 2
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.245,
+			"end": 1.305,
 			"value": 7
 		},
 		{
-			"start": 1.28,
-			"end": 1.36,
+			"start": 1.305,
+			"end": 1.358,
 			"value": 1
 		},
 		{
-			"start": 1.36,
-			"end": 1.44,
+			"start": 1.358,
+			"end": 1.412,
 			"value": 3
 		},
 		{
-			"start": 1.44,
-			"end": 1.52,
+			"start": 1.412,
+			"end": 1.465,
 			"value": 6
 		},
 		{
-			"start": 1.573,
-			"end": 1.627,
+			"start": 1.518,
+			"end": 1.572,
 			"value": 6
 		},
 		{
-			"start": 1.627,
-			"end": 1.68,
+			"start": 1.572,
+			"end": 1.625,
 			"value": 1
 		},
 		{
-			"start": 1.787,
-			"end": 1.84,
+			"start": 1.678,
+			"end": 1.705,
 			"value": 2
 		},
 		{
-			"start": 1.904,
-			"end": 1.968,
+			"start": 1.769,
+			"end": 1.833,
 			"value": 6
 		},
 		{
-			"start": 1.968,
-			"end": 2.032,
+			"start": 1.833,
+			"end": 1.897,
 			"value": 1
 		},
 		{
-			"start": 2.032,
-			"end": 2.096,
+			"start": 1.897,
+			"end": 1.961,
 			"value": 4
 		},
 		{
-			"start": 2.096,
-			"end": 2.16,
+			"start": 1.961,
+			"end": 2.025,
 			"value": 6
 		},
 		{
-			"start": 2.16,
-			"end": 2.293,
+			"start": 2.025,
+			"end": 2.105,
 			"value": 1
 		},
 		{
-			"start": 2.293,
-			"end": 2.427,
+			"start": 2.105,
+			"end": 2.185,
 			"value": 6
 		},
 		{
-			"start": 2.427,
-			"end": 2.56,
+			"start": 2.185,
+			"end": 2.265,
 			"value": 3
 		},
 		{
-			"start": 3.16,
-			"end": 3.36,
+			"start": 2.665,
+			"end": 2.985,
 			"value": 1
 		},
 		{
-			"start": 3.36,
-			"end": 3.44,
+			"start": 2.985,
+			"end": 3.038,
 			"value": 6
 		},
 		{
-			"start": 3.44,
-			"end": 3.52,
+			"start": 3.038,
+			"end": 3.092,
 			"value": 2
 		},
 		{
-			"start": 3.52,
-			"end": 3.6,
+			"start": 3.092,
+			"end": 3.145,
 			"value": 6
 		},
 		{
-			"start": 3.648,
-			"end": 3.744,
+			"start": 3.209,
+			"end": 3.337,
 			"value": 6
 		},
 		{
-			"start": 3.744,
-			"end": 3.792,
+			"start": 3.337,
+			"end": 3.401,
 			"value": 1
 		},
 		{
-			"start": 3.792,
-			"end": 3.84,
+			"start": 3.401,
+			"end": 3.465,
 			"value": 6
 		},
 		{
-			"start": 3.9,
-			"end": 4.02,
+			"start": 3.505,
+			"end": 3.585,
 			"value": 6
 		},
 		{
-			"start": 4.02,
-			"end": 4.08,
+			"start": 3.585,
+			"end": 3.625,
 			"value": 3
 		},
 		{
-			"start": 4.08,
-			"end": 4.14,
+			"start": 3.625,
+			"end": 3.685,
 			"value": 6
 		},
 		{
-			"start": 4.14,
-			"end": 4.2,
+			"start": 3.685,
+			"end": 3.745,
 			"value": 4
 		},
 		{
-			"start": 4.2,
-			"end": 4.26,
+			"start": 3.745,
+			"end": 3.805,
 			"value": 1
 		},
 		{
-			"start": 4.26,
-			"end": 4.32,
+			"start": 3.805,
+			"end": 3.865,
 			"value": 6
 		},
 		{
-			"start": 4.32,
-			"end": 4.52,
+			"start": 3.865,
+			"end": 3.985,
 			"value": 2
 		},
 		{
-			"start": 4.52,
-			"end": 4.72,
+			"start": 3.985,
+			"end": 4.105,
 			"value": 6
 		},
 		{
-			"start": 4.76,
-			"end": 4.8,
+			"start": 4.225,
+			"end": 4.345,
 			"value": 1
 		},
 		{
-			"start": 4.92,
-			"end": 4.98,
+			"start": 4.425,
+			"end": 4.465,
 			"value": 2
 		},
 		{
-			"start": 4.98,
-			"end": 5.04,
+			"start": 4.465,
+			"end": 4.505,
+			"value": 6
+		},
+		{
+			"start": 4.562,
+			"end": 4.619,
+			"value": 7
+		},
+		{
+			"start": 4.619,
+			"end": 4.676,
+			"value": 1
+		},
+		{
+			"start": 4.676,
+			"end": 4.734,
+			"value": 6
+		},
+		{
+			"start": 4.734,
+			"end": 4.791,
+			"value": 1
+		},
+		{
+			"start": 4.791,
+			"end": 4.848,
+			"value": 6
+		},
+		{
+			"start": 4.848,
+			"end": 4.905,
+			"value": 3
+		},
+		{
+			"start": 4.953,
+			"end": 5.001,
+			"value": 3
+		},
+		{
+			"start": 5.001,
+			"end": 5.097,
 			"value": 6
 		},
 		{
 			"start": 5.097,
-			"end": 5.154,
-			"value": 7
-		},
-		{
-			"start": 5.154,
-			"end": 5.211,
-			"value": 1
-		},
-		{
-			"start": 5.211,
-			"end": 5.269,
-			"value": 6
-		},
-		{
-			"start": 5.269,
-			"end": 5.326,
-			"value": 1
-		},
-		{
-			"start": 5.326,
-			"end": 5.383,
-			"value": 6
-		},
-		{
-			"start": 5.383,
-			"end": 5.44,
+			"end": 5.145,
 			"value": 3
 		},
 		{
-			"start": 5.504,
-			"end": 5.568,
-			"value": 3
-		},
-		{
-			"start": 5.568,
-			"end": 5.696,
+			"start": 5.225,
+			"end": 5.305,
 			"value": 6
 		},
 		{
-			"start": 5.696,
-			"end": 5.76,
-			"value": 3
-		},
-		{
-			"start": 5.856,
-			"end": 5.952,
-			"value": 6
-		},
-		{
-			"start": 5.952,
-			"end": 6.048,
+			"start": 5.305,
+			"end": 5.385,
 			"value": 2
 		},
 		{
-			"start": 6.048,
-			"end": 6.144,
+			"start": 5.385,
+			"end": 5.465,
 			"value": 5
 		},
 		{
-			"start": 6.144,
-			"end": 6.24,
+			"start": 5.465,
+			"end": 5.545,
 			"value": 1
-		},
-		{
-			"start": 7.02,
-			"end": 7.36,
-			"value": 2
 		}
 	]
 }

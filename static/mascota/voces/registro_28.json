@@ -2,212 +2,197 @@
 	"version": 1,
 	"audio": "registro_28.mp3",
 	"texto": "Tu cerebro tiene más procesos colgados que un Windows 98.",
-	"duration": 4.32,
+	"duration": 4.217,
 	"cues": [
 		{
-			"start": 0.224,
-			"end": 0.288,
+			"start": 0.401,
+			"end": 0.465,
 			"value": 6
 		},
 		{
-			"start": 0.288,
-			"end": 0.352,
+			"start": 0.465,
+			"end": 0.529,
 			"value": 1
 		},
 		{
-			"start": 0.352,
-			"end": 0.416,
+			"start": 0.529,
+			"end": 0.593,
 			"value": 6
 		},
 		{
-			"start": 0.416,
-			"end": 0.48,
+			"start": 0.593,
+			"end": 0.657,
 			"value": 1
 		},
 		{
-			"start": 0.48,
-			"end": 0.533,
+			"start": 0.657,
+			"end": 0.71,
 			"value": 7
 		},
 		{
-			"start": 0.533,
-			"end": 0.587,
+			"start": 0.71,
+			"end": 0.764,
 			"value": 6
 		},
 		{
-			"start": 0.587,
-			"end": 0.64,
+			"start": 0.764,
+			"end": 0.817,
 			"value": 3
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
+			"start": 0.87,
+			"end": 0.924,
 			"value": 6
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 0.924,
+			"end": 1.03,
 			"value": 1
 		},
 		{
-			"start": 0.8,
-			"end": 0.84,
+			"start": 1.03,
+			"end": 1.084,
 			"value": 6
 		},
 		{
-			"start": 0.84,
-			"end": 0.88,
+			"start": 1.084,
+			"end": 1.137,
 			"value": 1
 		},
 		{
-			"start": 0.92,
-			"end": 0.96,
+			"start": 1.177,
+			"end": 1.217,
 			"value": 7
 		},
 		{
-			"start": 0.96,
-			"end": 1,
+			"start": 1.217,
+			"end": 1.257,
 			"value": 2
 		},
 		{
-			"start": 1,
-			"end": 1.04,
+			"start": 1.257,
+			"end": 1.297,
 			"value": 6
 		},
 		{
-			"start": 1.097,
-			"end": 1.154,
+			"start": 1.354,
+			"end": 1.411,
 			"value": 7
 		},
 		{
-			"start": 1.154,
-			"end": 1.211,
+			"start": 1.411,
+			"end": 1.468,
 			"value": 6
 		},
 		{
-			"start": 1.211,
-			"end": 1.269,
+			"start": 1.468,
+			"end": 1.526,
 			"value": 3
 		},
 		{
-			"start": 1.269,
-			"end": 1.326,
+			"start": 1.526,
+			"end": 1.583,
 			"value": 6
 		},
 		{
-			"start": 1.326,
-			"end": 1.383,
-			"value": 1
-		},
-		{
-			"start": 1.383,
-			"end": 1.44,
-			"value": 6
-		},
-		{
-			"start": 1.44,
-			"end": 1.48,
-			"value": 3
-		},
-		{
-			"start": 1.48,
-			"end": 1.52,
-			"value": 6
-		},
-		{
-			"start": 1.58,
+			"start": 1.583,
 			"end": 1.64,
-			"value": 6
+			"value": 1
 		},
 		{
 			"start": 1.64,
-			"end": 1.7,
-			"value": 3
-		},
-		{
-			"start": 1.7,
-			"end": 1.92,
+			"end": 1.697,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 1.96,
+			"start": 1.697,
+			"end": 1.737,
+			"value": 3
+		},
+		{
+			"start": 1.737,
+			"end": 1.777,
+			"value": 6
+		},
+		{
+			"start": 1.817,
+			"end": 1.857,
+			"value": 6
+		},
+		{
+			"start": 1.857,
+			"end": 1.897,
+			"value": 3
+		},
+		{
+			"start": 1.897,
+			"end": 2.017,
+			"value": 6
+		},
+		{
+			"start": 2.017,
+			"end": 2.077,
 			"value": 2
 		},
 		{
-			"start": 1.96,
-			"end": 2,
+			"start": 2.077,
+			"end": 2.137,
 			"value": 6
 		},
 		{
-			"start": 2,
-			"end": 2.04,
+			"start": 2.137,
+			"end": 2.197,
 			"value": 3
 		},
 		{
-			"start": 2.04,
-			"end": 2.08,
+			"start": 2.197,
+			"end": 2.297,
 			"value": 6
 		},
 		{
-			"start": 2.12,
-			"end": 2.16,
-			"value": 6
-		},
-		{
-			"start": 2.16,
-			"end": 2.2,
+			"start": 2.297,
+			"end": 2.317,
 			"value": 4
 		},
 		{
-			"start": 2.2,
-			"end": 2.24,
+			"start": 2.39,
+			"end": 2.444,
+			"value": 4
+		},
+		{
+			"start": 2.444,
+			"end": 2.497,
+			"value": 6
+		},
+		{
+			"start": 2.547,
+			"end": 2.597,
+			"value": 4
+		},
+		{
+			"start": 2.597,
+			"end": 2.647,
 			"value": 1
 		},
 		{
-			"start": 2.293,
-			"end": 2.347,
-			"value": 4
-		},
-		{
-			"start": 2.347,
-			"end": 2.4,
+			"start": 2.647,
+			"end": 2.747,
 			"value": 6
 		},
 		{
-			"start": 2.45,
-			"end": 2.5,
-			"value": 4
-		},
-		{
-			"start": 2.5,
-			"end": 2.55,
-			"value": 1
-		},
-		{
-			"start": 2.55,
-			"end": 2.65,
-			"value": 6
-		},
-		{
-			"start": 2.65,
-			"end": 2.7,
+			"start": 2.747,
+			"end": 2.797,
 			"value": 3
 		},
 		{
-			"start": 2.7,
-			"end": 2.75,
+			"start": 2.797,
+			"end": 2.847,
 			"value": 4
 		},
 		{
-			"start": 2.75,
-			"end": 2.8,
+			"start": 2.847,
+			"end": 2.897,
 			"value": 6
-		},
-		{
-			"start": 3.78,
-			"end": 4.32,
-			"value": 2
 		}
 	]
 }

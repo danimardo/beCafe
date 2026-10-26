@@ -2,217 +2,202 @@
 	"version": 1,
 	"audio": "registro_47.mp3",
 	"texto": "¿Te has planteado beber agua? Dicen que es legal y todo.",
-	"duration": 4.161,
+	"duration": 3.897,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.12,
-			"value": 6
-		},
-		{
-			"start": 0.12,
-			"end": 0.16,
-			"value": 1
-		},
-		{
-			"start": 0.24,
-			"end": 0.28,
+			"start": 0.455,
+			"end": 0.495,
 			"value": 2
 		},
 		{
-			"start": 0.28,
-			"end": 0.32,
+			"start": 0.495,
+			"end": 0.535,
 			"value": 6
 		},
 		{
-			"start": 0.373,
-			"end": 0.427,
+			"start": 0.588,
+			"end": 0.642,
 			"value": 7
 		},
 		{
-			"start": 0.427,
-			"end": 0.48,
+			"start": 0.642,
+			"end": 0.695,
 			"value": 6
 		},
 		{
-			"start": 0.48,
-			"end": 0.56,
+			"start": 0.695,
+			"end": 0.735,
 			"value": 2
 		},
 		{
-			"start": 0.56,
-			"end": 0.72,
+			"start": 0.735,
+			"end": 0.815,
 			"value": 6
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 0.815,
+			"end": 0.855,
 			"value": 1
 		},
 		{
-			"start": 0.8,
-			"end": 0.853,
+			"start": 0.855,
+			"end": 0.908,
 			"value": 2
 		},
 		{
-			"start": 0.853,
-			"end": 0.907,
+			"start": 0.908,
+			"end": 0.962,
 			"value": 6
 		},
 		{
-			"start": 0.907,
-			"end": 0.96,
+			"start": 0.962,
+			"end": 1.015,
 			"value": 3
 		},
 		{
-			"start": 1.013,
-			"end": 1.067,
+			"start": 1.068,
+			"end": 1.122,
 			"value": 7
 		},
 		{
-			"start": 1.067,
-			"end": 1.12,
+			"start": 1.122,
+			"end": 1.175,
 			"value": 1
 		},
 		{
-			"start": 1.12,
-			"end": 1.173,
+			"start": 1.175,
+			"end": 1.228,
 			"value": 7
 		},
 		{
-			"start": 1.173,
-			"end": 1.227,
+			"start": 1.228,
+			"end": 1.282,
 			"value": 1
 		},
 		{
-			"start": 1.227,
-			"end": 1.28,
+			"start": 1.282,
+			"end": 1.335,
 			"value": 6
 		},
 		{
-			"start": 1.36,
-			"end": 1.44,
+			"start": 1.383,
+			"end": 1.431,
 			"value": 2
 		},
 		{
-			"start": 1.44,
-			"end": 1.52,
+			"start": 1.431,
+			"end": 1.479,
 			"value": 6
 		},
 		{
-			"start": 1.52,
-			"end": 1.6,
+			"start": 1.479,
+			"end": 1.527,
 			"value": 4
 		},
 		{
-			"start": 1.6,
-			"end": 1.68,
+			"start": 1.527,
+			"end": 1.575,
 			"value": 2
 		},
 		{
-			"start": 2.16,
-			"end": 2.32,
+			"start": 2.115,
+			"end": 2.295,
 			"value": 6
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.295,
+			"end": 2.375,
 			"value": 1
 		},
 		{
-			"start": 2.4,
-			"end": 2.48,
+			"start": 2.375,
+			"end": 2.455,
 			"value": 6
 		},
 		{
-			"start": 2.48,
-			"end": 2.52,
+			"start": 2.455,
+			"end": 2.495,
 			"value": 1
 		},
 		{
-			"start": 2.52,
-			"end": 2.56,
+			"start": 2.495,
+			"end": 2.535,
 			"value": 6
 		},
 		{
-			"start": 2.6,
-			"end": 2.64,
+			"start": 2.575,
+			"end": 2.615,
 			"value": 6
 		},
 		{
-			"start": 2.64,
-			"end": 2.68,
+			"start": 2.615,
+			"end": 2.655,
 			"value": 4
 		},
 		{
-			"start": 2.68,
-			"end": 2.72,
+			"start": 2.655,
+			"end": 2.695,
 			"value": 1
 		},
 		{
-			"start": 2.773,
-			"end": 2.827,
+			"start": 2.748,
+			"end": 2.802,
 			"value": 1
 		},
 		{
-			"start": 2.827,
-			"end": 2.88,
+			"start": 2.802,
+			"end": 2.855,
 			"value": 6
 		},
 		{
-			"start": 2.933,
-			"end": 2.987,
+			"start": 2.895,
+			"end": 2.935,
 			"value": 6
 		},
 		{
-			"start": 2.987,
-			"end": 3.04,
+			"start": 2.935,
+			"end": 2.975,
 			"value": 1
 		},
 		{
-			"start": 3.04,
-			"end": 3.093,
+			"start": 2.975,
+			"end": 3.015,
 			"value": 6
 		},
 		{
-			"start": 3.093,
-			"end": 3.147,
+			"start": 3.015,
+			"end": 3.055,
 			"value": 2
 		},
 		{
-			"start": 3.147,
-			"end": 3.2,
+			"start": 3.055,
+			"end": 3.095,
 			"value": 6
 		},
 		{
-			"start": 3.24,
-			"end": 3.28,
+			"start": 3.135,
+			"end": 3.175,
 			"value": 1
 		},
 		{
-			"start": 3.392,
-			"end": 3.504,
+			"start": 3.239,
+			"end": 3.303,
 			"value": 6
 		},
 		{
-			"start": 3.504,
-			"end": 3.616,
+			"start": 3.303,
+			"end": 3.367,
 			"value": 3
 		},
 		{
-			"start": 3.616,
-			"end": 3.728,
+			"start": 3.367,
+			"end": 3.431,
 			"value": 6
 		},
 		{
-			"start": 3.728,
-			"end": 3.84,
+			"start": 3.431,
+			"end": 3.495,
 			"value": 3
-		},
-		{
-			"start": 3.9,
-			"end": 4.161,
-			"value": 2
 		}
 	]
 }

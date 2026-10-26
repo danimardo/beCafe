@@ -2,286 +2,276 @@
 	"version": 1,
 	"audio": "saludo_17.mp3",
 	"texto": "¡Buenos días! Otro maravilloso día para fingir que nos apasiona nuestro trabajo.",
-	"duration": 6.16,
+	"duration": 5.075,
 	"cues": [
 		{
-			"start": 0.331,
-			"end": 0.366,
+			"start": 0.463,
+			"end": 0.486,
 			"value": 7
 		},
 		{
-			"start": 0.4,
-			"end": 0.44,
+			"start": 0.509,
+			"end": 0.549,
 			"value": 3
 		},
 		{
-			"start": 0.44,
-			"end": 0.48,
+			"start": 0.549,
+			"end": 0.589,
 			"value": 6
 		},
 		{
-			"start": 0.592,
-			"end": 0.704,
+			"start": 0.685,
+			"end": 0.781,
 			"value": 6
 		},
 		{
-			"start": 0.704,
-			"end": 0.816,
+			"start": 0.781,
+			"end": 0.877,
 			"value": 1
 		},
 		{
-			"start": 0.816,
-			"end": 0.928,
+			"start": 0.877,
+			"end": 0.973,
 			"value": 2
 		},
 		{
-			"start": 0.928,
-			"end": 1.04,
+			"start": 0.973,
+			"end": 1.069,
 			"value": 6
 		},
 		{
-			"start": 1.307,
-			"end": 1.373,
+			"start": 1.336,
+			"end": 1.402,
 			"value": 3
 		},
 		{
-			"start": 1.373,
-			"end": 1.48,
+			"start": 1.402,
+			"end": 1.509,
 			"value": 6
 		},
 		{
-			"start": 1.48,
-			"end": 1.52,
+			"start": 1.509,
+			"end": 1.549,
 			"value": 3
 		},
 		{
-			"start": 1.58,
-			"end": 1.64,
+			"start": 1.589,
+			"end": 1.629,
 			"value": 7
 		},
 		{
-			"start": 1.64,
-			"end": 1.7,
+			"start": 1.629,
+			"end": 1.669,
 			"value": 2
 		},
 		{
-			"start": 1.7,
-			"end": 1.76,
+			"start": 1.669,
+			"end": 1.709,
 			"value": 6
 		},
 		{
-			"start": 1.76,
-			"end": 1.8,
+			"start": 1.709,
+			"end": 1.749,
 			"value": 2
 		},
 		{
-			"start": 1.8,
-			"end": 1.84,
+			"start": 1.749,
+			"end": 1.789,
 			"value": 5
 		},
 		{
-			"start": 1.84,
-			"end": 1.88,
+			"start": 1.789,
+			"end": 1.849,
 			"value": 1
 		},
 		{
-			"start": 1.88,
-			"end": 1.96,
+			"start": 1.849,
+			"end": 1.969,
 			"value": 6
 		},
 		{
-			"start": 1.96,
-			"end": 2,
+			"start": 1.969,
+			"end": 2.029,
 			"value": 3
 		},
 		{
-			"start": 2,
-			"end": 2.08,
+			"start": 2.029,
+			"end": 2.069,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.16,
+			"start": 2.069,
+			"end": 2.109,
 			"value": 3
 		},
 		{
-			"start": 2.22,
-			"end": 2.28,
+			"start": 2.169,
+			"end": 2.229,
 			"value": 6
 		},
 		{
-			"start": 2.28,
-			"end": 2.34,
+			"start": 2.229,
+			"end": 2.289,
 			"value": 1
 		},
 		{
-			"start": 2.34,
-			"end": 2.4,
+			"start": 2.289,
+			"end": 2.349,
 			"value": 2
 		},
 		{
-			"start": 2.448,
-			"end": 2.496,
+			"start": 2.381,
+			"end": 2.413,
 			"value": 7
 		},
 		{
-			"start": 2.496,
-			"end": 2.544,
+			"start": 2.413,
+			"end": 2.445,
 			"value": 2
 		},
 		{
-			"start": 2.544,
-			"end": 2.592,
+			"start": 2.445,
+			"end": 2.477,
 			"value": 6
 		},
 		{
-			"start": 2.592,
-			"end": 2.64,
+			"start": 2.477,
+			"end": 2.509,
 			"value": 2
 		},
 		{
-			"start": 2.688,
-			"end": 2.736,
+			"start": 2.573,
+			"end": 2.637,
 			"value": 5
 		},
 		{
-			"start": 2.736,
-			"end": 2.784,
+			"start": 2.637,
+			"end": 2.701,
 			"value": 1
 		},
 		{
-			"start": 2.784,
-			"end": 2.88,
+			"start": 2.701,
+			"end": 2.829,
 			"value": 6
 		},
 		{
-			"start": 2.88,
-			"end": 2.96,
+			"start": 2.829,
+			"end": 2.869,
 			"value": 1
 		},
 		{
-			"start": 2.96,
-			"end": 3.08,
+			"start": 2.869,
+			"end": 2.909,
 			"value": 6
 		},
 		{
-			"start": 3.08,
-			"end": 3.1,
+			"start": 2.949,
+			"end": 2.989,
+			"value": 6
+		},
+		{
+			"start": 2.989,
+			"end": 3.029,
 			"value": 4
 		},
 		{
-			"start": 3.1,
-			"end": 3.12,
+			"start": 3.029,
+			"end": 3.069,
 			"value": 1
 		},
 		{
-			"start": 3.16,
-			"end": 3.2,
+			"start": 3.109,
+			"end": 3.149,
 			"value": 6
 		},
 		{
-			"start": 3.2,
-			"end": 3.24,
+			"start": 3.149,
+			"end": 3.189,
 			"value": 3
 		},
 		{
-			"start": 3.24,
-			"end": 3.28,
+			"start": 3.189,
+			"end": 3.229,
 			"value": 6
 		},
 		{
-			"start": 3.333,
-			"end": 3.387,
+			"start": 3.282,
+			"end": 3.336,
 			"value": 2
 		},
 		{
-			"start": 3.387,
-			"end": 3.44,
+			"start": 3.336,
+			"end": 3.389,
 			"value": 7
 		},
 		{
-			"start": 3.44,
-			"end": 3.504,
+			"start": 3.389,
+			"end": 3.453,
 			"value": 2
 		},
 		{
-			"start": 3.504,
-			"end": 3.568,
+			"start": 3.453,
+			"end": 3.517,
 			"value": 6
 		},
 		{
-			"start": 3.568,
-			"end": 3.632,
+			"start": 3.517,
+			"end": 3.581,
 			"value": 1
 		},
 		{
-			"start": 3.632,
-			"end": 3.696,
+			"start": 3.581,
+			"end": 3.645,
 			"value": 3
 		},
 		{
-			"start": 3.696,
-			"end": 3.76,
+			"start": 3.645,
+			"end": 3.709,
 			"value": 6
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 3.709,
+			"end": 3.869,
 			"value": 2
 		},
 		{
-			"start": 3.88,
-			"end": 3.92,
-			"value": 6
-		},
-		{
-			"start": 3.92,
-			"end": 3.96,
+			"start": 3.909,
+			"end": 3.929,
 			"value": 4
 		},
 		{
-			"start": 3.96,
-			"end": 4,
-			"value": 1
-		},
-		{
-			"start": 4,
-			"end": 4.12,
+			"start": 3.949,
+			"end": 4.009,
 			"value": 6
 		},
 		{
-			"start": 4.12,
-			"end": 4.16,
-			"value": 3
-		},
-		{
-			"start": 4.23,
-			"end": 4.37,
+			"start": 4.089,
+			"end": 4.209,
 			"value": 6
 		},
 		{
-			"start": 4.37,
-			"end": 4.44,
+			"start": 4.209,
+			"end": 4.269,
 			"value": 2
 		},
 		{
-			"start": 4.44,
-			"end": 4.51,
+			"start": 4.269,
+			"end": 4.329,
 			"value": 7
 		},
 		{
-			"start": 4.51,
-			"end": 4.58,
+			"start": 4.329,
+			"end": 4.389,
 			"value": 2
 		},
 		{
-			"start": 4.58,
-			"end": 4.65,
+			"start": 4.389,
+			"end": 4.449,
 			"value": 6
 		},
 		{
-			"start": 4.65,
-			"end": 4.72,
+			"start": 4.449,
+			"end": 4.509,
 			"value": 3
 		}
 	]

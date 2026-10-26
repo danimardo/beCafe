@@ -2,186 +2,201 @@
 	"version": 1,
 	"audio": "registro_24.mp3",
 	"texto": "La empresa pone el café. Tú pones las ganas de irte a casa.",
-	"duration": 5.6,
+	"duration": 4.097,
 	"cues": [
 		{
-			"start": 0.4,
-			"end": 0.432,
+			"start": 0.497,
+			"end": 0.547,
+			"value": 1
+		},
+		{
+			"start": 0.547,
+			"end": 0.647,
+			"value": 7
+		},
+		{
+			"start": 0.647,
+			"end": 0.697,
 			"value": 6
 		},
 		{
-			"start": 0.432,
-			"end": 0.464,
-			"value": 2
-		},
-		{
-			"start": 0.488,
-			"end": 0.512,
-			"value": 7
-		},
-		{
-			"start": 0.6,
-			"end": 0.64,
-			"value": 7
-		},
-		{
-			"start": 0.64,
-			"end": 0.693,
-			"value": 3
-		},
-		{
-			"start": 0.693,
+			"start": 0.697,
 			"end": 0.747,
-			"value": 6
+			"value": 1
 		},
 		{
 			"start": 0.747,
-			"end": 0.853,
-			"value": 1
-		},
-		{
-			"start": 0.853,
-			"end": 0.88,
+			"end": 0.797,
 			"value": 6
 		},
 		{
-			"start": 0.976,
-			"end": 1.072,
-			"value": 6
-		},
-		{
-			"start": 1.072,
-			"end": 1.168,
+			"start": 0.797,
+			"end": 0.847,
 			"value": 2
 		},
 		{
-			"start": 1.168,
-			"end": 1.264,
-			"value": 5
-		},
-		{
-			"start": 1.264,
-			"end": 1.36,
-			"value": 1
-		},
-		{
-			"start": 1.66,
-			"end": 1.76,
-			"value": 6
-		},
-		{
-			"start": 1.76,
-			"end": 1.84,
-			"value": 4
-		},
-		{
-			"start": 1.92,
-			"end": 2,
+			"start": 0.927,
+			"end": 1.007,
 			"value": 7
 		},
 		{
-			"start": 2,
-			"end": 2.04,
+			"start": 1.007,
+			"end": 1.034,
 			"value": 3
 		},
 		{
-			"start": 2.04,
-			"end": 2.08,
+			"start": 1.034,
+			"end": 1.06,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.12,
+			"start": 1.06,
+			"end": 1.087,
 			"value": 1
 		},
 		{
-			"start": 2.12,
-			"end": 2.16,
-			"value": 6
-		},
-		{
-			"start": 2.2,
-			"end": 2.24,
-			"value": 6
-		},
-		{
-			"start": 2.24,
-			"end": 2.28,
-			"value": 2
-		},
-		{
-			"start": 2.28,
-			"end": 2.32,
-			"value": 6
-		},
-		{
-			"start": 2.36,
-			"end": 2.4,
-			"value": 6
-		},
-		{
-			"start": 2.4,
-			"end": 2.44,
-			"value": 2
-		},
-		{
-			"start": 2.44,
-			"end": 2.48,
-			"value": 6
-		},
-		{
-			"start": 2.48,
-			"end": 2.56,
-			"value": 2
-		},
-		{
-			"start": 2.56,
-			"end": 2.693,
-			"value": 6
-		},
-		{
-			"start": 2.693,
-			"end": 2.72,
+			"start": 1.14,
+			"end": 1.194,
 			"value": 1
 		},
 		{
-			"start": 2.773,
-			"end": 2.827,
-			"value": 1
-		},
-		{
-			"start": 2.827,
-			"end": 2.92,
+			"start": 1.194,
+			"end": 1.247,
 			"value": 6
 		},
 		{
-			"start": 2.92,
-			"end": 2.96,
-			"value": 1
+			"start": 1.311,
+			"end": 1.375,
+			"value": 6
 		},
 		{
-			"start": 3,
-			"end": 3.04,
+			"start": 1.375,
+			"end": 1.439,
 			"value": 2
 		},
 		{
-			"start": 3.136,
-			"end": 3.232,
+			"start": 1.439,
+			"end": 1.503,
+			"value": 5
+		},
+		{
+			"start": 1.503,
+			"end": 1.567,
+			"value": 1
+		},
+		{
+			"start": 1.807,
+			"end": 2.047,
 			"value": 6
 		},
 		{
-			"start": 3.232,
-			"end": 3.328,
+			"start": 2.047,
+			"end": 2.127,
+			"value": 4
+		},
+		{
+			"start": 2.167,
+			"end": 2.207,
+			"value": 7
+		},
+		{
+			"start": 2.207,
+			"end": 2.267,
+			"value": 3
+		},
+		{
+			"start": 2.267,
+			"end": 2.327,
+			"value": 6
+		},
+		{
+			"start": 2.327,
+			"end": 2.387,
+			"value": 1
+		},
+		{
+			"start": 2.387,
+			"end": 2.447,
+			"value": 6
+		},
+		{
+			"start": 2.487,
+			"end": 2.527,
+			"value": 6
+		},
+		{
+			"start": 2.527,
+			"end": 2.567,
 			"value": 2
 		},
 		{
-			"start": 3.328,
-			"end": 3.424,
+			"start": 2.567,
+			"end": 2.607,
 			"value": 6
 		},
 		{
-			"start": 3.424,
-			"end": 3.52,
+			"start": 2.667,
+			"end": 2.727,
+			"value": 6
+		},
+		{
+			"start": 2.727,
+			"end": 2.787,
+			"value": 2
+		},
+		{
+			"start": 2.787,
+			"end": 2.847,
+			"value": 6
+		},
+		{
+			"start": 2.847,
+			"end": 2.887,
+			"value": 2
+		},
+		{
+			"start": 2.887,
+			"end": 2.98,
+			"value": 6
+		},
+		{
+			"start": 2.98,
+			"end": 3.007,
+			"value": 1
+		},
+		{
+			"start": 3.087,
+			"end": 3.167,
+			"value": 1
+		},
+		{
+			"start": 3.167,
+			"end": 3.267,
+			"value": 6
+		},
+		{
+			"start": 3.267,
+			"end": 3.287,
+			"value": 1
+		},
+		{
+			"start": 3.407,
+			"end": 3.487,
+			"value": 6
+		},
+		{
+			"start": 3.487,
+			"end": 3.567,
+			"value": 2
+		},
+		{
+			"start": 3.567,
+			"end": 3.647,
+			"value": 6
+		},
+		{
+			"start": 3.647,
+			"end": 3.727,
 			"value": 2
 		}
 	]

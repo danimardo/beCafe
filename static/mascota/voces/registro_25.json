@@ -2,126 +2,131 @@
 	"version": 1,
 	"audio": "registro_25.mp3",
 	"texto": "Error 404: ganas de trabajar no encontradas.",
-	"duration": 3.92,
+	"duration": 4.794,
 	"cues": [
 		{
-			"start": 1.58,
-			"end": 1.64,
+			"start": 0.508,
+			"end": 0.528,
 			"value": 6
 		},
 		{
-			"start": 1.64,
-			"end": 1.7,
+			"start": 1.768,
+			"end": 1.868,
+			"value": 6
+		},
+		{
+			"start": 1.868,
+			"end": 1.968,
 			"value": 2
 		},
 		{
-			"start": 1.7,
-			"end": 1.76,
+			"start": 1.968,
+			"end": 2.068,
 			"value": 6
 		},
 		{
-			"start": 1.76,
-			"end": 1.8,
+			"start": 2.068,
+			"end": 2.148,
 			"value": 2
 		},
 		{
-			"start": 1.8,
-			"end": 1.893,
+			"start": 2.148,
+			"end": 2.281,
 			"value": 6
 		},
 		{
-			"start": 1.893,
-			"end": 1.92,
+			"start": 2.281,
+			"end": 2.308,
 			"value": 1
 		},
 		{
-			"start": 1.973,
-			"end": 2.08,
+			"start": 2.361,
+			"end": 2.468,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.133,
+			"start": 2.468,
+			"end": 2.521,
 			"value": 2
 		},
 		{
-			"start": 2.133,
-			"end": 2.187,
+			"start": 2.521,
+			"end": 2.575,
 			"value": 7
 		},
 		{
-			"start": 2.187,
-			"end": 2.24,
+			"start": 2.575,
+			"end": 2.628,
 			"value": 2
 		},
 		{
-			"start": 2.24,
-			"end": 2.293,
+			"start": 2.628,
+			"end": 2.681,
 			"value": 6
 		},
 		{
-			"start": 2.293,
-			"end": 2.347,
+			"start": 2.681,
+			"end": 2.735,
 			"value": 2
 		},
 		{
-			"start": 2.347,
-			"end": 2.4,
+			"start": 2.735,
+			"end": 2.788,
 			"value": 6
 		},
 		{
-			"start": 2.453,
-			"end": 2.507,
+			"start": 2.841,
+			"end": 2.895,
 			"value": 6
 		},
 		{
-			"start": 2.507,
-			"end": 2.56,
+			"start": 2.895,
+			"end": 2.948,
 			"value": 3
 		},
 		{
-			"start": 2.61,
-			"end": 2.66,
+			"start": 2.988,
+			"end": 3.028,
 			"value": 1
 		},
 		{
-			"start": 2.66,
-			"end": 2.76,
+			"start": 3.028,
+			"end": 3.108,
 			"value": 6
 		},
 		{
-			"start": 2.76,
-			"end": 2.81,
+			"start": 3.108,
+			"end": 3.148,
 			"value": 3
 		},
 		{
-			"start": 2.81,
-			"end": 2.96,
+			"start": 3.148,
+			"end": 3.268,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3.06,
+			"start": 3.268,
+			"end": 3.368,
 			"value": 2
 		},
 		{
-			"start": 3.06,
-			"end": 3.16,
+			"start": 3.368,
+			"end": 3.468,
 			"value": 6
 		},
 		{
-			"start": 3.16,
-			"end": 3.26,
+			"start": 3.468,
+			"end": 3.568,
 			"value": 2
 		},
 		{
-			"start": 3.26,
-			"end": 3.36,
+			"start": 3.568,
+			"end": 3.668,
 			"value": 6
 		},
 		{
-			"start": 3.42,
-			"end": 3.92,
+			"start": 3.788,
+			"end": 4.794,
 			"value": 2
 		}
 	]

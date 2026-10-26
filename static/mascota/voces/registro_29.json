@@ -2,211 +2,211 @@
 	"version": 1,
 	"audio": "registro_29.mp3",
 	"texto": "Café aceptado. Inteligencia natural sigue sin responder.",
-	"duration": 5.04,
+	"duration": 3.952,
 	"cues": [
 		{
-			"start": 0.387,
-			"end": 0.453,
+			"start": 0.689,
+			"end": 0.755,
 			"value": 2
 		},
 		{
-			"start": 0.453,
-			"end": 0.52,
+			"start": 0.755,
+			"end": 0.822,
 			"value": 6
 		},
 		{
-			"start": 0.52,
-			"end": 0.587,
+			"start": 0.822,
+			"end": 0.889,
 			"value": 1
 		},
 		{
-			"start": 0.587,
-			"end": 0.653,
+			"start": 0.889,
+			"end": 0.955,
 			"value": 7
 		},
 		{
-			"start": 0.653,
-			"end": 0.72,
+			"start": 0.955,
+			"end": 1.022,
 			"value": 6
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 1.022,
+			"end": 1.102,
 			"value": 2
 		},
 		{
-			"start": 0.8,
-			"end": 0.88,
+			"start": 1.102,
+			"end": 1.182,
 			"value": 6
 		},
 		{
-			"start": 0.88,
-			"end": 0.96,
+			"start": 1.182,
+			"end": 1.262,
 			"value": 3
 		},
 		{
-			"start": 1.193,
-			"end": 1.227,
+			"start": 1.589,
+			"end": 1.635,
 			"value": 1
 		},
 		{
-			"start": 1.227,
-			"end": 1.293,
+			"start": 1.635,
+			"end": 1.729,
 			"value": 6
 		},
 		{
-			"start": 1.293,
-			"end": 1.327,
+			"start": 1.729,
+			"end": 1.775,
 			"value": 1
 		},
 		{
-			"start": 1.327,
-			"end": 1.36,
+			"start": 1.775,
+			"end": 1.822,
 			"value": 6
 		},
 		{
-			"start": 1.36,
-			"end": 1.44,
+			"start": 1.822,
+			"end": 1.862,
 			"value": 1
 		},
 		{
-			"start": 1.44,
-			"end": 1.52,
+			"start": 1.862,
+			"end": 1.902,
 			"value": 6
 		},
 		{
-			"start": 1.52,
-			"end": 1.552,
+			"start": 1.902,
+			"end": 1.95,
 			"value": 1
 		},
 		{
-			"start": 1.552,
-			"end": 1.616,
+			"start": 1.95,
+			"end": 2.046,
 			"value": 6
 		},
 		{
-			"start": 1.616,
-			"end": 1.648,
+			"start": 2.046,
+			"end": 2.094,
 			"value": 1
 		},
 		{
-			"start": 1.648,
-			"end": 1.68,
+			"start": 2.094,
+			"end": 2.142,
 			"value": 2
 		},
 		{
-			"start": 1.73,
-			"end": 1.78,
+			"start": 2.192,
+			"end": 2.242,
 			"value": 6
 		},
 		{
-			"start": 1.78,
-			"end": 1.83,
+			"start": 2.242,
+			"end": 2.292,
 			"value": 2
 		},
 		{
-			"start": 1.83,
-			"end": 1.88,
+			"start": 2.292,
+			"end": 2.342,
 			"value": 6
 		},
 		{
-			"start": 1.88,
-			"end": 1.93,
+			"start": 2.342,
+			"end": 2.392,
 			"value": 4
 		},
 		{
-			"start": 1.93,
-			"end": 1.98,
+			"start": 2.392,
+			"end": 2.442,
 			"value": 6
 		},
 		{
-			"start": 1.98,
-			"end": 2.03,
+			"start": 2.442,
+			"end": 2.492,
 			"value": 2
 		},
 		{
-			"start": 2.03,
-			"end": 2.08,
+			"start": 2.492,
+			"end": 2.542,
 			"value": 6
 		},
 		{
-			"start": 2.133,
-			"end": 2.187,
+			"start": 2.595,
+			"end": 2.649,
 			"value": 6
 		},
 		{
-			"start": 2.187,
-			"end": 2.24,
+			"start": 2.649,
+			"end": 2.702,
 			"value": 1
 		},
 		{
-			"start": 2.24,
-			"end": 2.293,
+			"start": 2.702,
+			"end": 2.755,
 			"value": 6
 		},
 		{
-			"start": 2.293,
-			"end": 2.347,
+			"start": 2.755,
+			"end": 2.809,
 			"value": 4
 		},
 		{
-			"start": 2.347,
-			"end": 2.4,
+			"start": 2.809,
+			"end": 2.862,
 			"value": 1
 		},
 		{
-			"start": 2.44,
-			"end": 2.48,
+			"start": 2.902,
+			"end": 2.942,
 			"value": 6
 		},
 		{
-			"start": 2.48,
-			"end": 2.52,
+			"start": 2.942,
+			"end": 2.982,
 			"value": 1
 		},
 		{
-			"start": 2.52,
-			"end": 2.56,
+			"start": 2.982,
+			"end": 3.022,
 			"value": 6
 		},
 		{
-			"start": 2.624,
-			"end": 2.688,
+			"start": 3.07,
+			"end": 3.118,
 			"value": 6
 		},
 		{
-			"start": 2.688,
-			"end": 2.752,
+			"start": 3.118,
+			"end": 3.166,
 			"value": 1
 		},
 		{
-			"start": 2.752,
-			"end": 2.816,
+			"start": 3.166,
+			"end": 3.214,
 			"value": 6
 		},
 		{
-			"start": 2.816,
-			"end": 2.88,
+			"start": 3.214,
+			"end": 3.262,
 			"value": 7
 		},
 		{
-			"start": 2.88,
-			"end": 2.944,
+			"start": 3.262,
+			"end": 3.31,
 			"value": 3
 		},
 		{
-			"start": 2.944,
-			"end": 3.072,
+			"start": 3.31,
+			"end": 3.406,
 			"value": 6
 		},
 		{
-			"start": 3.072,
-			"end": 3.136,
+			"start": 3.406,
+			"end": 3.454,
 			"value": 1
 		},
 		{
-			"start": 3.136,
-			"end": 3.2,
+			"start": 3.454,
+			"end": 3.502,
 			"value": 6
 		}
 	]

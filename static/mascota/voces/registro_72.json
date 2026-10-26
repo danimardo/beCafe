@@ -2,292 +2,272 @@
 	"version": 1,
 	"audio": "registro_72.mp3",
 	"texto": "Según mis cálculos, una cabra con corbata dirigiría mejor esta reunión.",
-	"duration": 5.36,
+	"duration": 5.064,
 	"cues": [
 		{
-			"start": 0.32,
-			"end": 0.347,
-			"value": 6
-		},
-		{
-			"start": 0.347,
-			"end": 0.373,
-			"value": 1
-		},
-		{
-			"start": 0.373,
-			"end": 0.4,
-			"value": 6
-		},
-		{
-			"start": 0.4,
-			"end": 0.44,
+			"start": 0.513,
+			"end": 0.553,
 			"value": 4
 		},
 		{
-			"start": 0.44,
-			"end": 0.48,
+			"start": 0.553,
+			"end": 0.593,
 			"value": 6
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.653,
+			"end": 0.713,
 			"value": 7
 		},
 		{
-			"start": 0.64,
-			"end": 0.72,
+			"start": 0.713,
+			"end": 0.773,
 			"value": 1
 		},
 		{
-			"start": 0.72,
-			"end": 0.88,
+			"start": 0.773,
+			"end": 0.913,
 			"value": 6
 		},
 		{
-			"start": 0.88,
-			"end": 0.96,
+			"start": 0.913,
+			"end": 0.993,
 			"value": 2
 		},
 		{
-			"start": 0.96,
-			"end": 1.104,
+			"start": 0.993,
+			"end": 1.137,
 			"value": 6
 		},
 		{
-			"start": 1.104,
-			"end": 1.168,
+			"start": 1.137,
+			"end": 1.201,
 			"value": 4
 		},
 		{
-			"start": 1.168,
-			"end": 1.232,
+			"start": 1.201,
+			"end": 1.265,
 			"value": 6
 		},
 		{
-			"start": 1.232,
-			"end": 1.296,
+			"start": 1.265,
+			"end": 1.329,
 			"value": 3
 		},
 		{
-			"start": 1.296,
-			"end": 1.36,
+			"start": 1.329,
+			"end": 1.393,
 			"value": 6
 		},
 		{
-			"start": 1.61,
-			"end": 1.66,
+			"start": 1.613,
+			"end": 1.673,
 			"value": 4
 		},
 		{
-			"start": 1.66,
-			"end": 1.71,
+			"start": 1.673,
+			"end": 1.733,
 			"value": 6
 		},
 		{
-			"start": 1.71,
-			"end": 1.76,
+			"start": 1.733,
+			"end": 1.793,
 			"value": 2
 		},
 		{
-			"start": 1.82,
-			"end": 1.88,
+			"start": 1.853,
+			"end": 1.913,
 			"value": 6
 		},
 		{
-			"start": 1.88,
-			"end": 1.94,
+			"start": 1.913,
+			"end": 1.973,
 			"value": 2
 		},
 		{
-			"start": 1.94,
-			"end": 2,
+			"start": 1.973,
+			"end": 2.033,
 			"value": 7
 		},
 		{
-			"start": 2,
-			"end": 2.04,
+			"start": 2.033,
+			"end": 2.073,
 			"value": 6
 		},
 		{
-			"start": 2.04,
-			"end": 2.08,
+			"start": 2.073,
+			"end": 2.113,
 			"value": 2
 		},
 		{
-			"start": 2.14,
-			"end": 2.2,
+			"start": 2.153,
+			"end": 2.193,
 			"value": 6
 		},
 		{
-			"start": 2.2,
-			"end": 2.26,
+			"start": 2.193,
+			"end": 2.233,
 			"value": 3
 		},
 		{
-			"start": 2.26,
-			"end": 2.32,
+			"start": 2.233,
+			"end": 2.273,
 			"value": 6
 		},
 		{
-			"start": 2.36,
-			"end": 2.4,
+			"start": 2.333,
+			"end": 2.393,
 			"value": 6
 		},
 		{
-			"start": 2.4,
-			"end": 2.44,
+			"start": 2.393,
+			"end": 2.453,
 			"value": 3
 		},
 		{
-			"start": 2.44,
-			"end": 2.48,
+			"start": 2.453,
+			"end": 2.513,
 			"value": 6
 		},
 		{
-			"start": 2.48,
-			"end": 2.56,
+			"start": 2.513,
+			"end": 2.633,
 			"value": 7
 		},
 		{
-			"start": 2.56,
-			"end": 2.64,
+			"start": 2.633,
+			"end": 2.673,
 			"value": 2
 		},
 		{
-			"start": 2.64,
-			"end": 2.72,
+			"start": 2.673,
+			"end": 2.713,
 			"value": 6
 		},
 		{
-			"start": 2.72,
-			"end": 2.8,
+			"start": 2.713,
+			"end": 2.753,
 			"value": 2
 		},
 		{
-			"start": 2.853,
-			"end": 2.907,
+			"start": 2.846,
+			"end": 2.94,
 			"value": 6
 		},
 		{
-			"start": 2.907,
-			"end": 2.96,
+			"start": 2.94,
+			"end": 3.033,
 			"value": 1
 		},
 		{
-			"start": 2.96,
-			"end": 3.013,
+			"start": 3.033,
+			"end": 3.126,
 			"value": 6
 		},
 		{
-			"start": 3.013,
-			"end": 3.067,
+			"start": 3.126,
+			"end": 3.22,
 			"value": 1
 		},
 		{
-			"start": 3.067,
-			"end": 3.12,
+			"start": 3.22,
+			"end": 3.313,
 			"value": 6
 		},
 		{
-			"start": 3.12,
-			"end": 3.16,
+			"start": 3.313,
+			"end": 3.353,
 			"value": 1
 		},
 		{
-			"start": 3.16,
-			"end": 3.2,
+			"start": 3.353,
+			"end": 3.393,
 			"value": 6
 		},
 		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 3.393,
+			"end": 3.473,
 			"value": 1
 		},
 		{
-			"start": 3.28,
-			"end": 3.36,
+			"start": 3.473,
+			"end": 3.553,
 			"value": 2
 		},
 		{
-			"start": 3.427,
-			"end": 3.493,
+			"start": 3.62,
+			"end": 3.686,
 			"value": 7
 		},
 		{
-			"start": 3.493,
-			"end": 3.56,
+			"start": 3.686,
+			"end": 3.753,
 			"value": 1
 		},
 		{
-			"start": 3.56,
-			"end": 3.627,
+			"start": 3.753,
+			"end": 3.82,
 			"value": 6
 		},
 		{
-			"start": 3.627,
-			"end": 3.693,
+			"start": 3.82,
+			"end": 3.886,
 			"value": 3
 		},
 		{
-			"start": 3.693,
-			"end": 3.76,
+			"start": 3.886,
+			"end": 3.953,
 			"value": 6
 		},
 		{
-			"start": 3.808,
-			"end": 3.856,
+			"start": 4.001,
+			"end": 4.049,
 			"value": 1
 		},
 		{
-			"start": 3.856,
-			"end": 3.952,
+			"start": 4.049,
+			"end": 4.145,
 			"value": 6
 		},
 		{
-			"start": 3.952,
-			"end": 4,
+			"start": 4.145,
+			"end": 4.193,
 			"value": 2
 		},
 		{
-			"start": 4.064,
-			"end": 4.128,
+			"start": 4.241,
+			"end": 4.289,
 			"value": 6
 		},
 		{
-			"start": 4.128,
-			"end": 4.192,
+			"start": 4.289,
+			"end": 4.337,
 			"value": 1
 		},
 		{
-			"start": 4.192,
-			"end": 4.256,
+			"start": 4.337,
+			"end": 4.385,
 			"value": 4
 		},
 		{
-			"start": 4.256,
-			"end": 4.32,
+			"start": 4.385,
+			"end": 4.433,
 			"value": 6
 		},
 		{
-			"start": 4.32,
-			"end": 4.373,
+			"start": 4.433,
+			"end": 4.513,
 			"value": 1
 		},
 		{
-			"start": 4.373,
-			"end": 4.427,
+			"start": 4.513,
+			"end": 4.593,
 			"value": 3
 		},
 		{
-			"start": 4.427,
-			"end": 4.48,
+			"start": 4.593,
+			"end": 4.673,
 			"value": 6
-		},
-		{
-			"start": 4.66,
-			"end": 5.36,
-			"value": 2
 		}
 	]
 }

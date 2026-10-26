@@ -2,312 +2,287 @@
 	"version": 1,
 	"audio": "saludo_59.mp3",
 	"texto": "¡Bienvenido, superviviente! ¡Hoy toca esquivar reuniones y aparentar entusiasmo!",
-	"duration": 5.52,
+	"duration": 5.234,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.22,
-			"value": 7
-		},
-		{
-			"start": 0.22,
-			"end": 0.34,
+			"start": 0.518,
+			"end": 0.538,
 			"value": 1
 		},
 		{
-			"start": 0.34,
-			"end": 0.4,
-			"value": 6
-		},
-		{
-			"start": 0.4,
-			"end": 0.453,
+			"start": 0.548,
+			"end": 0.601,
 			"value": 5
 		},
 		{
-			"start": 0.453,
-			"end": 0.507,
+			"start": 0.601,
+			"end": 0.655,
 			"value": 1
 		},
 		{
-			"start": 0.507,
-			"end": 0.56,
+			"start": 0.655,
+			"end": 0.708,
 			"value": 6
 		},
 		{
-			"start": 0.56,
-			"end": 0.613,
+			"start": 0.708,
+			"end": 0.761,
 			"value": 1
 		},
 		{
-			"start": 0.613,
-			"end": 0.667,
+			"start": 0.761,
+			"end": 0.815,
 			"value": 6
 		},
 		{
-			"start": 0.667,
-			"end": 0.72,
+			"start": 0.815,
+			"end": 0.868,
 			"value": 3
 		},
 		{
-			"start": 0.846,
-			"end": 0.891,
+			"start": 1.097,
+			"end": 1.125,
 			"value": 6
 		},
 		{
-			"start": 0.891,
-			"end": 0.937,
+			"start": 1.125,
+			"end": 1.154,
 			"value": 4
 		},
 		{
-			"start": 0.937,
-			"end": 0.983,
+			"start": 1.154,
+			"end": 1.182,
 			"value": 7
 		},
 		{
-			"start": 0.983,
-			"end": 1.029,
+			"start": 1.182,
+			"end": 1.211,
 			"value": 1
 		},
 		{
-			"start": 1.029,
-			"end": 1.074,
+			"start": 1.211,
+			"end": 1.239,
 			"value": 6
 		},
 		{
-			"start": 1.074,
-			"end": 1.12,
+			"start": 1.239,
+			"end": 1.268,
 			"value": 5
 		},
 		{
-			"start": 1.12,
-			"end": 1.16,
+			"start": 1.268,
+			"end": 1.308,
 			"value": 1
 		},
 		{
-			"start": 1.16,
-			"end": 1.2,
+			"start": 1.308,
+			"end": 1.348,
 			"value": 5
 		},
 		{
-			"start": 1.2,
-			"end": 1.36,
+			"start": 1.348,
+			"end": 1.508,
 			"value": 1
 		},
 		{
-			"start": 1.36,
-			"end": 1.52,
+			"start": 1.508,
+			"end": 1.668,
 			"value": 6
 		},
 		{
-			"start": 1.52,
-			"end": 1.6,
+			"start": 1.668,
+			"end": 1.748,
 			"value": 1
 		},
 		{
-			"start": 1.92,
-			"end": 1.96,
+			"start": 2.148,
+			"end": 2.188,
 			"value": 3
 		},
 		{
-			"start": 1.96,
-			"end": 2,
+			"start": 2.188,
+			"end": 2.228,
 			"value": 1
 		},
 		{
-			"start": 2.053,
-			"end": 2.107,
+			"start": 2.308,
+			"end": 2.388,
 			"value": 6
 		},
 		{
-			"start": 2.107,
-			"end": 2.16,
+			"start": 2.388,
+			"end": 2.468,
 			"value": 3
 		},
 		{
-			"start": 2.16,
-			"end": 2.2,
+			"start": 2.468,
+			"end": 2.508,
 			"value": 6
 		},
 		{
-			"start": 2.2,
-			"end": 2.24,
+			"start": 2.508,
+			"end": 2.548,
 			"value": 2
 		},
 		{
-			"start": 2.293,
-			"end": 2.347,
+			"start": 2.601,
+			"end": 2.655,
 			"value": 1
 		},
 		{
-			"start": 2.347,
-			"end": 2.42,
+			"start": 2.655,
+			"end": 2.728,
 			"value": 6
 		},
 		{
-			"start": 2.42,
-			"end": 2.44,
-			"value": 4
-		},
-		{
-			"start": 2.44,
-			"end": 2.46,
-			"value": 1
-		},
-		{
-			"start": 2.46,
-			"end": 2.48,
-			"value": 5
-		},
-		{
-			"start": 2.48,
-			"end": 2.56,
-			"value": 2
-		},
-		{
-			"start": 2.56,
-			"end": 2.64,
-			"value": 6
-		},
-		{
-			"start": 2.704,
+			"start": 2.748,
 			"end": 2.768,
-			"value": 6
-		},
-		{
-			"start": 2.768,
-			"end": 2.832,
 			"value": 1
 		},
 		{
-			"start": 2.832,
-			"end": 2.896,
+			"start": 2.788,
+			"end": 2.868,
+			"value": 2
+		},
+		{
+			"start": 2.868,
+			"end": 2.948,
+			"value": 6
+		},
+		{
+			"start": 3.012,
+			"end": 3.076,
+			"value": 6
+		},
+		{
+			"start": 3.076,
+			"end": 3.14,
+			"value": 1
+		},
+		{
+			"start": 3.14,
+			"end": 3.204,
 			"value": 4
 		},
 		{
-			"start": 2.896,
-			"end": 2.96,
+			"start": 3.204,
+			"end": 3.268,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3.024,
+			"start": 3.268,
+			"end": 3.316,
 			"value": 1
 		},
 		{
-			"start": 3.024,
-			"end": 3.088,
+			"start": 3.316,
+			"end": 3.364,
 			"value": 3
 		},
 		{
-			"start": 3.088,
-			"end": 3.152,
+			"start": 3.364,
+			"end": 3.412,
 			"value": 6
 		},
 		{
-			"start": 3.152,
-			"end": 3.216,
+			"start": 3.412,
+			"end": 3.46,
 			"value": 1
 		},
 		{
-			"start": 3.216,
-			"end": 3.28,
+			"start": 3.46,
+			"end": 3.508,
 			"value": 6
 		},
 		{
-			"start": 3.32,
-			"end": 3.36,
+			"start": 3.548,
+			"end": 3.588,
 			"value": 1
 		},
 		{
-			"start": 3.413,
-			"end": 3.467,
+			"start": 3.641,
+			"end": 3.695,
 			"value": 2
 		},
 		{
-			"start": 3.467,
-			"end": 3.52,
+			"start": 3.695,
+			"end": 3.748,
 			"value": 7
 		},
 		{
-			"start": 3.52,
-			"end": 3.584,
+			"start": 3.748,
+			"end": 3.796,
 			"value": 2
 		},
 		{
-			"start": 3.584,
-			"end": 3.648,
+			"start": 3.796,
+			"end": 3.844,
 			"value": 6
 		},
 		{
-			"start": 3.648,
-			"end": 3.712,
+			"start": 3.844,
+			"end": 3.892,
 			"value": 1
 		},
 		{
-			"start": 3.712,
-			"end": 3.84,
+			"start": 3.892,
+			"end": 3.988,
 			"value": 6
 		},
 		{
-			"start": 3.84,
-			"end": 3.88,
+			"start": 3.988,
+			"end": 4.028,
 			"value": 2
 		},
 		{
-			"start": 3.88,
-			"end": 3.92,
+			"start": 4.028,
+			"end": 4.068,
 			"value": 6
 		},
 		{
-			"start": 3.96,
-			"end": 4,
+			"start": 4.108,
+			"end": 4.148,
 			"value": 1
 		},
 		{
-			"start": 4,
-			"end": 4.08,
+			"start": 4.148,
+			"end": 4.228,
 			"value": 6
 		},
 		{
-			"start": 4.08,
-			"end": 4.12,
+			"start": 4.228,
+			"end": 4.308,
 			"value": 4
 		},
 		{
-			"start": 4.12,
-			"end": 4.16,
+			"start": 4.308,
+			"end": 4.388,
 			"value": 6
 		},
 		{
-			"start": 4.16,
-			"end": 4.24,
+			"start": 4.388,
+			"end": 4.441,
 			"value": 1
 		},
 		{
-			"start": 4.24,
-			"end": 4.32,
+			"start": 4.441,
+			"end": 4.495,
 			"value": 2
 		},
 		{
-			"start": 4.32,
-			"end": 4.4,
+			"start": 4.495,
+			"end": 4.548,
 			"value": 6
 		},
 		{
-			"start": 4.4,
-			"end": 4.48,
+			"start": 4.548,
+			"end": 4.628,
 			"value": 7
 		},
 		{
-			"start": 4.48,
-			"end": 4.56,
+			"start": 4.628,
+			"end": 4.708,
 			"value": 3
-		},
-		{
-			"start": 4.68,
-			"end": 5.52,
-			"value": 2
 		}
 	]
 }

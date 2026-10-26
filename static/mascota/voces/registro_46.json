@@ -2,226 +2,221 @@
 	"version": 1,
 	"audio": "registro_46.mp3",
 	"texto": "La cafetera y tú tenéis una relación tóxica. Y ella está harta.",
-	"duration": 5.52,
+	"duration": 5.469,
 	"cues": [
 		{
-			"start": 0.22,
-			"end": 0.28,
+			"start": 0.476,
+			"end": 0.536,
 			"value": 6
 		},
 		{
-			"start": 0.28,
-			"end": 0.34,
+			"start": 0.536,
+			"end": 0.596,
 			"value": 2
 		},
 		{
-			"start": 0.34,
-			"end": 0.4,
+			"start": 0.596,
+			"end": 0.656,
 			"value": 5
 		},
 		{
-			"start": 0.4,
-			"end": 0.46,
+			"start": 0.656,
+			"end": 0.716,
 			"value": 1
 		},
 		{
-			"start": 0.46,
-			"end": 0.52,
+			"start": 0.716,
+			"end": 0.776,
 			"value": 6
 		},
 		{
-			"start": 0.52,
-			"end": 0.58,
+			"start": 0.776,
+			"end": 0.836,
 			"value": 1
 		},
 		{
-			"start": 0.58,
-			"end": 0.64,
+			"start": 0.836,
+			"end": 0.896,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.72,
+			"start": 0.896,
+			"end": 0.936,
 			"value": 2
 		},
 		{
-			"start": 0.76,
-			"end": 0.8,
+			"start": 0.956,
+			"end": 0.976,
 			"value": 1
 		},
 		{
-			"start": 0.853,
-			"end": 0.907,
+			"start": 1.083,
+			"end": 1.189,
 			"value": 6
 		},
 		{
-			"start": 0.907,
-			"end": 0.96,
+			"start": 1.189,
+			"end": 1.296,
 			"value": 4
 		},
 		{
-			"start": 1.02,
-			"end": 1.08,
+			"start": 1.356,
+			"end": 1.416,
 			"value": 6
 		},
 		{
-			"start": 1.08,
-			"end": 1.14,
+			"start": 1.416,
+			"end": 1.476,
 			"value": 1
 		},
 		{
-			"start": 1.14,
-			"end": 1.2,
+			"start": 1.476,
+			"end": 1.536,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.307,
+			"start": 1.536,
+			"end": 1.643,
 			"value": 1
 		},
 		{
-			"start": 1.307,
-			"end": 1.36,
+			"start": 1.643,
+			"end": 1.696,
 			"value": 6
 		},
 		{
-			"start": 1.4,
-			"end": 1.44,
+			"start": 1.736,
+			"end": 1.776,
 			"value": 4
 		},
 		{
-			"start": 1.44,
-			"end": 1.48,
+			"start": 1.776,
+			"end": 1.816,
 			"value": 6
 		},
 		{
-			"start": 1.48,
-			"end": 1.52,
+			"start": 1.816,
+			"end": 1.856,
 			"value": 2
 		},
 		{
-			"start": 1.573,
-			"end": 1.627,
+			"start": 1.918,
+			"end": 1.98,
 			"value": 6
 		},
 		{
-			"start": 1.627,
-			"end": 1.68,
+			"start": 1.98,
+			"end": 2.043,
 			"value": 1
 		},
 		{
-			"start": 1.68,
-			"end": 1.733,
+			"start": 2.043,
+			"end": 2.105,
 			"value": 6
 		},
 		{
-			"start": 1.733,
-			"end": 1.787,
+			"start": 2.105,
+			"end": 2.167,
 			"value": 2
 		},
 		{
-			"start": 1.787,
-			"end": 1.84,
+			"start": 2.167,
+			"end": 2.229,
 			"value": 6
 		},
 		{
-			"start": 1.84,
-			"end": 1.893,
+			"start": 2.229,
+			"end": 2.292,
 			"value": 1
 		},
 		{
-			"start": 1.893,
-			"end": 1.947,
+			"start": 2.292,
+			"end": 2.354,
 			"value": 3
 		},
 		{
-			"start": 1.947,
-			"end": 2,
+			"start": 2.354,
+			"end": 2.416,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.16,
+			"start": 2.456,
+			"end": 2.496,
 			"value": 6
 		},
 		{
-			"start": 2.16,
-			"end": 2.24,
+			"start": 2.496,
+			"end": 2.576,
 			"value": 3
 		},
 		{
-			"start": 2.24,
-			"end": 2.32,
+			"start": 2.576,
+			"end": 2.736,
 			"value": 6
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.736,
+			"end": 2.789,
 			"value": 1
 		},
 		{
-			"start": 2.4,
-			"end": 2.48,
+			"start": 2.789,
+			"end": 2.843,
 			"value": 6
 		},
 		{
-			"start": 2.48,
-			"end": 2.56,
+			"start": 2.843,
+			"end": 2.896,
 			"value": 2
 		},
 		{
-			"start": 2.88,
-			"end": 3.12,
+			"start": 3.416,
+			"end": 3.856,
 			"value": 1
 		},
 		{
-			"start": 3.184,
-			"end": 3.248,
+			"start": 3.92,
+			"end": 3.984,
 			"value": 1
 		},
 		{
-			"start": 3.248,
-			"end": 3.376,
+			"start": 3.984,
+			"end": 4.112,
 			"value": 6
 		},
 		{
-			"start": 3.376,
-			"end": 3.44,
+			"start": 4.112,
+			"end": 4.176,
 			"value": 2
 		},
 		{
-			"start": 3.552,
-			"end": 3.664,
+			"start": 4.272,
+			"end": 4.368,
 			"value": 1
 		},
 		{
-			"start": 3.664,
-			"end": 3.888,
+			"start": 4.368,
+			"end": 4.56,
 			"value": 6
 		},
 		{
-			"start": 3.888,
-			"end": 4,
+			"start": 4.56,
+			"end": 4.656,
 			"value": 2
 		},
 		{
-			"start": 4.08,
-			"end": 4.16,
+			"start": 4.736,
+			"end": 4.796,
 			"value": 2
 		},
 		{
-			"start": 4.16,
-			"end": 4.32,
+			"start": 4.796,
+			"end": 4.916,
 			"value": 6
 		},
 		{
-			"start": 4.32,
-			"end": 4.4,
-			"value": 2
-		},
-		{
-			"start": 4.84,
-			"end": 5.52,
+			"start": 4.916,
+			"end": 4.976,
 			"value": 2
 		}
 	]

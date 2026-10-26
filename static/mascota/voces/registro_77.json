@@ -2,236 +2,241 @@
 	"version": 1,
 	"audio": "registro_77.mp3",
 	"texto": "La última actualización de tu cerebro ha empeorado el rendimiento.",
-	"duration": 6.16,
+	"duration": 4.659,
 	"cues": [
 		{
-			"start": 0.217,
-			"end": 0.274,
+			"start": 0.548,
+			"end": 0.605,
 			"value": 4
 		},
 		{
-			"start": 0.274,
-			"end": 0.389,
+			"start": 0.605,
+			"end": 0.72,
 			"value": 6
 		},
 		{
-			"start": 0.389,
-			"end": 0.446,
+			"start": 0.72,
+			"end": 0.777,
 			"value": 1
 		},
 		{
-			"start": 0.446,
-			"end": 0.503,
-			"value": 7
-		},
-		{
-			"start": 0.503,
-			"end": 0.56,
-			"value": 2
-		},
-		{
-			"start": 0.606,
-			"end": 0.651,
-			"value": 2
-		},
-		{
-			"start": 0.651,
-			"end": 0.743,
-			"value": 6
-		},
-		{
-			"start": 0.743,
-			"end": 0.789,
-			"value": 4
-		},
-		{
-			"start": 0.789,
+			"start": 0.777,
 			"end": 0.834,
-			"value": 2
+			"value": 7
 		},
 		{
 			"start": 0.834,
-			"end": 0.88,
-			"value": 6
-		},
-		{
-			"start": 0.88,
-			"end": 0.937,
-			"value": 1
-		},
-		{
-			"start": 0.937,
-			"end": 0.994,
-			"value": 6
-		},
-		{
-			"start": 0.994,
-			"end": 1.051,
+			"end": 0.891,
 			"value": 2
 		},
 		{
-			"start": 1.051,
-			"end": 1.109,
+			"start": 0.948,
+			"end": 1.005,
+			"value": 2
+		},
+		{
+			"start": 1.005,
+			"end": 1.12,
 			"value": 6
 		},
 		{
-			"start": 1.109,
-			"end": 1.166,
-			"value": 1
-		},
-		{
-			"start": 1.166,
-			"end": 1.223,
-			"value": 3
-		},
-		{
-			"start": 1.223,
-			"end": 1.333,
-			"value": 6
-		},
-		{
-			"start": 1.333,
-			"end": 1.36,
-			"value": 1
-		},
-		{
-			"start": 1.413,
-			"end": 1.467,
-			"value": 6
-		},
-		{
-			"start": 1.467,
-			"end": 1.52,
+			"start": 1.12,
+			"end": 1.177,
 			"value": 4
 		},
 		{
-			"start": 1.568,
-			"end": 1.616,
-			"value": 6
-		},
-		{
-			"start": 1.616,
-			"end": 1.664,
-			"value": 1
-		},
-		{
-			"start": 1.664,
-			"end": 1.712,
-			"value": 6
-		},
-		{
-			"start": 1.712,
-			"end": 1.76,
-			"value": 1
-		},
-		{
-			"start": 1.76,
-			"end": 1.893,
-			"value": 7
-		},
-		{
-			"start": 1.893,
-			"end": 2.027,
-			"value": 6
-		},
-		{
-			"start": 2.027,
-			"end": 2.16,
-			"value": 3
-		},
-		{
-			"start": 2.213,
-			"end": 2.24,
+			"start": 1.177,
+			"end": 1.234,
 			"value": 2
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
-			"value": 1
-		},
-		{
-			"start": 2.4,
-			"end": 2.56,
-			"value": 7
-		},
-		{
-			"start": 2.56,
-			"end": 2.64,
-			"value": 1
-		},
-		{
-			"start": 2.64,
-			"end": 2.688,
-			"value": 3
-		},
-		{
-			"start": 2.688,
-			"end": 2.736,
+			"start": 1.234,
+			"end": 1.291,
 			"value": 6
 		},
 		{
-			"start": 2.736,
-			"end": 2.784,
+			"start": 1.291,
+			"end": 1.348,
+			"value": 1
+		},
+		{
+			"start": 1.348,
+			"end": 1.405,
+			"value": 6
+		},
+		{
+			"start": 1.405,
+			"end": 1.462,
 			"value": 2
 		},
 		{
-			"start": 2.784,
-			"end": 2.832,
+			"start": 1.462,
+			"end": 1.52,
 			"value": 6
 		},
 		{
-			"start": 2.832,
-			"end": 2.88,
+			"start": 1.52,
+			"end": 1.577,
+			"value": 1
+		},
+		{
+			"start": 1.577,
+			"end": 1.634,
 			"value": 3
 		},
 		{
-			"start": 2.933,
-			"end": 2.987,
-			"value": 1
-		},
-		{
-			"start": 2.987,
-			"end": 3.04,
+			"start": 1.634,
+			"end": 1.691,
 			"value": 6
 		},
 		{
-			"start": 3.088,
-			"end": 3.136,
+			"start": 1.744,
+			"end": 1.798,
 			"value": 6
 		},
 		{
-			"start": 3.136,
-			"end": 3.184,
+			"start": 1.798,
+			"end": 1.851,
 			"value": 1
 		},
 		{
-			"start": 3.184,
-			"end": 3.28,
+			"start": 1.878,
+			"end": 1.904,
 			"value": 6
 		},
 		{
-			"start": 3.28,
-			"end": 3.36,
+			"start": 1.904,
+			"end": 1.931,
+			"value": 4
+		},
+		{
+			"start": 1.995,
+			"end": 2.059,
+			"value": 6
+		},
+		{
+			"start": 2.059,
+			"end": 2.123,
 			"value": 1
 		},
 		{
-			"start": 3.36,
-			"end": 3.44,
+			"start": 2.123,
+			"end": 2.187,
+			"value": 6
+		},
+		{
+			"start": 2.187,
+			"end": 2.251,
+			"value": 1
+		},
+		{
+			"start": 2.251,
+			"end": 2.304,
 			"value": 7
 		},
 		{
-			"start": 3.44,
-			"end": 3.6,
-			"value": 1
-		},
-		{
-			"start": 3.6,
-			"end": 3.76,
+			"start": 2.304,
+			"end": 2.358,
 			"value": 6
 		},
 		{
-			"start": 3.76,
+			"start": 2.358,
+			"end": 2.411,
+			"value": 3
+		},
+		{
+			"start": 2.624,
+			"end": 2.731,
+			"value": 2
+		},
+		{
+			"start": 2.811,
+			"end": 2.891,
+			"value": 1
+		},
+		{
+			"start": 2.891,
+			"end": 3.011,
+			"value": 7
+		},
+		{
+			"start": 3.011,
+			"end": 3.051,
+			"value": 1
+		},
+		{
+			"start": 3.051,
+			"end": 3.115,
+			"value": 3
+		},
+		{
+			"start": 3.115,
+			"end": 3.179,
+			"value": 6
+		},
+		{
+			"start": 3.179,
+			"end": 3.243,
+			"value": 2
+		},
+		{
+			"start": 3.243,
+			"end": 3.307,
+			"value": 6
+		},
+		{
+			"start": 3.307,
+			"end": 3.371,
+			"value": 3
+		},
+		{
+			"start": 3.398,
+			"end": 3.424,
+			"value": 1
+		},
+		{
+			"start": 3.424,
+			"end": 3.451,
+			"value": 6
+		},
+		{
+			"start": 3.515,
+			"end": 3.579,
+			"value": 6
+		},
+		{
+			"start": 3.579,
+			"end": 3.643,
+			"value": 1
+		},
+		{
+			"start": 3.643,
+			"end": 3.771,
+			"value": 6
+		},
+		{
+			"start": 3.771,
 			"end": 3.84,
+			"value": 1
+		},
+		{
+			"start": 3.84,
+			"end": 3.908,
+			"value": 7
+		},
+		{
+			"start": 3.908,
+			"end": 4.045,
+			"value": 1
+		},
+		{
+			"start": 4.045,
+			"end": 4.182,
+			"value": 6
+		},
+		{
+			"start": 4.182,
+			"end": 4.251,
 			"value": 3
 		}
 	]

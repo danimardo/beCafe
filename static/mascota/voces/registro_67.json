@@ -2,212 +2,207 @@
 	"version": 1,
 	"audio": "registro_67.mp3",
 	"texto": "He visto una patata con más ambición, pero tenía enchufe.",
-	"duration": 4.56,
+	"duration": 4.13,
 	"cues": [
 		{
-			"start": 0.213,
-			"end": 0.267,
+			"start": 0.402,
+			"end": 0.468,
 			"value": 5
 		},
 		{
-			"start": 0.267,
-			"end": 0.32,
+			"start": 0.468,
+			"end": 0.535,
 			"value": 1
 		},
 		{
-			"start": 0.32,
-			"end": 0.427,
+			"start": 0.535,
+			"end": 0.668,
 			"value": 6
 		},
 		{
-			"start": 0.427,
-			"end": 0.48,
+			"start": 0.668,
+			"end": 0.735,
 			"value": 3
 		},
 		{
-			"start": 0.54,
-			"end": 0.6,
+			"start": 0.775,
+			"end": 0.815,
 			"value": 4
 		},
 		{
-			"start": 0.6,
-			"end": 0.66,
+			"start": 0.815,
+			"end": 0.855,
 			"value": 6
 		},
 		{
-			"start": 0.66,
-			"end": 0.72,
+			"start": 0.855,
+			"end": 0.895,
 			"value": 2
 		},
 		{
-			"start": 0.78,
-			"end": 0.84,
+			"start": 0.955,
+			"end": 1.015,
 			"value": 7
 		},
 		{
-			"start": 0.84,
-			"end": 0.9,
+			"start": 1.015,
+			"end": 1.075,
 			"value": 2
 		},
 		{
-			"start": 0.9,
-			"end": 0.96,
+			"start": 1.075,
+			"end": 1.135,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 1.135,
+			"end": 1.215,
 			"value": 2
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.215,
+			"end": 1.295,
 			"value": 6
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.295,
+			"end": 1.375,
 			"value": 2
 		},
 		{
-			"start": 1.24,
-			"end": 1.28,
+			"start": 1.415,
+			"end": 1.455,
 			"value": 6
 		},
 		{
-			"start": 1.28,
-			"end": 1.32,
+			"start": 1.455,
+			"end": 1.495,
 			"value": 3
 		},
 		{
-			"start": 1.32,
-			"end": 1.36,
+			"start": 1.495,
+			"end": 1.535,
 			"value": 6
 		},
 		{
-			"start": 1.4,
-			"end": 1.44,
+			"start": 1.615,
+			"end": 1.695,
 			"value": 7
 		},
 		{
-			"start": 1.44,
-			"end": 1.48,
+			"start": 1.695,
+			"end": 1.775,
 			"value": 2
 		},
 		{
-			"start": 1.48,
-			"end": 1.52,
+			"start": 1.775,
+			"end": 1.855,
 			"value": 6
 		},
 		{
-			"start": 1.58,
-			"end": 1.64,
+			"start": 1.895,
+			"end": 1.935,
 			"value": 2
 		},
 		{
-			"start": 1.64,
-			"end": 1.76,
+			"start": 1.935,
+			"end": 2.015,
 			"value": 7
 		},
 		{
-			"start": 1.76,
-			"end": 1.824,
+			"start": 2.015,
+			"end": 2.095,
 			"value": 1
 		},
 		{
-			"start": 1.824,
-			"end": 1.888,
+			"start": 2.095,
+			"end": 2.175,
 			"value": 6
 		},
 		{
-			"start": 1.888,
-			"end": 1.952,
+			"start": 2.175,
+			"end": 2.255,
 			"value": 1
 		},
 		{
-			"start": 1.952,
-			"end": 2.016,
+			"start": 2.255,
+			"end": 2.335,
 			"value": 3
 		},
 		{
-			"start": 2.016,
-			"end": 2.08,
+			"start": 2.335,
+			"end": 2.415,
 			"value": 6
 		},
 		{
-			"start": 2.416,
-			"end": 2.472,
+			"start": 2.687,
+			"end": 2.719,
 			"value": 7
 		},
 		{
-			"start": 2.472,
-			"end": 2.528,
+			"start": 2.719,
+			"end": 2.751,
 			"value": 1
 		},
 		{
-			"start": 2.528,
-			"end": 2.584,
+			"start": 2.751,
+			"end": 2.783,
 			"value": 6
 		},
 		{
-			"start": 2.584,
-			"end": 2.64,
+			"start": 2.783,
+			"end": 2.815,
 			"value": 3
 		},
 		{
-			"start": 2.68,
-			"end": 2.72,
+			"start": 2.868,
+			"end": 2.922,
 			"value": 6
 		},
 		{
-			"start": 2.72,
-			"end": 2.76,
+			"start": 2.922,
+			"end": 2.975,
 			"value": 1
 		},
 		{
-			"start": 2.76,
-			"end": 2.8,
+			"start": 2.975,
+			"end": 3.028,
 			"value": 6
 		},
 		{
-			"start": 2.8,
-			"end": 2.84,
+			"start": 3.028,
+			"end": 3.082,
 			"value": 1
 		},
 		{
-			"start": 2.84,
-			"end": 2.88,
+			"start": 3.082,
+			"end": 3.135,
 			"value": 2
 		},
 		{
-			"start": 2.928,
-			"end": 2.976,
+			"start": 3.183,
+			"end": 3.231,
 			"value": 1
 		},
 		{
-			"start": 2.976,
-			"end": 3.072,
+			"start": 3.231,
+			"end": 3.327,
 			"value": 6
 		},
 		{
-			"start": 3.12,
-			"end": 3.227,
+			"start": 3.375,
+			"end": 3.455,
 			"value": 4
 		},
 		{
-			"start": 3.227,
-			"end": 3.333,
+			"start": 3.455,
+			"end": 3.535,
 			"value": 5
 		},
 		{
-			"start": 3.333,
-			"end": 3.44,
+			"start": 3.535,
+			"end": 3.615,
 			"value": 1
-		},
-		{
-			"start": 3.68,
-			"end": 4.56,
-			"value": 2
 		}
 	]
 }

@@ -2,271 +2,271 @@
 	"version": 1,
 	"audio": "registro_19.mp3",
 	"texto": "Si las reuniones fueran productivas, estaríamos todos jubilados.",
-	"duration": 4.4,
+	"duration": 4.838,
 	"cues": [
 		{
-			"start": 0.507,
-			"end": 0.533,
+			"start": 0.802,
+			"end": 0.84,
 			"value": 6
 		},
 		{
-			"start": 0.533,
-			"end": 0.56,
+			"start": 0.84,
+			"end": 0.877,
 			"value": 1
 		},
 		{
-			"start": 0.6,
-			"end": 0.64,
+			"start": 0.917,
+			"end": 0.957,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.68,
+			"start": 0.957,
+			"end": 0.997,
 			"value": 2
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
+			"start": 0.997,
+			"end": 1.037,
 			"value": 6
 		},
 		{
-			"start": 0.784,
-			"end": 0.848,
+			"start": 1.101,
+			"end": 1.165,
 			"value": 6
 		},
 		{
-			"start": 0.848,
-			"end": 0.912,
+			"start": 1.165,
+			"end": 1.229,
 			"value": 1
 		},
 		{
-			"start": 0.912,
-			"end": 0.976,
+			"start": 1.229,
+			"end": 1.293,
 			"value": 4
 		},
 		{
-			"start": 0.976,
-			"end": 1.04,
+			"start": 1.293,
+			"end": 1.357,
 			"value": 6
 		},
 		{
-			"start": 1.04,
-			"end": 1.088,
+			"start": 1.357,
+			"end": 1.405,
 			"value": 1
 		},
 		{
-			"start": 1.088,
-			"end": 1.136,
+			"start": 1.405,
+			"end": 1.453,
 			"value": 3
 		},
 		{
-			"start": 1.136,
-			"end": 1.184,
+			"start": 1.453,
+			"end": 1.501,
 			"value": 6
 		},
 		{
-			"start": 1.184,
-			"end": 1.232,
+			"start": 1.501,
+			"end": 1.549,
 			"value": 1
 		},
 		{
-			"start": 1.232,
-			"end": 1.28,
+			"start": 1.549,
+			"end": 1.597,
 			"value": 6
 		},
 		{
-			"start": 1.328,
-			"end": 1.376,
+			"start": 1.645,
+			"end": 1.693,
 			"value": 5
 		},
 		{
-			"start": 1.376,
-			"end": 1.424,
+			"start": 1.693,
+			"end": 1.741,
 			"value": 4
 		},
 		{
-			"start": 1.424,
-			"end": 1.472,
+			"start": 1.741,
+			"end": 1.789,
 			"value": 1
 		},
 		{
-			"start": 1.472,
-			"end": 1.52,
+			"start": 1.789,
+			"end": 1.837,
 			"value": 6
 		},
 		{
-			"start": 1.52,
-			"end": 1.56,
+			"start": 1.837,
+			"end": 1.877,
 			"value": 2
 		},
 		{
-			"start": 1.56,
-			"end": 1.6,
+			"start": 1.877,
+			"end": 1.917,
 			"value": 6
 		},
 		{
-			"start": 1.65,
-			"end": 1.7,
+			"start": 1.967,
+			"end": 2.017,
 			"value": 7
 		},
 		{
-			"start": 1.7,
-			"end": 1.75,
+			"start": 2.017,
+			"end": 2.067,
 			"value": 6
 		},
 		{
-			"start": 1.75,
-			"end": 1.8,
+			"start": 2.067,
+			"end": 2.117,
 			"value": 3
 		},
 		{
-			"start": 1.8,
-			"end": 1.85,
+			"start": 2.117,
+			"end": 2.167,
 			"value": 6
 		},
 		{
-			"start": 1.85,
-			"end": 1.9,
+			"start": 2.167,
+			"end": 2.217,
 			"value": 4
 		},
 		{
-			"start": 1.9,
-			"end": 2,
+			"start": 2.217,
+			"end": 2.317,
 			"value": 6
 		},
 		{
-			"start": 2,
-			"end": 2.08,
+			"start": 2.317,
+			"end": 2.377,
 			"value": 1
 		},
 		{
-			"start": 2.08,
-			"end": 2.16,
+			"start": 2.377,
+			"end": 2.437,
 			"value": 5
 		},
 		{
-			"start": 2.16,
-			"end": 2.24,
+			"start": 2.437,
+			"end": 2.497,
 			"value": 2
 		},
 		{
-			"start": 2.24,
-			"end": 2.32,
+			"start": 2.497,
+			"end": 2.557,
 			"value": 6
 		},
 		{
-			"start": 2.613,
-			"end": 2.667,
+			"start": 2.637,
+			"end": 2.717,
 			"value": 1
 		},
 		{
-			"start": 2.667,
-			"end": 2.773,
+			"start": 2.717,
+			"end": 2.877,
 			"value": 6
 		},
 		{
-			"start": 2.773,
-			"end": 2.827,
+			"start": 2.877,
+			"end": 2.957,
 			"value": 2
 		},
 		{
-			"start": 2.827,
-			"end": 2.88,
+			"start": 2.957,
+			"end": 3.037,
 			"value": 6
 		},
 		{
-			"start": 2.88,
-			"end": 3.04,
+			"start": 3.037,
+			"end": 3.117,
 			"value": 1
 		},
 		{
-			"start": 3.04,
-			"end": 3.1,
+			"start": 3.117,
+			"end": 3.197,
 			"value": 2
 		},
 		{
-			"start": 3.1,
-			"end": 3.16,
+			"start": 3.197,
+			"end": 3.277,
 			"value": 7
 		},
 		{
-			"start": 3.16,
-			"end": 3.22,
+			"start": 3.277,
+			"end": 3.357,
 			"value": 3
 		},
 		{
-			"start": 3.22,
-			"end": 3.28,
+			"start": 3.357,
+			"end": 3.437,
 			"value": 6
 		},
 		{
-			"start": 3.347,
-			"end": 3.413,
+			"start": 3.49,
+			"end": 3.544,
 			"value": 6
 		},
 		{
-			"start": 3.413,
-			"end": 3.48,
+			"start": 3.544,
+			"end": 3.597,
 			"value": 3
 		},
 		{
-			"start": 3.48,
-			"end": 3.547,
+			"start": 3.597,
+			"end": 3.65,
 			"value": 6
 		},
 		{
-			"start": 3.547,
-			"end": 3.613,
+			"start": 3.65,
+			"end": 3.704,
 			"value": 3
 		},
 		{
-			"start": 3.613,
-			"end": 3.68,
+			"start": 3.704,
+			"end": 3.757,
 			"value": 6
 		},
 		{
-			"start": 3.72,
-			"end": 3.76,
+			"start": 3.797,
+			"end": 3.837,
 			"value": 6
 		},
 		{
-			"start": 3.76,
-			"end": 3.8,
+			"start": 3.837,
+			"end": 3.877,
 			"value": 4
 		},
 		{
-			"start": 3.8,
-			"end": 3.84,
+			"start": 3.877,
+			"end": 3.917,
 			"value": 7
 		},
 		{
-			"start": 3.84,
-			"end": 3.88,
+			"start": 3.917,
+			"end": 3.997,
 			"value": 1
 		},
 		{
-			"start": 3.88,
-			"end": 3.92,
+			"start": 3.997,
+			"end": 4.077,
 			"value": 6
 		},
 		{
-			"start": 3.92,
-			"end": 4.02,
+			"start": 4.077,
+			"end": 4.157,
 			"value": 2
 		},
 		{
-			"start": 4.02,
-			"end": 4.12,
+			"start": 4.157,
+			"end": 4.237,
 			"value": 6
 		},
 		{
-			"start": 4.12,
-			"end": 4.22,
+			"start": 4.237,
+			"end": 4.317,
 			"value": 3
 		},
 		{
-			"start": 4.22,
-			"end": 4.32,
+			"start": 4.317,
+			"end": 4.397,
 			"value": 6
 		}
 	]

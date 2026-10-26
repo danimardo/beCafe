@@ -2,236 +2,226 @@
 	"version": 1,
 	"audio": "saludo_07.mp3",
 	"texto": "¡Eh, tú! Sí, tú, el de la cara de necesitar vacaciones. ¡Acércate!",
-	"duration": 4.88,
+	"duration": 5.704,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.16,
-			"value": 1
-		},
-		{
-			"start": 0.453,
-			"end": 0.507,
+			"start": 0.814,
+			"end": 0.88,
 			"value": 6
 		},
 		{
-			"start": 0.507,
-			"end": 0.56,
+			"start": 0.88,
+			"end": 0.947,
 			"value": 4
 		},
 		{
-			"start": 0.8,
-			"end": 0.96,
+			"start": 1.107,
+			"end": 1.267,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 1.267,
+			"end": 1.427,
 			"value": 1
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.64,
+			"end": 1.694,
 			"value": 6
 		},
 		{
-			"start": 1.28,
-			"end": 1.36,
+			"start": 1.694,
+			"end": 1.747,
 			"value": 4
 		},
 		{
-			"start": 1.627,
-			"end": 1.653,
+			"start": 2.014,
+			"end": 2.08,
 			"value": 1
 		},
 		{
-			"start": 1.653,
-			"end": 1.68,
+			"start": 2.08,
+			"end": 2.2,
 			"value": 6
 		},
 		{
-			"start": 1.733,
-			"end": 1.787,
-			"value": 6
-		},
-		{
-			"start": 1.787,
-			"end": 1.84,
+			"start": 2.2,
+			"end": 2.227,
 			"value": 1
 		},
 		{
-			"start": 1.867,
-			"end": 1.893,
+			"start": 2.254,
+			"end": 2.28,
 			"value": 6
 		},
 		{
-			"start": 1.893,
-			"end": 1.92,
+			"start": 2.28,
+			"end": 2.307,
 			"value": 2
 		},
 		{
-			"start": 1.968,
-			"end": 2.016,
+			"start": 2.371,
+			"end": 2.435,
 			"value": 6
 		},
 		{
-			"start": 2.016,
-			"end": 2.064,
+			"start": 2.435,
+			"end": 2.499,
 			"value": 2
 		},
 		{
-			"start": 2.064,
-			"end": 2.112,
+			"start": 2.499,
+			"end": 2.563,
 			"value": 6
 		},
 		{
-			"start": 2.112,
-			"end": 2.16,
+			"start": 2.563,
+			"end": 2.627,
 			"value": 2
 		},
 		{
-			"start": 2.187,
-			"end": 2.213,
-			"value": 6
-		},
-		{
-			"start": 2.213,
-			"end": 2.24,
-			"value": 1
-		},
-		{
-			"start": 2.293,
-			"end": 2.347,
-			"value": 6
-		},
-		{
-			"start": 2.347,
-			"end": 2.4,
-			"value": 1
-		},
-		{
-			"start": 2.4,
-			"end": 2.453,
-			"value": 6
-		},
-		{
-			"start": 2.453,
-			"end": 2.507,
-			"value": 1
-		},
-		{
-			"start": 2.507,
-			"end": 2.56,
-			"value": 6
-		},
-		{
-			"start": 2.56,
-			"end": 2.62,
-			"value": 1
-		},
-		{
-			"start": 2.62,
+			"start": 2.654,
 			"end": 2.68,
 			"value": 6
 		},
 		{
 			"start": 2.68,
-			"end": 2.74,
-			"value": 2
+			"end": 2.707,
+			"value": 1
 		},
 		{
-			"start": 2.74,
-			"end": 2.8,
+			"start": 2.76,
+			"end": 2.814,
 			"value": 6
 		},
 		{
-			"start": 2.84,
-			"end": 2.88,
-			"value": 5
+			"start": 2.814,
+			"end": 2.867,
+			"value": 1
 		},
 		{
-			"start": 2.88,
+			"start": 2.867,
 			"end": 2.92,
-			"value": 2
+			"value": 6
 		},
 		{
 			"start": 2.92,
-			"end": 2.96,
-			"value": 6
-		},
-		{
-			"start": 2.96,
-			"end": 3.04,
-			"value": 2
-		},
-		{
-			"start": 3.04,
-			"end": 3.12,
-			"value": 6
-		},
-		{
-			"start": 3.12,
-			"end": 3.2,
+			"end": 2.974,
 			"value": 1
 		},
 		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 2.974,
+			"end": 3.027,
+			"value": 6
+		},
+		{
+			"start": 3.027,
+			"end": 3.067,
+			"value": 1
+		},
+		{
+			"start": 3.067,
+			"end": 3.107,
+			"value": 6
+		},
+		{
+			"start": 3.107,
+			"end": 3.147,
+			"value": 2
+		},
+		{
+			"start": 3.147,
+			"end": 3.187,
+			"value": 6
+		},
+		{
+			"start": 3.247,
+			"end": 3.307,
+			"value": 5
+		},
+		{
+			"start": 3.307,
+			"end": 3.367,
+			"value": 2
+		},
+		{
+			"start": 3.367,
+			"end": 3.427,
+			"value": 6
+		},
+		{
+			"start": 3.427,
+			"end": 3.496,
+			"value": 2
+		},
+		{
+			"start": 3.496,
+			"end": 3.564,
+			"value": 6
+		},
+		{
+			"start": 3.564,
+			"end": 3.633,
+			"value": 1
+		},
+		{
+			"start": 3.633,
+			"end": 3.701,
 			"value": 3
 		},
 		{
-			"start": 3.28,
-			"end": 3.36,
+			"start": 3.701,
+			"end": 3.77,
 			"value": 6
 		},
 		{
-			"start": 3.36,
-			"end": 3.44,
+			"start": 3.77,
+			"end": 3.838,
 			"value": 1
 		},
 		{
-			"start": 3.44,
-			"end": 3.52,
+			"start": 3.838,
+			"end": 3.907,
 			"value": 6
 		},
 		{
-			"start": 3.68,
-			"end": 3.76,
+			"start": 4.067,
+			"end": 4.187,
 			"value": 2
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 4.187,
+			"end": 4.307,
 			"value": 6
 		},
 		{
-			"start": 3.84,
-			"end": 3.893,
+			"start": 4.307,
+			"end": 4.36,
 			"value": 1
 		},
 		{
-			"start": 3.893,
-			"end": 4,
+			"start": 4.36,
+			"end": 4.467,
 			"value": 6
 		},
 		{
-			"start": 4,
-			"end": 4.107,
+			"start": 4.467,
+			"end": 4.547,
 			"value": 2
 		},
 		{
-			"start": 4.107,
-			"end": 4.213,
+			"start": 4.547,
+			"end": 4.627,
 			"value": 6
 		},
 		{
-			"start": 4.213,
-			"end": 4.319,
+			"start": 4.627,
+			"end": 4.707,
 			"value": 1
 		},
 		{
-			"start": 4.4,
-			"end": 4.88,
+			"start": 4.947,
+			"end": 5.704,
 			"value": 2
 		}
 	]

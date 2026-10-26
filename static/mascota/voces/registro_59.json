@@ -2,232 +2,222 @@
 	"version": 1,
 	"audio": "registro_59.mp3",
 	"texto": "Tu calendario tiene más reuniones que un congreso de cotorras.",
-	"duration": 4.48,
+	"duration": 4.145,
 	"cues": [
 		{
-			"start": 0.229,
-			"end": 0.297,
+			"start": 0.424,
+			"end": 0.481,
 			"value": 6
 		},
 		{
-			"start": 0.297,
-			"end": 0.366,
+			"start": 0.481,
+			"end": 0.538,
 			"value": 2
 		},
 		{
-			"start": 0.366,
-			"end": 0.434,
+			"start": 0.538,
+			"end": 0.596,
 			"value": 6
 		},
 		{
-			"start": 0.434,
-			"end": 0.503,
+			"start": 0.596,
+			"end": 0.653,
 			"value": 1
 		},
 		{
-			"start": 0.503,
-			"end": 0.64,
+			"start": 0.653,
+			"end": 0.767,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.7,
+			"start": 0.767,
+			"end": 0.827,
 			"value": 2
 		},
 		{
-			"start": 0.7,
-			"end": 0.76,
+			"start": 0.827,
+			"end": 0.887,
 			"value": 6
 		},
 		{
-			"start": 0.76,
-			"end": 0.82,
+			"start": 0.887,
+			"end": 0.947,
 			"value": 1
 		},
 		{
-			"start": 0.82,
-			"end": 0.88,
+			"start": 0.947,
+			"end": 1.007,
 			"value": 3
 		},
 		{
-			"start": 0.92,
-			"end": 0.96,
+			"start": 1.047,
+			"end": 1.087,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 1.087,
+			"end": 1.167,
 			"value": 1
 		},
 		{
-			"start": 1.04,
-			"end": 1.08,
+			"start": 1.167,
+			"end": 1.207,
 			"value": 6
 		},
 		{
-			"start": 1.08,
-			"end": 1.12,
+			"start": 1.207,
+			"end": 1.247,
 			"value": 1
 		},
 		{
-			"start": 1.16,
-			"end": 1.2,
+			"start": 1.307,
+			"end": 1.367,
 			"value": 7
 		},
 		{
-			"start": 1.2,
-			"end": 1.24,
+			"start": 1.367,
+			"end": 1.427,
 			"value": 2
 		},
 		{
-			"start": 1.24,
-			"end": 1.28,
+			"start": 1.427,
+			"end": 1.487,
 			"value": 6
 		},
 		{
-			"start": 1.344,
-			"end": 1.408,
+			"start": 1.551,
+			"end": 1.615,
 			"value": 6
 		},
 		{
-			"start": 1.408,
-			"end": 1.472,
+			"start": 1.615,
+			"end": 1.679,
 			"value": 1
 		},
 		{
-			"start": 1.472,
-			"end": 1.536,
+			"start": 1.679,
+			"end": 1.743,
 			"value": 4
 		},
 		{
-			"start": 1.536,
-			"end": 1.6,
+			"start": 1.743,
+			"end": 1.807,
 			"value": 6
 		},
 		{
-			"start": 1.6,
-			"end": 1.648,
+			"start": 1.807,
+			"end": 1.871,
 			"value": 1
 		},
 		{
-			"start": 1.648,
-			"end": 1.696,
+			"start": 1.871,
+			"end": 1.935,
 			"value": 3
 		},
 		{
-			"start": 1.696,
-			"end": 1.744,
+			"start": 1.935,
+			"end": 1.999,
 			"value": 6
 		},
 		{
-			"start": 1.744,
-			"end": 1.792,
+			"start": 1.999,
+			"end": 2.063,
 			"value": 1
 		},
 		{
-			"start": 1.792,
-			"end": 1.92,
+			"start": 2.063,
+			"end": 2.167,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 1.96,
+			"start": 2.187,
+			"end": 2.207,
+			"value": 1
+		},
+		{
+			"start": 2.26,
+			"end": 2.314,
 			"value": 4
 		},
 		{
-			"start": 1.96,
-			"end": 2,
+			"start": 2.314,
+			"end": 2.367,
+			"value": 6
+		},
+		{
+			"start": 2.447,
+			"end": 2.527,
+			"value": 6
+		},
+		{
+			"start": 2.527,
+			"end": 2.607,
+			"value": 3
+		},
+		{
+			"start": 2.607,
+			"end": 2.815,
+			"value": 6
+		},
+		{
+			"start": 2.815,
+			"end": 2.879,
 			"value": 1
 		},
 		{
-			"start": 2.053,
-			"end": 2.107,
-			"value": 4
-		},
-		{
-			"start": 2.107,
-			"end": 2.16,
+			"start": 2.879,
+			"end": 2.943,
 			"value": 6
 		},
 		{
-			"start": 2.2,
-			"end": 2.24,
-			"value": 6
-		},
-		{
-			"start": 2.24,
-			"end": 2.28,
+			"start": 2.943,
+			"end": 3.007,
 			"value": 3
 		},
 		{
-			"start": 2.28,
-			"end": 2.448,
+			"start": 3.034,
+			"end": 3.06,
 			"value": 6
 		},
 		{
-			"start": 2.448,
-			"end": 2.512,
+			"start": 3.06,
+			"end": 3.087,
 			"value": 1
 		},
 		{
-			"start": 2.512,
-			"end": 2.576,
+			"start": 3.127,
+			"end": 3.167,
 			"value": 6
 		},
 		{
-			"start": 2.576,
-			"end": 2.64,
+			"start": 3.167,
+			"end": 3.247,
 			"value": 3
 		},
 		{
-			"start": 2.693,
-			"end": 2.747,
+			"start": 3.247,
+			"end": 3.327,
 			"value": 6
 		},
 		{
-			"start": 2.747,
-			"end": 2.8,
-			"value": 1
-		},
-		{
-			"start": 2.88,
-			"end": 2.96,
-			"value": 6
-		},
-		{
-			"start": 2.96,
-			"end": 3,
+			"start": 3.327,
+			"end": 3.407,
 			"value": 3
 		},
 		{
-			"start": 3,
-			"end": 3.04,
+			"start": 3.407,
+			"end": 3.567,
 			"value": 6
 		},
 		{
-			"start": 3.04,
-			"end": 3.08,
-			"value": 3
-		},
-		{
-			"start": 3.08,
-			"end": 3.2,
-			"value": 6
-		},
-		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 3.567,
+			"end": 3.647,
 			"value": 2
 		},
 		{
-			"start": 3.28,
-			"end": 3.36,
+			"start": 3.647,
+			"end": 3.727,
 			"value": 6
-		},
-		{
-			"start": 3.52,
-			"end": 4.48,
-			"value": 2
 		}
 	]
 }

@@ -2,152 +2,157 @@
 	"version": 1,
 	"audio": "registro_45.mp3",
 	"texto": "Tú bebe, que pensar está sobrevalorado.",
-	"duration": 2.64,
+	"duration": 3.204,
 	"cues": [
 		{
-			"start": 0.213,
-			"end": 0.267,
-			"value": 7
-		},
-		{
-			"start": 0.267,
-			"end": 0.32,
-			"value": 1
-		},
-		{
-			"start": 0.32,
-			"end": 0.4,
-			"value": 7
-		},
-		{
-			"start": 0.4,
-			"end": 0.48,
-			"value": 1
-		},
-		{
-			"start": 0.58,
-			"end": 0.6,
+			"start": 0.386,
+			"end": 0.426,
 			"value": 6
 		},
 		{
-			"start": 0.6,
-			"end": 0.62,
+			"start": 0.426,
+			"end": 0.506,
 			"value": 4
 		},
 		{
-			"start": 0.62,
-			"end": 0.64,
-			"value": 1
-		},
-		{
-			"start": 0.697,
-			"end": 0.754,
+			"start": 0.559,
+			"end": 0.613,
 			"value": 7
 		},
 		{
-			"start": 0.754,
-			"end": 0.811,
+			"start": 0.613,
+			"end": 0.666,
 			"value": 1
 		},
 		{
-			"start": 0.811,
-			"end": 0.926,
-			"value": 6
+			"start": 0.666,
+			"end": 0.786,
+			"value": 7
 		},
 		{
-			"start": 0.926,
-			"end": 0.983,
-			"value": 2
-		},
-		{
-			"start": 0.983,
-			"end": 1.04,
-			"value": 6
-		},
-		{
-			"start": 1.104,
-			"end": 1.168,
+			"start": 0.786,
+			"end": 0.906,
 			"value": 1
 		},
 		{
-			"start": 1.168,
-			"end": 1.296,
+			"start": 1.106,
+			"end": 1.146,
 			"value": 6
 		},
 		{
-			"start": 1.296,
-			"end": 1.36,
+			"start": 1.146,
+			"end": 1.186,
+			"value": 4
+		},
+		{
+			"start": 1.186,
+			"end": 1.226,
+			"value": 1
+		},
+		{
+			"start": 1.283,
+			"end": 1.34,
+			"value": 7
+		},
+		{
+			"start": 1.34,
+			"end": 1.397,
+			"value": 1
+		},
+		{
+			"start": 1.397,
+			"end": 1.512,
+			"value": 6
+		},
+		{
+			"start": 1.512,
+			"end": 1.569,
 			"value": 2
 		},
 		{
-			"start": 1.4,
-			"end": 1.44,
+			"start": 1.569,
+			"end": 1.626,
 			"value": 6
 		},
 		{
-			"start": 1.44,
-			"end": 1.48,
+			"start": 1.69,
+			"end": 1.754,
+			"value": 1
+		},
+		{
+			"start": 1.754,
+			"end": 1.882,
+			"value": 6
+		},
+		{
+			"start": 1.882,
+			"end": 1.946,
+			"value": 2
+		},
+		{
+			"start": 1.999,
+			"end": 2.053,
+			"value": 6
+		},
+		{
+			"start": 2.053,
+			"end": 2.106,
 			"value": 3
 		},
 		{
-			"start": 1.48,
-			"end": 1.52,
+			"start": 2.106,
+			"end": 2.159,
 			"value": 7
 		},
 		{
-			"start": 1.52,
-			"end": 1.56,
+			"start": 2.159,
+			"end": 2.213,
 			"value": 6
 		},
 		{
-			"start": 1.56,
-			"end": 1.6,
+			"start": 2.213,
+			"end": 2.266,
 			"value": 1
 		},
 		{
-			"start": 1.6,
-			"end": 1.664,
+			"start": 2.266,
+			"end": 2.314,
 			"value": 5
 		},
 		{
-			"start": 1.664,
-			"end": 1.728,
+			"start": 2.314,
+			"end": 2.362,
 			"value": 2
 		},
 		{
-			"start": 1.728,
-			"end": 1.792,
+			"start": 2.362,
+			"end": 2.41,
 			"value": 6
 		},
 		{
-			"start": 1.792,
-			"end": 1.856,
+			"start": 2.41,
+			"end": 2.458,
 			"value": 3
 		},
 		{
-			"start": 1.856,
-			"end": 1.92,
+			"start": 2.458,
+			"end": 2.506,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 1.973,
+			"start": 2.506,
+			"end": 2.613,
 			"value": 2
 		},
 		{
-			"start": 1.973,
-			"end": 2.027,
+			"start": 2.613,
+			"end": 2.719,
 			"value": 6
 		},
 		{
-			"start": 2.027,
-			"end": 2.08,
+			"start": 2.719,
+			"end": 2.826,
 			"value": 3
-		},
-		{
-			"start": 2.2,
-			"end": 2.64,
-			"value": 2
 		}
 	]
 }

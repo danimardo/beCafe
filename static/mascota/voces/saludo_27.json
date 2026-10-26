@@ -2,281 +2,276 @@
 	"version": 1,
 	"audio": "saludo_27.mp3",
 	"texto": "¡BUENOS DÍAS, TERRÍCOLA! Tu nivel de dignidad es bajo, pero tu café promete.",
-	"duration": 5.36,
+	"duration": 6.281,
 	"cues": [
 		{
-			"start": 0.24,
-			"end": 0.32,
+			"start": 0.383,
+			"end": 0.463,
 			"value": 1
 		},
 		{
-			"start": 0.32,
-			"end": 0.4,
+			"start": 0.463,
+			"end": 0.543,
 			"value": 6
 		},
 		{
-			"start": 0.4,
-			"end": 0.44,
+			"start": 0.543,
+			"end": 0.583,
 			"value": 3
 		},
 		{
-			"start": 0.44,
-			"end": 0.48,
+			"start": 0.583,
+			"end": 0.623,
 			"value": 6
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.703,
+			"end": 0.783,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.72,
+			"start": 0.783,
+			"end": 0.863,
 			"value": 1
 		},
 		{
-			"start": 0.72,
-			"end": 0.76,
+			"start": 0.863,
+			"end": 0.903,
 			"value": 2
 		},
 		{
-			"start": 0.76,
-			"end": 0.8,
+			"start": 0.903,
+			"end": 0.943,
 			"value": 6
 		},
 		{
-			"start": 0.92,
-			"end": 0.96,
-			"value": 6
-		},
-		{
-			"start": 0.96,
-			"end": 1.013,
+			"start": 1.023,
+			"end": 1.076,
 			"value": 1
 		},
 		{
-			"start": 1.013,
-			"end": 1.12,
+			"start": 1.076,
+			"end": 1.183,
 			"value": 6
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.183,
+			"end": 1.263,
 			"value": 1
 		},
 		{
-			"start": 1.2,
-			"end": 1.253,
+			"start": 1.263,
+			"end": 1.316,
 			"value": 6
 		},
 		{
-			"start": 1.253,
-			"end": 1.307,
+			"start": 1.316,
+			"end": 1.37,
 			"value": 3
 		},
 		{
-			"start": 1.307,
-			"end": 1.36,
+			"start": 1.37,
+			"end": 1.423,
 			"value": 6
 		},
 		{
-			"start": 1.36,
-			"end": 1.44,
+			"start": 1.423,
+			"end": 1.583,
 			"value": 2
 		},
 		{
-			"start": 1.707,
-			"end": 1.773,
+			"start": 2.116,
+			"end": 2.25,
 			"value": 6
 		},
 		{
-			"start": 1.773,
-			"end": 1.84,
+			"start": 2.25,
+			"end": 2.383,
 			"value": 4
 		},
 		{
-			"start": 1.893,
-			"end": 1.947,
+			"start": 2.436,
+			"end": 2.49,
 			"value": 6
 		},
 		{
-			"start": 1.947,
-			"end": 2,
+			"start": 2.49,
+			"end": 2.543,
 			"value": 1
 		},
 		{
-			"start": 2,
-			"end": 2.053,
+			"start": 2.543,
+			"end": 2.596,
 			"value": 5
 		},
 		{
-			"start": 2.053,
-			"end": 2.107,
+			"start": 2.596,
+			"end": 2.65,
 			"value": 1
 		},
 		{
-			"start": 2.107,
-			"end": 2.213,
+			"start": 2.65,
+			"end": 2.756,
 			"value": 6
 		},
 		{
-			"start": 2.213,
-			"end": 2.24,
+			"start": 2.756,
+			"end": 2.783,
 			"value": 1
 		},
 		{
-			"start": 2.288,
-			"end": 2.336,
+			"start": 2.831,
+			"end": 2.879,
 			"value": 6
 		},
 		{
-			"start": 2.336,
-			"end": 2.384,
+			"start": 2.879,
+			"end": 2.927,
 			"value": 1
 		},
 		{
-			"start": 2.384,
-			"end": 2.48,
+			"start": 2.927,
+			"end": 3.023,
 			"value": 6
 		},
 		{
-			"start": 2.48,
-			"end": 2.52,
+			"start": 3.023,
+			"end": 3.083,
 			"value": 1
 		},
 		{
-			"start": 2.52,
-			"end": 2.56,
+			"start": 3.083,
+			"end": 3.143,
 			"value": 6
 		},
 		{
-			"start": 2.56,
-			"end": 2.6,
+			"start": 3.143,
+			"end": 3.203,
 			"value": 2
 		},
 		{
-			"start": 2.6,
-			"end": 2.64,
+			"start": 3.203,
+			"end": 3.263,
 			"value": 6
 		},
 		{
-			"start": 2.693,
-			"end": 2.747,
+			"start": 3.316,
+			"end": 3.37,
 			"value": 1
 		},
 		{
-			"start": 2.747,
-			"end": 2.8,
+			"start": 3.37,
+			"end": 3.423,
 			"value": 6
 		},
 		{
-			"start": 2.88,
-			"end": 2.96,
+			"start": 3.503,
+			"end": 3.583,
 			"value": 7
 		},
 		{
-			"start": 2.96,
-			"end": 3.04,
+			"start": 3.583,
+			"end": 3.663,
 			"value": 2
 		},
 		{
-			"start": 3.04,
-			"end": 3.12,
+			"start": 3.663,
+			"end": 3.743,
 			"value": 6
 		},
 		{
-			"start": 3.12,
-			"end": 3.2,
+			"start": 3.743,
+			"end": 3.823,
 			"value": 3
 		},
 		{
-			"start": 3.392,
-			"end": 3.424,
+			"start": 4.015,
+			"end": 4.047,
 			"value": 7
 		},
 		{
-			"start": 3.424,
-			"end": 3.456,
+			"start": 4.047,
+			"end": 4.079,
 			"value": 1
 		},
 		{
-			"start": 3.456,
-			"end": 3.488,
+			"start": 4.079,
+			"end": 4.111,
 			"value": 6
 		},
 		{
-			"start": 3.488,
-			"end": 3.52,
+			"start": 4.111,
+			"end": 4.143,
 			"value": 3
 		},
 		{
-			"start": 3.573,
-			"end": 3.627,
+			"start": 4.196,
+			"end": 4.25,
 			"value": 6
 		},
 		{
-			"start": 3.627,
-			"end": 3.68,
+			"start": 4.25,
+			"end": 4.303,
 			"value": 4
 		},
 		{
-			"start": 3.744,
-			"end": 3.808,
+			"start": 4.367,
+			"end": 4.431,
 			"value": 6
 		},
 		{
-			"start": 3.808,
-			"end": 3.872,
+			"start": 4.431,
+			"end": 4.495,
 			"value": 2
 		},
 		{
-			"start": 3.872,
-			"end": 3.936,
+			"start": 4.495,
+			"end": 4.559,
 			"value": 5
 		},
 		{
-			"start": 3.936,
-			"end": 4,
+			"start": 4.559,
+			"end": 4.623,
 			"value": 1
 		},
 		{
-			"start": 4.064,
-			"end": 4.128,
+			"start": 4.687,
+			"end": 4.751,
 			"value": 7
 		},
 		{
-			"start": 4.128,
-			"end": 4.192,
+			"start": 4.751,
+			"end": 4.815,
 			"value": 6
 		},
 		{
-			"start": 4.192,
-			"end": 4.256,
+			"start": 4.815,
+			"end": 4.879,
 			"value": 3
 		},
 		{
-			"start": 4.256,
-			"end": 4.32,
+			"start": 4.879,
+			"end": 4.943,
 			"value": 7
 		},
 		{
-			"start": 4.32,
-			"end": 4.427,
+			"start": 4.943,
+			"end": 5.05,
 			"value": 1
 		},
 		{
-			"start": 4.427,
-			"end": 4.533,
+			"start": 5.05,
+			"end": 5.156,
 			"value": 6
 		},
 		{
-			"start": 4.533,
-			"end": 4.64,
+			"start": 5.156,
+			"end": 5.263,
 			"value": 1
 		},
 		{
-			"start": 4.7,
-			"end": 5.36,
+			"start": 5.423,
+			"end": 5.823,
 			"value": 2
 		}
 	]

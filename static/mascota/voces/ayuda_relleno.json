@@ -2,146 +2,146 @@
 	"version": 1,
 	"audio": "ayuda_relleno.mp3",
 	"texto": "Muestra quién rellenó el depósito y cuándo.",
-	"duration": 2.32,
+	"duration": 3.252,
 	"cues": [
 		{
-			"start": 0.32,
-			"end": 0.347,
+			"start": 0.588,
+			"end": 0.641,
 			"value": 7
 		},
 		{
-			"start": 0.364,
-			"end": 0.391,
+			"start": 0.677,
+			"end": 0.73,
 			"value": 6
 		},
 		{
-			"start": 0.44,
-			"end": 0.48,
+			"start": 0.808,
+			"end": 0.868,
 			"value": 6
 		},
 		{
-			"start": 0.48,
-			"end": 0.52,
+			"start": 0.868,
+			"end": 0.928,
 			"value": 4
 		},
 		{
-			"start": 0.52,
-			"end": 0.6,
+			"start": 0.928,
+			"end": 1.028,
 			"value": 1
 		},
 		{
-			"start": 0.6,
-			"end": 0.64,
+			"start": 1.028,
+			"end": 1.068,
 			"value": 6
 		},
 		{
-			"start": 0.693,
-			"end": 0.747,
+			"start": 1.121,
+			"end": 1.175,
 			"value": 6
 		},
 		{
-			"start": 0.747,
-			"end": 0.8,
+			"start": 1.175,
+			"end": 1.228,
 			"value": 1
 		},
 		{
-			"start": 0.8,
-			"end": 0.88,
+			"start": 1.228,
+			"end": 1.308,
 			"value": 6
 		},
 		{
-			"start": 0.88,
-			"end": 0.92,
+			"start": 1.308,
+			"end": 1.348,
 			"value": 1
 		},
 		{
-			"start": 0.92,
-			"end": 0.96,
+			"start": 1.348,
+			"end": 1.388,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 1.388,
+			"end": 1.468,
 			"value": 3
 		},
 		{
-			"start": 1.067,
-			"end": 1.093,
+			"start": 1.495,
+			"end": 1.521,
 			"value": 1
 		},
 		{
-			"start": 1.093,
-			"end": 1.12,
+			"start": 1.521,
+			"end": 1.548,
 			"value": 6
 		},
 		{
-			"start": 1.18,
-			"end": 1.24,
+			"start": 1.608,
+			"end": 1.668,
 			"value": 6
 		},
 		{
-			"start": 1.24,
-			"end": 1.3,
+			"start": 1.668,
+			"end": 1.728,
 			"value": 1
 		},
 		{
-			"start": 1.3,
-			"end": 1.36,
+			"start": 1.728,
+			"end": 1.788,
 			"value": 7
 		},
 		{
-			"start": 1.36,
-			"end": 1.424,
+			"start": 1.788,
+			"end": 1.884,
 			"value": 3
 		},
 		{
-			"start": 1.424,
-			"end": 1.488,
+			"start": 1.884,
+			"end": 1.98,
 			"value": 6
 		},
 		{
-			"start": 1.488,
-			"end": 1.552,
+			"start": 1.98,
+			"end": 2.076,
 			"value": 1
 		},
 		{
-			"start": 1.552,
-			"end": 1.616,
+			"start": 2.076,
+			"end": 2.172,
 			"value": 6
 		},
 		{
-			"start": 1.616,
-			"end": 1.68,
+			"start": 2.172,
+			"end": 2.268,
 			"value": 3
 		},
 		{
-			"start": 1.76,
-			"end": 1.84,
+			"start": 2.308,
+			"end": 2.348,
 			"value": 1
 		},
 		{
-			"start": 1.893,
-			"end": 1.947,
+			"start": 2.428,
+			"end": 2.508,
 			"value": 6
 		},
 		{
-			"start": 1.947,
-			"end": 2,
+			"start": 2.508,
+			"end": 2.588,
 			"value": 4
 		},
 		{
-			"start": 2,
-			"end": 2.053,
+			"start": 2.588,
+			"end": 2.668,
 			"value": 2
 		},
 		{
-			"start": 2.053,
-			"end": 2.16,
+			"start": 2.668,
+			"end": 2.828,
 			"value": 6
 		},
 		{
-			"start": 2.16,
-			"end": 2.24,
+			"start": 2.828,
+			"end": 2.988,
 			"value": 3
 		}
 	]

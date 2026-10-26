@@ -2,271 +2,266 @@
 	"version": 1,
 	"audio": "saludo_62.mp3",
 	"texto": "¡Arriba, campeón! ¡Hoy puedes conseguir cualquier cosa! Excepto salir antes.",
-	"duration": 6.64,
+	"duration": 5.951,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.16,
-			"value": 2
-		},
-		{
-			"start": 0.16,
-			"end": 0.28,
+			"start": 0.457,
+			"end": 0.525,
 			"value": 6
 		},
 		{
-			"start": 0.28,
-			"end": 0.32,
+			"start": 0.525,
+			"end": 0.585,
 			"value": 1
 		},
 		{
-			"start": 0.32,
-			"end": 0.36,
+			"start": 0.585,
+			"end": 0.645,
 			"value": 7
 		},
 		{
-			"start": 0.36,
-			"end": 0.4,
+			"start": 0.645,
+			"end": 0.705,
 			"value": 2
 		},
 		{
-			"start": 0.52,
-			"end": 0.56,
+			"start": 0.905,
+			"end": 0.945,
 			"value": 6
 		},
 		{
-			"start": 0.56,
-			"end": 0.6,
+			"start": 0.945,
+			"end": 0.985,
 			"value": 2
 		},
 		{
-			"start": 0.6,
-			"end": 0.72,
+			"start": 0.985,
+			"end": 1.065,
 			"value": 7
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 1.065,
+			"end": 1.105,
 			"value": 1
 		},
 		{
-			"start": 0.8,
-			"end": 0.88,
+			"start": 1.105,
+			"end": 1.225,
 			"value": 3
 		},
 		{
-			"start": 0.88,
-			"end": 0.96,
+			"start": 1.225,
+			"end": 1.345,
 			"value": 6
 		},
 		{
-			"start": 1.28,
-			"end": 1.36,
+			"start": 1.585,
+			"end": 1.625,
 			"value": 3
 		},
 		{
-			"start": 1.36,
-			"end": 1.44,
+			"start": 1.625,
+			"end": 1.665,
 			"value": 1
 		},
 		{
-			"start": 1.474,
-			"end": 1.509,
+			"start": 1.722,
+			"end": 1.779,
 			"value": 7
 		},
 		{
-			"start": 1.509,
-			"end": 1.543,
+			"start": 1.779,
+			"end": 1.836,
 			"value": 4
 		},
 		{
-			"start": 1.543,
-			"end": 1.577,
+			"start": 1.836,
+			"end": 1.894,
 			"value": 1
 		},
 		{
-			"start": 1.577,
-			"end": 1.611,
+			"start": 1.894,
+			"end": 1.951,
 			"value": 6
 		},
 		{
-			"start": 1.611,
-			"end": 1.646,
+			"start": 1.951,
+			"end": 2.008,
 			"value": 1
 		},
 		{
-			"start": 1.646,
-			"end": 1.68,
+			"start": 2.008,
+			"end": 2.065,
 			"value": 6
 		},
 		{
-			"start": 1.728,
-			"end": 1.776,
+			"start": 2.105,
+			"end": 2.145,
 			"value": 6
 		},
 		{
-			"start": 1.776,
-			"end": 1.824,
+			"start": 2.145,
+			"end": 2.185,
 			"value": 3
 		},
 		{
-			"start": 1.824,
-			"end": 1.92,
+			"start": 2.185,
+			"end": 2.265,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 1.968,
+			"start": 2.265,
+			"end": 2.305,
 			"value": 1
 		},
 		{
-			"start": 1.968,
-			"end": 2.016,
+			"start": 2.305,
+			"end": 2.345,
 			"value": 6
 		},
 		{
-			"start": 2.016,
-			"end": 2.064,
+			"start": 2.345,
+			"end": 2.385,
 			"value": 4
 		},
 		{
-			"start": 2.064,
-			"end": 2.112,
+			"start": 2.385,
+			"end": 2.425,
 			"value": 1
 		},
 		{
-			"start": 2.112,
-			"end": 2.16,
+			"start": 2.425,
+			"end": 2.465,
 			"value": 6
 		},
 		{
-			"start": 2.208,
-			"end": 2.256,
+			"start": 2.513,
+			"end": 2.561,
 			"value": 6
 		},
 		{
-			"start": 2.256,
-			"end": 2.304,
+			"start": 2.561,
+			"end": 2.609,
 			"value": 4
 		},
 		{
-			"start": 2.304,
-			"end": 2.352,
+			"start": 2.609,
+			"end": 2.657,
 			"value": 2
 		},
 		{
-			"start": 2.352,
-			"end": 2.448,
+			"start": 2.657,
+			"end": 2.753,
 			"value": 6
 		},
 		{
-			"start": 2.448,
-			"end": 2.496,
+			"start": 2.753,
+			"end": 2.801,
 			"value": 4
 		},
 		{
-			"start": 2.496,
-			"end": 2.592,
+			"start": 2.801,
+			"end": 2.897,
 			"value": 1
 		},
 		{
-			"start": 2.592,
-			"end": 2.64,
+			"start": 2.897,
+			"end": 2.945,
 			"value": 6
 		},
 		{
-			"start": 2.72,
-			"end": 2.8,
+			"start": 3.025,
+			"end": 3.105,
 			"value": 6
 		},
 		{
-			"start": 2.8,
-			"end": 2.88,
+			"start": 3.105,
+			"end": 3.185,
 			"value": 3
 		},
 		{
-			"start": 2.88,
-			"end": 2.96,
+			"start": 3.185,
+			"end": 3.265,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3.04,
+			"start": 3.265,
+			"end": 3.345,
 			"value": 2
 		},
 		{
-			"start": 3.211,
-			"end": 3.303,
+			"start": 4.168,
+			"end": 4.271,
 			"value": 1
 		},
 		{
-			"start": 3.303,
-			"end": 3.486,
+			"start": 4.271,
+			"end": 4.476,
 			"value": 6
 		},
 		{
-			"start": 3.486,
-			"end": 3.577,
+			"start": 4.476,
+			"end": 4.579,
 			"value": 1
 		},
 		{
-			"start": 3.577,
-			"end": 3.669,
+			"start": 4.579,
+			"end": 4.682,
 			"value": 7
 		},
 		{
-			"start": 3.669,
-			"end": 3.76,
+			"start": 4.682,
+			"end": 4.785,
 			"value": 6
 		},
 		{
-			"start": 3.76,
-			"end": 3.92,
+			"start": 4.785,
+			"end": 4.945,
 			"value": 3
 		},
 		{
-			"start": 3.947,
-			"end": 3.973,
+			"start": 4.972,
+			"end": 4.998,
 			"value": 6
 		},
 		{
-			"start": 3.973,
-			"end": 4,
+			"start": 4.998,
+			"end": 5.025,
 			"value": 2
 		},
 		{
-			"start": 4,
-			"end": 4.027,
+			"start": 5.025,
+			"end": 5.052,
 			"value": 6
 		},
 		{
-			"start": 4.027,
-			"end": 4.053,
+			"start": 5.052,
+			"end": 5.078,
 			"value": 1
 		},
 		{
-			"start": 4.053,
-			"end": 4.08,
+			"start": 5.078,
+			"end": 5.105,
 			"value": 6
 		},
 		{
-			"start": 4.16,
-			"end": 4.24,
+			"start": 5.172,
+			"end": 5.238,
 			"value": 2
 		},
 		{
-			"start": 4.24,
-			"end": 4.4,
+			"start": 5.238,
+			"end": 5.372,
 			"value": 6
 		},
 		{
-			"start": 4.4,
-			"end": 4.48,
+			"start": 5.372,
+			"end": 5.438,
 			"value": 1
 		},
 		{
-			"start": 4.48,
-			"end": 4.56,
+			"start": 5.438,
+			"end": 5.505,
 			"value": 6
 		}
 	]

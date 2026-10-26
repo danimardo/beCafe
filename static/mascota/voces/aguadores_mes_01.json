@@ -2,131 +2,131 @@
 	"version": 1,
 	"audio": "aguadores_mes_01.mp3",
 	"texto": "¡Ovación a los aguadores del mes!",
-	"duration": 2.24,
+	"duration": 2.491,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.24,
+			"start": 0.354,
+			"end": 0.434,
 			"value": 5
 		},
 		{
-			"start": 0.24,
-			"end": 0.32,
+			"start": 0.434,
+			"end": 0.498,
 			"value": 2
 		},
 		{
-			"start": 0.32,
-			"end": 0.4,
+			"start": 0.498,
+			"end": 0.562,
 			"value": 6
 		},
 		{
-			"start": 0.4,
-			"end": 0.48,
+			"start": 0.562,
+			"end": 0.626,
 			"value": 1
 		},
 		{
-			"start": 0.48,
-			"end": 0.56,
+			"start": 0.626,
+			"end": 0.69,
 			"value": 3
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.69,
+			"end": 0.754,
 			"value": 6
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
+			"start": 0.794,
+			"end": 0.834,
 			"value": 2
 		},
 		{
-			"start": 0.76,
-			"end": 0.8,
+			"start": 0.874,
+			"end": 0.914,
 			"value": 6
 		},
 		{
-			"start": 0.8,
-			"end": 0.84,
+			"start": 0.914,
+			"end": 0.954,
 			"value": 3
 		},
 		{
-			"start": 0.84,
-			"end": 0.88,
+			"start": 0.954,
+			"end": 0.994,
 			"value": 6
 		},
 		{
-			"start": 0.933,
-			"end": 0.987,
+			"start": 1.047,
+			"end": 1.101,
 			"value": 2
 		},
 		{
-			"start": 0.987,
-			"end": 1.04,
+			"start": 1.101,
+			"end": 1.154,
 			"value": 6
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.154,
+			"end": 1.314,
 			"value": 4
 		},
 		{
-			"start": 1.12,
-			"end": 1.187,
+			"start": 1.314,
+			"end": 1.341,
 			"value": 2
 		},
 		{
-			"start": 1.187,
-			"end": 1.253,
+			"start": 1.341,
+			"end": 1.367,
 			"value": 6
 		},
 		{
-			"start": 1.253,
-			"end": 1.32,
+			"start": 1.367,
+			"end": 1.394,
 			"value": 3
 		},
 		{
-			"start": 1.32,
-			"end": 1.387,
+			"start": 1.394,
+			"end": 1.421,
 			"value": 6
 		},
 		{
-			"start": 1.387,
-			"end": 1.453,
+			"start": 1.421,
+			"end": 1.447,
 			"value": 1
 		},
 		{
-			"start": 1.453,
-			"end": 1.52,
+			"start": 1.447,
+			"end": 1.474,
 			"value": 6
 		},
 		{
-			"start": 1.56,
-			"end": 1.6,
+			"start": 1.514,
+			"end": 1.554,
 			"value": 6
 		},
 		{
-			"start": 1.6,
-			"end": 1.64,
+			"start": 1.554,
+			"end": 1.594,
 			"value": 1
 		},
 		{
-			"start": 1.64,
-			"end": 1.68,
+			"start": 1.594,
+			"end": 1.634,
 			"value": 6
 		},
 		{
-			"start": 1.78,
-			"end": 1.88,
+			"start": 1.734,
+			"end": 1.834,
 			"value": 7
 		},
 		{
-			"start": 1.88,
-			"end": 1.98,
+			"start": 1.834,
+			"end": 1.934,
 			"value": 1
 		},
 		{
-			"start": 1.98,
-			"end": 2.08,
+			"start": 1.934,
+			"end": 2.034,
 			"value": 6
 		}
 	]

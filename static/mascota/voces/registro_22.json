@@ -2,186 +2,201 @@
 	"version": 1,
 	"audio": "registro_22.mp3",
 	"texto": "Ese café tiene más posibilidades de ascender que tú.",
-	"duration": 3.36,
+	"duration": 3.866,
 	"cues": [
 		{
-			"start": 0.384,
-			"end": 0.448,
+			"start": 0.403,
+			"end": 0.443,
 			"value": 6
 		},
 		{
-			"start": 0.448,
-			"end": 0.512,
+			"start": 0.443,
+			"end": 0.483,
+			"value": 1
+		},
+		{
+			"start": 0.547,
+			"end": 0.611,
+			"value": 6
+		},
+		{
+			"start": 0.611,
+			"end": 0.675,
 			"value": 2
 		},
 		{
-			"start": 0.512,
-			"end": 0.576,
+			"start": 0.675,
+			"end": 0.739,
 			"value": 5
 		},
 		{
-			"start": 0.576,
-			"end": 0.64,
+			"start": 0.739,
+			"end": 0.803,
 			"value": 1
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
+			"start": 0.856,
+			"end": 0.91,
 			"value": 6
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 0.91,
+			"end": 1.016,
 			"value": 1
 		},
 		{
-			"start": 0.8,
-			"end": 0.84,
+			"start": 1.016,
+			"end": 1.07,
 			"value": 6
 		},
 		{
-			"start": 0.84,
-			"end": 0.88,
+			"start": 1.07,
+			"end": 1.123,
 			"value": 1
 		},
 		{
-			"start": 0.92,
-			"end": 0.96,
+			"start": 1.163,
+			"end": 1.203,
 			"value": 7
 		},
 		{
-			"start": 0.96,
-			"end": 1,
+			"start": 1.203,
+			"end": 1.243,
 			"value": 2
 		},
 		{
-			"start": 1,
-			"end": 1.04,
+			"start": 1.243,
+			"end": 1.283,
 			"value": 6
 		},
 		{
-			"start": 1.1,
-			"end": 1.16,
+			"start": 1.343,
+			"end": 1.403,
 			"value": 7
 		},
 		{
-			"start": 1.16,
-			"end": 1.22,
+			"start": 1.403,
+			"end": 1.463,
 			"value": 3
 		},
 		{
-			"start": 1.22,
-			"end": 1.28,
+			"start": 1.463,
+			"end": 1.523,
 			"value": 6
 		},
 		{
-			"start": 1.28,
-			"end": 1.32,
+			"start": 1.523,
+			"end": 1.563,
 			"value": 1
 		},
 		{
-			"start": 1.32,
-			"end": 1.36,
+			"start": 1.563,
+			"end": 1.603,
 			"value": 7
 		},
 		{
-			"start": 1.36,
-			"end": 1.4,
+			"start": 1.603,
+			"end": 1.643,
 			"value": 1
 		},
 		{
-			"start": 1.4,
-			"end": 1.44,
+			"start": 1.643,
+			"end": 1.683,
 			"value": 6
 		},
 		{
-			"start": 1.44,
-			"end": 1.507,
+			"start": 1.683,
+			"end": 1.75,
 			"value": 1
 		},
 		{
-			"start": 1.507,
-			"end": 1.573,
+			"start": 1.75,
+			"end": 1.816,
 			"value": 6
 		},
 		{
-			"start": 1.573,
-			"end": 1.64,
+			"start": 1.816,
+			"end": 1.883,
 			"value": 2
 		},
 		{
-			"start": 1.64,
-			"end": 1.707,
+			"start": 1.883,
+			"end": 1.95,
 			"value": 6
 		},
 		{
-			"start": 1.707,
-			"end": 1.773,
+			"start": 1.95,
+			"end": 2.016,
 			"value": 1
 		},
 		{
-			"start": 1.773,
-			"end": 1.893,
+			"start": 2.016,
+			"end": 2.136,
 			"value": 6
 		},
 		{
-			"start": 1.893,
-			"end": 1.92,
+			"start": 2.136,
+			"end": 2.163,
 			"value": 1
 		},
 		{
-			"start": 1.96,
-			"end": 2,
+			"start": 2.203,
+			"end": 2.243,
 			"value": 2
 		},
 		{
-			"start": 2,
-			"end": 2.08,
+			"start": 2.243,
+			"end": 2.323,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.144,
+			"start": 2.323,
+			"end": 2.371,
 			"value": 1
 		},
 		{
-			"start": 2.144,
-			"end": 2.272,
+			"start": 2.371,
+			"end": 2.467,
 			"value": 6
 		},
 		{
-			"start": 2.272,
-			"end": 2.336,
+			"start": 2.467,
+			"end": 2.515,
 			"value": 1
 		},
 		{
-			"start": 2.336,
-			"end": 2.44,
+			"start": 2.515,
+			"end": 2.563,
 			"value": 6
 		},
 		{
-			"start": 2.44,
-			"end": 2.46,
+			"start": 2.603,
+			"end": 2.643,
+			"value": 6
+		},
+		{
+			"start": 2.643,
+			"end": 2.683,
 			"value": 4
 		},
 		{
-			"start": 2.46,
-			"end": 2.48,
+			"start": 2.683,
+			"end": 2.723,
 			"value": 1
 		},
 		{
-			"start": 2.613,
-			"end": 2.747,
+			"start": 2.803,
+			"end": 2.883,
 			"value": 6
 		},
 		{
-			"start": 2.747,
-			"end": 2.88,
+			"start": 2.883,
+			"end": 2.963,
 			"value": 4
 		},
 		{
-			"start": 3,
-			"end": 3.36,
+			"start": 3.163,
+			"end": 3.866,
 			"value": 2
 		}
 	]

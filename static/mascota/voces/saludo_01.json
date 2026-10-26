@@ -2,181 +2,161 @@
 	"version": 1,
 	"audio": "saludo_01.mp3",
 	"texto": "¡Hombre, coño! ¡Si es mi yonqui favorito del café!",
-	"duration": 3.6,
+	"duration": 2.958,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.144,
+			"start": 0.193,
+			"end": 0.247,
+			"value": 6
+		},
+		{
+			"start": 0.247,
+			"end": 0.3,
 			"value": 3
 		},
 		{
-			"start": 0.144,
-			"end": 0.272,
+			"start": 0.3,
+			"end": 0.42,
+			"value": 6
+		},
+		{
+			"start": 0.42,
+			"end": 0.54,
+			"value": 3
+		},
+		{
+			"start": 0.7,
+			"end": 0.74,
+			"value": 6
+		},
+		{
+			"start": 0.74,
+			"end": 0.78,
+			"value": 1
+		},
+		{
+			"start": 0.833,
+			"end": 0.887,
+			"value": 1
+		},
+		{
+			"start": 0.887,
+			"end": 0.94,
+			"value": 6
+		},
+		{
+			"start": 0.993,
+			"end": 1.047,
 			"value": 7
 		},
 		{
-			"start": 0.272,
-			"end": 0.336,
-			"value": 6
-		},
-		{
-			"start": 0.336,
-			"end": 0.4,
+			"start": 1.047,
+			"end": 1.1,
 			"value": 1
 		},
 		{
-			"start": 0.613,
-			"end": 0.667,
-			"value": 6
+			"start": 1.14,
+			"end": 1.18,
+			"value": 1
 		},
 		{
-			"start": 0.667,
-			"end": 0.72,
+			"start": 1.18,
+			"end": 1.22,
 			"value": 3
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 1.22,
+			"end": 1.313,
 			"value": 6
 		},
 		{
-			"start": 0.8,
-			"end": 0.88,
-			"value": 3
-		},
-		{
-			"start": 1.12,
-			"end": 1.16,
-			"value": 6
-		},
-		{
-			"start": 1.16,
-			"end": 1.2,
-			"value": 1
-		},
-		{
-			"start": 1.253,
-			"end": 1.307,
-			"value": 1
-		},
-		{
-			"start": 1.307,
-			"end": 1.36,
-			"value": 6
-		},
-		{
-			"start": 1.413,
-			"end": 1.467,
-			"value": 7
-		},
-		{
-			"start": 1.467,
-			"end": 1.52,
-			"value": 1
-		},
-		{
-			"start": 1.56,
-			"end": 1.6,
-			"value": 1
-		},
-		{
-			"start": 1.6,
-			"end": 1.64,
-			"value": 3
-		},
-		{
-			"start": 1.64,
-			"end": 1.733,
-			"value": 6
-		},
-		{
-			"start": 1.733,
-			"end": 1.787,
+			"start": 1.313,
+			"end": 1.367,
 			"value": 4
 		},
 		{
-			"start": 1.787,
-			"end": 1.84,
+			"start": 1.367,
+			"end": 1.42,
 			"value": 1
 		},
 		{
-			"start": 1.893,
-			"end": 1.947,
+			"start": 1.473,
+			"end": 1.527,
 			"value": 5
 		},
 		{
-			"start": 1.947,
-			"end": 2,
+			"start": 1.527,
+			"end": 1.58,
 			"value": 2
 		},
 		{
-			"start": 2,
-			"end": 2.053,
+			"start": 1.58,
+			"end": 1.633,
 			"value": 5
 		},
 		{
-			"start": 2.053,
-			"end": 2.107,
+			"start": 1.633,
+			"end": 1.687,
 			"value": 3
 		},
 		{
-			"start": 2.107,
-			"end": 2.16,
+			"start": 1.687,
+			"end": 1.74,
 			"value": 6
 		},
 		{
-			"start": 2.16,
-			"end": 2.213,
+			"start": 1.74,
+			"end": 1.793,
 			"value": 1
 		},
 		{
-			"start": 2.213,
-			"end": 2.267,
+			"start": 1.793,
+			"end": 1.847,
 			"value": 6
 		},
 		{
-			"start": 2.267,
-			"end": 2.32,
+			"start": 1.847,
+			"end": 1.9,
 			"value": 3
 		},
 		{
-			"start": 2.36,
-			"end": 2.4,
+			"start": 1.94,
+			"end": 1.98,
 			"value": 6
 		},
 		{
-			"start": 2.4,
-			"end": 2.44,
+			"start": 1.98,
+			"end": 2.02,
 			"value": 1
 		},
 		{
-			"start": 2.44,
-			"end": 2.48,
+			"start": 2.02,
+			"end": 2.06,
 			"value": 6
 		},
 		{
-			"start": 2.576,
-			"end": 2.672,
+			"start": 2.156,
+			"end": 2.252,
 			"value": 6
 		},
 		{
-			"start": 2.672,
-			"end": 2.768,
+			"start": 2.252,
+			"end": 2.348,
 			"value": 2
 		},
 		{
-			"start": 2.768,
-			"end": 2.864,
+			"start": 2.348,
+			"end": 2.444,
 			"value": 5
 		},
 		{
-			"start": 2.864,
-			"end": 2.96,
+			"start": 2.444,
+			"end": 2.54,
 			"value": 1
 		},
 		{
-			"start": 3.08,
-			"end": 3.6,
+			"start": 2.66,
+			"end": 2.958,
 			"value": 2
 		}
 	]

@@ -2,277 +2,272 @@
 	"version": 1,
 	"audio": "saludo_77.mp3",
 	"texto": "¡Hola, leyenda! ¡Tu talento para sobrevivir sin motivación merece un premio!",
-	"duration": 4.72,
+	"duration": 5.094,
 	"cues": [
 		{
-			"start": 0.6,
-			"end": 0.64,
+			"start": 0.665,
+			"end": 0.695,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.78,
+			"start": 0.695,
+			"end": 0.835,
 			"value": 1
 		},
 		{
-			"start": 0.78,
-			"end": 0.9,
+			"start": 0.835,
+			"end": 0.995,
 			"value": 6
 		},
 		{
-			"start": 0.9,
-			"end": 0.96,
+			"start": 0.995,
+			"end": 1.075,
 			"value": 2
 		},
 		{
-			"start": 1.2,
-			"end": 1.24,
+			"start": 1.555,
+			"end": 1.675,
 			"value": 6
 		},
 		{
-			"start": 1.24,
-			"end": 1.28,
+			"start": 1.675,
+			"end": 1.795,
 			"value": 4
 		},
 		{
-			"start": 1.337,
-			"end": 1.394,
+			"start": 1.829,
+			"end": 1.864,
 			"value": 6
 		},
 		{
-			"start": 1.394,
-			"end": 1.451,
+			"start": 1.864,
+			"end": 1.898,
 			"value": 2
 		},
 		{
-			"start": 1.451,
-			"end": 1.509,
+			"start": 1.898,
+			"end": 1.932,
 			"value": 6
 		},
 		{
-			"start": 1.509,
-			"end": 1.566,
+			"start": 1.932,
+			"end": 1.966,
 			"value": 1
 		},
 		{
-			"start": 1.566,
-			"end": 1.68,
+			"start": 1.966,
+			"end": 2.035,
 			"value": 6
 		},
 		{
-			"start": 1.68,
-			"end": 1.76,
+			"start": 2.035,
+			"end": 2.155,
 			"value": 3
 		},
 		{
-			"start": 1.792,
-			"end": 1.824,
+			"start": 2.179,
+			"end": 2.203,
 			"value": 7
 		},
 		{
-			"start": 1.824,
-			"end": 1.856,
+			"start": 2.203,
+			"end": 2.227,
 			"value": 2
 		},
 		{
-			"start": 1.856,
-			"end": 1.888,
+			"start": 2.227,
+			"end": 2.251,
 			"value": 6
 		},
 		{
-			"start": 1.888,
-			"end": 1.92,
+			"start": 2.251,
+			"end": 2.275,
 			"value": 2
 		},
 		{
-			"start": 1.98,
-			"end": 2.04,
+			"start": 2.315,
+			"end": 2.355,
 			"value": 6
 		},
 		{
-			"start": 2.04,
-			"end": 2.1,
+			"start": 2.355,
+			"end": 2.395,
 			"value": 3
 		},
 		{
-			"start": 2.1,
-			"end": 2.16,
+			"start": 2.395,
+			"end": 2.435,
 			"value": 7
 		},
 		{
-			"start": 2.16,
-			"end": 2.187,
+			"start": 2.435,
+			"end": 2.488,
 			"value": 6
 		},
 		{
-			"start": 2.187,
-			"end": 2.213,
+			"start": 2.488,
+			"end": 2.542,
 			"value": 1
 		},
 		{
-			"start": 2.213,
-			"end": 2.24,
+			"start": 2.542,
+			"end": 2.595,
 			"value": 5
 		},
 		{
-			"start": 2.24,
-			"end": 2.32,
+			"start": 2.595,
+			"end": 2.635,
 			"value": 1
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.635,
+			"end": 2.675,
 			"value": 5
 		},
 		{
-			"start": 2.4,
-			"end": 2.44,
+			"start": 2.675,
+			"end": 2.715,
 			"value": 1
 		},
 		{
-			"start": 2.44,
-			"end": 2.48,
+			"start": 2.715,
+			"end": 2.755,
 			"value": 6
 		},
 		{
-			"start": 2.54,
-			"end": 2.6,
+			"start": 2.815,
+			"end": 2.875,
 			"value": 6
 		},
 		{
-			"start": 2.6,
-			"end": 2.66,
+			"start": 2.875,
+			"end": 2.935,
 			"value": 1
 		},
 		{
-			"start": 2.66,
-			"end": 2.72,
+			"start": 2.935,
+			"end": 2.995,
 			"value": 6
 		},
 		{
-			"start": 2.773,
-			"end": 2.827,
+			"start": 3.048,
+			"end": 3.102,
 			"value": 7
 		},
 		{
-			"start": 2.827,
-			"end": 2.88,
+			"start": 3.102,
+			"end": 3.155,
 			"value": 3
 		},
 		{
-			"start": 2.88,
-			"end": 2.933,
+			"start": 3.155,
+			"end": 3.208,
 			"value": 6
 		},
 		{
-			"start": 2.933,
-			"end": 2.987,
+			"start": 3.208,
+			"end": 3.262,
 			"value": 1
 		},
 		{
-			"start": 2.987,
-			"end": 3.04,
+			"start": 3.262,
+			"end": 3.315,
 			"value": 5
 		},
 		{
-			"start": 3.04,
-			"end": 3.104,
+			"start": 3.315,
+			"end": 3.379,
 			"value": 2
 		},
 		{
-			"start": 3.104,
-			"end": 3.168,
+			"start": 3.379,
+			"end": 3.443,
 			"value": 6
 		},
 		{
-			"start": 3.168,
-			"end": 3.232,
+			"start": 3.443,
+			"end": 3.507,
 			"value": 1
 		},
 		{
-			"start": 3.232,
-			"end": 3.296,
+			"start": 3.507,
+			"end": 3.571,
 			"value": 3
 		},
 		{
-			"start": 3.296,
-			"end": 3.36,
+			"start": 3.571,
+			"end": 3.635,
 			"value": 6
 		},
 		{
-			"start": 3.408,
-			"end": 3.456,
+			"start": 3.699,
+			"end": 3.763,
 			"value": 7
 		},
 		{
-			"start": 3.456,
-			"end": 3.504,
+			"start": 3.763,
+			"end": 3.827,
 			"value": 1
 		},
 		{
-			"start": 3.504,
-			"end": 3.552,
+			"start": 3.827,
+			"end": 3.891,
 			"value": 6
 		},
 		{
-			"start": 3.552,
-			"end": 3.6,
+			"start": 3.891,
+			"end": 3.955,
 			"value": 1
 		},
 		{
-			"start": 3.6,
-			"end": 3.68,
+			"start": 3.955,
+			"end": 3.995,
 			"value": 6
 		},
 		{
-			"start": 3.68,
-			"end": 3.76,
+			"start": 3.995,
+			"end": 4.035,
 			"value": 1
 		},
 		{
-			"start": 3.787,
-			"end": 3.813,
+			"start": 4.062,
+			"end": 4.088,
 			"value": 4
 		},
 		{
-			"start": 3.813,
-			"end": 3.84,
+			"start": 4.088,
+			"end": 4.115,
 			"value": 6
 		},
 		{
-			"start": 3.888,
-			"end": 3.936,
+			"start": 4.179,
+			"end": 4.243,
 			"value": 7
 		},
 		{
-			"start": 3.936,
-			"end": 3.984,
+			"start": 4.243,
+			"end": 4.307,
 			"value": 6
 		},
 		{
-			"start": 3.984,
-			"end": 4.032,
+			"start": 4.307,
+			"end": 4.371,
 			"value": 1
 		},
 		{
-			"start": 4.032,
-			"end": 4.08,
+			"start": 4.371,
+			"end": 4.435,
 			"value": 7
 		},
 		{
-			"start": 4.08,
-			"end": 4.16,
+			"start": 4.435,
+			"end": 4.515,
 			"value": 1
 		},
 		{
-			"start": 4.16,
-			"end": 4.24,
+			"start": 4.515,
+			"end": 4.595,
 			"value": 3
-		},
-		{
-			"start": 4.42,
-			"end": 4.72,
-			"value": 2
 		}
 	]
 }

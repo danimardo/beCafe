@@ -2,256 +2,256 @@
 	"version": 1,
 	"audio": "saludo_70.mp3",
 	"texto": "¡SALUDOS, SER DE CARNE! ¡Mi ejército de cafeteras dominará el mundo!",
-	"duration": 4.88,
+	"duration": 5.415,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.28,
+			"start": 0.439,
+			"end": 0.492,
 			"value": 6
 		},
 		{
-			"start": 0.28,
-			"end": 0.34,
+			"start": 0.492,
+			"end": 0.518,
 			"value": 2
 		},
 		{
-			"start": 0.34,
-			"end": 0.4,
+			"start": 0.518,
+			"end": 0.546,
 			"value": 6
 		},
 		{
-			"start": 0.4,
-			"end": 0.48,
+			"start": 0.546,
+			"end": 0.666,
 			"value": 4
 		},
 		{
-			"start": 0.48,
-			"end": 0.56,
+			"start": 0.666,
+			"end": 0.785,
 			"value": 6
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.785,
+			"end": 0.825,
 			"value": 3
 		},
 		{
-			"start": 0.64,
-			"end": 0.72,
+			"start": 0.825,
+			"end": 0.866,
 			"value": 6
 		},
 		{
-			"start": 0.82,
-			"end": 0.84,
+			"start": 1.015,
+			"end": 1.046,
 			"value": 6
 		},
 		{
-			"start": 0.84,
-			"end": 0.86,
+			"start": 1.046,
+			"end": 1.075,
 			"value": 1
 		},
 		{
-			"start": 0.86,
-			"end": 0.933,
+			"start": 1.075,
+			"end": 1.159,
 			"value": 6
 		},
 		{
-			"start": 0.933,
-			"end": 0.96,
+			"start": 1.159,
+			"end": 1.186,
 			"value": 1
 		},
 		{
-			"start": 1.02,
-			"end": 1.08,
+			"start": 1.245,
+			"end": 1.305,
 			"value": 6
 		},
 		{
-			"start": 1.08,
-			"end": 1.14,
+			"start": 1.305,
+			"end": 1.366,
 			"value": 2
 		},
 		{
-			"start": 1.14,
-			"end": 1.32,
+			"start": 1.366,
+			"end": 1.546,
 			"value": 6
 		},
 		{
-			"start": 1.32,
-			"end": 1.439,
+			"start": 1.546,
+			"end": 1.666,
 			"value": 1
 		},
 		{
-			"start": 1.84,
-			"end": 1.88,
+			"start": 2.066,
+			"end": 2.105,
 			"value": 7
 		},
 		{
-			"start": 1.88,
-			"end": 1.92,
+			"start": 2.105,
+			"end": 2.145,
 			"value": 1
 		},
 		{
-			"start": 1.973,
-			"end": 2.027,
+			"start": 2.198,
+			"end": 2.253,
 			"value": 1
 		},
 		{
-			"start": 2.027,
-			"end": 2.08,
+			"start": 2.253,
+			"end": 2.305,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.133,
+			"start": 2.305,
+			"end": 2.358,
 			"value": 1
 		},
 		{
-			"start": 2.133,
-			"end": 2.24,
+			"start": 2.358,
+			"end": 2.465,
 			"value": 6
 		},
 		{
-			"start": 2.24,
-			"end": 2.293,
+			"start": 2.465,
+			"end": 2.518,
 			"value": 1
 		},
 		{
-			"start": 2.293,
-			"end": 2.347,
+			"start": 2.518,
+			"end": 2.573,
 			"value": 6
 		},
 		{
-			"start": 2.347,
-			"end": 2.4,
+			"start": 2.573,
+			"end": 2.625,
 			"value": 3
 		},
 		{
-			"start": 2.427,
-			"end": 2.453,
+			"start": 2.653,
+			"end": 2.678,
 			"value": 6
 		},
 		{
-			"start": 2.453,
-			"end": 2.48,
+			"start": 2.678,
+			"end": 2.706,
 			"value": 1
 		},
 		{
-			"start": 2.54,
-			"end": 2.6,
+			"start": 2.765,
+			"end": 2.825,
 			"value": 6
 		},
 		{
-			"start": 2.6,
-			"end": 2.66,
+			"start": 2.825,
+			"end": 2.886,
 			"value": 2
 		},
 		{
-			"start": 2.66,
-			"end": 2.72,
+			"start": 2.886,
+			"end": 2.945,
 			"value": 5
 		},
 		{
-			"start": 2.72,
-			"end": 2.76,
+			"start": 2.945,
+			"end": 3.006,
 			"value": 1
 		},
 		{
-			"start": 2.76,
-			"end": 2.8,
+			"start": 3.006,
+			"end": 3.066,
 			"value": 6
 		},
 		{
-			"start": 2.8,
-			"end": 2.84,
+			"start": 3.066,
+			"end": 3.125,
 			"value": 1
 		},
 		{
-			"start": 2.84,
-			"end": 2.88,
+			"start": 3.125,
+			"end": 3.186,
 			"value": 6
 		},
 		{
-			"start": 2.88,
-			"end": 2.96,
+			"start": 3.186,
+			"end": 3.226,
 			"value": 2
 		},
 		{
-			"start": 2.96,
-			"end": 3.04,
+			"start": 3.226,
+			"end": 3.265,
 			"value": 6
 		},
 		{
-			"start": 3.093,
-			"end": 3.147,
+			"start": 3.319,
+			"end": 3.372,
 			"value": 6
 		},
 		{
-			"start": 3.147,
-			"end": 3.2,
+			"start": 3.372,
+			"end": 3.425,
 			"value": 3
 		},
 		{
-			"start": 3.2,
-			"end": 3.253,
+			"start": 3.425,
+			"end": 3.479,
 			"value": 7
 		},
 		{
-			"start": 3.253,
-			"end": 3.307,
+			"start": 3.479,
+			"end": 3.532,
 			"value": 1
 		},
 		{
-			"start": 3.307,
-			"end": 3.36,
+			"start": 3.532,
+			"end": 3.585,
 			"value": 6
 		},
 		{
-			"start": 3.36,
-			"end": 3.413,
+			"start": 3.585,
+			"end": 3.666,
 			"value": 2
 		},
 		{
-			"start": 3.413,
-			"end": 3.467,
+			"start": 3.666,
+			"end": 3.746,
 			"value": 6
 		},
 		{
-			"start": 3.467,
-			"end": 3.52,
+			"start": 3.746,
+			"end": 3.825,
 			"value": 2
 		},
 		{
-			"start": 3.547,
-			"end": 3.573,
+			"start": 3.852,
+			"end": 3.878,
 			"value": 1
 		},
 		{
-			"start": 3.573,
-			"end": 3.6,
+			"start": 3.878,
+			"end": 3.906,
 			"value": 6
 		},
 		{
-			"start": 3.68,
-			"end": 3.76,
+			"start": 3.973,
+			"end": 4.038,
 			"value": 7
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 4.038,
+			"end": 4.105,
 			"value": 4
 		},
 		{
-			"start": 3.84,
-			"end": 4,
+			"start": 4.105,
+			"end": 4.238,
 			"value": 6
 		},
 		{
-			"start": 4,
-			"end": 4.08,
+			"start": 4.238,
+			"end": 4.305,
 			"value": 3
 		},
 		{
-			"start": 4.24,
-			"end": 4.88,
+			"start": 4.465,
+			"end": 5.105,
 			"value": 2
 		}
 	]

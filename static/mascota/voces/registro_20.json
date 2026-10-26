@@ -2,156 +2,176 @@
 	"version": 1,
 	"audio": "registro_20.mp3",
 	"texto": "Café registrado. Productividad no encontrada.",
-	"duration": 3.2,
+	"duration": 5.351,
 	"cues": [
 		{
-			"start": 0.371,
-			"end": 0.422,
+			"start": 0.441,
+			"end": 0.465,
 			"value": 6
 		},
 		{
-			"start": 0.422,
-			"end": 0.473,
-			"value": 1
-		},
-		{
-			"start": 0.473,
-			"end": 0.524,
-			"value": 6
-		},
-		{
-			"start": 0.524,
-			"end": 0.575,
-			"value": 1
-		},
-		{
-			"start": 0.575,
-			"end": 0.727,
-			"value": 6
-		},
-		{
-			"start": 0.727,
-			"end": 0.778,
+			"start": 0.465,
+			"end": 0.489,
 			"value": 2
 		},
 		{
-			"start": 0.778,
-			"end": 0.829,
-			"value": 6
-		},
-		{
-			"start": 0.829,
-			"end": 0.88,
-			"value": 3
-		},
-		{
-			"start": 1.24,
-			"end": 1.28,
-			"value": 7
-		},
-		{
-			"start": 1.28,
-			"end": 1.32,
-			"value": 6
-		},
-		{
-			"start": 1.32,
-			"end": 1.36,
-			"value": 3
-		},
-		{
-			"start": 1.36,
-			"end": 1.4,
-			"value": 6
-		},
-		{
-			"start": 1.4,
-			"end": 1.44,
-			"value": 4
-		},
-		{
-			"start": 1.44,
-			"end": 1.52,
-			"value": 6
-		},
-		{
-			"start": 1.52,
-			"end": 1.56,
-			"value": 1
-		},
-		{
-			"start": 1.56,
-			"end": 1.6,
+			"start": 0.489,
+			"end": 0.513,
 			"value": 5
 		},
 		{
-			"start": 1.6,
-			"end": 1.64,
+			"start": 0.513,
+			"end": 0.537,
 			"value": 1
 		},
 		{
-			"start": 1.64,
-			"end": 1.68,
+			"start": 0.602,
+			"end": 0.668,
 			"value": 6
 		},
 		{
-			"start": 1.68,
-			"end": 1.72,
-			"value": 2
-		},
-		{
-			"start": 1.72,
-			"end": 1.76,
-			"value": 6
-		},
-		{
-			"start": 1.813,
-			"end": 1.867,
-			"value": 6
-		},
-		{
-			"start": 1.867,
-			"end": 1.92,
-			"value": 3
-		},
-		{
-			"start": 1.98,
-			"end": 2.04,
+			"start": 0.668,
+			"end": 0.733,
 			"value": 1
 		},
 		{
-			"start": 2.04,
-			"end": 2.16,
+			"start": 0.733,
+			"end": 0.799,
 			"value": 6
 		},
 		{
-			"start": 2.16,
-			"end": 2.22,
+			"start": 0.799,
+			"end": 0.864,
+			"value": 1
+		},
+		{
+			"start": 0.864,
+			"end": 1.061,
+			"value": 6
+		},
+		{
+			"start": 1.061,
+			"end": 1.126,
+			"value": 2
+		},
+		{
+			"start": 1.126,
+			"end": 1.192,
+			"value": 6
+		},
+		{
+			"start": 1.192,
+			"end": 1.257,
 			"value": 3
 		},
 		{
-			"start": 2.22,
-			"end": 2.4,
+			"start": 1.572,
+			"end": 1.607,
+			"value": 7
+		},
+		{
+			"start": 1.607,
+			"end": 1.642,
 			"value": 6
 		},
 		{
-			"start": 2.4,
-			"end": 2.507,
-			"value": 2
+			"start": 1.642,
+			"end": 1.677,
+			"value": 3
 		},
 		{
-			"start": 2.507,
-			"end": 2.613,
+			"start": 1.677,
+			"end": 1.712,
 			"value": 6
 		},
 		{
-			"start": 2.613,
-			"end": 2.72,
+			"start": 1.712,
+			"end": 1.747,
+			"value": 4
+		},
+		{
+			"start": 1.747,
+			"end": 1.817,
+			"value": 6
+		},
+		{
+			"start": 1.817,
+			"end": 1.857,
+			"value": 1
+		},
+		{
+			"start": 1.857,
+			"end": 1.897,
+			"value": 5
+		},
+		{
+			"start": 1.897,
+			"end": 1.937,
+			"value": 1
+		},
+		{
+			"start": 1.937,
+			"end": 1.977,
+			"value": 6
+		},
+		{
+			"start": 1.977,
+			"end": 2.017,
 			"value": 2
 		},
 		{
-			"start": 2.82,
-			"end": 3.2,
+			"start": 2.017,
+			"end": 2.057,
+			"value": 6
+		},
+		{
+			"start": 2.11,
+			"end": 2.164,
+			"value": 6
+		},
+		{
+			"start": 2.164,
+			"end": 2.217,
+			"value": 3
+		},
+		{
+			"start": 2.267,
+			"end": 2.317,
+			"value": 1
+		},
+		{
+			"start": 2.317,
+			"end": 2.417,
+			"value": 6
+		},
+		{
+			"start": 2.417,
+			"end": 2.467,
+			"value": 3
+		},
+		{
+			"start": 2.467,
+			"end": 2.617,
+			"value": 6
+		},
+		{
+			"start": 2.617,
+			"end": 2.697,
+			"value": 2
+		},
+		{
+			"start": 2.697,
+			"end": 2.777,
+			"value": 6
+		},
+		{
+			"start": 2.777,
+			"end": 2.857,
+			"value": 2
+		},
+		{
+			"start": 4.177,
+			"end": 4.713,
 			"value": 2
 		}
 	]

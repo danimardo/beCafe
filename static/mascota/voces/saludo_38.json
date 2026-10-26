@@ -2,221 +2,196 @@
 	"version": 1,
 	"audio": "saludo_38.mp3",
 	"texto": "¡Sistema iniciado! Café pendiente. Motivación no instalada.",
-	"duration": 5.36,
+	"duration": 6.917,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.16,
+			"start": 0.638,
+			"end": 0.695,
 			"value": 6
 		},
 		{
-			"start": 0.16,
-			"end": 0.227,
+			"start": 0.805,
+			"end": 0.859,
 			"value": 1
 		},
 		{
-			"start": 0.227,
-			"end": 0.36,
+			"start": 0.859,
+			"end": 0.912,
 			"value": 6
 		},
 		{
-			"start": 0.36,
-			"end": 0.427,
+			"start": 0.912,
+			"end": 0.965,
 			"value": 1
 		},
 		{
-			"start": 0.427,
-			"end": 0.493,
-			"value": 7
+			"start": 0.965,
+			"end": 1.019,
+			"value": 6
 		},
 		{
-			"start": 0.493,
-			"end": 0.56,
+			"start": 1.019,
+			"end": 1.072,
+			"value": 1
+		},
+		{
+			"start": 1.072,
+			"end": 1.152,
 			"value": 2
 		},
 		{
-			"start": 0.627,
-			"end": 0.693,
-			"value": 1
-		},
-		{
-			"start": 0.693,
-			"end": 0.76,
+			"start": 1.152,
+			"end": 1.232,
 			"value": 6
 		},
 		{
-			"start": 0.76,
-			"end": 0.827,
-			"value": 1
-		},
-		{
-			"start": 0.827,
-			"end": 0.893,
-			"value": 6
-		},
-		{
-			"start": 0.893,
-			"end": 0.96,
-			"value": 1
-		},
-		{
-			"start": 0.96,
-			"end": 1.04,
-			"value": 2
-		},
-		{
-			"start": 1.04,
-			"end": 1.12,
-			"value": 6
-		},
-		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.232,
+			"end": 1.312,
 			"value": 3
 		},
 		{
-			"start": 1.536,
-			"end": 1.592,
+			"start": 1.744,
+			"end": 1.816,
 			"value": 6
 		},
 		{
-			"start": 1.592,
-			"end": 1.648,
+			"start": 1.816,
+			"end": 1.888,
 			"value": 2
 		},
 		{
-			"start": 1.648,
-			"end": 1.704,
+			"start": 1.888,
+			"end": 1.96,
 			"value": 5
 		},
 		{
-			"start": 1.704,
-			"end": 1.76,
+			"start": 1.96,
+			"end": 2.032,
 			"value": 1
 		},
 		{
-			"start": 1.808,
-			"end": 1.856,
+			"start": 2.08,
+			"end": 2.128,
 			"value": 7
 		},
 		{
-			"start": 1.856,
-			"end": 1.904,
+			"start": 2.128,
+			"end": 2.176,
 			"value": 1
 		},
 		{
-			"start": 1.904,
-			"end": 2,
+			"start": 2.176,
+			"end": 2.272,
 			"value": 6
 		},
 		{
-			"start": 2,
-			"end": 2.16,
+			"start": 2.272,
+			"end": 2.432,
 			"value": 1
 		},
 		{
-			"start": 2.16,
-			"end": 2.32,
+			"start": 2.432,
+			"end": 2.592,
 			"value": 6
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.592,
+			"end": 2.672,
 			"value": 1
 		},
 		{
-			"start": 2.65,
-			"end": 2.7,
+			"start": 3.022,
+			"end": 3.092,
 			"value": 7
 		},
 		{
-			"start": 2.7,
-			"end": 2.75,
+			"start": 3.092,
+			"end": 3.162,
 			"value": 3
 		},
 		{
-			"start": 2.75,
-			"end": 2.8,
+			"start": 3.162,
+			"end": 3.232,
 			"value": 6
 		},
 		{
-			"start": 2.8,
-			"end": 2.84,
+			"start": 3.232,
+			"end": 3.272,
 			"value": 1
 		},
 		{
-			"start": 2.84,
-			"end": 2.88,
+			"start": 3.272,
+			"end": 3.312,
 			"value": 5
 		},
 		{
-			"start": 2.88,
-			"end": 2.96,
+			"start": 3.312,
+			"end": 3.392,
 			"value": 2
 		},
 		{
-			"start": 2.96,
-			"end": 3.04,
+			"start": 3.392,
+			"end": 3.472,
 			"value": 6
 		},
 		{
-			"start": 3.04,
-			"end": 3.12,
+			"start": 3.472,
+			"end": 3.552,
 			"value": 1
 		},
 		{
-			"start": 3.12,
-			"end": 3.2,
+			"start": 3.552,
+			"end": 3.632,
 			"value": 3
 		},
 		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 3.632,
+			"end": 3.712,
 			"value": 6
 		},
 		{
-			"start": 3.333,
-			"end": 3.387,
+			"start": 3.765,
+			"end": 3.819,
 			"value": 6
 		},
 		{
-			"start": 3.387,
-			"end": 3.44,
+			"start": 3.819,
+			"end": 3.872,
 			"value": 3
 		},
 		{
-			"start": 3.486,
-			"end": 3.531,
+			"start": 3.918,
+			"end": 3.963,
 			"value": 1
 		},
 		{
-			"start": 3.531,
-			"end": 3.669,
+			"start": 3.963,
+			"end": 4.101,
 			"value": 6
 		},
 		{
-			"start": 3.669,
-			"end": 3.714,
+			"start": 4.101,
+			"end": 4.146,
 			"value": 2
 		},
 		{
-			"start": 3.714,
-			"end": 3.76,
+			"start": 4.146,
+			"end": 4.192,
 			"value": 6
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 4.192,
+			"end": 4.299,
 			"value": 2
 		},
 		{
-			"start": 3.84,
-			"end": 3.92,
+			"start": 4.299,
+			"end": 4.405,
 			"value": 6
 		},
 		{
-			"start": 3.92,
-			"end": 4,
+			"start": 4.405,
+			"end": 4.512,
 			"value": 2
 		}
 	]

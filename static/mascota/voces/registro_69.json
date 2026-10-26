@@ -2,261 +2,256 @@
 	"version": 1,
 	"audio": "registro_69.mp3",
 	"texto": "Si escuchas una voz dentro de la cabeza, tranquilo. Soy yo haciendo horas extra.",
-	"duration": 5.28,
+	"duration": 5.283,
 	"cues": [
 		{
-			"start": 0.22,
-			"end": 0.28,
+			"start": 0.463,
+			"end": 0.552,
 			"value": 1
 		},
 		{
-			"start": 0.28,
-			"end": 0.4,
+			"start": 0.552,
+			"end": 0.632,
 			"value": 6
 		},
 		{
-			"start": 0.4,
-			"end": 0.427,
+			"start": 0.632,
+			"end": 0.685,
 			"value": 4
 		},
 		{
-			"start": 0.427,
-			"end": 0.453,
+			"start": 0.685,
+			"end": 0.739,
 			"value": 6
 		},
 		{
-			"start": 0.48,
-			"end": 0.56,
+			"start": 0.792,
+			"end": 0.832,
 			"value": 2
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.832,
+			"end": 0.872,
 			"value": 6
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
+			"start": 0.932,
+			"end": 0.992,
 			"value": 4
 		},
 		{
-			"start": 0.72,
-			"end": 0.76,
+			"start": 0.992,
+			"end": 1.052,
 			"value": 6
 		},
 		{
-			"start": 0.76,
-			"end": 0.8,
+			"start": 1.052,
+			"end": 1.112,
 			"value": 2
 		},
 		{
-			"start": 0.86,
-			"end": 0.92,
+			"start": 1.152,
+			"end": 1.192,
 			"value": 5
 		},
 		{
-			"start": 0.92,
-			"end": 0.98,
+			"start": 1.192,
+			"end": 1.232,
 			"value": 3
 		},
 		{
-			"start": 0.98,
-			"end": 1.04,
+			"start": 1.232,
+			"end": 1.272,
 			"value": 6
 		},
 		{
-			"start": 1.086,
-			"end": 1.131,
+			"start": 1.318,
+			"end": 1.363,
 			"value": 6
 		},
 		{
-			"start": 1.131,
-			"end": 1.177,
+			"start": 1.363,
+			"end": 1.409,
 			"value": 1
 		},
 		{
-			"start": 1.177,
-			"end": 1.314,
+			"start": 1.409,
+			"end": 1.546,
 			"value": 6
 		},
 		{
-			"start": 1.314,
-			"end": 1.36,
+			"start": 1.546,
+			"end": 1.592,
 			"value": 3
 		},
 		{
-			"start": 1.387,
-			"end": 1.413,
+			"start": 1.645,
+			"end": 1.699,
 			"value": 6
 		},
 		{
-			"start": 1.413,
-			"end": 1.44,
+			"start": 1.699,
+			"end": 1.752,
 			"value": 1
 		},
 		{
-			"start": 1.493,
-			"end": 1.547,
+			"start": 1.779,
+			"end": 1.805,
 			"value": 6
 		},
 		{
-			"start": 1.547,
-			"end": 1.6,
+			"start": 1.805,
+			"end": 1.832,
 			"value": 2
 		},
 		{
-			"start": 1.657,
-			"end": 1.714,
+			"start": 1.889,
+			"end": 1.946,
 			"value": 6
 		},
 		{
-			"start": 1.714,
-			"end": 1.771,
+			"start": 1.946,
+			"end": 2.003,
 			"value": 2
 		},
 		{
-			"start": 1.771,
-			"end": 1.829,
+			"start": 2.003,
+			"end": 2.061,
 			"value": 7
 		},
 		{
-			"start": 1.829,
-			"end": 1.886,
+			"start": 2.061,
+			"end": 2.118,
 			"value": 1
 		},
 		{
-			"start": 1.886,
-			"end": 1.943,
+			"start": 2.118,
+			"end": 2.175,
 			"value": 6
 		},
 		{
-			"start": 1.943,
-			"end": 2,
+			"start": 2.175,
+			"end": 2.232,
 			"value": 2
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.438,
+			"end": 2.529,
 			"value": 6
 		},
 		{
-			"start": 2.4,
-			"end": 2.44,
+			"start": 2.529,
+			"end": 2.575,
 			"value": 2
 		},
 		{
-			"start": 2.44,
-			"end": 2.52,
+			"start": 2.575,
+			"end": 2.666,
 			"value": 6
 		},
 		{
-			"start": 2.52,
-			"end": 2.56,
+			"start": 2.666,
+			"end": 2.712,
 			"value": 4
 		},
 		{
-			"start": 2.56,
-			"end": 2.613,
+			"start": 2.712,
+			"end": 2.765,
 			"value": 1
 		},
 		{
-			"start": 2.613,
-			"end": 2.667,
+			"start": 2.765,
+			"end": 2.819,
 			"value": 6
 		},
 		{
-			"start": 2.667,
-			"end": 2.72,
+			"start": 2.819,
+			"end": 2.872,
 			"value": 3
 		},
 		{
-			"start": 3.02,
-			"end": 3.08,
+			"start": 3.222,
+			"end": 3.292,
 			"value": 6
 		},
 		{
-			"start": 3.08,
-			"end": 3.14,
+			"start": 3.292,
+			"end": 3.362,
 			"value": 3
 		},
 		{
-			"start": 3.14,
-			"end": 3.2,
+			"start": 3.362,
+			"end": 3.432,
 			"value": 1
 		},
 		{
-			"start": 3.253,
-			"end": 3.307,
+			"start": 3.512,
+			"end": 3.592,
 			"value": 1
 		},
 		{
-			"start": 3.307,
-			"end": 3.36,
+			"start": 3.592,
+			"end": 3.672,
 			"value": 3
 		},
 		{
-			"start": 3.449,
-			"end": 3.493,
+			"start": 3.779,
+			"end": 3.832,
 			"value": 2
 		},
 		{
-			"start": 3.493,
-			"end": 3.538,
+			"start": 3.832,
+			"end": 3.885,
 			"value": 6
 		},
 		{
-			"start": 3.538,
-			"end": 3.627,
+			"start": 3.885,
+			"end": 3.992,
 			"value": 1
 		},
 		{
-			"start": 3.627,
-			"end": 3.716,
+			"start": 3.992,
+			"end": 4.099,
 			"value": 6
 		},
 		{
-			"start": 3.716,
-			"end": 3.76,
+			"start": 4.099,
+			"end": 4.152,
 			"value": 3
 		},
 		{
-			"start": 3.867,
-			"end": 3.92,
+			"start": 4.259,
+			"end": 4.312,
 			"value": 3
 		},
 		{
-			"start": 3.92,
-			"end": 3.973,
+			"start": 4.312,
+			"end": 4.365,
 			"value": 6
 		},
 		{
-			"start": 3.973,
-			"end": 4.027,
+			"start": 4.365,
+			"end": 4.419,
 			"value": 2
 		},
 		{
-			"start": 4.027,
-			"end": 4.08,
+			"start": 4.419,
+			"end": 4.472,
 			"value": 6
 		},
 		{
-			"start": 4.147,
-			"end": 4.213,
+			"start": 4.539,
+			"end": 4.605,
 			"value": 1
 		},
 		{
-			"start": 4.213,
-			"end": 4.413,
+			"start": 4.605,
+			"end": 4.805,
 			"value": 6
 		},
 		{
-			"start": 4.413,
-			"end": 4.48,
-			"value": 2
-		},
-		{
-			"start": 4.84,
-			"end": 5.28,
+			"start": 4.805,
+			"end": 4.872,
 			"value": 2
 		}
 	]

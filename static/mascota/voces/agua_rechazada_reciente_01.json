@@ -2,201 +2,191 @@
 	"version": 1,
 	"audio": "agua_rechazada_reciente_01.mp3",
 	"texto": "El depósito se ha rellenado hace poco. Consulta el aviso.",
-	"duration": 3.52,
+	"duration": 3.681,
 	"cues": [
 		{
-			"start": 0,
-			"end": 0.04,
-			"value": 1
-		},
-		{
-			"start": 0.04,
-			"end": 0.08,
+			"start": 0.473,
+			"end": 0.533,
 			"value": 6
 		},
 		{
-			"start": 0.14,
-			"end": 0.2,
-			"value": 6
-		},
-		{
-			"start": 0.2,
-			"end": 0.26,
+			"start": 0.533,
+			"end": 0.593,
 			"value": 1
 		},
 		{
-			"start": 0.26,
-			"end": 0.32,
+			"start": 0.593,
+			"end": 0.653,
 			"value": 7
 		},
 		{
-			"start": 0.32,
-			"end": 0.384,
+			"start": 0.653,
+			"end": 0.717,
 			"value": 3
 		},
 		{
-			"start": 0.384,
-			"end": 0.448,
+			"start": 0.717,
+			"end": 0.781,
 			"value": 6
 		},
 		{
-			"start": 0.448,
-			"end": 0.512,
+			"start": 0.781,
+			"end": 0.845,
 			"value": 1
 		},
 		{
-			"start": 0.512,
-			"end": 0.576,
+			"start": 0.845,
+			"end": 0.909,
 			"value": 6
 		},
 		{
-			"start": 0.576,
-			"end": 0.64,
+			"start": 0.909,
+			"end": 0.973,
 			"value": 3
 		},
 		{
-			"start": 0.693,
-			"end": 0.747,
+			"start": 1,
+			"end": 1.026,
 			"value": 6
 		},
 		{
-			"start": 0.747,
-			"end": 0.8,
+			"start": 1.026,
+			"end": 1.053,
 			"value": 1
 		},
 		{
-			"start": 0.853,
-			"end": 0.88,
+			"start": 1.106,
+			"end": 1.133,
 			"value": 2
 		},
 		{
-			"start": 0.933,
-			"end": 0.987,
+			"start": 1.186,
+			"end": 1.24,
 			"value": 6
 		},
 		{
-			"start": 0.987,
-			"end": 1.04,
+			"start": 1.24,
+			"end": 1.293,
 			"value": 1
 		},
 		{
-			"start": 1.04,
-			"end": 1.16,
+			"start": 1.293,
+			"end": 1.413,
 			"value": 6
 		},
 		{
-			"start": 1.16,
-			"end": 1.22,
+			"start": 1.413,
+			"end": 1.473,
 			"value": 1
 		},
 		{
-			"start": 1.22,
-			"end": 1.28,
+			"start": 1.473,
+			"end": 1.533,
 			"value": 6
 		},
 		{
-			"start": 1.28,
-			"end": 1.333,
+			"start": 1.533,
+			"end": 1.56,
 			"value": 2
 		},
 		{
-			"start": 1.333,
-			"end": 1.387,
+			"start": 1.56,
+			"end": 1.586,
 			"value": 6
 		},
 		{
-			"start": 1.387,
-			"end": 1.44,
+			"start": 1.586,
+			"end": 1.613,
 			"value": 3
 		},
 		{
-			"start": 1.568,
-			"end": 1.632,
+			"start": 1.677,
+			"end": 1.709,
 			"value": 2
 		},
 		{
-			"start": 1.632,
-			"end": 1.696,
+			"start": 1.709,
+			"end": 1.741,
 			"value": 6
 		},
 		{
-			"start": 1.696,
-			"end": 1.76,
+			"start": 1.741,
+			"end": 1.773,
 			"value": 1
 		},
 		{
-			"start": 1.824,
-			"end": 1.888,
+			"start": 1.869,
+			"end": 1.965,
 			"value": 7
 		},
 		{
-			"start": 1.888,
-			"end": 1.952,
+			"start": 1.965,
+			"end": 2.061,
 			"value": 3
 		},
 		{
-			"start": 1.952,
-			"end": 2.016,
+			"start": 2.061,
+			"end": 2.157,
 			"value": 6
 		},
 		{
-			"start": 2.016,
-			"end": 2.08,
+			"start": 2.157,
+			"end": 2.253,
 			"value": 3
 		},
 		{
-			"start": 2.53,
-			"end": 2.58,
+			"start": 2.523,
+			"end": 2.553,
 			"value": 6
 		},
 		{
-			"start": 2.58,
-			"end": 2.63,
+			"start": 2.553,
+			"end": 2.583,
 			"value": 3
 		},
 		{
-			"start": 2.63,
-			"end": 2.73,
+			"start": 2.583,
+			"end": 2.643,
 			"value": 6
 		},
 		{
-			"start": 2.73,
-			"end": 2.78,
+			"start": 2.643,
+			"end": 2.673,
 			"value": 4
 		},
 		{
-			"start": 2.78,
-			"end": 2.88,
+			"start": 2.673,
+			"end": 2.733,
 			"value": 6
 		},
 		{
-			"start": 2.88,
+			"start": 2.733,
+			"end": 2.773,
+			"value": 2
+		},
+		{
+			"start": 2.866,
 			"end": 2.92,
 			"value": 2
 		},
 		{
-			"start": 3.013,
-			"end": 3.067,
-			"value": 2
-		},
-		{
-			"start": 3.067,
-			"end": 3.12,
+			"start": 2.92,
+			"end": 2.973,
 			"value": 5
 		},
 		{
-			"start": 3.12,
-			"end": 3.227,
+			"start": 2.973,
+			"end": 3.106,
 			"value": 1
 		},
 		{
-			"start": 3.227,
-			"end": 3.333,
+			"start": 3.106,
+			"end": 3.24,
 			"value": 6
 		},
 		{
-			"start": 3.333,
-			"end": 3.44,
+			"start": 3.24,
+			"end": 3.373,
 			"value": 3
 		}
 	]

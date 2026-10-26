@@ -2,206 +2,196 @@
 	"version": 1,
 	"audio": "registro_11.mp3",
 	"texto": "Cada vez que tomas café, un becario obtiene sus alas.",
-	"duration": 5.36,
+	"duration": 4.323,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.213,
-			"value": 2
-		},
-		{
-			"start": 0.213,
-			"end": 0.267,
+			"start": 0.386,
+			"end": 0.407,
 			"value": 6
 		},
 		{
-			"start": 0.267,
-			"end": 0.32,
-			"value": 2
-		},
-		{
-			"start": 0.38,
-			"end": 0.44,
+			"start": 0.487,
+			"end": 0.527,
 			"value": 5
 		},
 		{
-			"start": 0.44,
-			"end": 0.5,
+			"start": 0.527,
+			"end": 0.567,
 			"value": 1
 		},
 		{
-			"start": 0.5,
-			"end": 0.64,
+			"start": 0.567,
+			"end": 0.687,
 			"value": 6
 		},
 		{
-			"start": 0.64,
-			"end": 0.68,
+			"start": 0.687,
+			"end": 0.726,
 			"value": 4
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
+			"start": 0.726,
+			"end": 0.767,
 			"value": 1
 		},
 		{
-			"start": 0.773,
-			"end": 0.827,
+			"start": 0.819,
+			"end": 0.874,
 			"value": 6
 		},
 		{
-			"start": 0.827,
-			"end": 0.88,
+			"start": 0.874,
+			"end": 0.927,
 			"value": 3
 		},
 		{
-			"start": 0.88,
-			"end": 0.96,
+			"start": 0.927,
+			"end": 0.979,
 			"value": 7
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 0.979,
+			"end": 1.034,
 			"value": 2
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.034,
+			"end": 1.087,
 			"value": 6
 		},
 		{
-			"start": 1.184,
-			"end": 1.248,
+			"start": 1.151,
+			"end": 1.215,
 			"value": 6
 		},
 		{
-			"start": 1.248,
-			"end": 1.312,
+			"start": 1.215,
+			"end": 1.279,
 			"value": 2
 		},
 		{
-			"start": 1.312,
-			"end": 1.376,
+			"start": 1.279,
+			"end": 1.343,
 			"value": 5
 		},
 		{
-			"start": 1.376,
-			"end": 1.44,
+			"start": 1.343,
+			"end": 1.407,
 			"value": 1
 		},
 		{
-			"start": 1.813,
-			"end": 1.867,
+			"start": 1.726,
+			"end": 1.806,
 			"value": 4
 		},
 		{
-			"start": 1.867,
-			"end": 1.92,
+			"start": 1.806,
+			"end": 1.886,
 			"value": 6
 		},
 		{
-			"start": 1.98,
-			"end": 2.04,
+			"start": 1.947,
+			"end": 2.007,
 			"value": 7
 		},
 		{
-			"start": 2.04,
-			"end": 2.1,
+			"start": 2.007,
+			"end": 2.067,
 			"value": 1
 		},
 		{
-			"start": 2.1,
-			"end": 2.16,
+			"start": 2.067,
+			"end": 2.127,
 			"value": 6
 		},
 		{
-			"start": 2.16,
-			"end": 2.24,
+			"start": 2.127,
+			"end": 2.187,
 			"value": 2
 		},
 		{
-			"start": 2.24,
-			"end": 2.32,
+			"start": 2.187,
+			"end": 2.247,
 			"value": 6
 		},
 		{
-			"start": 2.32,
-			"end": 2.4,
+			"start": 2.247,
+			"end": 2.307,
 			"value": 1
 		},
 		{
-			"start": 2.4,
-			"end": 2.48,
+			"start": 2.307,
+			"end": 2.367,
 			"value": 3
 		},
 		{
-			"start": 2.54,
-			"end": 2.6,
+			"start": 2.427,
+			"end": 2.487,
 			"value": 3
 		},
 		{
-			"start": 2.6,
-			"end": 2.66,
+			"start": 2.487,
+			"end": 2.547,
 			"value": 7
 		},
 		{
-			"start": 2.66,
-			"end": 2.72,
+			"start": 2.547,
+			"end": 2.607,
 			"value": 6
 		},
 		{
-			"start": 2.72,
-			"end": 2.84,
+			"start": 2.607,
+			"end": 2.726,
 			"value": 1
 		},
 		{
-			"start": 2.84,
-			"end": 2.9,
+			"start": 2.726,
+			"end": 2.787,
 			"value": 6
 		},
 		{
-			"start": 2.9,
-			"end": 2.96,
+			"start": 2.787,
+			"end": 2.847,
 			"value": 1
 		},
 		{
-			"start": 3.02,
-			"end": 3.08,
+			"start": 2.887,
+			"end": 2.927,
 			"value": 6
 		},
 		{
-			"start": 3.08,
-			"end": 3.14,
+			"start": 2.927,
+			"end": 2.967,
 			"value": 4
 		},
 		{
-			"start": 3.14,
-			"end": 3.2,
+			"start": 2.967,
+			"end": 3.007,
 			"value": 6
 		},
 		{
-			"start": 3.28,
-			"end": 3.36,
+			"start": 3.087,
+			"end": 3.167,
 			"value": 2
 		},
 		{
-			"start": 3.36,
-			"end": 3.44,
+			"start": 3.167,
+			"end": 3.247,
 			"value": 6
 		},
 		{
-			"start": 3.44,
-			"end": 3.52,
+			"start": 3.247,
+			"end": 3.327,
 			"value": 2
 		},
 		{
-			"start": 3.52,
-			"end": 3.6,
+			"start": 3.327,
+			"end": 3.407,
 			"value": 6
 		},
 		{
-			"start": 3.8,
-			"end": 5.36,
+			"start": 3.587,
+			"end": 4.047,
 			"value": 2
 		}
 	]

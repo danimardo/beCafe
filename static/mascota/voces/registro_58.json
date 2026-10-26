@@ -2,281 +2,286 @@
 	"version": 1,
 	"audio": "registro_58.mp3",
 	"texto": "Otra cápsula contabilizada. Recursos Humanos sospecha que aquí pasa algo.",
-	"duration": 4.72,
+	"duration": 6.408,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.267,
-			"value": 6
-		},
-		{
-			"start": 0.267,
-			"end": 0.32,
-			"value": 2
-		},
-		{
-			"start": 0.373,
-			"end": 0.427,
-			"value": 6
-		},
-		{
-			"start": 0.427,
-			"end": 0.48,
-			"value": 2
-		},
-		{
-			"start": 0.48,
-			"end": 0.56,
-			"value": 7
-		},
-		{
-			"start": 0.56,
-			"end": 0.64,
-			"value": 6
-		},
-		{
-			"start": 0.64,
-			"end": 0.693,
-			"value": 4
-		},
-		{
-			"start": 0.693,
-			"end": 0.747,
-			"value": 6
-		},
-		{
-			"start": 0.747,
-			"end": 0.8,
-			"value": 2
-		},
-		{
-			"start": 0.848,
-			"end": 0.896,
-			"value": 6
-		},
-		{
-			"start": 0.896,
-			"end": 0.944,
+			"start": 0.408,
+			"end": 0.428,
 			"value": 3
 		},
 		{
-			"start": 0.944,
-			"end": 1.04,
+			"start": 0.428,
+			"end": 0.481,
 			"value": 6
 		},
 		{
-			"start": 1.04,
-			"end": 1.1,
+			"start": 0.481,
+			"end": 0.508,
 			"value": 2
 		},
 		{
-			"start": 1.1,
-			"end": 1.16,
+			"start": 0.561,
+			"end": 0.615,
+			"value": 6
+		},
+		{
+			"start": 0.615,
+			"end": 0.668,
+			"value": 2
+		},
+		{
+			"start": 0.668,
+			"end": 0.748,
 			"value": 7
 		},
 		{
-			"start": 1.16,
-			"end": 1.22,
-			"value": 1
-		},
-		{
-			"start": 1.22,
-			"end": 1.28,
+			"start": 0.748,
+			"end": 0.828,
 			"value": 6
 		},
 		{
-			"start": 1.28,
-			"end": 1.344,
-			"value": 1
+			"start": 0.828,
+			"end": 0.881,
+			"value": 4
 		},
 		{
-			"start": 1.344,
+			"start": 0.881,
+			"end": 0.935,
+			"value": 6
+		},
+		{
+			"start": 0.935,
+			"end": 0.988,
+			"value": 2
+		},
+		{
+			"start": 1.036,
+			"end": 1.084,
+			"value": 6
+		},
+		{
+			"start": 1.084,
+			"end": 1.132,
+			"value": 3
+		},
+		{
+			"start": 1.132,
+			"end": 1.228,
+			"value": 6
+		},
+		{
+			"start": 1.228,
+			"end": 1.288,
+			"value": 2
+		},
+		{
+			"start": 1.288,
+			"end": 1.348,
+			"value": 7
+		},
+		{
+			"start": 1.348,
 			"end": 1.408,
-			"value": 6
+			"value": 1
 		},
 		{
 			"start": 1.408,
-			"end": 1.472,
-			"value": 2
-		},
-		{
-			"start": 1.472,
-			"end": 1.536,
+			"end": 1.468,
 			"value": 6
 		},
 		{
-			"start": 1.536,
-			"end": 1.6,
-			"value": 2
-		},
-		{
-			"start": 2,
-			"end": 2.08,
-			"value": 6
-		},
-		{
-			"start": 2.08,
-			"end": 2.16,
+			"start": 1.468,
+			"end": 1.548,
 			"value": 1
 		},
 		{
-			"start": 2.16,
-			"end": 2.24,
+			"start": 1.548,
+			"end": 1.628,
 			"value": 6
 		},
 		{
-			"start": 2.24,
-			"end": 2.288,
+			"start": 1.628,
+			"end": 1.708,
+			"value": 2
+		},
+		{
+			"start": 1.708,
+			"end": 1.788,
+			"value": 6
+		},
+		{
+			"start": 1.788,
+			"end": 1.868,
+			"value": 2
+		},
+		{
+			"start": 3.018,
+			"end": 3.248,
+			"value": 6
+		},
+		{
+			"start": 3.248,
+			"end": 3.478,
+			"value": 1
+		},
+		{
+			"start": 3.478,
+			"end": 3.708,
+			"value": 6
+		},
+		{
+			"start": 3.708,
+			"end": 3.756,
 			"value": 4
 		},
 		{
-			"start": 2.288,
-			"end": 2.384,
+			"start": 3.756,
+			"end": 3.852,
 			"value": 6
 		},
 		{
-			"start": 2.384,
-			"end": 2.432,
+			"start": 3.852,
+			"end": 3.9,
 			"value": 3
 		},
 		{
-			"start": 2.432,
-			"end": 2.48,
+			"start": 3.9,
+			"end": 3.948,
 			"value": 6
 		},
 		{
-			"start": 2.587,
-			"end": 2.64,
+			"start": 4.055,
+			"end": 4.108,
 			"value": 4
 		},
 		{
-			"start": 2.64,
-			"end": 2.693,
+			"start": 4.108,
+			"end": 4.161,
 			"value": 7
 		},
 		{
-			"start": 2.693,
-			"end": 2.747,
+			"start": 4.161,
+			"end": 4.215,
 			"value": 2
 		},
 		{
-			"start": 2.747,
-			"end": 2.8,
+			"start": 4.215,
+			"end": 4.268,
 			"value": 6
 		},
 		{
-			"start": 2.8,
-			"end": 2.84,
+			"start": 4.268,
+			"end": 4.308,
 			"value": 3
 		},
 		{
-			"start": 2.84,
-			"end": 2.88,
+			"start": 4.308,
+			"end": 4.348,
 			"value": 6
 		},
 		{
-			"start": 2.92,
-			"end": 2.96,
+			"start": 4.408,
+			"end": 4.468,
 			"value": 6
 		},
 		{
-			"start": 2.96,
-			"end": 3,
+			"start": 4.468,
+			"end": 4.528,
 			"value": 3
 		},
 		{
-			"start": 3,
-			"end": 3.04,
+			"start": 4.528,
+			"end": 4.588,
 			"value": 6
 		},
 		{
-			"start": 3.04,
-			"end": 3.08,
+			"start": 4.588,
+			"end": 4.628,
 			"value": 7
 		},
 		{
-			"start": 3.08,
-			"end": 3.12,
+			"start": 4.628,
+			"end": 4.668,
 			"value": 1
 		},
 		{
-			"start": 3.12,
-			"end": 3.2,
+			"start": 4.668,
+			"end": 4.721,
 			"value": 6
 		},
 		{
-			"start": 3.28,
-			"end": 3.36,
+			"start": 4.775,
+			"end": 4.828,
 			"value": 2
 		},
 		{
-			"start": 3.38,
-			"end": 3.4,
+			"start": 4.868,
+			"end": 4.908,
 			"value": 6
 		},
 		{
-			"start": 3.4,
-			"end": 3.42,
+			"start": 4.908,
+			"end": 4.948,
 			"value": 4
 		},
 		{
-			"start": 3.42,
-			"end": 3.44,
+			"start": 4.948,
+			"end": 4.988,
 			"value": 1
 		},
 		{
-			"start": 3.488,
-			"end": 3.536,
+			"start": 5.036,
+			"end": 5.084,
 			"value": 2
 		},
 		{
-			"start": 3.536,
-			"end": 3.584,
+			"start": 5.084,
+			"end": 5.132,
 			"value": 6
 		},
 		{
-			"start": 3.584,
-			"end": 3.632,
+			"start": 5.132,
+			"end": 5.18,
 			"value": 4
 		},
 		{
-			"start": 3.632,
-			"end": 3.68,
+			"start": 5.18,
+			"end": 5.228,
 			"value": 1
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 5.292,
+			"end": 5.356,
 			"value": 7
 		},
 		{
-			"start": 3.84,
-			"end": 3.92,
+			"start": 5.356,
+			"end": 5.42,
 			"value": 2
 		},
 		{
-			"start": 3.92,
-			"end": 4,
+			"start": 5.42,
+			"end": 5.484,
 			"value": 6
 		},
 		{
-			"start": 4,
-			"end": 4.08,
+			"start": 5.484,
+			"end": 5.548,
 			"value": 2
 		},
 		{
-			"start": 4.144,
-			"end": 4.208,
+			"start": 5.628,
+			"end": 5.708,
 			"value": 2
 		},
 		{
-			"start": 4.208,
-			"end": 4.336,
+			"start": 5.708,
+			"end": 5.868,
 			"value": 6
 		},
 		{
-			"start": 4.336,
-			"end": 4.4,
+			"start": 5.868,
+			"end": 5.948,
 			"value": 3
 		}
 	]

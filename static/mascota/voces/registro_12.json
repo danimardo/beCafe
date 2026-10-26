@@ -2,286 +2,261 @@
 	"version": 1,
 	"audio": "registro_12.mp3",
 	"texto": "¿Sabías que las jirafas duermen poquísimo? Pues tú, con este café, tampoco.",
-	"duration": 5.84,
+	"duration": 5.808,
 	"cues": [
 		{
-			"start": 0.16,
-			"end": 0.213,
-			"value": 6
-		},
-		{
-			"start": 0.213,
-			"end": 0.267,
-			"value": 2
-		},
-		{
-			"start": 0.267,
-			"end": 0.32,
-			"value": 7
-		},
-		{
-			"start": 0.32,
-			"end": 0.4,
+			"start": 0.515,
+			"end": 0.595,
 			"value": 1
 		},
 		{
-			"start": 0.4,
-			"end": 0.48,
+			"start": 0.595,
+			"end": 0.675,
 			"value": 2
 		},
 		{
-			"start": 0.48,
-			"end": 0.6,
+			"start": 0.675,
+			"end": 0.795,
 			"value": 6
 		},
 		{
-			"start": 0.6,
-			"end": 0.62,
-			"value": 4
+			"start": 0.875,
+			"end": 0.915,
+			"value": 6
 		},
 		{
-			"start": 0.62,
-			"end": 0.64,
+			"start": 0.915,
+			"end": 0.955,
+			"value": 2
+		},
+		{
+			"start": 0.955,
+			"end": 1.075,
+			"value": 6
+		},
+		{
+			"start": 1.075,
+			"end": 1.115,
 			"value": 1
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
+			"start": 1.115,
+			"end": 1.155,
 			"value": 6
 		},
 		{
-			"start": 0.72,
-			"end": 0.76,
+			"start": 1.155,
+			"end": 1.235,
 			"value": 2
 		},
 		{
-			"start": 0.76,
-			"end": 0.88,
-			"value": 6
-		},
-		{
-			"start": 0.88,
-			"end": 0.92,
-			"value": 1
-		},
-		{
-			"start": 0.92,
-			"end": 0.96,
-			"value": 6
-		},
-		{
-			"start": 0.96,
-			"end": 1.04,
-			"value": 2
-		},
-		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.235,
+			"end": 1.315,
 			"value": 5
 		},
 		{
-			"start": 1.12,
-			"end": 1.16,
+			"start": 1.315,
+			"end": 1.355,
 			"value": 2
 		},
 		{
-			"start": 1.16,
-			"end": 1.2,
+			"start": 1.355,
+			"end": 1.395,
 			"value": 6
 		},
 		{
-			"start": 1.253,
-			"end": 1.307,
+			"start": 1.448,
+			"end": 1.502,
 			"value": 6
 		},
 		{
-			"start": 1.307,
-			"end": 1.36,
+			"start": 1.502,
+			"end": 1.555,
 			"value": 4
 		},
 		{
-			"start": 1.36,
-			"end": 1.424,
+			"start": 1.555,
+			"end": 1.619,
 			"value": 1
 		},
 		{
-			"start": 1.424,
-			"end": 1.488,
+			"start": 1.619,
+			"end": 1.683,
 			"value": 6
 		},
 		{
-			"start": 1.488,
-			"end": 1.552,
+			"start": 1.683,
+			"end": 1.747,
 			"value": 7
 		},
 		{
-			"start": 1.552,
-			"end": 1.616,
+			"start": 1.747,
+			"end": 1.811,
 			"value": 1
 		},
 		{
-			"start": 1.616,
-			"end": 1.68,
+			"start": 1.811,
+			"end": 1.875,
 			"value": 6
 		},
 		{
-			"start": 1.733,
-			"end": 1.787,
+			"start": 1.928,
+			"end": 1.982,
 			"value": 7
 		},
 		{
-			"start": 1.787,
-			"end": 1.84,
+			"start": 1.982,
+			"end": 2.035,
 			"value": 3
 		},
 		{
-			"start": 1.84,
-			"end": 1.88,
+			"start": 2.035,
+			"end": 2.075,
 			"value": 6
 		},
 		{
-			"start": 1.88,
-			"end": 1.92,
+			"start": 2.075,
+			"end": 2.115,
 			"value": 4
 		},
 		{
-			"start": 1.92,
-			"end": 2,
+			"start": 2.115,
+			"end": 2.155,
 			"value": 1
 		},
 		{
-			"start": 2,
-			"end": 2.08,
+			"start": 2.155,
+			"end": 2.195,
 			"value": 6
 		},
 		{
-			"start": 2.08,
-			"end": 2.133,
+			"start": 2.195,
+			"end": 2.275,
 			"value": 1
 		},
 		{
-			"start": 2.133,
-			"end": 2.187,
+			"start": 2.275,
+			"end": 2.355,
 			"value": 7
 		},
 		{
-			"start": 2.187,
-			"end": 2.24,
+			"start": 2.355,
+			"end": 2.435,
 			"value": 3
 		},
 		{
-			"start": 2.84,
-			"end": 3.04,
+			"start": 2.875,
+			"end": 3.155,
 			"value": 7
 		},
 		{
-			"start": 3.04,
-			"end": 3.12,
+			"start": 3.155,
+			"end": 3.208,
 			"value": 4
 		},
 		{
-			"start": 3.12,
-			"end": 3.2,
+			"start": 3.208,
+			"end": 3.262,
 			"value": 1
 		},
 		{
-			"start": 3.2,
-			"end": 3.28,
+			"start": 3.262,
+			"end": 3.315,
 			"value": 6
 		},
 		{
-			"start": 3.333,
-			"end": 3.387,
+			"start": 3.368,
+			"end": 3.422,
 			"value": 6
 		},
 		{
-			"start": 3.387,
-			"end": 3.44,
+			"start": 3.422,
+			"end": 3.475,
 			"value": 4
 		},
 		{
-			"start": 3.59,
-			"end": 3.62,
+			"start": 3.625,
+			"end": 3.655,
 			"value": 6
 		},
 		{
-			"start": 3.62,
-			"end": 3.65,
+			"start": 3.655,
+			"end": 3.685,
 			"value": 3
 		},
 		{
-			"start": 3.65,
-			"end": 3.68,
+			"start": 3.685,
+			"end": 3.715,
 			"value": 6
 		},
 		{
-			"start": 3.744,
-			"end": 3.808,
+			"start": 3.763,
+			"end": 3.811,
 			"value": 1
 		},
 		{
-			"start": 3.808,
-			"end": 3.936,
+			"start": 3.811,
+			"end": 3.907,
 			"value": 6
 		},
 		{
-			"start": 3.936,
-			"end": 4,
+			"start": 3.907,
+			"end": 3.955,
 			"value": 1
 		},
 		{
-			"start": 4.08,
-			"end": 4.16,
+			"start": 4.019,
+			"end": 4.083,
 			"value": 6
 		},
 		{
-			"start": 4.16,
-			"end": 4.24,
+			"start": 4.083,
+			"end": 4.147,
 			"value": 2
 		},
 		{
-			"start": 4.24,
-			"end": 4.32,
+			"start": 4.147,
+			"end": 4.211,
 			"value": 5
 		},
 		{
-			"start": 4.32,
-			"end": 4.4,
+			"start": 4.211,
+			"end": 4.275,
 			"value": 1
 		},
 		{
-			"start": 4.688,
-			"end": 4.736,
+			"start": 4.435,
+			"end": 4.515,
 			"value": 6
 		},
 		{
-			"start": 4.736,
-			"end": 4.784,
+			"start": 4.515,
+			"end": 4.595,
 			"value": 2
 		},
 		{
-			"start": 4.784,
-			"end": 4.88,
+			"start": 4.595,
+			"end": 4.755,
 			"value": 7
 		},
 		{
-			"start": 4.88,
-			"end": 4.987,
+			"start": 4.755,
+			"end": 4.835,
 			"value": 3
 		},
 		{
-			"start": 4.987,
-			"end": 5.093,
+			"start": 4.835,
+			"end": 4.915,
 			"value": 6
 		},
 		{
-			"start": 5.093,
-			"end": 5.2,
+			"start": 4.915,
+			"end": 4.995,
 			"value": 3
 		},
 		{
-			"start": 5.26,
-			"end": 5.84,
+			"start": 5.115,
+			"end": 5.475,
 			"value": 2
 		}
 	]

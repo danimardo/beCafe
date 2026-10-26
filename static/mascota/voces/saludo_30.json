@@ -2,246 +2,246 @@
 	"version": 1,
 	"audio": "saludo_30.mp3",
 	"texto": "¡Hola, mi pequeño desastre! Hoy he discutido con una tostadora y he perdido.",
-	"duration": 6.72,
+	"duration": 5.139,
 	"cues": [
 		{
-			"start": 0.507,
-			"end": 0.533,
+			"start": 0.545,
+			"end": 0.571,
 			"value": 7
 		},
 		{
-			"start": 0.533,
-			"end": 0.56,
+			"start": 0.571,
+			"end": 0.598,
 			"value": 1
 		},
 		{
-			"start": 0.613,
-			"end": 0.667,
+			"start": 0.651,
+			"end": 0.705,
 			"value": 7
 		},
 		{
-			"start": 0.667,
-			"end": 0.72,
+			"start": 0.705,
+			"end": 0.758,
 			"value": 1
 		},
 		{
-			"start": 0.72,
-			"end": 0.773,
+			"start": 0.758,
+			"end": 0.811,
 			"value": 6
 		},
 		{
-			"start": 0.773,
-			"end": 0.827,
+			"start": 0.811,
+			"end": 0.865,
 			"value": 4
 		},
 		{
-			"start": 0.827,
-			"end": 0.88,
+			"start": 0.865,
+			"end": 0.918,
 			"value": 1
 		},
 		{
-			"start": 0.88,
-			"end": 0.96,
+			"start": 0.918,
+			"end": 0.958,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 0.958,
+			"end": 0.998,
 			"value": 3
 		},
 		{
-			"start": 1.08,
-			"end": 1.12,
+			"start": 1.038,
+			"end": 1.078,
 			"value": 6
 		},
 		{
-			"start": 1.12,
-			"end": 1.16,
+			"start": 1.078,
+			"end": 1.118,
 			"value": 1
 		},
 		{
-			"start": 1.16,
-			"end": 1.2,
+			"start": 1.118,
+			"end": 1.158,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.158,
+			"end": 1.238,
 			"value": 2
 		},
 		{
-			"start": 1.28,
-			"end": 1.52,
+			"start": 1.238,
+			"end": 1.438,
 			"value": 6
 		},
 		{
-			"start": 1.52,
-			"end": 1.6,
+			"start": 1.438,
+			"end": 1.478,
 			"value": 1
 		},
 		{
-			"start": 2,
-			"end": 2.16,
+			"start": 2.078,
+			"end": 2.178,
 			"value": 3
 		},
 		{
-			"start": 2.16,
-			"end": 2.32,
+			"start": 2.178,
+			"end": 2.278,
 			"value": 1
 		},
 		{
-			"start": 2.373,
-			"end": 2.4,
+			"start": 2.331,
+			"end": 2.358,
 			"value": 1
 		},
 		{
-			"start": 2.448,
-			"end": 2.496,
+			"start": 2.406,
+			"end": 2.454,
 			"value": 6
 		},
 		{
-			"start": 2.496,
-			"end": 2.544,
+			"start": 2.454,
+			"end": 2.502,
 			"value": 1
 		},
 		{
-			"start": 2.544,
-			"end": 2.64,
+			"start": 2.502,
+			"end": 2.598,
 			"value": 6
 		},
 		{
-			"start": 2.64,
-			"end": 2.68,
+			"start": 2.598,
+			"end": 2.678,
 			"value": 4
 		},
 		{
-			"start": 2.68,
-			"end": 2.72,
+			"start": 2.678,
+			"end": 2.758,
 			"value": 6
 		},
 		{
-			"start": 2.72,
-			"end": 2.8,
+			"start": 2.758,
+			"end": 2.785,
 			"value": 1
 		},
 		{
-			"start": 2.8,
-			"end": 2.88,
+			"start": 2.785,
+			"end": 2.811,
 			"value": 6
 		},
 		{
-			"start": 2.88,
-			"end": 2.96,
+			"start": 2.811,
+			"end": 2.838,
 			"value": 3
 		},
 		{
-			"start": 3,
-			"end": 3.04,
+			"start": 2.898,
+			"end": 2.958,
 			"value": 6
 		},
 		{
-			"start": 3.04,
-			"end": 3.08,
+			"start": 2.958,
+			"end": 3.018,
 			"value": 3
 		},
 		{
-			"start": 3.08,
-			"end": 3.12,
+			"start": 3.018,
+			"end": 3.078,
 			"value": 6
 		},
 		{
-			"start": 3.16,
-			"end": 3.2,
+			"start": 3.118,
+			"end": 3.158,
 			"value": 4
 		},
 		{
-			"start": 3.2,
-			"end": 3.24,
+			"start": 3.158,
+			"end": 3.198,
 			"value": 6
 		},
 		{
-			"start": 3.24,
-			"end": 3.28,
+			"start": 3.198,
+			"end": 3.238,
 			"value": 2
 		},
 		{
-			"start": 3.333,
-			"end": 3.387,
+			"start": 3.291,
+			"end": 3.345,
 			"value": 6
 		},
 		{
-			"start": 3.387,
-			"end": 3.44,
+			"start": 3.345,
+			"end": 3.398,
 			"value": 3
 		},
 		{
-			"start": 3.44,
-			"end": 3.52,
+			"start": 3.398,
+			"end": 3.478,
 			"value": 6
 		},
 		{
-			"start": 3.52,
-			"end": 3.6,
+			"start": 3.478,
+			"end": 3.542,
 			"value": 2
 		},
 		{
-			"start": 3.6,
-			"end": 3.68,
+			"start": 3.542,
+			"end": 3.606,
 			"value": 6
 		},
 		{
-			"start": 3.68,
-			"end": 3.76,
+			"start": 3.606,
+			"end": 3.67,
 			"value": 3
 		},
 		{
-			"start": 3.76,
-			"end": 3.84,
+			"start": 3.67,
+			"end": 3.734,
 			"value": 6
 		},
 		{
-			"start": 3.84,
-			"end": 3.92,
+			"start": 3.734,
+			"end": 3.798,
 			"value": 2
 		},
 		{
-			"start": 4,
-			"end": 4.08,
+			"start": 3.918,
+			"end": 4.038,
 			"value": 1
 		},
 		{
-			"start": 4.187,
-			"end": 4.24,
+			"start": 4.145,
+			"end": 4.198,
 			"value": 1
 		},
 		{
-			"start": 4.288,
-			"end": 4.336,
+			"start": 4.246,
+			"end": 4.294,
 			"value": 7
 		},
 		{
-			"start": 4.336,
-			"end": 4.384,
+			"start": 4.294,
+			"end": 4.342,
 			"value": 1
 		},
 		{
-			"start": 4.384,
-			"end": 4.48,
+			"start": 4.342,
+			"end": 4.438,
 			"value": 6
 		},
 		{
-			"start": 4.48,
-			"end": 4.56,
+			"start": 4.438,
+			"end": 4.518,
 			"value": 1
 		},
 		{
-			"start": 4.56,
-			"end": 4.64,
+			"start": 4.518,
+			"end": 4.598,
 			"value": 6
 		},
 		{
-			"start": 4.64,
-			"end": 4.72,
+			"start": 4.598,
+			"end": 4.678,
 			"value": 3
 		}
 	]

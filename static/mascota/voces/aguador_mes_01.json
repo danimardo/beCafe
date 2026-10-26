@@ -2,111 +2,116 @@
 	"version": 1,
 	"audio": "aguador_mes_01.mp3",
 	"texto": "¡Ovación al aguador del mes!",
-	"duration": 2.08,
+	"duration": 2.697,
 	"cues": [
 		{
-			"start": 0.08,
-			"end": 0.16,
+			"start": 0.365,
+			"end": 0.445,
 			"value": 3
 		},
 		{
-			"start": 0.16,
-			"end": 0.24,
+			"start": 0.445,
+			"end": 0.685,
 			"value": 5
 		},
 		{
-			"start": 0.24,
-			"end": 0.32,
+			"start": 0.685,
+			"end": 0.733,
 			"value": 2
 		},
 		{
-			"start": 0.32,
-			"end": 0.4,
+			"start": 0.733,
+			"end": 0.781,
 			"value": 6
 		},
 		{
-			"start": 0.4,
-			"end": 0.48,
+			"start": 0.781,
+			"end": 0.829,
 			"value": 1
 		},
 		{
-			"start": 0.48,
-			"end": 0.56,
+			"start": 0.829,
+			"end": 0.877,
 			"value": 3
 		},
 		{
-			"start": 0.56,
-			"end": 0.64,
+			"start": 0.877,
+			"end": 0.925,
 			"value": 6
 		},
 		{
-			"start": 0.693,
-			"end": 0.747,
+			"start": 0.952,
+			"end": 0.978,
 			"value": 2
 		},
 		{
-			"start": 0.747,
-			"end": 0.8,
+			"start": 0.978,
+			"end": 1.005,
 			"value": 6
 		},
 		{
-			"start": 0.853,
-			"end": 0.907,
+			"start": 1.085,
+			"end": 1.165,
 			"value": 2
 		},
 		{
-			"start": 0.907,
-			"end": 0.96,
+			"start": 1.165,
+			"end": 1.245,
 			"value": 6
 		},
 		{
-			"start": 0.96,
-			"end": 1.04,
+			"start": 1.245,
+			"end": 1.365,
 			"value": 4
 		},
 		{
-			"start": 1.04,
-			"end": 1.12,
+			"start": 1.365,
+			"end": 1.395,
 			"value": 2
 		},
 		{
-			"start": 1.12,
-			"end": 1.2,
+			"start": 1.395,
+			"end": 1.425,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.28,
+			"start": 1.425,
+			"end": 1.455,
 			"value": 3
 		},
 		{
-			"start": 1.28,
-			"end": 1.44,
+			"start": 1.455,
+			"end": 1.485,
 			"value": 6
 		},
 		{
-			"start": 1.44,
-			"end": 1.48,
+			"start": 1.545,
+			"end": 1.605,
+			"value": 6
+		},
+		{
+			"start": 1.605,
+			"end": 1.665,
 			"value": 1
 		},
 		{
-			"start": 1.48,
-			"end": 1.52,
+			"start": 1.665,
+			"end": 1.725,
 			"value": 6
 		},
 		{
-			"start": 1.64,
-			"end": 1.76,
+			"start": 1.865,
+			"end": 2.005,
 			"value": 7
 		},
 		{
-			"start": 1.76,
-			"end": 1.88,
+			"start": 2.005,
+			"end": 2.145,
 			"value": 1
 		},
 		{
-			"start": 1.88,
-			"end": 2,
+			"start": 2.145,
+			"end": 2.284,
 			"value": 6
 		}
 	]

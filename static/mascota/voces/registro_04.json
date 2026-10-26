@@ -2,146 +2,146 @@
 	"version": 1,
 	"audio": "registro_04.mp3",
 	"texto": "He visto drogodependencias más baratas.",
-	"duration": 2.8,
+	"duration": 3.048,
 	"cues": [
 		{
-			"start": 0.227,
-			"end": 0.293,
+			"start": 0.394,
+			"end": 0.448,
 			"value": 5
 		},
 		{
-			"start": 0.293,
-			"end": 0.36,
+			"start": 0.448,
+			"end": 0.501,
 			"value": 1
 		},
 		{
-			"start": 0.36,
-			"end": 0.493,
+			"start": 0.501,
+			"end": 0.608,
 			"value": 6
 		},
 		{
-			"start": 0.493,
-			"end": 0.56,
+			"start": 0.608,
+			"end": 0.661,
 			"value": 3
 		},
 		{
-			"start": 0.6,
-			"end": 0.68,
+			"start": 0.721,
+			"end": 0.841,
 			"value": 6
 		},
 		{
-			"start": 0.68,
-			"end": 0.72,
+			"start": 0.841,
+			"end": 0.901,
 			"value": 3
 		},
 		{
-			"start": 0.72,
-			"end": 0.8,
+			"start": 0.901,
+			"end": 1.021,
 			"value": 6
 		},
 		{
-			"start": 0.8,
-			"end": 0.853,
+			"start": 1.021,
+			"end": 1.061,
 			"value": 3
 		},
 		{
-			"start": 0.853,
-			"end": 0.907,
+			"start": 1.061,
+			"end": 1.101,
 			"value": 6
 		},
 		{
-			"start": 0.907,
-			"end": 0.96,
+			"start": 1.101,
+			"end": 1.141,
 			"value": 1
 		},
 		{
-			"start": 0.96,
-			"end": 1.02,
+			"start": 1.141,
+			"end": 1.181,
 			"value": 7
 		},
 		{
-			"start": 1.02,
-			"end": 1.08,
+			"start": 1.181,
+			"end": 1.221,
 			"value": 1
 		},
 		{
-			"start": 1.08,
-			"end": 1.2,
+			"start": 1.221,
+			"end": 1.301,
 			"value": 6
 		},
 		{
-			"start": 1.2,
-			"end": 1.253,
+			"start": 1.301,
+			"end": 1.368,
 			"value": 1
 		},
 		{
-			"start": 1.253,
-			"end": 1.36,
+			"start": 1.368,
+			"end": 1.501,
 			"value": 6
 		},
 		{
-			"start": 1.36,
-			"end": 1.413,
+			"start": 1.501,
+			"end": 1.568,
 			"value": 1
 		},
 		{
-			"start": 1.413,
-			"end": 1.467,
+			"start": 1.568,
+			"end": 1.634,
 			"value": 2
 		},
 		{
-			"start": 1.467,
-			"end": 1.52,
+			"start": 1.634,
+			"end": 1.701,
 			"value": 6
 		},
 		{
-			"start": 1.56,
-			"end": 1.6,
+			"start": 1.741,
+			"end": 1.781,
 			"value": 7
 		},
 		{
-			"start": 1.6,
-			"end": 1.64,
+			"start": 1.781,
+			"end": 1.821,
 			"value": 2
 		},
 		{
-			"start": 1.64,
-			"end": 1.68,
+			"start": 1.821,
+			"end": 1.861,
 			"value": 6
 		},
 		{
-			"start": 1.74,
-			"end": 1.8,
+			"start": 1.901,
+			"end": 1.941,
 			"value": 7
 		},
 		{
-			"start": 1.8,
-			"end": 1.86,
+			"start": 1.941,
+			"end": 1.981,
 			"value": 2
 		},
 		{
-			"start": 1.86,
-			"end": 1.92,
+			"start": 1.981,
+			"end": 2.021,
 			"value": 6
 		},
 		{
-			"start": 1.92,
-			"end": 2.02,
+			"start": 2.021,
+			"end": 2.141,
 			"value": 2
 		},
 		{
-			"start": 2.02,
-			"end": 2.12,
+			"start": 2.141,
+			"end": 2.261,
 			"value": 6
 		},
 		{
-			"start": 2.12,
-			"end": 2.22,
+			"start": 2.261,
+			"end": 2.381,
 			"value": 2
 		},
 		{
-			"start": 2.22,
-			"end": 2.32,
+			"start": 2.381,
+			"end": 2.501,
 			"value": 6
 		}
 	]
