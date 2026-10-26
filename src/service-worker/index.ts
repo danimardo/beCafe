@@ -13,7 +13,8 @@ const esquemaDatosAviso = z.object({ enlace: esquemaMensajePush.shape.enlace });
 const PREFIJO = 'becafe-';
 const CACHE = `${PREFIJO}${version}`;
 // Las rutas de `$app/manifest` son relativas a la ruta base de la aplicación.
-// Se excluyen las imágenes de 1024 px, la biblioteca fuente de Rive y las locuciones MP3 opcionales para no inflar la precarga inicial (plan F9 D12).
+// Se excluyen las imágenes de 1024 px, la biblioteca fuente de Rive, las locuciones MP3 opcionales y el corto (3 MB, solo se baja al pulsar «Ver el corto»)
+// para no inflar la precarga inicial (plan F9 D12, plan F13 §7).
 const ESTATICOS = [
 	...immutable,
 	...assets.filter(
@@ -21,7 +22,8 @@ const ESTATICOS = [
 			!recurso.path.endsWith('-1024.webp') &&
 			!recurso.path.endsWith('capsulito-biblioteca.riv') &&
 			!recurso.path.endsWith('rive.wasm') &&
-			!recurso.path.startsWith('mascota/voces/'),
+			!recurso.path.startsWith('mascota/voces/') &&
+			!recurso.path.startsWith('corto/'),
 	),
 ].map((recurso) => `/${recurso.path}`);
 

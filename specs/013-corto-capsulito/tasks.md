@@ -23,3 +23,20 @@
 - [x] T16 — Planos 3 a 7 (`html/plano-03…07.*`, `html/objetos.js`, `entrega/planos/`), revisados por el agente con hojas de fotogramas. El decorado gana la hucha en la encimera (se vuelven a exportar los planos 1 y 2), la taza bajo la cafetera y el estado de cada cápsula (`armarioAlEmpezar`), para que ninguna cápsula gastada vuelva a aparecer.
 - [x] T17 — Regenerar `corto_05` y `corto_07` con «Bicafé» en `textoVoz` (autorizado el 2026-10-26).
 - [x] T18 — Música y efectos (`html/banda-sonora.mjs`), montaje final de 72,4 s (`html/montar-corto.mjs`), subtítulos VTT, transcripción, portada y lámina.
+
+## Integración en la aplicación (spec.md y plan.md §7, pendientes de aprobación)
+
+La spec está aprobada y el CAMBIO-025 está hecho. El `plan.md` §7 está aprobado: T20 a T28 se pueden ejecutar.
+
+- [X] T19 — **CAMBIO-025** *(hecho el 2026-10-26: historias.md v0.25.0, respaldo de 0.24.0 en `.respaldos/`)* en `historias.md`: RF-195 modificado, RF-249 a RF-252 y CA-249 a CA-252 nuevos. Antes, respaldo en `.respaldos/`. Solo con la autorización expresa de la persona usuaria.
+- [X] T20 — *(`exportar-web.mjs`; 3,1 MB; prueba `scripts/exportar-web-corto.test.ts`)* Versión web: `docs/diseno/corto-capsulito/html/exportar-web.mjs` genera `static/corto/` (MP4 de 720 × 1280 de 4 a 6 MB, `portada.jpg`, `subtitulos.vtt`); su prueba comprueba tamaño, resolución y subtítulos.
+- [X] T21 — *(filtro `startsWith("corto/")` comprobado en el `service-worker.js` compilado)* `src/service-worker/index.ts` excluye `corto/` de la precarga. Comprobar que el MP4 no aparece en `ESTATICOS`.
+- [X] T22 — *(sección `textos.corto`, con la transcripción)* Textos de la portada, la transcripción y «Ver el corto otra vez» en `src/lib/shared/textos.ts`.
+- [X] T23 — *(8 pruebas de componente; el `src` se asigna al pulsar)* `src/lib/ui/Corto.svelte` (modos `antesDeEntrar` y `dialogo`), exportado en `src/lib/ui/index.ts`, con su prueba de componente (CA-249, CA-251, CA-252).
+- [X] T24 — *(`cortoManual`, `repetirCorto()` y `cortoPendiente` en `EstadoMascota`; diálogo en el layout `(app)`)* `EstadoMascota.cortoManual` y `repetirCorto()`; el layout `(app)` abre el diálogo.
+- [X] T25 — *(login, enlace de visitante, `acceso/[token]`, Ajustes y Ayuda)* Integrar `Corto` en `login`, en el enlace de visitante y en `acceso/[token=token]`, antes de la bienvenida. «Ver el corto otra vez» en Ajustes y en Ayuda.
+- [X] T26 — *(`flujos/corto-f13` 9 pruebas, `sin-js/corto-f13` y axe de la portada en `a11y/acceso`; E2E ajustados para saltar el corto)* E2E (`e2e/flujos/corto-f13.spec.ts` y `e2e/sin-js/corto-f13.spec.ts`): contexto limpio, marca puesta, sin conexión, «Saltar» visible y de ≥ 24 × 24 px, volver a verlo. Axe en claro y oscuro de las pantallas con la portada.
+- [X] T27 — *(`ARCHITECTURE.md`, `docs/pruebas.md` y `LEEME.md` del corto)* Documentación: `ARCHITECTURE.md` §2, `docs/pruebas.md`, `docs/diseno/` y una nota en el ADR-0006 si cambia algo de las voces (no cambia).
+- [X] T28 — *(`npm run verify` en verde: 839 de servidor y 106 de componentes, 0 avisos; E2E del corto en chromium-movil, chromium-escritorio y webkit-movil, con las intermitencias conocidas de WebKit/Rive)* Verificación del cierre: `npm run verify` y los E2E afectados.
+- [ ] T29 — Benchmark completo. **No se hace** por decisión de la persona usuaria (2026-10-26): no se ejecuta mientras esta casilla siga desmarcada. Revisión con TalkBack: pendiente de la persona usuaria.
+

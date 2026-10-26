@@ -11,6 +11,11 @@ test('la introducción «Conoce a Capsulito» ocupa la pantalla en móvil y su c
 	const contexto = await browser.newContext({ viewport: { width: 390, height: 844 } });
 	const pagina = await contexto.newPage();
 	await pagina.goto(`${servidor.url}/login`);
+	// F13 (RF-249): antes de la introducción va el corto.
+	await pagina
+		.getByRole('dialog', { name: 'El misterio de la última cápsula' })
+		.getByRole('button', { name: 'Saltar', exact: true })
+		.click();
 	const dialogo = pagina.getByRole('dialog');
 	await expect(pagina.getByRole('heading', { name: 'Conoce a Capsulito' })).toBeVisible();
 

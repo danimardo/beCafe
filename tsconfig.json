@@ -14,6 +14,7 @@
 		"scripts/servidor",
 		"scripts/copias",
 		"scripts/voces-interactivo.test.ts",
-		"scripts/generar-sonido.test.ts"
+		"scripts/generar-sonido.test.ts",
+		"scripts/exportar-web-corto.test.ts"
 	]
 }

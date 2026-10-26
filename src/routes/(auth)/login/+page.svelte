@@ -2,13 +2,24 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '$app/forms';
 	import type { PageProps } from './$types';
-	import { Bienvenida, Button, CapsulitoEntrada, TextField, PasswordField, opcionesFormulario, usarAvisos } from '#lib/ui';
+	import {
+		Bienvenida,
+		Button,
+		CapsulitoEntrada,
+		Corto,
+		TextField,
+		PasswordField,
+		opcionesFormulario,
+		usarAvisos,
+		usarMascota,
+	} from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 
 	type Formulario = { errores?: Partial<Record<string, { mensaje: string }>>; valores?: Record<string, unknown> } | null;
 
 	let { form }: PageProps = $props();
 	const avisos = usarAvisos();
+	const mascota = usarMascota();
 	const formulario: Formulario = $derived(form);
 	const errores = $derived(formulario?.errores ?? {});
 	const correoEscrito = $derived(typeof formulario?.valores?.email === 'string' ? formulario.valores.email : '');
@@ -54,8 +65,12 @@
 	<title>{textos.inicioSesion.titulo} · beCafé</title>
 </svelte:head>
 
-<!-- RF-195: si el dispositivo nunca vio la bienvenida, se muestra antes del formulario. -->
-<Bienvenida modo="antesDeEntrar" />
+<!-- RF-249 y RF-195: si el dispositivo nunca vio la bienvenida, se muestra antes del formulario primero el corto y después la bienvenida. -->
+{#if mascota.cortoPendiente}
+	<Corto onTerminar={() => mascota.cerrarCorto()} onSaltar={() => mascota.cerrarCorto()} />
+{:else}
+	<Bienvenida modo="antesDeEntrar" />
+{/if}
 
 <main class="mx-auto flex min-h-dvh w-full max-w-sm flex-col justify-center gap-6 px-4 py-10">
 	<CapsulitoEntrada class="self-center" {mirarX} {taparOjos} {estado} />

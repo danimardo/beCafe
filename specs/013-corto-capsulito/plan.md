@@ -83,4 +83,44 @@ La primera entrega (61 s, Rive) no cumple el guion: Capsulito no anda ni mueve l
 | El vídeo resulta pesado para el repositorio o la web | Medir tamaño y calidad; decidir distribución al revisar la entrega. No añadirlo a la carga inicial de la PWA. |
 | Confusión entre dinero de la hucha y saldo personal | Fichas separadas y secuencia explícita: café → saldo personal; aportación → hucha. |
 
+### 7. Integración en la aplicación (aprobada el 2026-10-26)
+
+Cumple RF-249 a RF-252 de la sección «Integración en la aplicación» de [spec.md](spec.md). Cambia la afirmación del apartado «Arquitectura y verificación» («no se modifica `src/`»).
+
+- **Vídeo web.** `ffmpeg` genera `static/corto/el-misterio-de-la-ultima-capsula.mp4` (720 × 1280, H.264 + AAC, objetivo de 4 a 6 MB), `portada.jpg` y `subtitulos.vtt` a partir de `docs/diseno/corto-capsulito/entrega/`. El script `docs/diseno/corto-capsulito/html/exportar-web.mjs` lo repite sin intervención. El MP4 original de 1080 × 1920 se queda en `docs/diseno/`.
+- **Precarga de la PWA.** `src/service-worker/index.ts` excluye `corto/` de `ESTATICOS`, como ya hace con las locuciones: el vídeo no entra en la carga inicial ni se descarga hasta pulsar «Ver el corto». Sin conexión, la portada no se ofrece (RF-249, escenario 5).
+- **Componente.** `src/lib/ui/Corto.svelte`, con la prop `modo` (`antesDeEntrar` | `dialogo`) y los eventos `onTerminar` y `onSaltar` como funciones recibidas (constitución III). Recibe las rutas del vídeo, la portada y los subtítulos por props. No llama al servidor ni guarda nada.
+  - Portada: la imagen, el título, «Ver el corto» (`Button` primario) y «Saltar» (enlace de texto, `text-ink-muted` sobre fondo estable, con contraste ≥ 4,5:1 y objetivo ≥ 24 × 24 px). Debajo, «Leer la transcripción» como `details`, con el texto de `transcripcion.md` en `textos.ts`.
+  - Reproductor: `<video controls playsinline preload="none">` con `<track kind="subtitles" srclang="es" default>`. Al pulsar «Ver el corto» llama a `play()` dentro del gesto, así que el navegador permite el sonido. Fin del vídeo → `onTerminar`.
+  - Con `prefers-reduced-motion` no cambia nada del reproductor (ya exige pulsar), pero la transcripción se muestra abierta.
+- **Orden con la bienvenida.** En `login/+page.svelte` y `(visita)/visita/[token]/+page.svelte`, `Corto` (modo `antesDeEntrar`) se muestra si `!mascota.bienvenidaVista` y hay conexión. `onTerminar` y `onSaltar` lo cierran con un `$state` local (`corto-visto` solo en memoria de la página) y entonces aparece `Bienvenida` como hoy. En `acceso/[token=token]/+page.svelte`, al cerrarse aparece el formulario. No se guarda nada nuevo (constitución V).
+- **Volver a verlo.** `EstadoMascota` gana `cortoManual = $state(false)` y `repetirCorto()`, como `repetirBienvenida()`. Ajustes (`ajustes/+page.svelte`) y Ayuda (`ayuda/+page.svelte`) añaden «Ver el corto otra vez» junto al botón de la bienvenida. El layout `(app)` abre `Corto` en modo `dialogo` (con `Dialog`) cuando `cortoManual` es verdadero.
+- **Textos.** Todo el texto nuevo, en `src/lib/shared/textos.ts`.
+- **Sin cambio.** Esquema de datos, contratos, módulos de servidor, dependencias, `Bienvenida.svelte` y la constitución.
+
+**Architecture Check (§15 de `ARCHITECTURE.md`).** Componente en `lib/ui` que recibe datos por props; sin acceso a servidor, sin `$effect` que copie estado, sin `localStorage` nuevo, sin dependencias. El único archivo de infraestructura que cambia es el service worker, solo para excluir una ruta.
+
+**Pruebas (`docs/pruebas.md`).**
+
+| CA | Nivel |
+| --- | --- |
+| CA-249 (portada antes de entrar, solo sin marca) | Componente (`Corto`, modos y eventos) + E2E en `/login`, enlace de visitante y `acceso/[token]` con un contexto limpio, y sin ella no sale |
+| CA-250 (volver a verlo) | E2E: Ajustes y Ayuda abren el diálogo |
+| CA-251 (sonido, subtítulos, transcripción, saltar) | Componente (`<track default>`, `details`, `play()` solo al pulsar) + E2E sin JavaScript: la portada y la transcripción están en el HTML |
+| CA-252 («Saltar» visible, contraste y tamaño) | E2E: tamaño del objetivo ≥ 24 × 24 px y axe en claro y oscuro de cada pantalla con la portada |
+| Sin conexión | E2E con `context.setOffline(true)`: no aparece la portada |
+| Vídeo web | Prueba de `scripts` sobre `exportar-web.mjs` (tamaño ≤ 6 MB, 720 × 1280, subtítulos presentes) |
+
+Pantalla nueva con la portada: axe en claro y oscuro. Rutas tocadas: `acceso`. Revisión manual con TalkBack del botón «Ver el corto», los subtítulos y «Saltar»: queda como no verificable hasta que la persona usuaria la haga.
+
 **Aprobación:** la persona usuaria aprobó este `plan.md` concreto en la sesión del 2026-10-26; sus tareas dentro de este alcance pueden ejecutarse conforme a AGENTS.md §2.
+
+**Cómo quedó (26-10-2026).**
+
+- `Corto.svelte` no pone el `src` del `<video>` hasta que la persona pulsa «Ver el corto». Con `preload="none"` WebKit descargaba igualmente el MP4 al cargar la pantalla (lo detectó el E2E de WebKit). El `src` se asigna dentro del clic y `play()` se llama sin esperar antes, para conservar el gesto que permite el sonido.
+- La portada web es un JPEG (`static/corto/portada.jpg`, 100 KB): el `ffmpeg` del proyecto no trae el codificador WebP y `sharp` no se puede importar fuera de su archivo (`ARCHITECTURE.md` §11).
+- El vídeo web pesa 3,1 MB (720 × 1280, H.264 + AAC).
+- **Sin JavaScript no se muestra la portada**, igual que la bienvenida de RF-195: la marca de «bienvenida vista» vive en el navegador y el servidor no puede saber si hay que mostrarla. Las tres pantallas siguen funcionando. Esto no cumple la frase de CA-251 de `historias.md` («sin JavaScript la portada y la transcripción están en la página»); queda a la espera de la decisión de la persona usuaria.
+- Chromium de Playwright no reproduce H.264: los E2E comprueban que la petición del MP4 sale solo al pulsar, no la reproducción.
+
+**Aprobación de §7:** la persona usuaria aprobó la integración (§7) en la sesión del 2026-10-26, con la spec aprobada y el CAMBIO-025 registrado. Sus tareas (T20 a T28) pueden ejecutarse conforme a AGENTS.md §2. El benchmark completo (T29) no se ejecuta.

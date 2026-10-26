@@ -63,6 +63,7 @@ export { default as SplitBar } from './SplitBar.svelte';
 export { default as Capsulito } from './Capsulito.svelte';
 export { default as CapsulitoEntrada } from './CapsulitoEntrada.svelte';
 export { default as Bienvenida } from './Bienvenida.svelte';
+export { default as Corto } from './Corto.svelte';
 
 // Legal
 export { default as PrivacyText } from './PrivacyText.svelte';

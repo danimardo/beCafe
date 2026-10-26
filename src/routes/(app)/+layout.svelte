@@ -13,7 +13,7 @@
 	import UserRound from '@lucide/svelte/icons/user-round';
 	import Users from '@lucide/svelte/icons/users';
 	import Wallet from '@lucide/svelte/icons/wallet';
-	import { AppShell, Bienvenida, usarMascota, type NavItem } from '#lib/ui';
+	import { AppShell, Bienvenida, Corto, usarMascota, type NavItem } from '#lib/ui';
 	import type { LayoutProps } from './$types';
 
 	let { data, children }: LayoutProps = $props();
@@ -136,4 +136,9 @@
 
 {#if data.usuario && ((ruta === '/' && !page.url.searchParams.has('aviso')) || mascota.bienvenidaManual)}
 	<Bienvenida nombre={primerNombre} />
+{/if}
+
+<!-- RF-250: «Ver el corto otra vez» (Ajustes y Ayuda) lo abre en un diálogo. -->
+{#if data.usuario && mascota.cortoManual}
+	<Corto modo="dialogo" onTerminar={() => mascota.cerrarCorto()} onSaltar={() => mascota.cerrarCorto()} />
 {/if}

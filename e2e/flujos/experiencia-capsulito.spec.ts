@@ -176,6 +176,11 @@ test('CA-195: en un dispositivo limpio, /login muestra primero la bienvenida con
 	const contexto = await browser.newContext();
 	const pagina = await contexto.newPage();
 	await pagina.goto(`${servidor.url}/login`);
+	// F13 (RF-249): antes de la bienvenida va el corto.
+	await pagina
+		.getByRole('dialog', { name: 'El misterio de la última cápsula' })
+		.getByRole('button', { name: 'Saltar', exact: true })
+		.click();
 
 	const dialogo = pagina.getByRole('dialog');
 	await expect(dialogo.getByRole('heading', { name: 'Conoce a Capsulito' })).toBeVisible();
@@ -203,6 +208,11 @@ test('CA-195: con un enlace de visitante la bienvenida termina con «Soy visitan
 	const contexto = await browser.newContext();
 	const visitante = await contexto.newPage();
 	await visitante.goto(enlace);
+	// F13 (RF-249): antes de la bienvenida va el corto.
+	await visitante
+		.getByRole('dialog', { name: 'El misterio de la última cápsula' })
+		.getByRole('button', { name: 'Saltar', exact: true })
+		.click();
 	const dialogo = visitante.getByRole('dialog');
 	await dialogo.getByRole('button', { name: 'Empezar', exact: true }).click();
 	for (let escena = 2; escena <= 9; escena++) await dialogo.getByRole('button', { name: 'Siguiente', exact: true }).click();

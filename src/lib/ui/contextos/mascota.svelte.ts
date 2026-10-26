@@ -31,6 +31,10 @@ export class EstadoMascota {
 	bienvenidaVista = $state(true);
 	/** `true` cuando la persona pide repetir la bienvenida desde `/perfil` o `/ayuda`. */
 	bienvenidaManual = $state(false);
+	/** `true` cuando la persona pide «Ver el corto otra vez» desde Ajustes o Ayuda (RF-250). */
+	cortoManual = $state(false);
+	/** `true` cuando ya se vio o se saltó la portada del corto en esta sesión del navegador (RF-249). No se guarda: usa la marca de bienvenida. */
+	cortoCerrado = $state(false);
 	bocaActual = $state<FormaBoca>(0);
 	audioEnCurso = $state<string | null>(null);
 
@@ -87,6 +91,24 @@ export class EstadoMascota {
 		this.bienvenidaManual = false;
 		this.#guardar(CLAVE_BIENVENIDA, 'vista');
 		this.detenerVoz();
+	}
+
+	/**
+	 * Si toca mostrar la portada del corto antes de entrar (RF-249): dispositivo sin la marca de bienvenida vista, Capsulito visible
+	 * y conexión. La marca la pone la bienvenida, no el corto: no se guarda nada nuevo en el navegador (constitución V).
+	 */
+	get cortoPendiente(): boolean {
+		return browser && this.visible && !this.bienvenidaVista && !this.cortoCerrado && navigator.onLine;
+	}
+
+	cerrarCorto() {
+		this.cortoCerrado = true;
+		this.cortoManual = false;
+	}
+
+	/** Abre el corto en un diálogo (RF-250). */
+	repetirCorto() {
+		this.cortoManual = true;
 	}
 
 	/** Abre de nuevo la historia de bienvenida (desde `/ayuda` o `/perfil`). */

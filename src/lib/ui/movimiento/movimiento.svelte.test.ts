@@ -27,11 +27,17 @@ describe('microinteracciones de campos (RF-233)', () => {
 
 	it('CA-233: al recibir el foco con el teclado el campo muestra el haz', async () => {
 		await render(TextField, { label: 'Correo', value: '' });
+		const campo = page.getByRole('textbox', { name: 'Correo' });
+
+		// El haz dura 0,45 s: con muchos archivos en paralelo la comprobación puede llegar cuando ya terminó. Se escucha su inicio.
+		const iniciadas: string[] = [];
+		campo.element().addEventListener('animationstart', (evento) => {
+			if (evento instanceof AnimationEvent) iniciadas.push(evento.animationName);
+		});
 		await userEvent.tab();
 
-		const campo = page.getByRole('textbox', { name: 'Correo' });
 		await expect.element(campo).toHaveFocus();
-		expect(animaciones(campo.element())).toContain('campo-haz');
+		await expect.poll(() => iniciadas).toContain('campo-haz');
 	});
 
 	it('CA-233: sin error no hay sacudida', async () => {

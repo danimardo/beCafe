@@ -1,6 +1,6 @@
 # El misterio de la última cápsula
 
-Corto autónomo de Capsulito en vertical 9:16. El montaje final dura 72 segundos a 1080 × 1920 y 30 fps. Presenta el problema de los cafés sin apuntar y muestra el registro de cada café, el aviso de pocas cápsulas, las compras y la diferencia entre saldo personal y aportaciones a la hucha. No está integrado aún en ninguna pantalla de beCafé.
+Corto autónomo de Capsulito en vertical 9:16. El montaje final dura 72 segundos a 1080 × 1920 y 30 fps. Presenta el problema de los cafés sin apuntar y muestra el registro de cada café, el aviso de pocas cápsulas, las compras y la diferencia entre saldo personal y aportaciones a la hucha. Se muestra en beCafé antes de entrar (F13, `specs/013-corto-capsulito/plan.md` §7), desde su versión web en `static/corto/`.
 
 La versión vigente se dibuja con SVG por piezas en páginas HTML (`html/`) y se captura fotograma a fotograma (`specs/013-corto-capsulito/plan.md` §6). Sustituye a la versión Rive.
 
@@ -27,6 +27,16 @@ node docs/diseno/corto-capsulito/html/montar-corto.mjs
 - Los planos sueltos (`entrega/planos/`) y las imágenes intermedias (`.local/corto-capsulito/`) quedan fuera de Git.
 
 Las siete locuciones en `audio/locuciones/` incluyen MP3 y JSON con marcas de boca. `audio/generar-locuciones.mjs` reproduce esas pistas mediante la voz configurada del proyecto y requiere acceso a la API de voz; no hace falta para reconstruir el vídeo. Las locuciones 05 y 07 pronuncian la marca «Bicafé», como se dice en el departamento.
+
+## Versión web (F13)
+
+`html/exportar-web.mjs` reduce el montaje a 720 × 1280 (unos 3 MB) y copia la portada (JPEG) y los subtítulos a `static/corto/`. La aplicación lo descarga solo cuando la persona pulsa «Ver el corto»; el service worker no lo precarga.
+
+```bash
+node docs/diseno/corto-capsulito/html/exportar-web.mjs
+```
+
+Si cambias el montaje, vuelve a exportar la versión web y a ejecutar `npx vitest run scripts/exportar-web-corto.test.ts`.
 
 ## Versión Rive
 

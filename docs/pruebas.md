@@ -143,6 +143,8 @@ Ejemplo: `F4-L2 → CA-041, CA-045, EV-031 → coste medio con stock negativo; r
 | `a11y` | axe en cada pantalla, en tema claro y oscuro (XI, EV-060), recorrido con teclado de los flujos críticos y preferencias de apariencia (EV-061, §13) | `chromium-movil` |
 | `visual` | Capturas de §12.5 | `chromium-movil` |
 
+**F13:** Chromium de Playwright no incluye el códec H.264, así que ningún E2E comprueba que el vídeo se reproduce: se comprueba que la petición del MP4 sale solo al pulsar «Ver el corto». La reproducción con sonido y los subtítulos quedan para la revisión manual con Safari, Chrome para Android, VoiceOver y TalkBack (no verificable en CI). Los E2E que abren un dispositivo limpio saltan primero el corto (`flujos/experiencia-capsulito`, `flujos/ajustes-visuales-f11`, `a11y/acceso`). Sin JavaScript la portada no se muestra, igual que la bienvenida: la marca vive en el navegador.
+
 **F12:** los E2E de reposo y celebración usan `page.clock` y `reducedMotion`, no esperas reales. El enlace generado y el aviso de recuento tienen su variante en `sin-js` (el administrador monta el escenario con JavaScript y la persona que mira abre un contexto sin JavaScript). Las pantallas tocadas pasan axe en claro y oscuro: Inicio con aviso de recuento (`a11y/consumos`), `/admin/usuarios` y su ficha (`a11y/admin`), `acceso/[token]` (`a11y/acceso`), la bienvenida con la escena nueva (`a11y/acceso`) y Ajustes (`a11y/apariencia`).
 
 **F11:** la suite `a11y` cubre además Ajustes, Perfil, la entrada (`/login` con Capsulito reactivo), las páginas de error 400, 403 y 404 (`flujos/errores`) y los tres estados de Inicio. `flujos/movimiento` comprueba con `reducedMotion: 'reduce'` que no queda ninguna animación en curso (EV-110). La 500 se prueba como componente porque no hay forma de provocarla desde E2E. No hay pruebas de regresión visual de las pantallas de escritorio de F11 (se comprueban por geometría en `flujos/maquetacion-f11`).
@@ -237,6 +239,10 @@ Cada `spec.md`, al recibir el traspaso, copia la fila de sus CA y la concreta en
 | CA-245 (orden de las cápsulas en Inicio) | Propiedades (`dominio/orden-inicio`) + integración (`leerTiposInicio`) | `flujos/orden-inicio-f12` |
 | CA-246 (aviso de recuento) | Unidad (catálogo) + integración (`control`, `panel`) + acción (`?/verAviso`) | `flujos/recuento-aviso-f12`; sin JavaScript, «Entendido» quita el aviso (`sin-js/recuento-aviso-f12`) |
 | CA-247 (escena «el dinero») | Unidad (`mascota/momentos`: 9 escenas, la quinta es `intro_09`) + componente (`Bienvenida`) | `flujos/experiencia-capsulito`; las 9 escenas estáticas en `/ayuda` (`sin-js/experiencia-capsulito`) |
+| CA-249 (el corto antes de entrar) | Componente (`Corto`: portada, «Saltar» y eventos) + estado (`cortoPendiente`) | `flujos/corto-f13`: `/login`, enlace de visitante y enlace de alta en un dispositivo limpio; con la marca puesta y sin conexión no sale; sin JavaScript las tres pantallas siguen funcionando (`sin-js/corto-f13`) |
+| CA-250 (volver a ver el corto) | Componente (modo diálogo) | `flujos/corto-f13`: Ajustes y Ayuda |
+| CA-251 (sonido, subtítulos, transcripción, sin descarga previa) | Componente (`<track default>`, `preload`, controles solo tras pulsar) + unidad sobre `static/corto` (peso, 720 × 1280, subtítulos) | `flujos/corto-f13`: el MP4 solo se pide al pulsar «Ver el corto» (también en WebKit) |
+| CA-252 («Saltar» visible) | Componente (nombre accesible y foco) | `flujos/corto-f13` mide el objetivo (≥ 24 × 24 px); axe en claro y oscuro de la portada (`a11y/acceso`) |
 | CA-248 (Capsulito en reposo) | Unidad (`mascota/reposo`) + componente (`Capsulito` con reloj falso) | `flujos/reposo-f12` con `page.clock`; con `reducedMotion: 'reduce'`, quieta 60 s simulados |
 | EV-050 | Suite `acceso` | — |
 | EV-060 | Suite `a11y` + revisión manual | — |

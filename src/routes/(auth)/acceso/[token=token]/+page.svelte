@@ -3,11 +3,12 @@
 	import type { SubmitFunction } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
-	import { Button, CapsulitoEntrada, PasswordField, Banner, opcionesFormulario, usarAvisos } from '#lib/ui';
+	import { Button, CapsulitoEntrada, Corto, PasswordField, Banner, opcionesFormulario, usarAvisos, usarMascota } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 
 	let { data, form }: PageProps = $props();
 	const avisos = usarAvisos();
+	const mascota = usarMascota();
 	type Formulario = { errores?: Partial<Record<string, { mensaje: string }>> } | null;
 
 	const formulario: Formulario = $derived(form);
@@ -47,6 +48,11 @@
 <svelte:head>
 	<title>{textos.acceso.enlaceValido} · beCafé</title>
 </svelte:head>
+
+<!-- RF-249: con un enlace de alta o recuperación vigente, el corto va antes del formulario. No hay bienvenida: la ve la persona al entrar en Inicio. -->
+{#if data.valido && mascota.cortoPendiente}
+	<Corto onTerminar={() => mascota.cerrarCorto()} onSaltar={() => mascota.cerrarCorto()} />
+{/if}
 
 <main class="mx-auto flex min-h-dvh w-full max-w-sm flex-col justify-center gap-6 px-4 py-10">
 	{#if data.valido}

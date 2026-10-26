@@ -57,6 +57,7 @@
 		<div class="flex flex-col gap-4">
 			<div class="flex flex-wrap items-center gap-3">
 				<Button type="button" variant="soft" onclick={() => mascota.repetirBienvenida()}>Ver la bienvenida</Button>
+				<Button type="button" variant="soft" onclick={() => mascota.repetirCorto()}>{textos.corto.verOtraVez}</Button>
 				<a class="text-[15px] font-medium text-accent underline" href={resolve('/(app)/ayuda/capsulito')}> Laboratorio de Capsulito </a>
 			</div>
 

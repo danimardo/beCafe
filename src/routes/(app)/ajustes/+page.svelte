@@ -69,6 +69,7 @@
 				onchange={(marcado: boolean) => mascota.setVozActiva(marcado)}
 			/>
 			<Button type="button" variant="soft" block onclick={() => mascota.repetirBienvenida()}>Ver la bienvenida otra vez</Button>
+			<Button type="button" variant="soft" block onclick={() => mascota.repetirCorto()}>{textos.corto.verOtraVez}</Button>
 		</div>
 	</Section>
 

@@ -67,6 +67,64 @@ export const textos = {
 		sesionesCerradas: 'Se han cerrado todas las sesiones.',
 		privacidadAceptada: 'Texto de privacidad aceptado.',
 	},
+	corto: {
+		titulo: 'El misterio de la última cápsula',
+		resumen: 'Un corto de 72 segundos sobre el problema que resuelve beCafé: los cafés que nadie apunta y las cápsulas que no cuadran.',
+		ver: 'Ver el corto',
+		saltar: 'Saltar',
+		verOtraVez: 'Ver el corto otra vez',
+		cerrar: 'Cerrar el corto',
+		transcripcion: 'Leer la transcripción',
+		transcripcionTitulo: 'Transcripción del corto',
+		portadaAlt: 'Capsulito ante la cafetera y el armario de las cápsulas, con el título del corto.',
+		subtitulos: 'Español',
+		sinConexion: 'No se pudo cargar el corto. Comprueba la conexión y vuelve a intentarlo.',
+		duracion: '72 segundos, con subtítulos',
+		pasos: [
+			{
+				tipo: 'accion',
+				texto:
+					'Capsulito llega andando con sueño, bosteza y saluda a la cafetera, que le responde con una luz y un poco de vapor. Abre el armario.',
+			},
+			{ tipo: 'voz', texto: 'Buenos días, señora cafetera. Lo de siempre.' },
+			{
+				tipo: 'accion',
+				texto:
+					'En el hueco del Ristretto queda una sola cápsula. Capsulito saca el papel de apuntes, que dice «quedan 6». Intenta señalar la cápsula y esta se esconde al fondo.',
+			},
+			{ tipo: 'voz', texto: 'Un momento. Según el papel, aquí hay cápsulas. Según mis ojos… hay aire.' },
+			{
+				tipo: 'accion',
+				texto:
+					'Capsulito investiga con una lupa enorme. Aparecen tazas fantasma que alguien se bebe y las cápsulas Suave se van solas a la cafetera sin que nadie lo apunte.',
+			},
+			{ tipo: 'voz', texto: 'El misterio de los cafés invisibles. Se hacen, se disfrutan… y se olvidan de apuntar.' },
+			{
+				tipo: 'accion',
+				texto:
+					'Capsulito tira la lupa y aparece beCafé en un móvil. Toca «+1» en la tarjeta de Intenso: aparece «Registrado» y el contador pasa de 4 a 3. La cafetera prepara el café y el hueco de Intenso muestra las mismas 3 cápsulas.',
+			},
+			{ tipo: 'voz', texto: 'Nueva pista: un toque por cada café. Y ahora sí sabemos lo que queda.' },
+			{
+				tipo: 'accion',
+				texto:
+					'La tarjeta de Ristretto avisa: «Quedan pocas». Capsulito lo anuncia con un megáfono diminuto. Caen dos cajas, Capsulito registra la compra, la hucha paga y el hueco del Ristretto se llena.',
+			},
+			{ tipo: 'voz', texto: 'Si quedan pocas, beCafé avisa. Cuando compramos, apuntamos las cajas.' },
+			{
+				tipo: 'accion',
+				texto:
+					'Dos fichas: «Café → tu saldo» y «Aportación → hucha, y suma a tu saldo». Capsulito echa una moneda y la hucha se pone contenta. Después echa granos de café: la hucha se los escupe y le rebotan en la cabeza.',
+			},
+			{ tipo: 'voz', texto: 'Cada café va a tu saldo. El dinero de verdad entra en la hucha cuando aportas. Entendido, jefa.' },
+			{
+				tipo: 'accion',
+				texto:
+					'Capsulito despide el papel de una patada; la bola cierra el armario. La taza salta de la cafetera, Capsulito la recoge y la levanta. Aparece la marca beCafé y Capsulito guiña un ojo.',
+			},
+			{ tipo: 'voz', texto: 'Menos arqueología de cajón. Más café. beCafé.' },
+		],
+	},
 	acceso: {
 		tituloNoValido: 'Enlace no válido',
 		enlaceValido: 'Define tu contraseña para entrar en beCafé.',

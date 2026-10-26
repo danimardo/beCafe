@@ -2,11 +2,12 @@
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
-	import { Banner, Bienvenida, Button, TextField } from '#lib/ui';
+	import { Banner, Bienvenida, Button, Corto, TextField, usarMascota } from '#lib/ui';
 	import { TEXTO_VISITANTES } from '#lib/shared/privacidad';
 	import { textos } from '#lib/shared/textos';
 
 	let { data, form }: PageProps = $props();
+	const mascota = usarMascota();
 	type Formulario = { errores?: Partial<Record<string, { mensaje: string }>>; valores?: Record<string, unknown> } | null;
 	const formulario: Formulario = $derived(form);
 	const errores = $derived(formulario?.errores ?? {});
@@ -25,8 +26,12 @@
 </svelte:head>
 
 {#if data.valido}
-	<!-- RF-195: con un enlace vigente, la bienvenida va antes de pedir el nombre. -->
-	<Bienvenida modo="antesDeEntrar" visitante hrefEntrar={resolve('/(auth)/login')} />
+	<!-- RF-249 y RF-195: con un enlace vigente, primero el corto y después la bienvenida, antes de pedir el nombre. -->
+	{#if mascota.cortoPendiente}
+		<Corto onTerminar={() => mascota.cerrarCorto()} onSaltar={() => mascota.cerrarCorto()} />
+	{:else}
+		<Bienvenida modo="antesDeEntrar" visitante hrefEntrar={resolve('/(auth)/login')} />
+	{/if}
 {/if}
 
 <main class="mx-auto flex w-full max-w-md flex-col gap-6 px-4 py-8">

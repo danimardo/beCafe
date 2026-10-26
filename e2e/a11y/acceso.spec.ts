@@ -62,10 +62,37 @@ for (const esquema of ['light', 'dark'] as const) {
 			const contexto = await browser.newContext({ colorScheme: esquema });
 			const pagina = await contexto.newPage();
 			await pagina.goto(`${servidor.url}/login`);
+			// F13 (RF-249): antes de la bienvenida va el corto; su portada se comprueba en la prueba siguiente.
+			await pagina
+				.getByRole('dialog', { name: 'El misterio de la última cápsula' })
+				.getByRole('button', { name: 'Saltar', exact: true })
+				.click();
 			await pagina.getByRole('dialog').getByRole('button', { name: 'Empezar', exact: true }).waitFor();
 			await expectSinInfracciones(pagina);
 			await pagina.getByRole('button', { name: 'Empezar', exact: true }).click();
 			await pagina.getByText('Escena 1 de 9').waitFor();
+			await expectSinInfracciones(pagina);
+			await contexto.close();
+		});
+	});
+}
+
+// F13 (RF-249, CA-252): la portada del corto antes de entrar, en los dos temas, con la transcripción abierta y cerrada.
+for (const esquema of ['light', 'dark'] as const) {
+	test.describe(`portada del corto, tema ${esquema === 'light' ? 'claro' : 'oscuro'}`, () => {
+		test.use({ colorScheme: esquema });
+
+		test('la portada no tiene infracciones de axe, ni con la transcripción abierta', async ({ browser, servidor }) => {
+			const contexto = await browser.newContext({ colorScheme: esquema });
+			const pagina = await contexto.newPage();
+			await pagina.goto(`${servidor.url}/login`);
+			await pagina
+				.getByRole('dialog', { name: 'El misterio de la última cápsula' })
+				.getByRole('button', { name: 'Ver el corto', exact: true })
+				.waitFor();
+			await expectSinInfracciones(pagina);
+			await pagina.getByText('Leer la transcripción').click();
+			await pagina.getByText('Buenos días, señora cafetera. Lo de siempre.').waitFor();
 			await expectSinInfracciones(pagina);
 			await contexto.close();
 		});
