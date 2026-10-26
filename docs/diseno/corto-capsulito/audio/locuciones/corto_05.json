@@ -1,0 +1,263 @@
+{
+	"version": 1,
+	"audio": "corto_05.mp3",
+	"texto": "Si quedan pocas, beCafé avisa. Cuando compramos, apuntamos las cajas.",
+	"duration": 5.042,
+	"cues": [
+		{
+			"start": 0.407,
+			"end": 0.439,
+			"value": 6
+		},
+		{
+			"start": 0.439,
+			"end": 0.471,
+			"value": 4
+		},
+		{
+			"start": 0.471,
+			"end": 0.503,
+			"value": 1
+		},
+		{
+			"start": 0.503,
+			"end": 0.535,
+			"value": 6
+		},
+		{
+			"start": 0.535,
+			"end": 0.575,
+			"value": 2
+		},
+		{
+			"start": 0.575,
+			"end": 0.615,
+			"value": 6
+		},
+		{
+			"start": 0.675,
+			"end": 0.735,
+			"value": 7
+		},
+		{
+			"start": 0.735,
+			"end": 0.795,
+			"value": 3
+		},
+		{
+			"start": 0.795,
+			"end": 0.855,
+			"value": 6
+		},
+		{
+			"start": 0.855,
+			"end": 0.935,
+			"value": 2
+		},
+		{
+			"start": 0.935,
+			"end": 1.015,
+			"value": 6
+		},
+		{
+			"start": 1.255,
+			"end": 1.335,
+			"value": 7
+		},
+		{
+			"start": 1.335,
+			"end": 1.375,
+			"value": 1
+		},
+		{
+			"start": 1.375,
+			"end": 1.415,
+			"value": 6
+		},
+		{
+			"start": 1.415,
+			"end": 1.495,
+			"value": 2
+		},
+		{
+			"start": 1.495,
+			"end": 1.575,
+			"value": 5
+		},
+		{
+			"start": 1.575,
+			"end": 1.655,
+			"value": 1
+		},
+		{
+			"start": 1.708,
+			"end": 1.762,
+			"value": 2
+		},
+		{
+			"start": 1.762,
+			"end": 1.815,
+			"value": 5
+		},
+		{
+			"start": 1.815,
+			"end": 1.895,
+			"value": 1
+		},
+		{
+			"start": 1.895,
+			"end": 1.975,
+			"value": 6
+		},
+		{
+			"start": 1.975,
+			"end": 2.055,
+			"value": 2
+		},
+		{
+			"start": 2.421,
+			"end": 2.466,
+			"value": 6
+		},
+		{
+			"start": 2.466,
+			"end": 2.512,
+			"value": 4
+		},
+		{
+			"start": 2.512,
+			"end": 2.558,
+			"value": 2
+		},
+		{
+			"start": 2.558,
+			"end": 2.649,
+			"value": 6
+		},
+		{
+			"start": 2.649,
+			"end": 2.695,
+			"value": 3
+		},
+		{
+			"start": 2.735,
+			"end": 2.775,
+			"value": 6
+		},
+		{
+			"start": 2.775,
+			"end": 2.815,
+			"value": 3
+		},
+		{
+			"start": 2.815,
+			"end": 2.895,
+			"value": 7
+		},
+		{
+			"start": 2.895,
+			"end": 2.935,
+			"value": 6
+		},
+		{
+			"start": 2.935,
+			"end": 3.035,
+			"value": 2
+		},
+		{
+			"start": 3.035,
+			"end": 3.135,
+			"value": 7
+		},
+		{
+			"start": 3.135,
+			"end": 3.235,
+			"value": 3
+		},
+		{
+			"start": 3.235,
+			"end": 3.335,
+			"value": 6
+		},
+		{
+			"start": 3.495,
+			"end": 3.575,
+			"value": 2
+		},
+		{
+			"start": 3.575,
+			"end": 3.655,
+			"value": 7
+		},
+		{
+			"start": 3.655,
+			"end": 3.708,
+			"value": 4
+		},
+		{
+			"start": 3.708,
+			"end": 3.815,
+			"value": 6
+		},
+		{
+			"start": 3.815,
+			"end": 3.875,
+			"value": 2
+		},
+		{
+			"start": 3.875,
+			"end": 3.935,
+			"value": 7
+		},
+		{
+			"start": 3.935,
+			"end": 3.995,
+			"value": 3
+		},
+		{
+			"start": 3.995,
+			"end": 4.055,
+			"value": 6
+		},
+		{
+			"start": 4.095,
+			"end": 4.135,
+			"value": 6
+		},
+		{
+			"start": 4.135,
+			"end": 4.175,
+			"value": 2
+		},
+		{
+			"start": 4.175,
+			"end": 4.215,
+			"value": 6
+		},
+		{
+			"start": 4.255,
+			"end": 4.295,
+			"value": 6
+		},
+		{
+			"start": 4.295,
+			"end": 4.375,
+			"value": 2
+		},
+		{
+			"start": 4.375,
+			"end": 4.455,
+			"value": 6
+		},
+		{
+			"start": 4.455,
+			"end": 4.535,
+			"value": 2
+		},
+		{
+			"start": 4.535,
+			"end": 4.615,
+			"value": 6
+		}
+	]
+}

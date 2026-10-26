@@ -1,0 +1,303 @@
+{
+	"version": 1,
+	"audio": "corto_03.mp3",
+	"texto": "El misterio de los cafés invisibles. Se hacen, se disfrutan… y se olvidan de apuntar.",
+	"duration": 6.921,
+	"cues": [
+		{
+			"start": 0.523,
+			"end": 0.603,
+			"value": 7
+		},
+		{
+			"start": 0.603,
+			"end": 0.667,
+			"value": 1
+		},
+		{
+			"start": 0.667,
+			"end": 0.795,
+			"value": 6
+		},
+		{
+			"start": 0.795,
+			"end": 0.859,
+			"value": 1
+		},
+		{
+			"start": 0.859,
+			"end": 0.923,
+			"value": 6
+		},
+		{
+			"start": 0.923,
+			"end": 0.963,
+			"value": 1
+		},
+		{
+			"start": 0.963,
+			"end": 1.003,
+			"value": 3
+		},
+		{
+			"start": 1.03,
+			"end": 1.056,
+			"value": 6
+		},
+		{
+			"start": 1.056,
+			"end": 1.083,
+			"value": 1
+		},
+		{
+			"start": 1.123,
+			"end": 1.163,
+			"value": 6
+		},
+		{
+			"start": 1.163,
+			"end": 1.203,
+			"value": 3
+		},
+		{
+			"start": 1.203,
+			"end": 1.243,
+			"value": 6
+		},
+		{
+			"start": 1.303,
+			"end": 1.363,
+			"value": 6
+		},
+		{
+			"start": 1.363,
+			"end": 1.423,
+			"value": 2
+		},
+		{
+			"start": 1.423,
+			"end": 1.483,
+			"value": 5
+		},
+		{
+			"start": 1.483,
+			"end": 1.523,
+			"value": 1
+		},
+		{
+			"start": 1.523,
+			"end": 1.563,
+			"value": 6
+		},
+		{
+			"start": 1.63,
+			"end": 1.696,
+			"value": 1
+		},
+		{
+			"start": 1.696,
+			"end": 1.763,
+			"value": 6
+		},
+		{
+			"start": 1.763,
+			"end": 1.83,
+			"value": 5
+		},
+		{
+			"start": 1.83,
+			"end": 1.896,
+			"value": 1
+		},
+		{
+			"start": 1.896,
+			"end": 1.963,
+			"value": 6
+		},
+		{
+			"start": 1.963,
+			"end": 2.027,
+			"value": 1
+		},
+		{
+			"start": 2.027,
+			"end": 2.091,
+			"value": 7
+		},
+		{
+			"start": 2.091,
+			"end": 2.155,
+			"value": 6
+		},
+		{
+			"start": 2.155,
+			"end": 2.219,
+			"value": 1
+		},
+		{
+			"start": 2.219,
+			"end": 2.283,
+			"value": 6
+		},
+		{
+			"start": 3.729,
+			"end": 3.809,
+			"value": 2
+		},
+		{
+			"start": 3.809,
+			"end": 3.889,
+			"value": 6
+		},
+		{
+			"start": 3.889,
+			"end": 3.969,
+			"value": 1
+		},
+		{
+			"start": 3.969,
+			"end": 4.049,
+			"value": 6
+		},
+		{
+			"start": 4.262,
+			"end": 4.316,
+			"value": 6
+		},
+		{
+			"start": 4.316,
+			"end": 4.369,
+			"value": 1
+		},
+		{
+			"start": 4.422,
+			"end": 4.476,
+			"value": 6
+		},
+		{
+			"start": 4.476,
+			"end": 4.529,
+			"value": 1
+		},
+		{
+			"start": 4.529,
+			"end": 4.582,
+			"value": 6
+		},
+		{
+			"start": 4.582,
+			"end": 4.636,
+			"value": 5
+		},
+		{
+			"start": 4.636,
+			"end": 4.689,
+			"value": 6
+		},
+		{
+			"start": 4.689,
+			"end": 4.809,
+			"value": 4
+		},
+		{
+			"start": 4.809,
+			"end": 4.929,
+			"value": 6
+		},
+		{
+			"start": 4.929,
+			"end": 5.049,
+			"value": 2
+		},
+		{
+			"start": 5.049,
+			"end": 5.169,
+			"value": 6
+		},
+		{
+			"start": 5.409,
+			"end": 5.489,
+			"value": 1
+		},
+		{
+			"start": 5.542,
+			"end": 5.596,
+			"value": 6
+		},
+		{
+			"start": 5.596,
+			"end": 5.649,
+			"value": 1
+		},
+		{
+			"start": 5.676,
+			"end": 5.702,
+			"value": 3
+		},
+		{
+			"start": 5.702,
+			"end": 5.729,
+			"value": 6
+		},
+		{
+			"start": 5.729,
+			"end": 5.782,
+			"value": 5
+		},
+		{
+			"start": 5.782,
+			"end": 5.836,
+			"value": 1
+		},
+		{
+			"start": 5.836,
+			"end": 5.889,
+			"value": 6
+		},
+		{
+			"start": 5.889,
+			"end": 5.929,
+			"value": 2
+		},
+		{
+			"start": 5.929,
+			"end": 6.022,
+			"value": 6
+		},
+		{
+			"start": 6.022,
+			"end": 6.049,
+			"value": 1
+		},
+		{
+			"start": 6.102,
+			"end": 6.156,
+			"value": 2
+		},
+		{
+			"start": 6.156,
+			"end": 6.209,
+			"value": 7
+		},
+		{
+			"start": 6.209,
+			"end": 6.262,
+			"value": 4
+		},
+		{
+			"start": 6.262,
+			"end": 6.369,
+			"value": 6
+		},
+		{
+			"start": 6.369,
+			"end": 6.449,
+			"value": 2
+		},
+		{
+			"start": 6.449,
+			"end": 6.529,
+			"value": 6
+		}
+	]
+}

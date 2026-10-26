@@ -1,0 +1,168 @@
+{
+	"version": 1,
+	"audio": "corto_07.mp3",
+	"texto": "Menos arqueología de cajón. Más café. beCafé.",
+	"duration": 4.062,
+	"cues": [
+		{
+			"start": 0.508,
+			"end": 0.548,
+			"value": 3
+		},
+		{
+			"start": 0.548,
+			"end": 0.588,
+			"value": 6
+		},
+		{
+			"start": 0.641,
+			"end": 0.695,
+			"value": 2
+		},
+		{
+			"start": 0.695,
+			"end": 0.801,
+			"value": 6
+		},
+		{
+			"start": 0.801,
+			"end": 0.855,
+			"value": 4
+		},
+		{
+			"start": 0.855,
+			"end": 0.908,
+			"value": 1
+		},
+		{
+			"start": 0.908,
+			"end": 0.975,
+			"value": 3
+		},
+		{
+			"start": 0.975,
+			"end": 1.041,
+			"value": 6
+		},
+		{
+			"start": 1.041,
+			"end": 1.108,
+			"value": 3
+		},
+		{
+			"start": 1.108,
+			"end": 1.175,
+			"value": 6
+		},
+		{
+			"start": 1.175,
+			"end": 1.241,
+			"value": 1
+		},
+		{
+			"start": 1.241,
+			"end": 1.308,
+			"value": 2
+		},
+		{
+			"start": 1.335,
+			"end": 1.361,
+			"value": 6
+		},
+		{
+			"start": 1.361,
+			"end": 1.388,
+			"value": 1
+		},
+		{
+			"start": 1.428,
+			"end": 1.468,
+			"value": 6
+		},
+		{
+			"start": 1.468,
+			"end": 1.548,
+			"value": 2
+		},
+		{
+			"start": 1.548,
+			"end": 1.628,
+			"value": 6
+		},
+		{
+			"start": 1.628,
+			"end": 1.748,
+			"value": 3
+		},
+		{
+			"start": 1.748,
+			"end": 1.868,
+			"value": 6
+		},
+		{
+			"start": 2.118,
+			"end": 2.168,
+			"value": 7
+		},
+		{
+			"start": 2.168,
+			"end": 2.218,
+			"value": 2
+		},
+		{
+			"start": 2.218,
+			"end": 2.268,
+			"value": 6
+		},
+		{
+			"start": 2.364,
+			"end": 2.46,
+			"value": 6
+		},
+		{
+			"start": 2.46,
+			"end": 2.556,
+			"value": 2
+		},
+		{
+			"start": 2.556,
+			"end": 2.652,
+			"value": 5
+		},
+		{
+			"start": 2.652,
+			"end": 2.748,
+			"value": 1
+		},
+		{
+			"start": 3.048,
+			"end": 3.148,
+			"value": 7
+		},
+		{
+			"start": 3.148,
+			"end": 3.228,
+			"value": 1
+		},
+		{
+			"start": 3.228,
+			"end": 3.308,
+			"value": 6
+		},
+		{
+			"start": 3.308,
+			"end": 3.428,
+			"value": 2
+		},
+		{
+			"start": 3.428,
+			"end": 3.548,
+			"value": 5
+		},
+		{
+			"start": 3.548,
+			"end": 3.628,
+			"value": 1
+		}
+	]
+}

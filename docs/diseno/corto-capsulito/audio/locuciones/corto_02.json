@@ -1,0 +1,258 @@
+{
+	"version": 1,
+	"audio": "corto_02.mp3",
+	"texto": "Un momento. Según el papel, aquí hay cápsulas. Según mis ojos… hay aire.",
+	"duration": 6.049,
+	"cues": [
+		{
+			"start": 0.472,
+			"end": 0.532,
+			"value": 7
+		},
+		{
+			"start": 0.532,
+			"end": 0.592,
+			"value": 3
+		},
+		{
+			"start": 0.592,
+			"end": 0.652,
+			"value": 7
+		},
+		{
+			"start": 0.652,
+			"end": 0.712,
+			"value": 1
+		},
+		{
+			"start": 0.712,
+			"end": 0.832,
+			"value": 6
+		},
+		{
+			"start": 0.832,
+			"end": 0.892,
+			"value": 3
+		},
+		{
+			"start": 1.072,
+			"end": 1.172,
+			"value": 6
+		},
+		{
+			"start": 1.172,
+			"end": 1.272,
+			"value": 1
+		},
+		{
+			"start": 1.272,
+			"end": 1.372,
+			"value": 6
+		},
+		{
+			"start": 1.372,
+			"end": 1.412,
+			"value": 4
+		},
+		{
+			"start": 1.412,
+			"end": 1.452,
+			"value": 6
+		},
+		{
+			"start": 1.505,
+			"end": 1.559,
+			"value": 1
+		},
+		{
+			"start": 1.559,
+			"end": 1.612,
+			"value": 6
+		},
+		{
+			"start": 1.665,
+			"end": 1.719,
+			"value": 7
+		},
+		{
+			"start": 1.719,
+			"end": 1.772,
+			"value": 2
+		},
+		{
+			"start": 1.772,
+			"end": 1.825,
+			"value": 7
+		},
+		{
+			"start": 1.825,
+			"end": 1.879,
+			"value": 1
+		},
+		{
+			"start": 1.879,
+			"end": 1.932,
+			"value": 6
+		},
+		{
+			"start": 2.14,
+			"end": 2.188,
+			"value": 2
+		},
+		{
+			"start": 2.188,
+			"end": 2.236,
+			"value": 6
+		},
+		{
+			"start": 2.236,
+			"end": 2.284,
+			"value": 4
+		},
+		{
+			"start": 2.284,
+			"end": 2.332,
+			"value": 1
+		},
+		{
+			"start": 2.412,
+			"end": 2.452,
+			"value": 2
+		},
+		{
+			"start": 2.452,
+			"end": 2.492,
+			"value": 1
+		},
+		{
+			"start": 2.519,
+			"end": 2.545,
+			"value": 6
+		},
+		{
+			"start": 2.545,
+			"end": 2.572,
+			"value": 2
+		},
+		{
+			"start": 2.572,
+			"end": 2.652,
+			"value": 7
+		},
+		{
+			"start": 2.652,
+			"end": 2.732,
+			"value": 6
+		},
+		{
+			"start": 2.732,
+			"end": 2.812,
+			"value": 4
+		},
+		{
+			"start": 2.812,
+			"end": 2.892,
+			"value": 6
+		},
+		{
+			"start": 2.892,
+			"end": 2.972,
+			"value": 2
+		},
+		{
+			"start": 2.972,
+			"end": 3.052,
+			"value": 6
+		},
+		{
+			"start": 3.352,
+			"end": 3.412,
+			"value": 6
+		},
+		{
+			"start": 3.412,
+			"end": 3.472,
+			"value": 1
+		},
+		{
+			"start": 3.472,
+			"end": 3.532,
+			"value": 6
+		},
+		{
+			"start": 3.532,
+			"end": 3.572,
+			"value": 4
+		},
+		{
+			"start": 3.572,
+			"end": 3.612,
+			"value": 6
+		},
+		{
+			"start": 3.672,
+			"end": 3.732,
+			"value": 7
+		},
+		{
+			"start": 3.732,
+			"end": 3.792,
+			"value": 1
+		},
+		{
+			"start": 3.792,
+			"end": 3.852,
+			"value": 6
+		},
+		{
+			"start": 3.932,
+			"end": 4.012,
+			"value": 3
+		},
+		{
+			"start": 4.012,
+			"end": 4.119,
+			"value": 6
+		},
+		{
+			"start": 4.119,
+			"end": 4.225,
+			"value": 3
+		},
+		{
+			"start": 4.225,
+			"end": 4.332,
+			"value": 6
+		},
+		{
+			"start": 5.142,
+			"end": 5.182,
+			"value": 2
+		},
+		{
+			"start": 5.182,
+			"end": 5.222,
+			"value": 1
+		},
+		{
+			"start": 5.302,
+			"end": 5.382,
+			"value": 2
+		},
+		{
+			"start": 5.382,
+			"end": 5.462,
+			"value": 1
+		},
+		{
+			"start": 5.462,
+			"end": 5.542,
+			"value": 6
+		},
+		{
+			"start": 5.542,
+			"end": 5.622,
+			"value": 1
+		}
+	]
+}

@@ -1,0 +1,133 @@
+{
+	"version": 1,
+	"audio": "corto_01.mp3",
+	"texto": "Buenos días, señora cafetera. Lo de siempre.",
+	"duration": 4.796,
+	"cues": [
+		{
+			"start": 0.783,
+			"end": 0.895,
+			"value": 6
+		},
+		{
+			"start": 0.895,
+			"end": 1.007,
+			"value": 1
+		},
+		{
+			"start": 1.007,
+			"end": 1.119,
+			"value": 2
+		},
+		{
+			"start": 1.119,
+			"end": 1.231,
+			"value": 6
+		},
+		{
+			"start": 1.451,
+			"end": 1.511,
+			"value": 6
+		},
+		{
+			"start": 1.511,
+			"end": 1.571,
+			"value": 1
+		},
+		{
+			"start": 1.571,
+			"end": 1.631,
+			"value": 6
+		},
+		{
+			"start": 1.631,
+			"end": 1.658,
+			"value": 3
+		},
+		{
+			"start": 1.658,
+			"end": 1.684,
+			"value": 6
+		},
+		{
+			"start": 1.684,
+			"end": 1.711,
+			"value": 2
+		},
+		{
+			"start": 1.771,
+			"end": 1.831,
+			"value": 6
+		},
+		{
+			"start": 1.831,
+			"end": 1.891,
+			"value": 2
+		},
+		{
+			"start": 1.891,
+			"end": 1.951,
+			"value": 5
+		},
+		{
+			"start": 1.951,
+			"end": 2.051,
+			"value": 1
+		},
+		{
+			"start": 2.051,
+			"end": 2.151,
+			"value": 6
+		},
+		{
+			"start": 2.151,
+			"end": 2.251,
+			"value": 1
+		},
+		{
+			"start": 2.251,
+			"end": 2.351,
+			"value": 6
+		},
+		{
+			"start": 2.351,
+			"end": 2.391,
+			"value": 2
+		},
+		{
+			"start": 3.684,
+			"end": 3.738,
+			"value": 6
+		},
+		{
+			"start": 3.738,
+			"end": 3.791,
+			"value": 1
+		},
+		{
+			"start": 3.851,
+			"end": 3.911,
+			"value": 6
+		},
+		{
+			"start": 3.911,
+			"end": 4.031,
+			"value": 1
+		},
+		{
+			"start": 4.031,
+			"end": 4.151,
+			"value": 7
+		},
+		{
+			"start": 4.151,
+			"end": 4.211,
+			"value": 6
+		},
+		{
+			"start": 4.211,
+			"end": 4.271,
+			"value": 1
+		}
+	]
+}

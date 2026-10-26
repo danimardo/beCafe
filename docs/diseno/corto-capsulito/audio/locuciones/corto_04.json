@@ -1,0 +1,243 @@
+{
+	"version": 1,
+	"audio": "corto_04.mp3",
+	"texto": "Nueva pista: un toque por cada café. Y ahora sí sabemos lo que queda.",
+	"duration": 6.437,
+	"cues": [
+		{
+			"start": 0.514,
+			"end": 0.538,
+			"value": 6
+		},
+		{
+			"start": 0.626,
+			"end": 0.666,
+			"value": 7
+		},
+		{
+			"start": 0.666,
+			"end": 0.766,
+			"value": 1
+		},
+		{
+			"start": 0.766,
+			"end": 0.966,
+			"value": 6
+		},
+		{
+			"start": 0.966,
+			"end": 1.066,
+			"value": 2
+		},
+		{
+			"start": 1.546,
+			"end": 1.666,
+			"value": 4
+		},
+		{
+			"start": 1.666,
+			"end": 1.786,
+			"value": 6
+		},
+		{
+			"start": 1.893,
+			"end": 1.999,
+			"value": 6
+		},
+		{
+			"start": 1.999,
+			"end": 2.106,
+			"value": 3
+		},
+		{
+			"start": 2.106,
+			"end": 2.133,
+			"value": 6
+		},
+		{
+			"start": 2.133,
+			"end": 2.159,
+			"value": 4
+		},
+		{
+			"start": 2.159,
+			"end": 2.186,
+			"value": 1
+		},
+		{
+			"start": 2.246,
+			"end": 2.306,
+			"value": 7
+		},
+		{
+			"start": 2.306,
+			"end": 2.366,
+			"value": 3
+		},
+		{
+			"start": 2.366,
+			"end": 2.426,
+			"value": 6
+		},
+		{
+			"start": 2.49,
+			"end": 2.554,
+			"value": 6
+		},
+		{
+			"start": 2.554,
+			"end": 2.618,
+			"value": 2
+		},
+		{
+			"start": 2.618,
+			"end": 2.682,
+			"value": 6
+		},
+		{
+			"start": 2.682,
+			"end": 2.746,
+			"value": 2
+		},
+		{
+			"start": 2.81,
+			"end": 2.874,
+			"value": 6
+		},
+		{
+			"start": 2.874,
+			"end": 2.938,
+			"value": 2
+		},
+		{
+			"start": 2.938,
+			"end": 3.002,
+			"value": 5
+		},
+		{
+			"start": 3.002,
+			"end": 3.066,
+			"value": 1
+		},
+		{
+			"start": 3.746,
+			"end": 4.266,
+			"value": 1
+		},
+		{
+			"start": 4.333,
+			"end": 4.399,
+			"value": 2
+		},
+		{
+			"start": 4.466,
+			"end": 4.533,
+			"value": 3
+		},
+		{
+			"start": 4.533,
+			"end": 4.599,
+			"value": 6
+		},
+		{
+			"start": 4.599,
+			"end": 4.666,
+			"value": 2
+		},
+		{
+			"start": 4.719,
+			"end": 4.773,
+			"value": 6
+		},
+		{
+			"start": 4.773,
+			"end": 4.826,
+			"value": 1
+		},
+		{
+			"start": 4.886,
+			"end": 4.946,
+			"value": 6
+		},
+		{
+			"start": 4.946,
+			"end": 5.006,
+			"value": 2
+		},
+		{
+			"start": 5.006,
+			"end": 5.066,
+			"value": 7
+		},
+		{
+			"start": 5.066,
+			"end": 5.126,
+			"value": 1
+		},
+		{
+			"start": 5.126,
+			"end": 5.186,
+			"value": 7
+		},
+		{
+			"start": 5.186,
+			"end": 5.246,
+			"value": 3
+		},
+		{
+			"start": 5.246,
+			"end": 5.306,
+			"value": 6
+		},
+		{
+			"start": 5.359,
+			"end": 5.413,
+			"value": 6
+		},
+		{
+			"start": 5.413,
+			"end": 5.466,
+			"value": 3
+		},
+		{
+			"start": 5.506,
+			"end": 5.546,
+			"value": 6
+		},
+		{
+			"start": 5.546,
+			"end": 5.586,
+			"value": 4
+		},
+		{
+			"start": 5.586,
+			"end": 5.626,
+			"value": 1
+		},
+		{
+			"start": 5.693,
+			"end": 5.759,
+			"value": 6
+		},
+		{
+			"start": 5.759,
+			"end": 5.826,
+			"value": 4
+		},
+		{
+			"start": 5.826,
+			"end": 5.893,
+			"value": 1
+		},
+		{
+			"start": 5.893,
+			"end": 5.959,
+			"value": 6
+		},
+		{
+			"start": 5.959,
+			"end": 6.026,
+			"value": 2
+		}
+	]
+}

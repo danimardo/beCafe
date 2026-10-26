@@ -1,0 +1,298 @@
+{
+	"version": 1,
+	"audio": "corto_06.mp3",
+	"texto": "Cada café va a tu saldo. El dinero de verdad entra en la hucha cuando aportas. Entendido, jefa.",
+	"duration": 7.287,
+	"cues": [
+		{
+			"start": 0.554,
+			"end": 0.618,
+			"value": 6
+		},
+		{
+			"start": 0.618,
+			"end": 0.682,
+			"value": 2
+		},
+		{
+			"start": 0.682,
+			"end": 0.746,
+			"value": 5
+		},
+		{
+			"start": 0.746,
+			"end": 0.81,
+			"value": 1
+		},
+		{
+			"start": 0.89,
+			"end": 0.97,
+			"value": 5
+		},
+		{
+			"start": 0.97,
+			"end": 1.13,
+			"value": 2
+		},
+		{
+			"start": 1.21,
+			"end": 1.29,
+			"value": 6
+		},
+		{
+			"start": 1.29,
+			"end": 1.37,
+			"value": 4
+		},
+		{
+			"start": 1.437,
+			"end": 1.503,
+			"value": 6
+		},
+		{
+			"start": 1.503,
+			"end": 1.57,
+			"value": 2
+		},
+		{
+			"start": 1.57,
+			"end": 1.703,
+			"value": 6
+		},
+		{
+			"start": 1.703,
+			"end": 1.77,
+			"value": 3
+		},
+		{
+			"start": 2.143,
+			"end": 2.237,
+			"value": 1
+		},
+		{
+			"start": 2.237,
+			"end": 2.33,
+			"value": 6
+		},
+		{
+			"start": 2.376,
+			"end": 2.421,
+			"value": 6
+		},
+		{
+			"start": 2.421,
+			"end": 2.467,
+			"value": 1
+		},
+		{
+			"start": 2.467,
+			"end": 2.513,
+			"value": 6
+		},
+		{
+			"start": 2.513,
+			"end": 2.559,
+			"value": 1
+		},
+		{
+			"start": 2.559,
+			"end": 2.604,
+			"value": 6
+		},
+		{
+			"start": 2.604,
+			"end": 2.65,
+			"value": 3
+		},
+		{
+			"start": 2.677,
+			"end": 2.703,
+			"value": 6
+		},
+		{
+			"start": 2.703,
+			"end": 2.73,
+			"value": 1
+		},
+		{
+			"start": 2.776,
+			"end": 2.821,
+			"value": 5
+		},
+		{
+			"start": 2.821,
+			"end": 2.867,
+			"value": 1
+		},
+		{
+			"start": 2.867,
+			"end": 2.959,
+			"value": 6
+		},
+		{
+			"start": 2.959,
+			"end": 3.004,
+			"value": 2
+		},
+		{
+			"start": 3.004,
+			"end": 3.05,
+			"value": 6
+		},
+		{
+			"start": 3.103,
+			"end": 3.157,
+			"value": 1
+		},
+		{
+			"start": 3.157,
+			"end": 3.317,
+			"value": 6
+		},
+		{
+			"start": 3.317,
+			"end": 3.37,
+			"value": 2
+		},
+		{
+			"start": 3.397,
+			"end": 3.423,
+			"value": 1
+		},
+		{
+			"start": 3.423,
+			"end": 3.45,
+			"value": 6
+		},
+		{
+			"start": 3.503,
+			"end": 3.557,
+			"value": 6
+		},
+		{
+			"start": 3.557,
+			"end": 3.61,
+			"value": 2
+		},
+		{
+			"start": 3.69,
+			"end": 3.75,
+			"value": 4
+		},
+		{
+			"start": 3.75,
+			"end": 3.81,
+			"value": 6
+		},
+		{
+			"start": 3.87,
+			"end": 3.93,
+			"value": 2
+		},
+		{
+			"start": 3.964,
+			"end": 3.999,
+			"value": 6
+		},
+		{
+			"start": 3.999,
+			"end": 4.033,
+			"value": 4
+		},
+		{
+			"start": 4.033,
+			"end": 4.067,
+			"value": 2
+		},
+		{
+			"start": 4.067,
+			"end": 4.136,
+			"value": 6
+		},
+		{
+			"start": 4.136,
+			"end": 4.17,
+			"value": 3
+		},
+		{
+			"start": 4.21,
+			"end": 4.25,
+			"value": 2
+		},
+		{
+			"start": 4.25,
+			"end": 4.31,
+			"value": 7
+		},
+		{
+			"start": 4.31,
+			"end": 4.37,
+			"value": 3
+		},
+		{
+			"start": 4.37,
+			"end": 4.49,
+			"value": 6
+		},
+		{
+			"start": 4.49,
+			"end": 4.65,
+			"value": 2
+		},
+		{
+			"start": 4.65,
+			"end": 4.81,
+			"value": 6
+		},
+		{
+			"start": 5.65,
+			"end": 5.99,
+			"value": 2
+		},
+		{
+			"start": 6.01,
+			"end": 6.063,
+			"value": 1
+		},
+		{
+			"start": 6.063,
+			"end": 6.17,
+			"value": 6
+		},
+		{
+			"start": 6.17,
+			"end": 6.25,
+			"value": 1
+		},
+		{
+			"start": 6.25,
+			"end": 6.33,
+			"value": 6
+		},
+		{
+			"start": 6.33,
+			"end": 6.41,
+			"value": 3
+		},
+		{
+			"start": 6.53,
+			"end": 6.57,
+			"value": 6
+		},
+		{
+			"start": 6.57,
+			"end": 6.703,
+			"value": 1
+		},
+		{
+			"start": 6.703,
+			"end": 6.837,
+			"value": 5
+		},
+		{
+			"start": 6.837,
+			"end": 6.97,
+			"value": 2
+		}
+	]
+}
