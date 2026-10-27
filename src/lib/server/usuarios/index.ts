@@ -12,3 +12,5 @@ export { leerMarcasCuenta, marcarCuenta, type ClaveCuenta, type MarcasCuenta } f
 export { cambiarFoto, leerFotoUsuario } from './fotos';
 export { entregarFrase, entregarSaludo, leerSaludoDisponible, INTERVALO_SALUDO_MS } from './frases';
 export { asignarMensajeDia } from './mensaje-dia';
+export { registrarInstalacion, leerInstalacion, type InstalacionPersona } from './instalacion';
+export type { EstadoInstalacion } from './dominio/instalacion';

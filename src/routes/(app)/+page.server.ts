@@ -13,6 +13,7 @@ import {
 	leerMarcasCuenta,
 	leerSaludoDisponible,
 	marcarCuenta,
+	registrarInstalacion,
 } from '#lib/server/usuarios';
 import { deshacerRelleno, leerEstadoAgua, registrarRelleno } from '#lib/server/rellenos';
 import {
@@ -28,6 +29,7 @@ import {
 	registrarConsumo,
 } from '#lib/server/economia';
 import { esquemaAvisoInicio } from '#lib/shared/contratos/privacidad';
+import { esquemaRegistrarInstalacion } from '#lib/shared/contratos/instalacion';
 import { esquemaVerAviso } from '#lib/shared/contratos/avisos';
 import { esquemaConsumirForm, esquemaDeshacerForm } from '#lib/shared/contratos/consumos';
 import { esquemaDeshacerRelleno, esquemaRellenar } from '#lib/shared/contratos/rellenos';
@@ -152,6 +154,16 @@ export const actions: Actions = {
 		if (!actor) return falloDeNegocio('SIN_SESION', {});
 		marcarCuenta(locals.ambiente, actor.usuarioId, 'instalacion_descartada');
 		return { instalacionDescartada: true };
+	},
+
+	// RF-279: el navegador envía su estado de instalación (aceptada o rechazada). Se aplica la transición de RF-280.
+	registrarInstalacion: async ({ request, locals }) => {
+		const entrada = esquemaRegistrarInstalacion.safeParse(Object.fromEntries(await request.formData()));
+		if (!entrada.success) return fallo(400, entrada.error, {});
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		registrarInstalacion(locals.ambiente, actor, entrada.data.estado);
+		return { instalacionRegistrada: true };
 	},
 
 	// RF-207: «Activar avisos» o «Ahora no» en la oferta. Las dos la dan por vista; el permiso lo gestiona el navegador.

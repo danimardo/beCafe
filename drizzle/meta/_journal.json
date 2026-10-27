@@ -71,6 +71,13 @@
       "when": 1793079791321,
       "tag": "0009_f15-mensaje-dia",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1793096663419,
+      "tag": "0010_f16-instalacion",
+      "breakpoints": true
     }
   ]
 }

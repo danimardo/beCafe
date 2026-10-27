@@ -5,7 +5,7 @@ import { crearEventoAccion, desenvolverFallo } from '#lib/shared/pruebas/accione
 import { crearActor, crearSesion, resolverSesion, type Actor } from '#lib/server/auth';
 import { crearAzarFijo, crearEntornoPrueba, enTransaccion, nuevoId, type EntornoPrueba } from '#lib/server/plataforma';
 import { leerAvisoRecuentoPendiente, registrarAviso } from '#lib/server/notificaciones';
-import { crearUsuario } from '#lib/server/usuarios';
+import { crearUsuario, leerInstalacion } from '#lib/server/usuarios';
 import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import { darDeAltaCapsula, registrarAportacion, registrarCompra } from '#lib/server/economia';
 import { z } from 'zod';
@@ -374,6 +374,36 @@ describe('acciones de la pantalla principal', () => {
 			expect(desenvolverFallo(await verAviso(undefined, { avisoId: nuevoId() })).estado).toBe(401);
 			expect(desenvolverFallo(await verAviso(ana, { avisoId: 'no-es-un-ulid' })).estado).toBe(400);
 			expect(desenvolverFallo(await verAviso(ana, { avisoId: nuevoId(), otro: 'x' })).estado).toBe(400);
+		});
+	});
+
+	describe('registrarInstalacion (F16)', () => {
+		function enviar(actor: Actor | undefined, datos: Record<string, string>) {
+			return actions.registrarInstalacion(
+				crearEventoAccion({
+					locals: { ambiente: entorno.ambiente, actor },
+					ruta: '/(app)',
+					params: {},
+					cuerpo: new URLSearchParams(datos),
+					cabeceras: { 'content-type': 'application/x-www-form-urlencoded' },
+				}),
+			);
+		}
+
+		it('CA-279: una persona con sesión registra su estado y el servidor lo guarda', async () => {
+			const ana = sesionDe('miembro', 'Ana');
+
+			expect(await enviar(ana, { estado: 'instalada' })).toEqual({ instalacionRegistrada: true });
+			expect(leerInstalacion(entorno.ambiente.db, { usuarioId: ana.usuarioId, rol: 'miembro' }, ana.usuarioId)?.estado).toBe('instalada');
+		});
+
+		it('CA-279: sin sesión da 401; un estado desconocido o un campo de más dan 400', async () => {
+			const ana = sesionDe('miembro', 'Ana');
+
+			expect(desenvolverFallo(await enviar(undefined, { estado: 'instalada' })).estado).toBe(401);
+			expect(desenvolverFallo(await enviar(ana, { estado: 'borrada' })).estado).toBe(400);
+			expect(desenvolverFallo(await enviar(ana, { estado: 'instalada', otro: 'x' })).estado).toBe(400);
+			expect(leerInstalacion(entorno.ambiente.db, { usuarioId: ana.usuarioId, rol: 'miembro' }, ana.usuarioId)).toBeNull();
 		});
 	});
 });

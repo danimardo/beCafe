@@ -8,10 +8,10 @@
 
 ## Fase 2: Estado en el servidor (US1) — P1
 
-- [ ] T002 [US1] Dominio puro `src/lib/server/usuarios/dominio/instalacion.ts` (`siguienteEstadoInstalacion`). Prueba de propiedades EV-116 y CA-280.
-- [ ] T003 [US1] Tabla `instalacion_app` en `src/lib/server/usuarios/esquema.ts` (`usuario_id` clave primaria y foránea; `CHECK (estado IN ('instalada', 'rechazada'))`; `instante` UTC) y migración `drizzle/0010_f16-instalacion.sql` con drizzle-kit.
-- [ ] T004 [US1] Evento `instalacion.registrada` en `plataforma/registro.ts`. Casos de uso `registrarInstalacion` y `leerInstalacion` en `src/lib/server/usuarios/instalacion.ts`, exportados en `index.ts`. Integración CA-278, CA-280, CA-281 (permiso) y CA-283.
-- [ ] T005 [US1] Contrato `src/lib/shared/contratos/instalacion.ts` (`z.strictObject({ estado: z.enum(['instalada', 'rechazada']) })`) y *action* `registrarInstalacion` en `src/routes/(app)/+page.server.ts`. Prueba con evento falso (CA-279).
+- [x] T002 [US1] Dominio puro `src/lib/server/usuarios/dominio/instalacion.ts` (`siguienteEstadoInstalacion`). Prueba de propiedades EV-116 y CA-280.
+- [x] T003 [US1] Tabla `instalacion_app` en `src/lib/server/usuarios/esquema.ts` (`usuario_id` clave primaria y foránea; `CHECK (estado IN ('instalada', 'rechazada'))`; `instante` UTC) y migración `drizzle/0010_f16-instalacion.sql` con drizzle-kit.
+- [x] T004 [US1] Evento `instalacion.registrada` en `plataforma/registro.ts`. Casos de uso `registrarInstalacion` y `leerInstalacion` en `src/lib/server/usuarios/instalacion.ts`, exportados en `index.ts`. Integración CA-278, CA-280, CA-281 (permiso) y CA-283.
+- [x] T005 [US1] Contrato `src/lib/shared/contratos/instalacion.ts` (`z.strictObject({ estado: z.enum(['instalada', 'rechazada']) })`) y *action* `registrarInstalacion` en `src/routes/(app)/+page.server.ts`. Prueba con evento falso (CA-279).
 
 ## Fase 3: Cliente y ficha (US1) — P1
 

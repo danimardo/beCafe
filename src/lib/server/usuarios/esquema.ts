@@ -100,3 +100,16 @@ export const mensajeDia = sqliteTable(
 		check('mensaje_dia_dia_valido', sql`length(${tabla.dia}) = 10`),
 	],
 );
+
+// Estado de instalación de la aplicación por persona (F16, RF-278): una fila por persona. «Sin datos» es la ausencia de fila.
+export const instalacionApp = sqliteTable(
+	'instalacion_app',
+	{
+		usuarioId: text('usuario_id')
+			.primaryKey()
+			.references(() => usuario.id),
+		estado: text('estado', { enum: ['instalada', 'rechazada'] }).notNull(),
+		instante: text('instante').notNull(),
+	},
+	(tabla) => [check('instalacion_app_estado_valido', sql`${tabla.estado} IN ('instalada', 'rechazada')`)],
+);

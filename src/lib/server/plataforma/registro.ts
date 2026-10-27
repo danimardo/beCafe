@@ -95,6 +95,7 @@ export const NIVEL_EVENTO = {
 	'frase.ciclo_reiniciado': 'info',
 	'frase.fallo': 'error',
 	'mensaje_dia.asignado': 'debug',
+	'instalacion.registrada': 'info',
 	'mensaje_dia.ciclo_reiniciado': 'info',
 	'aviso.visto': 'info',
 	'consumo.confirmacion_sin_stock': 'info',
@@ -193,6 +194,7 @@ export type CamposEvento = {
 	'frase.ciclo_reiniciado': { usuarioId: string; lista: 'registro' | 'saludo'; ciclo: number };
 	'frase.fallo': { usuarioId: string; lista: 'registro' | 'saludo'; tipo: string };
 	'mensaje_dia.asignado': { usuarioId: string; mensajeId: string; vuelta: number };
+	'instalacion.registrada': { usuarioId: string; estado: 'instalada' | 'rechazada' };
 	'mensaje_dia.ciclo_reiniciado': { usuarioId: string; vuelta: number };
 	// F12: solo el identificador del aviso; nunca su texto (constitución XVI).
 	'aviso.visto': { avisoId: string };
