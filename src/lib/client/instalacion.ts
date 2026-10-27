@@ -88,6 +88,20 @@ export type DiagnosticoInstalacion = {
 	resultado: ResultadoInstalacion | null;
 };
 
+/**
+ * Estado que hay que enviar al servidor, o `null` si no hay nada que enviar (RF-279, RF-280): `instalada` (aceptada, `appinstalled`
+ * o abierta en modo `standalone`) o `rechazada`. No reenvía lo que el servidor ya tiene ni lo que esta carga ya envió.
+ */
+export function estadoAEnviar(
+	diagnostico: DiagnosticoInstalacion,
+	enServidor: 'instalada' | 'rechazada' | null,
+	yaEnviado: 'instalada' | 'rechazada' | null,
+): 'instalada' | 'rechazada' | null {
+	const nuevo = diagnostico.instalada ? 'instalada' : diagnostico.resultado === 'rechazada' ? 'rechazada' : null;
+	if (nuevo === null || nuevo === yaEnviado || nuevo === enServidor || enServidor === 'instalada') return null;
+	return nuevo;
+}
+
 export type Instalacion = {
 	estado: () => EstadoInstalacion;
 	diagnostico: () => DiagnosticoInstalacion;
@@ -130,7 +144,8 @@ export function crearInstalacion(ventana: VentanaInstalable, alCambiar: (estado:
 				// Un fallo del diálogo del sistema no es un error de la aplicación: se anota y la tarjeta deja de ofrecer el botón.
 				captura.resultado = 'error';
 			}
-			emitir();
+			// Avisa a todas las pantallas que escuchan (Ajustes y el registro del estado en el servidor).
+			captura.suscriptores.forEach((suscriptor) => suscriptor());
 			return estado();
 		},
 		destruir: () => captura.suscriptores.delete(emitir),

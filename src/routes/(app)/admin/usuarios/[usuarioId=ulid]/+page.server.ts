@@ -4,7 +4,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../../../fallo';
 import { esquemaCambioRol, esquemaSoloReautenticacion } from '#lib/shared/contratos/usuarios';
 import { cambiarRolPersona, generarEnlaceParaPersona, obtenerPersona, reactivarPersona } from '#lib/server/auth';
-import { cambiarFoto } from '#lib/server/usuarios';
+import { cambiarFoto, leerInstalacion } from '#lib/server/usuarios';
 import { esquemaQuitarFotoPersona, esquemaSubirFotoPersona } from '#lib/shared/contratos/fotos-usuario';
 import { bytesDeFoto } from '../../capsulas/formulario';
 import { textos } from '#lib/shared/textos';
@@ -13,7 +13,13 @@ export const load: PageServerLoad = ({ locals, params, url }) => {
 	const actor = locals.actor;
 	if (!actor) redirect(303, resolve('/(auth)/login'));
 	try {
-		return { persona: obtenerPersona(locals.ambiente.db, actor, params.usuarioId), bajaRegistrada: url.searchParams.get('baja') === 'ok' };
+		const persona = obtenerPersona(locals.ambiente.db, actor, params.usuarioId);
+		return {
+			persona,
+			// RF-281: el estado de instalación lo ven los administradores en la ficha.
+			instalacion: leerInstalacion(locals.ambiente.db, actor, params.usuarioId),
+			bajaRegistrada: url.searchParams.get('baja') === 'ok',
+		};
 	} catch (causa) {
 		return errorDeCarga(causa);
 	}

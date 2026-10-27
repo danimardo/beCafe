@@ -14,6 +14,7 @@
 	import Users from '@lucide/svelte/icons/users';
 	import Wallet from '@lucide/svelte/icons/wallet';
 	import { AppShell, Bienvenida, Corto, usarMascota, type NavItem } from '#lib/ui';
+	import RegistroInstalacion from './RegistroInstalacion.svelte';
 	import type { LayoutProps } from './$types';
 
 	let { data, children }: LayoutProps = $props();
@@ -133,6 +134,10 @@
 >
 	{@render children()}
 </AppShell>
+
+{#if data.usuario}
+	<RegistroInstalacion enServidor={data.instalacion} />
+{/if}
 
 {#if data.usuario && ((ruta === '/' && !page.url.searchParams.has('aviso')) || mascota.bienvenidaManual)}
 	<Bienvenida nombre={primerNombre} />

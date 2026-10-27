@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { capturarInstalacion, crearInstalacion, estadoBase, type EstadoInstalacion } from './instalacion';
+import { capturarInstalacion, crearInstalacion, estadoAEnviar, estadoBase, type EstadoInstalacion } from './instalacion';
 
 // RF-206: la tarjeta de instalación depende de este estado. Se simula la ventana con un EventTarget.
 function ventanaFalsa(opciones: { agente?: string; standalone?: boolean; tactil?: number } = {}) {
@@ -106,5 +106,30 @@ describe('instalación de la PWA (RF-206)', () => {
 		const instalacion = crearInstalacion(ventana, () => {});
 		expect(instalacion.estado()).toBe('instalable');
 		expect(instalacion.diagnostico().avisoRecibido).toBe(true);
+	});
+
+	it('CA-279: decide qué estado enviar sin repetir lo que el servidor ya tiene ni lo ya enviado', () => {
+		const base = { conexionSegura: true, trabajadorActivo: true, avisoRecibido: true, instalada: false, resultado: null } as const;
+		expect(estadoAEnviar(base, null, null)).toBeNull();
+		expect(estadoAEnviar({ ...base, instalada: true, resultado: 'aceptada' }, null, null)).toBe('instalada');
+		expect(estadoAEnviar({ ...base, instalada: true }, 'rechazada', null)).toBe('instalada');
+		expect(estadoAEnviar({ ...base, instalada: true }, 'instalada', null)).toBeNull();
+		expect(estadoAEnviar({ ...base, instalada: true }, null, 'instalada')).toBeNull();
+		expect(estadoAEnviar({ ...base, resultado: 'rechazada' }, null, null)).toBe('rechazada');
+		expect(estadoAEnviar({ ...base, resultado: 'rechazada' }, 'rechazada', null)).toBeNull();
+		expect(estadoAEnviar({ ...base, resultado: 'rechazada' }, 'instalada', null)).toBeNull();
+		expect(estadoAEnviar({ ...base, resultado: 'error' }, null, null)).toBeNull();
+	});
+
+	it('CA-279: el resultado del diálogo llega a todas las instalaciones que escuchan la misma ventana', async () => {
+		const ventana = ventanaFalsa();
+		const avisos: EstadoInstalacion[] = [];
+		const pantalla = crearInstalacion(ventana, () => {});
+		crearInstalacion(ventana, (estado) => avisos.push(estado));
+		ventana.dispatchEvent(peticion('dismissed'));
+		avisos.length = 0;
+
+		await pantalla.instalar();
+		expect(avisos).toEqual(['no_disponible']);
 	});
 });

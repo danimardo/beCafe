@@ -1,6 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { contarNuevos } from '#lib/server/notificaciones';
-import { buscarUsuarioPorId } from '#lib/server/usuarios';
+import { buscarUsuarioPorId, leerInstalacion } from '#lib/server/usuarios';
 import { urlFotoUsuario } from '#lib/shared/contratos/fotos-usuario';
 import { CLAVE_AVISOS } from '#lib/shared/claves-carga';
 
@@ -9,9 +9,11 @@ import { CLAVE_AVISOS } from '#lib/shared/claves-carga';
 export const load: LayoutServerLoad = ({ locals, depends }) => {
 	depends(CLAVE_AVISOS);
 	const actor = locals.actor;
-	if (!actor) return { avisosNuevos: 0, usuario: null };
+	if (!actor) return { avisosNuevos: 0, usuario: null, instalacion: null };
 	const persona = buscarUsuarioPorId(locals.ambiente.db, actor.usuarioId);
 	return {
+		// Estado propio de instalación (RF-279): el navegador no reenvía lo que el servidor ya sabe.
+		instalacion: leerInstalacion(locals.ambiente.db, actor, actor.usuarioId)?.estado ?? null,
 		avisosNuevos: contarNuevos(locals.ambiente.db, { usuarioId: actor.usuarioId }, locals.ambiente.reloj.ahora()),
 		usuario: persona
 			? {

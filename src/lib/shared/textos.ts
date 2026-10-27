@@ -286,6 +286,9 @@ export const textos = {
 		no: 'No',
 		resultadoNinguno: 'Ninguno',
 		resultados: { aceptada: 'Aceptada', rechazada: 'Rechazada', error: 'Falló' },
+		fichaInstalada: (fecha: string) => `Aplicación instalada desde el ${fecha}`,
+		fichaRechazada: (fecha: string) => `Rechazó instalar la aplicación el ${fecha}`,
+		fichaSinDatos: 'Aplicación: sin datos de instalación',
 	},
 	perfil: {
 		titulo: 'Mi perfil',

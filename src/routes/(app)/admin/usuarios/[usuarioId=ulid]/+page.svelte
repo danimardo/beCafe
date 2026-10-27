@@ -4,7 +4,7 @@
 	import type { PageProps } from './$types';
 	import { Button, CopyField, PageHeader, PasswordField, Section, SelectField } from '#lib/ui';
 	import FotoPersona from '../../../FotoPersona.svelte';
-	import { formatDate } from '#lib/shared/fechas/formato';
+	import { formatDate, formatearFechaHoraMadrid } from '#lib/shared/fechas/formato';
 	import { textos } from '#lib/shared/textos';
 
 	type Formulario = {
@@ -36,6 +36,15 @@
 		{persona.email} · {persona.estado === 'baja' ? 'De baja' : 'Activa'} · {persona.tieneContrasena
 			? textos.admin.conContrasena
 			: textos.admin.sinContrasena}
+	</p>
+	<p class="text-ink-muted">
+		{#if data.instalacion?.estado === 'instalada'}
+			{textos.instalacion.fichaInstalada(formatearFechaHoraMadrid(data.instalacion.instante))}
+		{:else if data.instalacion?.estado === 'rechazada'}
+			{textos.instalacion.fichaRechazada(formatearFechaHoraMadrid(data.instalacion.instante))}
+		{:else}
+			{textos.instalacion.fichaSinDatos}
+		{/if}
 	</p>
 	<a class="text-accent underline" href={resolve('/(app)/admin/usuarios')}>{textos.admin.titulo}</a>
 

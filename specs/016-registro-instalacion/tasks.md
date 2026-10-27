@@ -15,8 +15,8 @@
 
 ## Fase 3: Cliente y ficha (US1) — P1
 
-- [ ] T006 [US1] `+layout.server.ts` devuelve `instalacion` (estado propio). Componente `src/routes/(app)/RegistroInstalacion.svelte` montado en `+layout.svelte`; envía `instalada` o `rechazada` según RF-279 sin reenviar. Prueba de componente y textos en `textos.ts`.
-- [ ] T007 [US1] Línea de estado en la ficha `admin/usuarios/[usuarioId=ulid]` (`load` y `+page.svelte`). E2E `e2e/flujos/instalacion-f16.spec.ts` (CA-279, CA-281) y axe en claro y oscuro de la ficha.
+- [x] T006 [US1] `+layout.server.ts` devuelve `instalacion` (estado propio). Componente `src/routes/(app)/RegistroInstalacion.svelte` montado en `+layout.svelte`; envía `instalada` o `rechazada` según RF-279 sin reenviar. Prueba de componente y textos en `textos.ts`.
+- [x] T007 [US1] Línea de estado en la ficha `admin/usuarios/[usuarioId=ulid]` (`load` y `+page.svelte`). E2E `e2e/flujos/instalacion-f16.spec.ts` (CA-279, CA-281) y axe en claro y oscuro de la ficha.
 
 ## Fase 4: Privacidad (US1) — P1
 
