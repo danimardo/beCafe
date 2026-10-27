@@ -20,7 +20,7 @@
 
 ## Fase 4: Privacidad (US1) — P1
 
-- [ ] T008 [US1] `VERSION_PRIVACIDAD = 5` y líneas nuevas en `src/lib/shared/privacidad.ts`. Ajustar las pruebas afectadas (CA-224, CA-282).
+- [x] T008 [US1] `VERSION_PRIVACIDAD = 5` y líneas nuevas en `src/lib/shared/privacidad.ts`. Ajustar las pruebas afectadas (CA-224, CA-282).
 
 ## Fase 5: Cierre
 

@@ -22,15 +22,17 @@ describe('texto de privacidad (RF-160, PEND-014)', () => {
 		expect(textos.some((texto) => texto.includes('[contacto]'))).toBe(true);
 	});
 
-	it('CA-224: la versión 4 nombra al responsable y al gestor, sin correo ni teléfono, e informa de las frases y los mensajes del día mostrados', () => {
+	it('CA-224: la versión 5 nombra al responsable y al gestor, sin correo ni teléfono, e informa de las frases y los mensajes del día mostrados', () => {
 		const completo = TEXTO_PRIVACIDAD.map((bloque) => (bloque.tipo === 'lista' ? bloque.elementos.join(' ') : bloque.texto)).join(' ');
-		expect(VERSION_PRIVACIDAD).toBe(4);
+		expect(VERSION_PRIVACIDAD).toBe(5);
 		expect(completo).toContain(
 			'Mardomingo Software. Gestiona la aplicación, dentro de la empresa, el responsable del departamento de informática, Daniel Diez Mardomingo: contacta con él en persona o por el canal interno del departamento.',
 		);
 		expect(completo).toContain(
 			'Las frases y los mensajes del día de Capsulito que ya te ha mostrado y la hora de su último saludo, para no repetírtelos.',
 		);
+		expect(completo).toContain('Si has instalado la aplicación en tu dispositivo o has rechazado hacerlo, y cuándo.');
+		expect(completo).toContain('Solo los administradores ven si has instalado la aplicación y cuándo.');
 		expect(completo).not.toContain('[Nombre de la empresa]');
 		expect(completo).not.toMatch(/@|\+?\d{9}/);
 	});

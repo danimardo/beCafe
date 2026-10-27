@@ -1,8 +1,8 @@
-// Texto informativo de privacidad, anexo A de historias.md, versión 4 (RF-160, RF-224, PEND-014; CAMBIO-019, CAMBIO-022, CAMBIO-027).
+// Texto informativo de privacidad, anexo A de historias.md, versión 5 (RF-160, RF-224, PEND-014; CAMBIO-019, CAMBIO-022, CAMBIO-027, CAMBIO-028).
 // Los marcadores entre corchetes que quedan se completan antes de usar datos reales; hasta entonces el texto no es definitivo.
 
 /** Versión vigente. Subirla obliga a todas las personas a releer el texto (RF-160). */
-export const VERSION_PRIVACIDAD = 4;
+export const VERSION_PRIVACIDAD = 5;
 
 /** Párrafo «Visitantes» del anexo A v2. La pantalla de entrada de un visitante lo muestra antes del nombre (plan F10 D11). */
 export const TEXTO_VISITANTES =
@@ -39,6 +39,7 @@ export const TEXTO_PRIVACIDAD: readonly BloquePrivacidad[] = [
 			'Tus preferencias de notificaciones y los datos técnicos de tus dispositivos suscritos a las notificaciones.',
 			'Las sesiones abiertas (fecha y tipo de navegador) y las acciones de administración.',
 			'Las frases y los mensajes del día de Capsulito que ya te ha mostrado y la hora de su último saludo, para no repetírtelos.',
+			'Si has instalado la aplicación en tu dispositivo o has rechazado hacerlo, y cuándo.',
 		],
 	},
 	{
@@ -47,6 +48,7 @@ export const TEXTO_PRIVACIDAD: readonly BloquePrivacidad[] = [
 		elementos: [
 			'Todos los miembros ven tu saldo, tus aportaciones, las compras que registres y tus rellenos de agua, incluidos el ranking de rellenos y el título de aguador del mes.',
 			'Todos los miembros ven tu foto y tus estadísticas de consumo (cuántos cafés tomas, de qué tipo y cuándo).',
+			'Solo los administradores ven si has instalado la aplicación y cuándo.',
 		],
 	},
 	{
