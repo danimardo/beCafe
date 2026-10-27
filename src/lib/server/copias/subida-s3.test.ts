@@ -22,6 +22,20 @@ describe('listado del bucket (RF-253, CA-253)', () => {
 		]);
 	});
 
+	it('CA-289: la lista trae el origen y el tipo de cada copia; las anteriores a F17 no tienen origen', () => {
+		const xml = `<ListBucketResult>
+			${objeto('becafe/2026/10/becafe-2026-10-27T03-00-00.000Z__becafe.mardomingo.com__manual.tar.gz', 10, '2026-10-27T03:00:05.000Z')}
+			${objeto('becafe/2026/10/becafe-2026-10-26T03-00-00.000Z__local__diaria.tar.gz', 20, '2026-10-26T03:00:05.000Z')}
+			${objeto('becafe/2026/10/becafe-2026-10-25T03-00-00.000Z.tar.gz', 30, '2026-10-25T03:00:05.000Z')}
+		</ListBucketResult>`;
+
+		expect(analizarListado(xml).map((copia) => [copia.origen, copia.tipo])).toEqual([
+			['becafe.mardomingo.com', 'manual'],
+			['local', 'diaria'],
+			[null, 'diaria'],
+		]);
+	});
+
 	it('ignora lo que no es una copia o no tiene datos válidos', () => {
 		const xml = `<ListBucketResult>
 			${objeto('becafe/', 0, '2026-10-24T01:00:05.000Z')}

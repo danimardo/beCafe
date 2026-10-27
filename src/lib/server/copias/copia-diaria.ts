@@ -10,6 +10,7 @@ import { ErrorCopia, type CodigoCopia } from './errores';
 import { hacerInstantanea } from './instantanea';
 import { empaquetar } from './empaquetado';
 import type { Subidor } from './subida-s3';
+import { construirClave, type TipoCopiaClave } from './dominio/clave-copia';
 
 // Copia diaria (plan F8 D1, D2, D3). La E/S va fuera de transacciones; solo el registro de estado y el aviso van dentro.
 
@@ -19,20 +20,19 @@ export type DependenciasCopia = {
 	db: Db;
 	reloj: Reloj;
 	directorioDatos: string;
+	/** Origen del sistema (`origenDeSistema(ORIGIN)`), que va en la clave de la copia (RF-289). */
+	origen: string;
 	subir: Subidor;
 };
 
-/** Clave del objeto: `becafe/AAAA/MM/becafe-<instante>.tar.gz`. Los dos puntos del instante se cambian por guiones. */
-export function claveDeCopia(instante: InstanteUtc): string {
-	const fecha = instante.slice(0, 10);
-	const anio = fecha.slice(0, 4);
-	const mes = fecha.slice(5, 7);
-	return `becafe/${anio}/${mes}/becafe-${instante.replaceAll(':', '-')}.tar.gz`;
+/** Clave del objeto: `becafe/AAAA/MM/becafe-<instante>__<origen>__<tipo>.tar.gz` (plan F17 D2). */
+export function claveDeCopia(instante: InstanteUtc, origen: string, tipo: TipoCopiaClave = 'diaria'): string {
+	return construirClave({ instante, origen, tipo });
 }
 
 /** Ejecuta la copia del día de Madrid. Si ya consta en `ejecucion_tarea`, no hace nada (Clarifications 1). Nunca lanza: un fallo queda en la copia. */
 export async function hacerCopiaDiaria(dependencias: DependenciasCopia): Promise<void> {
-	const { db, reloj, directorioDatos, subir } = dependencias;
+	const { db, reloj, directorioDatos, origen, subir } = dependencias;
 	const ahora = reloj.ahora();
 	const copiaId = nuevoId();
 	const iniciada = enTransaccion(db, (tx) => {
@@ -55,7 +55,7 @@ export async function hacerCopiaDiaria(dependencias: DependenciasCopia): Promise
 			directorioFotos: join(directorioDatos, 'fotos'),
 			destino: archivo,
 		});
-		const clave = claveDeCopia(ahora);
+		const clave = claveDeCopia(ahora, origen);
 		await subir({ clave, ruta: archivo, sha256 });
 		db.update(copiaSeguridad)
 			.set({ estado: 'correcta', finalizadaEn: reloj.ahora(), tamano, sha256, claveObjeto: clave })

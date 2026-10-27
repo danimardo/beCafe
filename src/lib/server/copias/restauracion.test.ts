@@ -10,6 +10,7 @@ import { crearUsuario } from '#lib/server/usuarios';
 import { aplicarRestauracionPendiente } from './aplicar-restauracion';
 import { empaquetar } from './empaquetado';
 import { ErrorCopia, ErrorRestauracion, type CodigoRestauracion } from './errores';
+import { leerClave } from './dominio/clave-copia';
 import { hacerInstantanea } from './instantanea';
 import { ARCHIVO_PENDIENTE, claveDeResguardo, esquemaPendiente, restaurarCopia, SUBDIRECTORIO_RESTAURACION } from './restauracion';
 import type { ClienteS3 } from './subida-s3';
@@ -38,6 +39,7 @@ function crearBucketFalso() {
 					tamano: objeto.datos.length,
 					modificadaEn: objeto.modificadaEn,
 					resguardo: clave.startsWith('becafe/resguardos/'),
+					...leerClave(clave),
 				})),
 			);
 		},
@@ -145,7 +147,7 @@ describe('restaurar una copia desde la aplicación (EV-112, EV-113, RF-253 a RF-
 			);
 			expect(marca.clave).toBe(CLAVE_COPIA);
 			expect(marca.adminId).toBe(admin.usuarioId);
-			expect(marca.resguardo).toBe(claveDeResguardo(INSTANTE));
+			expect(marca.resguardo).toBe(claveDeResguardo(INSTANTE, 'local'));
 			expect(bucket.objetos.has(marca.resguardo)).toBe(true);
 			expect(reiniciar).toHaveBeenCalledTimes(1);
 			// Los registros siguen bloqueados hasta que el proceso termina (plan F14 D2).

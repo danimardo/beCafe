@@ -8,7 +8,8 @@ import { ErrorCopia, ErrorRestauracion, type CodigoRestauracion } from './errore
 import { desempaquetar, empaquetar, sha256De } from './empaquetado';
 import { hacerInstantanea } from './instantanea';
 import { exigirPermisoCopias } from './pruebas-restauracion';
-import { esquemaClaveCopia, PREFIJO_RESGUARDOS, type ClienteS3 } from './subida-s3';
+import { construirClave } from './dominio/clave-copia';
+import { esquemaClaveCopia, type ClienteS3 } from './subida-s3';
 import { verificarCopia } from './verificacion';
 
 // Restauración de una copia desde la aplicación (plan F14 D1, RF-254, RF-255). Aquí solo se PREPARA: la sustitución de los
@@ -29,9 +30,9 @@ export type RestauracionPendiente = z.infer<typeof esquemaPendiente>;
 export const esquemaRestaurar = z.strictObject({ clave: esquemaClaveCopia, contrasena: z.string().min(1) });
 export type EntradaRestaurar = z.input<typeof esquemaRestaurar>;
 
-/** Clave de la copia de resguardo: `becafe/resguardos/AAAA/MM/becafe-<instante>.tar.gz`. */
-export function claveDeResguardo(instante: string): string {
-	return `${PREFIJO_RESGUARDOS}${instante.slice(0, 4)}/${instante.slice(5, 7)}/becafe-${instante.replaceAll(':', '-')}.tar.gz`;
+/** Clave de la copia de resguardo: `becafe/resguardos/AAAA/MM/becafe-<instante>__<origen>__resguardo.tar.gz`. */
+export function claveDeResguardo(instante: string, origen: string): string {
+	return construirClave({ instante, origen, tipo: 'resguardo' });
 }
 
 function aErrorRestauracion(causa: unknown, fase: 'bucket' | 'resguardo'): unknown {
@@ -82,7 +83,7 @@ export async function restaurarCopia(
 		await mkdir(temporales, { recursive: true });
 
 		// Copia de resguardo del estado actual, subida al bucket antes de tocar nada.
-		const resguardo = claveDeResguardo(ahora);
+		const resguardo = claveDeResguardo(ahora, ambiente.copias.origen);
 		try {
 			hacerInstantanea(ambiente.db, join(temporales, 'instantanea.db'));
 			const paquete = join(temporales, 'resguardo.tar.gz');

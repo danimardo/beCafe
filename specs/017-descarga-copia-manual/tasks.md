@@ -5,8 +5,8 @@
 ## Fase 1: Documentos y clave de copia
 
 - [x] T001 Aplicar CAMBIO-029 en `historias.md` v0.29.0, con respaldo `.respaldos/historias-v0.28.0-20261027.md`. ADR `docs/adr/0007-descarga-de-copias.md`. Commit.
-- [ ] T002 [US3] Dominio puro `src/lib/server/copias/dominio/clave-copia.ts`: `construirClave`, `leerClave` (acepta claves antiguas) y `origenDeSistema`. Pruebas unitarias y de propiedades (CA-289).
-- [ ] T003 [US3] `claveDeCopia` y `claveDeResguardo` usan `construirClave`; `analizarListado` y `CopiaBucket` incluyen `origen` y `tipo`. `ambiente.copias.origen` desde `arranque.ts`. Pruebas de listado con claves nuevas y antiguas.
+- [x] T002 [US3] Dominio puro `src/lib/server/copias/dominio/clave-copia.ts`: `construirClave`, `leerClave` (acepta claves antiguas) y `origenDeSistema`. Pruebas unitarias y de propiedades (CA-289).
+- [x] T003 [US3] `claveDeCopia` y `claveDeResguardo` usan `construirClave`; `analizarListado` y `CopiaBucket` incluyen `origen` y `tipo`. `ambiente.copias.origen` desde `arranque.ts`. Pruebas de listado con claves nuevas y antiguas.
 
 ## Fase 2: Copia manual y descarga en el servidor
 

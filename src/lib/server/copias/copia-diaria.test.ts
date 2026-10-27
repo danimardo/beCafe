@@ -77,6 +77,7 @@ describe('copia diaria (CA-140, CA-142, RF-140 a RF-142)', () => {
 			db: entorno.ambiente.db,
 			reloj: crearRelojFijo(instante),
 			directorioDatos,
+			origen: 'local',
 			subir: subidor(endpoint),
 		});
 	}
@@ -90,7 +91,7 @@ describe('copia diaria (CA-140, CA-142, RF-140 a RF-142)', () => {
 
 		const [copia] = copias();
 		expect(copia.estado).toBe('correcta');
-		expect(copia.claveObjeto).toMatch(/^becafe\/2026\/10\/becafe-2026-10-23T01-00-00\.000Z\.tar\.gz$/);
+		expect(copia.claveObjeto).toMatch(/^becafe\/2026\/10\/becafe-2026-10-23T01-00-00\.000Z__local__diaria\.tar\.gz$/);
 		expect(copia.tamano).toBeGreaterThan(0);
 		expect(copia.sha256).toMatch(/^[0-9a-f]{64}$/);
 		expect(s3.peticiones).toEqual([expect.objectContaining({ metodo: 'PUT', firmada: true })]);

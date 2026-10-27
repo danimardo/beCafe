@@ -26,7 +26,7 @@ export type Ambiente = {
 	/** Azar del reparto de céntimos (RN-014). Las pruebas lo sustituyen por uno fijo. */
 	azar: Azar;
 	/** Copias y restauración (plan F8 D8, plan F14 D1). Sin `s3` no hay copia diaria ni restauración. */
-	copias: { directorioDatos: string; carpetaMigraciones: string; s3: ConfiguracionS3 | undefined };
+	copias: { directorioDatos: string; carpetaMigraciones: string; s3: ConfiguracionS3 | undefined; origen: string };
 	/** Estado del proceso mientras se prepara una restauración (plan F14 D2). Es un objeto del arranque, no estado de módulo. */
 	mantenimiento: { restaurando: boolean };
 	/** Termina el proceso para que el contenedor lo vuelva a arrancar (plan F14 D1). Las pruebas lo sustituyen. */

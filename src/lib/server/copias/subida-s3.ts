@@ -3,6 +3,7 @@ import { AwsClient } from 'aws4fetch';
 import { z } from 'zod';
 import type { ConfiguracionS3 } from '#lib/server/plataforma';
 import { ErrorCopia } from './errores';
+import { leerClave, type TipoCopiaClave } from './dominio/clave-copia';
 
 // Único archivo que importa `aws4fetch` (plan F8 D1, paso 4; plan F14 D1). Nunca devuelve ni registra la URL firmada ni las cabeceras.
 
@@ -21,7 +22,15 @@ export const PREFIJO_RESGUARDOS = 'becafe/resguardos/';
 export type Subidor = (entrada: { clave: string; ruta: string; sha256: string }) => Promise<void>;
 
 /** Copia del bucket tal como la lista S3 (RF-253, data-model.md). */
-export type CopiaBucket = { clave: string; tamano: number; modificadaEn: string; resguardo: boolean };
+/** `origen` es `null` en las copias anteriores a F17 (RF-289); `tipo` sale de la clave (RF-287). */
+export type CopiaBucket = {
+	clave: string;
+	tamano: number;
+	modificadaEn: string;
+	resguardo: boolean;
+	origen: string | null;
+	tipo: TipoCopiaClave;
+};
 
 export type ClienteS3 = {
 	subir: Subidor;
@@ -48,7 +57,8 @@ export function analizarListado(xml: string): CopiaBucket[] {
 		const campo = (nombre: string) => new RegExp(`<${nombre}>([^<]*)</${nombre}>`).exec(contenido)?.[1];
 		const leido = esquemaContenido.safeParse({ clave: campo('Key'), tamano: campo('Size'), modificadaEn: campo('LastModified') });
 		if (!leido.success) continue;
-		copias.push({ ...leido.data, resguardo: leido.data.clave.startsWith(PREFIJO_RESGUARDOS) });
+		const { origen, tipo } = leerClave(leido.data.clave);
+		copias.push({ ...leido.data, resguardo: leido.data.clave.startsWith(PREFIJO_RESGUARDOS), origen, tipo });
 	}
 	return copias.sort((a, b) => b.modificadaEn.localeCompare(a.modificadaEn)).slice(0, LIMITE_COPIAS_BUCKET);
 }

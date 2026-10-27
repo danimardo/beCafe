@@ -2,6 +2,7 @@ import { join } from 'node:path';
 import pkg from '../../package.json' with { type: 'json' };
 import { esquemasEntorno } from '../../src/env';
 import { recuperarAcceso } from '#lib/server/auth';
+import { origenDeSistema } from '#lib/server/copias';
 import {
 	abrirBaseDatos,
 	aplicarMigraciones,
@@ -84,7 +85,7 @@ export function abrirAmbienteComando(entorno: Entorno, carpetaMigraciones: strin
 			limitadorVisitantes: crearLimitador({ maximo: 10, ventanaMs: 60_000 }),
 			azar: azarReal,
 			// Los comandos no programan copias ni restauran: la lectura del panel no las necesita.
-			copias: { directorioDatos: entorno.directorioDatos, carpetaMigraciones, s3: undefined },
+			copias: { directorioDatos: entorno.directorioDatos, carpetaMigraciones, s3: undefined, origen: origenDeSistema(entorno.origen) },
 			mantenimiento: { restaurando: false },
 			reiniciar: () => undefined,
 		},

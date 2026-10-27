@@ -9,6 +9,7 @@ import {
 	aplicarRestauracionPendiente,
 	crearSubidaS3,
 	hacerCopiaDiaria,
+	origenDeSistema,
 	prepararArranqueCopias,
 	TAREA_COPIA_DIARIA,
 	type ConfiguracionS3,
@@ -104,7 +105,12 @@ export function prepararAmbiente(configuracion: ConfiguracionArranque): Ambiente
 		limitadorAvisos: crearLimitador({ maximo: 1, ventanaMs: 60_000 }),
 		limitadorVisitantes: crearLimitador({ maximo: 10, ventanaMs: 60_000 }),
 		azar: azarReal,
-		copias: { directorioDatos: configuracion.directorioDatos, carpetaMigraciones: configuracion.carpetaMigraciones, s3: configuracion.s3 },
+		copias: {
+			directorioDatos: configuracion.directorioDatos,
+			carpetaMigraciones: configuracion.carpetaMigraciones,
+			s3: configuracion.s3,
+			origen: origenDeSistema(configuracion.origen),
+		},
 		mantenimiento: { restaurando: false },
 		reiniciar: crearReinicio(() => conexion.cerrar()),
 	};
@@ -146,7 +152,14 @@ export async function arrancar(configuracion: ConfiguracionArranque): Promise<Am
 			nombre: TAREA_COPIA_DIARIA,
 			cron: '0 3 * * *',
 			periodo: (instante) => fechaDeMadrid(esquemaInstanteUtc.parse(instante.toISOString())),
-			ejecutar: () => hacerCopiaDiaria({ db: ambiente.db, reloj: ambiente.reloj, directorioDatos: configuracion.directorioDatos, subir }),
+			ejecutar: () =>
+				hacerCopiaDiaria({
+					db: ambiente.db,
+					reloj: ambiente.reloj,
+					directorioDatos: configuracion.directorioDatos,
+					origen: ambiente.copias.origen,
+					subir,
+				}),
 		});
 	}
 	planificador.registrar({
