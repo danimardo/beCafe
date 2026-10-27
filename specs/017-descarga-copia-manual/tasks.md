@@ -27,7 +27,7 @@
 
 ## Fase 5: Cierre
 
-- [ ] T012 `ARCHITECTURE.md` y `docs/pruebas.md`. `npm run verify` completo y E2E afectados; anotar en `.local/verification/runs.jsonl`; revisar `git status`; informe final.
+- [x] T012 `ARCHITECTURE.md` y `docs/pruebas.md`. `npm run verify` completo y E2E afectados; anotar en `.local/verification/runs.jsonl`; revisar `git status`; informe final.
 
 ## Dependencias
 
