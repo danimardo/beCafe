@@ -32,11 +32,13 @@ RUN npm ci --omit=dev
 
 # Imagen final: misma base (misma libc), sin compiladores, usuario sin privilegios y volumen `/data`.
 FROM base AS final
+# BODY_SIZE_LIMIT: adapter-node rechaza cuerpos de más de 512 KB; las fotos admiten 5 MB (TAMANO_MAXIMO_FOTO) más el resto del formulario.
 ENV NODE_ENV=production \
 	TZ=Europe/Madrid \
 	DIRECTORIO_DATOS=/data \
 	HOST=0.0.0.0 \
-	PORT=3000
+	PORT=3000 \
+	BODY_SIZE_LIMIT=8M
 COPY --from=dependencias --chown=node:node /app/node_modules ./node_modules
 COPY --from=construccion --chown=node:node /app/build ./build
 COPY --from=construccion --chown=node:node /app/build-scripts ./build-scripts
