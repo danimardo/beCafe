@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import { Banner, Button, PageHeader, Section } from '#lib/ui';
+	import { Banner, Button, OrigenesCopia, PageHeader, Section } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
 
 	const errores = $derived(form && 'errores' in form ? form.errores : {});
+	// Solo se compara si la copia dice su origen: las anteriores a F17 no lo dicen (RF-290).
+	const distinto = $derived(data.copia.origen !== null && data.copia.origen !== data.origenSistema);
 </script>
 
 <svelte:head>
@@ -23,6 +25,18 @@
 			<p>{textos.copias.efectoResguardo}</p>
 			<p>{textos.copias.efectoCorte}</p>
 		</div>
+	</Section>
+
+	<Section title={textos.copias.origenCopia}>
+		<OrigenesCopia
+			etiquetaCopia={textos.copias.origenCopia}
+			origenCopia={textos.copias.origenDe(data.copia.origen)}
+			etiquetaSistema={textos.copias.origenSistema}
+			origenSistema={textos.copias.origenDe(data.origenSistema)}
+			aviso={distinto
+				? textos.copias.avisoOrigenDistinto(textos.copias.origenDe(data.copia.origen), textos.copias.origenDe(data.origenSistema))
+				: undefined}
+		/>
 	</Section>
 
 	<form method="post" action="?/restaurar" use:enhance class="flex max-w-xl flex-col gap-4">

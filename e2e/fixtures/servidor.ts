@@ -34,7 +34,12 @@ const CRONOMETRO_ARRANQUE_MS = 60_000;
  * Un servidor por worker: `node build` con su puerto y su directorio de datos (docs/pruebas.md §12.1).
  * El arranque se detecta por la línea que escribe el adaptador de Node; no hay bucles de espera.
  */
-export const test = base.extend<object, { servidor: ServidorDePrueba }>({
+/**
+ * `conS3`: arranca el servidor con un bucket S3 ficticio (https a un puerto cerrado). Sirve para ver las opciones que solo existen con
+ * S3 (hacer una copia, descargar) y el aviso de fallo; ninguna prueba E2E habla con un bucket real. Valores de prueba, no secretos.
+ */
+export const test = base.extend<object, { servidor: ServidorDePrueba; conS3: boolean }>({
+	conS3: [false, { option: true, scope: 'worker' }],
 	// La bienvenida de antes de entrar (RF-195) taparía el formulario de `/login` en cada prueba. Las pruebas que la
 	// comprueban abren su propio contexto con `browser.newContext()`, que no pasa por este valor.
 	context: async ({ context }, use) => {
@@ -52,7 +57,7 @@ export const test = base.extend<object, { servidor: ServidorDePrueba }>({
 		await use(context);
 	},
 	servidor: [
-		async ({}, use, workerInfo) => {
+		async ({ conS3 }, use, workerInfo) => {
 			const puerto = PUERTO_BASE + workerInfo.parallelIndex;
 			const url = `http://127.0.0.1:${puerto}`;
 			await mkdir(join(process.cwd(), '.local'), { recursive: true });
@@ -69,6 +74,15 @@ export const test = base.extend<object, { servidor: ServidorDePrueba }>({
 				ADMIN_INICIAL_NOMBRE: 'Administración de prueba',
 				LOG_LEVEL: process.env.E2E_LOG_LEVEL ?? 'warn',
 				TZ: 'Europe/Madrid',
+				...(conS3
+					? {
+							S3_ENDPOINT: 'https://127.0.0.1:9',
+							S3_BUCKET: 'becafe-e2e',
+							S3_REGION: 'eu-south-2',
+							S3_ACCESS_KEY: 'clave-e2e',
+							S3_SECRET_KEY: 'secreto-e2e',
+						}
+					: {}),
 			};
 			const proceso: ChildProcess = spawn(process.execPath, ['build'], {
 				cwd: process.cwd(),

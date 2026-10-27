@@ -21,9 +21,9 @@
 
 ## Fase 4: Pantallas
 
-- [ ] T009 [US1] [US2] [US3] `/admin/copias`: «Descargar», «Hacer copia ahora» con confirmación, etiquetas «Manual» y origen. Ruta `descargar/[...clave]/+server.ts`. *Action* `?/copiaManual`. Textos en `textos.ts`. Pruebas de la *action* y de la ruta con evento falso.
-- [ ] T010 [US3] Confirmación de `restaurar/[...clave]` con ambos orígenes y `Banner` si difieren (CA-290).
-- [ ] T011 Ruta de descarga en `e2e/acceso/rutas.ts` (EV-050). E2E `flujos/copias-f17`, `sin-js` del botón y axe en claro y oscuro.
+- [x] T009 [US1] [US2] [US3] `/admin/copias`: «Descargar», «Hacer copia ahora» con confirmación, etiquetas «Manual» y origen. Ruta `descargar/[...clave]/+server.ts`. *Action* `?/copiaManual`. Textos en `textos.ts`. Pruebas de la *action* y de la ruta con evento falso.
+- [x] T010 [US3] Confirmación de `restaurar/[...clave]` con ambos orígenes y `Banner` si difieren (CA-290).
+- [x] T011 Ruta de descarga en `e2e/acceso/rutas.ts` (EV-050). E2E `flujos/copias-f17`, `sin-js` del botón y axe en claro y oscuro.
 
 ## Fase 5: Cierre
 

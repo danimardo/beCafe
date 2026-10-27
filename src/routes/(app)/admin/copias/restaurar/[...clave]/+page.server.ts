@@ -42,7 +42,10 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		// El permiso va antes que el bucket: un miembro recibe 403 aunque no haya S3 configurado.
 		exigirPermisoCopias(locals.ambiente.db, actor);
 		const copia = await leerCopiaARestaurar(locals.ambiente, actor, consulta.data.clave, clienteDe(locals.ambiente));
-		return { copia: { ...copia, fecha: formatearFechaHoraMadrid(copia.modificadaEn) } };
+		return {
+			copia: { ...copia, fecha: formatearFechaHoraMadrid(copia.modificadaEn) },
+			origenSistema: locals.ambiente.copias.origen,
+		};
 	} catch (causa) {
 		if (causa instanceof ErrorRestauracion) {
 			error(ESTADO_RESTAURACION[causa.codigo], textos.copias.restauracion[causa.codigo]);

@@ -36,6 +36,26 @@ test('EV-050: sin sesión, la foto de una persona responde 401', async ({ reques
 	expect(respuesta.status()).toBe(401);
 });
 
+// EV-050: la descarga de una copia (F17, RF-284) responde 401 sin sesión, 403 a un miembro y 404 a un administrador sin bucket.
+const DESCARGA_DE_PRUEBA = '/admin/copias/descargar/becafe/2026/10/becafe-prueba.tar.gz';
+
+test('EV-050: sin sesión, la descarga de una copia responde 401', async ({ request, servidor }) => {
+	const respuesta = await request.get(`${servidor.url}${DESCARGA_DE_PRUEBA}`, { maxRedirects: 0 });
+	expect(respuesta.status()).toBe(401);
+});
+
+test('EV-050: un miembro no puede descargar una copia', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'miembro');
+	const respuesta = await page.request.get(`${servidor.url}${DESCARGA_DE_PRUEBA}`, { maxRedirects: 0 });
+	expect(respuesta.status()).toBe(403);
+});
+
+test('CA-288: un administrador sin S3 configurado no puede descargar una copia', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'administrador');
+	const respuesta = await page.request.get(`${servidor.url}${DESCARGA_DE_PRUEBA}`, { maxRedirects: 0 });
+	expect(respuesta.status()).toBe(404);
+});
+
 // EV-050: un POST a la API de consumos sin sesión responde 401 y no registra nada (F3, plan D6).
 for (const ruta of RUTAS_API_PROTEGIDAS) {
 	test(`EV-050: sin sesión, POST ${ruta} responde 401`, async ({ request, servidor }) => {

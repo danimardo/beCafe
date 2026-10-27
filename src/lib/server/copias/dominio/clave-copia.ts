@@ -3,8 +3,9 @@
 export const TIPOS_COPIA_CLAVE = ['diaria', 'manual', 'resguardo'] as const;
 export type TipoCopiaClave = (typeof TIPOS_COPIA_CLAVE)[number];
 
-/** Origen que se guarda para `localhost` y `127.0.0.1`. La interfaz lo muestra como «Local». */
-export const ORIGEN_LOCAL = 'local';
+import { ORIGEN_LOCAL } from '#lib/shared/copias/origen';
+
+export { ORIGEN_LOCAL };
 
 const PREFIJO_RESGUARDOS = 'becafe/resguardos/';
 

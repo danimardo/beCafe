@@ -1,17 +1,23 @@
-import { redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../../fallo';
 import {
 	anotarPruebaRestauracion,
 	crearClienteS3,
+	ErrorCopia,
+	ErrorOperacionCopia,
+	ESTADO_OPERACION_COPIA,
 	esquemaAnotarPrueba,
+	hacerCopiaManual,
 	leerCopias,
 	leerEstadoRestauracion,
 	leerPruebas,
 	type CopiaBucket,
 } from '#lib/server/copias';
+import { esErrorDeNegocio, registrarRechazo } from '#lib/server/plataforma';
 import { leerUltimaAuditoria } from '#lib/server/usuarios';
+import { textos } from '#lib/shared/textos';
 import { z } from 'zod';
 import { fechaDeMadrid } from '#lib/shared/fechas/meses';
 
@@ -41,6 +47,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 			pruebas: leerPruebas(db, actor),
 			restauracion: leerEstadoRestauracion(db, actor, hoy),
 			s3Activa: s3 !== undefined,
+			origenSistema: locals.ambiente.copias.origen,
 			bucket,
 			bucketError,
 			ultimaRestauracion:
@@ -54,6 +61,31 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 };
 
 export const actions: Actions = {
+	// «Hacer copia ahora» (RF-286): hace y sube una copia manual. Sin JavaScript, la página se recarga con el resultado.
+	copiaManual: async ({ locals }) => {
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		try {
+			await hacerCopiaManual(locals.ambiente, actor);
+		} catch (causa) {
+			if (causa instanceof ErrorOperacionCopia) {
+				const mensaje = textos.copias.operacion[causa.codigo];
+				return fail(ESTADO_OPERACION_COPIA[causa.codigo], { errores: { copia: { codigo: causa.codigo, mensaje } }, valores: {} });
+			}
+			if (causa instanceof ErrorCopia) {
+				// 424: falló una dependencia (el bucket). Un 5xx es un fallo de la aplicación y aquí el rechazo está previsto (XIII).
+				const mensaje = textos.copias.copiaFallida(textos.copias.codigo[causa.codigo]);
+				return fail(424, { errores: { copia: { codigo: causa.codigo, mensaje } }, valores: {} });
+			}
+			if (esErrorDeNegocio(causa)) {
+				registrarRechazo(causa);
+				if (causa.codigo === 'SIN_PERMISO') error(403, textos.errores.SIN_PERMISO);
+			}
+			throw causa;
+		}
+		return { copiaHecha: true as const };
+	},
+
 	// «Anotar prueba de restauración» (RF-143): fecha no futura, resultado y notas opcionales.
 	anotarPrueba: async ({ request, locals }) => {
 		const actor = locals.actor;

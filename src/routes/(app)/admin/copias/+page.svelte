@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { refreshAll } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import ClipboardCheck from '@lucide/svelte/icons/clipboard-check';
 	import Cloud from '@lucide/svelte/icons/cloud';
 	import DatabaseBackup from '@lucide/svelte/icons/database-backup';
 	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
-	import { Banner, Button, EmptyState, PageHeader, Section } from '#lib/ui';
+	import CirclePlus from '@lucide/svelte/icons/circle-plus';
+	import { Banner, Button, CopiaBucketFila, EmptyState, PageHeader, Section } from '#lib/ui';
 	import { formatearFechaHoraMadrid } from '#lib/shared/fechas/formato';
 	import { textos } from '#lib/shared/textos';
 	import SeccionCopias from './SeccionCopias.svelte';
@@ -13,8 +15,14 @@
 
 	let { data, form }: PageProps = $props();
 
-	const errores = $derived(form && 'errores' in form && form.errores ? form.errores : {});
+	type ErroresDeCampo = Record<string, { codigo: string; mensaje: string } | undefined>;
+	const errores = $derived<ErroresDeCampo>(form && 'errores' in form && form.errores ? form.errores : {});
 	const anotada = $derived(Boolean(form && 'anotada' in form));
+	const copiaHecha = $derived(Boolean(form && 'copiaHecha' in form));
+
+	// «Hacer copia ahora» (RF-286): la confirmación se abre en la propia pantalla y funciona sin JavaScript.
+	let confirmando = $state(false);
+	let haciendo = $state(false);
 </script>
 
 <svelte:head>
@@ -43,6 +51,42 @@
 	{/if}
 
 	<SeccionCopias titulo={textos.copias.titulo} tono="estado" icono={DatabaseBackup}>
+		{#if data.s3Activa}
+			<details bind:open={confirmando} class="mb-4 rounded-tile border border-hairline bg-wall-base p-3">
+				<summary class="inline-flex min-h-11 cursor-pointer items-center gap-2 text-[15px] font-semibold text-ink">
+					<CirclePlus class="size-5 shrink-0 text-accent" aria-hidden="true" />
+					<span>{textos.copias.hacerCopiaAhora}</span>
+				</summary>
+				<div class="mt-3 flex max-w-xl flex-col gap-3 text-[15px]">
+					<p class="text-ink-muted">{textos.copias.hacerCopiaAyuda}</p>
+					<p>{textos.copias.hacerCopiaEfecto}</p>
+					<form
+						method="post"
+						action="?/copiaManual"
+						use:enhance={() => {
+							haciendo = true;
+							return async ({ result, update }) => {
+								await update();
+								// Un fallo de la copia no vuelve a ejecutar el `load`, pero deja una copia fallida en la lista.
+								if (result.type === 'failure') await refreshAll();
+								haciendo = false;
+								if (result.type === 'success') confirmando = false;
+							};
+						}}
+					>
+						<Button type="submit" loading={haciendo}>{haciendo ? textos.copias.haciendoCopia : textos.copias.confirmarCopia}</Button>
+					</form>
+				</div>
+			</details>
+		{:else}
+			<p class="mb-4 text-[15px] text-ink-muted">{textos.copias.operacion.SIN_S3}</p>
+		{/if}
+		{#if copiaHecha}
+			<p role="status" class="mb-4 text-[15px] text-ink">{textos.copias.copiaHecha}</p>
+		{/if}
+		{#if errores.copia}
+			<Banner tone="warning" class="mb-4">{errores.copia.mensaje}</Banner>
+		{/if}
 		{#if data.copias.length === 0}
 			<EmptyState title={textos.copias.sinCopias} />
 		{:else}
@@ -52,7 +96,7 @@
 						<span class="font-semibold">{copia.iniciadaEn.slice(0, 16).replace('T', ' ')}</span>
 						<span>
 							{#if copia.estado === 'correcta'}✔{:else if copia.estado === 'fallida'}⚠{:else}…{/if}
-							{textos.copias.estado[copia.estado]}{copia.tamano === null
+							{copia.tipo === 'manual' ? `${textos.copias.manual} · ` : ''}{textos.copias.estado[copia.estado]}{copia.tamano === null
 								? ''
 								: ` · ${textos.copias.tamano(copia.tamano)}`}{copia.codigoError ? ` · ${textos.copias.codigo[copia.codigoError]}` : ''}
 						</span>
@@ -71,16 +115,21 @@
 			<p class="text-[15px] text-ink-muted">{textos.copias.bucketSinCopias}</p>
 		{:else}
 			<p class="mb-3 text-[15px] text-ink-muted">{textos.copias.bucketAyuda}</p>
-			<ul class="flex flex-col gap-3 text-[15px]">
+			<ul class="flex flex-col gap-4 text-[15px]">
 				{#each data.bucket as copia (copia.clave)}
-					<li class="flex flex-col">
-						<span class="font-semibold">{formatearFechaHoraMadrid(copia.modificadaEn)}</span>
-						<span class="text-ink-muted">
-							{textos.copias.tamano(copia.tamano)}{copia.resguardo ? ` · ${textos.copias.resguardo}` : ''}
-						</span>
-					</li>
+					{@const fecha = formatearFechaHoraMadrid(copia.modificadaEn)}
+					<CopiaBucketFila
+						{fecha}
+						tamano={textos.copias.tamano(copia.tamano)}
+						etiquetas={[...(copia.tipo === 'manual' ? [textos.copias.manual] : []), ...(copia.resguardo ? [textos.copias.resguardo] : [])]}
+						origen={textos.copias.origenEtiqueta(textos.copias.origenDe(copia.origen))}
+						descargarHref={resolve('/(app)/admin/copias/descargar/[...clave]', { clave: copia.clave })}
+						descargarTexto={textos.copias.descargar}
+						descargarNombre={textos.copias.descargarCopiaDel(fecha)}
+					/>
 				{/each}
 			</ul>
+			<p class="mt-3 text-[14px] text-ink-muted">{textos.copias.descargarAyuda}</p>
 		{/if}
 	</SeccionCopias>
 

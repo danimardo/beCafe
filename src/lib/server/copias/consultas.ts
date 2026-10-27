@@ -17,6 +17,7 @@ export type CopiaLista = {
 	tamano: number | null;
 	codigoError: CodigoCopia | null;
 	estadoHttp: number | null;
+	tipo: 'diaria' | 'manual';
 };
 
 /** Las últimas 30 copias, la más reciente primero. */
@@ -31,6 +32,7 @@ export function leerCopias(db: Ejecutor, actor: Actor | undefined): CopiaLista[]
 			tamano: copiaSeguridad.tamano,
 			codigoError: copiaSeguridad.codigoError,
 			estadoHttp: copiaSeguridad.estadoHttp,
+			tipo: copiaSeguridad.tipo,
 		})
 		.from(copiaSeguridad)
 		.orderBy(desc(copiaSeguridad.iniciadaEn))

@@ -1,4 +1,5 @@
 // Textos de la interfaz y de los errores, centralizados (RNF-012, constitución X). Todos en español (es-ES).
+import { ORIGEN_LOCAL } from './copias/origen';
 
 export const textos = {
 	errores: {
@@ -647,6 +648,32 @@ export const textos = {
 		bucketError: 'No se pudo leer el bucket. Inténtalo más tarde.',
 		sinS3Restaurar: 'Para restaurar copias hace falta configurar el bucket S3 en el servidor.',
 		resguardo: 'Copia de resguardo',
+		manual: 'Manual',
+		diaria: 'Diaria',
+		origenDe: (origen: string | null) => (origen === null ? 'Origen no registrado' : origen === ORIGEN_LOCAL ? 'Local' : origen),
+		origenEtiqueta: (origen: string) => `Origen: ${origen}`,
+		descargar: 'Descargar',
+		descargarCopiaDel: (fecha: string) => `Descargar la copia del ${fecha}`,
+		descargarAyuda: 'La copia contiene todos los datos de la aplicación. Guárdala en un sitio seguro.',
+		hacerCopiaTitulo: 'Hacer una copia ahora',
+		hacerCopiaAyuda: 'Hace una copia completa (base de datos y fotos) y la sube al bucket. Después podrás descargarla desde la lista.',
+		hacerCopiaAhora: 'Hacer copia ahora',
+		hacerCopiaEfecto: 'Se subirá al bucket una copia completa con todos los datos de la aplicación. Tarda unos segundos.',
+		confirmarCopia: 'Sí, hacer la copia',
+		haciendoCopia: 'Haciendo la copia…',
+		copiaHecha: 'Copia hecha y subida al bucket. Ya aparece en la lista.',
+		copiaFallida: (motivo: string) =>
+			`No se pudo hacer la copia: ${motivo}. Inténtalo de nuevo; si sigue fallando, revisa la configuración del bucket.`,
+		operacion: {
+			SIN_S3: 'Para hacer o descargar copias hace falta configurar el bucket S3 en el servidor.',
+			NO_ENCONTRADA: 'Esa copia ya no está en el bucket. Vuelve a la lista y elige otra.',
+			EN_CURSO: 'Ya hay una copia o una restauración en curso. Espera a que termine e inténtalo de nuevo.',
+		},
+		errorBucket: 'No se pudo hablar con el bucket. Inténtalo más tarde.',
+		origenCopia: 'Origen de la copia',
+		origenSistema: 'Este sistema',
+		avisoOrigenDistinto: (copia: string, sistema: string) =>
+			`Esta copia se hizo en ${copia} y este sistema es ${sistema}. Si restauras, se sustituirán los datos de este sistema por los de otro.`,
 		restaurar: 'Restaurar',
 		restaurarCopiaDel: (fecha: string) => `Restaurar la copia del ${fecha}`,
 		ultimaRestauracion: (fecha: string) => `Última restauración: ${fecha}`,

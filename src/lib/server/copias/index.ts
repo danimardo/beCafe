@@ -45,4 +45,6 @@ export {
 	type EstadoRestauracion,
 } from './pruebas-restauracion';
 export { leerCopias, type CopiaLista, LIMITE_COPIAS_PANEL } from './consultas';
+// Servidor S3 falso para las pruebas de integración y de rutas.
+export { crearS3Falso, type S3Falso, type RespuestaFalsa } from './pruebas/s3-falso';
 export { verificarCopia, type ResultadoVerificacion } from './verificacion';

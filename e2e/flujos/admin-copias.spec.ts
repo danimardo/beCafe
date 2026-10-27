@@ -67,3 +67,15 @@ test('CA-275: las secciones de copias tienen un icono junto a su título', async
 	// La sección de restaurar solo existe cuando hay copias en el bucket.
 	await expect(page.getByRole('heading', { name: 'Restaurar una copia', exact: true })).toHaveCount(0);
 });
+
+// F17 (RF-288): sin S3 no se ofrece hacer copias ni descargarlas, y se explica por qué.
+test('CA-288: sin S3 se explica que hace falta configurarlo y no se ofrece hacer copias ni descargar', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'administrador');
+	await page.goto(`${servidor.url}/admin/copias`);
+
+	await expect(
+		page.getByText('Para hacer o descargar copias hace falta configurar el bucket S3 en el servidor.', { exact: true }),
+	).toBeVisible();
+	await expect(page.getByText('Hacer copia ahora', { exact: true })).toHaveCount(0);
+	await expect(page.getByRole('link', { name: /^Descargar/ })).toHaveCount(0);
+});
