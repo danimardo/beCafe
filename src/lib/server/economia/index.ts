@@ -1,5 +1,12 @@
 // API pública de `economia`. Las tablas y el dominio no se exportan: los otros módulos usan estas funciones (ARCHITECTURE.md §4).
-export { darDeAltaCapsula, editarCapsula, cambiarEstadoCapsula, borrarCapsula, type DatosCapsulaEntrada } from './capsulas';
+export {
+	darDeAltaCapsula,
+	editarCapsula,
+	cambiarEstadoCapsula,
+	borrarCapsula,
+	quitarFotoCapsula,
+	type DatosCapsulaEntrada,
+} from './capsulas';
 export { leerEstadoTipos, leerAvisosStock, leerCatalogoAdmin, leerCapsulaAdmin, type FilaEstado } from './panel';
 export { fijarStock, fijarUmbral } from './existencias';
 export type { EstimacionDias } from './dominio/stock';

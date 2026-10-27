@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../../../fallo';
-import { esquemaBorrado, esquemaCapsula, urlFotoCapsula } from '#lib/shared/contratos/capsulas';
+import { esColorPropio, esquemaBorrado, esquemaCapsula, OPCION_COLOR_PROPIO, urlFotoCapsula } from '#lib/shared/contratos/capsulas';
 import { borrarCapsula, cambiarEstadoCapsula, editarCapsula, leerCapsulaAdmin } from '#lib/server/economia';
 import { textos } from '#lib/shared/textos';
 import { bytesDeFoto, valoresDeFormulario } from '../formulario';
@@ -17,7 +17,9 @@ export const load: PageServerLoad = ({ locals, params }) => {
 			nombre: tipo.nombre,
 			marca: tipo.marca,
 			intensidad: tipo.intensidad === null ? '' : String(tipo.intensidad),
-			color: tipo.color,
+			// Un color propio vuelve al formulario como «Otro color» con su valor en el selector (RF-269).
+			color: esColorPropio(tipo.color) ? OPCION_COLOR_PROPIO : tipo.color,
+			colorPropio: esColorPropio(tipo.color) ? tipo.color : '',
 			umbralMinimo: String(tipo.umbralMinimo),
 		};
 		return { tipo: { ...tipo, fotoUrl: tipo.fotoRuta ? urlFotoCapsula(tipo.id) : null }, iniciales };

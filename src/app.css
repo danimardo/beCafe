@@ -284,3 +284,16 @@
 	box-shadow: none;
 	position: relative;
 }
+
+/* Color propio de un tipo de cápsula (RF-269, RF-270; constitución XVIII, excepción cerrada). `estiloColorCapsula` escribe en
+   línea los valores calculados de cada tema; estas reglas eligen los del tema activo. */
+[style*='--cap-propio-claro'] {
+	--cap-color: var(--cap-propio-claro);
+	--cap-limite: var(--cap-propio-limite-claro);
+	--cap-texto: var(--cap-propio-texto-claro);
+}
+html[data-theme='oscuro'] [style*='--cap-propio-claro'] {
+	--cap-color: var(--cap-propio-oscuro);
+	--cap-limite: var(--cap-propio-limite-oscuro);
+	--cap-texto: var(--cap-propio-texto-oscuro);
+}

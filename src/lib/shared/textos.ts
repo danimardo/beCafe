@@ -19,6 +19,7 @@ export const textos = {
 		LIMITE_SUPERADO: 'Hay demasiadas peticiones seguidas. Espera un minuto e inténtalo de nuevo.',
 		NOMBRE_DUPLICADO: 'Ya existe un tipo activo con ese nombre. Cambia el nombre o retira el otro tipo.',
 		FOTO_NO_VALIDA: 'La foto no es válida. Sube una imagen JPEG, PNG o WebP de 5 MB como máximo.',
+		COLOR_NO_ELEGIBLE: 'Ese color ya no se puede elegir. Elige otro.',
 		TIENE_REGISTROS: 'Este tipo tiene registros y no se puede borrar. Puedes retirarlo.',
 		CONFIRMACION_REQUERIDA: 'Esta acción tiene efectos sobre otras personas o la hucha. Revisa el resumen y confírmala para continuar.',
 		NO_ES_EL_ULTIMO: 'Solo se puede anular el último arqueo o recuento vigente.',
@@ -214,6 +215,11 @@ export const textos = {
 			'cap-rosa': 'Rosa',
 			'cap-intenso': 'Intenso',
 		},
+		// RF-269: «Otro color» abre el selector; el rosa solo aparece en los tipos que ya lo tenían.
+		colorOtro: 'Otro color',
+		colorOtroSelector: 'Elegir el color con el selector',
+		colorRosaActual: 'Rosa (color actual)',
+		colorAyuda: 'Con «Otro color» puedes elegir cualquiera. La aplicación ajusta el texto y el borde para que se lea bien.',
 	},
 	privacidad: {
 		titulo: 'Privacidad',

@@ -5,6 +5,7 @@ export type ValoresCapsula = {
 	marca: string;
 	intensidad: string;
 	color: string;
+	colorPropio: string;
 	umbralMinimo: string;
 };
 
@@ -18,6 +19,7 @@ export function valoresDeFormulario(datos: Record<string, unknown>): ValoresCaps
 		marca: textoDe(datos.marca),
 		intensidad: textoDe(datos.intensidad),
 		color: textoDe(datos.color),
+		colorPropio: textoDe(datos.colorPropio),
 		umbralMinimo: textoDe(datos.umbralMinimo),
 	};
 }

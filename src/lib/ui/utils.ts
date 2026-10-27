@@ -1,3 +1,5 @@
+import { coloresCapsula, esColorPropio } from '#lib/shared/capsulas/color-propio';
+
 /** Valores aceptados por cn(). Incluye el tipo que Svelte permite en `class`. */
 export type ClassValue = string | number | bigint | boolean | null | undefined | ClassValue[] | Record<string, unknown>;
 
@@ -16,9 +18,30 @@ export function cn(...parts: ClassValue[]): string {
 	return out.join(' ');
 }
 
-/** Color CSS de un tipo de cápsula: los tipos guardan un token (`cap-lungo`) y los colores libres (hex) pasan tal cual. */
+/** Color CSS de un token de cápsula (`cap-lungo`). Un color propio no se pinta con esta función: usa `estiloColorCapsula`. */
 export function colorCapsulaCss(color: string): string {
-	return color.startsWith('cap-') ? `var(--${color})` : color;
+	return color.startsWith('cap-') ? `var(--${color})` : `var(--cap-intenso)`;
+}
+
+/**
+ * Estilo en línea que define `--cap-color` (relleno) y `--cap-limite` (aro) de un tipo de cápsula.
+ * Un token usa su variable del sistema de diseño. Un color propio (`#rrggbb`, RF-269) lleva los valores calculados para
+ * cada tema (RF-270); la regla `[style*='--cap-propio-claro']` de `app.css` elige los del tema activo.
+ */
+export function estiloColorCapsula(color: string): string {
+	if (!esColorPropio(color)) {
+		const variable = colorCapsulaCss(color);
+		return `--cap-color:${variable};--cap-limite:${variable}`;
+	}
+	const { claro, oscuro } = coloresCapsula(color);
+	return [
+		`--cap-propio-claro:${claro.relleno}`,
+		`--cap-propio-limite-claro:${claro.limite}`,
+		`--cap-propio-texto-claro:${claro.texto}`,
+		`--cap-propio-oscuro:${oscuro.relleno}`,
+		`--cap-propio-limite-oscuro:${oscuro.limite}`,
+		`--cap-propio-texto-oscuro:${oscuro.texto}`,
+	].join(';');
 }
 
 /* ---------- Botones: clases compartidas por Button, ConfirmDialog, etc. ---------- */

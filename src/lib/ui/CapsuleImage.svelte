@@ -1,10 +1,10 @@
 <script lang="ts">
 	import CapsuleIllustration from './CapsuleIllustration.svelte';
-	import { cn, colorCapsulaCss } from './utils';
+	import { cn, estiloColorCapsula } from './utils';
 
 	type Props = {
 		name: string;
-		/** Color del tipo de cápsula (hex), elegido por el administrador (RF-001). */
+		/** Color del tipo: un token (`cap-lungo`) o un color propio `#rrggbb` (RF-001, RF-269). */
 		color: string;
 		/** Foto subida por el administrador (RF-005). Si falta o no carga, se dibuja la ilustración con `color`. */
 		photoUrl?: string | null;
@@ -40,7 +40,7 @@
 	<span
 		aria-hidden="true"
 		class={cn('inline-block shrink-0 rounded-full bg-glass shadow-sm', ring[size], sizes[size], className)}
-		style="border-color:{colorCapsulaCss(color)}"
+		style="{estiloColorCapsula(color)};border-color:var(--cap-limite)"
 	>
 		<img bind:this={imgEl} src={photoUrl} alt="" loading="lazy" class="size-full rounded-full object-cover" />
 	</span>

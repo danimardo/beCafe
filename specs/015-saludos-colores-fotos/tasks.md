@@ -15,11 +15,11 @@ Las fases son independientes entre sí. Dentro de cada fase, las tareas van en o
 
 ## Fase 2: Colores de cápsula (US2) — P2
 
-- [ ] T007 [US2] `src/lib/shared/capsulas/color-propio.ts`: `luminancia`, `contraste` y `coloresCapsula(hex)` con los colores de referencia de los tokens (research R2: módulo generado junto a `src/tokens.css`). Prueba de propiedades EV-115 y CA-270 en `color-propio.test.ts`.
-- [ ] T008 [US2] Contrato en `src/lib/shared/contratos/capsulas.ts`: `COLORES_CAPSULA_ELEGIBLES` (7), `cap-rosa` heredado, `colorPropio` `#rrggbb` en minúsculas y la combinación `color=otro` + `colorPropio`. Pruebas CA-271.
-- [ ] T009 [US2] `catalogo`: rechazar `cap-rosa` en el alta o si el tipo no era rosa (`COLOR_NO_ELEGIBLE`). Leer un color no válido con evento `dato.no_valido` y `cap-intenso`. Pruebas CA-269 de integración. Textos de error en `textos.ts`.
-- [ ] T010 [US2] Pintado: `estiloColorCapsula` y `colorCapsulaCss` en `src/lib/ui/utils.ts`, y regla de `--cap-propio*` por tema en `src/app.css`. Uso en `CapsuleImage`, `CapsuleIllustration`, `CapsuleTile`, `SplitBar` y `UndoToast`.
-- [ ] T011 [US2] `CapsuleColorField.svelte`: 7 radios, «Otro color» con `<input type="color">`, «Rosa (color actual)» solo para el tipo rosa y vista previa. Prueba de componente. Uso en `FormularioCapsula.svelte`. E2E `e2e/flujos/colores-f15.spec.ts` (CA-269) y axe en claro y oscuro de alta y edición.
+- [x] T007 [US2] `src/lib/shared/capsulas/color-propio.ts`: `luminancia`, `contraste` y `coloresCapsula(hex)` con los colores de referencia de los tokens (research R2: módulo generado junto a `src/tokens.css`). Prueba de propiedades EV-115 y CA-270 en `color-propio.test.ts`.
+- [x] T008 [US2] Contrato en `src/lib/shared/contratos/capsulas.ts`: `COLORES_CAPSULA_ELEGIBLES` (7), `cap-rosa` heredado, `colorPropio` `#rrggbb` en minúsculas y la combinación `color=otro` + `colorPropio`. Pruebas CA-271.
+- [x] T009 [US2] `catalogo`: rechazar `cap-rosa` en el alta o si el tipo no era rosa (`COLOR_NO_ELEGIBLE`). Leer un color no válido con evento `dato.no_valido` y `cap-intenso`. Pruebas CA-269 de integración. Textos de error en `textos.ts`.
+- [x] T010 [US2] Pintado: `estiloColorCapsula` y `colorCapsulaCss` en `src/lib/ui/utils.ts`, y regla de `--cap-propio*` por tema en `src/app.css`. Uso en `CapsuleImage`, `CapsuleIllustration`, `CapsuleTile`, `SplitBar` y `UndoToast`.
+- [x] T011 [US2] `CapsuleColorField.svelte`: 7 radios, «Otro color» con `<input type="color">`, «Rosa (color actual)» solo para el tipo rosa y vista previa. Prueba de componente. Uso en `FormularioCapsula.svelte`. E2E `e2e/flujos/colores-f15.spec.ts` (CA-269) y axe en claro y oscuro de alta y edición.
 
 ## Fase 3: Quitar la foto de una cápsula (US3) — P2
 

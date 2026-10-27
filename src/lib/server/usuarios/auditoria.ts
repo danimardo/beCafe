@@ -20,6 +20,8 @@ const esquemasDetalle = {
 	// Plan F10: foto de persona (RF-208) y eliminación del nombre de un visitante (RF-210), sin el nombre.
 	'usuario.foto_cambiada': z.strictObject({ quitada: z.boolean() }),
 	'visitante.nombre_eliminado': z.strictObject({}),
+	// Plan F15: quitar la foto de un tipo de cápsula (RF-272). Sin datos: el objeto es el tipo.
+	'capsula.foto_quitada': z.strictObject({}),
 	// Plan F14: restauración de una copia (RF-256). Solo claves de objetos del bucket, sin datos personales.
 	'copia.restaurada': z.strictObject({ resguardo: z.string().min(1).max(300), confirmadaEn: z.string().min(1).max(40) }),
 } as const;
@@ -31,7 +33,7 @@ export type EntradaAuditoria<A extends AccionAuditoria> = {
 	accion: A;
 	objetoId: string;
 	/** Tipo del objeto afectado. Por defecto, `usuario`. La configuración usa `configuracion`. */
-	objetoTipo?: 'usuario' | 'configuracion' | 'visita' | 'copia';
+	objetoTipo?: 'usuario' | 'configuracion' | 'visita' | 'copia' | 'tipo_capsula';
 	detalle: z.input<(typeof esquemasDetalle)[A]>;
 	instante: string;
 };

@@ -1,10 +1,18 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { sql } from 'drizzle-orm';
 import sharp from 'sharp';
 import type { Actor } from '#lib/server/auth';
 import { ErrorDeNegocio, crearEntornoPrueba, enTransaccion, type EntornoPrueba } from '#lib/server/plataforma';
-import { cambiarEstadoCapsula, borrarCapsula, darDeAltaCapsula, editarCapsula, type DatosCapsulaEntrada } from './capsulas';
+import {
+	cambiarEstadoCapsula,
+	borrarCapsula,
+	darDeAltaCapsula,
+	editarCapsula,
+	quitarFotoCapsula,
+	type DatosCapsulaEntrada,
+} from './capsulas';
 import { leerAvisosStock, leerCapsulaAdmin, leerCatalogoAdmin, leerEstadoTipos } from './panel';
 import { fijarStock } from './existencias';
 import { registrarAportacion } from './aportaciones';
@@ -14,6 +22,7 @@ import { prepararConsumo, prepararMiembros, prepararTipo } from './pruebas/const
 import { nuevoId } from '#lib/server/plataforma';
 import { existencia, entradaStockBajo } from './esquema';
 import { listarTipos } from '#lib/server/catalogo';
+import { crearUsuario } from '#lib/server/usuarios';
 
 const INSTANTE = '2026-10-21T09:00:00.000Z';
 const ADMIN: Actor = { usuarioId: '01ADMIN0000000000000000000', rol: 'administrador', autenticadoEn: INSTANTE, sesionIdHash: 'hash-admin' };
@@ -55,6 +64,63 @@ describe('catálogo de tipos de cápsula (CA-001 a CA-006)', () => {
 	it('CA-001: un tipo sin foto se da de alta igualmente', async () => {
 		const { id } = await darDeAltaCapsula(entorno.ambiente, ADMIN, datosBase({ nombre: 'Lungo' }));
 		expect(listarTipos(entorno.ambiente.db).find((fila) => fila.id === id)?.fotoRuta).toBeNull();
+	});
+
+	it('CA-269: un tipo nuevo no puede ser rosa; uno con color propio se guarda tal cual', async () => {
+		await expect(darDeAltaCapsula(entorno.ambiente, ADMIN, datosBase({ nombre: 'Rosa nueva', color: 'cap-rosa' }))).rejects.toMatchObject({
+			codigo: 'COLOR_NO_ELEGIBLE',
+		});
+		const { id } = await darDeAltaCapsula(entorno.ambiente, ADMIN, datosBase({ nombre: 'Propia', color: '#a1b2c3' }));
+		expect(listarTipos(entorno.ambiente.db).find((fila) => fila.id === id)?.color).toBe('#a1b2c3');
+	});
+
+	it('CA-269: un tipo que ya era rosa conserva el rosa al guardar; otro tipo no puede pasar a rosa', async () => {
+		// Un tipo anterior a F15 que ya era rosa: el alta ya no lo permite, así que se fija el color directamente.
+		const rosa = await darDeAltaCapsula(entorno.ambiente, ADMIN, datosBase({ nombre: 'Rosa heredada', color: 'cap-azul' }));
+		entorno.ambiente.db.run(sql`UPDATE tipo_capsula SET color = 'cap-rosa' WHERE id = ${rosa.id}`);
+		await editarCapsula(entorno.ambiente, ADMIN, rosa.id, datosBase({ nombre: 'Rosa editada', color: 'cap-rosa' }));
+		expect(listarTipos(entorno.ambiente.db).find((fila) => fila.id === rosa.id)?.color).toBe('cap-rosa');
+		await editarCapsula(entorno.ambiente, ADMIN, rosa.id, datosBase({ nombre: 'Rosa editada', color: 'cap-lungo' }));
+		await expect(
+			editarCapsula(entorno.ambiente, ADMIN, rosa.id, datosBase({ nombre: 'Rosa editada', color: 'cap-rosa' })),
+		).rejects.toMatchObject({
+			codigo: 'COLOR_NO_ELEGIBLE',
+		});
+
+		const otro = await darDeAltaCapsula(entorno.ambiente, ADMIN, datosBase({ nombre: 'Otro tipo', color: 'cap-azul' }));
+		await expect(
+			editarCapsula(entorno.ambiente, ADMIN, otro.id, datosBase({ nombre: 'Otro tipo', color: 'cap-rosa' })),
+		).rejects.toMatchObject({
+			codigo: 'COLOR_NO_ELEGIBLE',
+		});
+	});
+
+	it('CA-272: quitar la foto deja el tipo sin foto, borra el archivo y anota la auditoría; repetirlo no hace nada', async () => {
+		// La auditoría guarda al administrador como autor: tiene que existir en la cuenta.
+		crearUsuario(entorno.ambiente.db, {
+			id: ADMIN.usuarioId,
+			nombre: 'Admin',
+			correo: 'admin@ejemplo.test',
+			rol: 'administrador',
+			instante: INSTANTE,
+		});
+		const { id } = await darDeAltaCapsula(entorno.ambiente, ADMIN, datosBase({ nombre: 'Con foto', foto: await fotoJpeg() }));
+		const nombreFoto = listarTipos(entorno.ambiente.db).find((fila) => fila.id === id)?.fotoRuta ?? 'ausente';
+		expect(existsSync(join(entorno.ambiente.directorioFotos, nombreFoto))).toBe(true);
+
+		quitarFotoCapsula(entorno.ambiente, ADMIN, id);
+		expect(listarTipos(entorno.ambiente.db).find((fila) => fila.id === id)?.fotoRuta).toBeNull();
+		expect(existsSync(join(entorno.ambiente.directorioFotos, nombreFoto))).toBe(false);
+		expect(entorno.eventos().filter((evento) => evento.codigo === 'capsula.foto_quitada')).toHaveLength(1);
+
+		quitarFotoCapsula(entorno.ambiente, ADMIN, id);
+		expect(entorno.eventos().filter((evento) => evento.codigo === 'capsula.foto_quitada')).toHaveLength(1);
+	});
+
+	it('CA-272: un miembro no puede quitar la foto de un tipo', async () => {
+		const { id } = await darDeAltaCapsula(entorno.ambiente, ADMIN, datosBase({ nombre: 'Protegida', foto: await fotoJpeg() }));
+		expect(() => quitarFotoCapsula(entorno.ambiente, MIEMBRO, id)).toThrow(ErrorDeNegocio);
+		expect(listarTipos(entorno.ambiente.db).find((fila) => fila.id === id)?.fotoRuta).not.toBeNull();
 	});
 
 	it('CA-002: rechaza un nombre igual a otro tipo activo, sin distinguir mayúsculas', async () => {

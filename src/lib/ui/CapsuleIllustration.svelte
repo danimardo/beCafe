@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { cn, colorCapsulaCss } from './utils';
+	import { cn, estiloColorCapsula } from './utils';
 
 	type Props = {
-		/** Color del tipo (hex), elegido por el administrador (RF-001). */
+		/** Color del tipo: un token (`cap-lungo`) o un color propio `#rrggbb` (RF-001, RF-269). */
 		color: string;
 		class?: string;
 	};
@@ -12,7 +12,7 @@
 
 <!-- Ilustración vectorial de cápsula en el estilo de Capsulito (cuerpo y cúpula del color del tipo, aro crema).
      Decorativa: el nombre del tipo siempre va como texto al lado. Misma figura que static/ilustraciones/capsula.svg. -->
-<svg viewBox="0 0 100 100" aria-hidden="true" class={cn('block', className)} style="color:{colorCapsulaCss(color)}">
+<svg viewBox="0 0 100 100" aria-hidden="true" class={cn('block', className)} style="{estiloColorCapsula(color)};color:var(--cap-color)">
 	<defs>
 		<linearGradient id="{id}-b" x1="0" x2="1" y1="0" y2="0">
 			<stop offset="0" stop-color="#fff" stop-opacity=".22" />

@@ -1,6 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { tipoCapsula } from './esquema';
 import { ErrorDeNegocio, RecursoNoEncontrado, type Ejecutor, type Tx } from '#lib/server/plataforma';
+import { COLOR_CAPSULA_HEREDADO } from '#lib/shared/contratos/capsulas';
 
 // Datos descriptivos de los tipos de cápsula (RF-001, RF-003, RF-004, RF-006). Las funciones con `tx` las llama
 // `economia`, que orquesta las escrituras (plan D2). Ninguna comprueba permisos: lo hace el caso de uso que llama.
@@ -26,6 +27,8 @@ function normalizar(nombre: string): string {
 }
 
 export function insertarTipo(tx: Tx, fila: DatosDescriptivos & { id: string; instante: string }): void {
+	// RF-269: el rosa solo lo conservan los tipos que ya lo tenían; un tipo nuevo no puede elegirlo.
+	if (fila.color === COLOR_CAPSULA_HEREDADO) throw new ErrorDeNegocio('COLOR_NO_ELEGIBLE');
 	try {
 		tx.insert(tipoCapsula)
 			.values({
@@ -50,6 +53,8 @@ export function insertarTipo(tx: Tx, fila: DatosDescriptivos & { id: string; ins
 /** Actualiza los datos descriptivos. Si no llega foto nueva, la foto anterior se conserva. Devuelve la foto anterior. */
 export function actualizarDescriptivos(tx: Tx, id: string, datos: DatosDescriptivos, instante: string): string | null {
 	const anterior = leerFilaTx(tx, id);
+	// RF-269: un tipo rosa lo conserva al guardar; uno que no lo era no puede pasar a rosa.
+	if (datos.color === COLOR_CAPSULA_HEREDADO && anterior.color !== COLOR_CAPSULA_HEREDADO) throw new ErrorDeNegocio('COLOR_NO_ELEGIBLE');
 	try {
 		tx.update(tipoCapsula)
 			.set({
@@ -67,6 +72,14 @@ export function actualizarDescriptivos(tx: Tx, id: string, datos: DatosDescripti
 		if (esConflictoNombre(causa)) throw new ErrorDeNegocio('NOMBRE_DUPLICADO');
 		throw causa;
 	}
+	return anterior.fotoRuta;
+}
+
+/** Quita la foto del tipo (RF-272). Devuelve la foto anterior, o `null` si no tenía, para que el caso de uso la borre tras confirmar. */
+export function quitarFotoTipo(tx: Tx, id: string, instante: string): string | null {
+	const anterior = leerFilaTx(tx, id);
+	if (anterior.fotoRuta === null) return null;
+	tx.update(tipoCapsula).set({ fotoRuta: null, actualizadoEn: instante }).where(eq(tipoCapsula.id, id)).run();
 	return anterior.fotoRuta;
 }
 

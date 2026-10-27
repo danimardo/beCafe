@@ -27,6 +27,7 @@ export const NIVEL_EVENTO = {
 	'usuario.reactivado': 'info',
 	'capsula.alta': 'info',
 	'capsula.modificada': 'info',
+	'capsula.foto_quitada': 'info',
 	'capsula.desactivada': 'info',
 	'capsula.reactivada': 'info',
 	'capsula.borrada': 'info',
@@ -122,6 +123,7 @@ export type CamposEvento = {
 	'usuario.reactivado': { usuarioId: string };
 	'capsula.alta': { tipoCapsulaId: string };
 	'capsula.modificada': { tipoCapsulaId: string };
+	'capsula.foto_quitada': { tipoCapsulaId: string };
 	'capsula.desactivada': { tipoCapsulaId: string };
 	'capsula.reactivada': { tipoCapsulaId: string };
 	'capsula.borrada': { tipoCapsulaId: string };

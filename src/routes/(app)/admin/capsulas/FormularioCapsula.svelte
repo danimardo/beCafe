@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { untrack } from 'svelte';
 	import { Button, CapsuleColorField, crearExito, PhotoField, SelectField, TextField } from '#lib/ui';
-	import { COLORES_CAPSULA, TAMANO_MAXIMO_FOTO } from '#lib/shared/contratos/capsulas';
+	import {
+		COLOR_CAPSULA_HEREDADO,
+		COLORES_CAPSULA_ELEGIBLES,
+		OPCION_COLOR_PROPIO,
+		TAMANO_MAXIMO_FOTO,
+	} from '#lib/shared/contratos/capsulas';
 	import { textos } from '#lib/shared/textos';
 
 	type Props = {
@@ -16,7 +22,15 @@
 	const exito = crearExito();
 	let foto = $state<File | null>(null);
 
-	const opcionesColor = COLORES_CAPSULA.map((valor) => ({ value: valor, label: textos.capsulas.colores[valor] }));
+	// RF-269: el rosa solo se ofrece a un tipo que ya lo tenía; el servidor lo vuelve a comprobar.
+	const rosaHeredado = untrack(() => valorDe('color')) === COLOR_CAPSULA_HEREDADO;
+	const opcionesColor = [
+		...COLORES_CAPSULA_ELEGIBLES.map((valor) => ({ value: valor, label: textos.capsulas.colores[valor] })),
+		...(rosaHeredado ? [{ value: COLOR_CAPSULA_HEREDADO, label: textos.capsulas.colorRosaActual }] : []),
+	];
+	// Valores iniciales: salen del servidor y después los cambia la persona, no los vuelve a pisar el `load`.
+	let color = $state(untrack(() => valorDe('color')));
+	let colorPropio = $state(untrack(() => valorDe('colorPropio')) || '#8b5e3c');
 	const opcionesIntensidad = [
 		{ value: '', label: textos.capsulas.intensidadNinguna },
 		...Array.from({ length: 13 }, (_, indice) => ({ value: String(indice + 1), label: String(indice + 1) })),
@@ -43,7 +57,21 @@
 		options={opcionesIntensidad}
 		error={errorDe('intensidad')}
 	/>
-	<CapsuleColorField name="color" label={textos.capsulas.color} value={valorDe('color')} options={opcionesColor} error={errorDe('color')} />
+	<CapsuleColorField
+		name="color"
+		label={textos.capsulas.color}
+		hint={textos.capsulas.colorAyuda}
+		bind:value={color}
+		bind:colorPropio
+		options={opcionesColor}
+		otro={{
+			value: OPCION_COLOR_PROPIO,
+			label: textos.capsulas.colorOtro,
+			selectorLabel: textos.capsulas.colorOtroSelector,
+			name: 'colorPropio',
+		}}
+		error={errorDe('color')}
+	/>
 	<TextField
 		name="umbralMinimo"
 		label={textos.capsulas.umbral}

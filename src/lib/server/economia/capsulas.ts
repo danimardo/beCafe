@@ -11,7 +11,8 @@ import {
 	type Ambiente,
 	type Tx,
 } from '#lib/server/plataforma';
-import { actualizarDescriptivos, borrarTipo, cambiarEstadoTipo, insertarTipo, type EstadoTipo } from '#lib/server/catalogo';
+import { actualizarDescriptivos, borrarTipo, cambiarEstadoTipo, insertarTipo, quitarFotoTipo, type EstadoTipo } from '#lib/server/catalogo';
+import { anotarAuditoria } from '#lib/server/usuarios';
 import { borrarExistencia, crearExistencia, fijarUmbral } from './existencias';
 import { consumo, lineaCompra, lineaRecuento } from './esquema';
 
@@ -94,6 +95,28 @@ export async function editarCapsula(ambiente: Ambiente, actor: Actor, id: string
 	if (fotoNueva && resultado.fotoAnterior) borrarFoto(ambiente.directorioFotos, resultado.fotoAnterior);
 	registrar('capsula.modificada', { tipoCapsulaId: id });
 	if (resultado.entradaRegistrada) registrar('stock.entrada_bajo_registrada', { tipoCapsulaId: id });
+}
+
+/** Quita la foto de un tipo (RF-272): el tipo vuelve a mostrar su ilustración. Sin foto, no hace nada. */
+export function quitarFotoCapsula(ambiente: Ambiente, actor: Actor, id: string): void {
+	exigirAdministrador(actor, RUTA_CATALOGO);
+	const instante = ambiente.reloj.ahora();
+	const anterior = enTransaccion(ambiente.db, (tx) => {
+		const fotoAnterior = quitarFotoTipo(tx, id, instante);
+		if (fotoAnterior)
+			anotarAuditoria(tx, {
+				actorId: actor.usuarioId,
+				accion: 'capsula.foto_quitada',
+				objetoId: id,
+				objetoTipo: 'tipo_capsula',
+				detalle: {},
+				instante,
+			});
+		return fotoAnterior;
+	});
+	if (!anterior) return;
+	borrarFoto(ambiente.directorioFotos, anterior);
+	registrar('capsula.foto_quitada', { tipoCapsulaId: id });
 }
 
 /** Retirar (estado `retirado`) o reactivar (`activo`). Reactivar falla si el nombre ya lo usa otro tipo activo (RF-002). */

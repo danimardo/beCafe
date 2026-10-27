@@ -7,6 +7,7 @@ export {
 	insertarTipo,
 	leerTipo,
 	listarTipos,
+	quitarFotoTipo,
 	type DatosDescriptivos,
 	type EstadoTipo,
 	type FilaTipoCapsula,

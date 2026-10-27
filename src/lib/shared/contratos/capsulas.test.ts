@@ -28,8 +28,27 @@ describe('esquema de tipos de cápsula (RF-001, RF-005)', () => {
 		expect(esquemaCapsula.safeParse(formulario({ intensidad: '14' })).success).toBe(false);
 	});
 
-	it('el color debe ser de la paleta cerrada de cápsulas', () => {
-		expect(esquemaCapsula.safeParse(formulario({ color: '#ff0000' })).success).toBe(false);
+	it('CA-271: el color es un token fijo o un color propio #rrggbb; cualquier otro valor se rechaza en el campo color', () => {
+		expect(esquemaCapsula.safeParse(formulario({ color: 'cap-lungo' })).success).toBe(true);
+		expect(esquemaCapsula.safeParse(formulario({ color: 'cap-rosa' })).success).toBe(true);
+		for (const color of ['#ff0000', 'rojo', 'cap-inexistente', '', 'otro']) {
+			const resultado = esquemaCapsula.safeParse(formulario({ color }));
+			expect(resultado.success, color).toBe(false);
+			expect(!resultado.success && resultado.error.issues[0]?.path[0]).toBe('color');
+		}
+	});
+
+	it('CA-271: «Otro color» toma el valor del selector, solo si es #rrggbb de 6 cifras, y lo guarda en minúsculas', () => {
+		const bueno = esquemaCapsula.safeParse(formulario({ color: 'otro', colorPropio: '#A1B2C3' }));
+		expect(bueno.success && bueno.data.color).toBe('#a1b2c3');
+		for (const colorPropio of ['#abc', '#abcdefg', 'a1b2c3', '#a1b2c3ff', 'rgb(1,2,3)', '', undefined]) {
+			expect(esquemaCapsula.safeParse(formulario({ color: 'otro', colorPropio })).success, String(colorPropio)).toBe(false);
+		}
+	});
+
+	it('CA-271: colorPropio no se acepta suelto: sin «Otro color», se ignora y manda el token', () => {
+		const resultado = esquemaCapsula.safeParse(formulario({ color: 'cap-azul', colorPropio: '#000000' }));
+		expect(resultado.success && resultado.data.color).toBe('cap-azul');
 	});
 
 	it('CA-005: una foto de más de 5 MB se rechaza', () => {
