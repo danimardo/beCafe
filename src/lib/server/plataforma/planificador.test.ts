@@ -150,3 +150,37 @@ describe('recuperar (D8, Clarifications 2)', () => {
 		expect(orden).toEqual(['primera', 'segunda']);
 	});
 });
+
+describe('iniciar con el mismo nombre (recarga en caliente)', () => {
+	let entorno: EntornoPrueba;
+
+	beforeEach(() => {
+		entorno = crearEntornoPrueba('2026-11-02T10:00:00.000Z');
+	});
+
+	afterEach(() => {
+		entorno.cerrar();
+	});
+
+	it('un planificador nuevo sustituye al anterior en vez de fallar con «name already taken»', () => {
+		const { db } = entorno.ambiente;
+		const crear = () => {
+			const planificador = crearPlanificador({ db, reloj: entorno.reloj });
+			planificador.registrar({ nombre: 'recordatorio_deuda', cron: CRON_MENSUAL, ejecutar: () => {} });
+			return planificador;
+		};
+		const primero = crear();
+		const segundo = crear();
+		try {
+			primero.iniciar();
+			expect(() => segundo.iniciar()).not.toThrow();
+		} finally {
+			primero.detener();
+			segundo.detener();
+		}
+		// Tras detener los dos, el nombre queda libre para un tercero.
+		const tercero = crear();
+		expect(() => tercero.iniciar()).not.toThrow();
+		tercero.detener();
+	});
+});

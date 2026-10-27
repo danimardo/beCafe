@@ -1,4 +1,4 @@
-import { Cron } from 'croner';
+import { Cron, scheduledJobs } from 'croner';
 import { and, eq } from 'drizzle-orm';
 import type { InstanteUtc } from '#lib/shared/fechas/tipos';
 import { conOperacion } from './contexto-operacion';
@@ -73,6 +73,10 @@ export function crearPlanificador({ db, reloj }: { db: Db; reloj: Reloj }): Plan
 		},
 		iniciar() {
 			for (const definicion of definiciones) {
+				// `croner` registra los trabajos con nombre en un registro global del proceso y rechaza un nombre repetido. Con la
+				// recarga en caliente de `vite dev`, `hooks.server.ts` vuelve a arrancar y el planificador anterior sigue vivo:
+				// el nuevo lo sustituye, porque el anterior guarda cierres del módulo ya descartado.
+				for (const anterior of scheduledJobs.filter((trabajo) => trabajo.name === definicion.nombre)) anterior.stop();
 				trabajos.push(
 					new Cron(definicion.cron, { timezone: ZONA_TAREAS, protect: true, name: definicion.nombre }, () => {
 						const instante = reloj.ahora();
