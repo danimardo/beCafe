@@ -30,7 +30,13 @@ export function leerFotoUsuario(db: Ejecutor, usuarioId: string): string | null 
  * Cambia la foto de una persona o la quita (`foto` a `null`). La procesa y la escribe en disco antes de la transacción
  * (sin E/S asíncrona dentro de ella) y borra la anterior solo cuando el cambio está confirmado.
  */
-export async function cambiarFoto(ambiente: Ambiente, actor: ActorFoto, usuarioId: string, foto: Uint8Array | null, encuadre?: Encuadre): Promise<void> {
+export async function cambiarFoto(
+	ambiente: Ambiente,
+	actor: ActorFoto,
+	usuarioId: string,
+	foto: Uint8Array | null,
+	encuadre?: Encuadre,
+): Promise<void> {
 	if (actor.usuarioId !== usuarioId && actor.rol !== 'administrador') {
 		registrar('auth.permiso_denegado', { usuarioId: actor.usuarioId, rutaId: 'usuarios/foto' });
 		throw new ErrorDeNegocio('SIN_PERMISO');

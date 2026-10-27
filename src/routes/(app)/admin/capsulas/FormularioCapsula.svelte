@@ -90,7 +90,14 @@
 		{:else}
 			<p class="text-[14px] text-ink-muted">{textos.capsulas.sinFoto}</p>
 		{/if}
-		<EncuadreFoto name="foto" guia="ninguna" label={textos.capsulas.foto} hint={textos.capsulas.fotoAyuda} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
+		<EncuadreFoto
+			name="foto"
+			guia="ninguna"
+			label={textos.capsulas.foto}
+			hint={textos.capsulas.fotoAyuda}
+			bind:file={foto}
+			maxBytes={TAMANO_MAXIMO_FOTO}
+		/>
 	</div>
 	<Button type="submit" block success={exito.activo} class="lg:col-span-2">{etiquetaBoton}</Button>
 </form>

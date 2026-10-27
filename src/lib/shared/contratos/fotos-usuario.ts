@@ -14,7 +14,10 @@ export const esquemaSubirFotoPersona = z
 		...camposEncuadre,
 	})
 	.superRefine(refinarEncuadre)
-	.transform(({ encuadreX, encuadreY, encuadreLado, ...resto }) => ({ ...resto, encuadre: encuadreDe({ encuadreX, encuadreY, encuadreLado }) }));
+	.transform(({ encuadreX, encuadreY, encuadreLado, ...resto }) => ({
+		...resto,
+		encuadre: encuadreDe({ encuadreX, encuadreY, encuadreLado }),
+	}));
 
 /** Foto opcional al dar de alta (RF-223): sin archivo, la persona queda sin foto. Mismas validaciones que RF-005. */
 export const esquemaFotoAlta = z
@@ -23,7 +26,10 @@ export const esquemaFotoAlta = z
 		...camposEncuadre,
 	})
 	.superRefine(refinarEncuadre)
-	.transform(({ encuadreX, encuadreY, encuadreLado, ...resto }) => ({ ...resto, encuadre: encuadreDe({ encuadreX, encuadreY, encuadreLado }) }));
+	.transform(({ encuadreX, encuadreY, encuadreLado, ...resto }) => ({
+		...resto,
+		encuadre: encuadreDe({ encuadreX, encuadreY, encuadreLado }),
+	}));
 
 /** Quitar la foto: la casilla de confirmación evita un borrado accidental sin JavaScript. */
 export const esquemaQuitarFotoPersona = z.strictObject({

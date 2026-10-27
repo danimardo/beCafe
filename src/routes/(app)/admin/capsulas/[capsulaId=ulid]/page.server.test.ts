@@ -47,7 +47,12 @@ describe('acción quitarFoto de una cápsula', () => {
 		const cuerpo = new FormData();
 		for (const [clave, valor] of Object.entries(datos)) cuerpo.append(clave, valor);
 		return actions.quitarFoto(
-			crearEventoAccion({ locals: { ambiente: entorno.ambiente, actor }, ruta: '/(app)/admin/capsulas/[capsulaId=ulid]', params: { capsulaId: id }, cuerpo }),
+			crearEventoAccion({
+				locals: { ambiente: entorno.ambiente, actor },
+				ruta: '/(app)/admin/capsulas/[capsulaId=ulid]',
+				params: { capsulaId: id },
+				cuerpo,
+			}),
 		);
 	}
 

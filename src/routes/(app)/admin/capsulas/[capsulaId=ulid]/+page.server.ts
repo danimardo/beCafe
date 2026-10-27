@@ -2,7 +2,14 @@ import { redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../../../fallo';
-import { esColorPropio, esquemaBorrado, esquemaCapsula, esquemaQuitarFotoCapsula, OPCION_COLOR_PROPIO, urlFotoCapsula } from '#lib/shared/contratos/capsulas';
+import {
+	esColorPropio,
+	esquemaBorrado,
+	esquemaCapsula,
+	esquemaQuitarFotoCapsula,
+	OPCION_COLOR_PROPIO,
+	urlFotoCapsula,
+} from '#lib/shared/contratos/capsulas';
 import { borrarCapsula, cambiarEstadoCapsula, editarCapsula, leerCapsulaAdmin, quitarFotoCapsula } from '#lib/server/economia';
 import { textos } from '#lib/shared/textos';
 import { bytesDeFoto, valoresDeFormulario } from '../formulario';
@@ -45,7 +52,7 @@ export const actions: Actions = {
 				color: entrada.data.color,
 				umbralMinimo: entrada.data.umbralMinimo,
 				foto: await bytesDeFoto(entrada.data.foto),
-					encuadre: entrada.data.encuadre,
+				encuadre: entrada.data.encuadre,
 			});
 			return { confirmacion: textos.capsulas.guardada };
 		});

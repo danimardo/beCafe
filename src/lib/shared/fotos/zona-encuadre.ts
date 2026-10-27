@@ -34,5 +34,11 @@ export function encuadreDeVista(vista: Vista, ancho: number, alto: number): Encu
 export function disposicion(vista: Vista, ancho: number, alto: number, marco: number) {
 	const lado = Math.min(ancho, alto) / vista.zoom;
 	const escala = marco / lado;
-	return { escala, anchoPx: ancho * escala, altoPx: alto * escala, izquierda: -(vista.cx * ancho - lado / 2) * escala, arriba: -(vista.cy * alto - lado / 2) * escala };
+	return {
+		escala,
+		anchoPx: ancho * escala,
+		altoPx: alto * escala,
+		izquierda: -(vista.cx * ancho - lado / 2) * escala,
+		arriba: -(vista.cy * alto - lado / 2) * escala,
+	};
 }

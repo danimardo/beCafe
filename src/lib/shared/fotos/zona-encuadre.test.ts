@@ -22,29 +22,43 @@ describe('zona de encuadre', () => {
 
 	it('CA-273: cualquier vista acotada produce una zona dentro de la foto', () => {
 		fc.assert(
-			fc.property(medida, medida, fc.double({ min: -1, max: 2, noNaN: true }), fc.double({ min: -1, max: 2, noNaN: true }), fc.double({ min: 0.1, max: 10, noNaN: true }), (ancho, alto, cx, cy, zoom) => {
-				const vista = acotarVista({ cx, cy, zoom }, ancho, alto, 280);
-				const zona = encuadreDeVista(vista, ancho, alto);
-				const lado = zona.lado * Math.min(ancho, alto);
-				expect(zona.x).toBeGreaterThanOrEqual(-1e-9);
-				expect(zona.y).toBeGreaterThanOrEqual(-1e-9);
-				expect(zona.x * ancho + lado).toBeLessThanOrEqual(ancho + 1e-6);
-				expect(zona.y * alto + lado).toBeLessThanOrEqual(alto + 1e-6);
-				expect(zona.lado).toBeGreaterThan(0);
-			}),
+			fc.property(
+				medida,
+				medida,
+				fc.double({ min: -1, max: 2, noNaN: true }),
+				fc.double({ min: -1, max: 2, noNaN: true }),
+				fc.double({ min: 0.1, max: 10, noNaN: true }),
+				(ancho, alto, cx, cy, zoom) => {
+					const vista = acotarVista({ cx, cy, zoom }, ancho, alto, 280);
+					const zona = encuadreDeVista(vista, ancho, alto);
+					const lado = zona.lado * Math.min(ancho, alto);
+					expect(zona.x).toBeGreaterThanOrEqual(-1e-9);
+					expect(zona.y).toBeGreaterThanOrEqual(-1e-9);
+					expect(zona.x * ancho + lado).toBeLessThanOrEqual(ancho + 1e-6);
+					expect(zona.y * alto + lado).toBeLessThanOrEqual(alto + 1e-6);
+					expect(zona.lado).toBeGreaterThan(0);
+				},
+			),
 		);
 	});
 
 	it('CA-273: la foto siempre cubre el marco', () => {
 		fc.assert(
-			fc.property(medida, medida, fc.double({ min: 0, max: 1, noNaN: true }), fc.double({ min: 0, max: 1, noNaN: true }), fc.double({ min: 1, max: 4, noNaN: true }), (ancho, alto, cx, cy, zoom) => {
-				const vista = acotarVista({ cx, cy, zoom }, ancho, alto, 280);
-				const d = disposicion(vista, ancho, alto, 280);
-				expect(d.izquierda).toBeLessThanOrEqual(1e-6);
-				expect(d.arriba).toBeLessThanOrEqual(1e-6);
-				expect(d.izquierda + d.anchoPx).toBeGreaterThanOrEqual(280 - 1e-6);
-				expect(d.arriba + d.altoPx).toBeGreaterThanOrEqual(280 - 1e-6);
-			}),
+			fc.property(
+				medida,
+				medida,
+				fc.double({ min: 0, max: 1, noNaN: true }),
+				fc.double({ min: 0, max: 1, noNaN: true }),
+				fc.double({ min: 1, max: 4, noNaN: true }),
+				(ancho, alto, cx, cy, zoom) => {
+					const vista = acotarVista({ cx, cy, zoom }, ancho, alto, 280);
+					const d = disposicion(vista, ancho, alto, 280);
+					expect(d.izquierda).toBeLessThanOrEqual(1e-6);
+					expect(d.arriba).toBeLessThanOrEqual(1e-6);
+					expect(d.izquierda + d.anchoPx).toBeGreaterThanOrEqual(280 - 1e-6);
+					expect(d.arriba + d.altoPx).toBeGreaterThanOrEqual(280 - 1e-6);
+				},
+			),
 		);
 	});
 });

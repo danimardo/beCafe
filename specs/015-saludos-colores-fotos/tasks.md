@@ -39,8 +39,8 @@ Las fases son independientes entre sí. Dentro de cada fase, las tareas van en o
 
 ## Fase 6: Cierre
 
-- [ ] T019 Documentación: `ARCHITECTURE.md` (tabla `mensaje_dia` en `usuarios`, `color-propio` y `encuadre` en `lib/shared`, `EncuadreFoto`, recorte en `imagenes.ts`) y `docs/pruebas.md` (cómo se prueba F15).
-- [ ] T020 `npm run verify` y E2E afectados; anotar en `.local/verification/runs.jsonl`; revisar `git status`.
+- [x] T019 Documentación: `ARCHITECTURE.md` (tabla `mensaje_dia` en `usuarios`, `color-propio` y `encuadre` en `lib/shared`, `EncuadreFoto`, recorte en `imagenes.ts`) y `docs/pruebas.md` (cómo se prueba F15).
+- [x] T020 `npm run verify` y E2E afectados; anotar en `.local/verification/runs.jsonl`; revisar `git status`.
 
 ## Dependencias
 

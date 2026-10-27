@@ -56,11 +56,18 @@ export async function fotoDosMitades(): Promise<Buffer> {
 }
 
 /** Dimensiones y color de dos puntos de una foto ya guardada (WebP): izquierda y derecha, a media altura. */
-export async function leerMitades(foto: Buffer): Promise<{ ancho: number; alto: number; izquierda: { r: number; b: number }; derecha: { r: number; b: number } }> {
+export async function leerMitades(
+	foto: Buffer,
+): Promise<{ ancho: number; alto: number; izquierda: { r: number; b: number }; derecha: { r: number; b: number } }> {
 	const { data, info } = await sharp(foto).removeAlpha().raw().toBuffer({ resolveWithObject: true });
 	const punto = (columna: number) => {
 		const inicio = (Math.floor(info.height / 2) * info.width + columna) * info.channels;
 		return { r: data[inicio] ?? 0, b: data[inicio + 2] ?? 0 };
 	};
-	return { ancho: info.width, alto: info.height, izquierda: punto(Math.floor(info.width * 0.1)), derecha: punto(Math.floor(info.width * 0.9)) };
+	return {
+		ancho: info.width,
+		alto: info.height,
+		izquierda: punto(Math.floor(info.width * 0.1)),
+		derecha: punto(Math.floor(info.width * 0.9)),
+	};
 }

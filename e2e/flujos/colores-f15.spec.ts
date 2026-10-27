@@ -26,7 +26,10 @@ test('CA-269: un color propio se guarda y vuelve como «Otro color» con su valo
 	await page.getByRole('button', { name: 'Dar de alta', exact: true }).press('Enter');
 	await expect(page).toHaveURL(/\/admin\/capsulas\?alta=ok$/);
 
-	await page.getByRole('link', { name: new RegExp(nombre) }).first().click();
+	await page
+		.getByRole('link', { name: new RegExp(nombre) })
+		.first()
+		.click();
 	await expect(page.getByRole('radio', { name: 'Otro color' })).toBeChecked();
 	await expect(page.getByLabel('Elegir el color con el selector')).toHaveValue('#336699');
 });

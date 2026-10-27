@@ -97,7 +97,11 @@
 		if (!previo || !colocacion) return;
 		punteros.set(evento.pointerId, { x: evento.clientX, y: evento.clientY });
 		if (punteros.size === 1) {
-			aplicar({ ...vista, cx: vista.cx - (evento.clientX - previo.x) / colocacion.escala / ancho, cy: vista.cy - (evento.clientY - previo.y) / colocacion.escala / alto });
+			aplicar({
+				...vista,
+				cx: vista.cx - (evento.clientX - previo.x) / colocacion.escala / ancho,
+				cy: vista.cy - (evento.clientY - previo.y) / colocacion.escala / alto,
+			});
 		} else if (punteros.size === 2) {
 			const actual = distancia();
 			if (distanciaPrevia > 0 && actual > 0) cambiarZoom(actual / distanciaPrevia);
@@ -118,7 +122,12 @@
 
 	function alPulsar(evento: KeyboardEvent) {
 		const paso = evento.shiftKey ? PASO_GRANDE : PASO;
-		const movimientos: Partial<Record<string, [number, number]>> = { ArrowLeft: [-paso, 0], ArrowRight: [paso, 0], ArrowUp: [0, -paso], ArrowDown: [0, paso] };
+		const movimientos: Partial<Record<string, [number, number]>> = {
+			ArrowLeft: [-paso, 0],
+			ArrowRight: [paso, 0],
+			ArrowUp: [0, -paso],
+			ArrowDown: [0, paso],
+		};
 		const movimiento = movimientos[evento.key];
 		if (movimiento) {
 			evento.preventDefault();

@@ -24,7 +24,10 @@ for (const esquema of ['light', 'dark'] as const) {
 			await entrarComo(page, servidor, 'administrador');
 			const nombre = nombreUnico('Axe');
 			await darDeAltaCapsula(page, servidor, { nombre, umbral: '3' });
-			await page.getByRole('link', { name: new RegExp(nombre) }).first().click();
+			await page
+				.getByRole('link', { name: new RegExp(nombre) })
+				.first()
+				.click();
 			await expectSinInfracciones(page);
 		});
 

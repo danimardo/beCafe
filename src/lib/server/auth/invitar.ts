@@ -23,7 +23,12 @@ type EntradaAdmin = { actor: Actor; contrasenaActual: string | undefined; instan
 
 export async function darDeAltaConInvitacion(
 	db: Db,
-	entrada: EntradaAdmin & { nombre: string; correo: string; rol: Rol; foto?: { bytes: Uint8Array; directorio: string; encuadre?: Encuadre | undefined } },
+	entrada: EntradaAdmin & {
+		nombre: string;
+		correo: string;
+		rol: Rol;
+		foto?: { bytes: Uint8Array; directorio: string; encuadre?: Encuadre | undefined };
+	},
 ): Promise<{ usuarioId: string; token: string; expiraEn: string }> {
 	exigirAdministrador(entrada.actor, 'usuarios.alta');
 	await exigirReautenticacion(db, entrada);

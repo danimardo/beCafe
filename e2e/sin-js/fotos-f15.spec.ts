@@ -7,7 +7,10 @@ test('CA-272: sin JavaScript, quitar la foto de una cápsula la deja sin foto', 
 	await entrarComo(page, servidor, 'administrador');
 	const nombre = nombreUnico('Sin JS quitar');
 	await darDeAltaCapsula(page, servidor, { nombre, umbral: '3', foto: await fotoDePrueba() });
-	await page.getByRole('link', { name: new RegExp(nombre) }).first().click();
+	await page
+		.getByRole('link', { name: new RegExp(nombre) })
+		.first()
+		.click();
 
 	await page.getByRole('button', { name: 'Quitar foto', exact: true }).click();
 
@@ -20,7 +23,10 @@ test('CA-273: sin JavaScript, la foto de la cápsula se recorta al cuadrado cent
 	await entrarComo(page, servidor, 'administrador');
 	const nombre = nombreUnico('Sin JS centro');
 	await darDeAltaCapsula(page, servidor, { nombre, umbral: '3', foto: await fotoDosMitades() });
-	await page.getByRole('link', { name: new RegExp(nombre) }).first().click();
+	await page
+		.getByRole('link', { name: new RegExp(nombre) })
+		.first()
+		.click();
 
 	const foto = page.getByRole('img', { name: 'Foto actual' });
 	const respuesta = await page.request.get(new URL((await foto.getAttribute('src')) ?? '', servidor.url).toString());

@@ -47,8 +47,12 @@ describe('fotos de los tipos de cápsula (RF-005, CA-005)', () => {
 
 	async function dosMitades(orientacion?: number): Promise<Uint8Array> {
 		// 400 × 200: mitad izquierda roja y mitad derecha azul. Con orientación 6 se ve girada 90° (200 × 400).
-		const izquierda = await sharp({ create: { width: 200, height: 200, channels: 3, background: { r: 255, g: 0, b: 0 } } }).png().toBuffer();
-		const base = sharp({ create: { width: 400, height: 200, channels: 3, background: { r: 0, g: 0, b: 255 } } }).composite([{ input: izquierda, left: 0, top: 0 }]);
+		const izquierda = await sharp({ create: { width: 200, height: 200, channels: 3, background: { r: 255, g: 0, b: 0 } } })
+			.png()
+			.toBuffer();
+		const base = sharp({ create: { width: 400, height: 200, channels: 3, background: { r: 0, g: 0, b: 255 } } }).composite([
+			{ input: izquierda, left: 0, top: 0 },
+		]);
 		return new Uint8Array(await (orientacion ? base.jpeg().withMetadata({ orientation: orientacion }) : base.jpeg()).toBuffer());
 	}
 
