@@ -52,7 +52,7 @@ describe('Capsulito (RF-185, RF-187, CA-185, CA-187)', () => {
 
 // F12 US8 (RF-248, CA-248, SC-006): Capsulito en reposo parpadea y hace un gesto según el tiempo que lleva quieta.
 // Solo se falsea el reloj de intervalos: el montaje de Rive (que falla sin el archivo en el servidor de pruebas) sigue con el reloj real.
-describe('Capsulito en reposo (RF-248, CA-248)', () => {
+describe('Capsulito en reposo (RF-248, RF-259, CA-259)', () => {
 	const PAUSA_POSE = Math.ceil(DURACION_POSE_RIV.saludo);
 
 	afterEach(() => vi.useRealTimers());
@@ -60,24 +60,26 @@ describe('Capsulito en reposo (RF-248, CA-248)', () => {
 	const gesto = (contenedor: HTMLElement) => contenedor.querySelector('[data-pose]')?.getAttribute('data-reposo');
 	const avanzar = (segundos: number) => vi.advanceTimersByTimeAsync(segundos * 1000);
 
-	it('CA-248: a los 6, 12, 16 y 21 s en reposo cambia al gesto que toca y después vuelve a quedarse quieta', async () => {
+	it('CA-259: a los 4, 9,5, 15, 20,5 y 26 s en reposo cambia al gesto que toca y después vuelve a quedarse quieta', async () => {
 		vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval'] });
 		const { container } = await render(PruebasReposo, { size: 'md' });
 
-		await avanzar(PAUSA_POSE + 5);
+		await avanzar(PAUSA_POSE + 3.5);
 		expect(gesto(container)).toBe('quieto');
-		await avanzar(1);
+		await avanzar(0.5);
 		expect(gesto(container)).toBe('mirarLados');
-		await avanzar(2);
+		await avanzar(1.5);
 		expect(gesto(container)).toBe('quieto');
 		await avanzar(4);
 		expect(gesto(container)).toBe('pie');
-		await avanzar(4);
-		expect(gesto(container)).toBe('reloj');
-		await avanzar(5);
+		await avanzar(5.5);
+		expect(gesto(container)).toBe('bostezoMano');
+		await avanzar(5.5);
+		expect(gesto(container)).toBe('tocarReloj');
+		await avanzar(5.5);
 		expect(gesto(container)).toBe('bostezo');
-		await avanzar(8);
-		// El ciclo de 23 s empieza otra vez: 29 s en reposo es el 6 del ciclo siguiente.
+		await avanzar(7);
+		// El ciclo de 29 s empieza otra vez: 33 s en reposo es el 4 del ciclo siguiente.
 		expect(gesto(container)).toBe('mirarLados');
 	});
 
@@ -85,7 +87,7 @@ describe('Capsulito en reposo (RF-248, CA-248)', () => {
 		vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval'] });
 		const { container } = await render(PruebasReposo, { size: 'lg' });
 
-		await avanzar(PAUSA_POSE + 6);
+		await avanzar(PAUSA_POSE + 4);
 		expect(gesto(container)).toBe('mirarLados');
 
 		await page.getByRole('button', { name: 'Hablar', exact: true }).click();
@@ -94,9 +96,9 @@ describe('Capsulito en reposo (RF-248, CA-248)', () => {
 		expect(gesto(container)).toBe('quieto');
 
 		await page.getByRole('button', { name: 'Callar', exact: true }).click();
-		await avanzar(PAUSA_POSE + 5);
+		await avanzar(PAUSA_POSE + 3.5);
 		expect(gesto(container)).toBe('quieto');
-		await avanzar(1);
+		await avanzar(0.5);
 		expect(gesto(container)).toBe('mirarLados');
 	});
 
@@ -104,7 +106,7 @@ describe('Capsulito en reposo (RF-248, CA-248)', () => {
 		vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval'] });
 		for (const propiedades of [{ size: 'sm' }, { size: 'md', reducirMovimiento: true }, { size: 'md', callado: true }] as const) {
 			const { container, unmount } = await render(PruebasReposo, propiedades);
-			for (const segundos of [6, 6, 4, 5, 8]) {
+			for (const segundos of [4, 5.5, 5.5, 5.5, 5.5]) {
 				await avanzar(segundos + PAUSA_POSE);
 				expect(gesto(container)).toBe('quieto');
 			}

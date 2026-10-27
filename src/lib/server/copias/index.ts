@@ -1,8 +1,26 @@
 // API pública de `copias`. El resto de módulos usa estas funciones; las tablas se exportan para las pruebas.
 export { copiaSeguridad, pruebaRestauracion } from './esquema';
-export { ErrorCopia, type CodigoCopia } from './errores';
+export { ErrorCopia, ErrorRestauracion, CODIGOS_RESTAURACION, type CodigoCopia, type CodigoRestauracion } from './errores';
 export { hacerCopiaDiaria, prepararArranqueCopias, claveDeCopia, TAREA_COPIA_DIARIA, type DependenciasCopia } from './copia-diaria';
-export { crearSubidaS3, type ConfiguracionS3, type Subidor } from './subida-s3';
+export {
+	crearSubidaS3,
+	crearClienteS3,
+	analizarListado,
+	esquemaClaveCopia,
+	type ConfiguracionS3,
+	type Subidor,
+	type ClienteS3,
+	type CopiaBucket,
+} from './subida-s3';
+export {
+	restaurarCopia,
+	leerCopiaARestaurar,
+	claveDeResguardo,
+	esquemaRestaurar,
+	ESTADO_RESTAURACION,
+	type RestauracionPendiente,
+} from './restauracion';
+export { aplicarRestauracionPendiente } from './aplicar-restauracion';
 export {
 	anotarPruebaRestauracion,
 	esquemaAnotarPrueba,

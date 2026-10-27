@@ -129,9 +129,37 @@ test('CA-251: «Ver el corto» pide el vídeo solo al pulsar y deja los controle
 	await corto.getByRole('button', { name: 'Ver el corto', exact: true }).click();
 	await peticion;
 
-	// La transcripción está enlazada desde la portada.
-	await corto.getByText('Leer la transcripción').click();
-	await expect(corto.getByText('Buenos días, señora cafetera. Lo de siempre.')).toBeVisible();
+	// CA-265: sin pista de subtítulos aparte (van grabados en el vídeo) y la transcripción se abre en una hoja.
+	await expect(pagina.locator('track')).toHaveCount(0);
+	await corto.getByRole('button', { name: 'Leer la transcripción', exact: true }).click();
+	const hoja = pagina.getByRole('dialog', { name: 'Transcripción del corto' });
+	await expect(hoja.getByText('Buenos días, señora cafetera. Lo de siempre.')).toBeVisible();
+	await hoja.getByRole('button', { name: 'Cerrar la transcripción', exact: true }).click();
+	await expect(hoja).toHaveCount(0);
+	await expect(corto).toBeVisible();
+	await contexto.close();
+});
+
+test('CA-264: el corto ocupa toda la pantalla, sin título ni descripción, con «Saltar» arriba y la transcripción abajo', async ({
+	browser,
+	servidor,
+}) => {
+	const { contexto, pagina } = await dispositivoLimpio(browser);
+	await pagina.goto(`${servidor.url}/login`);
+	const corto = pagina.getByRole('dialog', { name: TITULO });
+	await expect(corto).toBeVisible();
+
+	const tamano = pagina.viewportSize();
+	const caja = await corto.boundingBox();
+	expect(caja).toMatchObject({ x: 0, y: 0, width: tamano?.width, height: tamano?.height });
+	await expect(corto.getByText('Un corto de 72 segundos', { exact: false })).not.toBeInViewport();
+	const saltar = await corto.getByRole('button', { name: 'Saltar', exact: true }).boundingBox();
+	const transcripcion = await corto.getByRole('button', { name: 'Leer la transcripción', exact: true }).boundingBox();
+	const ver = await corto.getByRole('button', { name: 'Ver el corto', exact: true }).boundingBox();
+	expect(saltar?.y ?? Infinity).toBeLessThan((tamano?.height ?? 0) * 0.2);
+	expect(transcripcion?.y ?? 0).toBeGreaterThan((tamano?.height ?? 0) * 0.8);
+	expect(ver?.y ?? 0).toBeGreaterThan(saltar?.y ?? Infinity);
+	expect(ver?.y ?? Infinity).toBeLessThan(transcripcion?.y ?? 0);
 	await contexto.close();
 });
 

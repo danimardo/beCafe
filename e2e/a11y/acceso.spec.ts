@@ -91,7 +91,7 @@ for (const esquema of ['light', 'dark'] as const) {
 				.getByRole('button', { name: 'Ver el corto', exact: true })
 				.waitFor();
 			await expectSinInfracciones(pagina);
-			await pagina.getByText('Leer la transcripción').click();
+			await pagina.getByRole('button', { name: 'Leer la transcripción', exact: true }).click();
 			await pagina.getByText('Buenos días, señora cafetera. Lo de siempre.').waitFor();
 			await expectSinInfracciones(pagina);
 			await contexto.close();

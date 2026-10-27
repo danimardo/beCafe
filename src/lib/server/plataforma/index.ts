@@ -36,4 +36,5 @@ export { qrSvg } from './qr';
 export type { Ejecutor } from './db/conexion';
 // Entorno de integración para las pruebas de los módulos y de las rutas (docs/pruebas.md §7).
 export { crearEntornoPrueba, type EntornoPrueba } from './pruebas/entorno-prueba';
-export type { Ambiente } from './ambiente';
+export type { Ambiente, ConfiguracionS3 } from './ambiente';
+export { crearReinicio } from './reinicio';

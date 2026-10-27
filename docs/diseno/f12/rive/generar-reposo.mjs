@@ -202,19 +202,39 @@ function brazo(lado, prefijo = '', opacidad = 1) {
 	return `<Node name="${prefijo || 'Brazo-'}${prefijo ? lado : lado}" id="${idDe(`${prefijo || 'Brazo-'}${lado}`)}" x="${sx}" y="${sy}" opacity="${opacidad}">\n${mano}\n<Node name="forma-${n}">\n${formas(`brazo-${lado}`, sx, sy)}\n</Node>\n</Node>`;
 }
 
-/** Brazo izquierdo levantado con la muñeca girada hacia la cara: el reloj imaginario (gesto `reloj`). Siempre se usa la mano que saluda. */
-const MUNECA = [545, 775];
-function relojImaginario() {
+const COLOR_BRAZO = 'FF5A3020';
+const antebrazo = (nombre, puntos) =>
+	`<Shape name="${nombre}"><PointsPath isClosed="false" isClockwise="true">${puntos.map(([x, y]) => `<StraightVertex x="${x}" y="${y}" radius="30"/>`).join('')}</PointsPath><Stroke thickness="46" cap="round" join="round"><SolidColor colorValue="${COLOR_BRAZO}"/></Stroke></Shape>`;
+
+/** Bostezo con la mano (gesto `bostezoMano`, RF-259): el brazo izquierdo sube y la mano tapa la parte baja de la boca muy abierta. */
+const MANO_BOSTEZO = [655, 770];
+function bostezoConMano() {
 	const [hx, hy] = piezas.get('mano-der').pivote;
-	const antebrazo = [
-		[372, 705],
-		[385, 805],
-		[MUNECA[0] - 30, MUNECA[1] + 25],
-	];
-	const vertices = antebrazo.map(([x, y]) => `<StraightVertex x="${x}" y="${y}" radius="30"/>`).join('');
-	const trazo = `<Shape name="Antebrazo-reloj"><PointsPath isClosed="false" isClockwise="true">${vertices}</PointsPath><Stroke thickness="46" cap="round" join="round"><SolidColor colorValue="FF5A3020"/></Stroke></Shape>`;
-	const mano = `<Node name="ManoReloj" id="${idDe('ManoReloj')}" x="${MUNECA[0]}" y="${MUNECA[1]}" scaleX="-0.9" scaleY="0.9" rotation="0">\n${formas('mano-der', hx, hy)}\n</Node>`;
-	return `<Node name="Reloj" id="${idDe('Reloj')}" opacity="0">\n${mano}\n${trazo}\n</Node>`;
+	const trazo = antebrazo('Antebrazo-bostezo', [[372, 705], [380, 835], [545, 850], [MANO_BOSTEZO[0] - 40, MANO_BOSTEZO[1] + 45]]);
+	const mano = `<Node name="ManoBostezo" id="${idDe('ManoBostezo')}" x="${MANO_BOSTEZO[0]}" y="${MANO_BOSTEZO[1]}" scaleX="-0.95" scaleY="0.95" rotation="0">\n${formas('mano-der', hx, hy)}\n</Node>`;
+	return `<Node name="BostezoMano" id="${idDe('BostezoMano')}" opacity="0">\n${mano}\n${trazo}\n</Node>`;
+}
+
+/**
+ * Tocar el reloj (gesto `tocarReloj`, RF-259): el brazo izquierdo muestra un reloj de muñeca y la otra mano lo golpea con prisa.
+ * El brazo que golpea es un nodo rígido que gira desde el hombro: el giro mueve la mano arriba y abajo sobre el reloj.
+ */
+const RELOJ = [545, 805];
+function relojDeMuneca() {
+	const trazo = antebrazo('Antebrazo-reloj', [[372, 705], [385, 800], [RELOJ[0] - 40, RELOJ[1]]]);
+	const puno = `<Shape name="Puno" x="${RELOJ[0] + 62}" y="${RELOJ[1] + 2}"><Ellipse originX="0.5" originY="0.5" width="64" height="58"/><Fill><SolidColor colorValue="FF4B2A1B"/></Fill></Shape>`;
+	const correa = `<Shape name="Correa" x="${RELOJ[0]}" y="${RELOJ[1]}"><Rectangle originX="0.5" originY="0.5" width="46" height="84" cornerRadiusTL="12" cornerRadiusTR="12" cornerRadiusBL="12" cornerRadiusBR="12"/><Fill><SolidColor colorValue="FF2B1D14"/></Fill></Shape>`;
+	const esfera = `<Shape name="Esfera" x="${RELOJ[0]}" y="${RELOJ[1]}"><Ellipse originX="0.5" originY="0.5" width="84" height="84"/><Fill><SolidColor colorValue="FFFFF3D6"/></Fill><Stroke thickness="9"><SolidColor colorValue="FF2B1D14"/></Stroke></Shape>`;
+	const agujas = `<Shape name="Agujas" x="${RELOJ[0]}" y="${RELOJ[1]}"><PointsPath isClosed="false" isClockwise="true"><StraightVertex x="0" y="-26"/><StraightVertex x="0" y="0"/><StraightVertex x="19" y="10"/></PointsPath><Stroke thickness="7" cap="round" join="round"><SolidColor colorValue="FF2B1D14"/></Stroke></Shape>`;
+	// El brazo derecho que golpea: del hombro al codo y del codo a la mano, que cae sobre el reloj.
+	const [sx, sy] = piezas.get('brazo-der').pivote;
+	const [hx, hy] = piezas.get('mano-der').pivote;
+	const codo = [820, 870];
+	const punta = [RELOJ[0] + 6, RELOJ[1] - 78];
+	const rel = ([x, y]) => [x - sx, y - sy];
+	const manoToque = `<Node name="ManoToque" x="${rel(punta)[0]}" y="${rel(punta)[1]}" rotation="2.7" scaleX="0.85" scaleY="0.85">\n${formas('mano-der', hx, hy)}\n</Node>`;
+	const brazoToque = `<Node name="ToqueBrazo" id="${idDe('ToqueBrazo')}" x="${sx}" y="${sy}" opacity="0">\n${manoToque}\n${antebrazo('Brazo-toque', [[0, 0], rel(codo), rel(punta)])}\n</Node>`;
+	return `${brazoToque}\n<Node name="TocarReloj" id="${idDe('TocarReloj')}" opacity="0">\n${agujas}\n${esfera}\n${correa}\n${puno}\n${trazo}\n</Node>`;
 }
 
 /** La zapatilla derecha gira con la pierna, desde la cadera, para que el pie golpee el suelo sin separarse de ella. */
@@ -228,7 +248,8 @@ const boca = `<Node name="Boca" id="${idDe('Boca')}" x="${BOCA[0]}" y="${BOCA[1]
 
 // De delante atrás.
 const figura = [
-	relojImaginario(),
+	bostezoConMano(),
+	relojDeMuneca(),
 	brazo('izq'),
 	pieza('zapatilla-izq'),
 	zapatillaDerecha(),
@@ -294,9 +315,11 @@ const caraNeutra = {
 	Boca: { escalaX: [[0, 1]], escalaY: [[0, 1]], y: [[0, BOCA[1]]] },
 	PiernaDer: { rotacion: [[0, 0]], y: [[0, piezas.get('pierna-der').pivote[1]]] },
 	PieDerFrente: { rotacion: [[0, 0]], y: [[0, piezas.get('pierna-der').pivote[1]]] },
-	Reloj: { opacidad: [[0, 0]] },
-	ManoReloj: { rotacion: [[0, 0]] },
+	BostezoMano: { opacidad: [[0, 0]] },
+	TocarReloj: { opacidad: [[0, 0]] },
+	ToqueBrazo: { opacidad: [[0, 0]], rotacion: [[0, 0]] },
 	'Brazo-izq': { opacidad: [[0, 1]] },
+	'Brazo-der': { opacidad: [[0, 1]] },
 };
 animacion('neutro', 1, 'oneShot', caraNeutra);
 
@@ -321,15 +344,39 @@ animacion('pie', 72, 'oneShot', {
 	'Ceja-der': { rotacion: [[0, 0], [10, 0.2], [62, 0.2], [72, 0]] },
 });
 
-// reloj (1,6 s): el brazo izquierdo sube con la muñeca girada hacia la cara y la mirada baja hacia ella.
-animacion('reloj', 96, 'oneShot', {
-	Reloj: { opacidad: [[0, 0], [6, 1], [84, 1], [90, 0], [96, 0]] },
-	'Brazo-izq': { opacidad: [[0, 1], [6, 0], [84, 0], [90, 1], [96, 1]] },
-	ManoReloj: { rotacion: [[0, 1.2], [30, 1.2], [42, 0.9], [54, 1.2], [84, 1.2]] },
-	'Mirar-izq': { x: [[0, 0], [12, -20], [84, -20], [96, 0]], y: [[0, 0], [12, 14], [84, 14], [96, 0]] },
-	'Mirar-der': { x: [[0, 0], [12, -2], [84, -2], [96, 0]], y: [[0, 0], [12, 14], [84, 14], [96, 0]] },
-	'Ceja-izq': { y: [[0, CEJA_IZQ[1]], [12, CEJA_IZQ[1] - 10], [84, CEJA_IZQ[1] - 10], [96, CEJA_IZQ[1]]] },
-	'Ceja-der': { y: [[0, CEJA_DER[1]], [12, CEJA_DER[1] - 10], [84, CEJA_DER[1] - 10], [96, CEJA_DER[1]]] },
+// bostezoMano (1,8 s): el brazo izquierdo sube y la mano tapa la parte baja de la boca, que se abre mucho; los ojos se entornan.
+animacion('bostezoMano', 108, 'oneShot', {
+	BostezoMano: { opacidad: [[0, 0], [8, 1], [96, 1], [102, 0], [108, 0]] },
+	'Brazo-izq': { opacidad: [[0, 1], [8, 0], [96, 0], [102, 1], [108, 1]] },
+	Boca: {
+		escalaX: [[0, 1], [30, 1.25], [84, 1.25], [108, 1]],
+		escalaY: [[0, 1], [30, 2.3], [84, 2.3], [108, 1]],
+		y: [[0, BOCA[1]], [30, BOCA[1] + 16], [84, BOCA[1] + 16], [108, BOCA[1]]],
+	},
+	'Parpadeo-izq': { escalaY: [[0, 1], [14, 0.12], [90, 0.12], [108, 1]] },
+	'Parpadeo-der': { escalaY: [[0, 1], [14, 0.12], [90, 0.12], [108, 1]] },
+	'Ceja-izq': { y: [[0, CEJA_IZQ[1]], [30, CEJA_IZQ[1] - 16], [84, CEJA_IZQ[1] - 16], [108, CEJA_IZQ[1]]] },
+	'Ceja-der': { y: [[0, CEJA_DER[1]], [30, CEJA_DER[1] - 16], [84, CEJA_DER[1] - 16], [108, CEJA_DER[1]]] },
+	Respira: { y: [[0, 0], [36, -10], [84, -10], [108, 0]] },
+});
+
+// tocarReloj (2 s): muestra el reloj de la muñeca izquierda, mira hacia él y lo golpea cuatro veces con la otra mano; al final
+// mira al frente con las cejas fruncidas («venga, que es para hoy»).
+const REPOSO_TOQUE = 0.22;
+const toques = [32, 50, 68, 86];
+const golpeo = [[0, REPOSO_TOQUE], [10, REPOSO_TOQUE]];
+for (const cuadro of toques) golpeo.push([cuadro, REPOSO_TOQUE], [cuadro + 5, 0], [cuadro + 11, REPOSO_TOQUE]);
+golpeo.push([106, REPOSO_TOQUE], [112, REPOSO_TOQUE], [120, REPOSO_TOQUE]);
+animacion('tocarReloj', 120, 'oneShot', {
+	TocarReloj: { opacidad: [[0, 0], [8, 1], [108, 1], [114, 0], [120, 0]] },
+	ToqueBrazo: { opacidad: [[0, 0], [8, 1], [108, 1], [114, 0], [120, 0]], rotacion: golpeo },
+	'Brazo-izq': { opacidad: [[0, 1], [8, 0], [108, 0], [114, 1], [120, 1]] },
+	'Brazo-der': { opacidad: [[0, 1], [8, 0], [108, 0], [114, 1], [120, 1]] },
+	'Mirar-izq': { x: [[0, 0], [12, -20], [96, -20], [102, 0], [120, 0]], y: [[0, 0], [12, 18], [96, 18], [102, -6], [120, 0]] },
+	'Mirar-der': { x: [[0, 0], [12, -2], [96, -2], [102, 0], [120, 0]], y: [[0, 0], [12, 18], [96, 18], [102, -6], [120, 0]] },
+	'Ceja-izq': { rotacion: [[0, 0], [12, -0.3], [108, -0.3], [120, 0]] },
+	'Ceja-der': { rotacion: [[0, 0], [12, 0.3], [108, 0.3], [120, 0]] },
+	Boca: { escalaX: [[0, 1], [12, 0.75], [108, 0.75], [120, 1]], escalaY: [[0, 1], [12, 0.3], [108, 0.3], [120, 1]], y: [[0, BOCA[1]], [12, BOCA[1] + 8], [108, BOCA[1] + 8], [120, BOCA[1]]] },
 });
 
 // bostezo (2 s): la boca se abre mucho, los ojos se cierran (sin parpadeo) y la figura se estira.
@@ -352,7 +399,8 @@ const VM = '0:40';
 const propiedades = {
 	mirarLados: '0:41',
 	pie: '0:42',
-	reloj: '0:43',
+	bostezoMano: '0:43',
+	tocarReloj: '0:48',
 	bostezo: '0:44',
 	cancelar: '0:45',
 	reducedMotion: '0:47',
@@ -376,7 +424,7 @@ const capaParpadeo = `<StateMachineLayer name="Parpadeo" id="${nuevoId()}">
 
 // Capa Gesto: cada disparador lanza su gesto; al terminar vuelve a `neutro`. `cancelar` vuelve a `neutro` de inmediato.
 const idNeutro = nuevoId();
-const GESTOS = ['mirarLados', 'pie', 'reloj', 'bostezo'];
+const GESTOS = ['mirarLados', 'pie', 'bostezoMano', 'tocarReloj', 'bostezo'];
 const idGesto = Object.fromEntries(GESTOS.map((g) => [g, nuevoId()]));
 const desdeCualquiera = GESTOS.map((g) => `<StateTransition stateToId="${idGesto[g]}" duration="120">${condicionDisparador(g)}</StateTransition>`).join('\n');
 const cancelar = `<StateTransition stateToId="${idNeutro}" duration="100">${condicionDisparador('cancelar')}</StateTransition>`;
@@ -403,14 +451,16 @@ ${capaGesto}
 const modeloDatos = `<ViewModel defaultInstanceId="0:46" name="Reposo" id="${VM}">
 <ViewModelPropertyTrigger name="mirarLados" id="${propiedades.mirarLados}"/>
 <ViewModelPropertyTrigger name="pie" id="${propiedades.pie}"/>
-<ViewModelPropertyTrigger name="reloj" id="${propiedades.reloj}"/>
+<ViewModelPropertyTrigger name="bostezoMano" id="${propiedades.bostezoMano}"/>
+<ViewModelPropertyTrigger name="tocarReloj" id="${propiedades.tocarReloj}"/>
 <ViewModelPropertyTrigger name="bostezo" id="${propiedades.bostezo}"/>
 <ViewModelPropertyTrigger name="cancelar" id="${propiedades.cancelar}"/>
 <ViewModelPropertyBoolean name="reducedMotion" id="${propiedades.reducedMotion}"/>
 <ViewModelInstance exports="true" name="Default" id="0:46">
 <ViewModelInstanceTrigger viewModelPropertyId="${propiedades.mirarLados}"/>
 <ViewModelInstanceTrigger viewModelPropertyId="${propiedades.pie}"/>
-<ViewModelInstanceTrigger viewModelPropertyId="${propiedades.reloj}"/>
+<ViewModelInstanceTrigger viewModelPropertyId="${propiedades.bostezoMano}"/>
+<ViewModelInstanceTrigger viewModelPropertyId="${propiedades.tocarReloj}"/>
 <ViewModelInstanceTrigger viewModelPropertyId="${propiedades.bostezo}"/>
 <ViewModelInstanceTrigger viewModelPropertyId="${propiedades.cancelar}"/>
 <ViewModelInstanceBoolean propertyValue="false" viewModelPropertyId="${propiedades.reducedMotion}"/>

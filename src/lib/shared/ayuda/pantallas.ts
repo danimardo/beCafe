@@ -279,6 +279,7 @@ const RUTAS: Readonly<Record<string, IdPantalla>> = Object.freeze({
 	'/(app)/admin/control': 'adminControl',
 	'/(app)/admin/configuracion': 'adminConfiguracion',
 	'/(app)/admin/copias': 'adminCopias',
+	'/(app)/admin/copias/restaurar/[...clave]': 'adminCopias',
 	'/(app)/admin/visitantes': 'adminVisitantes',
 	'/(visita)/visita': 'visita',
 	'/(visita)/visita/[token=token]': 'entradaVisita',

@@ -32,7 +32,9 @@ export function crearEntornoPrueba(inicio: string = INSTANTE_INICIAL, azar: Azar
 		limitadorAvisos: crearLimiteFalso(),
 		limitadorVisitantes: crearLimiteFalso(),
 		azar,
-		s3Activa: false,
+		copias: { directorioDatos: base.directorio, carpetaMigraciones: join(process.cwd(), 'drizzle'), s3: undefined },
+		mantenimiento: { restaurando: false },
+		reiniciar: () => undefined,
 	};
 	return {
 		base,

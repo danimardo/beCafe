@@ -1,11 +1,11 @@
 import { spawnSync } from 'node:child_process';
-import { readFileSync, statSync } from 'node:fs';
+import { existsSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { z } from 'zod';
 import { describe, expect, it } from 'vitest';
 
-// Versión web del corto (RF-251, plan F13 §7): `docs/diseno/corto-capsulito/html/exportar-web.mjs` deja el vídeo, la portada y los
-// subtítulos en `static/corto/`. La prueba mide los archivos entregados; no vuelve a codificar (tarda más de un minuto).
+// Versión web del corto (RF-251, plan F13 §7): `docs/diseno/corto-capsulito/html/exportar-web.mjs` deja el vídeo y la portada en
+// `static/corto/` (los subtítulos van grabados en el vídeo, RF-265). La prueba mide los archivos entregados; no vuelve a codificar (tarda más de un minuto).
 const DIR = resolve(process.cwd(), 'static/corto');
 const TOPE_BYTES = 6 * 1024 * 1024;
 const hayFfprobe = spawnSync('ffprobe', ['-version'], { stdio: 'ignore' }).status === 0;
@@ -39,9 +39,7 @@ describe('versión web del corto (RF-251)', () => {
 		expect(sondear(archivo).streams[0]).toMatchObject({ width: 720, height: 1280 });
 	});
 
-	it('CA-251: los subtítulos son un WebVTT con al menos 10 intervalos', () => {
-		const vtt = readFileSync(resolve(DIR, 'subtitulos.vtt'), 'utf8');
-		expect(vtt.startsWith('WEBVTT')).toBe(true);
-		expect(vtt.match(/ --> /g)?.length ?? 0).toBeGreaterThanOrEqual(10);
+	it('CA-265: la versión web no lleva pista de subtítulos aparte: van grabados en el vídeo', () => {
+		expect(existsSync(resolve(DIR, 'subtitulos.vtt'))).toBe(false);
 	});
 });

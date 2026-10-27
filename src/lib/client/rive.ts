@@ -277,7 +277,7 @@ export const SRC_RIV_REPOSO = '/mascota/riv/capsulito-reposo.riv';
 
 /**
  * Monta la animación de reposo sobre el `<canvas>` dado. Máquina de estados `Reposo` y propiedades del ViewModel `Reposo`
- * (instancia `Default`): `mirarLados`, `pie`, `reloj`, `bostezo` y `cancelar` (disparadores) y `reducedMotion` (booleano).
+ * (instancia `Default`): `mirarLados`, `pie`, `bostezoMano`, `tocarReloj`, `bostezo` y `cancelar` (disparadores) y `reducedMotion` (booleano).
  * Parpadea sola cada 3 s. Devuelve una función de limpieza. Si algo falla, llama a `onError` y Capsulito sigue con su pose.
  */
 export function montarRiveReposo(canvas: HTMLCanvasElement, opciones: OpcionesMontajeReposo): () => void {
@@ -322,7 +322,8 @@ export function montarRiveReposo(canvas: HTMLCanvasElement, opciones: OpcionesMo
 					const disparadores = {
 						mirarLados: vmi?.trigger('mirarLados') ?? null,
 						pie: vmi?.trigger('pie') ?? null,
-						reloj: vmi?.trigger('reloj') ?? null,
+						bostezoMano: vmi?.trigger('bostezoMano') ?? null,
+						tocarReloj: vmi?.trigger('tocarReloj') ?? null,
 						bostezo: vmi?.trigger('bostezo') ?? null,
 					} satisfies Record<GestoReposo, ReturnType<NonNullable<typeof vmi>['trigger']> | null>;
 					const cancelar = vmi?.trigger('cancelar') ?? null;

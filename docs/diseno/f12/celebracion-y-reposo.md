@@ -12,15 +12,16 @@ Dos efectos con una función cada uno. Ninguno añade librerías.
 | Movimiento reducido | Sin confeti (`prefers-reduced-motion` o `mascota.animar` falso). Queda el aviso y, con la voz activa, el sonido. |
 | Sonido | `static/mascota/sonidos/celebracion.mp3` (≤ 30 KB), con el interruptor de voz de Ajustes. Suena antes de la locución y una celebración nueva corta la anterior. |
 
-## Reposo de Capsulito (`lib/ui/Capsulito.svelte`, `lib/shared/mascota/reposo.ts`)
+## Reposo de Capsulito (`lib/ui/Capsulito.svelte`, `lib/shared/mascota/reposo.ts`; F14, RF-259)
 
 | Tiempo en reposo | Gesto |
 | --- | --- |
 | Cada 3 s | Parpadeo |
-| 6 s | Mira a los lados |
-| 12 s | Golpea el suelo con el pie |
-| 16 s | Mira un reloj imaginario |
-| 21 s | Bosteza; el ciclo (23 s) vuelve a empezar |
+| 4 s | Mira a los lados |
+| 9,5 s | Golpea el suelo con el pie |
+| 15 s | Bosteza tapándose la boca con la mano (boca muy abierta) |
+| 20,5 s | Se da toquecitos en el reloj de la muñeca: «venga, que es para hoy» |
+| 26 s | Bosteza estirándose; el ciclo (29 s) vuelve a empezar |
 
 - El orden es fijo y depende del tiempo quieta, no del azar (constitución XVIII).
 - Solo con 112 px o más (`md`, `lg`, `xl`) y sin `callado`. Los tamaños pequeños (64 px) no cambian.

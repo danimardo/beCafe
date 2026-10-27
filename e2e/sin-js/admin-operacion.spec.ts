@@ -21,7 +21,7 @@ test('sin JavaScript, anotar una prueba de restauración confirma en la pantalla
 
 	const ayer = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
 	await page.getByLabel('Fecha de la prueba', { exact: true }).fill(ayer);
-	await page.getByRole('button', { name: 'Anotar prueba de restauración', exact: true }).click();
+	await page.getByRole('button', { name: 'Anotar prueba', exact: true }).click();
 
 	await expect(page.getByRole('status').filter({ hasText: 'Prueba de restauración anotada.' }).first()).toBeVisible();
 });

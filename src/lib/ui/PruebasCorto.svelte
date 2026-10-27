@@ -2,13 +2,11 @@
 	import Corto from './Corto.svelte';
 	import { crearContextoMascota } from './contextos/mascota.svelte';
 
-	type Props = { modo?: 'antesDeEntrar' | 'dialogo'; animar?: boolean };
-	let { modo = 'antesDeEntrar', animar = false }: Props = $props();
+	type Props = { modo?: 'antesDeEntrar' | 'dialogo' };
+	let { modo = 'antesDeEntrar' }: Props = $props();
 
 	const mascota = crearContextoMascota();
 	mascota.visible = true;
-	const animarInicial = () => animar;
-	mascota.animar = animarInicial();
 	let estado = $state('pendiente');
 </script>
 

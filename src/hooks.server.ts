@@ -78,6 +78,13 @@ export const handle: Handle = ({ event, resolve }) =>
 		}
 		if (event.locals.visita && !event.locals.sesion && event.url.pathname === '/') redirect(303, '/visita');
 
+		// Durante una restauración no se aceptan registros: la cola sin conexión y los formularios reintentan después (plan F14 D2).
+		if (ambiente.mantenimiento.restaurando && event.request.method !== 'GET' && event.request.method !== 'HEAD') {
+			const respuesta = Response.json({ mensaje: textos.copias.mantenimiento }, { status: 503, headers: { 'Retry-After': '10' } });
+			anadirCabeceras(respuesta.headers);
+			return respuesta;
+		}
+
 		const pendiente = event.locals.sesion !== undefined && privacidadPendiente(event.locals.sesion.usuario, VERSION_PRIVACIDAD);
 		const decision = decidirPuertaPrivacidad(event.url.pathname, event.request.method, pendiente);
 		if (decision === 'redirigir') redirect(303, '/aceptar-privacidad');

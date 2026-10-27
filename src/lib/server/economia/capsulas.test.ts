@@ -8,7 +8,7 @@ import { cambiarEstadoCapsula, borrarCapsula, darDeAltaCapsula, editarCapsula, t
 import { leerAvisosStock, leerCapsulaAdmin, leerCatalogoAdmin, leerEstadoTipos } from './panel';
 import { fijarStock } from './existencias';
 import { registrarAportacion } from './aportaciones';
-import { registrarCompra } from './compras';
+import { leerTiposComprables, registrarCompra } from './compras';
 import { registrarConsumo } from './consumos';
 import { prepararConsumo, prepararMiembros, prepararTipo } from './pruebas/constructores';
 import { nuevoId } from '#lib/server/plataforma';
@@ -179,6 +179,18 @@ describe('stock bajo y entradas (RN-071, RN-072, INV-02; CA-020, CA-021, CA-023)
 			fijarStock(tx, sano.id, 9, INSTANTE);
 		});
 		expect(leerAvisosStock(entorno.ambiente.db, ADMIN, entorno.ambiente.reloj.ahora()).map((fila) => fila.id)).toEqual([bajo.id]);
+	});
+
+	it('CA-263: Compras recibe el stock y el indicador de stock bajo de cada tipo activo', async () => {
+		const bajo = await darDeAltaCapsula(entorno.ambiente, ADMIN, datosBase({ nombre: 'Bajo', umbralMinimo: 10 }));
+		const sano = await darDeAltaCapsula(entorno.ambiente, ADMIN, datosBase({ nombre: 'Sano', umbralMinimo: 2 }));
+		enTransaccion(entorno.ambiente.db, (tx) => {
+			fijarStock(tx, bajo.id, 4, INSTANTE);
+			fijarStock(tx, sano.id, 12, INSTANTE);
+		});
+		const tipos = leerTiposComprables(entorno.ambiente.db, MIEMBRO);
+		expect(tipos.find((tipo) => tipo.id === bajo.id)).toMatchObject({ stock: 4, enStockBajo: true });
+		expect(tipos.find((tipo) => tipo.id === sano.id)).toMatchObject({ stock: 12, enStockBajo: false });
 	});
 
 	it('CA-022: sin consumos registrados aún, la estimación es «sin datos» con stock positivo y 0 días sin stock', async () => {

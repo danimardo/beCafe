@@ -3,7 +3,7 @@
 // Requisito: entrega/el-misterio-de-la-ultima-capsula.mp4 (montar-corto.mjs) y ffmpeg en el PATH.
 // Uso: node docs/diseno/corto-capsulito/html/exportar-web.mjs
 import { spawnSync } from 'node:child_process';
-import { copyFileSync, existsSync, mkdirSync, statSync } from 'node:fs';
+import { existsSync, mkdirSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -53,14 +53,13 @@ function ffmpeg(argumentos) {
 
 export function exportarWeb({ crf = 29 } = {}) {
 	const origen = join(entrega, 'el-misterio-de-la-ultima-capsula.mp4');
-	for (const f of [origen, join(entrega, 'portada.png'), join(entrega, 'subtitulos.vtt')]) {
+	for (const f of [origen, join(entrega, 'portada.png')]) {
 		if (!existsSync(f)) throw new Error(`Falta ${f}`);
 	}
 	mkdirSync(DESTINO, { recursive: true });
 	const video = join(DESTINO, 'el-misterio-de-la-ultima-capsula.mp4');
 	ffmpeg(argumentosDeVideo(origen, video, crf));
 	ffmpeg(['-y', '-loglevel', 'error', '-i', join(entrega, 'portada.png'), '-vf', `scale=${ANCHO}:${ALTO}:flags=lanczos`, '-q:v', '4', join(DESTINO, 'portada.jpg')]);
-	copyFileSync(join(entrega, 'subtitulos.vtt'), join(DESTINO, 'subtitulos.vtt'));
 	return { video, bytes: statSync(video).size };
 }
 

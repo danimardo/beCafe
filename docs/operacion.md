@@ -93,7 +93,23 @@ El comando muestra la integridad de SQLite, el número de migraciones aplicadas 
 
 ## 6. Restaurar una copia
 
-Haz la restauración en un entorno aparte la primera vez. Repítela cada vez que anotes una prueba de restauración.
+### 6.1 Desde la aplicación (RF-253 a RF-257)
+
+Requisitos: las variables S3 están configuradas y el contenedor se **reinicia solo** cuando el proceso termina (en Coolify, política de reinicio `unless-stopped`). Sin reinicio automático la aplicación se queda parada tras restaurar.
+
+1. Entra como administrador en `/admin/copias`. La sección «Copias en el bucket» lista las 30 copias más recientes.
+2. Pulsa «Restaurar» en la copia elegida. La pantalla muestra el efecto: se sustituyen **todos** los datos por los de esa fecha y se pierde lo registrado después.
+3. Escribe tu contraseña y confirma.
+4. La aplicación sube una copia de resguardo del estado actual a `becafe/resguardos/`, descarga la elegida, comprueba su suma SHA-256, su integridad y que sus migraciones no sean más nuevas que la aplicación, y la deja preparada.
+5. El proceso termina y el contenedor arranca de nuevo. Durante unos segundos la aplicación no responde, y las peticiones que no son de lectura reciben un 503.
+6. Al arrancar, antes de abrir la base, se sustituye `becafe.db` y `fotos/` por los de la copia. Si algo falla, se deshace y se conserva el estado anterior.
+7. Comprueba que `/api/salud` responde y que los saldos coinciden con los que esperas. `/admin/copias` muestra la última restauración.
+
+Si falla alguna comprobación, la aplicación no cambia nada y explica el motivo. Para deshacer una restauración ya aplicada, restaura la copia de resguardo desde la misma pantalla.
+
+### 6.2 A mano, en el servidor
+
+Úsala si la aplicación no arranca. Haz la restauración en un entorno aparte la primera vez.
 
 1. Descarga el archivo de la copia y verifícalo (sección 5).
 2. Detén la aplicación en Coolify.
@@ -101,7 +117,10 @@ Haz la restauración en un entorno aparte la primera vez. Repítela cada vez que
 4. Borra los ficheros `becafe.db-wal` y `becafe.db-shm` si existen.
 5. Arranca la aplicación.
 6. Comprueba que `/api/salud` responde y que los saldos del panel coinciden con los que esperas.
-7. Entra en `/admin/copias` y anota la prueba con su fecha, su resultado y una nota. Así desaparece el aviso de 100 días.
+
+### 6.3 Anotar una prueba de restauración
+
+Tras una restauración de prueba, entra en `/admin/copias` y pulsa «Anotar prueba» con su fecha, su resultado y una nota. Así desaparece el aviso de 100 días.
 
 ## 7. Actualizar la aplicación
 

@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import { Banner, Button, EmptyState, PageHeader, Section } from '#lib/ui';
+	import { formatearFechaHoraMadrid } from '#lib/shared/fechas/formato';
 	import { textos } from '#lib/shared/textos';
 	import type { PageProps } from './$types';
 
@@ -20,6 +21,14 @@
 
 	{#if !data.s3Activa}
 		<Banner tone="warning">{textos.copias.sinS3}</Banner>
+	{/if}
+	{#if data.preparada}
+		<Banner tone="warning" title={textos.copias.restauracionPreparada}>{textos.copias.restauracionReiniciar}</Banner>
+	{/if}
+	{#if data.ultimaRestauracion}
+		<Banner tone="info" title={textos.copias.ultimaRestauracion(formatearFechaHoraMadrid(data.ultimaRestauracion.instante))}>
+			{textos.copias.ultimaRestauracionDetalle(data.ultimaRestauracion.copia, data.ultimaRestauracion.resguardo)}
+		</Banner>
 	{/if}
 	{#if data.restauracion.aviso}
 		<Banner tone="warning" title={data.restauracion.aviso === 'nunca' ? textos.copias.avisoNunca : textos.copias.avisoAntigua} />
@@ -48,7 +57,39 @@
 		{/if}
 	</Section>
 
+	<Section title={textos.copias.bucketTitulo}>
+		{#if !data.s3Activa}
+			<p class="text-[15px] text-ink-muted">{textos.copias.sinS3Restaurar}</p>
+		{:else if data.bucketError}
+			<p role="alert" class="text-[15px] text-warning">{textos.copias.bucketError}</p>
+		{:else if data.bucket.length === 0}
+			<p class="text-[15px] text-ink-muted">{textos.copias.bucketSinCopias}</p>
+		{:else}
+			<p class="mb-3 text-[15px] text-ink-muted">{textos.copias.bucketAyuda}</p>
+			<ul class="flex flex-col gap-3 text-[15px]">
+				{#each data.bucket as copia (copia.clave)}
+					<li class="flex flex-wrap items-center justify-between gap-2">
+						<span class="flex flex-col">
+							<span class="font-semibold">{formatearFechaHoraMadrid(copia.modificadaEn)}</span>
+							<span class="text-ink-muted">
+								{textos.copias.tamano(copia.tamano)}{copia.resguardo ? ` · ${textos.copias.resguardo}` : ''}
+							</span>
+						</span>
+						<a
+							class="inline-flex min-h-11 items-center rounded-chip border border-hairline px-4 text-accent underline"
+							href={resolve('/(app)/admin/copias/restaurar/[...clave]', { clave: copia.clave })}
+							aria-label={textos.copias.restaurarCopiaDel(formatearFechaHoraMadrid(copia.modificadaEn))}
+						>
+							{textos.copias.restaurar}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		{/if}
+	</Section>
+
 	<Section title={textos.copias.anotar}>
+		<p class="mb-3 max-w-xl text-[15px] text-ink-muted">{textos.copias.anotarAyuda}</p>
 		<form method="post" action="?/anotarPrueba" use:enhance class="flex max-w-xl flex-col gap-4">
 			<label class="flex flex-col gap-1 text-[15px]">
 				{textos.copias.fechaPrueba}
@@ -69,7 +110,7 @@
 				<textarea name="notas" maxlength="500" class="rounded-md border border-hairline bg-wall-base px-3 py-2"></textarea>
 			</label>
 			{#if errores.general}<p role="alert" class="text-[14px] text-warning">{errores.general.mensaje}</p>{/if}
-			<div><Button type="submit" variant="soft">{textos.copias.anotar}</Button></div>
+			<div><Button type="submit" variant="soft">{textos.copias.anotarBoton}</Button></div>
 		</form>
 	</Section>
 
@@ -87,5 +128,5 @@
 		{/if}
 	</Section>
 
-	<a class="text-accent underline" href={resolve('/(app)/admin')}>{textos.admin.titulo}</a>
+	<a class="text-accent underline" href={resolve('/(app)/admin')}>← {textos.copias.volverAdmin}</a>
 </div>

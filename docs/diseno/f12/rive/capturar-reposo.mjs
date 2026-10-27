@@ -94,33 +94,48 @@ await pausa(300);
 await captura('3c-pie-segundo-golpe');
 await pausa(900);
 
-await disparar('reloj');
+// bostezoMano (1,8 s): brazo arriba y boca abierta, la mano tapa la parte baja de la boca y los ojos se entornan.
+await disparar('bostezoMano');
+await pausa(300);
+await captura('4a-bostezo-mano-abriendo');
 await pausa(500);
-await captura('4a-reloj-brazo-arriba');
-await pausa(500);
-await captura('4b-reloj-muneca-girada');
+await captura('4b-bostezo-mano-boca-abierta');
 await pausa(1100);
-await captura('4c-reloj-vuelta');
+await captura('4c-bostezo-mano-vuelta');
+
+// tocarReloj (2 s): el reloj de la muñeca, la mirada hacia él, cuatro golpes con la otra mano y la cara de prisa al final.
+// Los instantes se cuentan desde el disparo (cada captura tarda): el primer golpe cae a los 0,62 s y la mano vuelve a subir a los 0,76 s.
+const inicioToque = Date.now();
+await disparar('tocarReloj');
+const enMs = async (ms, nombre) => {
+	await pausa(Math.max(0, ms - (Date.now() - inicioToque)));
+	await captura(nombre);
+};
+await enMs(250, '5a-tocar-reloj-mira-el-reloj');
+await enMs(640, '5b-tocar-reloj-golpe');
+await enMs(800, '5c-tocar-reloj-mano-arriba');
+await enMs(1750, '5d-tocar-reloj-mira-al-frente');
+await enMs(2400, '5e-tocar-reloj-vuelta');
 
 await disparar('bostezo');
 await pausa(500);
-await captura('5a-bostezo-abriendo');
+await captura('6a-bostezo-abriendo');
 await pausa(700);
-await captura('5b-bostezo-boca-abierta');
+await captura('6b-bostezo-boca-abierta');
 await pausa(1500);
-await captura('5c-bostezo-vuelta');
+await captura('6c-bostezo-vuelta');
 
 // Cancelar a mitad de un gesto devuelve la figura al neutro de inmediato.
-await disparar('reloj');
+await disparar('tocarReloj');
 await pausa(500);
 await disparar('cancelar');
 await pausa(500);
-await captura('6-cancelar-vuelve-al-neutro');
+await captura('7-cancelar-vuelve-al-neutro');
 
 // Movimiento reducido: sin parpadeo ni respiración.
 await pagina.evaluate(`window.vmi.boolean('reducedMotion').value = true`);
 await pausa(400);
-await captura('7-movimiento-reducido');
+await captura('8-movimiento-reducido');
 
 await navegador.close();
 servidor.close();

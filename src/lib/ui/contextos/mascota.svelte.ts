@@ -18,6 +18,14 @@ import { elegirVariante, formatearTextoMascota, type MomentoId, type Pose, type 
 const CLAVE_CONTEXTO = Symbol('mascota');
 /** Sonido corto que acompaña a cada registro confirmado por el servidor (RF-243). */
 export const RUTA_SONIDO_CELEBRACION = '/mascota/sonidos/celebracion.mp3';
+/** Sonido de «He rellenado el agua», distinto del de los cafés (RF-243, RF-260). */
+export const RUTA_SONIDO_AGUA = '/mascota/sonidos/agua.mp3';
+
+export type SonidoCelebracion = 'cafe' | 'agua';
+const RUTAS_SONIDO: Readonly<Record<SonidoCelebracion, string>> = Object.freeze({
+	cafe: RUTA_SONIDO_CELEBRACION,
+	agua: RUTA_SONIDO_AGUA,
+});
 
 /**
  * Estado y preferencias de Capsulito por petición/sesión de navegador (RF-185, RF-186, RF-187; DEC-110).
@@ -171,15 +179,15 @@ export class EstadoMascota {
 	}
 
 	/**
-	 * Celebra un registro confirmado por el servidor (RF-243, RF-244): suena el sonido corto y, al terminar, la locución `fraseId`.
+	 * Celebra un registro confirmado por el servidor (RF-243, RF-244): suena el sonido corto (`sonido`: café o agua) y, al terminar, la locución `fraseId`.
 	 * Solo suena con Capsulito visible y la voz activa; sin ellas no hace nada (el mensaje de pantalla ya lo da la página).
 	 * Una celebración nueva corta el sonido y la locución de la anterior.
 	 */
-	celebrar(fraseId: string | null) {
+	celebrar(fraseId: string | null, sonido: SonidoCelebracion = 'cafe') {
 		untrack(() => {
 			if (!browser || !this.visible || !this.vozActiva) return;
 			this.detenerVoz();
-			this.#sonidoActivo = reproducirSonido(RUTA_SONIDO_CELEBRACION, () => {
+			this.#sonidoActivo = reproducirSonido(RUTAS_SONIDO[sonido], () => {
 				this.#sonidoActivo = null;
 				if (fraseId) this.hablar(fraseId);
 			});

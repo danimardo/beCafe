@@ -175,8 +175,8 @@
       "view_model": "Reposo",
       "instance": "Default",
       "duration_seconds": 3.0,
-      "bytes": 13184,
-      "sha256": "bdd724d022d565bfe5e9957965a5f1a8409c0eb4fe503a19a21e8f9bcd80af89",
+      "bytes": 15523,
+      "sha256": "e6002624e4855633b0bae2701a4b952063799bd23bd38cf24a7190488a0c1905",
       "validation": "verify y inspect --summary sin problemas (CLI 1.7.0)",
       "license": "Arte aportado por el usuario; verificar derechos antes de distribución pública."
     }

@@ -16,7 +16,7 @@
 		type Pose,
 		type PoseRiv,
 	} from '#lib/shared/mascota/momentos';
-	import { gestoEn, gestoVigente } from '#lib/shared/mascota/reposo';
+	import { gestoEn, gestoVigente, PASO_REPOSO_SEGUNDOS } from '#lib/shared/mascota/reposo';
 	import { usarMascota } from './contextos/mascota.svelte';
 	import { cn } from './utils';
 
@@ -166,7 +166,8 @@
 			temporizador = null;
 		};
 		const arrancar = () => {
-			if (temporizador === null && !document.hidden) temporizador = setInterval(() => (segundosQuieta += 1), 1000);
+			if (temporizador === null && !document.hidden)
+				temporizador = setInterval(() => (segundosQuieta += PASO_REPOSO_SEGUNDOS), PASO_REPOSO_SEGUNDOS * 1000);
 		};
 		const alCambiarVisibilidad = () => (document.hidden ? parar() : arrancar());
 		arrancar();

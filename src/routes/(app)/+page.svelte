@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { afterNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { onMount, tick } from 'svelte';
+	import { onMount, tick, untrack } from 'svelte';
 	import { ulid } from 'ulid';
 	import type { ElementoCola } from '#lib/shared/contratos/consumos';
 	import {
@@ -25,9 +25,11 @@
 		WaterRefillCard,
 		usarAvisos,
 		usarMascota,
+		type SonidoCelebracion,
 	} from '#lib/ui';
 	import { MOMENTOS, momentoInicio, srcPose, type MomentoId, type Pose } from '#lib/shared/mascota/momentos';
 	import { textos } from '#lib/shared/textos';
+	import { ordenarSegunVisita } from '#lib/shared/capsulas/orden-visita';
 	import { instanteDesdeFecha } from '#lib/shared/fechas/tipos';
 	import { activarPush } from '#lib/client/push';
 	import { crearInstalacion, type EstadoInstalacion } from '#lib/client/instalacion';
@@ -125,6 +127,10 @@
 	let formularioDeshacerRelleno: HTMLFormElement | undefined = $state();
 	// Sin conexión al enviar el relleno: el botón se desactiva y nunca se encola (RN-081).
 	let rellenoFallido = $state(false);
+	// RF-258: el orden de las cápsulas se fija al entrar y no cambia mientras la persona sigue en Inicio, así el confeti sale sobre la
+	// tarjeta pulsada. Se recalcula (RN-090) al volver a entrar o recargar, porque el componente se monta de nuevo.
+	const ordenInicial = untrack(() => data.tipos.map((tipo) => tipo.id));
+	const tiposEnPantalla = $derived(ordenarSegunVisita(ordenInicial, data.tipos));
 	// RF-243: cada incremento lanza el confeti de esa tarjeta cuando el servidor confirma el registro.
 	let celebraciones = $state<Record<string, number>>({});
 	let celebracionAgua = $state(0);
@@ -134,10 +140,10 @@
 	let temporizadorSaludo: ReturnType<typeof setTimeout> | undefined;
 	// RF-243: `celebrando` es un registro confirmado por el servidor; la locución espera al sonido de celebración. Un café pendiente de
 	// enviar, un rechazo o un «Deshacer» nunca celebran.
-	function decir(momento: MomentoId, vars: { nombre?: string } = {}, celebrando = false) {
+	function decir(momento: MomentoId, vars: { nombre?: string } = {}, celebrando = false, sonido: SonidoCelebracion = 'cafe') {
 		const frase = mascota.elegirFrase(momento, vars);
 		eventoMascota = { momento, texto: frase.texto };
-		if (celebrando) mascota.celebrar(frase.conAudio ? frase.id : null);
+		if (celebrando) mascota.celebrar(frase.conAudio ? frase.id : null, sonido);
 		else if (frase.conAudio) mascota.hablar(frase.id);
 	}
 	// RF-213, RF-214: una frase del anexo que entregó el servidor. `false` si no se puede mostrar (mascota oculta o frase desconocida).
@@ -351,7 +357,7 @@
 				const id = form && 'rellenoId' in form ? form.rellenoId : undefined;
 				if (id) {
 					celebracionAgua += 1;
-					decir('agua.confirmada', {}, true);
+					decir('agua.confirmada', {}, true, 'agua');
 					avisos.mostrarDeshacer({
 						title: textos.rellenos.registrado,
 						momento: 'relleno-registrado',
@@ -556,7 +562,7 @@
 					/>
 				{:else}
 					<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-						{#each data.tipos as tipo (tipo.id)}
+						{#each tiposEnPantalla as tipo (tipo.id)}
 							<CapsuleTile
 								tipoId={tipo.id}
 								clienteId={tipo.clienteId}

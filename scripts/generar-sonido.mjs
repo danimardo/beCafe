@@ -5,11 +5,14 @@ import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { cargarDotEnv } from './generar-voces.mjs';
 
-// Sonido de celebración al registrar un café (RF-243, plan F12 R5). Se genera UNA vez con los efectos de sonido de ElevenLabs y se
-// guarda como archivo estático: la aplicación nunca llama a la API. Nunca muestra la clave.
+// Sonidos de celebración: el de registrar un café (RF-243, plan F12 R5) y el de «He rellenado el agua» (RF-260, plan F14). Se generan
+// UNA vez con los efectos de sonido de ElevenLabs y se guardan como archivo estático: la aplicación nunca llama a la API.
+// Nunca muestra la clave.
 //
-//   node scripts/generar-sonido.mjs --intentos 4     # pide 4 candidatos y los guarda en .local/sonidos/
-//   node scripts/generar-sonido.mjs --elegir 02      # procesa el candidato 02 a static/mascota/sonidos/celebracion.mp3
+//   node scripts/generar-sonido.mjs --intentos 4                   # 4 candidatos del café en .local/sonidos/
+//   node scripts/generar-sonido.mjs --elegir 02                    # procesa el candidato 02 a static/mascota/sonidos/celebracion.mp3
+//   node scripts/generar-sonido.mjs --sonido agua --intentos 4     # 4 candidatos del agua en .local/sonidos/agua/
+//   node scripts/generar-sonido.mjs --sonido agua --elegir 03      # procesa el candidato 03 a static/mascota/sonidos/agua.mp3
 
 export const DESTINO = 'static/mascota/sonidos/celebracion.mp3';
 export const DIR_CANDIDATOS = '.local/sonidos';
@@ -20,6 +23,19 @@ export const PETICION = Object.freeze({
 	duration_seconds: 1.2,
 	prompt_influence: 0.6,
 });
+/** Los sonidos que se generan: destino final, carpeta de candidatos y petición a la API. */
+export const SONIDOS = Object.freeze({
+	cafe: { destino: DESTINO, dirCandidatos: DIR_CANDIDATOS, peticion: PETICION },
+	agua: {
+		destino: 'static/mascota/sonidos/agua.mp3',
+		dirCandidatos: `${DIR_CANDIDATOS}/agua`,
+		peticion: Object.freeze({
+			text: 'short cheerful cartoon water pouring and bubbling into a jug, bright, friendly, no voice',
+			duration_seconds: 1.2,
+			prompt_influence: 0.6,
+		}),
+	},
+});
 /** Fundido de salida, para que el sonido no corte la locución que sigue. */
 const FUNDIDO_SEGUNDOS = 0.15;
 
@@ -28,11 +44,11 @@ export function herramientasDisponibles() {
 }
 
 /** Pide un candidato a la API de efectos de sonido. `urlApi` solo cambia en las pruebas. Lanza si la API responde con un error. */
-export async function pedirCandidato({ apiKey, urlApi = 'https://api.elevenlabs.io' }) {
+export async function pedirCandidato({ apiKey, urlApi = 'https://api.elevenlabs.io' }, peticion = PETICION) {
 	const respuesta = await fetch(`${urlApi}/v1/sound-generation`, {
 		method: 'POST',
 		headers: { 'xi-api-key': apiKey, 'content-type': 'application/json', accept: 'audio/mpeg' },
-		body: JSON.stringify(PETICION),
+		body: JSON.stringify(peticion),
 	});
 	// El mensaje no incluye el cuerpo de la respuesta ni ninguna cabecera: nada que pueda contener la clave.
 	if (!respuesta.ok) throw new Error(`Error HTTP ${respuesta.status} al generar el sonido`);
@@ -45,11 +61,11 @@ export function nombreCandidato(n) {
 }
 
 /** Guarda `intentos` candidatos y devuelve sus rutas. Se detiene en el primer error de la API. */
-export async function generarCandidatos({ intentos, entorno, dirSalida, avisar = () => {} }) {
+export async function generarCandidatos({ intentos, entorno, dirSalida, peticion = PETICION, avisar = () => {} }) {
 	mkdirSync(dirSalida, { recursive: true });
 	const rutas = [];
 	for (let n = 1; n <= intentos; n += 1) {
-		const audio = await pedirCandidato(entorno);
+		const audio = await pedirCandidato(entorno, peticion);
 		const ruta = join(dirSalida, nombreCandidato(n));
 		writeFileSync(ruta, audio);
 		rutas.push(ruta);
@@ -98,28 +114,32 @@ function leerArgumentos(argv) {
 		const i = argv.indexOf(nombre);
 		return i >= 0 ? argv[i + 1] : undefined;
 	};
-	return { intentos: valor('--intentos'), elegir: valor('--elegir') };
+	return { intentos: valor('--intentos'), elegir: valor('--elegir'), sonido: valor('--sonido') ?? 'cafe' };
 }
 
 async function principal() {
-	const { intentos, elegir } = leerArgumentos(process.argv.slice(2));
-	const dirCandidatos = resolve(process.cwd(), DIR_CANDIDATOS);
+	const { intentos, elegir, sonido } = leerArgumentos(process.argv.slice(2));
+	if (!Object.hasOwn(SONIDOS, sonido)) return fallar(`--sonido admite: ${Object.keys(SONIDOS).join(', ')}.`);
+	const { destino, dirCandidatos: carpeta, peticion } = SONIDOS[sonido];
+	const dirCandidatos = resolve(process.cwd(), carpeta);
 	if (elegir) {
 		if (!herramientasDisponibles()) return fallar('Falta ffmpeg en el PATH.');
 		const candidato = join(dirCandidatos, nombreCandidato(Number(elegir)));
-		const { bytes } = elegirCandidato({ candidato, destino: resolve(process.cwd(), DESTINO) });
-		return escribir(`Sonido guardado en ${DESTINO} (${bytes} bytes).`);
+		const { bytes } = elegirCandidato({ candidato, destino: resolve(process.cwd(), destino) });
+		return escribir(`Sonido guardado en ${destino} (${bytes} bytes).`);
 	}
 	if (intentos) {
 		const entorno = leerEntorno();
 		if (!entorno.apiKey) return fallar('Falta ELEVENLABS_API_KEY en .env o en el entorno. No se genera nada.');
 		const n = Number(intentos);
 		if (!Number.isInteger(n) || n < 1 || n > 8) return fallar('--intentos admite de 1 a 8 candidatos.');
-		const rutas = await generarCandidatos({ intentos: n, entorno, dirSalida: dirCandidatos, avisar: escribir });
-		return escribir(`${rutas.length} candidatos en ${DIR_CANDIDATOS}/. Escúchalos y elige uno con --elegir NN.`);
+		const rutas = await generarCandidatos({ intentos: n, entorno, dirSalida: dirCandidatos, peticion, avisar: escribir });
+		return escribir(`${rutas.length} candidatos en ${carpeta}/. Escúchalos y elige uno con --elegir NN.`);
 	}
 	const existentes = existsSync(dirCandidatos) ? readdirSync(dirCandidatos).length : 0;
-	escribir(`Uso: node scripts/generar-sonido.mjs --intentos N | --elegir NN   (candidatos ya guardados: ${existentes})`);
+	escribir(
+		`Uso: node scripts/generar-sonido.mjs [--sonido cafe|agua] --intentos N | --elegir NN   (candidatos ya guardados: ${existentes})`,
+	);
 }
 
 function leerEntorno() {

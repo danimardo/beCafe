@@ -95,6 +95,17 @@ describe('generar-sonido (RF-243)', () => {
 		expect(salida).not.toContain(CLAVE);
 	});
 
+	it('CA-260: con --sonido agua pide un efecto de agua y lo guarda en su carpeta; un nombre desconocido falla sin llamar a la API', async () => {
+		const { codigo } = await ejecutar(['--sonido', 'agua', '--intentos', '1']);
+
+		expect(codigo).toBe(0);
+		expect(esquemaPeticion.parse(JSON.parse(peticiones[0]?.cuerpo ?? '{}')).text).toContain('water');
+		expect(existsSync(join(directorio, '.local/sonidos/agua/candidato-01.mp3'))).toBe(true);
+		const desconocido = await ejecutar(['--sonido', 'fuego', '--intentos', '1']);
+		expect(desconocido.codigo).toBe(1);
+		expect(peticiones).toHaveLength(1);
+	});
+
 	it('sin clave no llama a la API', async () => {
 		const { salida, codigo } = await ejecutar(['--intentos', '1'], false);
 

@@ -5,7 +5,15 @@ import { determinarAguador, TAREA_AGUADOR } from '#lib/server/rellenos';
 import { recordarDeudas, TAREA_RECORDATORIO_DEUDA } from '#lib/server/economia';
 import { borrarAvisosAntiguos, clavePublicaDesde, crearEnvioWebPush, entregarPendientes } from '#lib/server/notificaciones';
 import { fechaDeMadrid } from '#lib/shared/fechas/meses';
-import { crearSubidaS3, hacerCopiaDiaria, prepararArranqueCopias, TAREA_COPIA_DIARIA, type ConfiguracionS3 } from '#lib/server/copias';
+import {
+	aplicarRestauracionPendiente,
+	crearSubidaS3,
+	hacerCopiaDiaria,
+	prepararArranqueCopias,
+	TAREA_COPIA_DIARIA,
+	type ConfiguracionS3,
+} from '#lib/server/copias';
+import { anotarAuditoria, buscarUsuarioPorId } from '#lib/server/usuarios';
 import { esquemaInstanteUtc, esquemaMes } from '#lib/shared/fechas/tipos';
 import {
 	abrirBaseDatos,
@@ -14,6 +22,8 @@ import {
 	azarReal,
 	crearLimitador,
 	crearRegistroPino,
+	crearReinicio,
+	enTransaccion,
 	registrar,
 	registrarEnlaceSoloSalida,
 	relojReal,
@@ -42,7 +52,10 @@ export type ConfiguracionArranque = {
 
 /** Monta la base de datos, aplica las migraciones y crea el primer administrador si no hay personas. Puro salvo por la base. */
 export function prepararAmbiente(configuracion: ConfiguracionArranque): Ambiente {
-	const db = abrirBaseDatos(join(configuracion.directorioDatos, 'becafe.db')).db;
+	// Una restauración preparada se aplica con la base cerrada, antes de abrirla (plan F14 D1).
+	const restaurada = aplicarRestauracionPendiente(configuracion.directorioDatos);
+	const conexion = abrirBaseDatos(join(configuracion.directorioDatos, 'becafe.db'));
+	const db = conexion.db;
 	const aplicadas = aplicarMigraciones(db, configuracion.carpetaMigraciones);
 	registrar('app.arranque', {
 		version: configuracion.version,
@@ -51,6 +64,19 @@ export function prepararAmbiente(configuracion: ConfiguracionArranque): Ambiente
 		nivelLog: configuracion.nivelLog,
 	});
 	registrar('app.migraciones_aplicadas', { aplicadas });
+	if (restaurada) {
+		// El administrador puede no existir en la copia restaurada: entonces la auditoría queda sin autor.
+		enTransaccion(db, (tx) => {
+			anotarAuditoria(tx, {
+				actorId: buscarUsuarioPorId(tx, restaurada.adminId) ? restaurada.adminId : null,
+				accion: 'copia.restaurada',
+				objetoTipo: 'copia',
+				objetoId: restaurada.clave,
+				detalle: { resguardo: restaurada.resguardo, confirmadaEn: restaurada.instante },
+				instante: relojReal.ahora(),
+			});
+		});
+	}
 
 	if (!hayUsuarios(db)) {
 		const faltan = [
@@ -78,7 +104,9 @@ export function prepararAmbiente(configuracion: ConfiguracionArranque): Ambiente
 		limitadorAvisos: crearLimitador({ maximo: 1, ventanaMs: 60_000 }),
 		limitadorVisitantes: crearLimitador({ maximo: 10, ventanaMs: 60_000 }),
 		azar: azarReal,
-		s3Activa: configuracion.s3 !== undefined,
+		copias: { directorioDatos: configuracion.directorioDatos, carpetaMigraciones: configuracion.carpetaMigraciones, s3: configuracion.s3 },
+		mantenimiento: { restaurando: false },
+		reiniciar: crearReinicio(() => conexion.cerrar()),
 	};
 }
 

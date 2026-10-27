@@ -19,14 +19,16 @@ describe('Corto (RF-249, RF-251, RF-252)', () => {
 		expect(reproductor.networkState).not.toBe(HTMLMediaElement.NETWORK_LOADING);
 	});
 
-	it('CA-251: el vídeo lleva los subtítulos en español activados por defecto', async () => {
+	it('CA-265: no hay pista de subtítulos aparte, ni título ni descripción a la vista: los subtítulos van grabados en el vídeo', async () => {
 		await render(PruebasCorto);
 
 		const reproductor = page.getByLabelText(textos.corto.portadaAlt).element();
 		if (!(reproductor instanceof HTMLVideoElement)) throw new Error('No hay vídeo');
-		const pista = reproductor.querySelector('track');
-		expect(pista?.getAttribute('srclang')).toBe('es');
-		expect(pista?.default).toBe(true);
+		expect(reproductor.querySelector('track')).toBeNull();
+		expect(reproductor.textTracks).toHaveLength(0);
+		// El diálogo conserva su nombre accesible, pero el título no se ve (RF-264).
+		const titulo = page.getByRole('heading', { name: textos.corto.titulo }).element();
+		expect(titulo.classList.contains('sr-only')).toBe(true);
 	});
 
 	it('CA-251: «Ver el corto» muestra los controles del vídeo y quita el botón', async () => {
@@ -39,19 +41,15 @@ describe('Corto (RF-249, RF-251, RF-252)', () => {
 		await expect.element(page.getByRole('button', { name: textos.corto.ver, exact: true })).not.toBeInTheDocument();
 	});
 
-	it('CA-251: la transcripción está enlazada y se abre al pulsarla', async () => {
-		await render(PruebasCorto, { animar: true });
-		const cerrada = page.getByText(textos.corto.transcripcion).element().closest('details');
-		expect(cerrada?.open).toBe(false);
-		await page.getByText(textos.corto.transcripcion).click();
-		await expect.element(page.getByText('Buenos días, señora cafetera. Lo de siempre.')).toBeVisible();
-	});
+	it('CA-265: «Leer la transcripción» abre una hoja con el texto y se cierra sin cerrar el corto', async () => {
+		await render(PruebasCorto);
 
-	it('CA-251: con movimiento reducido la transcripción aparece abierta', async () => {
-		await render(PruebasCorto, { animar: false });
-		const abierta = page.getByText(textos.corto.transcripcion).element().closest('details');
-		expect(abierta?.open).toBe(true);
+		await expect.element(page.getByText('Buenos días, señora cafetera. Lo de siempre.')).not.toBeInTheDocument();
+		await page.getByRole('button', { name: textos.corto.transcripcion, exact: true }).click();
 		await expect.element(page.getByText('Buenos días, señora cafetera. Lo de siempre.')).toBeVisible();
+		await page.getByRole('button', { name: textos.corto.cerrarTranscripcion, exact: true }).click();
+		await expect.element(page.getByText('Buenos días, señora cafetera. Lo de siempre.')).not.toBeInTheDocument();
+		await expect.element(page.getByRole('button', { name: textos.corto.ver, exact: true })).toBeVisible();
 	});
 
 	it('CA-249: «Saltar» avisa de que se saltó el corto', async () => {

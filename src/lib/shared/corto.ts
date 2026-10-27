@@ -2,5 +2,4 @@
 export const RUTAS_CORTO = Object.freeze({
 	video: '/corto/el-misterio-de-la-ultima-capsula.mp4',
 	portada: '/corto/portada.jpg',
-	subtitulos: '/corto/subtitulos.vtt',
 });

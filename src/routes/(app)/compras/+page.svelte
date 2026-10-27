@@ -2,12 +2,15 @@
 	import { onMount, tick, untrack } from 'svelte';
 	import { resolve } from '$app/paths';
 	import { enhance } from '$app/forms';
+	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
 	import {
+		Badge,
 		Banner,
 		Button,
 		CapsuleImage,
 		ConfirmDialog,
 		CounterField,
+		DosColumnas,
 		EmptyState,
 		ListRow,
 		Money,
@@ -151,125 +154,142 @@
 		<div role="alert" tabindex="-1" bind:this={resumenErrores} class="outline-none"><Banner tone="negative">{errorGeneral}</Banner></div>
 	{/if}
 
-	{#if data.tipos.length === 0}
-		<p class="text-[15px] text-ink-muted">{textos.economia.sinTipos}</p>
-	{:else}
-		<form
-			bind:this={formulario}
-			method="post"
-			action="?/registrar"
-			enctype="multipart/form-data"
-			use:enhance={({ cancel, formData, submitter }) => {
-				const confirmadaEnPanel = submitter?.getAttribute('name') === 'confirmarHuchaNegativa';
-				erroresCliente = importesQueFaltan();
-				if (Object.keys(erroresCliente).length > 0) {
-					cancel();
-					confirmadaEnCliente = false;
-					void mostrarErrores();
-					return;
-				}
-				if (resultadoPrevisto < 0 && !confirmadaEnCliente && !confirmadaEnPanel) {
-					cancel();
-					dialogoAbierto = true;
-					return;
-				}
-				if (confirmadaEnCliente) {
-					formData.set('confirmarHuchaNegativa', 'si');
-					formData.set('saldoConfirmado', String(data.saldoHucha));
-				}
-				confirmadaEnCliente = false;
-				return async ({ update }) => {
-					dialogoAbierto = false;
-					await update({ reset: false });
-					if (form && 'errores' in form) await mostrarErrores();
-					if (form && 'id' in form) {
-						const frase = mascota.elegirFrase('compra.confirmada');
-						if (frase.conAudio) mascota.hablar(frase.id);
-					}
-				};
-			}}
-			class="flex flex-col gap-4"
-		>
-			<input type="hidden" name="clienteId" value={data.clienteId} />
-			<p class="text-[15px] text-ink-muted">{textos.economia.ayudaCompra}</p>
-
-			<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-				{#each data.tipos as tipo (tipo.id)}
-					{@const cantidad = cantidades[tipo.id] ?? 0}
-					<li class="flex flex-col gap-3 rounded-panel border border-hairline bg-wall-base p-4">
-						<div class="flex items-center gap-3">
-							<CapsuleImage name={tipo.nombre} color={tipo.color} photoUrl={tipo.fotoUrl} size="md" />
-							<p class="min-w-0 flex-1 text-[15px] font-semibold">{tipo.nombre}</p>
-						</div>
-						<input type="hidden" name="tipo" value={tipo.id} />
-						<CounterField
-							label={textos.economia.cantidadDe(tipo.nombre)}
-							name="cantidad"
-							bind:value={() => cantidades[tipo.id] ?? 0, (valor: number) => (cantidades[tipo.id] = valor)}
-							decreaseLabel={textos.economia.quitarUnaDe(tipo.nombre)}
-							increaseLabel={textos.economia.anadirUnaDe(tipo.nombre)}
-						/>
-						{#if !conJavaScript || cantidad > 0}
-							<MoneyField
-								label={textos.economia.importeDe(tipo.nombre)}
-								name="importe"
-								hint={conJavaScript ? textos.economia.ayudaImporte : textos.economia.ayudaImporteSinJs}
-								bind:cents={() => importes[tipo.id] ?? null, (valor: number | null) => (importes[tipo.id] = valor)}
-								error={erroresImporte[campoImporteDe(tipo.id)]?.mensaje}
-							/>
-						{:else}
-							<input type="hidden" name="importe" value="" />
-						{/if}
-					</li>
-				{/each}
-			</ul>
-
-			<div class="flex flex-col gap-1 rounded-panel border border-hairline bg-wall-base p-4" aria-live="polite">
-				<p class="text-[15px]">
-					{textos.economia.resumenCompra(lineas.length)} · {textos.economia.total}: <Money cents={total} />
-				</p>
-				<p class="text-[13px] text-ink-muted">{lineas.length === 0 ? textos.economia.sinLineas : textos.economia.ayudaTotal}</p>
-			</div>
-
-			<PhotoField label={textos.economia.fotoTicket} name="foto" />
-
-			{#if confirmacionServidor}
-				<!-- RF-198 sin JavaScript: el mismo efecto como paso intermedio, con «Registrar igualmente» y «Cancelar». -->
-				<div class="flex flex-col gap-3 rounded-panel border border-warning bg-wall-base p-4" role="alert">
-					<h2 class="type-title-lg">{textos.economia.huchaNegativaTitulo}</h2>
-					<p class="text-[15px] text-ink-muted">{textos.economia.huchaNegativaDescripcion}</p>
-					{@render efecto(confirmacionServidor.saldo, confirmacionServidor.importe, confirmacionServidor.resultado)}
-					<p class="text-[13px] text-ink-muted">{textos.economia.repetirFoto}</p>
-					<input type="hidden" name="saldoConfirmado" value={confirmacionServidor.saldo} />
-					<Button type="submit" name="confirmarHuchaNegativa" value="si" variant="danger">{textos.economia.registrarIgualmente}</Button>
-					<a href={resolve('/(app)/compras')} class="text-center text-[15px] font-semibold text-accent underline"
-						>{textos.economia.cancelar}</a
-					>
-				</div>
+	<!-- RF-261: registrar la compra (con ticket) a la izquierda; el listado, a la derecha. -->
+	<DosColumnas>
+		{#snippet acciones()}
+			{#if data.tipos.length === 0}
+				<p class="text-[15px] text-ink-muted">{textos.economia.sinTipos}</p>
 			{:else}
-				<Button type="submit">{textos.economia.registrarCompra}</Button>
-			{/if}
-		</form>
-	{/if}
+				<form
+					bind:this={formulario}
+					method="post"
+					action="?/registrar"
+					enctype="multipart/form-data"
+					use:enhance={({ cancel, formData, submitter }) => {
+						const confirmadaEnPanel = submitter?.getAttribute('name') === 'confirmarHuchaNegativa';
+						erroresCliente = importesQueFaltan();
+						if (Object.keys(erroresCliente).length > 0) {
+							cancel();
+							confirmadaEnCliente = false;
+							void mostrarErrores();
+							return;
+						}
+						if (resultadoPrevisto < 0 && !confirmadaEnCliente && !confirmadaEnPanel) {
+							cancel();
+							dialogoAbierto = true;
+							return;
+						}
+						if (confirmadaEnCliente) {
+							formData.set('confirmarHuchaNegativa', 'si');
+							formData.set('saldoConfirmado', String(data.saldoHucha));
+						}
+						confirmadaEnCliente = false;
+						return async ({ update }) => {
+							dialogoAbierto = false;
+							await update({ reset: false });
+							if (form && 'errores' in form) await mostrarErrores();
+							if (form && 'id' in form) {
+								const frase = mascota.elegirFrase('compra.confirmada');
+								if (frase.conAudio) mascota.hablar(frase.id);
+							}
+						};
+					}}
+					class="flex flex-col gap-4"
+				>
+					<input type="hidden" name="clienteId" value={data.clienteId} />
+					<p class="text-[15px] text-ink-muted">{textos.economia.ayudaCompra}</p>
 
-	<Section title={textos.economia.compras}>
-		{#if data.compras.length === 0}
-			<EmptyState momento="vacio-compras" title={textos.economia.sinCompras} />
-		{:else}
-			<ul class="flex flex-col">
-				{#each data.compras as compra (compra.id)}
-					<ListRow
-						title={`${compra.fecha.slice(0, 10)} · ${compra.autor}`}
-						href={resolve('/(app)/compras/[compraId=ulid]', { compraId: compra.id })}
-					>
-						{#snippet trailing()}
-							<Money cents={compra.importe} />
-						{/snippet}
-					</ListRow>
-				{/each}
-			</ul>
-		{/if}
-	</Section>
+					<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+						{#each data.tipos as tipo (tipo.id)}
+							{@const cantidad = cantidades[tipo.id] ?? 0}
+							<li class="flex flex-col gap-3 rounded-panel border border-hairline bg-wall-base p-4">
+								<div class="flex items-center gap-3">
+									<CapsuleImage name={tipo.nombre} color={tipo.color} photoUrl={tipo.fotoUrl} size="md" />
+									<div class="min-w-0 flex-1">
+										<p class="text-[15px] font-semibold">{tipo.nombre}</p>
+										<p class="text-[13px] text-ink-muted">
+											{tipo.stock <= 0 ? textos.inicio.sinStock : textos.economia.quedan(tipo.stock)}
+										</p>
+										{#if tipo.enStockBajo && tipo.stock > 0}
+											<Badge tone="warning">
+												{#snippet icon()}<TriangleAlert class="size-3.5" aria-hidden="true" />{/snippet}
+												{textos.inicio.quedanPocas}
+											</Badge>
+										{/if}
+									</div>
+								</div>
+								<input type="hidden" name="tipo" value={tipo.id} />
+								<CounterField
+									label={textos.economia.cantidadDe(tipo.nombre)}
+									name="cantidad"
+									bind:value={() => cantidades[tipo.id] ?? 0, (valor: number) => (cantidades[tipo.id] = valor)}
+									decreaseLabel={textos.economia.quitarUnaDe(tipo.nombre)}
+									increaseLabel={textos.economia.anadirUnaDe(tipo.nombre)}
+								/>
+								{#if !conJavaScript || cantidad > 0}
+									<MoneyField
+										label={textos.economia.importeDe(tipo.nombre)}
+										name="importe"
+										hint={conJavaScript ? textos.economia.ayudaImporte : textos.economia.ayudaImporteSinJs}
+										bind:cents={() => importes[tipo.id] ?? null, (valor: number | null) => (importes[tipo.id] = valor)}
+										error={erroresImporte[campoImporteDe(tipo.id)]?.mensaje}
+									/>
+								{:else}
+									<input type="hidden" name="importe" value="" />
+								{/if}
+							</li>
+						{/each}
+					</ul>
+
+					<div class="flex flex-col gap-1 rounded-panel border border-hairline bg-wall-base p-4" aria-live="polite">
+						<p class="text-[15px]">
+							{textos.economia.resumenCompra(lineas.length)} · {textos.economia.total}: <Money cents={total} />
+						</p>
+						<p class="text-[13px] text-ink-muted">{lineas.length === 0 ? textos.economia.sinLineas : textos.economia.ayudaTotal}</p>
+					</div>
+
+					<PhotoField label={textos.economia.fotoTicket} name="foto" />
+
+					{#if confirmacionServidor}
+						<!-- RF-198 sin JavaScript: el mismo efecto como paso intermedio, con «Registrar igualmente» y «Cancelar». -->
+						<div class="flex flex-col gap-3 rounded-panel border border-warning bg-wall-base p-4" role="alert">
+							<h2 class="type-title-lg">{textos.economia.huchaNegativaTitulo}</h2>
+							<p class="text-[15px] text-ink-muted">{textos.economia.huchaNegativaDescripcion}</p>
+							{@render efecto(confirmacionServidor.saldo, confirmacionServidor.importe, confirmacionServidor.resultado)}
+							<p class="text-[13px] text-ink-muted">{textos.economia.repetirFoto}</p>
+							<input type="hidden" name="saldoConfirmado" value={confirmacionServidor.saldo} />
+							<Button type="submit" name="confirmarHuchaNegativa" value="si" variant="danger">{textos.economia.registrarIgualmente}</Button>
+							<a href={resolve('/(app)/compras')} class="text-center text-[15px] font-semibold text-accent underline"
+								>{textos.economia.cancelar}</a
+							>
+						</div>
+					{:else}
+						<Button type="submit">{textos.economia.registrarCompra}</Button>
+					{/if}
+				</form>
+			{/if}
+		{/snippet}
+		{#snippet listado()}
+			<Section title={textos.economia.compras}>
+				{#if data.compras.length === 0}
+					<EmptyState momento="vacio-compras" title={textos.economia.sinCompras} />
+				{:else}
+					<ul class="flex flex-col">
+						{#each data.compras as compra (compra.id)}
+							<ListRow
+								title={`${compra.fecha.slice(0, 10)} · ${compra.autor}`}
+								href={resolve('/(app)/compras/[compraId=ulid]', { compraId: compra.id })}
+							>
+								{#snippet trailing()}
+									<Money cents={compra.importe} />
+								{/snippet}
+							</ListRow>
+						{/each}
+					</ul>
+				{/if}
+			</Section>
+		{/snippet}
+	</DosColumnas>
 </div>
 
 <ConfirmDialog

@@ -15,7 +15,6 @@
 		onSaltar?: () => void;
 		video?: string;
 		portada?: string;
-		subtitulos?: string;
 	};
 	let {
 		modo = 'antesDeEntrar',
@@ -23,7 +22,6 @@
 		onSaltar = () => {},
 		video = RUTAS_CORTO.video,
 		portada = RUTAS_CORTO.portada,
-		subtitulos = RUTAS_CORTO.subtitulos,
 	}: Props = $props();
 
 	const mascota = usarMascota();
@@ -32,6 +30,7 @@
 	let reproductor = $state<HTMLVideoElement>();
 	let empezado = $state(false);
 	let fallo = $state(false);
+	let transcripcionAbierta = $state(false);
 
 	// «Ver el corto» es el gesto que permite el sonido: `play()` se llama dentro del clic (política de reproducción de los navegadores).
 	async function ver() {
@@ -42,7 +41,6 @@
 		// El `src` se asigna aquí, dentro del clic: WebKit descarga el vídeo aunque tenga `preload="none"` si el `src` ya está puesto,
 		// y mantiene el gesto que permite el sonido solo si `play()` se llama sin esperar antes (RF-251).
 		reproductor.src = video;
-		for (const pista of reproductor.textTracks) pista.mode = 'showing';
 		try {
 			await reproductor.play();
 		} catch {
@@ -69,79 +67,102 @@
 
 <Dialog.Root bind:open onOpenChange={(v) => !v && saltar()}>
 	<Dialog.Portal>
-		<Dialog.Overlay class="animate-fade-in fixed inset-0 z-50 bg-scrim" />
+		<!-- Pantalla completa (RF-264): la portada difuminada rellena los lados cuando el vídeo no es 9:16. Superficie estable, sin cristal
+		     (constitución XVIII); el título y la descripción solo los lee el lector de pantalla (RF-265). -->
 		<Dialog.Content
 			interactOutsideBehavior={antes ? 'ignore' : 'close'}
-			class="animate-sheet-in fixed inset-0 z-50 flex flex-col items-center overflow-y-auto rounded-none bg-wall-base px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-[max(1.25rem,env(safe-area-inset-top))] text-center text-ink md:inset-auto md:left-1/2 md:top-1/2 md:max-h-[92dvh] md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-sheet md:pb-6 md:pt-5"
+			class="animate-fade-in fixed inset-0 z-50 overflow-hidden rounded-none bg-wall-1 text-ink"
 		>
-			{#if !antes}
-				<div class="mb-2 flex w-full justify-end">
+			<Dialog.Title class="sr-only">{textos.corto.titulo}</Dialog.Title>
+			<Dialog.Description class="sr-only">{textos.corto.resumen}</Dialog.Description>
+
+			<img src={portada} alt="" aria-hidden="true" class="absolute inset-0 size-full scale-125 object-cover blur-2xl" />
+			<div class="absolute inset-0 bg-scrim" aria-hidden="true"></div>
+
+			<!-- Sin `src` hasta pulsar «Ver el corto»: no se descarga nada antes (plan F13 §7). Los subtítulos van grabados en el vídeo. -->
+			<video
+				bind:this={reproductor}
+				{@attach vigilarVideo}
+				poster={portada}
+				preload="none"
+				playsinline
+				controls={empezado}
+				aria-label={textos.corto.portadaAlt}
+				class="absolute inset-0 size-full object-contain"
+				onended={() => {
+					open = false;
+					onTerminar();
+				}}
+			></video>
+
+			<!-- Esquina superior: pastilla opaca, contraste de 4,5:1 y objetivo de 44 × 44 px (RF-252). -->
+			<div class="absolute right-4 top-[max(1rem,env(safe-area-inset-top))]">
+				{#if antes}
+					<button
+						type="button"
+						onclick={saltar}
+						class="type-caption inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-wall-raised px-4 text-ink underline hover:brightness-95"
+					>
+						{textos.corto.saltar}
+					</button>
+				{:else}
 					<button
 						type="button"
 						onclick={saltar}
 						aria-label={textos.corto.cerrar}
-						class="inline-flex size-11 items-center justify-center rounded-full bg-accent-soft text-ink hover:brightness-95"
+						class="inline-flex size-11 items-center justify-center rounded-full bg-wall-raised text-ink hover:brightness-95"
 					>
 						<X class="size-5" aria-hidden="true" />
 					</button>
+				{/if}
+			</div>
+
+			{#if !empezado}
+				<div class="absolute inset-x-6 top-1/2 flex -translate-y-1/2 flex-col items-center gap-3">
+					<Button size="lg" onclick={ver}>{textos.corto.ver}</Button>
 				</div>
 			{/if}
-
-			<Dialog.Title class="type-title-lg mt-1">{textos.corto.titulo}</Dialog.Title>
-			<Dialog.Description class="mt-1 max-w-xs text-[15px] leading-5 text-ink-muted">{textos.corto.resumen}</Dialog.Description>
-
-			<!-- Superficie estable: el vídeo y los controles no van sobre cristal (constitución XVIII). -->
-			<div class="mt-4 aspect-[9/16] h-[min(52dvh,30rem)] overflow-hidden rounded-tile border border-hairline bg-wall-1">
-				<!-- Sin `src` hasta pulsar «Ver el corto»: no se descarga nada antes (plan F13 §7). -->
-				<video
-					bind:this={reproductor}
-					{@attach vigilarVideo}
-					poster={portada}
-					preload="none"
-					playsinline
-					controls={empezado}
-					aria-label={textos.corto.portadaAlt}
-					class="size-full object-cover"
-					onended={() => {
-						open = false;
-						onTerminar();
-					}}
-				>
-					<track kind="captions" src={subtitulos} srclang="es" label={textos.corto.subtitulos} default />
-				</video>
-			</div>
 
 			{#if fallo}
-				<p role="alert" class="mt-3 text-[15px] text-negative">{textos.corto.sinConexion}</p>
+				<p role="alert" class="absolute inset-x-6 top-[58%] rounded-chip bg-wall-raised px-3 py-2 text-center text-[15px] text-negative">
+					{textos.corto.sinConexion}
+				</p>
 			{/if}
 
-			<div class="mt-4 grid w-full max-w-xs grid-cols-1 justify-items-center gap-1">
-				{#if !empezado}
-					<Button size="lg" block onclick={ver}>{textos.corto.ver}</Button>
-				{/if}
-				{#if antes}
-					<!-- Secundario y pequeño, pero visible: contraste de 4,5:1 y objetivo de 24 × 24 px como mínimo (RF-252). -->
-					<button
-						type="button"
-						onclick={saltar}
-						class="type-caption inline-flex min-h-6 min-w-6 items-center px-3 py-1.5 text-ink-muted underline"
+			<!-- Abajo, la transcripción en una hoja: la lectura no tapa el vídeo ni los subtítulos grabados. -->
+			<div class="absolute inset-x-0 bottom-[max(1rem,env(safe-area-inset-bottom))] flex justify-center">
+				<Dialog.Root bind:open={transcripcionAbierta}>
+					<Dialog.Trigger
+						class="type-caption inline-flex min-h-11 items-center rounded-full bg-wall-raised px-4 text-ink underline hover:brightness-95"
 					>
-						{textos.corto.saltar}
-					</button>
-				{/if}
+						{textos.corto.transcripcion}
+					</Dialog.Trigger>
+					<Dialog.Portal>
+						<Dialog.Overlay class="animate-fade-in fixed inset-0 z-[60] bg-scrim" />
+						<Dialog.Content
+							class="animate-sheet-in fixed inset-x-0 bottom-0 z-[60] max-h-[80dvh] overflow-y-auto rounded-t-sheet bg-wall-raised p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] text-ink md:inset-x-auto md:left-1/2 md:w-full md:max-w-lg md:-translate-x-1/2"
+						>
+							<div class="flex items-start justify-between gap-3">
+								<Dialog.Title class="type-title-lg">{textos.corto.transcripcionTitulo}</Dialog.Title>
+								<Dialog.Close
+									aria-label={textos.corto.cerrarTranscripcion}
+									class="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-accent-soft text-ink hover:brightness-95"
+								>
+									<X class="size-5" aria-hidden="true" />
+								</Dialog.Close>
+							</div>
+							<Dialog.Description class="sr-only">{textos.corto.resumen}</Dialog.Description>
+							<div class="mt-3 flex flex-col gap-2 text-[14px] leading-5 text-ink-muted">
+								{#each textos.corto.pasos as paso, i (i)}
+									<p>
+										{#if paso.tipo === 'voz'}<strong class="font-semibold text-ink">Capsulito: </strong>{/if}<span>{paso.texto}</span>
+									</p>
+								{/each}
+							</div>
+						</Dialog.Content>
+					</Dialog.Portal>
+				</Dialog.Root>
 			</div>
-
-			<details class="mt-3 w-full max-w-xs text-left" open={!mascota.animar}>
-				<summary class="type-caption cursor-pointer py-2 text-accent underline">{textos.corto.transcripcion}</summary>
-				<div class="mt-1 flex flex-col gap-2 text-[14px] leading-5 text-ink-muted">
-					<h2 class="sr-only">{textos.corto.transcripcionTitulo}</h2>
-					{#each textos.corto.pasos as paso, i (i)}
-						<p>
-							{#if paso.tipo === 'voz'}<strong class="font-semibold text-ink">Capsulito: </strong>{/if}<span>{paso.texto}</span>
-						</p>
-					{/each}
-				</div>
-			</details>
 		</Dialog.Content>
 	</Dialog.Portal>
 </Dialog.Root>

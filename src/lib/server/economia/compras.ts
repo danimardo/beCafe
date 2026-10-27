@@ -242,9 +242,23 @@ export function leerComprasRecientes(db: Ejecutor, actor: Actor | undefined, lim
 	return db.select().from(compra).orderBy(desc(compra.registradaEn)).limit(limite).all();
 }
 
+/** Tipos activos con su stock y su indicador de stock bajo (RF-197, RF-218), tal como los guarda `existencia`. */
 export function leerTiposComprables(db: Ejecutor, actor: Actor | undefined) {
 	exigirSesion(actor);
-	return listarTipos(db).filter((tipo) => tipo.estado === 'activo');
+	const existencias = new Map(
+		db
+			.select()
+			.from(existencia)
+			.all()
+			.map((fila) => [fila.tipoCapsulaId, fila]),
+	);
+	return listarTipos(db)
+		.filter((tipo) => tipo.estado === 'activo')
+		.map((tipo) => ({
+			...tipo,
+			stock: existencias.get(tipo.id)?.stock ?? 0,
+			enStockBajo: existencias.get(tipo.id)?.enStockBajo ?? false,
+		}));
 }
 
 export function leerCompra(db: Ejecutor, actor: Actor | undefined, id: string) {

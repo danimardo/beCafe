@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { EstadoMascota, RUTA_SONIDO_CELEBRACION } from './mascota.svelte';
+import { EstadoMascota, RUTA_SONIDO_AGUA, RUTA_SONIDO_CELEBRACION } from './mascota.svelte';
 
 // RF-243, RF-244: el sonido de celebración sigue el interruptor de voz y la locución espera a que termine.
 
@@ -75,6 +75,15 @@ describe('EstadoMascota.celebrar (RF-243, RF-244)', () => {
 		expect(peticiones).toEqual([]);
 		AudioFalso.instancias[0]?.terminar();
 		expect(peticiones).toEqual(['/mascota/voces/registro_01.json']);
+	});
+
+	it('CA-260: «He rellenado el agua» suena con su propio sonido, distinto del de los cafés', () => {
+		const estado = mascotaConVoz();
+
+		estado.celebrar('registro_01', 'agua');
+
+		expect(AudioFalso.instancias.map((a) => a.src)).toEqual([RUTA_SONIDO_AGUA]);
+		expect(RUTA_SONIDO_AGUA).not.toBe(RUTA_SONIDO_CELEBRACION);
 	});
 
 	it('CA-243: sin frase solo suena el sonido', () => {

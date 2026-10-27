@@ -1,3 +1,4 @@
+import { desc, eq } from 'drizzle-orm';
 import { z } from 'zod';
 import { registroAuditoria } from './esquema';
 import { esquemaRol } from './tipos';
@@ -19,6 +20,8 @@ const esquemasDetalle = {
 	// Plan F10: foto de persona (RF-208) y eliminación del nombre de un visitante (RF-210), sin el nombre.
 	'usuario.foto_cambiada': z.strictObject({ quitada: z.boolean() }),
 	'visitante.nombre_eliminado': z.strictObject({}),
+	// Plan F14: restauración de una copia (RF-256). Solo claves de objetos del bucket, sin datos personales.
+	'copia.restaurada': z.strictObject({ resguardo: z.string().min(1).max(300), confirmadaEn: z.string().min(1).max(40) }),
 } as const;
 
 export type AccionAuditoria = keyof typeof esquemasDetalle;
@@ -28,7 +31,7 @@ export type EntradaAuditoria<A extends AccionAuditoria> = {
 	accion: A;
 	objetoId: string;
 	/** Tipo del objeto afectado. Por defecto, `usuario`. La configuración usa `configuracion`. */
-	objetoTipo?: 'usuario' | 'configuracion' | 'visita';
+	objetoTipo?: 'usuario' | 'configuracion' | 'visita' | 'copia';
 	detalle: z.input<(typeof esquemasDetalle)[A]>;
 	instante: string;
 };
@@ -47,4 +50,19 @@ export function anotarAuditoria<A extends AccionAuditoria>(tx: Ejecutor, entrada
 			creadoEn: entrada.instante,
 		})
 		.run();
+}
+
+/** Última fila de auditoría de una acción, o `null`. Para mostrar la última restauración (RF-256). */
+export function leerUltimaAuditoria(
+	db: Ejecutor,
+	accion: AccionAuditoria,
+): { objetoId: string; detalle: unknown; creadoEn: string } | null {
+	const fila = db
+		.select({ objetoId: registroAuditoria.objetoId, detalle: registroAuditoria.detalle, creadoEn: registroAuditoria.creadoEn })
+		.from(registroAuditoria)
+		.where(eq(registroAuditoria.accion, accion))
+		.orderBy(desc(registroAuditoria.creadoEn))
+		.limit(1)
+		.get();
+	return fila ? { objetoId: fila.objetoId, detalle: JSON.parse(fila.detalle), creadoEn: fila.creadoEn } : null;
 }

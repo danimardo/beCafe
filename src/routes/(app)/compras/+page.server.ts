@@ -36,6 +36,8 @@ export const load: PageServerLoad = ({ locals }) => {
 				nombre: tipo.nombre,
 				color: tipo.color,
 				fotoUrl: tipo.fotoRuta ? urlFotoCapsula(tipo.id) : null,
+				stock: tipo.stock,
+				enStockBajo: tipo.enStockBajo,
 			})),
 			saldoHucha: leerSaldoHucha(db).saldo,
 			clienteId: nuevoId(),

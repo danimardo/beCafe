@@ -76,6 +76,7 @@ export { default as NotificationItem } from './NotificationItem.svelte';
 // Estructura
 export { default as AppShell } from './AppShell.svelte';
 export { default as AppNav } from './AppNav.svelte';
+export { default as DosColumnas } from './DosColumnas.svelte';
 export { default as PanelGrid } from './PanelGrid.svelte';
 export { default as PageHeader } from './PageHeader.svelte';
 export { default as Section } from './Section.svelte';
@@ -103,4 +104,4 @@ export {
 	type AvisoRecibido,
 	type TipoAviso,
 } from './contextos/notificaciones.svelte';
-export { crearContextoMascota, usarMascota, EstadoMascota } from './contextos/mascota.svelte';
+export { crearContextoMascota, usarMascota, EstadoMascota, type SonidoCelebracion } from './contextos/mascota.svelte';

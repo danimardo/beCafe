@@ -68,6 +68,10 @@ export const NIVEL_EVENTO = {
 	'app.s3_no_configurado': 'warn',
 	'copia.fallida': 'error',
 	'restauracion.anotada': 'info',
+	'copia.restauracion_preparada': 'info',
+	'copia.restauracion_fallida': 'error',
+	'copia.restauracion_aplicada': 'info',
+	'copia.restauracion_marca_invalida': 'error',
 	'configuracion.cambiada': 'info',
 	'relleno.registrado': 'info',
 	'relleno.anulado': 'info',
@@ -157,6 +161,10 @@ export type CamposEvento = {
 	'copia.completada': { copiaId: string; tamano: number; duracionMs: number };
 	'copia.fallida': { copiaId: string; codigo: string; estadoHttp?: number };
 	'restauracion.anotada': { pruebaId: string; usuarioId: string; resultado: string };
+	'copia.restauracion_preparada': { tamano: number; duracionMs: number };
+	'copia.restauracion_fallida': { codigo: string; estadoHttp?: number };
+	'copia.restauracion_aplicada': { duracionMs: number };
+	'copia.restauracion_marca_invalida': { motivo: string };
 	'configuracion.cambiada': { clave: string };
 	'relleno.registrado': { rellenoId: string; usuarioId: string };
 	'relleno.anulado': { rellenoId: string; usuarioId: string };
