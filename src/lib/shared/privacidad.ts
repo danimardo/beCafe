@@ -1,8 +1,8 @@
-// Texto informativo de privacidad, anexo A de historias.md, versión 3 (RF-160, RF-224, PEND-014; CAMBIO-019, CAMBIO-022).
+// Texto informativo de privacidad, anexo A de historias.md, versión 4 (RF-160, RF-224, PEND-014; CAMBIO-019, CAMBIO-022, CAMBIO-027).
 // Los marcadores entre corchetes que quedan se completan antes de usar datos reales; hasta entonces el texto no es definitivo.
 
 /** Versión vigente. Subirla obliga a todas las personas a releer el texto (RF-160). */
-export const VERSION_PRIVACIDAD = 3;
+export const VERSION_PRIVACIDAD = 4;
 
 /** Párrafo «Visitantes» del anexo A v2. La pantalla de entrada de un visitante lo muestra antes del nombre (plan F10 D11). */
 export const TEXTO_VISITANTES =
@@ -38,7 +38,7 @@ export const TEXTO_PRIVACIDAD: readonly BloquePrivacidad[] = [
 			'Tus aportaciones a la hucha (también las que un administrador registre en tu nombre, con quién las registró), las compras que registras, las fotos de tickets que adjuntes y tu saldo.',
 			'Tus preferencias de notificaciones y los datos técnicos de tus dispositivos suscritos a las notificaciones.',
 			'Las sesiones abiertas (fecha y tipo de navegador) y las acciones de administración.',
-			'Las frases de Capsulito que ya te ha dicho y la hora de su último saludo, para no repetírtelas.',
+			'Las frases y los mensajes del día de Capsulito que ya te ha mostrado y la hora de su último saludo, para no repetírtelos.',
 		],
 	},
 	{

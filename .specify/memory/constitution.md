@@ -1,8 +1,8 @@
 <!--
-Sync Impact Report (v1.7.0 -> v1.8.0, 2026-10-25):
-- Incremento MENOR (1.7.0 -> 1.8.0): amplía los principios X y XVIII para F11 (specs/011-inicio-cafe-capsulito, CAMBIO-022).
-- Principio X (Usabilidad): el registro de un consumo admite una confirmación cuando el sistema indica que no queda stock del tipo (RF-217).
-- Principio XVIII (Identidad visual, temas y efectos): Capsulito PUEDE aparecer también en la pantalla de entrada, las páginas de error y la ayuda (RF-225, RF-226, RF-227).
+Sync Impact Report (v1.8.0 -> v1.9.0, 2026-10-27):
+- Incremento MENOR (1.8.0 -> 1.9.0): amplía los principios X y XVIII para F15 (specs/015-saludos-colores-fotos, CAMBIO-027, RF-269, RF-270, DEC-136).
+- Principio X (Usabilidad): admite el color propio de un tipo de cápsula como única excepción a los tokens.
+- Principio XVIII (Identidad visual, temas y efectos): nueva excepción cerrada para el color propio de un tipo de cápsula, con texto y límites calculados (4,5:1 y 3:1 en claro y oscuro) y tono ajustado en oscuro de forma determinista.
 - Secciones añadidas o eliminadas: ninguna.
 - Plantillas: sin cambios (leen la constitución al ejecutarse).
 - TODO pendientes: ninguno.
@@ -201,7 +201,8 @@ Motivo: generar código no demuestra que funcione; una verificación lenta deja 
   conexión.
 - Un mensaje de error DEBE decir en español qué ha pasado y qué puede hacer la persona.
 - La interfaz DEBE construirse con los componentes y los tokens del sistema de diseño Latte, en
-  tema claro y oscuro. NO DEBE usar colores ni estilos fuera de los tokens.
+  tema claro y oscuro. NO DEBE usar colores ni estilos fuera de los tokens, salvo el color propio
+  de un tipo de cápsula (principio XVIII).
 - La interfaz DEBE estar solo en español (es-ES), con textos centralizados.
 - Una confirmación DEBE corresponder a la garantía real: «pendiente de enviar», «registrado» y
   «rechazado» DEBEN distinguirse.
@@ -361,6 +362,11 @@ estado de una persona visible a otra) se evitan con reglas explícitas.
   y pasen a superficie opaca con `prefers-reduced-transparency` o «Reducir transparencia». Los
   formularios con campos de entrada (compras, aportaciones, recuentos, arqueos, acceso, perfil y
   administración) siguen sobre superficie estable.
+- Excepción cerrada: el color de un tipo de cápsula PUEDE ser un color propio elegido por un
+  administrador y guardado como dato (sRGB opaco, hexadecimal de 6 cifras). A partir de él, la
+  aplicación DEBE calcular el color del texto y de los límites para cumplir un contraste de al
+  menos 4,5:1 y 3:1 en tema claro y oscuro, y DEBE ajustar su tono en tema oscuro de forma
+  determinista. Ningún otro elemento de la interfaz PUEDE usar colores fuera de los tokens.
 - DEBE existir una alternativa opaca con las mismas acciones, información y jerarquía. Se activa
   con `prefers-reduced-transparency` o con el ajuste «Reducir transparencia». Ningún ajuste de la
   aplicación DEBE reactivar un efecto que el sistema pide reducir.
@@ -454,4 +460,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.8.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-25
+**Versión**: 1.9.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-27

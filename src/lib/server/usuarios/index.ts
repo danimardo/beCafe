@@ -11,3 +11,4 @@ export { anotarAuditoria, leerUltimaAuditoria, type AccionAuditoria } from './au
 export { leerMarcasCuenta, marcarCuenta, type ClaveCuenta, type MarcasCuenta } from './preferencias-cuenta';
 export { cambiarFoto, leerFotoUsuario } from './fotos';
 export { entregarFrase, entregarSaludo, leerSaludoDisponible, INTERVALO_SALUDO_MS } from './frases';
+export { asignarMensajeDia } from './mensaje-dia';

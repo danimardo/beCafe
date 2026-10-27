@@ -79,3 +79,24 @@ export const fraseEntregada = sqliteTable(
 		check('frase_entregada_ciclo_valido', sql`${tabla.ciclo} >= 1`),
 	],
 );
+
+// Mensaje del día de Capsulito por persona (F15, RN-091): como máximo uno por persona y día de Madrid, el mismo en todos
+// los dispositivos. La clave primaria `(usuario_id, dia)` garantiza la unicidad y resuelve la concurrencia.
+export const mensajeDia = sqliteTable(
+	'mensaje_dia',
+	{
+		usuarioId: text('usuario_id')
+			.notNull()
+			.references(() => usuario.id),
+		dia: text('dia').notNull(),
+		mensajeId: text('mensaje_id').notNull(),
+		vuelta: integer('vuelta').notNull(),
+		asignadoEn: text('asignado_en').notNull(),
+	},
+	(tabla) => [
+		primaryKey({ columns: [tabla.usuarioId, tabla.dia] }),
+		index('mensaje_dia_vuelta').on(tabla.usuarioId, tabla.vuelta),
+		check('mensaje_dia_vuelta_valida', sql`${tabla.vuelta} >= 1`),
+		check('mensaje_dia_dia_valido', sql`length(${tabla.dia}) = 10`),
+	],
+);

@@ -6,6 +6,7 @@ import { ErrorDeNegocio, esErrorDeNegocio, nuevoId, registrar } from '#lib/serve
 import { leerConfiguracion } from '#lib/server/configuracion';
 import { leerAvisoRecuentoPendiente, marcarVisto } from '#lib/server/notificaciones';
 import {
+	asignarMensajeDia,
 	buscarUsuarioPorId,
 	entregarFrase,
 	entregarSaludo,
@@ -34,6 +35,7 @@ import { formatearHace } from '#lib/shared/fechas/formato';
 import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import { nombreDeMes } from '#lib/shared/fechas/meses';
 import { urlFotoCapsula } from '#lib/shared/contratos/capsulas';
+import { MENSAJES_DIA } from '#lib/shared/mascota/mensajes-dia';
 
 // Pantalla principal (RF-010 a RF-019, RF-060, RF-063). El toque es un formulario por fila: funciona sin JavaScript (principio XVII).
 // Los identificadores de consumo se generan al cargar la página: un reenvío del mismo formulario no duplica el consumo (RF-016).
@@ -106,11 +108,17 @@ export const load: PageServerLoad = ({ locals, url }) => {
 				}
 			: null,
 	};
+	// RN-091, RF-266: mensaje del día. Un aviso conocido por el servidor (deuda, stock bajo, aguador del mes) no gasta ninguno.
+	const saldoPropio = leerSaldoPropio(db, actor);
+	const hayAviso = saldoPropio < limiteDeudaCentimos || avisos.length > 0 || agua.aguador?.incluyeAlUsuario === true;
+	const asignado = asignarMensajeDia(locals.ambiente, actor.usuarioId, { hayAviso });
+	const mensajeDia = MENSAJES_DIA.find((mensaje) => mensaje.id === asignado?.mensajeId);
 	return {
 		agua,
+		mensajeDia: mensajeDia ? { id: mensajeDia.id, texto: mensajeDia.texto } : null,
 		nombre: persona?.nombre ?? '',
 		usuarioId: actor.usuarioId,
-		saldoPropio: leerSaldoPropio(db, actor),
+		saldoPropio,
 		limiteDeuda: limiteDeudaCentimos,
 		hucha: hucha.saldo,
 		deudores: leerPersonasBajoLimite(db, actor).map((persona) => ({ nombre: persona.nombre, saldo: persona.saldo })),

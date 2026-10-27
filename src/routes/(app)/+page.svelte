@@ -27,7 +27,7 @@
 		usarMascota,
 		type SonidoCelebracion,
 	} from '#lib/ui';
-	import { MOMENTOS, momentoInicio, srcPose, type MomentoId, type Pose } from '#lib/shared/mascota/momentos';
+	import { MOMENTOS, formatearTextoMascota, momentoInicio, srcPose, type MomentoId, type Pose } from '#lib/shared/mascota/momentos';
 	import { textos } from '#lib/shared/textos';
 	import { ordenarSegunVisita } from '#lib/shared/capsulas/orden-visita';
 	import { instanteDesdeFecha } from '#lib/shared/fechas/tipos';
@@ -205,6 +205,12 @@
 			stockBajo: data.avisos.length,
 			soyAguador: data.agua.aguador?.incluyeAlUsuario,
 		}),
+	);
+	// RF-266: con el bocadillo en reposo (sin evento, aviso ni rechazo), el mensaje del día sustituye al texto fijo de mañana o tarde.
+	const textoMensajeDia = $derived(
+		data.mensajeDia && (momentoSaludo === 'saludo-manana' || momentoSaludo === 'saludo-tarde')
+			? formatearTextoMascota(data.mensajeDia.texto, { nombre: primerNombre })
+			: undefined,
 	);
 	const poseSaludo = $derived(!enLinea ? MOMENTOS[momentoSaludoBase].pose : undefined);
 
@@ -489,7 +495,7 @@
 			<Glass class="flex items-center gap-4 p-4 lg:p-6">
 				<Capsulito
 					momento={eventoMascota?.momento ?? momentoSaludo}
-					mensaje={eventoMascota?.texto}
+					mensaje={eventoMascota?.texto ?? textoMensajeDia}
 					pose={eventoMascota ? eventoMascota.pose : poseSaludo}
 					nombre={primerNombre}
 					size="lg"
