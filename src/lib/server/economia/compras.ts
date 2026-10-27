@@ -284,7 +284,7 @@ export function leerFotoTicket(ambiente: Ambiente, actor: Actor | undefined, id:
 
 async function prepararFoto(ambiente: Ambiente, foto: Uint8Array | undefined): Promise<string | null> {
 	if (!foto) return null;
-	const contenido = await procesarFoto(foto);
+	const contenido = await procesarFoto(foto, 'ninguno');
 	const nombre = `${nuevoId()}.webp`;
 	guardarFoto(ambiente.directorioFotos, nombre, contenido);
 	return nombre;

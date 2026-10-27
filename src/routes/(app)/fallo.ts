@@ -14,6 +14,7 @@ const CAMPO_POR_CODIGO: Partial<Record<CodigoNegocio, string>> = {
 	CONTRASENA_NO_VALIDA: 'contrasenaNueva',
 	NOMBRE_DUPLICADO: 'nombre',
 	FOTO_NO_VALIDA: 'foto',
+	FOTO_ENCUADRE_NO_VALIDO: 'foto',
 	COLOR_NO_ELEGIBLE: 'color',
 };
 

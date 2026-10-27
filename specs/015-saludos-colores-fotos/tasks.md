@@ -28,10 +28,10 @@ Las fases son independientes entre sí. Dentro de cada fase, las tareas van en o
 
 ## Fase 4: Encuadre de fotos (US4) — P2
 
-- [ ] T014 [US4] Contrato `src/lib/shared/contratos/encuadre.ts` (`esquemaEncuadre`, todos o ninguno), incorporado a `capsulas.ts`, `fotos-usuario.ts` y al alta de persona. Pruebas.
-- [ ] T015 [US4] `procesarFoto(original, recorte)` en `src/lib/server/plataforma/imagenes.ts` (`'ninguno' | 'centro' | Encuadre`; orientación, comprobación de la zona y `FOTO_ENCUADRE_NO_VALIDO`). Pasar el recorte desde `catalogo`, `usuarios/fotos.ts` y `auth/invitar.ts`; el ticket usa `'ninguno'`. Integración CA-274 (encuadre, centro, zona fuera y JPEG con orientación 6).
-- [ ] T016 [US4] Componente `src/lib/ui/EncuadreFoto.svelte` (puntero, rueda, pellizco, flechas, «Ampliar» y «Reducir», `role="status"` con el zoom, `guia` redonda o ninguna, campos ocultos), exportado en `index.ts`. Textos en `textos.ts`. Prueba de componente (teclado, límites y campos ocultos).
-- [ ] T017 [US4] Usar `EncuadreFoto` en `admin/usuarios` (alta), `admin/usuarios/[usuarioId]`, `FotoPersona.svelte` (Perfil) y `FormularioCapsula.svelte`. E2E CA-273 (1280 y 390 px) en `e2e/flujos/fotos-f15.spec.ts`; `sin-js` con recorte central; axe en Usuarios y Perfil.
+- [x] T014 [US4] Contrato `src/lib/shared/contratos/encuadre.ts` (`esquemaEncuadre`, todos o ninguno), incorporado a `capsulas.ts`, `fotos-usuario.ts` y al alta de persona. Pruebas.
+- [x] T015 [US4] `procesarFoto(original, recorte)` en `src/lib/server/plataforma/imagenes.ts` (`'ninguno' | 'centro' | Encuadre`; orientación, comprobación de la zona y `FOTO_ENCUADRE_NO_VALIDO`). Pasar el recorte desde `catalogo`, `usuarios/fotos.ts` y `auth/invitar.ts`; el ticket usa `'ninguno'`. Integración CA-274 (encuadre, centro, zona fuera y JPEG con orientación 6).
+- [x] T016 [US4] Componente `src/lib/ui/EncuadreFoto.svelte` (puntero, rueda, pellizco, flechas, «Ampliar» y «Reducir», `role="status"` con el zoom, `guia` redonda o ninguna, campos ocultos), exportado en `index.ts`. Textos en `textos.ts`. Prueba de componente (teclado, límites y campos ocultos).
+- [x] T017 [US4] Usar `EncuadreFoto` en `admin/usuarios` (alta), `admin/usuarios/[usuarioId]`, `FotoPersona.svelte` (Perfil) y `FormularioCapsula.svelte`. E2E CA-273 (1280 y 390 px) en `e2e/flujos/fotos-f15.spec.ts`; `sin-js` con recorte central; axe en Usuarios y Perfil.
 
 ## Fase 5: Copias de seguridad (US5) — P3
 

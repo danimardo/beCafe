@@ -1,3 +1,4 @@
+import type { Encuadre } from '#lib/shared/contratos/encuadre';
 import { eq } from 'drizzle-orm';
 import { exigirAdministrador, type Actor } from '#lib/server/auth';
 import {
@@ -30,12 +31,14 @@ export type DatosCapsulaEntrada = {
 	umbralMinimo: number;
 	/** Contenido de la foto ya validado por el esquema. Se procesa aquí con `sharp`. */
 	foto?: Uint8Array;
+	/** Zona elegida en la foto; sin ella, el servidor recorta el centro (RF-273). */
+	encuadre?: Encuadre | undefined;
 };
 
 /** Procesa la foto y la escribe en disco antes de la transacción. Devuelve su nombre, o null si no hay foto. */
-async function prepararFoto(ambiente: Ambiente, foto: Uint8Array | undefined): Promise<string | null> {
+async function prepararFoto(ambiente: Ambiente, foto: Uint8Array | undefined, encuadre: Encuadre | undefined): Promise<string | null> {
 	if (!foto) return null;
-	const contenido = await procesarFoto(foto);
+	const contenido = await procesarFoto(foto, encuadre ?? 'centro');
 	const nombre = `${nuevoId()}.webp`;
 	guardarFoto(ambiente.directorioFotos, nombre, contenido);
 	return nombre;
@@ -50,7 +53,7 @@ export async function darDeAltaCapsula(ambiente: Ambiente, actor: Actor, datos: 
 	exigirAdministrador(actor, RUTA_CATALOGO);
 	const id = nuevoId();
 	const instante = ambiente.reloj.ahora();
-	const fotoRuta = await prepararFoto(ambiente, datos.foto);
+	const fotoRuta = await prepararFoto(ambiente, datos.foto, datos.encuadre);
 	try {
 		enTransaccion(ambiente.db, (tx) => {
 			insertarTipo(tx, {
@@ -75,7 +78,7 @@ export async function darDeAltaCapsula(ambiente: Ambiente, actor: Actor, datos: 
 export async function editarCapsula(ambiente: Ambiente, actor: Actor, id: string, datos: DatosCapsulaEntrada): Promise<void> {
 	exigirAdministrador(actor, RUTA_CATALOGO);
 	const instante = ambiente.reloj.ahora();
-	const fotoNueva = await prepararFoto(ambiente, datos.foto);
+	const fotoNueva = await prepararFoto(ambiente, datos.foto, datos.encuadre);
 	let resultado: { fotoAnterior: string | null; entradaRegistrada: boolean };
 	try {
 		resultado = enTransaccion(ambiente.db, (tx) => {

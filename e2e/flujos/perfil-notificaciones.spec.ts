@@ -1,3 +1,4 @@
+import { elegirFoto } from '../fixtures/fotos';
 import { test, expect } from '../fixtures/errores-navegador';
 import { cerrarSesion } from '../fixtures/economia';
 import { entrarComo } from '../fixtures/sesiones';
@@ -39,7 +40,7 @@ test('CA-208: una persona sube su foto en Perfil, la ve en la navegación y pued
 	const fotos = page.locator('img[src^="/fotos/usuarios/"]');
 	await expect(fotos).toHaveCount(0);
 
-	await page.getByLabel('Hacer o elegir foto').setInputFiles({ name: 'foto.jpg', mimeType: 'image/jpeg', buffer: await fotoDePrueba() });
+	await elegirFoto(page, await fotoDePrueba());
 	await page.getByRole('button', { name: 'Guardar foto', exact: true }).click();
 	await expect(page.getByText('Foto guardada.')).toBeVisible();
 	// La navegación lleva otra copia de la foto (oculta en móvil): la de Perfil es la última de la página.

@@ -1,3 +1,4 @@
+import type { Encuadre } from '#lib/shared/contratos/encuadre';
 import { eq } from 'drizzle-orm';
 import { credencial } from './esquema';
 import { anularEnlacesPendientes, generarEnlace, tipoEnlacePara } from './enlaces';
@@ -22,7 +23,7 @@ type EntradaAdmin = { actor: Actor; contrasenaActual: string | undefined; instan
 
 export async function darDeAltaConInvitacion(
 	db: Db,
-	entrada: EntradaAdmin & { nombre: string; correo: string; rol: Rol; foto?: { bytes: Uint8Array; directorio: string } },
+	entrada: EntradaAdmin & { nombre: string; correo: string; rol: Rol; foto?: { bytes: Uint8Array; directorio: string; encuadre?: Encuadre | undefined } },
 ): Promise<{ usuarioId: string; token: string; expiraEn: string }> {
 	exigirAdministrador(entrada.actor, 'usuarios.alta');
 	await exigirReautenticacion(db, entrada);
@@ -30,7 +31,7 @@ export async function darDeAltaConInvitacion(
 	// Foto opcional (RF-223): se valida y se escribe antes de la transacción; si el alta falla, el archivo se borra.
 	let fotoRuta: string | undefined;
 	if (entrada.foto) {
-		const contenido = await procesarFoto(entrada.foto.bytes);
+		const contenido = await procesarFoto(entrada.foto.bytes, entrada.foto.encuadre ?? 'centro');
 		fotoRuta = `${nuevoId()}.webp`;
 		guardarFoto(entrada.foto.directorio, fotoRuta, contenido);
 	}

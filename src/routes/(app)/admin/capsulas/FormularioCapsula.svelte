@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { untrack } from 'svelte';
-	import { Button, CapsuleColorField, crearExito, PhotoField, SelectField, TextField } from '#lib/ui';
+	import { Button, CapsuleColorField, crearExito, EncuadreFoto, SelectField, TextField } from '#lib/ui';
 	import {
 		COLOR_CAPSULA_HEREDADO,
 		COLORES_CAPSULA_ELEGIBLES,
@@ -90,7 +90,7 @@
 		{:else}
 			<p class="text-[14px] text-ink-muted">{textos.capsulas.sinFoto}</p>
 		{/if}
-		<PhotoField name="foto" label={textos.capsulas.foto} hint={textos.capsulas.fotoAyuda} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
+		<EncuadreFoto name="foto" guia="ninguna" label={textos.capsulas.foto} hint={textos.capsulas.fotoAyuda} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
 	</div>
 	<Button type="submit" block success={exito.activo} class="lg:col-span-2">{etiquetaBoton}</Button>
 </form>

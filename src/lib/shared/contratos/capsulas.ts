@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { camposEncuadre, encuadreDe, refinarEncuadre } from './encuadre';
 import { esColorPropio } from '#lib/shared/capsulas/color-propio';
 
 export { esColorPropio };
@@ -56,15 +57,17 @@ export const esquemaCapsula = z
 		colorPropio: z.preprocess(vacioComoAusente, z.string().optional()),
 		umbralMinimo: campoUmbral,
 		foto: campoFoto,
+		...camposEncuadre,
 	})
-	.transform(({ colorPropio, color, ...resto }, ctx) => {
+	.superRefine(refinarEncuadre)
+	.transform(({ colorPropio, color, encuadreX, encuadreY, encuadreLado, ...resto }, ctx) => {
 		// Un token fijo se acepta tal cual; un color propio solo llega con «Otro color» y el valor del selector (RF-271).
 		const propio = color === OPCION_COLOR_PROPIO && colorPropio !== undefined && esColorPropio(colorPropio);
 		if (!propio && !esColorFijo(color)) {
 			ctx.addIssue({ code: 'custom', path: ['color'], message: MENSAJE_COLOR });
 			return z.NEVER;
 		}
-		return { ...resto, color: propio ? colorPropio.toLowerCase() : color };
+		return { ...resto, color: propio ? colorPropio.toLowerCase() : color, encuadre: encuadreDe({ encuadreX, encuadreY, encuadreLado }) };
 	});
 
 export type DatosCapsula = z.infer<typeof esquemaCapsula>;

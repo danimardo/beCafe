@@ -1,3 +1,4 @@
+import { elegirFoto } from '../fixtures/fotos';
 import { test, expect } from '../fixtures/errores-navegador';
 import { entrarComo } from '../fixtures/sesiones';
 import { darDeAltaPersona } from '../fixtures/usuarios';
@@ -26,7 +27,7 @@ test('CA-208: un administrador sube y quita la foto de otra persona desde su fic
 	await page.getByRole('link', { name: nombre }).first().click();
 	await page.waitForLoadState('load');
 
-	await page.getByLabel('Hacer o elegir foto').setInputFiles({ name: 'foto.jpg', mimeType: 'image/jpeg', buffer: await fotoDePrueba() });
+	await elegirFoto(page, await fotoDePrueba());
 	await expect(page.getByRole('img', { name: 'Vista previa de la foto elegida' })).toBeVisible();
 	await page.getByRole('button', { name: 'Guardar foto', exact: true }).click();
 	await expect(page.getByText('Foto guardada.')).toBeVisible();
@@ -46,7 +47,7 @@ test('CA-242: el listado de personas muestra la foto o, sin ella, la ilustració
 	await darDeAltaPersona(page, servidor, sinFoto);
 	await page.getByRole('link', { name: conFoto }).first().click();
 	await page.waitForLoadState('load');
-	await page.getByLabel('Hacer o elegir foto').setInputFiles({ name: 'foto.jpg', mimeType: 'image/jpeg', buffer: await fotoDePrueba() });
+	await elegirFoto(page, await fotoDePrueba());
 	await expect(page.getByRole('img', { name: 'Vista previa de la foto elegida' })).toBeVisible();
 	await page.getByRole('button', { name: 'Guardar foto', exact: true }).click();
 	await expect(page.getByText('Foto guardada.')).toBeVisible();

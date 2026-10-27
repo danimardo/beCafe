@@ -19,6 +19,7 @@ export const textos = {
 		LIMITE_SUPERADO: 'Hay demasiadas peticiones seguidas. Espera un minuto e inténtalo de nuevo.',
 		NOMBRE_DUPLICADO: 'Ya existe un tipo activo con ese nombre. Cambia el nombre o retira el otro tipo.',
 		FOTO_NO_VALIDA: 'La foto no es válida. Sube una imagen JPEG, PNG o WebP de 5 MB como máximo.',
+		FOTO_ENCUADRE_NO_VALIDO: 'La zona elegida no cabe en la foto. Vuelve a encuadrarla.',
 		COLOR_NO_ELEGIBLE: 'Ese color ya no se puede elegir. Elige otro.',
 		TIENE_REGISTROS: 'Este tipo tiene registros y no se puede borrar. Puedes retirarlo.',
 		CONFIRMACION_REQUERIDA: 'Esta acción tiene efectos sobre otras personas o la hucha. Revisa el resumen y confírmala para continuar.',
@@ -237,6 +238,15 @@ export const textos = {
 		tema: 'Tema',
 		reducirTransparencia: 'Reducir transparencia',
 		ayudaTransparencia: 'Sustituye los fondos translúcidos por color sólido. El ajuste del sistema siempre se respeta.',
+	},
+	encuadre: {
+		grupo: 'Encuadre de la foto',
+		ayuda: 'Arrastra la foto para moverla. Con el teclado, usa las flechas para moverla y más o menos para el zoom.',
+		ampliar: 'Ampliar',
+		reducir: 'Reducir',
+		zoom: (porcentaje: number) => `Zoom ${porcentaje} %`,
+		sinGuia: 'La foto se recortará al cuadrado que ves.',
+		guiaRedonda: 'La foto se mostrará dentro del círculo.',
 	},
 	fotoPersona: {
 		titulo: 'Foto',

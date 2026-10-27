@@ -64,6 +64,7 @@
 				<span>Hacer o elegir foto</span>
 			</label>
 		{/if}
+		<!-- Con la vista previa, la etiqueta «Hacer o elegir foto» desaparece: el campo sigue nombrado por el título del campo. -->
 		<input
 			{id}
 			bind:this={entrada}
@@ -72,6 +73,7 @@
 			accept="image/jpeg,image/png,image/webp"
 			class="sr-only"
 			onchange={onpick}
+			aria-labelledby={previewUrl ? `${id}-l` : undefined}
 			aria-describedby={hint ? `${id}-h` : undefined}
 		/>
 	</div>

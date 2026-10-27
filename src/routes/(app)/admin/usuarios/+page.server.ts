@@ -1,3 +1,4 @@
+import type { Encuadre } from '#lib/shared/contratos/encuadre';
 import { redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
@@ -21,12 +22,12 @@ export const load: PageServerLoad = ({ locals }) => {
 export const actions: Actions = {
 	// Alta con invitación (RF-130, RF-131, CA-130, CA-131). El enlace se devuelve una vez, para copiarlo.
 	alta: async ({ request, locals }) => {
-		const { foto: archivo, ...datos } = Object.fromEntries(await request.formData());
+		const { foto: archivo, encuadreX, encuadreY, encuadreLado, ...datos } = Object.fromEntries(await request.formData());
 		const entrada = esquemaAltaUsuario.safeParse(datos);
 		// `valores` nunca lleva el archivo (constitución XVII); sin JavaScript hay que volver a adjuntarlo.
 		const valores = { nombre: datos.nombre, email: datos.email, rol: datos.rol };
 		if (!entrada.success) return fallo(400, entrada.error, valores);
-		const foto = esquemaFotoAlta.safeParse({ foto: archivo });
+		const foto = esquemaFotoAlta.safeParse({ foto: archivo, encuadreX, encuadreY, encuadreLado });
 		if (!foto.success) return fallo(400, foto.error, valores);
 		const actor = locals.actor;
 		if (!actor) return falloDeNegocio('SIN_SESION', valores);
@@ -39,7 +40,7 @@ export const actions: Actions = {
 				correo: email,
 				rol,
 				contrasenaActual,
-				...(await fotoDeAlta(foto.data.foto, locals.ambiente.directorioFotos)),
+				...(await fotoDeAlta(foto.data.foto, foto.data.encuadre, locals.ambiente.directorioFotos)),
 				instante: locals.ambiente.reloj.ahora(),
 			});
 			return {
@@ -52,7 +53,11 @@ export const actions: Actions = {
 	},
 };
 
-async function fotoDeAlta(archivo: File | undefined, directorio: string): Promise<{ foto?: { bytes: Uint8Array; directorio: string } }> {
+async function fotoDeAlta(
+	archivo: File | undefined,
+	encuadre: Encuadre | undefined,
+	directorio: string,
+): Promise<{ foto?: { bytes: Uint8Array; directorio: string; encuadre: Encuadre | undefined } }> {
 	const bytes = await bytesDeFoto(archivo);
-	return bytes ? { foto: { bytes, directorio } } : {};
+	return bytes ? { foto: { bytes, directorio, encuadre } } : {};
 }

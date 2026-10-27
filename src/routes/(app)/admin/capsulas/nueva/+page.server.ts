@@ -36,6 +36,7 @@ export const actions: Actions = {
 				color: entrada.data.color,
 				umbralMinimo: entrada.data.umbralMinimo,
 				foto: await bytesDeFoto(entrada.data.foto),
+				encuadre: entrada.data.encuadre,
 			});
 			return { id, confirmacion: textos.capsulas.altaCorrecta };
 		});

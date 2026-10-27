@@ -27,7 +27,7 @@ export const actions: Actions = {
 		const actor = locals.actor;
 		if (!actor) return falloDeNegocio('SIN_SESION', {});
 		return ejecutarAccion({}, async () => {
-			await cambiarFoto(locals.ambiente, actor, params.usuarioId, (await bytesDeFoto(entrada.data.foto)) ?? null);
+			await cambiarFoto(locals.ambiente, actor, params.usuarioId, (await bytesDeFoto(entrada.data.foto)) ?? null, entrada.data.encuadre);
 			return { confirmacion: textos.fotoPersona.guardada };
 		});
 	},

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Avatar, Button, PhotoField } from '#lib/ui';
+	import { Avatar, Button, EncuadreFoto } from '#lib/ui';
 	import { TAMANO_MAXIMO_FOTO } from '#lib/shared/contratos/capsulas';
 	import { textos } from '#lib/shared/textos';
 
@@ -37,7 +37,7 @@
 				foto = null;
 			}}
 	>
-		<PhotoField name="foto" label={textos.fotoPersona.campo} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
+		<EncuadreFoto name="foto" guia="redonda" label={textos.fotoPersona.campo} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
 		<Button type="submit" variant="soft">{textos.fotoPersona.guardar}</Button>
 	</form>
 	{#if fotoUrl}

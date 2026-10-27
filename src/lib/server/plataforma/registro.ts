@@ -33,6 +33,7 @@ export const NIVEL_EVENTO = {
 	'capsula.borrada': 'info',
 	'foto.procesada': 'info',
 	'foto.rechazada': 'warn',
+	'foto.recortada': 'info',
 	'stock.entrada_bajo_registrada': 'info',
 	'registro.duplicado': 'info',
 	'regularizacion.aplicada': 'info',
@@ -128,7 +129,8 @@ export type CamposEvento = {
 	'capsula.reactivada': { tipoCapsulaId: string };
 	'capsula.borrada': { tipoCapsulaId: string };
 	'foto.procesada': { bytes: number };
-	'foto.rechazada': { motivo: 'formato' | 'no_legible' };
+	'foto.rechazada': { motivo: 'formato' | 'no_legible' | 'encuadre' };
+	'foto.recortada': { modo: 'centro' | 'encuadre'; bytes: number };
 	'stock.entrada_bajo_registrada': { tipoCapsulaId: string };
 	'registro.duplicado': { tipo: string; id: string };
 	'regularizacion.aplicada': { compraId: string; consumos: number };

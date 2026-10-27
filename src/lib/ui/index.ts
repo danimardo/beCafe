@@ -15,6 +15,7 @@ export { default as PasswordField } from './PasswordField.svelte';
 export { default as MoneyField } from './MoneyField.svelte';
 export { default as SelectField } from './SelectField.svelte';
 export { default as Switch } from './Switch.svelte';
+export { default as EncuadreFoto } from './EncuadreFoto.svelte';
 export { default as PhotoField } from './PhotoField.svelte';
 export { default as CapsuleColorField } from './CapsuleColorField.svelte';
 export { default as ColorField, capsulePresets } from './ColorField.svelte';

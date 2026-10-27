@@ -8,10 +8,10 @@
 		Button,
 		CopyField,
 		DosColumnas,
+		EncuadreFoto,
 		ListRow,
 		PageHeader,
 		PasswordField,
-		PhotoField,
 		Section,
 		SelectField,
 		TextField,
@@ -84,7 +84,7 @@
 							error={errores.rol?.mensaje}
 						/>
 						<div class="md:col-span-2 md:max-w-sm">
-							<PhotoField name="foto" label={textos.fotoPersona.campoAlta} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
+							<EncuadreFoto name="foto" guia="redonda" label={textos.fotoPersona.campoAlta} bind:file={foto} maxBytes={TAMANO_MAXIMO_FOTO} />
 							{#if errores.foto}<p role="alert" class="text-[13px] font-medium leading-[18px] text-negative">{errores.foto.mensaje}</p>{/if}
 							{#if formulario?.errores && !formulario.enlace}<p class="mt-1 text-[13px] text-ink-muted">
 									{textos.fotoPersona.volverAAdjuntar}
