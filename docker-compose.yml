@@ -1,0 +1,31 @@
+# beCafé: una sola instancia con el volumen persistente en /data (RT-003, RT-010).
+# Las variables se definen en el entorno o en un .env junto a este archivo (docs/operacion.md §2).
+# En Coolify, defínelas en la interfaz. Coolify publica el puerto por su proxy: no hace falta `ports`.
+services:
+  becafe:
+    build:
+      context: .
+      args:
+        GIT_COMMIT: ${GIT_COMMIT:-desconocido}
+    restart: unless-stopped
+    expose:
+      - '3000'
+    environment:
+      - ORIGIN=${ORIGIN:?Define ORIGIN con la dirección pública (https://…)}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - ADMIN_INICIAL_EMAIL=${ADMIN_INICIAL_EMAIL:?Define ADMIN_INICIAL_EMAIL}
+      - ADMIN_INICIAL_NOMBRE=${ADMIN_INICIAL_NOMBRE:?Define ADMIN_INICIAL_NOMBRE}
+      # Opcionales: sin valor, no llegan al contenedor. Las cinco de S3 van juntas; las tres de push, también.
+      - S3_ENDPOINT
+      - S3_BUCKET
+      - S3_REGION
+      - S3_ACCESS_KEY
+      - S3_SECRET_KEY
+      - PUBLIC_VAPID_KEY
+      - VAPID_PRIVATE_KEY
+      - VAPID_SUBJECT
+    volumes:
+      - datos:/data
+
+volumes:
+  datos:
