@@ -76,3 +76,4 @@ export function urlFotoCapsula(id: string): string {
 
 // Confirmación de borrado sin JavaScript: el formulario exige marcar la casilla (constitución X).
 export const esquemaBorrado = z.strictObject({ confirmo: z.literal('on') });
+export const esquemaQuitarFotoCapsula = z.strictObject({ quitar: z.literal('si') });

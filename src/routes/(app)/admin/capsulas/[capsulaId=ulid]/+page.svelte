@@ -54,6 +54,16 @@
 
 	<FormularioCapsula accion="?/guardar" etiquetaBoton={textos.capsulas.guardar} {valorDe} {errorDe} fotoActual={data.tipo.fotoUrl} />
 
+	{#if data.tipo.fotoUrl}
+		<Section class="mt-0" title={textos.capsulas.quitarFoto}>
+			<p class="mb-3 text-[14px] text-ink-muted">{textos.capsulas.quitarFotoAyuda}</p>
+			<form method="post" action="?/quitarFoto" use:enhance>
+				<input type="hidden" name="quitar" value="si" />
+				<Button type="submit" variant="soft" block>{textos.capsulas.quitarFoto}</Button>
+			</form>
+		</Section>
+	{/if}
+
 	<div class="grid gap-6 lg:grid-cols-2 lg:items-start">
 		<Section class="mt-0" title={data.tipo.estado === 'activo' ? textos.capsulas.retirar : textos.capsulas.reactivar}>
 			<form method="post" action={data.tipo.estado === 'activo' ? '?/retirar' : '?/reactivar'} use:enhance>

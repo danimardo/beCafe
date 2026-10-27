@@ -23,8 +23,8 @@ Las fases son independientes entre sí. Dentro de cada fase, las tareas van en o
 
 ## Fase 3: Quitar la foto de una cápsula (US3) — P2
 
-- [ ] T012 [US3] `quitarFotoTipo` en `src/lib/server/catalogo/fotos.ts` (administrador, transacción con auditoría `capsula.foto_quitada` y `borrarFoto` fuera), exportado en `index.ts`. Integración CA-272.
-- [ ] T013 [US3] *Action* `?/quitarFoto` y formulario «Quitar foto» en `src/routes/(app)/admin/capsulas/[capsulaId=ulid]/` (solo con foto; ayuda «guarda antes los cambios»). Prueba con evento falso. E2E y `sin-js` en `e2e/flujos/fotos-f15.spec.ts` y `e2e/sin-js/fotos-f15.spec.ts`.
+- [x] T012 [US3] `quitarFotoTipo` en `src/lib/server/catalogo/fotos.ts` (administrador, transacción con auditoría `capsula.foto_quitada` y `borrarFoto` fuera), exportado en `index.ts`. Integración CA-272.
+- [x] T013 [US3] *Action* `?/quitarFoto` y formulario «Quitar foto» en `src/routes/(app)/admin/capsulas/[capsulaId=ulid]/` (solo con foto; ayuda «guarda antes los cambios»). Prueba con evento falso. E2E y `sin-js` en `e2e/flujos/fotos-f15.spec.ts` y `e2e/sin-js/fotos-f15.spec.ts`.
 
 ## Fase 4: Encuadre de fotos (US4) — P2
 

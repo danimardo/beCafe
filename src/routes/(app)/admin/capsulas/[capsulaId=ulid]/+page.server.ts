@@ -2,8 +2,8 @@ import { redirect } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import type { Actions, PageServerLoad } from './$types';
 import { ejecutarAccion, errorDeCarga, falloDeNegocio, fallo } from '../../../fallo';
-import { esColorPropio, esquemaBorrado, esquemaCapsula, OPCION_COLOR_PROPIO, urlFotoCapsula } from '#lib/shared/contratos/capsulas';
-import { borrarCapsula, cambiarEstadoCapsula, editarCapsula, leerCapsulaAdmin } from '#lib/server/economia';
+import { esColorPropio, esquemaBorrado, esquemaCapsula, esquemaQuitarFotoCapsula, OPCION_COLOR_PROPIO, urlFotoCapsula } from '#lib/shared/contratos/capsulas';
+import { borrarCapsula, cambiarEstadoCapsula, editarCapsula, leerCapsulaAdmin, quitarFotoCapsula } from '#lib/server/economia';
 import { textos } from '#lib/shared/textos';
 import { bytesDeFoto, valoresDeFormulario } from '../formulario';
 
@@ -47,6 +47,17 @@ export const actions: Actions = {
 				foto: await bytesDeFoto(entrada.data.foto),
 			});
 			return { confirmacion: textos.capsulas.guardada };
+		});
+	},
+
+	quitarFoto: async ({ request, locals, params }) => {
+		const entrada = esquemaQuitarFotoCapsula.safeParse(Object.fromEntries(await request.formData()));
+		if (!entrada.success) return fallo(400, entrada.error, {});
+		const actor = locals.actor;
+		if (!actor) return falloDeNegocio('SIN_SESION', {});
+		return ejecutarAccion({}, () => {
+			quitarFotoCapsula(locals.ambiente, actor, params.capsulaId);
+			return { confirmacion: textos.capsulas.fotoQuitada };
 		});
 	},
 
