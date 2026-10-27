@@ -6,7 +6,7 @@
 | --- | --- |
 | Proyecto | beCafé: inventario de cápsulas de café y hucha común del departamento de informática |
 | Ubicación | `historias.md` en la raíz del repositorio `github.com/danimardo/beCafe` (en el servidor de desarrollo, `/Apps/beCafe/historias.md`) |
-| Versión | 0.29.0 — CAMBIO-029 |
+| Versión | 0.30.0 — CAMBIO-030 |
 | Fecha | 27-10-2026 |
 | Responsable de negocio y de protección de datos | Responsable del departamento de informática (usuario de la sesión de refinamiento) |
 | Guía aplicada | `docs/Prompts/refinamiento de requisitos.md` (biblioteca local, fuera de Git), versión 2.0.0-candidata |
@@ -119,7 +119,7 @@ Volumen: unas **10 personas**, con ligeras variaciones (PREG-037).
 | **Momento** (de la mascota) | Situación o evento de presentación en que aparece Capsulito, con una pose, una expresión, un tono, una frase visible y un guion opcional de voz fijados en un catálogo cerrado (`momentos.ts`). | Aviso (RF-107); notificación push. |
 | **Bienvenida** | Invitación opcional y recorrido interactivo animado de nueve escenas que explica el funcionamiento de beCafé tras aceptar la privacidad, reabrible desde Perfil y Ayuda (RF-188, RF-247). Antes de entrar va precedida del corto (RF-249). | El texto de privacidad (RF-160). |
 | **Corto** | Vídeo vertical de 72 s, «El misterio de la última cápsula», que explica con humor el problema que resuelve beCafé. Se ve desde su portada con «Ver el corto» (RF-249, RF-251). | La bienvenida de nueve escenas (RF-188). |
-| **Restauración** | Sustitución de todos los datos (base de datos y fotos) por los de una copia de seguridad del bucket, desde la pantalla de copias (RF-254). Lo registrado después de la fecha de la copia se pierde. | La prueba de restauración anotada (RF-143), que no restaura nada. |
+| **Restauración** | Sustitución de todos los datos (base de datos y fotos) por los de una copia de seguridad del bucket, desde la pantalla de copias (RF-254). Lo registrado después de la fecha de la copia se pierde. | La copia diaria (RF-140), que no sustituye datos. |
 | **Copia de resguardo** | Copia del estado actual que la aplicación hace y sube al bucket justo antes de una restauración, para poder deshacerla (RF-255). | La copia diaria (RF-140). |
 | **Saludo** | Frase con la que Capsulito recibe a una persona al abrir Inicio, como máximo una vez cada 2 horas (RF-214). | La bienvenida (RF-188). |
 | **Mensaje del día** | Texto del bocadillo de Capsulito en Inicio cuando no hay saludo, evento ni aviso: uno por persona y día, elegido sin repetir de un catálogo de al menos 40 (RF-266, RN-091). | El saludo (RF-214), que dura 6 s. |
@@ -206,7 +206,7 @@ Registro de consumos, catálogo de tipos de cápsula con foto, stock, compras, a
 | HU-13 | Como administrador, quiero dar de alta, dar de baja y reactivar usuarios, para que solo el equipo actual use la aplicación. | RF-130 a RF-139c |
 | HU-14 | Como administrador, quiero anular registros de cualquiera, para corregir errores fuera del plazo de autoanulación. | RF-061 |
 | HU-15 | Como administrador, quiero configurar los parámetros del sistema, para adaptarlo al equipo. | RF-150 |
-| HU-16 | Como operador del servidor, quiero que existan copias diarias restaurables, para no perder los datos económicos. | RF-140 a RF-144 |
+| HU-16 | Como operador del servidor, quiero que existan copias diarias restaurables, para no perder los datos económicos. | RF-140 a RF-143 |
 | HU-17 | Como miembro, quiero registrar que he rellenado el agua de la cafetera, para que el equipo sepa quién se ocupa de ella y se le reconozca. | RF-170 a RF-176 |
 | HU-18 | Como miembro, quiero dar un enlace a un visitante para que registre su café sin cuenta, y como administrador quiero aprobarlo, para que el stock cuadre sin que nadie registre cafés falsos. | RF-189 a RF-194, RF-210 |
 | HU-19 | Como miembro, quiero registrar de una vez una compra de varios tipos, para apuntar la compra del supermercado en un momento. | RF-197, RF-198 |
@@ -488,8 +488,8 @@ Formato: enunciado canónico en EARS cuando aporta claridad. «El sistema» es l
 | RF-140 | Cada día a las 03:00 (hora de Madrid), el sistema deberá generar una copia coherente de la base de datos con `VACUUM INTO`, empaquetarla con las fotos y subirla al bucket S3. | PREG-028, PREG-029, FUENTE-04 | Confirmado | CA-140 |
 | RF-141 | El bucket deberá conservar las copias de los últimos 30 días mediante una regla de ciclo de vida. | PREG-029 | Confirmado | — (inspección) |
 | RF-142 | Si una copia falla, el sistema deberá registrar el error y notificar a los administradores. | PREG-029 | Confirmado | CA-142 |
-| RF-143 | Un administrador deberá poder consultar el estado de las últimas copias, ver las copias que hay en el bucket, descargarlas, hacer una copia ahora y restaurar una (RF-253 a RF-256, RF-284 a RF-292), y registrar el resultado de una prueba de restauración. | PREG-036 (PEND-019), CAMBIO-026, CAMBIO-029 | Confirmado | CA-143 |
-| RF-144 | Si han pasado más de 100 días desde la última prueba de restauración registrada, el panel de administración deberá mostrar un aviso. | PREG-041 | Confirmado | CA-144 |
+| RF-143 | Un administrador deberá poder consultar las copias de seguridad en un único listado, descargarlas, restaurarlas y hacer una copia ahora (RF-253 a RF-256, RF-284 a RF-292). | PREG-036 (PEND-019), CAMBIO-026, CAMBIO-029, CAMBIO-030 | Confirmado | CA-143 |
+| RF-144 | Retirado por CAMBIO-030: ya no se registran pruebas de restauración ni hay aviso de 100 días. El ID no se reutiliza. | PREG-041, CAMBIO-030 | Retirado | — |
 
 ### 7.12 Configuración
 
@@ -618,11 +618,11 @@ Especificación: `specs/012-pulido-capsulito-celebracion/spec.md` (aprobada el 2
 | RF-250 | Ajustes y Ayuda deberán ofrecer «Ver el corto otra vez», junto a «Ver la bienvenida otra vez»; abre el corto en un diálogo con las mismas opciones. | CAMBIO-025 | Confirmado | CA-250 |
 | RF-251 | El corto solo se reproduce cuando la persona pulsa «Ver el corto», con sonido y con los subtítulos grabados en el vídeo (RF-265). Ofrece pausa, saltar y un enlace a su transcripción, que se abre en una hoja sobre el vídeo (RF-264). Se descarga solo al pulsar, no entra en la precarga de la aplicación y nunca bloquea entrar, usar la aplicación ni registrar un café. No guarda nada nuevo en el navegador: usa la marca de bienvenida vista (constitución V). | CAMBIO-025, CAMBIO-026 | Confirmado | CA-251 |
 | RF-252 | «Saltar» deberá ser una acción visible y accesible aunque secundaria: texto pequeño sin relleno, contraste de al menos 4,5:1, objetivo de al menos 24 × 24 px y nombre accesible (constitución X y XI). | CAMBIO-025 | Confirmado | CA-252 |
-| RF-253 | La pantalla «Copias de seguridad» deberá listar las copias que hay en el bucket, de la más reciente a la más antigua (como máximo 30), con su fecha y hora de Madrid, su tamaño si es una copia de resguardo o manual, y su origen (RF-287, RF-289). Sin S3 configurado, deberá explicar que hace falta configurarlo y no ofrecer restaurar. | CAMBIO-026, CAMBIO-029 | Confirmado | CA-253 |
+| RF-253 | La pantalla «Copias de seguridad» deberá mostrar un único listado de copias, de la más reciente a la más antigua (como máximo 30, paginado de 8 en 8 con un `<form method="get">` que funciona sin JavaScript). Cada fila deberá mostrar su fecha y hora de Madrid, su tamaño, su etiqueta (Diaria, Manual, Resguardo o Fallida), su origen (RF-287, RF-289) y los botones «Descargar» y «Restaurar» juntos. Una copia fallida (solo registrada en local) deberá mostrarse en el mismo listado con la etiqueta «Fallida» y sin botones. Sin S3 configurado, deberá explicar que hace falta configurarlo y no ofrecer «Descargar» ni «Restaurar». El enlace de vuelta deberá decir «Volver a Administración». | CAMBIO-026, CAMBIO-029, CAMBIO-030 | Confirmado | CA-253 |
 | RF-254 | Un administrador deberá poder restaurar cualquier copia de la lista. Antes de confirmar, la aplicación deberá mostrar el efecto: la fecha de la copia, que se sustituyen todos los datos, qué se pierde (lo registrado después de esa fecha), que las sesiones y contraseñas pasan a ser las de la copia y que antes se guardará una copia de resguardo. La confirmación muestra también el origen de la copia y el del sistema (RF-290) y exige la contraseña del administrador. Solo puede haber una restauración en curso. | CAMBIO-026, CAMBIO-029 | Confirmado | CA-254 |
 | RF-255 | Antes de sustituir ningún dato, la aplicación deberá: (a) dejar de aceptar registros; (b) hacer una copia de resguardo del estado actual y subirla al bucket; (c) descargar la copia elegida y comprobar su integridad, su suma de verificación y que no tiene migraciones más nuevas que la aplicación. Si cualquier paso falla, no se sustituye nada, la aplicación vuelve a aceptar registros y el administrador ve el motivo. Cada paso emite su evento técnico (RF-291, RF-292). | CAMBIO-026, CAMBIO-029 | Confirmado | CA-255 |
 | RF-256 | Tras sustituir los datos, la aplicación deberá reiniciarse. Al arrancar, deberá dejar constancia de la restauración en el registro de auditoría (fecha, administrador, copia restaurada y copia de resguardo) y la pantalla de copias deberá mostrar un aviso con esos datos. | CAMBIO-026 | Confirmado | CA-256 |
-| RF-257 | La sección «Anotar una prueba de restauración» deberá explicar que solo apunta una prueba ya hecha y su resultado, que no restaura nada y que sirve para el aviso de 100 días (RF-144). El enlace de vuelta de la pantalla deberá decir «Volver a Administración». | CAMBIO-026 | Confirmado | CA-257 |
+| RF-257 | Retirado por CAMBIO-030 (sección «Anotar una prueba de restauración»). El enlace «Volver a Administración» pasa a RF-253. | CAMBIO-026, CAMBIO-030 | Retirado | — |
 | RF-258 | Inicio deberá conservar el orden de las cápsulas calculado al entrar en la pantalla mientras la persona siga en ella: registrar, deshacer o actualizar los datos no cambia el puesto de ninguna tarjeta, y un tipo que aparece durante la visita va al final. El orden se recalcula según RN-090 al volver a entrar o al recargar. | CAMBIO-026 | Confirmado | CA-258 |
 | RF-259 | Los gestos de reposo (RF-248) deberán ser cinco, en orden fijo, contados desde que Capsulito entra en reposo: a los 4 s mira a los lados, a los 9,5 s golpea el suelo con el pie, a los 15 s bosteza tapándose la boca con la boca muy abierta, a los 20,5 s se da toquecitos en el reloj de la muñeca con la otra mano, con cara de prisa, y a los 26 s bosteza estirándose. A los 29 s el ciclo vuelve a empezar. | CAMBIO-026 | Confirmado | CA-259 |
 | RF-260 | El relleno del agua deberá tener un sonido propio, relacionado con el agua, de 1,5 s y 30 KB como máximo, distinto del de los cafés. Sigue RF-244. | CAMBIO-026 | Confirmado | CA-260 |
@@ -640,7 +640,7 @@ Especificación: `specs/012-pulido-capsulito-celebracion/spec.md` (aprobada el 2
 | RF-272 | Un administrador deberá poder quitar la foto de un tipo de cápsula desde su edición. El tipo queda sin foto, se muestra con su ilustración (RF-185) y el archivo se borra. Funciona sin JavaScript y queda en la auditoría. | CAMBIO-027 | Confirmado | CA-272 |
 | RF-273 | Al elegir una foto de persona (alta, cambio en Usuarios y Perfil) o de tipo de cápsula (alta y edición), la aplicación deberá permitir encuadrarla en un marco cuadrado moviéndola y ampliándola con el ratón, el dedo y el teclado. En las fotos de persona, una guía redonda muestra el avatar; en las de cápsula, no. | CAMBIO-027 | Confirmado | CA-273 |
 | RF-274 | El servidor deberá recortar la foto con la zona elegida, después de aplicar su orientación, y aplicar RF-005. Sin zona elegida (por ejemplo, sin JavaScript), deberá guardar el cuadrado central. Una zona fuera de la foto o no válida se rechaza con un mensaje en el campo y no se guarda nada. | CAMBIO-027 | Confirmado | CA-274 |
-| RF-275 | La pantalla «Copias de seguridad» deberá distinguir sus secciones con un fondo según su función y un icono junto a cada título: estado de las copias con fondo de acento suave; lista del bucket sobre superficie elevada con borde; restauración con fondo de advertencia suave; anotar una prueba con fondo neutro. | CAMBIO-027 | Confirmado | CA-275 |
+| RF-275 | La pantalla «Copias de seguridad» deberá distinguir «Hacer copia ahora» con fondo de acento suave y el listado de copias sobre superficie elevada con borde, con un icono junto a cada título. Desde 1024 px deberá usar dos columnas: las acciones a la izquierda y el listado a la derecha. La advertencia de restaurar (fondo de advertencia suave) deberá estar en la pantalla de confirmación. | CAMBIO-027, CAMBIO-030 | Confirmado | CA-275 |
 | RF-276 | El navegador deberá guardar en memoria el aviso de instalación desde que arranca el cliente, en cualquier pantalla, para que Inicio y Ajustes puedan ofrecerlo después sin recargar. Precisa RF-206. | CAMBIO-028 | Confirmado | CA-276 |
 | RF-277 | Ajustes deberá mostrar, en «Instalar la aplicación», el diagnóstico de instalación y, si el navegador no ha ofrecido instalar, las instrucciones para instalar a mano desde el menú del navegador. El diagnóstico no se guarda en el navegador ni en el servidor. | CAMBIO-028 | Confirmado | CA-277 |
 | RF-278 | El servidor deberá guardar por persona su estado de instalación (`instalada` o `rechazada`) y el instante del último cambio. Cada persona tiene como máximo un estado. | CAMBIO-028 | Confirmado | CA-278 |
@@ -671,7 +671,7 @@ Especificación: `specs/012-pulido-capsulito-celebracion/spec.md` (aprobada el 2
 | RNF-006 | Protección CSRF | Las acciones que modifican datos solo aceptan peticiones del mismo origen. | Prueba. | Confirmado (PREG-041) |
 | RNF-007 | Autorización en servidor | Todos los permisos se comprueban en el servidor, nunca solo ocultando botones. | Pruebas de acceso directo por URL (EV-050). | Confirmado (PREG-041) |
 | RNF-008 | Resiliencia de notificaciones | El fallo de una notificación nunca bloquea un registro. | Prueba con servicio push simulado caído. | Confirmado |
-| RNF-009 | Copias de seguridad | RPO ≤ 24 h; retención 30 días; prueba de restauración trimestral. | Registro de copias y de pruebas. | Confirmado |
+| RNF-009 | Copias de seguridad | RPO ≤ 24 h; retención 30 días. | Registro de copias. | Confirmado |
 | RNF-010 | Integridad transaccional | Cada registro económico y sus efectos (movimientos, stock, coste medio) se guardan en una única transacción. | Pruebas de fallo a mitad de operación. | Confirmado (PREG-041) |
 | RNF-011 | Disponibilidad | Sin objetivo formal. Se acepta indisponibilidad durante despliegues y caídas del servidor. Los consumos se conservan en la cola local. | — | Confirmado (PREG-041) |
 | RNF-012 | Idioma | Toda la interfaz en español, con textos centralizados. | Inspección. | Confirmado |
@@ -770,8 +770,8 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 ### Copias y configuración
 - **CA-140** — A las 03:00 se sube al bucket un archivo con la copia de la base de datos y las fotos. Restaurado en un entorno aparte, la aplicación arranca con los mismos saldos.
 - **CA-142** — Con credenciales S3 incorrectas, la copia falla, se registra el error y los administradores reciben la notificación.
-- **CA-144** — Dada una última prueba de restauración registrada hace 101 días, el panel de administración muestra «Hace más de 100 días que no se prueba una restauración». Con una prueba de hace 30 días, el aviso no aparece.
-- **CA-143** — El administrador ve fecha, tamaño y estado de las últimas copias y puede anotar una prueba de restauración.
+- **CA-144** — Retirado por CAMBIO-030.
+- **CA-143** — El administrador ve las copias en un único listado, con «Descargar» y «Restaurar» en cada fila, y ya no ve ninguna sección para anotar pruebas de restauración ni aviso de 100 días.
 - **CA-150** — Cuando un administrador cambia el plazo de autoanulación a 30 minutos, el cambio queda registrado y se aplica a las anulaciones posteriores.
 
 ### Relleno de agua
@@ -861,11 +861,11 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 - **CA-250** — Ana pulsa «Ver el corto otra vez» en Ajustes o en Ayuda: se abre el corto en un diálogo con sus controles, y al cerrarlo vuelve a la pantalla donde estaba.
 - **CA-251** — Beto pulsa «Ver el corto»: el vídeo suena con sus subtítulos grabados y tiene pausa y saltar. Antes de pulsar no se ha descargado el vídeo ni suena nada. «Leer la transcripción» la abre en una hoja. Sin JavaScript no se muestra la portada y las pantallas siguen funcionando.
 - **CA-252** — En la portada, «Saltar» está a la vista, mide al menos 24 × 24 px, tiene un contraste de al menos 4,5:1 en tema claro y oscuro y se alcanza con el teclado. Las pantallas con la portada no tienen infracciones de axe.
-- **CA-253** — Un administrador con S3 configurado abre «Copias de seguridad»: ve las copias del bucket de la más reciente a la más antigua, con fecha, tamaño y «Restaurar». Sin S3, ve la explicación y ningún botón «Restaurar».
+- **CA-253** — Un administrador con S3 configurado abre «Copias de seguridad»: ve un único listado, de la más reciente a la más antigua, con fecha, tamaño, etiqueta, origen, «Descargar» y «Restaurar». Con más de 8 copias, la paginación muestra 8 por página y llega a un máximo de 30. Una copia fallida aparece con la etiqueta «Fallida» y sin botones. Sin S3, ve la explicación y ningún botón.
 - **CA-254** — El administrador pulsa «Restaurar» en la copia del 25/10/2026 03:00: el diálogo dice qué se sustituye y qué se pierde y pide su contraseña. Con una contraseña incorrecta no se restaura nada. Un miembro no puede restaurar por ninguna vía. Con otra restauración en curso, se rechaza.
 - **CA-255** — Con un fallo en la copia de resguardo, la descarga, la suma de verificación o una copia de una versión más nueva, la restauración se detiene, los saldos no cambian y la aplicación vuelve a aceptar cafés.
 - **CA-256** — Tras una restauración correcta, la aplicación vuelve a responder con los saldos de la copia, el bucket tiene una copia de resguardo nueva y la auditoría y la pantalla de copias muestran la restauración.
-- **CA-257** — La sección «Anotar una prueba de restauración» explica que no restaura nada y para qué sirve. El enlace de vuelta dice «Volver a Administración».
+- **CA-257** — Retirado por CAMBIO-030. El enlace de vuelta dice «Volver a Administración» (CA-253).
 - **CA-258** — Ana pulsa la segunda cápsula, que pasa a ser la que más ha tomado: sigue en el segundo puesto y el confeti sale sobre ella. Al recargar Inicio, aparece primera.
 - **CA-259** — Ana deja Inicio abierto: a los 4 s Capsulito mira a los lados, a los 9,5 s golpea el pie, a los 15 s bosteza tapándose la boca, a los 20,5 s se da toquecitos en el reloj y a los 26 s bosteza estirándose; a los 29 s vuelve a empezar. Con movimiento reducido, queda quieto.
 - **CA-260** — Beto pulsa «He rellenado el agua» con la voz activa: suena el sonido del agua y no el de los cafés. Con la voz silenciada, no suena nada.
@@ -883,7 +883,7 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 - **CA-272** — «Quitar foto» deja el tipo sin foto, con su ilustración, y borra el archivo; con y sin JavaScript; sin foto no aparece el botón.
 - **CA-273** — Al elegir una foto en los cinco formularios aparece el encuadre cuadrado (con guía redonda en personas); se mueve y amplía con el teclado y los controles tienen nombre accesible.
 - **CA-274** — Con una zona de encuadre en la parte superior de una foto vertical, la foto guardada contiene solo esa zona; sin zona, el cuadrado central; una zona fuera de la foto se rechaza sin guardar nada.
-- **CA-275** — En Copias de seguridad, cada sección tiene su fondo y su icono, y la pantalla pasa axe en claro y oscuro.
+- **CA-275** — En Copias de seguridad, «Hacer copia ahora» y el listado tienen su fondo y su icono, desde 1024 px hay dos columnas, y la pantalla pasa axe en claro y oscuro.
 - **CA-284** — Un administrador descarga una copia íntegra; un miembro y una persona sin sesión no pueden; una clave no válida se rechaza sin consultar el bucket.
 - **CA-285** — Cada descarga deja auditoría y un evento técnico sin datos personales.
 - **CA-286** — «Hacer copia ahora» sube una copia completa al bucket; una segunda a la vez no se ejecuta; un fallo se explica y el servidor sigue aceptando registros; funciona sin JavaScript.
@@ -907,7 +907,7 @@ Formato Given/When/Then. Los escenarios EV están **pendientes de creación en f
 | EV-041 | Baja con consumos en la cola local del usuario: se rechazan al llegar (RN-054) | INV-06, RN-054 | Prueba de integración |
 | EV-050 | Acceso directo por URL a todas las rutas de administración y estadísticas ajenas con rol miembro | RNF-007 | Prueba de extremo a extremo |
 | EV-060 | Accesibilidad de la pantalla principal y formularios | RNF-001 | axe + revisión manual |
-| EV-070 | Restauración completa de una copia en entorno aparte | RNF-009 | Demostración trimestral |
+| EV-070 | Retirado por CAMBIO-030 (prueba trimestral de restauración) | RNF-009 | — |
 | EV-080 | Anulación del último arqueo y rechazo de uno anterior; recuentos con varios tipos | RN-036, RF-064 | Prueba de integración |
 | EV-090 | Compra con varias líneas anulada con consumos posteriores de los dos tipos | RN-037, RN-012 | Prueba unitaria |
 | EV-100 | Dos rellenos simultáneos de personas distintas: solo uno queda vigente | RN-082, INV-07 | Prueba de integración con concurrencia |
@@ -1023,7 +1023,6 @@ Convenciones: claves primarias de texto con ULID; fechas en UTC (ISO 8601); impo
 | `configuracion` | clave, valor, modificado_por, modificado_en | — |
 | `registro_auditoria` | id, actor_id, accion, objeto_tipo, objeto_id, detalle (JSON), creado_en | Cambios de rol, bajas, configuración, enlaces generados |
 | `copia_seguridad` | id, iniciada_en, finalizada_en, estado, tamano, error | — |
-| `prueba_restauracion` | id, admin_id, realizada_en, resultado, notas | — |
 | `relleno_agua` | id, cliente_id, usuario_id, registrado_en, estado + campos de anulación | `cliente_id` único; índice por (estado, registrado_en). No genera movimientos (RN-080) |
 | `aguador_mes` | mes (AAAA-MM), usuario_id, rellenos, determinado_en | PK (mes, usuario_id); una fila por ganador, varias si hay empate |
 | `enlace_visitante` | id, token_hash, creado_por, creado_en, expira_en (creado_en + 24 h), revocado_en (nulo), revocado_por (nulo) | Dueño `auth`. `token_hash` único |
@@ -1063,7 +1062,7 @@ Las páginas usan *form actions* de SvelteKit. El cliente sin conexión usa endp
 | `/admin/capsulas` | Catálogo y fotos | Admin | — |
 | `/admin/control` | Arqueos y recuentos | Admin + reautenticación | — |
 | `/admin/configuracion` | Parámetros | Admin + reautenticación | — |
-| `/admin/copias` | Estado de copias y pruebas de restauración | Admin | — |
+| `/admin/copias` | Copias de seguridad (listado único) | Admin | — |
 | GET `/fotos/{id}` | Servir fotos | Usuario | Caché larga con versión en la URL |
 | GET/POST `/privacidad` | Ver el texto vigente y registrar su lectura | Usuario | Redirección obligatoria según RF-160 |
 | GET `/api/salud` | Comprobación de salud para Coolify | Público | Sin datos sensibles |
@@ -1411,7 +1410,7 @@ Evidencia de aprobación: respuesta del responsable del departamento a la pregun
 | Aportaciones declaradas que no se hicieron | Historial visible, arqueos con reparto |
 | Pérdida de consumos en cola si se borran datos del navegador | Aviso visible (RF-019) |
 | Notificaciones push poco fiables en iPhone sin instalar la PWA | Panel de avisos en la app (RF-107), ayuda (RF-106) |
-| Dependencia de una sola instancia y un solo servidor | Copias diarias, prueba de restauración trimestral |
+| Dependencia de una sola instancia y un solo servidor | Copias diarias |
 | Rellenos de agua declarados sin hacerlos | Intervalo mínimo, visibilidad para todos, anulación por un administrador |
 | Diseño no validado con usuarios reales (DEC-097) | Sistema de diseño Latte, revisión con VoiceOver y TalkBack, corrección tras el uso real |
 | Coste del cristal en móviles modestos sin medir (DEC-096) | Ajuste «Reducir transparencia» (RF-181) y preferencia del sistema |
@@ -1510,6 +1509,7 @@ La tabla sigue el orden de implementación acordado. Las reglas económicas (RN-
 | 0.27.0 | 27-10-2026 | CAMBIO-027: mensaje del día de Capsulito, colores y fotos de cápsula, encuadre de fotos y copias más claras (F15), traspasado desde `specs/015-saludos-colores-fotos/spec.md` (aprobada el 27-10-2026). Nuevos: RN-091, RF-266 a RF-275, CA-266 a CA-275, EV-114, EV-115, DEC-135 a DEC-138 y glosario («Mensaje del día», «Color propio», «Encuadre»). Modificados: RF-001, RF-003, RF-005, RF-208, RF-214, RF-224 y anexo A (versión 4: mensajes del día ya mostrados). Constitución 1.9.0 (principios X y XVIII, color propio) | Autorizado en la sesión del 27-10-2026 («si» a registrar el CAMBIO-027; spec aprobada con «si, la apruebo»); respaldo de 0.26.0 (SHA-256 dd9b5687…40e42dd) en `.respaldos/historias-v0.26.0-20261027.md` |
 | 0.28.0 | 27-10-2026 | CAMBIO-028: registro de quién instala la aplicación y diagnóstico de la instalación (F16), traspasado desde `specs/016-registro-instalacion/spec.md` (aprobada el 27-10-2026). Nuevos: RF-276 a RF-283, CA-276 a CA-283, EV-116, DEC-139 y glosario («Estado de instalación», «Aviso de instalación», «Diagnóstico de instalación»). Modificados: RF-206, RF-224 y anexo A (versión 5: estado de instalación y quién lo ve). Sin enmienda de la constitución | Autorizado en la sesión del 27-10-2026 (autorización del cambio en `historias.md` con su respaldo; spec aprobada con «te acepto la spec» y «si, procede con la spec»); respaldo de 0.27.0 (SHA-256 3dcf81f9…769d10f7) en `.respaldos/historias-v0.27.0-20261027.md` |
 | 0.29.0 | 27-10-2026 | CAMBIO-029: descarga de copias, copia manual, origen de cada copia y registro de la restauración (F17), traspasado desde `specs/017-descarga-copia-manual/spec.md` (aprobada el 27-10-2026) y `plan.md` (aprobado el 27-10-2026). Nuevos: RF-284 a RF-292, CA-284 a CA-292, EV-117, DEC-140 y glosario («Copia manual», «Origen de una copia», «Identificador de restauración»). Modificados: RF-143, RF-253, RF-254 y RF-255. Sin enmienda de la constitución | Autorizado en la sesión del 27-10-2026 (la persona usuaria autoriza el cambio en `historias.md` y aprueba la spec con «sí, apruebo la spec»); respaldo de 0.28.0 (SHA-256 2e847ca5…d8eb2bbe) en `.respaldos/historias-v0.28.0-20261027.md` |
+| 0.30.0 | 27-10-2026 | CAMBIO-030: listado único de copias con «Descargar» y «Restaurar» por fila, paginación de 8 en 8, dos columnas y retirada de las pruebas de restauración (modificación de F17, `specs/017-descarga-copia-manual/`). Modificados: RF-143, RF-253, RF-275, RNF-009, CA-143, CA-253, CA-275, HU-16 y glosario. Retirados: RF-144, RF-257, CA-144, CA-257, EV-070 y la tabla `prueba_restauracion`. Constitución 1.10.0 (principio V) | Autorizado en la sesión del 27-10-2026 («sí» a la enmienda 1.10.0, al CAMBIO-030 y a la modificación de la spec); respaldo de 0.29.0 (SHA-256 b98b40a8…eaf84e92) en `.respaldos/historias-v0.29.0-20261027.md` |
 
 ---
 

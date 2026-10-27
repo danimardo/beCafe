@@ -189,3 +189,35 @@ Cambios de `historias.md` (CAMBIO-029), que se aplican con respaldo en `.respald
 - **Q**: ¿Solo administradores, con auditoría y `Cache-Control: no-store`? → **A**: Sí.
 - **Q**: ¿Ver en qué sistema se hizo cada copia? → **A**: Sí: localhost o el dominio de producción.
 - **Q**: ¿Más registros técnicos para seguir una importación fallida? → **A**: Sí.
+
+## Modificación 2026-10-27: listado único y retirada de las pruebas de restauración (CAMBIO-030)
+
+**Origen.** La persona usuaria ve la pantalla `/admin/copias` como un «batiburrillo»: las mismas copias salen tres veces (estado, lista del bucket y lista de «Restaurar») y hay una sección para anotar pruebas de restauración que no quiere. Aprobó el cambio en la sesión del 2026-10-27, incluida la enmienda 1.10.0 de la constitución (principio V) y el CAMBIO-030 en `historias.md` v0.30.0. Se tramita aquí y no como funcionalidad nueva.
+
+### Requisitos modificados (sin IDs nuevos)
+
+- **RF-143**: las copias se consultan en un único listado, con descarga, restauración y «Hacer copia ahora».
+- **RF-253**: un único listado, de la más reciente a la más antigua, con un máximo de 30 copias y paginación de 8 en 8 (`<form method="get">`, funciona sin JavaScript). Cada fila muestra fecha y hora de Madrid, tamaño, etiqueta (Diaria, Manual, Resguardo o Fallida), origen y los botones «Descargar» y «Restaurar» juntos. Una copia fallida (solo existe en local) sale en el mismo listado con la etiqueta «Fallida» y sin botones. Sin S3, la pantalla lo explica y no ofrece botones. El enlace de vuelta dice «Volver a Administración».
+- **RF-275**: «Hacer copia ahora» con fondo de acento suave y el listado sobre superficie elevada con borde, cada uno con su icono. Desde 1024 px hay dos columnas: acciones a la izquierda y listado a la derecha (`DosColumnas`, RF-261). La zona de advertencia de restaurar pasa a la pantalla de confirmación.
+- **RNF-009**: «RPO ≤ 24 h; retención 30 días». Sin prueba trimestral.
+
+### Requisitos retirados
+
+RF-144 (aviso de 100 días), RF-257 («Anotar una prueba de restauración»), CA-144, CA-257 y EV-070. Se elimina también la tabla `prueba_restauracion` con una migración de solo avance.
+
+### Criterios de aceptación modificados
+
+- **CA-143**: el administrador ve un único listado con «Descargar» y «Restaurar» en cada fila y ninguna sección de pruebas ni aviso de 100 días.
+- **CA-253**: con 20 copias, la primera página muestra 8, la tercera 4 y no hay más de 30 en total. Una copia fallida aparece con «Fallida» y sin botones. Sin S3, no hay botones.
+- **CA-275**: «Hacer copia ahora» y el listado tienen su fondo y su icono, desde 1024 px hay dos columnas y la pantalla pasa axe en claro y oscuro.
+
+### Fuera de alcance de esta modificación
+
+La confirmación de restaurar (RF-254), la descarga (RF-284) y la copia manual (RF-286) no cambian de comportamiento. Las auditorías y los eventos técnicos existentes se conservan.
+
+### Decisiones de la persona usuaria (2026-10-27)
+
+- La tabla `prueba_restauracion` se borra con una migración.
+- Las copias fallidas van en el mismo listado, con la etiqueta «Fallida».
+- Se muestra solo la lista del bucket (lo restaurable) más las fallidas locales, sin duplicados.
+- Máximo de 30 copias, paginadas de 8 en 8.

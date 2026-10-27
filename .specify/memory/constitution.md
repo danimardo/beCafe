@@ -1,8 +1,7 @@
 <!--
-Sync Impact Report (v1.8.0 -> v1.9.0, 2026-10-27):
-- Incremento MENOR (1.8.0 -> 1.9.0): amplía los principios X y XVIII para F15 (specs/015-saludos-colores-fotos, CAMBIO-027, RF-269, RF-270, DEC-136).
-- Principio X (Usabilidad): admite el color propio de un tipo de cápsula como única excepción a los tokens.
-- Principio XVIII (Identidad visual, temas y efectos): nueva excepción cerrada para el color propio de un tipo de cápsula, con texto y límites calculados (4,5:1 y 3:1 en claro y oscuro) y tono ajustado en oscuro de forma determinista.
+Sync Impact Report (v1.9.0 -> v1.10.0, 2026-10-27):
+- Incremento MENOR (1.9.0 -> 1.10.0): la persona usuaria decide no exigir pruebas periódicas de restauración (modificación de F17, CAMBIO-030).
+- Principio V (Almacenamiento de datos): la copia diaria DEBE ser restaurable desde la aplicación; se elimina la exigencia de que esté «probada periódicamente».
 - Secciones añadidas o eliminadas: ninguna.
 - Plantillas: sin cambios (leen la constitución al ejecutarse).
 - TODO pendientes: ninguno.
@@ -102,8 +101,8 @@ error de redondeo o un cargo duplicado la rompe.
   preferencias de apariencia, mascota y bienvenida (tema, reducir transparencia, mostrar mascota,
   voz y bienvenida vista) y la caché del service worker. La sesión DEBE viajar solo en una cookie
   `HttpOnly`; NO DEBEN guardarse tokens ni datos personales en `localStorage`.
-- DEBE existir una copia de seguridad diaria fuera del servidor, restaurable y probada
-  periódicamente (RT-005, RNF-009).
+- DEBE existir una copia de seguridad diaria fuera del servidor y restaurable desde la
+  aplicación (RT-005, RNF-009).
 
 Motivo: un único almacén transaccional hace posible la integridad económica; lo que se guarda en el
 navegador puede perderse o leerse en un dispositivo compartido.
@@ -460,4 +459,4 @@ nombre «beCafé») son obligatorias. Esta constitución las referencia y no las
 - Cada revisión de un plan o de un pull request DEBE comprobar el cumplimiento de esta
   constitución.
 
-**Versión**: 1.9.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-27
+**Versión**: 1.10.0 | **Ratificada**: 2026-10-21 | **Última enmienda**: 2026-10-27

@@ -131,3 +131,42 @@ La spec decía, en «Edge Cases», que «la tarea diaria no se repite si ya hay 
 - Un bucket real (Backblaze, S3) puede devolver cabeceras distintas del bucket falso: se verifica con la primera copia manual en producción.
 - Un archivo muy grande en el flujo de descarga no se prueba por encima de unos MB.
 - TalkBack y VoiceOver sobre la pantalla nueva quedan para revisión manual (constitución XI).
+
+## Modificación 2026-10-27: listado único y retirada de las pruebas de restauración (CAMBIO-030)
+
+Constitución 1.10.0. Problema concreto (II): tres listados de las mismas copias y una sección sin uso mezclan la pantalla; se resuelve quitando código, sin capas nuevas.
+
+### M1. Listado unificado (RF-253)
+
+- Dominio puro `copias/dominio/listado.ts`: `unificarCopias({ bucket, locales, pagina })` devuelve `{ filas, pagina, paginas, total }`. Une las copias del bucket con las locales de estado `fallida`, ordena por instante descendente, recorta a `LIMITE_COPIAS_PANEL` (30) y pagina de 8 en 8 (`COPIAS_POR_PAGINA`). La página fuera de rango se acota. Sin reloj ni acceso a datos.
+- Una copia local `correcta` no sale: ya está en el bucket, que es la lista restaurable. Una `en_curso` tampoco.
+- Fila: `{ clave: string | null, instante, tamano: number | null, tipo: 'diaria' | 'manual', resguardo, origen, fallida, codigoError }`. Con `clave === null` no hay botones.
+- `leerCopias` sigue siendo la consulta de las copias locales. El `load` llama a `unificarCopias` y devuelve las filas ya paginadas.
+
+### M2. Paginación
+
+`?pagina=N` se valida con `z.strictObject({ pagina: z.coerce.number().int().positive().optional() })`. La navegación es un `<form method="get">` con el componente `Paginacion` existente. Funciona sin JavaScript (XVII).
+
+### M3. Pantalla en dos columnas (RF-275, RF-261)
+
+- `DosColumnas`: en `acciones`, los avisos, «Hacer copia ahora» (`SeccionCopias` tono `estado`) y una nota de qué hace restaurar. En `listado`, las filas.
+- `CopiaBucketFila` pasa a `CopiaFila`: fecha, tamaño, etiquetas, origen y los botones «Descargar» y «Restaurar» (enlaces, 44 px). Sin «Origen: Origen no registrado»: se muestra «Origen no registrado» una sola vez.
+- La zona de advertencia (`tono="restaurar"`) pasa a la pantalla `restaurar/[...clave]`.
+- Se eliminan las secciones «Copias en el bucket», «Restaurar una copia», «Anotar una prueba» y «Pruebas anotadas».
+
+### M4. Retirada de las pruebas de restauración
+
+- Se borran `pruebas-restauracion.ts` y su test, la *action* `anotarPrueba`, `leerPruebas`, `leerEstadoRestauracion`, `esquemaAnotarPrueba`, `DIAS_SIN_PROBAR` y `diasEntre`, el aviso del panel `/admin` (`avisoRestauracion`) y sus textos.
+- `exigirPermisoCopias` (la única pieza que se conserva) pasa a `copias/permiso.ts`.
+- Migración `0012` de solo avance: `DROP TABLE prueba_restauracion`, generada con `drizzle-kit`. Se retira la tabla de `esquema.ts` y de las exportaciones.
+
+### M5. Documentos y pruebas
+
+- `ARCHITECTURE.md` (módulo `copias`, tabla y pantalla), `docs/pruebas.md`, `docs/operacion.md` y `docs/diseno/screen-layouts.md`.
+- Pruebas: unitarias y de propiedades de `unificarCopias` (orden, tope de 30, 8 por página, página acotada, fallidas sin clave); integración sin la tabla (migración aplica); acción `copiaManual` sin cambios; E2E de `admin-copias` (listado único, «Descargar» y «Restaurar» en cada fila, paginación, «Fallida»), `sin-js` de la paginación, axe en claro y oscuro y dos columnas a 1024 px. Se retiran los E2E de anotar prueba y del aviso de 100 días.
+- Trazabilidad: CA-143, CA-253 y CA-275 en las descripciones.
+
+### Riesgos
+
+- El orden mezclado entre el instante del bucket (`modificadaEn`) y el de una copia local fallida (`iniciadaEn`) puede diferir en segundos: es aceptable y no cambia el reparto de páginas relevante.
+- Una página guardada en un marcador que ya no existe se acota a la última, sin error.
