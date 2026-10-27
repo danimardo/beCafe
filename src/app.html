@@ -138,6 +138,13 @@
 			media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)"
 		/>
 		<script nonce="%sveltekit.nonce%">
+			// Guarda el aviso de instalación si Chrome lo lanza antes de que arranque el cliente (RF-276); `capturarInstalacion` lo recoge.
+			window.addEventListener('beforeinstallprompt', function (evento) {
+				evento.preventDefault();
+				window.__becafeAviso = evento;
+			});
+		</script>
+		<script nonce="%sveltekit.nonce%">
 			// Aplica la apariencia ANTES de pintar para evitar el parpadeo (RF-180, RF-181).
 			// Solo se aceptan valores de la lista cerrada; cualquier otro dato guardado usa el valor por defecto.
 			(function () {

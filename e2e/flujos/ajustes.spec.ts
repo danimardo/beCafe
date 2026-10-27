@@ -58,3 +58,37 @@ test('CA-220: en móvil, Perfil queda activo en /ajustes y la barra no añade un
 	await expect(barra.getByRole('link')).toHaveCount(5);
 	await expect(barra.getByRole('link', { name: 'Perfil', exact: true })).toHaveAttribute('aria-current', 'page');
 });
+
+// RF-206: si el navegador no ofrece instalar, Ajustes explica por qué (diagnóstico) y da la vía manual.
+test('CA-277: sin aviso del navegador, Ajustes muestra el diagnóstico y las instrucciones manuales', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'miembro');
+	await page.goto(`${servidor.url}/ajustes`);
+	await page.waitForLoadState('load');
+
+	await expect(page.getByText('Instalar a mano', { exact: true })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Estado de la instalación' })).toBeVisible();
+	await expect(page.getByText('El navegador ha ofrecido instalar', { exact: true })).toBeVisible();
+});
+
+// RF-276: un aviso de instalación que llega en el acceso se conserva y Ajustes lo ofrece sin recargar.
+test('CA-276: un aviso de instalación recibido antes de entrar se ofrece después en Ajustes', async ({ page, servidor }) => {
+	await page.addInitScript(() => {
+		window.addEventListener('load', () => {
+			const aviso = Object.assign(new Event('beforeinstallprompt', { cancelable: true }), {
+				prompt: () => Promise.resolve(),
+				userChoice: Promise.resolve({ outcome: 'dismissed' }),
+			});
+			window.dispatchEvent(aviso);
+		});
+	});
+	await entrarComo(page, servidor, 'miembro');
+	await page.waitForLoadState('load');
+	// Sin recargar: en móvil, Ajustes se alcanza desde Perfil.
+	await page.getByRole('link', { name: 'Perfil', exact: true }).first().click();
+	await page
+		.getByRole('link', { name: /^Ajustes/ })
+		.first()
+		.click();
+
+	await expect(page.getByRole('button', { name: 'Instalar', exact: true })).toBeVisible();
+});

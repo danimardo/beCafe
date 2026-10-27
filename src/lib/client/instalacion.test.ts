@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { crearInstalacion, estadoBase, type EstadoInstalacion } from './instalacion';
+import { capturarInstalacion, crearInstalacion, estadoBase, type EstadoInstalacion } from './instalacion';
 
 // RF-206: la tarjeta de instalación depende de este estado. Se simula la ventana con un EventTarget.
 function ventanaFalsa(opciones: { agente?: string; standalone?: boolean; tactil?: number } = {}) {
@@ -65,9 +65,46 @@ describe('instalación de la PWA (RF-206)', () => {
 		expect(instalacion.estado()).toBe('instalada');
 
 		const otra = ventanaFalsa();
-		const destruida = crearInstalacion(otra, () => {});
+		const avisos: EstadoInstalacion[] = [];
+		const destruida = crearInstalacion(otra, (estado) => avisos.push(estado));
 		destruida.destruir();
 		otra.dispatchEvent(peticion('accepted'));
-		expect(destruida.estado()).toBe('no_disponible');
+		// La captura sigue guardando el aviso para otra pantalla, pero esta ya no recibe cambios.
+		expect(avisos).toEqual(['no_disponible']);
+	});
+
+	it('CA-276: un aviso que llega antes de crear la instalación (p. ej. en el acceso) no se pierde', async () => {
+		const ventana = ventanaFalsa();
+		capturarInstalacion(ventana);
+		ventana.dispatchEvent(peticion('accepted'));
+
+		const instalacion = crearInstalacion(ventana, () => {});
+		expect(instalacion.estado()).toBe('instalable');
+		expect(instalacion.diagnostico().avisoRecibido).toBe(true);
+		expect(await instalacion.instalar()).toBe('instalada');
+		expect(instalacion.diagnostico()).toMatchObject({ instalada: true, resultado: 'aceptada' });
+	});
+
+	it('CA-277: el diagnóstico refleja conexión segura, servicio de fondo y un diálogo rechazado', async () => {
+		const ventana = { ...ventanaFalsa(), isSecureContext: true };
+		const instalacion = crearInstalacion(ventana, () => {});
+		expect(instalacion.diagnostico()).toEqual({
+			conexionSegura: true,
+			trabajadorActivo: false,
+			avisoRecibido: false,
+			instalada: false,
+			resultado: null,
+		});
+
+		ventana.dispatchEvent(peticion('dismissed'));
+		await instalacion.instalar();
+		expect(instalacion.diagnostico()).toMatchObject({ avisoRecibido: true, resultado: 'rechazada' });
+	});
+
+	it('CA-276: un aviso guardado por el script de arranque antes de cargar el cliente también se recoge', () => {
+		const ventana = { ...ventanaFalsa(), __becafeAviso: peticion('accepted') };
+		const instalacion = crearInstalacion(ventana, () => {});
+		expect(instalacion.estado()).toBe('instalable');
+		expect(instalacion.diagnostico().avisoRecibido).toBe(true);
 	});
 });
