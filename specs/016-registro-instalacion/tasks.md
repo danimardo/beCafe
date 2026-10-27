@@ -24,8 +24,8 @@
 
 ## Fase 5: Cierre
 
-- [ ] T009 Documentación: `ARCHITECTURE.md` (tabla `instalacion_app`, `RegistroInstalacion`) y `docs/pruebas.md` (cómo se prueba F16).
-- [ ] T010 `npm run verify` y E2E afectados; anotar en `.local/verification/runs.jsonl`; revisar `git status`.
+- [x] T009 Documentación: `ARCHITECTURE.md` (tabla `instalacion_app`, `RegistroInstalacion`) y `docs/pruebas.md` (cómo se prueba F16).
+- [x] T010 `npm run verify` y E2E afectados; anotar en `.local/verification/runs.jsonl`; revisar `git status`.
 
 ## Dependencias
 
