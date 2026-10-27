@@ -11,8 +11,12 @@ FROM herramientas AS construccion
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-# SvelteKit valida `src/env.ts` también al construir. Estos valores son solo para la compilación.
-ENV ORIGIN=https://construccion.invalid \
+# SvelteKit valida `src/env.ts` también al construir. `DIRECTORIO_DATOS` y `TZ` son solo para la compilación.
+# `ORIGIN` NO es solo de compilación: `vite.config.ts` lo graba en `kit.paths.origin` y de ahí sale la comprobación CSRF
+# de los formularios en ejecución. Pasa la dirección pública real como argumento de compilación (Coolify lo hace con
+# las variables de la aplicación); el valor por defecto solo sirve para construir sin dirección, por ejemplo en la CI.
+ARG ORIGIN=https://construccion.invalid
+ENV ORIGIN=$ORIGIN \
 	DIRECTORIO_DATOS=/tmp/construccion \
 	TZ=Europe/Madrid
 ARG GIT_COMMIT=desconocido
