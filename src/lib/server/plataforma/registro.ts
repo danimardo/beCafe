@@ -70,6 +70,15 @@ export const NIVEL_EVENTO = {
 	'app.s3_no_configurado': 'warn',
 	'copia.fallida': 'error',
 	'restauracion.anotada': 'info',
+	'copia.manual_iniciada': 'info',
+	'copia.manual_rechazada': 'info',
+	'copia.descarga_iniciada': 'info',
+	'copia.descarga_fallida': 'error',
+	'copia.restauracion_iniciada': 'info',
+	'copia.restauracion_resguardo_hecho': 'info',
+	'copia.restauracion_descargada': 'info',
+	'copia.restauracion_verificada': 'info',
+	'copia.restauracion_paso': 'debug',
 	'copia.restauracion_preparada': 'info',
 	'copia.restauracion_fallida': 'error',
 	'copia.restauracion_aplicada': 'info',
@@ -165,12 +174,28 @@ export type CamposEvento = {
 	'tarea.completada': { tarea: string; duracionMs: number };
 	'tarea.fallida': { tarea: string; duracionMs: number; tipo: string };
 	'app.s3_no_configurado': { faltan: string };
-	'copia.completada': { copiaId: string; tamano: number; duracionMs: number };
-	'copia.fallida': { copiaId: string; codigo: string; estadoHttp?: number };
+	'copia.completada': { copiaId: string; tamano: number; duracionMs: number; tipo: 'diaria' | 'manual'; origen: string };
+	'copia.fallida': { copiaId: string; codigo: string; estadoHttp?: number; tipo: 'diaria' | 'manual'; origen: string };
+	'copia.manual_iniciada': { copiaId: string; usuarioId: string };
+	'copia.manual_rechazada': { usuarioId: string; codigo: string };
+	'copia.descarga_iniciada': { usuarioId: string; tamano?: number };
+	'copia.descarga_fallida': { usuarioId: string; codigo: string; estadoHttp?: number };
 	'restauracion.anotada': { pruebaId: string; usuarioId: string; resultado: string };
-	'copia.restauracion_preparada': { tamano: number; duracionMs: number };
-	'copia.restauracion_fallida': { codigo: string; estadoHttp?: number };
-	'copia.restauracion_aplicada': { duracionMs: number };
+	'copia.restauracion_iniciada': { restauracionId: string; origenCopia: string; origenSistema: string };
+	'copia.restauracion_resguardo_hecho': { restauracionId: string; tamano: number; duracionMs: number };
+	'copia.restauracion_descargada': { restauracionId: string; tamano: number; duracionMs: number };
+	'copia.restauracion_verificada': {
+		restauracionId: string;
+		integridad: string;
+		migracionesCopia: number;
+		migracionesSistema: number;
+		origenCopia: string;
+		origenSistema: string;
+	};
+	'copia.restauracion_paso': { restauracionId?: string; paso: string; duracionMs: number };
+	'copia.restauracion_preparada': { restauracionId: string; tamano: number; duracionMs: number };
+	'copia.restauracion_fallida': { restauracionId?: string; paso: string; codigo: string; estadoHttp?: number };
+	'copia.restauracion_aplicada': { restauracionId?: string; duracionMs: number };
 	'copia.restauracion_marca_invalida': { motivo: string };
 	'configuracion.cambiada': { clave: string };
 	'relleno.registrado': { rellenoId: string; usuarioId: string };

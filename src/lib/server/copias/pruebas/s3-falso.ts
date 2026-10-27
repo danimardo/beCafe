@@ -5,7 +5,7 @@ import { join } from 'node:path';
 
 // Servidor S3 falso para pruebas (plan F8, docs/pruebas.md §8): nunca un bucket real. Guarda los `PUT` en un directorio temporal.
 
-export type RespuestaFalsa = 'ok' | 403 | 500 | 'sin-respuesta';
+export type RespuestaFalsa = 'ok' | 403 | 404 | 500 | 'sin-respuesta';
 
 export type S3Falso = {
 	endpoint: string;

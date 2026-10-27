@@ -2,13 +2,13 @@ import { mkdir, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { z } from 'zod';
 import { reautenticar, type Actor } from '#lib/server/auth';
-import { registrar, type Ambiente } from '#lib/server/plataforma';
+import { nuevoId, registrar, type Ambiente } from '#lib/server/plataforma';
 import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import { ErrorCopia, ErrorRestauracion, type CodigoRestauracion } from './errores';
 import { desempaquetar, empaquetar, sha256De } from './empaquetado';
 import { hacerInstantanea } from './instantanea';
 import { exigirPermisoCopias } from './pruebas-restauracion';
-import { construirClave } from './dominio/clave-copia';
+import { construirClave, leerClave } from './dominio/clave-copia';
 import { esquemaClaveCopia, type ClienteS3 } from './subida-s3';
 import { verificarCopia } from './verificacion';
 
@@ -24,6 +24,8 @@ export const esquemaPendiente = z.strictObject({
 	resguardo: esquemaClaveCopia,
 	adminId: z.string().min(1),
 	instante: esquemaInstanteUtc,
+	/** Identificador de restauración (plan F17 D4). Las marcas anteriores a F17 no lo llevan. */
+	restauracionId: z.string().min(1).optional(),
 });
 export type RestauracionPendiente = z.infer<typeof esquemaPendiente>;
 
@@ -40,6 +42,24 @@ function aErrorRestauracion(causa: unknown, fase: 'bucket' | 'resguardo'): unkno
 	const delBucket = causa.codigo === 'S3_RED' || causa.codigo === 'S3_RESPUESTA' || causa.codigo === 'S3_CREDENCIALES';
 	if (delBucket) return new ErrorRestauracion('BUCKET', causa.estadoHttp);
 	return new ErrorRestauracion(fase === 'resguardo' ? 'RESGUARDO' : 'DANADA');
+}
+
+/** Pasos de una restauración, en orden: el último evento de un fallo nombra el paso que falló (RF-291). */
+export const PASOS_RESTAURACION = ['listado', 'resguardo', 'descarga', 'suma', 'verificacion', 'preparacion'] as const;
+type PasoRestauracion = (typeof PASOS_RESTAURACION)[number];
+
+/** Ejecuta un paso y emite su duración a nivel `debug`. Deja en `actual` el paso en curso, para nombrarlo si falla. */
+async function conPaso<T>(
+	actual: { paso: PasoRestauracion },
+	restauracionId: string,
+	paso: PasoRestauracion,
+	trabajo: () => Promise<T>,
+): Promise<T> {
+	actual.paso = paso;
+	const inicio = Date.now();
+	const resultado = await trabajo();
+	registrar('copia.restauracion_paso', { restauracionId, paso, duracionMs: Date.now() - inicio });
+	return resultado;
 }
 
 /** Copia del bucket que se va a restaurar, para mostrar su efecto (RF-254). Lanza si no hay S3 o la clave no está en el bucket. */
@@ -74,58 +94,94 @@ export async function restaurarCopia(
 
 	const inicio = Date.now();
 	const ahora = ambiente.reloj.ahora();
+	const restauracionId = nuevoId();
+	const actual: { paso: PasoRestauracion } = { paso: 'listado' };
+	const origenSistema = ambiente.copias.origen;
+	const origenCopia = leerClave(datos.clave).origen ?? 'desconocido';
+	registrar('copia.restauracion_iniciada', { restauracionId, origenCopia, origenSistema });
 	const { directorioDatos, carpetaMigraciones } = ambiente.copias;
 	const temporales = join(directorioDatos, 'tmp', `restauracion-${Date.now()}`);
 	const restauracion = join(directorioDatos, SUBDIRECTORIO_RESTAURACION);
 	const preparada = join(restauracion, 'preparada');
 	try {
-		await leerCopiaARestaurar(ambiente, actor, datos.clave, cliente);
+		await conPaso(actual, restauracionId, 'listado', () => leerCopiaARestaurar(ambiente, actor, datos.clave, cliente));
 		await mkdir(temporales, { recursive: true });
 
 		// Copia de resguardo del estado actual, subida al bucket antes de tocar nada.
-		const resguardo = claveDeResguardo(ahora, ambiente.copias.origen);
-		try {
-			hacerInstantanea(ambiente.db, join(temporales, 'instantanea.db'));
-			const paquete = join(temporales, 'resguardo.tar.gz');
-			const { sha256 } = await empaquetar({
-				instantanea: join(temporales, 'instantanea.db'),
-				directorioFotos: join(directorioDatos, 'fotos'),
-				destino: paquete,
-			});
-			await cliente.subir({ clave: resguardo, ruta: paquete, sha256 });
-		} catch (causa) {
-			throw aErrorRestauracion(causa, 'resguardo');
-		}
+		const resguardo = claveDeResguardo(ahora, origenSistema);
+		await conPaso(actual, restauracionId, 'resguardo', async () => {
+			const inicioResguardo = Date.now();
+			try {
+				hacerInstantanea(ambiente.db, join(temporales, 'instantanea.db'));
+				const paquete = join(temporales, 'resguardo.tar.gz');
+				const { sha256, tamano } = await empaquetar({
+					instantanea: join(temporales, 'instantanea.db'),
+					directorioFotos: join(directorioDatos, 'fotos'),
+					destino: paquete,
+				});
+				await cliente.subir({ clave: resguardo, ruta: paquete, sha256 });
+				registrar('copia.restauracion_resguardo_hecho', { restauracionId, tamano, duracionMs: Date.now() - inicioResguardo });
+			} catch (causa) {
+				throw aErrorRestauracion(causa, 'resguardo');
+			}
+		});
 
 		// Descarga y comprobación de la copia elegida: suma, integridad y versión.
 		const archivo = join(temporales, 'copia.tar.gz');
-		let sumaEsperada: string | null;
-		try {
-			sumaEsperada = await cliente.descargar(datos.clave, archivo);
-		} catch (causa) {
-			throw aErrorRestauracion(causa, 'bucket');
-		}
-		if (sumaEsperada !== null && sumaEsperada !== (await sha256De(archivo))) throw new ErrorRestauracion('DANADA');
-		const resultado = await verificarCopia(archivo, join(carpetaMigraciones, 'meta', '_journal.json')).catch(() =>
-			Promise.reject(new ErrorRestauracion('DANADA')),
-		);
-		if (resultado.integridad !== 'ok') throw new ErrorRestauracion('DANADA');
-		if (resultado.migracionesAplicadas > resultado.migracionesEsperadas) throw new ErrorRestauracion('VERSION_NUEVA');
+		const sumaEsperada = await conPaso(actual, restauracionId, 'descarga', async () => {
+			const inicioDescarga = Date.now();
+			try {
+				const suma = await cliente.descargar(datos.clave, archivo);
+				registrar('copia.restauracion_descargada', {
+					restauracionId,
+					tamano: (await stat(archivo)).size,
+					duracionMs: Date.now() - inicioDescarga,
+				});
+				return suma;
+			} catch (causa) {
+				throw aErrorRestauracion(causa, 'bucket');
+			}
+		});
+		await conPaso(actual, restauracionId, 'suma', async () => {
+			if (sumaEsperada !== null && sumaEsperada !== (await sha256De(archivo))) throw new ErrorRestauracion('DANADA');
+		});
+		await conPaso(actual, restauracionId, 'verificacion', async () => {
+			const resultado = await verificarCopia(archivo, join(carpetaMigraciones, 'meta', '_journal.json')).catch(() =>
+				Promise.reject(new ErrorRestauracion('DANADA')),
+			);
+			registrar('copia.restauracion_verificada', {
+				restauracionId,
+				integridad: resultado.integridad,
+				migracionesCopia: resultado.migracionesAplicadas,
+				migracionesSistema: resultado.migracionesEsperadas,
+				origenCopia,
+				origenSistema,
+			});
+			if (resultado.integridad !== 'ok') throw new ErrorRestauracion('DANADA');
+			if (resultado.migracionesAplicadas > resultado.migracionesEsperadas) throw new ErrorRestauracion('VERSION_NUEVA');
+		});
 
 		// Dejarla preparada. La marca es lo último: sin ella, el arranque no aplica nada.
-		await rm(restauracion, { recursive: true, force: true });
-		await desempaquetar(archivo, preparada).catch(() => Promise.reject(new ErrorRestauracion('DANADA')));
-		const marca: RestauracionPendiente = { clave: datos.clave, resguardo, adminId: actor.usuarioId, instante: ahora };
-		await writeFile(join(restauracion, ARCHIVO_PENDIENTE), JSON.stringify(marca));
-		registrar('copia.restauracion_preparada', { tamano: (await stat(archivo)).size, duracionMs: Date.now() - inicio });
+		await conPaso(actual, restauracionId, 'preparacion', async () => {
+			await rm(restauracion, { recursive: true, force: true });
+			await desempaquetar(archivo, preparada).catch(() => Promise.reject(new ErrorRestauracion('DANADA')));
+			const marca: RestauracionPendiente = { clave: datos.clave, resguardo, adminId: actor.usuarioId, instante: ahora, restauracionId };
+			await writeFile(join(restauracion, ARCHIVO_PENDIENTE), JSON.stringify(marca));
+		});
+		registrar('copia.restauracion_preparada', { restauracionId, tamano: (await stat(archivo)).size, duracionMs: Date.now() - inicio });
 	} catch (causa) {
 		await rm(restauracion, { recursive: true, force: true });
 		ambiente.mantenimiento.restaurando = false;
+		const { paso } = actual;
 		if (causa instanceof ErrorRestauracion) {
 			registrar(
 				'copia.restauracion_fallida',
-				causa.estadoHttp === undefined ? { codigo: causa.codigo } : { codigo: causa.codigo, estadoHttp: causa.estadoHttp },
+				causa.estadoHttp === undefined
+					? { restauracionId, paso, codigo: causa.codigo }
+					: { restauracionId, paso, codigo: causa.codigo, estadoHttp: causa.estadoHttp },
 			);
+		} else {
+			registrar('copia.restauracion_fallida', { restauracionId, paso, codigo: 'INESPERADO' });
 		}
 		throw causa;
 	} finally {

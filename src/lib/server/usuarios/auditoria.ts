@@ -23,6 +23,9 @@ const esquemasDetalle = {
 	// Plan F15: quitar la foto de un tipo de cápsula (RF-272). Sin datos: el objeto es el tipo.
 	'capsula.foto_quitada': z.strictObject({}),
 	// Plan F14: restauración de una copia (RF-256). Solo claves de objetos del bucket, sin datos personales.
+	// Plan F17: copia manual (RF-287) y descarga (RF-285). El objeto es la copia; sin datos.
+	'copia.manual': z.strictObject({}),
+	'copia.descargada': z.strictObject({}),
 	'copia.restaurada': z.strictObject({ resguardo: z.string().min(1).max(300), confirmadaEn: z.string().min(1).max(40) }),
 } as const;
 
@@ -54,17 +57,22 @@ export function anotarAuditoria<A extends AccionAuditoria>(tx: Ejecutor, entrada
 		.run();
 }
 
-/** Última fila de auditoría de una acción, o `null`. Para mostrar la última restauración (RF-256). */
+/** Última fila de auditoría de una acción, o `null`. Para mostrar la última restauración (RF-256) y comprobar quién lanzó una copia manual (RF-287). */
 export function leerUltimaAuditoria(
 	db: Ejecutor,
 	accion: AccionAuditoria,
-): { objetoId: string; detalle: unknown; creadoEn: string } | null {
+): { objetoId: string; detalle: unknown; creadoEn: string; actorId: string | null } | null {
 	const fila = db
-		.select({ objetoId: registroAuditoria.objetoId, detalle: registroAuditoria.detalle, creadoEn: registroAuditoria.creadoEn })
+		.select({
+			objetoId: registroAuditoria.objetoId,
+			detalle: registroAuditoria.detalle,
+			creadoEn: registroAuditoria.creadoEn,
+			actorId: registroAuditoria.actorId,
+		})
 		.from(registroAuditoria)
 		.where(eq(registroAuditoria.accion, accion))
 		.orderBy(desc(registroAuditoria.creadoEn))
 		.limit(1)
 		.get();
-	return fila ? { objetoId: fila.objetoId, detalle: JSON.parse(fila.detalle), creadoEn: fila.creadoEn } : null;
+	return fila ? { objetoId: fila.objetoId, detalle: JSON.parse(fila.detalle), creadoEn: fila.creadoEn, actorId: fila.actorId } : null;
 }

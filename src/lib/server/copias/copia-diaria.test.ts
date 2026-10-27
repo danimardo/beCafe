@@ -165,7 +165,7 @@ describe('copia diaria (CA-140, CA-142, RF-140 a RF-142)', () => {
 		const id = nuevoId();
 		enTransaccion(entorno.ambiente.db, (tx) => tx.insert(copiaSeguridad).values({ id, iniciadaEn: INSTANTE, estado: 'en_curso' }).run());
 
-		await prepararArranqueCopias({ db: entorno.ambiente.db, reloj: crearRelojFijo(INSTANTE), directorioDatos });
+		await prepararArranqueCopias({ db: entorno.ambiente.db, reloj: crearRelojFijo(INSTANTE), directorioDatos, origen: 'local' });
 
 		expect(copias()[0]).toMatchObject({ id, estado: 'fallida', codigoError: 'INTERRUMPIDA' });
 	});

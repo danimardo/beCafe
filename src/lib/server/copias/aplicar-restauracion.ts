@@ -53,10 +53,10 @@ export function aplicarRestauracionPendiente(directorioDatos: string): Restaurac
 			if (apartados.includes(nombre)) rmSync(join(directorioDatos, nombre), { recursive: true, force: true });
 		}
 		for (const nombre of apartados) renameSync(join(anterior, nombre), join(directorioDatos, nombre));
-		registrar('copia.restauracion_fallida', { codigo: 'APLICAR' });
+		registrar('copia.restauracion_fallida', { restauracionId: pendiente.restauracionId, paso: 'aplicar', codigo: 'APLICAR' });
 		return apartarMarca(marca, 'aplicar');
 	}
 	rmSync(restauracion, { recursive: true, force: true });
-	registrar('copia.restauracion_aplicada', { duracionMs: Date.now() - inicio });
+	registrar('copia.restauracion_aplicada', { restauracionId: pendiente.restauracionId, duracionMs: Date.now() - inicio });
 	return pendiente;
 }

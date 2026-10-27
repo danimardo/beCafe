@@ -139,7 +139,12 @@ export async function arrancar(configuracion: ConfiguracionArranque): Promise<Am
 	instancia = ambiente;
 	const planificador = crearPlanificador({ db: ambiente.db, reloj: ambiente.reloj });
 	// Una copia interrumpida por una caída queda fallida antes de programar nada (plan F8 D2).
-	await prepararArranqueCopias({ db: ambiente.db, reloj: ambiente.reloj, directorioDatos: configuracion.directorioDatos });
+	await prepararArranqueCopias({
+		db: ambiente.db,
+		reloj: ambiente.reloj,
+		directorioDatos: configuracion.directorioDatos,
+		origen: ambiente.copias.origen,
+	});
 	// Sin S3 en producción, el arranque lo dice con los nombres de las variables, nunca con sus valores (plan F8 D8).
 	if (!configuracion.desarrollo && !configuracion.s3) {
 		registrar('app.s3_no_configurado', { faltan: 'S3_ENDPOINT, S3_BUCKET, S3_REGION, S3_ACCESS_KEY, S3_SECRET_KEY' });

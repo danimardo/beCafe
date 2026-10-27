@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { analizarListado } from './subida-s3';
+import { afterEach, beforeEach } from 'vitest';
+import { ErrorCopia, ErrorOperacionCopia } from './errores';
+import { crearS3Falso, type S3Falso } from './pruebas/s3-falso';
+import { analizarListado, crearClienteS3 } from './subida-s3';
 
 // Plan F14 D1 y research R3: el listado del bucket (RF-253, CA-253).
 const objeto = (clave: string, tamano: number, modificada: string) =>
@@ -62,5 +65,51 @@ describe('listado del bucket (RF-253, CA-253)', () => {
 	it('un listado vacío o con otra forma no da copias ni falla', () => {
 		expect(analizarListado('<ListBucketResult></ListBucketResult>')).toEqual([]);
 		expect(analizarListado('no es xml')).toEqual([]);
+	});
+});
+
+describe('abrir una copia en flujo (RF-284, CA-284)', () => {
+	let s3: S3Falso;
+
+	beforeEach(async () => {
+		s3 = await crearS3Falso();
+	});
+
+	afterEach(() => s3.cerrar());
+
+	const cliente = () =>
+		crearClienteS3({
+			endpoint: s3.endpoint,
+			bucket: 'prueba',
+			region: 'eu-south-2',
+			claveAcceso: 'clave-de-prueba',
+			claveSecreta: 'secreto-de-prueba',
+		});
+	const CLAVE = 'becafe/2026/10/becafe-2026-10-26T03-00-00.000Z__local__diaria.tar.gz';
+
+	it('CA-284: pide el objeto con una petición firmada y devuelve su cuerpo', async () => {
+		const abierta = await cliente().abrir(CLAVE);
+
+		// El servidor falso no envía `content-length`: el tamaño es desconocido y la descarga sigue igual.
+		expect(abierta.tamano).toBeNull();
+		expect(abierta.cuerpo).toBeInstanceOf(ReadableStream);
+		expect(s3.peticiones).toEqual([{ metodo: 'GET', ruta: `/prueba/${CLAVE}`, firmada: true }]);
+	});
+
+	it('CA-284: un objeto que no existe es «no encontrada»', async () => {
+		s3.responder(404);
+
+		await expect(cliente().abrir(CLAVE)).rejects.toBeInstanceOf(ErrorOperacionCopia);
+	});
+
+	it('CA-284: unas credenciales rechazadas son un fallo del bucket, no «no encontrada»', async () => {
+		s3.responder(403);
+
+		const rechazo = await cliente()
+			.abrir(CLAVE)
+			.catch((causa: unknown) => causa);
+
+		expect(rechazo).toBeInstanceOf(ErrorCopia);
+		expect(rechazo instanceof ErrorCopia && rechazo.codigo).toBe('S3_CREDENCIALES');
 	});
 });

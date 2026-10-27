@@ -31,3 +31,20 @@ export class ErrorRestauracion extends Error {
 		this.estadoHttp = estadoHttp;
 	}
 }
+
+/** Rechazos de la copia manual y de la descarga (plan F17 D1, D3). Conjunto cerrado; ninguno se guarda en `copia_seguridad`. */
+export const CODIGOS_OPERACION_COPIA = ['SIN_S3', 'NO_ENCONTRADA', 'EN_CURSO'] as const;
+export type CodigoOperacionCopia = (typeof CODIGOS_OPERACION_COPIA)[number];
+
+/** Rechazo esperado de la copia manual o de la descarga. No ha cambiado ningún dato cuando se lanza. */
+export class ErrorOperacionCopia extends Error {
+	readonly codigo: CodigoOperacionCopia;
+
+	constructor(codigo: CodigoOperacionCopia) {
+		super(codigo);
+		this.name = 'ErrorOperacionCopia';
+		this.codigo = codigo;
+	}
+}
+
+export const ESTADO_OPERACION_COPIA: Record<CodigoOperacionCopia, number> = { SIN_S3: 404, NO_ENCONTRADA: 404, EN_CURSO: 409 };

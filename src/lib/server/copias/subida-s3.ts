@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { AwsClient } from 'aws4fetch';
 import { z } from 'zod';
 import type { ConfiguracionS3 } from '#lib/server/plataforma';
-import { ErrorCopia } from './errores';
+import { ErrorCopia, ErrorOperacionCopia } from './errores';
 import { leerClave, type TipoCopiaClave } from './dominio/clave-copia';
 
 // Único archivo que importa `aws4fetch` (plan F8 D1, paso 4; plan F14 D1). Nunca devuelve ni registra la URL firmada ni las cabeceras.
@@ -36,12 +36,17 @@ export type ClienteS3 = {
 	subir: Subidor;
 	/** Las copias del bucket, la más reciente primero, como máximo 30. */
 	listar: () => Promise<CopiaBucket[]>;
+	/** Abre `clave` en flujo, sin escribir en disco (descarga del administrador, RF-284). `tamano` es `null` si el bucket no lo dice. */
+	abrir: (clave: string) => Promise<{ cuerpo: ReadableStream<Uint8Array>; tamano: number | null }>;
 	/** Descarga `clave` en `destino` y devuelve la suma SHA-256 guardada en sus metadatos, o `null` si no la tiene. */
 	descargar: (clave: string, destino: string) => Promise<string | null>;
 };
 
-/** Clave válida de una copia: solo letras, números, `/`, `.`, `_` y `-` bajo `becafe/`, terminada en `.tar.gz`. */
-export const esquemaClaveCopia = z.string().regex(/^becafe\/[\w/.-]+\.tar\.gz$/);
+/** Clave válida de una copia: solo letras, números, `/`, `.`, `_` y `-` bajo `becafe/`, terminada en `.tar.gz` y sin segmentos `.`, `..` ni vacíos. */
+export const esquemaClaveCopia = z
+	.string()
+	.regex(/^becafe\/[\w/.-]+\.tar\.gz$/)
+	.refine((clave) => clave.split('/').every((segmento) => segmento !== '' && segmento !== '.' && segmento !== '..'));
 
 const esquemaContenido = z.object({
 	clave: esquemaClaveCopia,
@@ -106,6 +111,17 @@ export function crearClienteS3(configuracion: ConfiguracionS3): ClienteS3 {
 			});
 			if (!respuesta.ok) throw errorDeRespuesta(respuesta);
 			return analizarListado(await respuesta.text());
+		},
+		async abrir(clave) {
+			const respuesta = await pedir(`${base}/${clave}`, { method: 'GET', signal: AbortSignal.timeout(TIEMPO_MAXIMO_SUBIDA_MS) });
+			if (respuesta.status === 404) throw new ErrorOperacionCopia('NO_ENCONTRADA');
+			if (!respuesta.ok) throw errorDeRespuesta(respuesta);
+			if (!respuesta.body) throw new ErrorCopia('S3_RESPUESTA', respuesta.status);
+			const longitud = Number(respuesta.headers.get('content-length'));
+			return {
+				cuerpo: respuesta.body,
+				tamano: Number.isInteger(longitud) && longitud >= 0 && respuesta.headers.has('content-length') ? longitud : null,
+			};
 		},
 		async descargar(clave, destino) {
 			const respuesta = await pedir(`${base}/${clave}`, { method: 'GET', signal: AbortSignal.timeout(TIEMPO_MAXIMO_SUBIDA_MS) });

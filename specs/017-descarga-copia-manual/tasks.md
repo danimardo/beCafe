@@ -10,14 +10,14 @@
 
 ## Fase 2: Copia manual y descarga en el servidor
 
-- [ ] T004 [US2] Columna `tipo` en `copia_seguridad` y migración `drizzle/0011_f17-tipo-copia.sql` (`DEFAULT 'diaria'`, `CHECK`). `ejecutarCopia` extraído de `copia-diaria.ts`; la diaria no cambia de comportamiento.
-- [ ] T005 [US2] `hacerCopiaManual(ambiente, actor)` en `copias/copia-manual.ts`: permiso, sin S3, una `en_curso` rechaza (`EN_CURSO`), auditoría `copia.manual`. Códigos `SIN_S3`, `NO_ENCONTRADA` y `EN_CURSO` en `errores.ts`. Integración: sube, aparece como manual, dos a la vez, fallo, sin permiso, la diaria no se bloquea (CA-286, CA-287, CA-288).
-- [ ] T006 [US1] `ClienteS3.abrir(clave)` en flujo y `descargarCopia` en `copias/descarga.ts`; auditoría `copia.descargada` en `usuarios/auditoria.ts`. Integración: íntegra, 404, clave inválida, sin permiso (CA-284, CA-285).
+- [x] T004 [US2] Columna `tipo` en `copia_seguridad` y migración `drizzle/0011_f17-tipo-copia.sql` (`DEFAULT 'diaria'`, `CHECK`). `ejecutarCopia` extraído de `copia-diaria.ts`; la diaria no cambia de comportamiento.
+- [x] T005 [US2] `hacerCopiaManual(ambiente, actor)` en `copias/copia-manual.ts`: permiso, sin S3, una `en_curso` rechaza (`EN_CURSO`), auditoría `copia.manual`. Códigos `SIN_S3`, `NO_ENCONTRADA` y `EN_CURSO` en `errores.ts`. Integración: sube, aparece como manual, dos a la vez, fallo, sin permiso, la diaria no se bloquea (CA-286, CA-287, CA-288).
+- [x] T006 [US1] `ClienteS3.abrir(clave)` en flujo y `descargarCopia` en `copias/descarga.ts`; auditoría `copia.descargada` en `usuarios/auditoria.ts`. Integración: íntegra, 404, clave inválida, sin permiso (CA-284, CA-285).
 
 ## Fase 3: Eventos de copia y restauración
 
-- [ ] T007 [US4] Catálogo de eventos de D4 en `plataforma/registro.ts`. `restauracionId` opcional en `esquemaPendiente` y en `aplicar-restauracion.ts`. `restaurarCopia` emite un evento por paso y registra el `paso` del fallo; `verificarCopia` aporta las versiones de esquema. `copia.completada` y `copia.fallida` añaden `tipo` y `origen`.
-- [ ] T008 [US4] Pruebas con fallo inyectado por paso (EV-117, CA-291, CA-292) y marca antigua sin `restauracionId`.
+- [x] T007 [US4] Catálogo de eventos de D4 en `plataforma/registro.ts`. `restauracionId` opcional en `esquemaPendiente` y en `aplicar-restauracion.ts`. `restaurarCopia` emite un evento por paso y registra el `paso` del fallo; `verificarCopia` aporta las versiones de esquema. `copia.completada` y `copia.fallida` añaden `tipo` y `origen`.
+- [x] T008 [US4] Pruebas con fallo inyectado por paso (EV-117, CA-291, CA-292) y marca antigua sin `restauracionId`.
 
 ## Fase 4: Pantallas
 

@@ -43,6 +43,9 @@ function crearBucketFalso() {
 				})),
 			);
 		},
+		abrir() {
+			return Promise.reject(new ErrorCopia('S3_RESPUESTA', 404));
+		},
 		async descargar(clave, destino) {
 			if (fallos.descargar) throw new ErrorCopia('S3_RED');
 			const objeto = objetos.get(clave);
@@ -255,6 +258,102 @@ describe('restaurar una copia desde la aplicación (EV-112, EV-113, RF-253 a RF-
 				}
 			});
 			await esperarRechazo('VERSION_NUEVA');
+		});
+
+		describe('registro técnico de cada paso (RF-291, RF-292, EV-117)', () => {
+			const leerMarca = async () =>
+				esquemaPendiente.parse(JSON.parse(await readFile(join(directorioDatos(), SUBDIRECTORIO_RESTAURACION, ARCHIVO_PENDIENTE), 'utf-8')));
+			const delaRestauracion = () => entorno.eventos().filter((evento) => evento.codigo.startsWith('copia.restauracion_'));
+
+			it('CA-291: una restauración correcta emite un evento por paso, todos con el mismo identificador', async () => {
+				await restaurar();
+
+				const eventos = delaRestauracion();
+				expect(eventos.filter((evento) => evento.nivel === 'info').map((evento) => evento.codigo)).toEqual([
+					'copia.restauracion_iniciada',
+					'copia.restauracion_resguardo_hecho',
+					'copia.restauracion_descargada',
+					'copia.restauracion_verificada',
+					'copia.restauracion_preparada',
+				]);
+				expect(eventos.filter((evento) => evento.codigo === 'copia.restauracion_paso').map((evento) => evento.campos.paso)).toEqual([
+					'listado',
+					'resguardo',
+					'descarga',
+					'suma',
+					'verificacion',
+					'preparacion',
+				]);
+				const identificadores = new Set(eventos.map((evento) => evento.campos.restauracionId));
+				expect(identificadores.size).toBe(1);
+				expect([...identificadores][0]).toBe((await leerMarca()).restauracionId);
+			});
+
+			it('CA-292: la verificación registra el origen de la copia, el del sistema y las versiones de esquema', async () => {
+				await restaurar();
+
+				const verificada = delaRestauracion().find((evento) => evento.codigo === 'copia.restauracion_verificada');
+				expect(verificada?.campos).toMatchObject({ origenCopia: 'desconocido', origenSistema: 'local', integridad: 'ok' });
+				expect(verificada?.campos.migracionesCopia).toBe(verificada?.campos.migracionesSistema);
+			});
+
+			const CASOS: [string, CodigoRestauracion, keyof Fallos][] = [
+				['listado', 'BUCKET', 'listar'],
+				['resguardo', 'BUCKET', 'subir'],
+				['descarga', 'BUCKET', 'descargar'],
+				['suma', 'DANADA', 'sumaMal'],
+			];
+			it.each(CASOS)('EV-117: un fallo en «%s» deja como último evento el paso y el código', async (paso, codigo, fallo) => {
+				bucket.fallos[fallo] = true;
+
+				await esperarRechazo(codigo);
+
+				const eventos = delaRestauracion().filter((evento) => evento.codigo !== 'copia.restauracion_paso');
+				const ultimo = eventos.at(-1);
+				expect(ultimo?.codigo).toBe('copia.restauracion_fallida');
+				expect(ultimo?.nivel).toBe('error');
+				expect(ultimo?.campos).toMatchObject({ paso, codigo });
+				expect(new Set(eventos.map((evento) => evento.campos.restauracionId)).size).toBe(1);
+			});
+
+			it('EV-117: una copia de una versión más nueva falla en «verificacion» y registra las versiones comparadas', async () => {
+				await guardarCopia(CLAVE_COPIA, (ruta) => {
+					const conexion = abrirBaseDatos(ruta);
+					try {
+						conexion.db.run(sql`INSERT INTO __drizzle_migrations (hash, created_at) VALUES ('migracion-futura', 9999999999999)`);
+					} finally {
+						conexion.cerrar();
+					}
+				});
+
+				await esperarRechazo('VERSION_NUEVA');
+
+				const eventos = delaRestauracion().filter((evento) => evento.codigo !== 'copia.restauracion_paso');
+				expect(eventos.at(-1)?.campos).toMatchObject({ paso: 'verificacion', codigo: 'VERSION_NUEVA' });
+				const verificada = eventos.find((evento) => evento.codigo === 'copia.restauracion_verificada');
+				expect(Number(verificada?.campos.migracionesCopia)).toBeGreaterThan(Number(verificada?.campos.migracionesSistema));
+			});
+
+			it('CA-291: tras el reinicio, aplicar la marca emite su evento con el mismo identificador', async () => {
+				await restaurar();
+				const marca = await leerMarca();
+
+				aplicarRestauracionPendiente(directorioDatos());
+
+				const aplicada = entorno.eventos().find((evento) => evento.codigo === 'copia.restauracion_aplicada');
+				expect(aplicada?.campos.restauracionId).toBe(marca.restauracionId);
+			});
+
+			it('CA-291: una marca anterior a F17, sin identificador, se aplica igual', async () => {
+				await restaurar();
+				const { clave, resguardo, adminId, instante } = await leerMarca();
+				await writeFile(
+					join(directorioDatos(), SUBDIRECTORIO_RESTAURACION, ARCHIVO_PENDIENTE),
+					JSON.stringify({ clave, resguardo, adminId, instante }),
+				);
+
+				expect(aplicarRestauracionPendiente(directorioDatos())).not.toBeNull();
+			});
 		});
 
 		it('CA-255: tras un fallo se puede volver a intentar y la preparación queda completa', async () => {

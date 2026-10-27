@@ -78,6 +78,13 @@
       "when": 1793096663419,
       "tag": "0010_f16-instalacion",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1793101732696,
+      "tag": "0011_f17-tipo-copia",
+      "breakpoints": true
     }
   ]
 }
