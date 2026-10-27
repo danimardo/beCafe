@@ -45,7 +45,7 @@ Al arrancar por primera vez, sin personas dadas de alta, la aplicación crea el 
 
 1. Lee la salida estándar del contenedor en Coolify y copia el enlace.
 2. Abre el enlace y define la contraseña. Debe tener al menos 15 caracteres (RT-007).
-3. Si pierdes el acceso, ejecuta dentro del contenedor `npm run admin:recuperar -- --correo <correo> [--nombre <nombre>]`. El comando crea o recupera la persona administradora con ese correo.
+3. Si pierdes el acceso, ejecuta dentro del contenedor `node build-scripts/recuperar-admin.js --correo <correo> [--nombre <nombre>]`. La imagen no lleva `vite`: no uses `npm run admin:recuperar`, que compila antes y solo sirve en desarrollo. El comando crea o recupera la persona administradora con ese correo.
 
 ## 4. Copias de seguridad diarias
 

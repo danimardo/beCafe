@@ -22,6 +22,8 @@ ENV ORIGIN=$ORIGIN \
 ARG GIT_COMMIT=desconocido
 ENV GIT_COMMIT=$GIT_COMMIT
 RUN npm run build
+# Comandos de servidor (`recuperar-admin.js`, RF-139b). La imagen final no lleva `vite`: se compilan aquí.
+RUN npm run build:comandos
 
 # Etapa de dependencias de producción: instalación limpia, sin las de desarrollo.
 FROM herramientas AS dependencias
@@ -37,6 +39,7 @@ ENV NODE_ENV=production \
 	PORT=3000
 COPY --from=dependencias --chown=node:node /app/node_modules ./node_modules
 COPY --from=construccion --chown=node:node /app/build ./build
+COPY --from=construccion --chown=node:node /app/build-scripts ./build-scripts
 COPY --from=construccion /app/package.json ./package.json
 COPY --from=construccion /app/drizzle ./drizzle
 RUN mkdir -p /data && chown node:node /data
