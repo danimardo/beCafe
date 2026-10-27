@@ -1,5 +1,5 @@
 // API pública de `copias`. El resto de módulos usa estas funciones; las tablas se exportan para las pruebas.
-export { copiaSeguridad, pruebaRestauracion } from './esquema';
+export { copiaSeguridad } from './esquema';
 export {
 	ErrorCopia,
 	ErrorOperacionCopia,
@@ -34,17 +34,9 @@ export {
 	type RestauracionPendiente,
 } from './restauracion';
 export { aplicarRestauracionPendiente } from './aplicar-restauracion';
-export {
-	anotarPruebaRestauracion,
-	esquemaAnotarPrueba,
-	leerEstadoRestauracion,
-	leerPruebas,
-	exigirPermisoCopias,
-	diasEntre,
-	DIAS_SIN_PROBAR,
-	type EstadoRestauracion,
-} from './pruebas-restauracion';
+export { exigirPermisoCopias } from './permiso';
 export { leerCopias, type CopiaLista, LIMITE_COPIAS_PANEL } from './consultas';
+export { unificarCopias, COPIAS_POR_PAGINA, LIMITE_COPIAS_LISTADO, type FilaCopia, type PaginaCopias } from './dominio/listado';
 // Servidor S3 falso para las pruebas de integración y de rutas.
 export { crearS3Falso, type S3Falso, type RespuestaFalsa } from './pruebas/s3-falso';
 export { verificarCopia, type ResultadoVerificacion } from './verificacion';

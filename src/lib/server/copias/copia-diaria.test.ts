@@ -16,7 +16,7 @@ import {
 } from '#lib/server/plataforma';
 import { crearUsuario } from '#lib/server/usuarios';
 import { notificacion } from '#lib/server/notificaciones';
-import { copiaSeguridad, pruebaRestauracion } from './esquema';
+import { copiaSeguridad } from './esquema';
 import { crearSubidaS3 } from './subida-s3';
 import { crearS3Falso, type S3Falso } from './pruebas/s3-falso';
 import { hacerCopiaDiaria, prepararArranqueCopias, TAREA_COPIA_DIARIA } from './copia-diaria';
@@ -152,7 +152,15 @@ describe('copia diaria (CA-140, CA-142, RF-140 a RF-142)', () => {
 
 		expect(copias()).toHaveLength(1);
 		expect(copias()[0]?.estado).toBe('fallida');
-		expect(entorno.ambiente.db.select().from(pruebaRestauracion).all()).toEqual([]);
+	});
+
+	it('CA-143: la migración retira la tabla de pruebas de restauración (CAMBIO-030) y conserva la de copias', () => {
+		const tablas = entorno.ambiente.db
+			.all<{ name: string }>(sql`SELECT name FROM sqlite_master WHERE type = 'table'`)
+			.map((fila) => fila.name);
+
+		expect(tablas).toContain('copia_seguridad');
+		expect(tablas).not.toContain('prueba_restauracion');
 	});
 
 	it('Clarifications 1: la tarea del día queda registrada en ejecucion_tarea', async () => {

@@ -5,7 +5,7 @@ import { anotarAuditoria } from '#lib/server/usuarios';
 import { ejecutarCopia, type ResultadoCopia } from './copia-diaria';
 import { ErrorCopia, ErrorOperacionCopia } from './errores';
 import { copiaSeguridad } from './esquema';
-import { exigirPermisoCopias } from './pruebas-restauracion';
+import { exigirPermisoCopias } from './permiso';
 import { crearSubidaS3 } from './subida-s3';
 
 // «Hacer copia ahora» (plan F17 D3, RF-286, RF-287). Mismo contenido y proceso que la copia diaria; solo la lanza un administrador.

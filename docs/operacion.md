@@ -58,7 +58,7 @@ La aplicación hace una copia cada día a las 03:00 (hora de Madrid):
 
 Si una copia falla, la aplicación registra `copia.fallida` y avisa a las personas administradoras. Si el reinicio interrumpe una copia, queda como «interrumpida». No se reintenta el mismo día: la siguiente copia es la de mañana.
 
-El panel `/admin/copias` lista las últimas 30 copias con su estado y su código de error. Si pasan 100 días sin una prueba de restauración anotada, el panel muestra un aviso.
+El panel `/admin/copias` muestra un único listado con las últimas 30 copias del bucket, de 8 en 8. Cada fila indica su fecha, su tamaño, su tipo (Diaria, Manual o Resguardo) y su origen, y ofrece «Descargar» y «Restaurar». Una copia fallida sale en el mismo listado con su motivo y sin botones.
 
 ### Regla de ciclo de vida del bucket
 
@@ -117,10 +117,6 @@ Si falla alguna comprobación, la aplicación no cambia nada y explica el motivo
 4. Borra los ficheros `becafe.db-wal` y `becafe.db-shm` si existen.
 5. Arranca la aplicación.
 6. Comprueba que `/api/salud` responde y que los saldos del panel coinciden con los que esperas.
-
-### 6.3 Anotar una prueba de restauración
-
-Tras una restauración de prueba, entra en `/admin/copias` y pulsa «Anotar prueba» con su fecha, su resultado y una nota. Así desaparece el aviso de 100 días.
 
 ## 7. Actualizar la aplicación
 

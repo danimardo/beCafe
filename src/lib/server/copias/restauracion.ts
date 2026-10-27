@@ -7,7 +7,7 @@ import { esquemaInstanteUtc } from '#lib/shared/fechas/tipos';
 import { ErrorCopia, ErrorRestauracion, type CodigoRestauracion } from './errores';
 import { desempaquetar, empaquetar, sha256De } from './empaquetado';
 import { hacerInstantanea } from './instantanea';
-import { exigirPermisoCopias } from './pruebas-restauracion';
+import { exigirPermisoCopias } from './permiso';
 import { construirClave, leerClave } from './dominio/clave-copia';
 import { esquemaClaveCopia, type ClienteS3 } from './subida-s3';
 import { verificarCopia } from './verificacion';

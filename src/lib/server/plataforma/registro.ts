@@ -69,7 +69,6 @@ export const NIVEL_EVENTO = {
 	'copia.completada': 'info',
 	'app.s3_no_configurado': 'warn',
 	'copia.fallida': 'error',
-	'restauracion.anotada': 'info',
 	'copia.manual_iniciada': 'info',
 	'copia.manual_rechazada': 'info',
 	'copia.descarga_iniciada': 'info',
@@ -180,7 +179,6 @@ export type CamposEvento = {
 	'copia.manual_rechazada': { usuarioId: string; codigo: string };
 	'copia.descarga_iniciada': { usuarioId: string; tamano?: number };
 	'copia.descarga_fallida': { usuarioId: string; codigo: string; estadoHttp?: number };
-	'restauracion.anotada': { pruebaId: string; usuarioId: string; resultado: string };
 	'copia.restauracion_iniciada': { restauracionId: string; origenCopia: string; origenSistema: string };
 	'copia.restauracion_resguardo_hecho': { restauracionId: string; tamano: number; duracionMs: number };
 	'copia.restauracion_descargada': { restauracionId: string; tamano: number; duracionMs: number };

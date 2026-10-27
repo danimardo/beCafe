@@ -247,7 +247,7 @@ Enlace de un solo uso para alta o recuperación (RF-131).
 | Zona | Componente | Contenido |
 | --- | --- | --- |
 | 1 | `PageHeader` | «Solo administradores» / «Administración» |
-| 2 | `Banner` ×0–2 | `warning` «Toca probar una restauración» si pasaron más de 100 días desde la última (RF-144) con botón «Ir a copias»; `info` «Recomendación: conviene tener al menos dos administradores activos» (RN-042). Solo aparecen si se cumplen |
+| 2 | `Banner` ×0–2 | `info` «Recomendación: conviene tener al menos dos administradores activos» (RN-042). Solo aparecen si se cumplen |
 | 3 | 5 tarjetas de acceso | Cápsulas, Usuarios, Arqueos y recuentos, Configuración, Copias de seguridad. Cada una: icono en círculo, título, línea de resumen (p. ej. «6 activas · 2 en stock bajo») y flecha. **Móvil**: 1 columna; **escritorio**: 2 columnas (`md:grid-cols-2`), hueco 12 px, mín. 88 px de alto |
 
 ### 4.2 Cápsulas — `/admin/capsulas` (HU-11, RF-001 a RF-006)
@@ -302,12 +302,12 @@ Enlace de un solo uso para alta o recuperación (RF-131).
 
 | Zona | Componente | Contenido |
 | --- | --- | --- |
-| 1 | `PageHeader` | «Copias de seguridad». Acción: «Registrar prueba» (abre `Sheet`). En móvil el título puede ocupar 2 líneas (cabecera de 98 px) |
-| 2 | `Banner` ×0–2 | `warning` «Prueba de restauración pendiente» (>100 días, RF-144); `negative` «Hay copias fallidas» con el detalle |
-| 3 | Tarjeta `Glass` + `ListRow` | Una fila por copia: icono (correcta/fallida), fecha («Hoy, 03:00»), «Copia correcta · tamaño» o el error, y `Badge` «Correcta/Fallida» |
-| 4 | `Section` «Última prueba de restauración» | «Hace N días · resultado» + recordatorio del procedimiento (descargar, parar, sustituir `/data`, arrancar, verificar saldos) |
+| 1 | `PageHeader` | «Copias de seguridad». En móvil el título puede ocupar 2 líneas (cabecera de 98 px) |
+| 2 | `DosColumnas` | **Desde 1024 px, dos columnas** (RF-275, CAMBIO-030). Izquierda: avisos (sin S3, restauración preparada, última restauración) y la sección «Hacer una copia» con «Hacer copia ahora». Derecha: sección «Copias» con un único listado paginado de 8 en 8. En móvil, una columna |
+| 3 | `CopiaFila` | Una fila por copia: fecha, tamaño, etiqueta (Diaria, Manual, Resguardo), origen y los botones «Descargar» y «Restaurar» juntos. Una copia fallida lleva la etiqueta «Fallida · motivo» y no tiene botones |
+| 4 | `Paginacion` | Formulario `GET` «Anterior» / «Siguiente» y «Página N de M» |
 
-**Hoja «Registrar prueba»**: `SegmentedControl` Resultado (Correcta / Con fallos) y `TextField` multilínea «Notas».
+La zona de advertencia de restaurar (fondo de aviso e icono) está en la pantalla de confirmación, no en el listado.
 
 ---
 

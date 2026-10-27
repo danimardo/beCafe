@@ -3,7 +3,7 @@ import type { Actor } from '#lib/server/auth';
 import type { Ejecutor } from '#lib/server/plataforma';
 import { copiaSeguridad } from './esquema';
 import type { CodigoCopia } from './errores';
-import { exigirPermisoCopias } from './pruebas-restauracion';
+import { exigirPermisoCopias } from './permiso';
 
 // Lectura del panel de copias (plan F8 D5, RF-143, CA-143). Solo administradores.
 

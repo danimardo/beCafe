@@ -6,7 +6,7 @@ export { default as Button } from './Button.svelte';
 export { crearExito, Confeti } from './movimiento';
 export { default as IconButton } from './IconButton.svelte';
 export { default as Badge } from './Badge.svelte';
-export { default as CopiaBucketFila } from './CopiaBucketFila.svelte';
+export { default as CopiaFila } from './CopiaFila.svelte';
 export { default as OrigenesCopia } from './OrigenesCopia.svelte';
 export { default as Money } from './Money.svelte';
 export { default as Avatar } from './Avatar.svelte';

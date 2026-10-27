@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { Banner, PageHeader, Section, ListRow } from '#lib/ui';
+	import { PageHeader, Section, ListRow } from '#lib/ui';
 	import type { PageProps } from './$types';
 	import { textos } from '#lib/shared/textos';
 
@@ -13,11 +13,6 @@
 
 <div class="flex flex-col gap-6">
 	<PageHeader title={textos.admin.titulo} />
-	{#if data.avisoRestauracion}
-		<Banner tone="warning" title={data.avisoRestauracion === 'nunca' ? textos.copias.avisoNunca : textos.copias.avisoAntigua}>
-			<a class="text-accent underline" href={resolve('/(app)/admin/copias')}>{textos.copias.verCopias}</a>
-		</Banner>
-	{/if}
 	<Section>
 		<ul class="flex flex-col">
 			<ListRow title={textos.capsulas.titulo} subtitle={textos.capsulas.ayuda} href={resolve('/(app)/admin/capsulas')} />

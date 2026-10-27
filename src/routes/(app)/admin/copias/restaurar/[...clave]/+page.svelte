@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
+	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
 	import { Banner, Button, OrigenesCopia, PageHeader, Section } from '#lib/ui';
 	import { textos } from '#lib/shared/textos';
 	import type { PageProps } from './$types';
@@ -19,13 +20,18 @@
 <div class="flex flex-col gap-6">
 	<PageHeader title={textos.copias.restaurarCopiaDel(data.copia.fecha)} />
 
-	<Section title={textos.copias.efectoTitulo}>
+	<!-- Zona de advertencia (RF-275): restaurar sustituye todos los datos, así que su efecto va sobre fondo de aviso y con icono. -->
+	<section class="rounded-panel border border-warning/50 bg-warning-soft p-4">
+		<h2 class="type-title-lg mb-3 flex items-center gap-2">
+			<TriangleAlert class="size-5 shrink-0 text-warning" aria-hidden="true" />
+			<span>{textos.copias.efectoTitulo}</span>
+		</h2>
 		<div class="flex max-w-xl flex-col gap-3 text-[15px]">
 			<p>{textos.copias.efecto(data.copia.fecha)}</p>
 			<p>{textos.copias.efectoResguardo}</p>
 			<p>{textos.copias.efectoCorte}</p>
 		</div>
-	</Section>
+	</section>
 
 	<Section title={textos.copias.origenCopia}>
 		<OrigenesCopia

@@ -18,7 +18,10 @@ test('CA-286: «Hacer copia ahora» pide confirmación y, si el bucket no respon
 	await page.getByRole('button', { name: 'Sí, hacer la copia', exact: true }).click();
 
 	await expect(page.getByRole('status').filter({ hasText: 'No se pudo hacer la copia: Sin conexión con S3.' }).first()).toBeVisible();
-	await expect(page.getByText('Manual · Fallida · Sin conexión con S3', { exact: false }).first()).toBeVisible();
+	await expect(page.getByText('Fallida · Sin conexión con S3', { exact: true }).first()).toBeVisible();
+	await expect(page.getByText('Manual', { exact: true }).first()).toBeVisible();
+	// Una copia fallida no existe en el bucket: no ofrece «Descargar» ni «Restaurar» (CA-253).
+	await expect(page.getByRole('link', { name: /^(Descargar|Restaurar)/ })).toHaveCount(0);
 });
 
 test('CA-288: sin lista del bucket no se ofrece «Descargar», pero sí la copia manual', async ({ page, servidor }) => {

@@ -31,11 +31,11 @@
 
 ## Fase 6: Listado único y retirada de las pruebas de restauración (CAMBIO-030)
 
-- [ ] T013 Dominio `src/lib/server/copias/dominio/listado.ts` (`unificarCopias`, `COPIAS_POR_PAGINA = 8`) con pruebas unitarias y de propiedades: orden descendente, máximo de 30, 8 por página, página acotada y fallidas sin clave (CA-253).
-- [ ] T014 Retirar las pruebas de restauración: borrar `pruebas-restauracion.ts` y su test, mover `exigirPermisoCopias` a `copias/permiso.ts`, quitar `pruebaRestauracion` de `esquema.ts` y generar `drizzle/0012_*.sql` (`DROP TABLE`). Quitar `avisoRestauracion` del panel `/admin` y los textos sin uso.
-- [ ] T015 `/admin/copias`: `load` con `?pagina` validada y `unificarCopias`; quitar la *action* `anotarPrueba`. Pantalla en `DosColumnas` con `CopiaFila` («Descargar» y «Restaurar»), `Paginacion` por `GET`, etiqueta «Fallida» y la zona de advertencia en `restaurar/[...clave]` (CA-143, CA-253, CA-275).
-- [ ] T016 Pruebas: actualizar `copias/page.server.test.ts`, el componente `CopiaFila`, `e2e/flujos/admin-copias`, `e2e/flujos/copias-f17`, `e2e/sin-js` y `e2e/a11y`; retirar los de anotar prueba y el aviso de 100 días (`e2e/sin-js/admin-operacion`, `e2e/a11y/admin-operacion`).
-- [ ] T017 `ARCHITECTURE.md`, `docs/pruebas.md`, `docs/operacion.md` y `docs/diseno/screen-layouts.md`. `npm run verify` y E2E afectados (`admin-copias`, `copias-f17`, `sin-js`, `a11y`); anotar en `.local/verification/runs.jsonl`; revisar `git status`; informe.
+- [x] T013 Dominio `src/lib/server/copias/dominio/listado.ts` (`unificarCopias`, `COPIAS_POR_PAGINA = 8`) con pruebas unitarias y de propiedades: orden descendente, máximo de 30, 8 por página, página acotada y fallidas sin clave (CA-253).
+- [x] T014 Retirar las pruebas de restauración: borrar `pruebas-restauracion.ts` y su test, mover `exigirPermisoCopias` a `copias/permiso.ts`, quitar `pruebaRestauracion` de `esquema.ts` y generar `drizzle/0012_*.sql` (`DROP TABLE`). Quitar `avisoRestauracion` del panel `/admin` y los textos sin uso.
+- [x] T015 `/admin/copias`: `load` con `?pagina` validada y `unificarCopias`; quitar la *action* `anotarPrueba`. Pantalla en `DosColumnas` con `CopiaFila` («Descargar» y «Restaurar»), `Paginacion` por `GET`, etiqueta «Fallida» y la zona de advertencia en `restaurar/[...clave]` (CA-143, CA-253, CA-275).
+- [x] T016 Pruebas: actualizar `copias/page.server.test.ts`, el componente `CopiaFila`, `e2e/flujos/admin-copias`, `e2e/flujos/copias-f17`, `e2e/sin-js` y `e2e/a11y`; retirar los de anotar prueba y el aviso de 100 días (`e2e/sin-js/admin-operacion`, `e2e/a11y/admin-operacion`).
+- [x] T017 `ARCHITECTURE.md`, `docs/pruebas.md`, `docs/operacion.md` y `docs/diseno/screen-layouts.md`. `npm run verify` y E2E afectados (`admin-copias`, `copias-f17`, `sin-js`, `a11y`); anotar en `.local/verification/runs.jsonl`; revisar `git status`; informe.
 
 Dependencias: T013 antes de T015; T014 antes de T016; T017 al final.
 

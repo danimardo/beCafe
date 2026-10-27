@@ -2,7 +2,7 @@ import type { Actor } from '#lib/server/auth';
 import { enTransaccion, registrar, type Ambiente } from '#lib/server/plataforma';
 import { anotarAuditoria } from '#lib/server/usuarios';
 import { ErrorCopia, ErrorOperacionCopia } from './errores';
-import { exigirPermisoCopias } from './pruebas-restauracion';
+import { exigirPermisoCopias } from './permiso';
 import { crearClienteS3, esquemaClaveCopia, type ClienteS3 } from './subida-s3';
 
 // Descarga de una copia del bucket (plan F17 D1, RF-284, RF-285, ADR 0007). La copia lleva toda la base de datos: solo administradores.
