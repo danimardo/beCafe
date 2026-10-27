@@ -53,3 +53,17 @@ test('CA-253: la pantalla de restaurar sin S3 no ofrece el formulario', async ({
 	await expect(page.getByRole('heading', { name: 'No encontramos esa página', exact: true })).toBeVisible();
 	await expect(page.getByRole('button', { name: 'Restaurar esta copia', exact: true })).toHaveCount(0);
 });
+
+// F15 US5 (RF-275, CA-275): cada sección lleva su icono junto al título y su propia superficie.
+test('CA-275: las secciones de copias tienen un icono junto a su título', async ({ page, servidor }) => {
+	await entrarComo(page, servidor, 'administrador');
+	await page.goto(`${servidor.url}/admin/copias`);
+
+	for (const titulo of ['Copias de seguridad', 'Copias en el bucket', 'Anotar una prueba de restauración']) {
+		const encabezado = page.getByRole('heading', { name: titulo, exact: true, level: 2 });
+		await expect(encabezado).toBeVisible();
+		await expect(encabezado.locator('svg')).toHaveCount(1);
+	}
+	// La sección de restaurar solo existe cuando hay copias en el bucket.
+	await expect(page.getByRole('heading', { name: 'Restaurar una copia', exact: true })).toHaveCount(0);
+});

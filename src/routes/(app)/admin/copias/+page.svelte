@@ -1,9 +1,14 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
+	import ClipboardCheck from '@lucide/svelte/icons/clipboard-check';
+	import Cloud from '@lucide/svelte/icons/cloud';
+	import DatabaseBackup from '@lucide/svelte/icons/database-backup';
+	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
 	import { Banner, Button, EmptyState, PageHeader, Section } from '#lib/ui';
 	import { formatearFechaHoraMadrid } from '#lib/shared/fechas/formato';
 	import { textos } from '#lib/shared/textos';
+	import SeccionCopias from './SeccionCopias.svelte';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -37,7 +42,7 @@
 		<p role="status" class="text-[15px] text-ink">{textos.copias.anotada}</p>
 	{/if}
 
-	<Section title={textos.copias.titulo}>
+	<SeccionCopias titulo={textos.copias.titulo} tono="estado" icono={DatabaseBackup}>
 		{#if data.copias.length === 0}
 			<EmptyState title={textos.copias.sinCopias} />
 		{:else}
@@ -55,9 +60,9 @@
 				{/each}
 			</ul>
 		{/if}
-	</Section>
+	</SeccionCopias>
 
-	<Section title={textos.copias.bucketTitulo}>
+	<SeccionCopias titulo={textos.copias.bucketTitulo} tono="bucket" icono={Cloud}>
 		{#if !data.s3Activa}
 			<p class="text-[15px] text-ink-muted">{textos.copias.sinS3Restaurar}</p>
 		{:else if data.bucketError}
@@ -68,27 +73,36 @@
 			<p class="mb-3 text-[15px] text-ink-muted">{textos.copias.bucketAyuda}</p>
 			<ul class="flex flex-col gap-3 text-[15px]">
 				{#each data.bucket as copia (copia.clave)}
-					<li class="flex flex-wrap items-center justify-between gap-2">
-						<span class="flex flex-col">
-							<span class="font-semibold">{formatearFechaHoraMadrid(copia.modificadaEn)}</span>
-							<span class="text-ink-muted">
-								{textos.copias.tamano(copia.tamano)}{copia.resguardo ? ` · ${textos.copias.resguardo}` : ''}
-							</span>
+					<li class="flex flex-col">
+						<span class="font-semibold">{formatearFechaHoraMadrid(copia.modificadaEn)}</span>
+						<span class="text-ink-muted">
+							{textos.copias.tamano(copia.tamano)}{copia.resguardo ? ` · ${textos.copias.resguardo}` : ''}
 						</span>
-						<a
-							class="inline-flex min-h-11 items-center rounded-chip border border-hairline px-4 text-accent underline"
-							href={resolve('/(app)/admin/copias/restaurar/[...clave]', { clave: copia.clave })}
-							aria-label={textos.copias.restaurarCopiaDel(formatearFechaHoraMadrid(copia.modificadaEn))}
-						>
-							{textos.copias.restaurar}
-						</a>
 					</li>
 				{/each}
 			</ul>
 		{/if}
-	</Section>
+	</SeccionCopias>
 
-	<Section title={textos.copias.anotar}>
+	{#if data.s3Activa && !data.bucketError && data.bucket.length > 0}
+		<SeccionCopias titulo={textos.copias.restaurarTitulo} tono="restaurar" icono={TriangleAlert}>
+			<p class="mb-3 max-w-xl text-[15px] text-ink">{textos.copias.restaurarAyuda}</p>
+			<ul class="flex flex-col gap-2 text-[15px]">
+				{#each data.bucket as copia (copia.clave)}
+					<li>
+						<a
+							class="inline-flex min-h-11 items-center rounded-chip border border-warning/50 px-4 text-ink underline"
+							href={resolve('/(app)/admin/copias/restaurar/[...clave]', { clave: copia.clave })}
+						>
+							{textos.copias.restaurarCopiaDel(formatearFechaHoraMadrid(copia.modificadaEn))}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		</SeccionCopias>
+	{/if}
+
+	<SeccionCopias titulo={textos.copias.anotar} tono="prueba" icono={ClipboardCheck}>
 		<p class="mb-3 max-w-xl text-[15px] text-ink-muted">{textos.copias.anotarAyuda}</p>
 		<form method="post" action="?/anotarPrueba" use:enhance class="flex max-w-xl flex-col gap-4">
 			<label class="flex flex-col gap-1 text-[15px]">
@@ -112,7 +126,7 @@
 			{#if errores.general}<p role="alert" class="text-[14px] text-warning">{errores.general.mensaje}</p>{/if}
 			<div><Button type="submit" variant="soft">{textos.copias.anotarBoton}</Button></div>
 		</form>
-	</Section>
+	</SeccionCopias>
 
 	<Section title={textos.copias.pruebasTitulo}>
 		{#if data.pruebas.length === 0}

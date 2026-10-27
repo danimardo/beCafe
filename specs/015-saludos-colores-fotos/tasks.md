@@ -35,7 +35,7 @@ Las fases son independientes entre sí. Dentro de cada fase, las tareas van en o
 
 ## Fase 5: Copias de seguridad (US5) — P3
 
-- [ ] T018 [US5] Superficies e iconos por sección en `src/routes/(app)/admin/copias/+page.svelte` (plan D5). E2E CA-275 y axe en claro y oscuro en `e2e/a11y/copias-f15.spec.ts`.
+- [x] T018 [US5] Superficies e iconos por sección en `src/routes/(app)/admin/copias/+page.svelte` (plan D5). E2E CA-275 y axe en claro y oscuro en `e2e/a11y/copias-f15.spec.ts`.
 
 ## Fase 6: Cierre
 
