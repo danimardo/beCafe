@@ -202,10 +202,10 @@
 					<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
 						{#each data.tipos as tipo (tipo.id)}
 							{@const cantidad = cantidades[tipo.id] ?? 0}
-							<li class="flex flex-col gap-3 rounded-panel border border-hairline bg-wall-base p-4">
-								<div class="flex items-center gap-3">
+							<li class="flex flex-col items-center gap-3 rounded-panel border border-hairline bg-wall-base p-4 text-center">
+								<div class="flex flex-col items-center gap-2">
 									<CapsuleImage name={tipo.nombre} color={tipo.color} photoUrl={tipo.fotoUrl} size="md" />
-									<div class="min-w-0 flex-1">
+									<div class="flex min-w-0 flex-col items-center">
 										<p class="text-[15px] font-semibold">{tipo.nombre}</p>
 										<p class="text-[13px] text-ink-muted">
 											{tipo.stock <= 0 ? textos.inicio.sinStock : textos.economia.quedan(tipo.stock)}
@@ -220,6 +220,7 @@
 								</div>
 								<input type="hidden" name="tipo" value={tipo.id} />
 								<CounterField
+									class="justify-center"
 									label={textos.economia.cantidadDe(tipo.nombre)}
 									name="cantidad"
 									bind:value={() => cantidades[tipo.id] ?? 0, (valor: number) => (cantidades[tipo.id] = valor)}
@@ -228,6 +229,7 @@
 								/>
 								{#if !conJavaScript || cantidad > 0}
 									<MoneyField
+										class="w-full"
 										label={textos.economia.importeDe(tipo.nombre)}
 										name="importe"
 										hint={conJavaScript ? textos.economia.ayudaImporte : textos.economia.ayudaImporteSinJs}
